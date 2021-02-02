@@ -1,0 +1,3323 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="ipums-ddi-xslt.xsl"?>
+<codeBook xmlns="ddi:codebook:2_5" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="ddi:codebook:2_5 http://www.ddialliance.org/Specification/DDI-Codebook/2.5/XMLSchema/codebook.xsd" version="2.5" ID="ddi2-66_pma_00008.dat-pma.ipums.org">
+  <docDscr>
+    <citation>
+      <titlStmt>
+        <titl>Codebook for an IPUMS-PMA Data Extract</titl>
+        <subTitl>DDI 2.5 metadata describing the extract file  'pma_00008.dat'</subTitl>
+        <IDNo>ddi2-66_pma_00008.dat-pma.ipums.org</IDNo>
+      </titlStmt>
+      <rspStmt>
+        <AuthEnty affiliation="University of Minnesota">Minnesota Population Center</AuthEnty>
+      </rspStmt>
+      <prodStmt>
+        <producer abbr="MPC" affiliation="University of Minnesota" role="Documentation">Minnesota Population Center</producer>
+        <prodDate date="2021-01-07">January 7, 2021</prodDate>
+        <prodPlac>Minnesota Population Center, 50 Willey Hall, 225 - 19th Avenue South, Minneapolis, MN 55455</prodPlac>
+      </prodStmt>
+      <distStmt>
+        <contact affiliation="University of Minnesota" URI="http://pop.umn.edu">Minnesota Population Center</contact>
+      </distStmt>
+    </citation>
+  </docDscr>
+  <stdyDscr>
+    <citation>
+      <titlStmt>
+        <titl>User Extract pma_00008.dat</titl>
+      </titlStmt>
+      <rspStmt>
+        <AuthEnty affiliation="University of Minnesota">Minnesota Population Center</AuthEnty>
+      </rspStmt>
+      <prodStmt>
+        <producer abbr="MPC" affiliation="University of Minnesota" role="Documentation">Minnesota Population Center</producer>
+        <prodDate date="2021-01-07">January 7, 2021</prodDate>
+        <prodPlac>Minnesota Population Center, 50 Willey Hall, 225 - 19th Avenue South, Minneapolis, MN 55455</prodPlac>
+      </prodStmt>
+      <distStmt>
+        <contact affiliation="University of Minnesota" URI="http://pop.umn.edu">Minnesota Population Center</contact>
+      </distStmt>
+      <serStmt>
+        <serName abbr="pma">IPUMS PMA</serName>
+        <serInfo>DOI:10.18128/D081.V4.1</serInfo>
+      </serStmt>
+      <verStmt>
+        <version date="2021-01-07"/>
+      </verStmt>
+    </citation>
+    <stdyInfo>
+      <subject>
+        <topcClas vocab="IPUMS">Technical variables Variables -- TOPICS</topcClas>
+        <topcClas vocab="IPUMS">Weights and Estimation Variables -- TOPICS</topcClas>
+        <topcClas vocab="IPUMS">Areas Served Variables -- TOPICS</topcClas>
+        <topcClas vocab="IPUMS">Facility Characteristics General Variables -- TOPICS</topcClas>
+        <topcClas vocab="IPUMS">Services Provided Variables -- TOPICS</topcClas>
+        <topcClas vocab="IPUMS">Contraceptive Stock Variables -- TOPICS</topcClas>
+      </subject>
+      <sumDscr ID="sdatref-94">
+        <timePrd event="single" date="2017">2017</timePrd>
+        <nation abbr="bf">Burkina Faso</nation>
+      </sumDscr>
+      <sumDscr ID="sdatref-112">
+        <timePrd event="single" date="2018">2018</timePrd>
+        <nation abbr="bf">Burkina Faso</nation>
+      </sumDscr>
+      <notes><![CDATA[Additional notes on a sample that is part of this study:  ; regular size
+]]></notes>
+      <notes><![CDATA[Additional notes on a sample that is part of this study:  ; regular size
+]]></notes>
+    </stdyInfo>
+    <dataAccs>
+      <useStmt>
+        <confDec required="no"><![CDATA[None]]></confDec>
+        <contact affiliation="Minnesota Population Center" URI="http://pma.ipums.org">IPUMS-PMA</contact>
+        <citReq><![CDATA[Publications and research reports based on the IPUMS-PMA database must cite it appropriately. The citation should include the following:
+
+Elizabeth Heger Boyle, Devon Kristiansen, and Matthew Sobek. IPUMS-PMA: Version 1.0 [dataset] Minneapolis, MN: IPUMS, 2018. https://doi.org/10.18128/D081.V1.0
+
+The licensing agreement for use of IPUMS-PMA data requires that users supply us with the title and full citation for any publications, research reports, or educational materials making use of the data or documentation. Please add your citation to the IPUMS bibliography at http://bibliography.ipums.org/.]]></citReq>
+        <conditions><![CDATA[Users of IPUMS-PMA data must agree to abide by the conditions of use. A user's license is valid for one year and may be renewed.  Users must agree to the following conditions:
+
+(1) No fees may be charged for use or distribution of the data.
+
+(2) Cite IPUMS appropriately.  For information on proper citation, refer to the citation requirement section of this DDI document.
+
+(3) Tell us about any work you do using the IPUMS.  Publications, research reports, or presentations making use of IPUMS-PMA should be added to our Bibliography. Continued funding for the IPUMS depends on our ability to show our sponsor agencies that researchers are using the data for productive purposes.
+
+(4) The IPUMS cannot be used for genealogical research
+
+(5) It is difficult to use the IPUMS to study small geographic areas.  In the IPUMS census samples for years 1940-present, no places having a population of fewer than 100,000 persons can be identified.
+
+(6) Use it for GOOD -- never for EVIL.
+
+(7) Please notify ipums@umn.edu regarding errors in the data or documentation.]]></conditions>
+        <disclaimer>The user of the data acknowledges that the original collector of the data, the authorized distributor of the data, and the relevant funding agency bear no responsibility for use of the data or for interpretations or inferences based upon such uses.</disclaimer>
+      </useStmt>
+    </dataAccs>
+    <notes><![CDATA[User-provided description:  ea-service-environment blog post
+]]></notes>
+  </stdyDscr>
+  <fileDscr ID="ExtractData">
+    <fileTxt>
+      <fileName>pma_00008.dat</fileName>
+      <fileCont>Microdata records</fileCont>
+      <fileStrc type="rectangular">
+      </fileStrc>
+      <fileType charset="ISO-8859-1">ISO-8859-1 data file</fileType>
+      <format>fixed length fields</format>
+      <filePlac>Minnesota Population Center, 50 Willey Hall, 225 - 19th Avenue South, Minneapolis, MN 55455</filePlac>
+    </fileTxt>
+  </fileDscr>
+  <dataDscr>
+    <var ID="SAMPLE" files="ExtractData" name="SAMPLE" intrvl="discrete" dcml="0">
+      <location StartPos="1" width="5" EndPos="5"/>
+      <labl>PMA sample number</labl>
+      <txt><![CDATA[SAMPLE is an IPUMS-generated variable that identifies the PMA sample from which the record is drawn.  In some countries and years, PMA conducts more than one round of the survey. The data from each round are separately identified.  In some cases, data from the same country and same round might have been split into more than one file according to geographic region.]]></txt>
+      <catgry>
+        <catValu>85401</catValu>
+        <labl>Burkina Faso 2014 Round 1</labl>
+      </catgry>
+      <catgry>
+        <catValu>85402</catValu>
+        <labl>Burkina Faso 2015 Round 2</labl>
+      </catgry>
+      <catgry>
+        <catValu>85403</catValu>
+        <labl>Burkina Faso 2016 Round 3</labl>
+      </catgry>
+      <catgry>
+        <catValu>85404</catValu>
+        <labl>Burkina Faso 2016 Round 4</labl>
+      </catgry>
+      <catgry>
+        <catValu>18001</catValu>
+        <labl>Congo, Democratic Republic 2013 Round 1</labl>
+      </catgry>
+      <catgry>
+        <catValu>18002</catValu>
+        <labl>Congo, Democratic Republic 2014 Round 2</labl>
+      </catgry>
+      <catgry>
+        <catValu>18003</catValu>
+        <labl>Congo, Democratic Republic 2015 Round 3</labl>
+      </catgry>
+      <catgry>
+        <catValu>18004</catValu>
+        <labl>Congo, Democratic Republic (Kinshasa) 2015 Round 4</labl>
+      </catgry>
+      <catgry>
+        <catValu>18005</catValu>
+        <labl>Congo, Democratic Republic (Kongo Central) 2015 Round 4</labl>
+      </catgry>
+      <catgry>
+        <catValu>18006</catValu>
+        <labl>Congo, Democratic Republic (Kinshasa) 2016 Round 5</labl>
+      </catgry>
+      <catgry>
+        <catValu>18007</catValu>
+        <labl>Congo, Democratic Republic (Kongo Central) 2016 Round 5</labl>
+      </catgry>
+      <catgry>
+        <catValu>23101</catValu>
+        <labl>Ethiopia 2014 Round 1</labl>
+      </catgry>
+      <catgry>
+        <catValu>23102</catValu>
+        <labl>Ethiopia 2014 Round 2</labl>
+      </catgry>
+      <catgry>
+        <catValu>23103</catValu>
+        <labl>Ethiopia 2015 Round 3</labl>
+      </catgry>
+      <catgry>
+        <catValu>23104</catValu>
+        <labl>Ethiopia 2016 Round 4</labl>
+      </catgry>
+      <catgry>
+        <catValu>28801</catValu>
+        <labl>Ghana 2013 Round 1</labl>
+      </catgry>
+      <catgry>
+        <catValu>28802</catValu>
+        <labl>Ghana 2014 Round 2</labl>
+      </catgry>
+      <catgry>
+        <catValu>28803</catValu>
+        <labl>Ghana 2014 Round 3</labl>
+      </catgry>
+      <catgry>
+        <catValu>28804</catValu>
+        <labl>Ghana 2015 Round 4</labl>
+      </catgry>
+      <catgry>
+        <catValu>28805</catValu>
+        <labl>Ghana 2016 Round 5</labl>
+      </catgry>
+      <catgry>
+        <catValu>36001</catValu>
+        <labl>Indonesia 2015 Round 1</labl>
+      </catgry>
+      <catgry>
+        <catValu>36002</catValu>
+        <labl>Indonesia 2016 Round 2</labl>
+      </catgry>
+      <catgry>
+        <catValu>35601</catValu>
+        <labl>India 2016 Round 1</labl>
+      </catgry>
+      <catgry>
+        <catValu>35602</catValu>
+        <labl>India 2017 Round 2</labl>
+      </catgry>
+      <catgry>
+        <catValu>40401</catValu>
+        <labl>Kenya 2014 Round 1</labl>
+      </catgry>
+      <catgry>
+        <catValu>40402</catValu>
+        <labl>Kenya 2014 Round 2</labl>
+      </catgry>
+      <catgry>
+        <catValu>40403</catValu>
+        <labl>Kenya 2015 Round 3</labl>
+      </catgry>
+      <catgry>
+        <catValu>40404</catValu>
+        <labl>Kenya 2015 Round 4</labl>
+      </catgry>
+      <catgry>
+        <catValu>40405</catValu>
+        <labl>Kenya 2016 Round 5</labl>
+      </catgry>
+      <catgry>
+        <catValu>56201</catValu>
+        <labl>Niger 2015 Round 1</labl>
+      </catgry>
+      <catgry>
+        <catValu>56202</catValu>
+        <labl>Niger 2016 Round 2</labl>
+      </catgry>
+      <catgry>
+        <catValu>56203</catValu>
+        <labl>Niger 2016 Round 3</labl>
+      </catgry>
+      <catgry>
+        <catValu>56601</catValu>
+        <labl>Nigeria (Kaduna) 2014 Round 1</labl>
+      </catgry>
+      <catgry>
+        <catValu>56602</catValu>
+        <labl>Nigeria (Lagos) 2014 Round 1</labl>
+      </catgry>
+      <catgry>
+        <catValu>56603</catValu>
+        <labl>Nigeria (Kaduna) 2015 Round 2</labl>
+      </catgry>
+      <catgry>
+        <catValu>56604</catValu>
+        <labl>Nigeria (Lagos) 2015 Round 2</labl>
+      </catgry>
+      <catgry>
+        <catValu>56605</catValu>
+        <labl>Nigeria (National) 2016 Round 3</labl>
+      </catgry>
+      <catgry>
+        <catValu>56606</catValu>
+        <labl>Nigeria (National) 2017 Round 4</labl>
+      </catgry>
+      <catgry>
+        <catValu>80001</catValu>
+        <labl>Uganda 2014 Round 1</labl>
+      </catgry>
+      <catgry>
+        <catValu>80002</catValu>
+        <labl>Uganda 2015 Round 2</labl>
+      </catgry>
+      <catgry>
+        <catValu>80003</catValu>
+        <labl>Uganda 2015 Round 3</labl>
+      </catgry>
+      <catgry>
+        <catValu>80004</catValu>
+        <labl>Uganda 2016 Round 4</labl>
+      </catgry>
+      <catgry>
+        <catValu>38401</catValu>
+        <labl>Cote d'Ivoire 2017 Round 1</labl>
+      </catgry>
+      <catgry>
+        <catValu>23105</catValu>
+        <labl>Ethiopia 2017 Round 5</labl>
+      </catgry>
+      <catgry>
+        <catValu>35603</catValu>
+        <labl>India 2017 Round 3</labl>
+      </catgry>
+      <catgry>
+        <catValu>56204</catValu>
+        <labl>Niger 2017 Round 4</labl>
+      </catgry>
+      <catgry>
+        <catValu>80005</catValu>
+        <labl>Uganda 2017 Round 5</labl>
+      </catgry>
+      <catgry>
+        <catValu>85405</catValu>
+        <labl>Burkina Faso 2017 Round 5</labl>
+      </catgry>
+      <catgry>
+        <catValu>18008</catValu>
+        <labl>Congo, Democratic Republic (Kinshasa) 2017 Round 6</labl>
+      </catgry>
+      <catgry>
+        <catValu>18009</catValu>
+        <labl>Congo, Democratic Republic (Kongo Centrale) 2017 Round 6</labl>
+      </catgry>
+      <catgry>
+        <catValu>40406</catValu>
+        <labl>Kenya 2017 Round 6</labl>
+      </catgry>
+      <catgry>
+        <catValu>38402</catValu>
+        <labl>Cote d'Ivoire 2018 Round 2</labl>
+      </catgry>
+      <catgry>
+        <catValu>23106</catValu>
+        <labl>Ethiopia 2018 Round 6</labl>
+      </catgry>
+      <catgry>
+        <catValu>23107</catValu>
+        <labl>Ethiopia 2016/7 Maternal and Newborn Health Round 1</labl>
+      </catgry>
+      <catgry>
+        <catValu>28806</catValu>
+        <labl>Ghana 2017 Round 6</labl>
+      </catgry>
+      <catgry>
+        <catValu>35604</catValu>
+        <labl>India 2018 Round 4</labl>
+      </catgry>
+      <catgry>
+        <catValu>56205</catValu>
+        <labl>Niger 2018 Round 5</labl>
+      </catgry>
+      <catgry>
+        <catValu>80006</catValu>
+        <labl>Uganda 2018 Round 6</labl>
+      </catgry>
+      <catgry>
+        <catValu>56607</catValu>
+        <labl>Nigeria (Oyo) 2017 Round 1</labl>
+      </catgry>
+      <catgry>
+        <catValu>56608</catValu>
+        <labl>Nigeria (National) 2018 Round 5</labl>
+      </catgry>
+      <catgry>
+        <catValu>85406</catValu>
+        <labl>Burkina Faso 2017 Round 1 Nutrition</labl>
+      </catgry>
+      <catgry>
+        <catValu>85407</catValu>
+        <labl>Burkina Faso 2018 Round 2 Nutrition</labl>
+      </catgry>
+      <catgry>
+        <catValu>85408</catValu>
+        <labl>Burkina Faso 2018 Round 6</labl>
+      </catgry>
+      <catgry>
+        <catValu>18010</catValu>
+        <labl>Congo, Democratic Republic (Kinshasa) 2018 Round 7</labl>
+      </catgry>
+      <catgry>
+        <catValu>18011</catValu>
+        <labl>Congo, Democratic Republic (Kongo Centrale) 2018 Round 7</labl>
+      </catgry>
+      <catgry>
+        <catValu>28807</catValu>
+        <labl>Ghana 2017 Primary Health Care (SDP)</labl>
+      </catgry>
+      <catgry>
+        <catValu>40407</catValu>
+        <labl>Kenya 2017 Round 1 Nutrition</labl>
+      </catgry>
+      <catgry>
+        <catValu>40408</catValu>
+        <labl>Kenya 2018 Round 2 Nutrition</labl>
+      </catgry>
+      <catgry>
+        <catValu>40409</catValu>
+        <labl>Kenya 2018 Round 7</labl>
+      </catgry>
+      <catgry>
+        <catValu>85409</catValu>
+        <labl>Burkina Faso 2019 Baseline</labl>
+      </catgry>
+      <catgry>
+        <catValu>18012</catValu>
+        <labl>Congo, Democratic Republic (Kinshasa) 2019 Baseline</labl>
+      </catgry>
+      <catgry>
+        <catValu>18013</catValu>
+        <labl>Congo, Democratic Republic (Kongo Central) 2019 Baseline</labl>
+      </catgry>
+      <catgry>
+        <catValu>23108</catValu>
+        <labl>Ethiopia 2019 Core</labl>
+      </catgry>
+      <catgry>
+        <catValu>40410</catValu>
+        <labl>Kenya 2019 Baseline</labl>
+      </catgry>
+      <catgry>
+        <catValu>56609</catValu>
+        <labl>Nigeria (Kano) 2019</labl>
+      </catgry>
+      <catgry>
+        <catValu>56610</catValu>
+        <labl>Nigeria (Lagos) 2019</labl>
+      </catgry>
+      <catgry>
+        <catValu>80007</catValu>
+        <labl>Uganda 2019 Followup to Round 6</labl>
+      </catgry>
+      <concept vocab="IPUMS">Technical variables Variables -- TOPICS</concept>
+      <varFormat schema="other" type="numeric"/>
+    </var>
+    <var ID="COUNTRY" files="ExtractData" name="COUNTRY" intrvl="discrete" dcml="0">
+      <location StartPos="6" width="2" EndPos="7"/>
+      <labl>PMA country</labl>
+      <txt><![CDATA[COUNTRY reports the country where the survey was fielded.]]></txt>
+      <catgry>
+        <catValu>01</catValu>
+        <labl>Burkina Faso</labl>
+      </catgry>
+      <catgry>
+        <catValu>02</catValu>
+        <labl>Congo, Democratic Republic</labl>
+      </catgry>
+      <catgry>
+        <catValu>03</catValu>
+        <labl>Ethiopia</labl>
+      </catgry>
+      <catgry>
+        <catValu>04</catValu>
+        <labl>Ghana</labl>
+      </catgry>
+      <catgry>
+        <catValu>05</catValu>
+        <labl>Indonesia</labl>
+      </catgry>
+      <catgry>
+        <catValu>06</catValu>
+        <labl>India</labl>
+      </catgry>
+      <catgry>
+        <catValu>07</catValu>
+        <labl>Kenya</labl>
+      </catgry>
+      <catgry>
+        <catValu>08</catValu>
+        <labl>Niger</labl>
+      </catgry>
+      <catgry>
+        <catValu>09</catValu>
+        <labl>Nigeria</labl>
+      </catgry>
+      <catgry>
+        <catValu>10</catValu>
+        <labl>Uganda</labl>
+      </catgry>
+      <catgry>
+        <catValu>11</catValu>
+        <labl>Cote d'Ivoire</labl>
+      </catgry>
+      <concept vocab="IPUMS">Technical variables Variables -- TOPICS</concept>
+      <varFormat schema="other" type="numeric"/>
+    </var>
+    <var ID="YEAR" files="ExtractData" name="YEAR" intrvl="discrete" dcml="0">
+      <location StartPos="8" width="4" EndPos="11"/>
+      <labl>Year</labl>
+      <txt><![CDATA[YEAR reports the year when the survey was fielded.  Some interviews may have occurred early in the following year.  YEAR does not reflect individual interview years.]]></txt>
+      <concept vocab="IPUMS">Technical variables Variables -- TOPICS</concept>
+      <varFormat schema="other" type="numeric"/>
+    </var>
+    <var ID="ROUND" files="ExtractData" name="ROUND" intrvl="contin" dcml="0">
+      <location StartPos="12" width="2" EndPos="13"/>
+      <labl>PMA survey round in this country</labl>
+      <txt><![CDATA[ROUND reports the survey round within a given country (1st, 2nd, etc.).  In some cases, more than one round of the survey was fielded in the same year.]]></txt>
+      <codInstr><![CDATA[ROUND is an integer variable that represents the round of the survey within that country.]]></codInstr>
+      <concept vocab="IPUMS">Technical variables Variables -- TOPICS</concept>
+      <varFormat schema="other" type="numeric"/>
+    </var>
+    <var ID="EAID" files="ExtractData" name="EAID" intrvl="contin" dcml="0">
+      <location StartPos="14" width="10" EndPos="23"/>
+      <labl>Enumeration area</labl>
+      <txt><![CDATA[EAID reports the geographic enumeration area where the respondent was located.  The EAID is the primary sampling unit for IPUMS PMA.  Due to privacy concerns, the borders of these enumeration areas are not publicly available and the enumeration area is specified via an assigned number rather than a recognized name for a locale.  
+
+Enumeration areas do not cover all areas within each survey country.  After 5 survey rounds using the same enumeration areas, PMA identifies new enumeration areas.  Due to this sampling design, some households, eligible women respondents, or service delivery points might be selected to be interviewed in more than one survey within a 5 year period.  The variables PREVINTERVIEWHQ, PREVINTERVIEWFQ, and PREVINTERVIEWSQ identifies household, female, and service delivery point respondents, respectively, who have been interviewed for PMA in a previous round.  It is not possible, however, to link survey records for the same person between rounds.]]></txt>
+      <codInstr><![CDATA[This is a 10-digit numeric variable with 0 implied decimal places]]></codInstr>
+      <concept vocab="IPUMS">Technical variables Variables -- TOPICS</concept>
+      <varFormat schema="other" type="numeric"/>
+    </var>
+    <var ID="FACILITYID" files="ExtractData" name="FACILITYID" intrvl="discrete" dcml="0">
+      <location StartPos="24" width="5" EndPos="28"/>
+      <labl>Facility ID</labl>
+      <txt><![CDATA[FACILITYID is a numeric variable that identifies the service delivery point facility.  FACILITYID remains constant across survey rounds, so records of the same facility can be linked between samples of the same country.]]></txt>
+      <catgry>
+        <catValu>99994</catValu>
+        <labl>Not interviewed (SDP questionnaire)</labl>
+      </catgry>
+      <catgry>
+        <catValu>99998</catValu>
+        <labl>No response or missing</labl>
+      </catgry>
+      <concept vocab="IPUMS">Technical variables Variables -- TOPICS</concept>
+      <varFormat schema="other" type="numeric"/>
+    </var>
+    <var ID="CONSENTSQ" files="ExtractData" name="CONSENTSQ" intrvl="discrete" dcml="0">
+      <location StartPos="29" width="2" EndPos="30"/>
+      <labl>Consent obtained from interviewee</labl>
+      <txt><![CDATA[CONSENTSQ indicates whether the respondent to the service delivery point questionnaire consented to be interviewed.]]></txt>
+      <catgry>
+        <catValu>00</catValu>
+        <labl>No</labl>
+      </catgry>
+      <catgry>
+        <catValu>01</catValu>
+        <labl>Yes</labl>
+      </catgry>
+      <concept vocab="IPUMS">Technical variables Variables -- TOPICS</concept>
+      <varFormat schema="other" type="numeric"/>
+    </var>
+    <var ID="STRATA" files="ExtractData" name="STRATA" intrvl="discrete" dcml="0">
+      <location StartPos="31" width="5" EndPos="35"/>
+      <labl>Strata</labl>
+      <txt><![CDATA[STRATA defines the stratification for each sample.  Some countries use only urban/rural stratification, others use regions, and some use both levels of stratification.   Users may use STRATA and EAID (the primary sampling unit) to adjust sampling errors to account for sampling design of IPUMS-PMA samples.
+
+For more information on sample design for IPUMS-PMA surveys, see the sampling design memo [URL omitted from DDI.] for households and women.]]></txt>
+      <catgry>
+        <catValu>23101</catValu>
+        <labl>Addis Ababa - urban, Ethiopia</labl>
+      </catgry>
+      <catgry>
+        <catValu>23102</catValu>
+        <labl>Amhara - urban, Ethiopia</labl>
+      </catgry>
+      <catgry>
+        <catValu>23103</catValu>
+        <labl>Amhara - rural, Ethiopia</labl>
+      </catgry>
+      <catgry>
+        <catValu>23104</catValu>
+        <labl>Oromiya - urban, Ethiopia</labl>
+      </catgry>
+      <catgry>
+        <catValu>23105</catValu>
+        <labl>Oromiya - rural, Ethiopia</labl>
+      </catgry>
+      <catgry>
+        <catValu>23106</catValu>
+        <labl>Other, Ethiopia</labl>
+      </catgry>
+      <catgry>
+        <catValu>23107</catValu>
+        <labl>SNNP - urban, Ethiopia</labl>
+      </catgry>
+      <catgry>
+        <catValu>23108</catValu>
+        <labl>SNNP - rural, Ethiopia</labl>
+      </catgry>
+      <catgry>
+        <catValu>23109</catValu>
+        <labl>Tigray - urban, Ethiopia</labl>
+      </catgry>
+      <catgry>
+        <catValu>23110</catValu>
+        <labl>Tigray - rural, Ethiopia</labl>
+      </catgry>
+      <catgry>
+        <catValu>23111</catValu>
+        <labl>Dire Dawa - urban, Ethiopia</labl>
+      </catgry>
+      <catgry>
+        <catValu>23112</catValu>
+        <labl>Dire Dawa - rural, Ethiopia</labl>
+      </catgry>
+      <catgry>
+        <catValu>23113</catValu>
+        <labl>Afar - urban, Ethiopia</labl>
+      </catgry>
+      <catgry>
+        <catValu>23114</catValu>
+        <labl>Afar - rural, Ethiopia</labl>
+      </catgry>
+      <catgry>
+        <catValu>23115</catValu>
+        <labl>Somali - urban, Ethiopia</labl>
+      </catgry>
+      <catgry>
+        <catValu>23116</catValu>
+        <labl>Somali - rural, Ethiopia</labl>
+      </catgry>
+      <catgry>
+        <catValu>23117</catValu>
+        <labl>Gambella - urban, Ethiopia</labl>
+      </catgry>
+      <catgry>
+        <catValu>23118</catValu>
+        <labl>Gambella - rural, Ethiopia</labl>
+      </catgry>
+      <catgry>
+        <catValu>23119</catValu>
+        <labl>Harari - urban, Ethiopia</labl>
+      </catgry>
+      <catgry>
+        <catValu>23120</catValu>
+        <labl>Harari - rural, Ethiopia</labl>
+      </catgry>
+      <catgry>
+        <catValu>23121</catValu>
+        <labl>BG - rural, Ethiopia</labl>
+      </catgry>
+      <catgry>
+        <catValu>23122</catValu>
+        <labl>BG - urban</labl>
+      </catgry>
+      <catgry>
+        <catValu>28800</catValu>
+        <labl>Ashanti, Ghana</labl>
+      </catgry>
+      <catgry>
+        <catValu>28801</catValu>
+        <labl>Ashanti - urban, Ghana</labl>
+      </catgry>
+      <catgry>
+        <catValu>28802</catValu>
+        <labl>Ashanti - rural, Ghana</labl>
+      </catgry>
+      <catgry>
+        <catValu>28803</catValu>
+        <labl>Brong Ahafo - urban, Ghana</labl>
+      </catgry>
+      <catgry>
+        <catValu>28804</catValu>
+        <labl>Brong Ahafo - rural, Ghana</labl>
+      </catgry>
+      <catgry>
+        <catValu>28805</catValu>
+        <labl>Central - urban, Ghana</labl>
+      </catgry>
+      <catgry>
+        <catValu>28806</catValu>
+        <labl>Central - rural, Ghana</labl>
+      </catgry>
+      <catgry>
+        <catValu>28807</catValu>
+        <labl>Eastern - urban, Ghana</labl>
+      </catgry>
+      <catgry>
+        <catValu>28808</catValu>
+        <labl>Eastern - rural, Ghana</labl>
+      </catgry>
+      <catgry>
+        <catValu>28809</catValu>
+        <labl>Greater Accra - urban, Ghana</labl>
+      </catgry>
+      <catgry>
+        <catValu>28810</catValu>
+        <labl>Greater Accra - rural, Ghana</labl>
+      </catgry>
+      <catgry>
+        <catValu>28811</catValu>
+        <labl>Northern - urban, Ghana</labl>
+      </catgry>
+      <catgry>
+        <catValu>28812</catValu>
+        <labl>Northern - rural, Ghana</labl>
+      </catgry>
+      <catgry>
+        <catValu>28813</catValu>
+        <labl>Upper East - urban, Ghana</labl>
+      </catgry>
+      <catgry>
+        <catValu>28814</catValu>
+        <labl>Upper East - rural, Ghana</labl>
+      </catgry>
+      <catgry>
+        <catValu>28815</catValu>
+        <labl>Upper West - urban, Ghana</labl>
+      </catgry>
+      <catgry>
+        <catValu>28816</catValu>
+        <labl>Upper West - rural, Ghana</labl>
+      </catgry>
+      <catgry>
+        <catValu>28817</catValu>
+        <labl>Volta - urban, Ghana</labl>
+      </catgry>
+      <catgry>
+        <catValu>28818</catValu>
+        <labl>Volta - rural, Ghana</labl>
+      </catgry>
+      <catgry>
+        <catValu>28819</catValu>
+        <labl>Western - urban, Ghana</labl>
+      </catgry>
+      <catgry>
+        <catValu>28820</catValu>
+        <labl>Western - rural, Ghana</labl>
+      </catgry>
+      <catgry>
+        <catValu>35601</catValu>
+        <labl>R1, India</labl>
+      </catgry>
+      <catgry>
+        <catValu>35602</catValu>
+        <labl>R2, India</labl>
+      </catgry>
+      <catgry>
+        <catValu>35603</catValu>
+        <labl>R3, India</labl>
+      </catgry>
+      <catgry>
+        <catValu>35604</catValu>
+        <labl>R4, India</labl>
+      </catgry>
+      <catgry>
+        <catValu>35605</catValu>
+        <labl>R5, India</labl>
+      </catgry>
+      <catgry>
+        <catValu>35606</catValu>
+        <labl>R6, India</labl>
+      </catgry>
+      <catgry>
+        <catValu>35607</catValu>
+        <labl>R7, India</labl>
+      </catgry>
+      <catgry>
+        <catValu>35608</catValu>
+        <labl>R8, India</labl>
+      </catgry>
+      <catgry>
+        <catValu>35609</catValu>
+        <labl>R9, India</labl>
+      </catgry>
+      <catgry>
+        <catValu>35610</catValu>
+        <labl>R10, India</labl>
+      </catgry>
+      <catgry>
+        <catValu>35611</catValu>
+        <labl>R11, India</labl>
+      </catgry>
+      <catgry>
+        <catValu>35612</catValu>
+        <labl>R12, India</labl>
+      </catgry>
+      <catgry>
+        <catValu>35613</catValu>
+        <labl>R13, India</labl>
+      </catgry>
+      <catgry>
+        <catValu>35614</catValu>
+        <labl>R14, India</labl>
+      </catgry>
+      <catgry>
+        <catValu>35615</catValu>
+        <labl>R15, India</labl>
+      </catgry>
+      <catgry>
+        <catValu>35616</catValu>
+        <labl>R16, India</labl>
+      </catgry>
+      <catgry>
+        <catValu>35617</catValu>
+        <labl>R17, India</labl>
+      </catgry>
+      <catgry>
+        <catValu>35618</catValu>
+        <labl>R18, India</labl>
+      </catgry>
+      <catgry>
+        <catValu>35619</catValu>
+        <labl>U1, India</labl>
+      </catgry>
+      <catgry>
+        <catValu>35620</catValu>
+        <labl>U2, India</labl>
+      </catgry>
+      <catgry>
+        <catValu>35621</catValu>
+        <labl>U3, India</labl>
+      </catgry>
+      <catgry>
+        <catValu>35622</catValu>
+        <labl>U4, India</labl>
+      </catgry>
+      <catgry>
+        <catValu>35623</catValu>
+        <labl>U5, India</labl>
+      </catgry>
+      <catgry>
+        <catValu>35624</catValu>
+        <labl>U6, India</labl>
+      </catgry>
+      <catgry>
+        <catValu>36001</catValu>
+        <labl>Other - urban, Indonesia</labl>
+      </catgry>
+      <catgry>
+        <catValu>36002</catValu>
+        <labl>Other - rural, Indonesia</labl>
+      </catgry>
+      <catgry>
+        <catValu>36003</catValu>
+        <labl>Aceh - urban, Indonesia</labl>
+      </catgry>
+      <catgry>
+        <catValu>36004</catValu>
+        <labl>Aceh - rural, Indonesia</labl>
+      </catgry>
+      <catgry>
+        <catValu>36005</catValu>
+        <labl>Bali - urban, Indonesia</labl>
+      </catgry>
+      <catgry>
+        <catValu>36006</catValu>
+        <labl>Bali - rural, Indonesia</labl>
+      </catgry>
+      <catgry>
+        <catValu>36007</catValu>
+        <labl>Banten - urban, Indonesia</labl>
+      </catgry>
+      <catgry>
+        <catValu>36008</catValu>
+        <labl>Banten - rural, Indonesia</labl>
+      </catgry>
+      <catgry>
+        <catValu>36009</catValu>
+        <labl>Bengkulu - rural, Indonesia</labl>
+      </catgry>
+      <catgry>
+        <catValu>36010</catValu>
+        <labl>Di-Yogyakarta - urban, Indonesia</labl>
+      </catgry>
+      <catgry>
+        <catValu>36011</catValu>
+        <labl>Di-Yogyakarta - rural, Indonesia</labl>
+      </catgry>
+      <catgry>
+        <catValu>36012</catValu>
+        <labl>Dki-Jakarta - urban, Indonesia</labl>
+      </catgry>
+      <catgry>
+        <catValu>36013</catValu>
+        <labl>Gorontalo - rural, Indonesia</labl>
+      </catgry>
+      <catgry>
+        <catValu>36014</catValu>
+        <labl>Jambi - urban, Indonesia</labl>
+      </catgry>
+      <catgry>
+        <catValu>36015</catValu>
+        <labl>Jambi - rural, Indonesia</labl>
+      </catgry>
+      <catgry>
+        <catValu>36016</catValu>
+        <labl>Jawa-Barat - urban, Indonesia</labl>
+      </catgry>
+      <catgry>
+        <catValu>36017</catValu>
+        <labl>Jawa-Barat - rural, Indonesia</labl>
+      </catgry>
+      <catgry>
+        <catValu>36018</catValu>
+        <labl>Jawa-Tengah - urban, Indonesia</labl>
+      </catgry>
+      <catgry>
+        <catValu>36019</catValu>
+        <labl>Jawa-Tengah - rural, Indonesia</labl>
+      </catgry>
+      <catgry>
+        <catValu>36020</catValu>
+        <labl>Jawa-Timur - urban, Indonesia</labl>
+      </catgry>
+      <catgry>
+        <catValu>36021</catValu>
+        <labl>Jawa-Timur - rural, Indonesia</labl>
+      </catgry>
+      <catgry>
+        <catValu>36022</catValu>
+        <labl>Kalimantan-Barat - urban, Indonesia</labl>
+      </catgry>
+      <catgry>
+        <catValu>36023</catValu>
+        <labl>Kalimantan-Barat - rural, Indonesia</labl>
+      </catgry>
+      <catgry>
+        <catValu>36024</catValu>
+        <labl>Kalimantan-Selatan - urban, Indonesia</labl>
+      </catgry>
+      <catgry>
+        <catValu>36025</catValu>
+        <labl>Kalimantan-Selatan - rural, Indonesia</labl>
+      </catgry>
+      <catgry>
+        <catValu>36026</catValu>
+        <labl>Kalimantan-Tengah - rural, Indonesia</labl>
+      </catgry>
+      <catgry>
+        <catValu>36027</catValu>
+        <labl>Kalimantan-Timur - urban, Indonesia</labl>
+      </catgry>
+      <catgry>
+        <catValu>36028</catValu>
+        <labl>Kalimantan-Timur - rural, Indonesia</labl>
+      </catgry>
+      <catgry>
+        <catValu>36029</catValu>
+        <labl>Kepulauan-Bangka-Belitung - urban, Indonesia</labl>
+      </catgry>
+      <catgry>
+        <catValu>36030</catValu>
+        <labl>Kepulauan-Bangka-Belitung - rural, Indonesia</labl>
+      </catgry>
+      <catgry>
+        <catValu>36031</catValu>
+        <labl>Kepulauan-Riau - urban, Indonesia</labl>
+      </catgry>
+      <catgry>
+        <catValu>36032</catValu>
+        <labl>Lampung - urban, Indonesia</labl>
+      </catgry>
+      <catgry>
+        <catValu>36033</catValu>
+        <labl>Lampung - rural, Indonesia</labl>
+      </catgry>
+      <catgry>
+        <catValu>36034</catValu>
+        <labl>Maluku - rural, Indonesia</labl>
+      </catgry>
+      <catgry>
+        <catValu>36035</catValu>
+        <labl>Maluku-Utara - rural, Indonesia</labl>
+      </catgry>
+      <catgry>
+        <catValu>36036</catValu>
+        <labl>Nusa-Tenggara-Barat - urban, Indonesia</labl>
+      </catgry>
+      <catgry>
+        <catValu>36037</catValu>
+        <labl>Nusa-Tenggara-Barat - rural, Indonesia</labl>
+      </catgry>
+      <catgry>
+        <catValu>36038</catValu>
+        <labl>Nusa-Tenggara-Timur - urban, Indonesia</labl>
+      </catgry>
+      <catgry>
+        <catValu>36039</catValu>
+        <labl>Nusa-Tenggara-Timur - rural, Indonesia</labl>
+      </catgry>
+      <catgry>
+        <catValu>36040</catValu>
+        <labl>Papua - rural, Indonesia</labl>
+      </catgry>
+      <catgry>
+        <catValu>36041</catValu>
+        <labl>Papua-Barat - urban, Indonesia</labl>
+      </catgry>
+      <catgry>
+        <catValu>36042</catValu>
+        <labl>Riau - urban, Indonesia</labl>
+      </catgry>
+      <catgry>
+        <catValu>36043</catValu>
+        <labl>Riau - rural, Indonesia</labl>
+      </catgry>
+      <catgry>
+        <catValu>36044</catValu>
+        <labl>Sulawesi-Barat - rural, Indonesia</labl>
+      </catgry>
+      <catgry>
+        <catValu>36045</catValu>
+        <labl>Sulawesi-Selatan - urban, Indonesia</labl>
+      </catgry>
+      <catgry>
+        <catValu>36046</catValu>
+        <labl>Sulawesi-Selatan - rural, Indonesia</labl>
+      </catgry>
+      <catgry>
+        <catValu>36047</catValu>
+        <labl>Sulawesi-Tengah - urban, Indonesia</labl>
+      </catgry>
+      <catgry>
+        <catValu>36048</catValu>
+        <labl>Sulawesi-Tengah - rural, Indonesia</labl>
+      </catgry>
+      <catgry>
+        <catValu>36049</catValu>
+        <labl>Sulawesi-Tenggara - urban, Indonesia</labl>
+      </catgry>
+      <catgry>
+        <catValu>36050</catValu>
+        <labl>Sulawesi-Tenggara - rural, Indonesia</labl>
+      </catgry>
+      <catgry>
+        <catValu>36051</catValu>
+        <labl>Sulawesi-Utara - urban, Indonesia</labl>
+      </catgry>
+      <catgry>
+        <catValu>36052</catValu>
+        <labl>Sulawesi-Utara - rural, Indonesia</labl>
+      </catgry>
+      <catgry>
+        <catValu>36053</catValu>
+        <labl>Sumatera-Barat - urban, Indonesia</labl>
+      </catgry>
+      <catgry>
+        <catValu>36054</catValu>
+        <labl>Sumatera-Barat - rural, Indonesia</labl>
+      </catgry>
+      <catgry>
+        <catValu>36055</catValu>
+        <labl>Sumatera-Selatan - urban, Indonesia</labl>
+      </catgry>
+      <catgry>
+        <catValu>36056</catValu>
+        <labl>Sumatera-Selatan - rural, Indonesia</labl>
+      </catgry>
+      <catgry>
+        <catValu>36057</catValu>
+        <labl>Sumatera-Utara - urban, Indonesia</labl>
+      </catgry>
+      <catgry>
+        <catValu>36058</catValu>
+        <labl>Sumatera-Utara - rural, Indonesia</labl>
+      </catgry>
+      <catgry>
+        <catValu>38401</catValu>
+        <labl>Urban, Cote d'Ivoire</labl>
+      </catgry>
+      <catgry>
+        <catValu>38402</catValu>
+        <labl>Rural, Cote d'Ivoire</labl>
+      </catgry>
+      <catgry>
+        <catValu>40401</catValu>
+        <labl>Bungoma, Kenya</labl>
+      </catgry>
+      <catgry>
+        <catValu>40402</catValu>
+        <labl>Kericho, Kenya</labl>
+      </catgry>
+      <catgry>
+        <catValu>40403</catValu>
+        <labl>Kiambu, Kenya</labl>
+      </catgry>
+      <catgry>
+        <catValu>40404</catValu>
+        <labl>Kilifi, Kenya</labl>
+      </catgry>
+      <catgry>
+        <catValu>40405</catValu>
+        <labl>Kitui, Kenya</labl>
+      </catgry>
+      <catgry>
+        <catValu>40406</catValu>
+        <labl>Nairobi, Kenya</labl>
+      </catgry>
+      <catgry>
+        <catValu>40407</catValu>
+        <labl>Nandi, Kenya</labl>
+      </catgry>
+      <catgry>
+        <catValu>40408</catValu>
+        <labl>Nyamira, Kenya</labl>
+      </catgry>
+      <catgry>
+        <catValu>40409</catValu>
+        <labl>Siaya, Kenya</labl>
+      </catgry>
+      <catgry>
+        <catValu>40410</catValu>
+        <labl>Bungoma - urban, Kenya</labl>
+      </catgry>
+      <catgry>
+        <catValu>40411</catValu>
+        <labl>Bungoma - rural, Kenya</labl>
+      </catgry>
+      <catgry>
+        <catValu>40412</catValu>
+        <labl>Kakamega - urban, Kenya</labl>
+      </catgry>
+      <catgry>
+        <catValu>40413</catValu>
+        <labl>Kakamega - rural, Kenya</labl>
+      </catgry>
+      <catgry>
+        <catValu>40414</catValu>
+        <labl>Kericho - urban, Kenya</labl>
+      </catgry>
+      <catgry>
+        <catValu>40415</catValu>
+        <labl>Kericho - rural, Kenya</labl>
+      </catgry>
+      <catgry>
+        <catValu>40416</catValu>
+        <labl>Kiambu - urban, Kenya</labl>
+      </catgry>
+      <catgry>
+        <catValu>40417</catValu>
+        <labl>Kiambu - rural, Kenya</labl>
+      </catgry>
+      <catgry>
+        <catValu>40418</catValu>
+        <labl>Kilifi - urban, Kenya</labl>
+      </catgry>
+      <catgry>
+        <catValu>40419</catValu>
+        <labl>Kilifi - rural, Kenya</labl>
+      </catgry>
+      <catgry>
+        <catValu>40420</catValu>
+        <labl>Kitui - urban, Kenya</labl>
+      </catgry>
+      <catgry>
+        <catValu>40421</catValu>
+        <labl>Kitui - rural, Kenya</labl>
+      </catgry>
+      <catgry>
+        <catValu>40422</catValu>
+        <labl>Nairobi - urban, Kenya</labl>
+      </catgry>
+      <catgry>
+        <catValu>40423</catValu>
+        <labl>Nandi - urban, Kenya</labl>
+      </catgry>
+      <catgry>
+        <catValu>40424</catValu>
+        <labl>Nandi - rural, Kenya</labl>
+      </catgry>
+      <catgry>
+        <catValu>40425</catValu>
+        <labl>Nyamira - urban, Kenya</labl>
+      </catgry>
+      <catgry>
+        <catValu>40426</catValu>
+        <labl>Nyamira - rural, Kenya</labl>
+      </catgry>
+      <catgry>
+        <catValu>40427</catValu>
+        <labl>Siaya - urban, Kenya</labl>
+      </catgry>
+      <catgry>
+        <catValu>40428</catValu>
+        <labl>Siaya - rural, Kenya</labl>
+      </catgry>
+      <catgry>
+        <catValu>40429</catValu>
+        <labl>West_pokot - urban, Kenya</labl>
+      </catgry>
+      <catgry>
+        <catValu>40430</catValu>
+        <labl>West_pokot - rural, Kenya</labl>
+      </catgry>
+      <catgry>
+        <catValu>56201</catValu>
+        <labl>Commune 1, Niger</labl>
+      </catgry>
+      <catgry>
+        <catValu>56202</catValu>
+        <labl>Commune 2, Niger</labl>
+      </catgry>
+      <catgry>
+        <catValu>56203</catValu>
+        <labl>Commune 3, Niger</labl>
+      </catgry>
+      <catgry>
+        <catValu>56204</catValu>
+        <labl>Commune 4, Niger</labl>
+      </catgry>
+      <catgry>
+        <catValu>56205</catValu>
+        <labl>Commune 5, Niger</labl>
+      </catgry>
+      <catgry>
+        <catValu>56206</catValu>
+        <labl>Niamey, Niger</labl>
+      </catgry>
+      <catgry>
+        <catValu>56207</catValu>
+        <labl>Other urban, Niger</labl>
+      </catgry>
+      <catgry>
+        <catValu>56208</catValu>
+        <labl>Rural, Niger</labl>
+      </catgry>
+      <catgry>
+        <catValu>56601</catValu>
+        <labl>Urban, Nigeria</labl>
+      </catgry>
+      <catgry>
+        <catValu>56602</catValu>
+        <labl>Rural, Nigeria</labl>
+      </catgry>
+      <catgry>
+        <catValu>56603</catValu>
+        <labl>Anambra, Nigeria</labl>
+      </catgry>
+      <catgry>
+        <catValu>56604</catValu>
+        <labl>Kaduna, Nigeria</labl>
+      </catgry>
+      <catgry>
+        <catValu>56605</catValu>
+        <labl>Kano, Nigeria</labl>
+      </catgry>
+      <catgry>
+        <catValu>56606</catValu>
+        <labl>Lagos, Nigeria</labl>
+      </catgry>
+      <catgry>
+        <catValu>56607</catValu>
+        <labl>Nasarawa, Nigeria</labl>
+      </catgry>
+      <catgry>
+        <catValu>56608</catValu>
+        <labl>Rivers, Nigeria</labl>
+      </catgry>
+      <catgry>
+        <catValu>56609</catValu>
+        <labl>Taraba, Nigeria</labl>
+      </catgry>
+      <catgry>
+        <catValu>56610</catValu>
+        <labl>Oyo, Nigeria</labl>
+      </catgry>
+      <catgry>
+        <catValu>56611</catValu>
+        <labl>Kano - Urban</labl>
+      </catgry>
+      <catgry>
+        <catValu>56612</catValu>
+        <labl>Kano - Rural</labl>
+      </catgry>
+      <catgry>
+        <catValu>80001</catValu>
+        <labl>Central 1 - urban, Uganda</labl>
+      </catgry>
+      <catgry>
+        <catValu>80002</catValu>
+        <labl>Central 1 - rural, Uganda</labl>
+      </catgry>
+      <catgry>
+        <catValu>80003</catValu>
+        <labl>Central 2 - urban, Uganda</labl>
+      </catgry>
+      <catgry>
+        <catValu>80004</catValu>
+        <labl>Central 2 - rural, Uganda</labl>
+      </catgry>
+      <catgry>
+        <catValu>80005</catValu>
+        <labl>East Central - urban, Uganda</labl>
+      </catgry>
+      <catgry>
+        <catValu>80006</catValu>
+        <labl>East Central - rural, Uganda</labl>
+      </catgry>
+      <catgry>
+        <catValu>80007</catValu>
+        <labl>Eastern - urban, Uganda</labl>
+      </catgry>
+      <catgry>
+        <catValu>80008</catValu>
+        <labl>Eastern - rural, Uganda</labl>
+      </catgry>
+      <catgry>
+        <catValu>80009</catValu>
+        <labl>Kampala - urban, Uganda</labl>
+      </catgry>
+      <catgry>
+        <catValu>80010</catValu>
+        <labl>Karamoja - urban, Uganda</labl>
+      </catgry>
+      <catgry>
+        <catValu>80011</catValu>
+        <labl>Karamoja - rural, Uganda</labl>
+      </catgry>
+      <catgry>
+        <catValu>80012</catValu>
+        <labl>North - urban, Uganda</labl>
+      </catgry>
+      <catgry>
+        <catValu>80013</catValu>
+        <labl>North - rural, Uganda</labl>
+      </catgry>
+      <catgry>
+        <catValu>80014</catValu>
+        <labl>South West - urban, Uganda</labl>
+      </catgry>
+      <catgry>
+        <catValu>80015</catValu>
+        <labl>South West - rural, Uganda</labl>
+      </catgry>
+      <catgry>
+        <catValu>80016</catValu>
+        <labl>West Nile - urban, Uganda</labl>
+      </catgry>
+      <catgry>
+        <catValu>80017</catValu>
+        <labl>West Nile - rural, Uganda</labl>
+      </catgry>
+      <catgry>
+        <catValu>80018</catValu>
+        <labl>Western - urban, Uganda</labl>
+      </catgry>
+      <catgry>
+        <catValu>80019</catValu>
+        <labl>Western - rural, Uganda</labl>
+      </catgry>
+      <catgry>
+        <catValu>85401</catValu>
+        <labl>Urban, Burkina Faso</labl>
+      </catgry>
+      <catgry>
+        <catValu>85402</catValu>
+        <labl>Rural, Burkina Faso</labl>
+      </catgry>
+      <catgry>
+        <catValu>99998</catValu>
+        <labl>No response or missing</labl>
+      </catgry>
+      <concept vocab="IPUMS">Weights and Estimation Variables -- TOPICS</concept>
+      <varFormat schema="other" type="numeric"/>
+    </var>
+    <var ID="EASERVED" files="ExtractData" name="EASERVED" intrvl="discrete" dcml="0">
+      <location StartPos="36" width="5" EndPos="40"/>
+      <labl>EA served</labl>
+      <txt><![CDATA[EASERVED provides a series of up to 42 variables that represent the geographic enumeration areas served by the service delivery point (SDP). Service delivery points can serve more than one enumeration area. Additional areas served by the service delivery point (if any) are recorded in EASERVED2, EASERVED3, etc. The information in EASERVED is available only for public service delivery points and is based on reports from the local or national government.  Note that the EASERVED variables may also contain the code for the EA the SDP is located in.
+
+Due to privacy concerns, the borders of enumeration areas are not publicly available.  The enumeration area is specified via an assigned number rather than a recognized name for a locale. The codes for EASERVED variables series identify the same areas as the corresponding codes in EAID (Enumeration area) in the data from household, female, and service delivery point surveys.  The numbering of EAIDs is consistent across survey rounds for a country.  Codes are also unique among countries.]]></txt>
+      <catgry>
+        <catValu>99994</catValu>
+        <labl>Not interviewed (SDP questionnaire)</labl>
+      </catgry>
+      <catgry>
+        <catValu>99998</catValu>
+        <labl>No response or missing</labl>
+      </catgry>
+      <concept vocab="IPUMS">Areas Served Variables -- TOPICS</concept>
+      <varFormat schema="other" type="numeric"/>
+    </var>
+    <var ID="EASERVED1" files="ExtractData" name="EASERVED1" intrvl="discrete" dcml="0">
+      <location StartPos="41" width="5" EndPos="45"/>
+      <labl>EA served (1)</labl>
+      <txt><![CDATA[EASERVED1 reports a geographic enumeration area served by the service delivery point. Service delivery points can serve more than one enumeration area. Additional areas served by the service delivery point (if any) are recorded in EASERVED2, EASERVED3, etc. The information in EASERVED1 is available only for public service delivery points and is based on reports from the local or national government.
+
+Due to privacy concerns, the borders of enumeration areas are not publicly available.  The enumeration area is specified via an assigned number rather than a recognized name for a locale. The codes for EASERVED1 identify the same areas as the corresponding codes in EAID (Enumeration area) in the data from household, female, and service delivery point surveys.  The numbering of EAIDs is consistent across survey rounds for a country.  Codes are also unique among countries.]]></txt>
+      <catgry>
+        <catValu>99994</catValu>
+        <labl>Not interviewed (SDP questionnaire)</labl>
+      </catgry>
+      <catgry>
+        <catValu>99998</catValu>
+        <labl>No response or missing</labl>
+      </catgry>
+      <concept vocab="IPUMS">Areas Served Variables -- TOPICS</concept>
+      <varFormat schema="other" type="numeric"/>
+    </var>
+    <var ID="EASERVED2" files="ExtractData" name="EASERVED2" intrvl="discrete" dcml="0">
+      <location StartPos="46" width="5" EndPos="50"/>
+      <labl>EA served (2)</labl>
+      <txt><![CDATA[EASERVED2 reports a geographic enumeration area served by the service delivery point. Service delivery points can serve more than one enumeration area. Additional areas served by the service delivery point are recorded in EASERVED1, EASERVED3, etc. The information in EASERVED2 is available only for public service delivery points and is based on reports from the local or national government.
+
+Due to privacy concerns, the borders of enumeration areas are not publicly available.  The enumeration area is specified via an assigned number rather than a recognized name for a locale. The codes for EASERVED2 identify the same areas as the corresponding codes in EAID (Enumeration area) in the data from household, female, and service delivery point surveys.  The numbering of EAIDs is consistent across survey rounds for a country.  Codes are also unique among countries.]]></txt>
+      <catgry>
+        <catValu>99994</catValu>
+        <labl>Not interviewed (SDP questionnaire)</labl>
+      </catgry>
+      <catgry>
+        <catValu>99999</catValu>
+        <labl>NIU (not in universe)</labl>
+      </catgry>
+      <concept vocab="IPUMS">Areas Served Variables -- TOPICS</concept>
+      <varFormat schema="other" type="numeric"/>
+    </var>
+    <var ID="EASERVED3" files="ExtractData" name="EASERVED3" intrvl="discrete" dcml="0">
+      <location StartPos="51" width="5" EndPos="55"/>
+      <labl>EA served (3)</labl>
+      <txt><![CDATA[EASERVED3 reports a geographic enumeration area served by the service delivery point. Service delivery points can serve more than one enumeration area. Additional areas served by the service delivery point are recorded in EASERVED1, EASERVED2, etc. The information in EASERVED3 is available only for public service delivery points and is based on reports from the local or national government.
+
+Due to privacy concerns, the borders of enumeration areas are not publicly available.  The enumeration area is specified via an assigned number rather than a recognized name for a locale. The codes for EASERVED3 identify the same areas as the corresponding codes in EAID (Enumeration area) in the data from household, female, and service delivery point surveys.  The numbering of EAIDs is consistent across survey rounds for a country.  Codes are also unique among countries.]]></txt>
+      <catgry>
+        <catValu>99994</catValu>
+        <labl>Not interviewed (SDP questionnaire)</labl>
+      </catgry>
+      <catgry>
+        <catValu>99999</catValu>
+        <labl>NIU (not in universe)</labl>
+      </catgry>
+      <concept vocab="IPUMS">Areas Served Variables -- TOPICS</concept>
+      <varFormat schema="other" type="numeric"/>
+    </var>
+    <var ID="EASERVED4" files="ExtractData" name="EASERVED4" intrvl="discrete" dcml="0">
+      <location StartPos="56" width="5" EndPos="60"/>
+      <labl>EA served (4)</labl>
+      <txt><![CDATA[EASERVED4 reports a geographic enumeration area served by the service delivery point. Service delivery points can serve more than one enumeration area. Additional areas served by the service delivery point are recorded in EASERVED1, EASERVED2, etc. The information in EASERVED4 is available only for public service delivery points and is based on reports from the local or national government.
+
+Due to privacy concerns, the borders of enumeration areas are not publicly available.  The enumeration area is specified via an assigned number rather than a recognized name for a locale. The codes for EASERVED4 identify the same areas as the corresponding codes in EAID (Enumeration area) in the data from household, female, and service delivery point surveys.  The numbering of EAIDs is consistent across survey rounds for a country.  Codes are also unique among countries.]]></txt>
+      <catgry>
+        <catValu>99994</catValu>
+        <labl>Not interviewed (SDP questionnaire)</labl>
+      </catgry>
+      <catgry>
+        <catValu>99999</catValu>
+        <labl>NIU (not in universe)</labl>
+      </catgry>
+      <concept vocab="IPUMS">Areas Served Variables -- TOPICS</concept>
+      <varFormat schema="other" type="numeric"/>
+    </var>
+    <var ID="EASERVED5" files="ExtractData" name="EASERVED5" intrvl="discrete" dcml="0">
+      <location StartPos="61" width="5" EndPos="65"/>
+      <labl>EA served (5)</labl>
+      <txt><![CDATA[EASERVED5 reports a geographic enumeration area served by the service delivery point. Service delivery points can serve more than one enumeration area. Additional areas served by the service delivery point are recorded in EASERVED1, EASERVED2, etc. The information in EASERVED5 is available only for public service delivery points and is based on reports from the local or national government.
+
+Due to privacy concerns, the borders of enumeration areas are not publicly available.  The enumeration area is specified via an assigned number rather than a recognized name for a locale. The codes for EASERVED5 identify the same areas as the corresponding codes in EAID (Enumeration area) in the data from household, female, and service delivery point surveys.  The numbering of EAIDs is consistent across survey rounds for a country.  Codes are also unique among countries.]]></txt>
+      <catgry>
+        <catValu>99994</catValu>
+        <labl>Not interviewed (SDP questionnaire)</labl>
+      </catgry>
+      <catgry>
+        <catValu>99999</catValu>
+        <labl>NIU (not in universe)</labl>
+      </catgry>
+      <concept vocab="IPUMS">Areas Served Variables -- TOPICS</concept>
+      <varFormat schema="other" type="numeric"/>
+    </var>
+    <var ID="EASERVED6" files="ExtractData" name="EASERVED6" intrvl="discrete" dcml="0">
+      <location StartPos="66" width="5" EndPos="70"/>
+      <labl>EA served (6)</labl>
+      <txt><![CDATA[EASERVED6 reports a geographic enumeration area served by the service delivery point. Service delivery points can serve more than one enumeration area. Additional areas served by the service delivery point are recorded in EASERVED1, EASERVED2, etc. The information in EASERVED6 is available only for public service delivery points and is based on reports from the local or national government.
+
+Due to privacy concerns, the borders of enumeration areas are not publicly available.  The enumeration area is specified via an assigned number rather than a recognized name for a locale. The codes for EASERVED6 identify the same areas as the corresponding codes in EAID (Enumeration area) in the data from household, female, and service delivery point surveys.  The numbering of EAIDs is consistent across survey rounds for a country.  Codes are also unique among countries.]]></txt>
+      <catgry>
+        <catValu>99994</catValu>
+        <labl>Not interviewed (SDP questionnaire)</labl>
+      </catgry>
+      <catgry>
+        <catValu>99999</catValu>
+        <labl>NIU (not in universe)</labl>
+      </catgry>
+      <concept vocab="IPUMS">Areas Served Variables -- TOPICS</concept>
+      <varFormat schema="other" type="numeric"/>
+    </var>
+    <var ID="EASERVED7" files="ExtractData" name="EASERVED7" intrvl="discrete" dcml="0">
+      <location StartPos="71" width="5" EndPos="75"/>
+      <labl>EA served (7)</labl>
+      <txt><![CDATA[EASERVED7 reports a geographic enumeration area served by the service delivery point. Service delivery points can serve more than one enumeration area. Additional areas served by the service delivery point are recorded in EASERVED1, EASERVED2, etc. The information in EASERVED7 is available only for public service delivery points and is based on reports from the local or national government.
+
+Due to privacy concerns, the borders of enumeration areas are not publicly available.  The enumeration area is specified via an assigned number rather than a recognized name for a locale. The codes for EASERVED7 identify the same areas as the corresponding codes in EAID (Enumeration area) in the data from household, female, and service delivery point surveys.  The numbering of EAIDs is consistent across survey rounds for a country.  Codes are also unique among countries.]]></txt>
+      <catgry>
+        <catValu>99994</catValu>
+        <labl>Not interviewed (SDP questionnaire)</labl>
+      </catgry>
+      <catgry>
+        <catValu>99999</catValu>
+        <labl>NIU (not in universe)</labl>
+      </catgry>
+      <concept vocab="IPUMS">Areas Served Variables -- TOPICS</concept>
+      <varFormat schema="other" type="numeric"/>
+    </var>
+    <var ID="EASERVED8" files="ExtractData" name="EASERVED8" intrvl="discrete" dcml="0">
+      <location StartPos="76" width="5" EndPos="80"/>
+      <labl>EA served (8)</labl>
+      <txt><![CDATA[EASERVED8 reports a geographic enumeration area served by the service delivery point. Service delivery points can serve more than one enumeration area. Additional areas served by the service delivery point are recorded in EASERVED1, EASERVED2, etc. The information in EASERVED8 is available only for public service delivery points and is based on reports from the local or national government.
+
+Due to privacy concerns, the borders of enumeration areas are not publicly available.  The enumeration area is specified via an assigned number rather than a recognized name for a locale. The codes for EASERVED8 identify the same areas as the corresponding codes in EAID (Enumeration area) in the data from household, female, and service delivery point surveys.  The numbering of EAIDs is consistent across survey rounds for a country.  Codes are also unique among countries.]]></txt>
+      <catgry>
+        <catValu>99994</catValu>
+        <labl>Not interviewed (SDP questionnaire)</labl>
+      </catgry>
+      <catgry>
+        <catValu>99999</catValu>
+        <labl>NIU (not in universe)</labl>
+      </catgry>
+      <concept vocab="IPUMS">Areas Served Variables -- TOPICS</concept>
+      <varFormat schema="other" type="numeric"/>
+    </var>
+    <var ID="EASERVED9" files="ExtractData" name="EASERVED9" intrvl="discrete" dcml="0">
+      <location StartPos="81" width="5" EndPos="85"/>
+      <labl>EA served (9)</labl>
+      <txt><![CDATA[EASERVED9 reports a geographic enumeration area served by the service delivery point. Service delivery points can serve more than one enumeration area. Additional areas served by the service delivery point are recorded in EASERVED1, EASERVED2, etc. The information in EASERVED9 is available only for public service delivery points and is based on reports from the local or national government.
+
+Due to privacy concerns, the borders of enumeration areas are not publicly available.  The enumeration area is specified via an assigned number rather than a recognized name for a locale. The codes for EASERVED9 identify the same areas as the corresponding codes in EAID (Enumeration area) in the data from household, female, and service delivery point surveys.  The numbering of EAIDs is consistent across survey rounds for a country.  Codes are also unique among countries.]]></txt>
+      <catgry>
+        <catValu>99994</catValu>
+        <labl>Not interviewed (SDP questionnaire)</labl>
+      </catgry>
+      <catgry>
+        <catValu>99998</catValu>
+        <labl>No response or missing</labl>
+      </catgry>
+      <concept vocab="IPUMS">Areas Served Variables -- TOPICS</concept>
+      <varFormat schema="other" type="numeric"/>
+    </var>
+    <var ID="EASERVED10" files="ExtractData" name="EASERVED10" intrvl="discrete" dcml="0">
+      <location StartPos="86" width="5" EndPos="90"/>
+      <labl>EA served (10)</labl>
+      <txt><![CDATA[EASERVED10 reports a geographic enumeration area served by the service delivery point. Service delivery points can serve more than one enumeration area. Additional areas served by the service delivery point are recorded in EASERVED1, EASERVED2, etc. The information in EASERVED10 is available only for public service delivery points and is based on reports from the local or national government.
+
+Due to privacy concerns, the borders of enumeration areas are not publicly available.  The enumeration area is specified via an assigned number rather than a recognized name for a locale. The codes for EASERVED10 identify the same areas as the corresponding codes in EAID (Enumeration area) in the data from household, female, and service delivery point surveys.  The numbering of EAIDs is consistent across survey rounds for a country.  Codes are also unique among countries.]]></txt>
+      <catgry>
+        <catValu>99994</catValu>
+        <labl>Not interviewed (SDP questionnaire)</labl>
+      </catgry>
+      <catgry>
+        <catValu>99999</catValu>
+        <labl>NIU (not in universe)</labl>
+      </catgry>
+      <concept vocab="IPUMS">Areas Served Variables -- TOPICS</concept>
+      <varFormat schema="other" type="numeric"/>
+    </var>
+    <var ID="EASERVED11" files="ExtractData" name="EASERVED11" intrvl="discrete" dcml="0">
+      <location StartPos="91" width="5" EndPos="95"/>
+      <labl>EA served (11)</labl>
+      <txt><![CDATA[EASERVED11 reports a geographic enumeration area served by the service delivery point. Service delivery points can serve more than one enumeration area. Additional areas served by the service delivery point are recorded in EASERVED1, EASERVED2, etc. The information in EASERVED11 is available only for public service delivery points and is based on reports from the local or national government.
+
+Due to privacy concerns, the borders of enumeration areas are not publicly available.  The enumeration area is specified via an assigned number rather than a recognized name for a locale. The codes for EASERVED11 identify the same areas as the corresponding codes in EAID (Enumeration area) in the data from household, female, and service delivery point surveys.  The numbering of EAIDs is consistent across survey rounds for a country.  Codes are also unique among countries.]]></txt>
+      <catgry>
+        <catValu>99994</catValu>
+        <labl>Not interviewed (SDP questionnaire)</labl>
+      </catgry>
+      <catgry>
+        <catValu>99999</catValu>
+        <labl>NIU (not in universe)</labl>
+      </catgry>
+      <concept vocab="IPUMS">Areas Served Variables -- TOPICS</concept>
+      <varFormat schema="other" type="numeric"/>
+    </var>
+    <var ID="EASERVED12" files="ExtractData" name="EASERVED12" intrvl="discrete" dcml="0">
+      <location StartPos="96" width="5" EndPos="100"/>
+      <labl>EA served (12)</labl>
+      <txt><![CDATA[EASERVED12 reports a geographic enumeration area served by the service delivery point. Service delivery points can serve more than one enumeration area. Additional areas served by the service delivery point are recorded in EASERVED1, EASERVED2, etc. The information in EASERVED12 is available only for public service delivery points and is based on reports from the local or national government.
+
+Due to privacy concerns, the borders of enumeration areas are not publicly available.  The enumeration area is specified via an assigned number rather than a recognized name for a locale. The codes for EASERVED12 identify the same areas as the corresponding codes in EAID (Enumeration area) in the data from household, female, and service delivery point surveys.  The numbering of EAIDs is consistent across survey rounds for a country.  Codes are also unique among countries.]]></txt>
+      <catgry>
+        <catValu>99994</catValu>
+        <labl>Not interviewed (SDP questionnaire)</labl>
+      </catgry>
+      <catgry>
+        <catValu>99999</catValu>
+        <labl>NIU (not in universe)</labl>
+      </catgry>
+      <concept vocab="IPUMS">Areas Served Variables -- TOPICS</concept>
+      <varFormat schema="other" type="numeric"/>
+    </var>
+    <var ID="EASERVED13" files="ExtractData" name="EASERVED13" intrvl="discrete" dcml="0">
+      <location StartPos="101" width="5" EndPos="105"/>
+      <labl>EA served (13)</labl>
+      <txt><![CDATA[EASERVED13 reports a geographic enumeration area served by the service delivery point. Service delivery points can serve more than one enumeration area. Additional areas served by the service delivery point are recorded in EASERVED1, EASERVED2, etc. The information in EASERVED13 is available only for public service delivery points and is based on reports from the local or national government.
+
+Due to privacy concerns, the borders of enumeration areas are not publicly available.  The enumeration area is specified via an assigned number rather than a recognized name for a locale. The codes for EASERVED13 identify the same areas as the corresponding codes in EAID (Enumeration area) in the data from household, female, and service delivery point surveys.  The numbering of EAIDs is consistent across survey rounds for a country.  Codes are also unique among countries.]]></txt>
+      <catgry>
+        <catValu>99994</catValu>
+        <labl>Not interviewed (SDP questionnaire)</labl>
+      </catgry>
+      <catgry>
+        <catValu>99999</catValu>
+        <labl>NIU (not in universe)</labl>
+      </catgry>
+      <concept vocab="IPUMS">Areas Served Variables -- TOPICS</concept>
+      <varFormat schema="other" type="numeric"/>
+    </var>
+    <var ID="EASERVED14" files="ExtractData" name="EASERVED14" intrvl="discrete" dcml="0">
+      <location StartPos="106" width="5" EndPos="110"/>
+      <labl>EA served (14)</labl>
+      <txt><![CDATA[EASERVED14 reports a geographic enumeration area served by the service delivery point. Service delivery points can serve more than one enumeration area. Additional areas served by the service delivery point are recorded in EASERVED1, EASERVED2, etc. The information in EASERVED14 is available only for public service delivery points and is based on reports from the local or national government.
+
+Due to privacy concerns, the borders of enumeration areas are not publicly available.  The enumeration area is specified via an assigned number rather than a recognized name for a locale. The codes for EASERVED14 identify the same areas as the corresponding codes in EAID (Enumeration area) in the data from household, female, and service delivery point surveys.  The numbering of EAIDs is consistent across survey rounds for a country.  Codes are also unique among countries.]]></txt>
+      <catgry>
+        <catValu>99994</catValu>
+        <labl>Not interviewed (SDP questionnaire)</labl>
+      </catgry>
+      <catgry>
+        <catValu>99999</catValu>
+        <labl>NIU (not in universe)</labl>
+      </catgry>
+      <concept vocab="IPUMS">Areas Served Variables -- TOPICS</concept>
+      <varFormat schema="other" type="numeric"/>
+    </var>
+    <var ID="EASERVED15" files="ExtractData" name="EASERVED15" intrvl="discrete" dcml="0">
+      <location StartPos="111" width="5" EndPos="115"/>
+      <labl>EA served (15)</labl>
+      <txt><![CDATA[EASERVED15 reports a geographic enumeration area served by the service delivery point. Service delivery points can serve more than one enumeration area. Additional areas served by the service delivery point are recorded in EASERVED1, EASERVED2, etc. The information in EASERVED15 is available only for public service delivery points and is based on reports from the local or national government.
+
+Due to privacy concerns, the borders of enumeration areas are not publicly available.  The enumeration area is specified via an assigned number rather than a recognized name for a locale. The codes for EASERVED15 identify the same areas as the corresponding codes in EAID (Enumeration area) in the data from household, female, and service delivery point surveys.  The numbering of EAIDs is consistent across survey rounds for a country.  Codes are also unique among countries.]]></txt>
+      <catgry>
+        <catValu>99994</catValu>
+        <labl>Not interviewed (SDP questionnaire)</labl>
+      </catgry>
+      <catgry>
+        <catValu>99999</catValu>
+        <labl>NIU (not in universe)</labl>
+      </catgry>
+      <concept vocab="IPUMS">Areas Served Variables -- TOPICS</concept>
+      <varFormat schema="other" type="numeric"/>
+    </var>
+    <var ID="EASERVED16" files="ExtractData" name="EASERVED16" intrvl="discrete" dcml="0">
+      <location StartPos="116" width="5" EndPos="120"/>
+      <labl>EA served (16)</labl>
+      <txt><![CDATA[EASERVED16 reports a geographic enumeration area served by the service delivery point. Service delivery points can serve more than one enumeration area. Additional areas served by the service delivery point are recorded in EASERVED1, EASERVED2, etc. The information in EASERVED16 is available only for public service delivery points and is based on reports from the local or national government.
+
+Due to privacy concerns, the borders of enumeration areas are not publicly available.  The enumeration area is specified via an assigned number rather than a recognized name for a locale. The codes for EASERVED16 identify the same areas as the corresponding codes in EAID (Enumeration area) in the data from household, female, and service delivery point surveys.  The numbering of EAIDs is consistent across survey rounds for a country.  Codes are also unique among countries.]]></txt>
+      <catgry>
+        <catValu>99994</catValu>
+        <labl>Not interviewed (SDP questionnaire)</labl>
+      </catgry>
+      <catgry>
+        <catValu>99999</catValu>
+        <labl>NIU (not in universe)</labl>
+      </catgry>
+      <concept vocab="IPUMS">Areas Served Variables -- TOPICS</concept>
+      <varFormat schema="other" type="numeric"/>
+    </var>
+    <var ID="EASERVED17" files="ExtractData" name="EASERVED17" intrvl="discrete" dcml="0">
+      <location StartPos="121" width="5" EndPos="125"/>
+      <labl>EA served (17)</labl>
+      <txt><![CDATA[EASERVED17 reports a geographic enumeration area served by the service delivery point. Service delivery points can serve more than one enumeration area. Additional areas served by the service delivery point are recorded in EASERVED1, EASERVED2, etc. The information in EASERVED17 is available only for public service delivery points and is based on reports from the local or national government.
+
+Due to privacy concerns, the borders of enumeration areas are not publicly available.  The enumeration area is specified via an assigned number rather than a recognized name for a locale. The codes for EASERVED17 identify the same areas as the corresponding codes in EAID (Enumeration area) in the data from household, female, and service delivery point surveys.  The numbering of EAIDs is consistent across survey rounds for a country.  Codes are also unique among countries.]]></txt>
+      <catgry>
+        <catValu>99994</catValu>
+        <labl>Not interviewed (SDP questionnaire)</labl>
+      </catgry>
+      <catgry>
+        <catValu>99999</catValu>
+        <labl>NIU (not in universe)</labl>
+      </catgry>
+      <concept vocab="IPUMS">Areas Served Variables -- TOPICS</concept>
+      <varFormat schema="other" type="numeric"/>
+    </var>
+    <var ID="EASERVED18" files="ExtractData" name="EASERVED18" intrvl="discrete" dcml="0">
+      <location StartPos="126" width="5" EndPos="130"/>
+      <labl>EA served (18)</labl>
+      <txt><![CDATA[EASERVED18 reports a geographic enumeration area served by the service delivery point. Service delivery points can serve more than one enumeration area. Additional areas served by the service delivery point are recorded in EASERVED1, EASERVED2, etc. The information in EASERVED18 is available only for public service delivery points and is based on reports from the local or national government.
+
+Due to privacy concerns, the borders of enumeration areas are not publicly available.  The enumeration area is specified via an assigned number rather than a recognized name for a locale. The codes for EASERVED18 identify the same areas as the corresponding codes in EAID (Enumeration area) in the data from household, female, and service delivery point surveys.  The numbering of EAIDs is consistent across survey rounds for a country.  Codes are also unique among countries.]]></txt>
+      <catgry>
+        <catValu>99994</catValu>
+        <labl>Not interviewed (SDP questionnaire)</labl>
+      </catgry>
+      <catgry>
+        <catValu>99999</catValu>
+        <labl>NIU (not in universe)</labl>
+      </catgry>
+      <concept vocab="IPUMS">Areas Served Variables -- TOPICS</concept>
+      <varFormat schema="other" type="numeric"/>
+    </var>
+    <var ID="FACILITYTYPE" files="ExtractData" name="FACILITYTYPE" intrvl="discrete" dcml="0">
+      <location StartPos="131" width="3" EndPos="133"/>
+      <labl>Type of facility, detailed</labl>
+      <txt><![CDATA[FACILITYTYPE reports the type of facility of the interviewed service delivery point.
+
+The variable FACILITYTYPEGEN is a recode of FACILITYTYPE that reduces the coding scheme to nine general categories.]]></txt>
+      <catgry>
+        <catValu>100</catValu>
+        <labl>Hospital</labl>
+      </catgry>
+      <catgry>
+        <catValu>101</catValu>
+        <labl>Hospital/polyclinic</labl>
+      </catgry>
+      <catgry>
+        <catValu>110</catValu>
+        <labl>National hospital</labl>
+      </catgry>
+      <catgry>
+        <catValu>120</catValu>
+        <labl>Regional hospital</labl>
+      </catgry>
+      <catgry>
+        <catValu>130</catValu>
+        <labl>District hospital</labl>
+      </catgry>
+      <catgry>
+        <catValu>140</catValu>
+        <labl>Medical college/hospital</labl>
+      </catgry>
+      <catgry>
+        <catValu>150</catValu>
+        <labl>Teaching hospital</labl>
+      </catgry>
+      <catgry>
+        <catValu>160</catValu>
+        <labl>Private hospital</labl>
+      </catgry>
+      <catgry>
+        <catValu>161</catValu>
+        <labl>Private hospital/polyclinic/clinic</labl>
+      </catgry>
+      <catgry>
+        <catValu>170</catValu>
+        <labl>Maternity hospital</labl>
+      </catgry>
+      <catgry>
+        <catValu>180</catValu>
+        <labl>Surgery center</labl>
+      </catgry>
+      <catgry>
+        <catValu>190</catValu>
+        <labl>Specialty institute</labl>
+      </catgry>
+      <catgry>
+        <catValu>200</catValu>
+        <labl>Health center</labl>
+      </catgry>
+      <catgry>
+        <catValu>210</catValu>
+        <labl>Public health center</labl>
+      </catgry>
+      <catgry>
+        <catValu>211</catValu>
+        <labl>CHPS</labl>
+      </catgry>
+      <catgry>
+        <catValu>212</catValu>
+        <labl>Integrated Health Center</labl>
+      </catgry>
+      <catgry>
+        <catValu>213</catValu>
+        <labl>Maternite Centrale de Reference</labl>
+      </catgry>
+      <catgry>
+        <catValu>214</catValu>
+        <labl>Centre de la Mere de l'Enfant</labl>
+      </catgry>
+      <catgry>
+        <catValu>215</catValu>
+        <labl>Maternite du DH</labl>
+      </catgry>
+      <catgry>
+        <catValu>216</catValu>
+        <labl>Maternite du CHR</labl>
+      </catgry>
+      <catgry>
+        <catValu>217</catValu>
+        <labl>Health Center IV</labl>
+      </catgry>
+      <catgry>
+        <catValu>218</catValu>
+        <labl>Health Center III</labl>
+      </catgry>
+      <catgry>
+        <catValu>219</catValu>
+        <labl>Health Center II</labl>
+      </catgry>
+      <catgry>
+        <catValu>220</catValu>
+        <labl>Community health center</labl>
+      </catgry>
+      <catgry>
+        <catValu>230</catValu>
+        <labl>Primary health center</labl>
+      </catgry>
+      <catgry>
+        <catValu>240</catValu>
+        <labl>Private health center</labl>
+      </catgry>
+      <catgry>
+        <catValu>250</catValu>
+        <labl>Sub health center</labl>
+      </catgry>
+      <catgry>
+        <catValu>260</catValu>
+        <labl>Urban health center</labl>
+      </catgry>
+      <catgry>
+        <catValu>270</catValu>
+        <labl>Rural health center</labl>
+      </catgry>
+      <catgry>
+        <catValu>300</catValu>
+        <labl>Health clinic</labl>
+      </catgry>
+      <catgry>
+        <catValu>301</catValu>
+        <labl>Health clinic/health post</labl>
+      </catgry>
+      <catgry>
+        <catValu>310</catValu>
+        <labl>Public clinic</labl>
+      </catgry>
+      <catgry>
+        <catValu>330</catValu>
+        <labl>Maternity clinic</labl>
+      </catgry>
+      <catgry>
+        <catValu>340</catValu>
+        <labl>Family planning clinic</labl>
+      </catgry>
+      <catgry>
+        <catValu>350</catValu>
+        <labl>Polyclinic</labl>
+      </catgry>
+      <catgry>
+        <catValu>410</catValu>
+        <labl>Health post</labl>
+      </catgry>
+      <catgry>
+        <catValu>420</catValu>
+        <labl>Delivery post</labl>
+      </catgry>
+      <catgry>
+        <catValu>430</catValu>
+        <labl>Health hut</labl>
+      </catgry>
+      <catgry>
+        <catValu>440</catValu>
+        <labl>Nursing/maternity home</labl>
+      </catgry>
+      <catgry>
+        <catValu>450</catValu>
+        <labl>Youth friendly center</labl>
+      </catgry>
+      <catgry>
+        <catValu>460</catValu>
+        <labl>Religious health center</labl>
+      </catgry>
+      <catgry>
+        <catValu>500</catValu>
+        <labl>Private practice</labl>
+      </catgry>
+      <catgry>
+        <catValu>501</catValu>
+        <labl>Private doctor</labl>
+      </catgry>
+      <catgry>
+        <catValu>502</catValu>
+        <labl>Private OBGYN</labl>
+      </catgry>
+      <catgry>
+        <catValu>503</catValu>
+        <labl>Private midwife</labl>
+      </catgry>
+      <catgry>
+        <catValu>504</catValu>
+        <labl>Private health room</labl>
+      </catgry>
+      <catgry>
+        <catValu>505</catValu>
+        <labl>Private infirmary</labl>
+      </catgry>
+      <catgry>
+        <catValu>600</catValu>
+        <labl>Dispensary</labl>
+      </catgry>
+      <catgry>
+        <catValu>700</catValu>
+        <labl>Pharmacy/chemist</labl>
+      </catgry>
+      <catgry>
+        <catValu>710</catValu>
+        <labl>Pharmacy</labl>
+      </catgry>
+      <catgry>
+        <catValu>720</catValu>
+        <labl>Pharmacy/clinic</labl>
+      </catgry>
+      <catgry>
+        <catValu>730</catValu>
+        <labl>Bulk pharmacy</labl>
+      </catgry>
+      <catgry>
+        <catValu>740</catValu>
+        <labl>Chemist/drug shop</labl>
+      </catgry>
+      <catgry>
+        <catValu>741</catValu>
+        <labl>Chemist</labl>
+      </catgry>
+      <catgry>
+        <catValu>742</catValu>
+        <labl>Pharmaceutical shop</labl>
+      </catgry>
+      <catgry>
+        <catValu>800</catValu>
+        <labl>Boutique/shop</labl>
+      </catgry>
+      <catgry>
+        <catValu>810</catValu>
+        <labl>Retail</labl>
+      </catgry>
+      <catgry>
+        <catValu>820</catValu>
+        <labl>Ligablo</labl>
+      </catgry>
+      <catgry>
+        <catValu>900</catValu>
+        <labl>Other</labl>
+      </catgry>
+      <concept vocab="IPUMS">Facility Characteristics General Variables -- TOPICS</concept>
+      <varFormat schema="other" type="numeric"/>
+    </var>
+    <var ID="FACILITYTYPEGEN" files="ExtractData" name="FACILITYTYPEGEN" intrvl="discrete" dcml="0">
+      <location StartPos="134" width="2" EndPos="135"/>
+      <labl>Type of facility, general</labl>
+      <txt><![CDATA[FACILITYTYPEGEN reports the type of facility of the interviewed service delivery point in nine general categories.  A related variable (FACILITYTYPE) also reports the facility type, and retains all details from country-specific response categories.
+
+The question associated with this variable was included in the service delivery point questionnaire.]]></txt>
+      <catgry>
+        <catValu>01</catValu>
+        <labl>Hospital</labl>
+      </catgry>
+      <catgry>
+        <catValu>02</catValu>
+        <labl>Health center</labl>
+      </catgry>
+      <catgry>
+        <catValu>03</catValu>
+        <labl>Health clinic</labl>
+      </catgry>
+      <catgry>
+        <catValu>04</catValu>
+        <labl>Other health facility</labl>
+      </catgry>
+      <catgry>
+        <catValu>05</catValu>
+        <labl>Private practice</labl>
+      </catgry>
+      <catgry>
+        <catValu>06</catValu>
+        <labl>Dispensary</labl>
+      </catgry>
+      <catgry>
+        <catValu>07</catValu>
+        <labl>Pharmacy/chemist/drug shop</labl>
+      </catgry>
+      <catgry>
+        <catValu>08</catValu>
+        <labl>Boutique/shop</labl>
+      </catgry>
+      <catgry>
+        <catValu>09</catValu>
+        <labl>Other</labl>
+      </catgry>
+      <concept vocab="IPUMS">Facility Characteristics General Variables -- TOPICS</concept>
+      <varFormat schema="other" type="numeric"/>
+    </var>
+    <var ID="AUTHORITY" files="ExtractData" name="AUTHORITY" intrvl="discrete" dcml="0">
+      <location StartPos="136" width="2" EndPos="137"/>
+      <labl>Managing authority</labl>
+      <txt><![CDATA[AUTHORITY reports the managing authority of the facility.
+
+The question associated with this variable was included in the service delivery point questionnaire.]]></txt>
+      <catgry>
+        <catValu>01</catValu>
+        <labl>Government</labl>
+      </catgry>
+      <catgry>
+        <catValu>02</catValu>
+        <labl>NGO</labl>
+      </catgry>
+      <catgry>
+        <catValu>03</catValu>
+        <labl>Faith-based</labl>
+      </catgry>
+      <catgry>
+        <catValu>04</catValu>
+        <labl>Private</labl>
+      </catgry>
+      <catgry>
+        <catValu>05</catValu>
+        <labl>Other</labl>
+      </catgry>
+      <concept vocab="IPUMS">Facility Characteristics General Variables -- TOPICS</concept>
+      <varFormat schema="other" type="numeric"/>
+    </var>
+    <var ID="CONPROV" files="ExtractData" name="CONPROV" intrvl="discrete" dcml="0">
+      <location StartPos="138" width="2" EndPos="139"/>
+      <labl>Provides male condoms</labl>
+      <txt><![CDATA[For service delivery points that offer family planning services and products, CONPROV reports if the service delivery point provides male condoms.
+
+The question associated with this variable was included in the service delivery point questionnaire.]]></txt>
+      <catgry>
+        <catValu>00</catValu>
+        <labl>No</labl>
+      </catgry>
+      <catgry>
+        <catValu>01</catValu>
+        <labl>Yes</labl>
+      </catgry>
+      <catgry>
+        <catValu>94</catValu>
+        <labl>Not interviewed (SDP questionnaire)</labl>
+      </catgry>
+      <catgry>
+        <catValu>99</catValu>
+        <labl>NIU (not in universe)</labl>
+      </catgry>
+      <concept vocab="IPUMS">Services Provided Variables -- TOPICS</concept>
+      <varFormat schema="other" type="numeric"/>
+    </var>
+    <var ID="CYCBPROV" files="ExtractData" name="CYCBPROV" intrvl="discrete" dcml="0">
+      <location StartPos="140" width="2" EndPos="141"/>
+      <labl>Provides cycle beads</labl>
+      <txt><![CDATA[For service delivery points that offer family planning services and products, CYCBPROV reports if the service delivery point provides cycle beads.
+
+The question associated with this variable was included in the service delivery point questionnaire.]]></txt>
+      <catgry>
+        <catValu>00</catValu>
+        <labl>No</labl>
+      </catgry>
+      <catgry>
+        <catValu>01</catValu>
+        <labl>Yes</labl>
+      </catgry>
+      <catgry>
+        <catValu>94</catValu>
+        <labl>Not interviewed (SDP questionnaire)</labl>
+      </catgry>
+      <catgry>
+        <catValu>99</catValu>
+        <labl>NIU (not in universe)</labl>
+      </catgry>
+      <concept vocab="IPUMS">Services Provided Variables -- TOPICS</concept>
+      <varFormat schema="other" type="numeric"/>
+    </var>
+    <var ID="DEPOPROV" files="ExtractData" name="DEPOPROV" intrvl="discrete" dcml="0">
+      <location StartPos="142" width="2" EndPos="143"/>
+      <labl>Provide depo provera</labl>
+      <txt><![CDATA[For service delivery points that offer family planning services and products, DEPOPROV indicates whether the service delivery point provides Depo Provera.
+
+The question associated with this variable was included in the service delivery point questionnaire.]]></txt>
+      <catgry>
+        <catValu>00</catValu>
+        <labl>No</labl>
+      </catgry>
+      <catgry>
+        <catValu>01</catValu>
+        <labl>Yes</labl>
+      </catgry>
+      <catgry>
+        <catValu>94</catValu>
+        <labl>Not interviewed (SDP questionnaire)</labl>
+      </catgry>
+      <catgry>
+        <catValu>99</catValu>
+        <labl>NIU (not in universe)</labl>
+      </catgry>
+      <concept vocab="IPUMS">Services Provided Variables -- TOPICS</concept>
+      <varFormat schema="other" type="numeric"/>
+    </var>
+    <var ID="DIAPROV" files="ExtractData" name="DIAPROV" intrvl="discrete" dcml="0">
+      <location StartPos="144" width="2" EndPos="145"/>
+      <labl>Provides diaphragms</labl>
+      <txt><![CDATA[For service delivery points that offer family planning services and products, DIAPROV reports if the service delivery point provides diaphragms.
+
+The question associated with this variable was included in the service delivery point questionnaire.]]></txt>
+      <catgry>
+        <catValu>00</catValu>
+        <labl>No</labl>
+      </catgry>
+      <catgry>
+        <catValu>01</catValu>
+        <labl>Yes</labl>
+      </catgry>
+      <catgry>
+        <catValu>94</catValu>
+        <labl>Not interviewed (SDP questionnaire)</labl>
+      </catgry>
+      <catgry>
+        <catValu>99</catValu>
+        <labl>NIU (not in universe)</labl>
+      </catgry>
+      <concept vocab="IPUMS">Services Provided Variables -- TOPICS</concept>
+      <varFormat schema="other" type="numeric"/>
+    </var>
+    <var ID="EMRGPROV" files="ExtractData" name="EMRGPROV" intrvl="discrete" dcml="0">
+      <location StartPos="146" width="2" EndPos="147"/>
+      <labl>Provides emergency contraceptives</labl>
+      <txt><![CDATA[For service delivery points that offer family planning services and products, EMRGPROV reports if the service delivery point provides emergency contraceptive.
+
+The question associated with this variable was included in the service delivery point questionnaire.]]></txt>
+      <catgry>
+        <catValu>00</catValu>
+        <labl>No</labl>
+      </catgry>
+      <catgry>
+        <catValu>01</catValu>
+        <labl>Yes</labl>
+      </catgry>
+      <catgry>
+        <catValu>94</catValu>
+        <labl>Not interviewed (SDP questionnaire)</labl>
+      </catgry>
+      <catgry>
+        <catValu>99</catValu>
+        <labl>NIU (not in universe)</labl>
+      </catgry>
+      <concept vocab="IPUMS">Services Provided Variables -- TOPICS</concept>
+      <varFormat schema="other" type="numeric"/>
+    </var>
+    <var ID="FCPROV" files="ExtractData" name="FCPROV" intrvl="discrete" dcml="0">
+      <location StartPos="148" width="2" EndPos="149"/>
+      <labl>Provides female condoms</labl>
+      <txt><![CDATA[For service delivery points that offer family planning services and products, FCPROV reports if the service delivery point provides female condoms.
+
+The question associated with this variable was included in the service delivery point questionnaire.]]></txt>
+      <catgry>
+        <catValu>00</catValu>
+        <labl>No</labl>
+      </catgry>
+      <catgry>
+        <catValu>01</catValu>
+        <labl>Yes</labl>
+      </catgry>
+      <catgry>
+        <catValu>94</catValu>
+        <labl>Not interviewed (SDP questionnaire)</labl>
+      </catgry>
+      <catgry>
+        <catValu>99</catValu>
+        <labl>NIU (not in universe)</labl>
+      </catgry>
+      <concept vocab="IPUMS">Services Provided Variables -- TOPICS</concept>
+      <varFormat schema="other" type="numeric"/>
+    </var>
+    <var ID="FSTPROV" files="ExtractData" name="FSTPROV" intrvl="discrete" dcml="0">
+      <location StartPos="150" width="2" EndPos="151"/>
+      <labl>Provides female sterilization</labl>
+      <txt><![CDATA[For service delivery points that offer family planning services and products, FSTPROV reports if the service delivery point provides female sterilization.
+
+The question associated with this variable was included in the service delivery point questionnaire.]]></txt>
+      <catgry>
+        <catValu>00</catValu>
+        <labl>No</labl>
+      </catgry>
+      <catgry>
+        <catValu>01</catValu>
+        <labl>Yes</labl>
+      </catgry>
+      <catgry>
+        <catValu>94</catValu>
+        <labl>Not interviewed (SDP questionnaire)</labl>
+      </catgry>
+      <catgry>
+        <catValu>99</catValu>
+        <labl>NIU (not in universe)</labl>
+      </catgry>
+      <concept vocab="IPUMS">Services Provided Variables -- TOPICS</concept>
+      <varFormat schema="other" type="numeric"/>
+    </var>
+    <var ID="FJPROV" files="ExtractData" name="FJPROV" intrvl="discrete" dcml="0">
+      <location StartPos="152" width="2" EndPos="153"/>
+      <labl>Provides spermicidal foam</labl>
+      <txt><![CDATA[For service delivery points that offer family planning services and products, FJPROV reports if the service delivery point provides spermicidal foam or jelly.
+
+The question associated with this variable was included in the service delivery point questionnaire.]]></txt>
+      <catgry>
+        <catValu>00</catValu>
+        <labl>No</labl>
+      </catgry>
+      <catgry>
+        <catValu>01</catValu>
+        <labl>Yes</labl>
+      </catgry>
+      <catgry>
+        <catValu>94</catValu>
+        <labl>Not interviewed (SDP questionnaire)</labl>
+      </catgry>
+      <catgry>
+        <catValu>99</catValu>
+        <labl>NIU (not in universe)</labl>
+      </catgry>
+      <concept vocab="IPUMS">Services Provided Variables -- TOPICS</concept>
+      <varFormat schema="other" type="numeric"/>
+    </var>
+    <var ID="IMPPROV" files="ExtractData" name="IMPPROV" intrvl="discrete" dcml="0">
+      <location StartPos="154" width="2" EndPos="155"/>
+      <labl>Provide implants</labl>
+      <txt><![CDATA[For service delivery points that offer family planning services and products, IMPPROV reports if the service delivery point provides implants.
+
+The question associated with this variable was included in the service delivery point questionnaire.]]></txt>
+      <catgry>
+        <catValu>00</catValu>
+        <labl>No</labl>
+      </catgry>
+      <catgry>
+        <catValu>01</catValu>
+        <labl>Yes</labl>
+      </catgry>
+      <catgry>
+        <catValu>94</catValu>
+        <labl>Not interviewed (SDP questionnaire)</labl>
+      </catgry>
+      <catgry>
+        <catValu>99</catValu>
+        <labl>NIU (not in universe)</labl>
+      </catgry>
+      <concept vocab="IPUMS">Services Provided Variables -- TOPICS</concept>
+      <varFormat schema="other" type="numeric"/>
+    </var>
+    <var ID="IUDPROV" files="ExtractData" name="IUDPROV" intrvl="discrete" dcml="0">
+      <location StartPos="156" width="2" EndPos="157"/>
+      <labl>Provides IUD</labl>
+      <txt><![CDATA[For service delivery points that offer family planning services and products, IUDPROV reports if the service delivery point provides IUDs.
+
+The question associated with this variable was included in the service delivery point questionnaire.]]></txt>
+      <catgry>
+        <catValu>00</catValu>
+        <labl>No</labl>
+      </catgry>
+      <catgry>
+        <catValu>01</catValu>
+        <labl>Yes</labl>
+      </catgry>
+      <catgry>
+        <catValu>94</catValu>
+        <labl>Not interviewed (SDP questionnaire)</labl>
+      </catgry>
+      <catgry>
+        <catValu>99</catValu>
+        <labl>NIU (not in universe)</labl>
+      </catgry>
+      <concept vocab="IPUMS">Services Provided Variables -- TOPICS</concept>
+      <varFormat schema="other" type="numeric"/>
+    </var>
+    <var ID="MSTPROV" files="ExtractData" name="MSTPROV" intrvl="discrete" dcml="0">
+      <location StartPos="158" width="2" EndPos="159"/>
+      <labl>Provides male sterilization</labl>
+      <txt><![CDATA[For service delivery points that offer family planning services and products, MSTPROV reports if the service delivery point provides male sterilization.
+
+The question associated with this variable was included in the service delivery point questionnaire.]]></txt>
+      <catgry>
+        <catValu>00</catValu>
+        <labl>No</labl>
+      </catgry>
+      <catgry>
+        <catValu>01</catValu>
+        <labl>Yes</labl>
+      </catgry>
+      <catgry>
+        <catValu>94</catValu>
+        <labl>Not interviewed (SDP questionnaire)</labl>
+      </catgry>
+      <catgry>
+        <catValu>99</catValu>
+        <labl>NIU (not in universe)</labl>
+      </catgry>
+      <concept vocab="IPUMS">Services Provided Variables -- TOPICS</concept>
+      <varFormat schema="other" type="numeric"/>
+    </var>
+    <var ID="PILLPROV" files="ExtractData" name="PILLPROV" intrvl="discrete" dcml="0">
+      <location StartPos="160" width="2" EndPos="161"/>
+      <labl>Provides birth control pills</labl>
+      <txt><![CDATA[For service delivery points that offer family planning services and products, PILLPROV reports if the service delivery point provides birth control pills.
+
+The question associated with this variable was included in the service delivery point questionnaire.]]></txt>
+      <catgry>
+        <catValu>00</catValu>
+        <labl>No</labl>
+      </catgry>
+      <catgry>
+        <catValu>01</catValu>
+        <labl>Yes</labl>
+      </catgry>
+      <catgry>
+        <catValu>94</catValu>
+        <labl>Not interviewed (SDP questionnaire)</labl>
+      </catgry>
+      <catgry>
+        <catValu>99</catValu>
+        <labl>NIU (not in universe)</labl>
+      </catgry>
+      <concept vocab="IPUMS">Services Provided Variables -- TOPICS</concept>
+      <varFormat schema="other" type="numeric"/>
+    </var>
+    <var ID="SAYPROV" files="ExtractData" name="SAYPROV" intrvl="discrete" dcml="0">
+      <location StartPos="162" width="2" EndPos="163"/>
+      <labl>Provides sayana press contraception</labl>
+      <txt><![CDATA[SAYPROV indicates whether the service delivery point provides Sayana Press injectable contraception. 
+
+The question associated with this variable was included in the service delivery point questionnaire.]]></txt>
+      <catgry>
+        <catValu>00</catValu>
+        <labl>No</labl>
+      </catgry>
+      <catgry>
+        <catValu>01</catValu>
+        <labl>Yes</labl>
+      </catgry>
+      <catgry>
+        <catValu>94</catValu>
+        <labl>Not interviewed (SDP questionnaire)</labl>
+      </catgry>
+      <catgry>
+        <catValu>99</catValu>
+        <labl>NIU (not in universe)</labl>
+      </catgry>
+      <concept vocab="IPUMS">Services Provided Variables -- TOPICS</concept>
+      <varFormat schema="other" type="numeric"/>
+    </var>
+    <var ID="CONOBS" files="ExtractData" name="CONOBS" intrvl="discrete" dcml="0">
+      <location StartPos="164" width="2" EndPos="165"/>
+      <labl>Observed and in/out stock: male condoms</labl>
+      <txt><![CDATA[CONOBS indicates whether facilities that provide male condoms currently have supplies in-stock. Some samples report whether or not the interviewer observed the stock; see the Comparability tab.
+
+The question associated with this variable was included in the service delivery point questionnaire.]]></txt>
+      <catgry>
+        <catValu>01</catValu>
+        <labl>In-stock and observed</labl>
+      </catgry>
+      <catgry>
+        <catValu>02</catValu>
+        <labl>In-stock but not observed</labl>
+      </catgry>
+      <catgry>
+        <catValu>03</catValu>
+        <labl>Out of stock</labl>
+      </catgry>
+      <catgry>
+        <catValu>94</catValu>
+        <labl>Not interviewed (SDP questionnaire)</labl>
+      </catgry>
+      <catgry>
+        <catValu>98</catValu>
+        <labl>No response or missing</labl>
+      </catgry>
+      <catgry>
+        <catValu>99</catValu>
+        <labl>NIU (not in universe)</labl>
+      </catgry>
+      <concept vocab="IPUMS">Contraceptive Stock Variables -- TOPICS</concept>
+      <varFormat schema="other" type="numeric"/>
+    </var>
+    <var ID="CONOUT3MO" files="ExtractData" name="CONOUT3MO" intrvl="discrete" dcml="0">
+      <location StartPos="166" width="2" EndPos="167"/>
+      <labl>Male condoms stockout past 3 months</labl>
+      <txt><![CDATA[CONOUT3MO indicates whether facilities with male condoms in-stock at the time of the interview (see CONOBS) had ever been out of stock of male condoms within the last 3 months.  
+
+The question associated with this variable was included in the service delivery point questionnaire.]]></txt>
+      <catgry>
+        <catValu>00</catValu>
+        <labl>No</labl>
+      </catgry>
+      <catgry>
+        <catValu>01</catValu>
+        <labl>Yes</labl>
+      </catgry>
+      <catgry>
+        <catValu>94</catValu>
+        <labl>Not interviewed (SDP questionnaire)</labl>
+      </catgry>
+      <catgry>
+        <catValu>97</catValu>
+        <labl>Don't know</labl>
+      </catgry>
+      <catgry>
+        <catValu>98</catValu>
+        <labl>No response or missing</labl>
+      </catgry>
+      <catgry>
+        <catValu>99</catValu>
+        <labl>NIU (not in universe)</labl>
+      </catgry>
+      <concept vocab="IPUMS">Contraceptive Stock Variables -- TOPICS</concept>
+      <varFormat schema="other" type="numeric"/>
+    </var>
+    <var ID="CONOUTDAY" files="ExtractData" name="CONOUTDAY" intrvl="discrete" dcml="0">
+      <location StartPos="168" width="4" EndPos="171"/>
+      <labl>Number of days male condoms have been out of stock</labl>
+      <txt><![CDATA[CONOUTDAY reports how many days male condoms have been out of stock (see CONOBS) from a facility that normally provides male condoms (see CONPROV).
+
+The question associated with this variable was included in the service delivery point questionnaire.]]></txt>
+      <catgry>
+        <catValu>9994</catValu>
+        <labl>Not interviewed (SDP questionnaire)</labl>
+      </catgry>
+      <catgry>
+        <catValu>9997</catValu>
+        <labl>Don't know</labl>
+      </catgry>
+      <catgry>
+        <catValu>9998</catValu>
+        <labl>No response or missing</labl>
+      </catgry>
+      <catgry>
+        <catValu>9999</catValu>
+        <labl>NIU (not in universe)</labl>
+      </catgry>
+      <concept vocab="IPUMS">Contraceptive Stock Variables -- TOPICS</concept>
+      <varFormat schema="other" type="numeric"/>
+    </var>
+    <var ID="CYCBOBS" files="ExtractData" name="CYCBOBS" intrvl="discrete" dcml="0">
+      <location StartPos="172" width="2" EndPos="173"/>
+      <labl>Observed and in/out stock: beads</labl>
+      <txt><![CDATA[CYCBOBS indicates whether facilities that provide Standard Days / Cycle Beads currently have supplies in-stock. Some samples report whether or not the interviewer observed the stock; see the Comparability tab.
+
+The question associated with this variable was included in the service delivery point questionnaire.]]></txt>
+      <catgry>
+        <catValu>97</catValu>
+        <labl>Don't know</labl>
+      </catgry>
+      <catgry>
+        <catValu>01</catValu>
+        <labl>In-stock and observed</labl>
+      </catgry>
+      <catgry>
+        <catValu>02</catValu>
+        <labl>In-stock but not observed</labl>
+      </catgry>
+      <catgry>
+        <catValu>03</catValu>
+        <labl>Out of stock</labl>
+      </catgry>
+      <catgry>
+        <catValu>94</catValu>
+        <labl>Not interviewed (SDP questionnaire)</labl>
+      </catgry>
+      <catgry>
+        <catValu>98</catValu>
+        <labl>No response or missing</labl>
+      </catgry>
+      <catgry>
+        <catValu>99</catValu>
+        <labl>NIU (not in universe)</labl>
+      </catgry>
+      <concept vocab="IPUMS">Contraceptive Stock Variables -- TOPICS</concept>
+      <varFormat schema="other" type="numeric"/>
+    </var>
+    <var ID="CYCBOUT3MO" files="ExtractData" name="CYCBOUT3MO" intrvl="discrete" dcml="0">
+      <location StartPos="174" width="2" EndPos="175"/>
+      <labl>Cycle beads stockout past 3 months</labl>
+      <txt><![CDATA[CYCBOUT3MO indicates whether facilities with Standard Days / Cycle Beads in-stock at the time of the interview (see CYCBOBS) had ever been out of stock of Standard Days / Cycle Beads within the last 3 months.  
+
+The question associated with this variable was included in the service delivery point questionnaire.]]></txt>
+      <catgry>
+        <catValu>00</catValu>
+        <labl>No</labl>
+      </catgry>
+      <catgry>
+        <catValu>01</catValu>
+        <labl>Yes</labl>
+      </catgry>
+      <catgry>
+        <catValu>94</catValu>
+        <labl>Not interviewed (SDP questionnaire)</labl>
+      </catgry>
+      <catgry>
+        <catValu>97</catValu>
+        <labl>Don't know</labl>
+      </catgry>
+      <catgry>
+        <catValu>98</catValu>
+        <labl>No response or missing</labl>
+      </catgry>
+      <catgry>
+        <catValu>99</catValu>
+        <labl>NIU (not in universe)</labl>
+      </catgry>
+      <concept vocab="IPUMS">Contraceptive Stock Variables -- TOPICS</concept>
+      <varFormat schema="other" type="numeric"/>
+    </var>
+    <var ID="CYCBOUTDAY" files="ExtractData" name="CYCBOUTDAY" intrvl="discrete" dcml="0">
+      <location StartPos="176" width="4" EndPos="179"/>
+      <labl>Number of days beads have been out of stock</labl>
+      <txt><![CDATA[CYCBOUTDAY reports how many days Standard Days / Cycle Beads have been out of stock (see CYCBOBS) from a facility that normally provides Standard Days / Cycle Beads (see CYCBPROV).
+
+The question associated with this variable was included in the service delivery point questionnaire.]]></txt>
+      <catgry>
+        <catValu>9994</catValu>
+        <labl>Not interviewed (SDP questionnaire)</labl>
+      </catgry>
+      <catgry>
+        <catValu>9997</catValu>
+        <labl>Don't know</labl>
+      </catgry>
+      <catgry>
+        <catValu>9998</catValu>
+        <labl>No response or missing</labl>
+      </catgry>
+      <catgry>
+        <catValu>9999</catValu>
+        <labl>NIU (not in universe)</labl>
+      </catgry>
+      <concept vocab="IPUMS">Contraceptive Stock Variables -- TOPICS</concept>
+      <varFormat schema="other" type="numeric"/>
+    </var>
+    <var ID="DEPOOBS" files="ExtractData" name="DEPOOBS" intrvl="discrete" dcml="0">
+      <location StartPos="180" width="2" EndPos="181"/>
+      <labl>Observed and in/out stock: Depo Provera</labl>
+      <txt><![CDATA[DEPOOBS indicates whether facilities that provide Depo-Provera currently have supplies in-stock. Some samples report whether or not the interviewer observed the stock; see the Comparability tab.
+
+The question associated with this variable was included in the service delivery point questionnaire.]]></txt>
+      <catgry>
+        <catValu>01</catValu>
+        <labl>In-stock and observed</labl>
+      </catgry>
+      <catgry>
+        <catValu>02</catValu>
+        <labl>In-stock but not observed</labl>
+      </catgry>
+      <catgry>
+        <catValu>03</catValu>
+        <labl>Out of stock</labl>
+      </catgry>
+      <catgry>
+        <catValu>94</catValu>
+        <labl>Not interviewed (SDP questionnaire)</labl>
+      </catgry>
+      <catgry>
+        <catValu>98</catValu>
+        <labl>No response or missing</labl>
+      </catgry>
+      <catgry>
+        <catValu>99</catValu>
+        <labl>NIU (not in universe)</labl>
+      </catgry>
+      <concept vocab="IPUMS">Contraceptive Stock Variables -- TOPICS</concept>
+      <varFormat schema="other" type="numeric"/>
+    </var>
+    <var ID="DEPOOUT3MO" files="ExtractData" name="DEPOOUT3MO" intrvl="discrete" dcml="0">
+      <location StartPos="182" width="2" EndPos="183"/>
+      <labl>Depo Provera stockout past 3 months</labl>
+      <txt><![CDATA[DEPOOUT3MO indicates whether facilities with Depo-Provera in-stock at the time of the interview (see DEPOOBS) had ever been out of stock of Depo-Provera within the last 3 months.  
+
+The question associated with this variable was included in the service delivery point questionnaire.]]></txt>
+      <catgry>
+        <catValu>00</catValu>
+        <labl>No</labl>
+      </catgry>
+      <catgry>
+        <catValu>01</catValu>
+        <labl>Yes</labl>
+      </catgry>
+      <catgry>
+        <catValu>94</catValu>
+        <labl>Not interviewed (SDP questionnaire)</labl>
+      </catgry>
+      <catgry>
+        <catValu>97</catValu>
+        <labl>Don't know</labl>
+      </catgry>
+      <catgry>
+        <catValu>99</catValu>
+        <labl>NIU (not in universe)</labl>
+      </catgry>
+      <concept vocab="IPUMS">Contraceptive Stock Variables -- TOPICS</concept>
+      <varFormat schema="other" type="numeric"/>
+    </var>
+    <var ID="DEPOOUTDAY" files="ExtractData" name="DEPOOUTDAY" intrvl="discrete" dcml="0">
+      <location StartPos="184" width="4" EndPos="187"/>
+      <labl>Number of days depo provera has been out of stock</labl>
+      <txt><![CDATA[DEPOOUTDAY reports how many days Depo-Provera have been out of stock (see DEPOOBS) from a facility that normally provides Depo-Provera (see DEPOPROV).
+
+The question associated with this variable was included in the service delivery point questionnaire.]]></txt>
+      <catgry>
+        <catValu>9994</catValu>
+        <labl>Not interviewed (SDP questionnaire)</labl>
+      </catgry>
+      <catgry>
+        <catValu>9997</catValu>
+        <labl>Don't know</labl>
+      </catgry>
+      <catgry>
+        <catValu>9998</catValu>
+        <labl>No response or missing</labl>
+      </catgry>
+      <catgry>
+        <catValu>9999</catValu>
+        <labl>NIU (not in universe)</labl>
+      </catgry>
+      <concept vocab="IPUMS">Contraceptive Stock Variables -- TOPICS</concept>
+      <varFormat schema="other" type="numeric"/>
+    </var>
+    <var ID="DIAOBS" files="ExtractData" name="DIAOBS" intrvl="discrete" dcml="0">
+      <location StartPos="188" width="2" EndPos="189"/>
+      <labl>Observed and in/out stock: diaphragms</labl>
+      <txt><![CDATA[DIAOBS indicates whether facilities that provide diaphragms currently have supplies in-stock. Some samples report whether or not the interviewer observed the stock; see the Comparability tab.
+
+The question associated with this variable was included in the service delivery point questionnaire.]]></txt>
+      <catgry>
+        <catValu>01</catValu>
+        <labl>In-stock and observed</labl>
+      </catgry>
+      <catgry>
+        <catValu>02</catValu>
+        <labl>In-stock but not observed</labl>
+      </catgry>
+      <catgry>
+        <catValu>03</catValu>
+        <labl>Out of stock</labl>
+      </catgry>
+      <catgry>
+        <catValu>94</catValu>
+        <labl>Not interviewed (SDP questionnaire)</labl>
+      </catgry>
+      <catgry>
+        <catValu>98</catValu>
+        <labl>No response or missing</labl>
+      </catgry>
+      <catgry>
+        <catValu>99</catValu>
+        <labl>NIU (not in universe)</labl>
+      </catgry>
+      <concept vocab="IPUMS">Contraceptive Stock Variables -- TOPICS</concept>
+      <varFormat schema="other" type="numeric"/>
+    </var>
+    <var ID="DIAOUT3MO" files="ExtractData" name="DIAOUT3MO" intrvl="discrete" dcml="0">
+      <location StartPos="190" width="2" EndPos="191"/>
+      <labl>Diaphragm stockout past 3 months</labl>
+      <txt><![CDATA[DIAOUT3MO indicates whether facilities with diaphragms in-stock at the time of the interview (see DIAOBS) had ever been out of stock of diaphragms within the last 3 months.  
+
+The question associated with this variable was included in the service delivery point questionnaire.]]></txt>
+      <catgry>
+        <catValu>00</catValu>
+        <labl>No</labl>
+      </catgry>
+      <catgry>
+        <catValu>01</catValu>
+        <labl>Yes</labl>
+      </catgry>
+      <catgry>
+        <catValu>94</catValu>
+        <labl>Not interviewed (SDP questionnaire)</labl>
+      </catgry>
+      <catgry>
+        <catValu>97</catValu>
+        <labl>Don't know</labl>
+      </catgry>
+      <catgry>
+        <catValu>98</catValu>
+        <labl>No response or missing</labl>
+      </catgry>
+      <catgry>
+        <catValu>99</catValu>
+        <labl>NIU (not in universe)</labl>
+      </catgry>
+      <concept vocab="IPUMS">Contraceptive Stock Variables -- TOPICS</concept>
+      <varFormat schema="other" type="numeric"/>
+    </var>
+    <var ID="DIAOUTDAY" files="ExtractData" name="DIAOUTDAY" intrvl="discrete" dcml="0">
+      <location StartPos="192" width="4" EndPos="195"/>
+      <labl>Number of days diaphragms have been out of stock</labl>
+      <txt><![CDATA[DIAOUTDAY reports how many days diaphragms have been out of stock (see DIAOBS) from a facility that normally provides diaphragms (see DIAPROV).
+
+The question associated with this variable was included in the service delivery point questionnaire.]]></txt>
+      <catgry>
+        <catValu>9994</catValu>
+        <labl>Not interviewed (SDP questionnaire)</labl>
+      </catgry>
+      <catgry>
+        <catValu>9997</catValu>
+        <labl>Don't know</labl>
+      </catgry>
+      <catgry>
+        <catValu>9998</catValu>
+        <labl>No response or missing</labl>
+      </catgry>
+      <catgry>
+        <catValu>9999</catValu>
+        <labl>NIU (not in universe)</labl>
+      </catgry>
+      <concept vocab="IPUMS">Contraceptive Stock Variables -- TOPICS</concept>
+      <varFormat schema="other" type="numeric"/>
+    </var>
+    <var ID="EMRGOBS" files="ExtractData" name="EMRGOBS" intrvl="discrete" dcml="0">
+      <location StartPos="196" width="2" EndPos="197"/>
+      <labl>Observed and in/out stock: emergency contraceptives</labl>
+      <txt><![CDATA[EMRGOBS indicates whether facilities that provide emergency contraceptives currently have supplies in-stock. Some samples report whether or not the interviewer observed the stock; see the Comparability tab.
+
+The question associated with this variable was included in the service delivery point questionnaire.]]></txt>
+      <catgry>
+        <catValu>01</catValu>
+        <labl>In-stock and observed</labl>
+      </catgry>
+      <catgry>
+        <catValu>02</catValu>
+        <labl>In-stock but not observed</labl>
+      </catgry>
+      <catgry>
+        <catValu>03</catValu>
+        <labl>Out of stock</labl>
+      </catgry>
+      <catgry>
+        <catValu>94</catValu>
+        <labl>Not interviewed (SDP questionnaire)</labl>
+      </catgry>
+      <catgry>
+        <catValu>98</catValu>
+        <labl>No response or missing</labl>
+      </catgry>
+      <catgry>
+        <catValu>99</catValu>
+        <labl>NIU (not in universe)</labl>
+      </catgry>
+      <concept vocab="IPUMS">Contraceptive Stock Variables -- TOPICS</concept>
+      <varFormat schema="other" type="numeric"/>
+    </var>
+    <var ID="EMRGOUT3MO" files="ExtractData" name="EMRGOUT3MO" intrvl="discrete" dcml="0">
+      <location StartPos="198" width="2" EndPos="199"/>
+      <labl>Emergency contraception stockout past 3 months</labl>
+      <txt><![CDATA[EMRGOUT3MO indicates whether facilities with emergency contraceptives in-stock at the time of the interview (see EMRGOBS) had ever been out of stock of emergency contraceptives within the last 3 months.  
+
+The question associated with this variable was included in the service delivery point questionnaire.]]></txt>
+      <catgry>
+        <catValu>00</catValu>
+        <labl>No</labl>
+      </catgry>
+      <catgry>
+        <catValu>01</catValu>
+        <labl>Yes</labl>
+      </catgry>
+      <catgry>
+        <catValu>94</catValu>
+        <labl>Not interviewed (SDP questionnaire)</labl>
+      </catgry>
+      <catgry>
+        <catValu>97</catValu>
+        <labl>Don't know</labl>
+      </catgry>
+      <catgry>
+        <catValu>98</catValu>
+        <labl>No response or missing</labl>
+      </catgry>
+      <catgry>
+        <catValu>99</catValu>
+        <labl>NIU (not in universe)</labl>
+      </catgry>
+      <concept vocab="IPUMS">Contraceptive Stock Variables -- TOPICS</concept>
+      <varFormat schema="other" type="numeric"/>
+    </var>
+    <var ID="EMRGOUTDAY" files="ExtractData" name="EMRGOUTDAY" intrvl="discrete" dcml="0">
+      <location StartPos="200" width="4" EndPos="203"/>
+      <labl>Number of days emergency contraception has been out of stock</labl>
+      <txt><![CDATA[EMRGOUTDAY reports how many days emergency contraceptives have been out of stock (see EMRGOBS) from a facility that normally provides emergency contraceptives (see EMRGPROV).
+
+The question associated with this variable was included in the service delivery point questionnaire.]]></txt>
+      <catgry>
+        <catValu>9994</catValu>
+        <labl>Not interviewed (SDP questionnaire)</labl>
+      </catgry>
+      <catgry>
+        <catValu>9997</catValu>
+        <labl>Don't know</labl>
+      </catgry>
+      <catgry>
+        <catValu>9998</catValu>
+        <labl>No response or missing</labl>
+      </catgry>
+      <catgry>
+        <catValu>9999</catValu>
+        <labl>NIU (not in universe)</labl>
+      </catgry>
+      <concept vocab="IPUMS">Contraceptive Stock Variables -- TOPICS</concept>
+      <varFormat schema="other" type="numeric"/>
+    </var>
+    <var ID="FCOBS" files="ExtractData" name="FCOBS" intrvl="discrete" dcml="0">
+      <location StartPos="204" width="2" EndPos="205"/>
+      <labl>Observed and in/out stock: female condoms</labl>
+      <txt><![CDATA[FCOBS indicates whether facilities that provide female condoms currently have supplies in-stock. Some samples report whether or not the interviewer observed the stock; see the Comparability tab.
+
+The question associated with this variable was included in the service delivery point questionnaire.]]></txt>
+      <catgry>
+        <catValu>01</catValu>
+        <labl>In-stock and observed</labl>
+      </catgry>
+      <catgry>
+        <catValu>02</catValu>
+        <labl>In-stock but not observed</labl>
+      </catgry>
+      <catgry>
+        <catValu>03</catValu>
+        <labl>Out of stock</labl>
+      </catgry>
+      <catgry>
+        <catValu>94</catValu>
+        <labl>Not interviewed (SDP questionnaire)</labl>
+      </catgry>
+      <catgry>
+        <catValu>98</catValu>
+        <labl>No response or missing</labl>
+      </catgry>
+      <catgry>
+        <catValu>99</catValu>
+        <labl>NIU (not in universe)</labl>
+      </catgry>
+      <concept vocab="IPUMS">Contraceptive Stock Variables -- TOPICS</concept>
+      <varFormat schema="other" type="numeric"/>
+    </var>
+    <var ID="FCOUT3MO" files="ExtractData" name="FCOUT3MO" intrvl="discrete" dcml="0">
+      <location StartPos="206" width="2" EndPos="207"/>
+      <labl>Female condoms stockout past 3 months</labl>
+      <txt><![CDATA[FCOUT3MO indicates whether facilities with female condoms in-stock at the time of the interview (see FCOBS) had ever been out of stock of female condoms within the last 3 months.  
+
+The question associated with this variable was included in the service delivery point questionnaire.]]></txt>
+      <catgry>
+        <catValu>00</catValu>
+        <labl>No</labl>
+      </catgry>
+      <catgry>
+        <catValu>01</catValu>
+        <labl>Yes</labl>
+      </catgry>
+      <catgry>
+        <catValu>94</catValu>
+        <labl>Not interviewed (SDP questionnaire)</labl>
+      </catgry>
+      <catgry>
+        <catValu>97</catValu>
+        <labl>Don't know</labl>
+      </catgry>
+      <catgry>
+        <catValu>98</catValu>
+        <labl>No response or missing</labl>
+      </catgry>
+      <catgry>
+        <catValu>99</catValu>
+        <labl>NIU (not in universe)</labl>
+      </catgry>
+      <concept vocab="IPUMS">Contraceptive Stock Variables -- TOPICS</concept>
+      <varFormat schema="other" type="numeric"/>
+    </var>
+    <var ID="FCOUTDAY" files="ExtractData" name="FCOUTDAY" intrvl="discrete" dcml="0">
+      <location StartPos="208" width="4" EndPos="211"/>
+      <labl>Number of days female condoms have been out of stock</labl>
+      <txt><![CDATA[FCOUTDAY reports how many days female condoms have been out of stock (see FCOBS) from a facility that normally provides female condoms (see FCPROV).
+
+The question associated with this variable was included in the service delivery point questionnaire.]]></txt>
+      <catgry>
+        <catValu>9994</catValu>
+        <labl>Not interviewed (SDP questionnaire)</labl>
+      </catgry>
+      <catgry>
+        <catValu>9997</catValu>
+        <labl>Don't know</labl>
+      </catgry>
+      <catgry>
+        <catValu>9998</catValu>
+        <labl>No response or missing</labl>
+      </catgry>
+      <catgry>
+        <catValu>9999</catValu>
+        <labl>NIU (not in universe)</labl>
+      </catgry>
+      <concept vocab="IPUMS">Contraceptive Stock Variables -- TOPICS</concept>
+      <varFormat schema="other" type="numeric"/>
+    </var>
+    <var ID="FJOBS" files="ExtractData" name="FJOBS" intrvl="discrete" dcml="0">
+      <location StartPos="212" width="2" EndPos="213"/>
+      <labl>Observed and in/out stock: foam / jelly</labl>
+      <txt><![CDATA[FJOBS indicates whether facilities that provide contraceptive foam / jelly currently have supplies in-stock. Some samples report whether or not the interviewer observed the stock; see the Comparability tab.
+
+The question associated with this variable was included in the service delivery point questionnaire.]]></txt>
+      <catgry>
+        <catValu>01</catValu>
+        <labl>In-stock and observed</labl>
+      </catgry>
+      <catgry>
+        <catValu>02</catValu>
+        <labl>In-stock but not observed</labl>
+      </catgry>
+      <catgry>
+        <catValu>03</catValu>
+        <labl>Out of stock</labl>
+      </catgry>
+      <catgry>
+        <catValu>94</catValu>
+        <labl>Not interviewed (SDP questionnaire)</labl>
+      </catgry>
+      <catgry>
+        <catValu>97</catValu>
+        <labl>Don't know</labl>
+      </catgry>
+      <catgry>
+        <catValu>98</catValu>
+        <labl>No response or missing</labl>
+      </catgry>
+      <catgry>
+        <catValu>99</catValu>
+        <labl>NIU (not in universe)</labl>
+      </catgry>
+      <concept vocab="IPUMS">Contraceptive Stock Variables -- TOPICS</concept>
+      <varFormat schema="other" type="numeric"/>
+    </var>
+    <var ID="FJOUT3MO" files="ExtractData" name="FJOUT3MO" intrvl="discrete" dcml="0">
+      <location StartPos="214" width="2" EndPos="215"/>
+      <labl>Foam/jelly stockout past 3 months</labl>
+      <txt><![CDATA[FJOUT3MO indicates whether facilities with contraceptive foam / jelly in-stock at the time of the interview (see FJOBS) had ever been out of stock of contraceptive foam / jelly within the last 3 months.  
+
+The question associated with this variable was included in the service delivery point questionnaire.]]></txt>
+      <catgry>
+        <catValu>00</catValu>
+        <labl>No</labl>
+      </catgry>
+      <catgry>
+        <catValu>01</catValu>
+        <labl>Yes</labl>
+      </catgry>
+      <catgry>
+        <catValu>94</catValu>
+        <labl>Not interviewed (SDP questionnaire)</labl>
+      </catgry>
+      <catgry>
+        <catValu>97</catValu>
+        <labl>Don't know</labl>
+      </catgry>
+      <catgry>
+        <catValu>98</catValu>
+        <labl>No response or missing</labl>
+      </catgry>
+      <catgry>
+        <catValu>99</catValu>
+        <labl>NIU (not in universe)</labl>
+      </catgry>
+      <concept vocab="IPUMS">Contraceptive Stock Variables -- TOPICS</concept>
+      <varFormat schema="other" type="numeric"/>
+    </var>
+    <var ID="FJOUTDAY" files="ExtractData" name="FJOUTDAY" intrvl="discrete" dcml="0">
+      <location StartPos="216" width="4" EndPos="219"/>
+      <labl>Number of days foam/jelly has been out of stock</labl>
+      <txt><![CDATA[FJOUTDAY reports how many days contraceptive foam / jelly have been out of stock (see FJOBS) from a facility that normally provides contraceptive foam / jelly (see FJPROV).
+
+The question associated with this variable was included in the service delivery point questionnaire.]]></txt>
+      <catgry>
+        <catValu>9994</catValu>
+        <labl>Not interviewed (SDP questionnaire)</labl>
+      </catgry>
+      <catgry>
+        <catValu>9997</catValu>
+        <labl>Don't know</labl>
+      </catgry>
+      <catgry>
+        <catValu>9998</catValu>
+        <labl>No response or missing</labl>
+      </catgry>
+      <catgry>
+        <catValu>9999</catValu>
+        <labl>NIU (not in universe)</labl>
+      </catgry>
+      <concept vocab="IPUMS">Contraceptive Stock Variables -- TOPICS</concept>
+      <varFormat schema="other" type="numeric"/>
+    </var>
+    <var ID="IMPOBS" files="ExtractData" name="IMPOBS" intrvl="discrete" dcml="0">
+      <location StartPos="220" width="2" EndPos="221"/>
+      <labl>Observed and in/out stock: implants</labl>
+      <txt><![CDATA[IMPOBS indicates whether facilities that provide contraceptive implants currently have supplies in-stock. Some samples report whether or not the interviewer observed the stock; see the Comparability tab.
+
+The question associated with this variable was included in the service delivery point questionnaire.]]></txt>
+      <catgry>
+        <catValu>01</catValu>
+        <labl>In-stock and observed</labl>
+      </catgry>
+      <catgry>
+        <catValu>02</catValu>
+        <labl>In-stock but not observed</labl>
+      </catgry>
+      <catgry>
+        <catValu>03</catValu>
+        <labl>Out of stock</labl>
+      </catgry>
+      <catgry>
+        <catValu>94</catValu>
+        <labl>Not interviewed (SDP questionnaire)</labl>
+      </catgry>
+      <catgry>
+        <catValu>97</catValu>
+        <labl>Don't know</labl>
+      </catgry>
+      <catgry>
+        <catValu>98</catValu>
+        <labl>No response or missing</labl>
+      </catgry>
+      <catgry>
+        <catValu>99</catValu>
+        <labl>NIU (not in universe)</labl>
+      </catgry>
+      <concept vocab="IPUMS">Contraceptive Stock Variables -- TOPICS</concept>
+      <varFormat schema="other" type="numeric"/>
+    </var>
+    <var ID="IMPOUT3MO" files="ExtractData" name="IMPOUT3MO" intrvl="discrete" dcml="0">
+      <location StartPos="222" width="2" EndPos="223"/>
+      <labl>Implant stockout past 3 months</labl>
+      <txt><![CDATA[IMPOUT3MO indicates whether facilities with contraceptive implants in-stock at the time of the interview (see IMPOBS) had ever been out of stock of contraceptive implants within the last 3 months.  
+
+The question associated with this variable was included in the service delivery point questionnaire.]]></txt>
+      <catgry>
+        <catValu>00</catValu>
+        <labl>No</labl>
+      </catgry>
+      <catgry>
+        <catValu>01</catValu>
+        <labl>Yes</labl>
+      </catgry>
+      <catgry>
+        <catValu>94</catValu>
+        <labl>Not interviewed (SDP questionnaire)</labl>
+      </catgry>
+      <catgry>
+        <catValu>97</catValu>
+        <labl>Don't know</labl>
+      </catgry>
+      <catgry>
+        <catValu>98</catValu>
+        <labl>No response or missing</labl>
+      </catgry>
+      <catgry>
+        <catValu>99</catValu>
+        <labl>NIU (not in universe)</labl>
+      </catgry>
+      <concept vocab="IPUMS">Contraceptive Stock Variables -- TOPICS</concept>
+      <varFormat schema="other" type="numeric"/>
+    </var>
+    <var ID="IMPOUTDAY" files="ExtractData" name="IMPOUTDAY" intrvl="discrete" dcml="0">
+      <location StartPos="224" width="4" EndPos="227"/>
+      <labl>Number of days implants have been out of stock</labl>
+      <txt><![CDATA[IMPOUTDAY reports how many days contraceptive implants have been out of stock (see IMPOBS) from a facility that normally provides contraceptive implants (see IMPPROV).
+
+The question associated with this variable was included in the service delivery point questionnaire.]]></txt>
+      <catgry>
+        <catValu>9994</catValu>
+        <labl>Not interviewed (SDP questionnaire)</labl>
+      </catgry>
+      <catgry>
+        <catValu>9997</catValu>
+        <labl>Don't know</labl>
+      </catgry>
+      <catgry>
+        <catValu>9998</catValu>
+        <labl>No response or missing</labl>
+      </catgry>
+      <catgry>
+        <catValu>9999</catValu>
+        <labl>NIU (not in universe)</labl>
+      </catgry>
+      <concept vocab="IPUMS">Contraceptive Stock Variables -- TOPICS</concept>
+      <varFormat schema="other" type="numeric"/>
+    </var>
+    <var ID="IUDOBS" files="ExtractData" name="IUDOBS" intrvl="discrete" dcml="0">
+      <location StartPos="228" width="2" EndPos="229"/>
+      <labl>IUDs are observed and in stock in the facility</labl>
+      <txt><![CDATA[IUDOBS indicates whether facilities that provide IUDs currently have supplies in-stock. Some samples report whether or not the interviewer observed the stock; see the Comparability tab.
+
+The question associated with this variable was included in the service delivery point questionnaire.]]></txt>
+      <catgry>
+        <catValu>97</catValu>
+        <labl>Don't know</labl>
+      </catgry>
+      <catgry>
+        <catValu>01</catValu>
+        <labl>In-stock and observed</labl>
+      </catgry>
+      <catgry>
+        <catValu>02</catValu>
+        <labl>In-stock but not observed</labl>
+      </catgry>
+      <catgry>
+        <catValu>03</catValu>
+        <labl>Out of stock</labl>
+      </catgry>
+      <catgry>
+        <catValu>98</catValu>
+        <labl>No response or missing</labl>
+      </catgry>
+      <catgry>
+        <catValu>94</catValu>
+        <labl>Not interviewed (SDP questionnaire)</labl>
+      </catgry>
+      <catgry>
+        <catValu>99</catValu>
+        <labl>NIU (not in universe)</labl>
+      </catgry>
+      <concept vocab="IPUMS">Contraceptive Stock Variables -- TOPICS</concept>
+      <varFormat schema="other" type="numeric"/>
+    </var>
+    <var ID="IUDOUT3MO" files="ExtractData" name="IUDOUT3MO" intrvl="discrete" dcml="0">
+      <location StartPos="230" width="2" EndPos="231"/>
+      <labl>IUD stockout past 3 months</labl>
+      <txt><![CDATA[IUDOUT3MO indicates whether facilities with IUDs in-stock at the time of the interview (see IUDOBS) had ever been out of stock of IUDs within the last 3 months.  
+
+The question associated with this variable was included in the service delivery point questionnaire.]]></txt>
+      <catgry>
+        <catValu>00</catValu>
+        <labl>No</labl>
+      </catgry>
+      <catgry>
+        <catValu>01</catValu>
+        <labl>Yes</labl>
+      </catgry>
+      <catgry>
+        <catValu>94</catValu>
+        <labl>Not interviewed (SDP questionnaire)</labl>
+      </catgry>
+      <catgry>
+        <catValu>97</catValu>
+        <labl>Don't know</labl>
+      </catgry>
+      <catgry>
+        <catValu>98</catValu>
+        <labl>No response or missing</labl>
+      </catgry>
+      <catgry>
+        <catValu>99</catValu>
+        <labl>NIU (not in universe)</labl>
+      </catgry>
+      <concept vocab="IPUMS">Contraceptive Stock Variables -- TOPICS</concept>
+      <varFormat schema="other" type="numeric"/>
+    </var>
+    <var ID="IUDOUTDAY" files="ExtractData" name="IUDOUTDAY" intrvl="discrete" dcml="0">
+      <location StartPos="232" width="4" EndPos="235"/>
+      <labl>Number of days IUDs have been out of stock</labl>
+      <txt><![CDATA[IUDOUTDAY reports how many days IUDs have been out of stock (see IUDOBS) from a facility that normally provides IUDs (see IUDPROV).
+
+The question associated with this variable was included in the service delivery point questionnaire.]]></txt>
+      <catgry>
+        <catValu>9994</catValu>
+        <labl>Not interviewed (SDP questionnaire)</labl>
+      </catgry>
+      <catgry>
+        <catValu>9997</catValu>
+        <labl>Don't know</labl>
+      </catgry>
+      <catgry>
+        <catValu>9998</catValu>
+        <labl>No response or missing</labl>
+      </catgry>
+      <catgry>
+        <catValu>9999</catValu>
+        <labl>NIU (not in universe)</labl>
+      </catgry>
+      <concept vocab="IPUMS">Contraceptive Stock Variables -- TOPICS</concept>
+      <varFormat schema="other" type="numeric"/>
+    </var>
+    <var ID="PILLOBS" files="ExtractData" name="PILLOBS" intrvl="discrete" dcml="0">
+      <location StartPos="236" width="2" EndPos="237"/>
+      <labl>Observed and in/out stock: pills</labl>
+      <txt><![CDATA[PILLOBS indicates whether facilities that provide contraceptive pills currently have supplies in-stock. Some samples report whether or not the interviewer observed the stock; see the Comparability tab.
+
+The question associated with this variable was included in the service delivery point questionnaire.]]></txt>
+      <catgry>
+        <catValu>01</catValu>
+        <labl>In-stock and observed</labl>
+      </catgry>
+      <catgry>
+        <catValu>02</catValu>
+        <labl>In-stock but not observed</labl>
+      </catgry>
+      <catgry>
+        <catValu>03</catValu>
+        <labl>Out of stock</labl>
+      </catgry>
+      <catgry>
+        <catValu>94</catValu>
+        <labl>Not interviewed (SDP questionnaire)</labl>
+      </catgry>
+      <catgry>
+        <catValu>98</catValu>
+        <labl>No response or missing</labl>
+      </catgry>
+      <catgry>
+        <catValu>99</catValu>
+        <labl>NIU (not in universe)</labl>
+      </catgry>
+      <concept vocab="IPUMS">Contraceptive Stock Variables -- TOPICS</concept>
+      <varFormat schema="other" type="numeric"/>
+    </var>
+    <var ID="PILLOUT3MO" files="ExtractData" name="PILLOUT3MO" intrvl="discrete" dcml="0">
+      <location StartPos="238" width="2" EndPos="239"/>
+      <labl>Pills stockout past 3 months</labl>
+      <txt><![CDATA[PILLOUT3MO indicates whether facilities with contraceptive pills in-stock at the time of the interview (see PILLOBS) had ever been out of stock of contraceptive pills within the last 3 months.  
+
+The question associated with this variable was included in the service delivery point questionnaire.]]></txt>
+      <catgry>
+        <catValu>00</catValu>
+        <labl>No</labl>
+      </catgry>
+      <catgry>
+        <catValu>01</catValu>
+        <labl>Yes</labl>
+      </catgry>
+      <catgry>
+        <catValu>94</catValu>
+        <labl>Not interviewed (SDP questionnaire)</labl>
+      </catgry>
+      <catgry>
+        <catValu>97</catValu>
+        <labl>Don't know</labl>
+      </catgry>
+      <catgry>
+        <catValu>98</catValu>
+        <labl>No response or missing</labl>
+      </catgry>
+      <catgry>
+        <catValu>99</catValu>
+        <labl>NIU (not in universe)</labl>
+      </catgry>
+      <concept vocab="IPUMS">Contraceptive Stock Variables -- TOPICS</concept>
+      <varFormat schema="other" type="numeric"/>
+    </var>
+    <var ID="PILLOUTDAY" files="ExtractData" name="PILLOUTDAY" intrvl="discrete" dcml="0">
+      <location StartPos="240" width="4" EndPos="243"/>
+      <labl>Number of days birth control pills have been out of stock</labl>
+      <txt><![CDATA[PILLOUTDAY reports how many days contraceptive pills have been out of stock (see PILLOBS) from a facility that normally provides contraceptive pills (see PILLPROV).
+
+The question associated with this variable was included in the service delivery point questionnaire.]]></txt>
+      <catgry>
+        <catValu>9994</catValu>
+        <labl>Not interviewed (SDP questionnaire)</labl>
+      </catgry>
+      <catgry>
+        <catValu>9997</catValu>
+        <labl>Don't know</labl>
+      </catgry>
+      <catgry>
+        <catValu>9998</catValu>
+        <labl>No response or missing</labl>
+      </catgry>
+      <catgry>
+        <catValu>9999</catValu>
+        <labl>NIU (not in universe)</labl>
+      </catgry>
+      <concept vocab="IPUMS">Contraceptive Stock Variables -- TOPICS</concept>
+      <varFormat schema="other" type="numeric"/>
+    </var>
+    <var ID="SAYOBS" files="ExtractData" name="SAYOBS" intrvl="discrete" dcml="0">
+      <location StartPos="244" width="2" EndPos="245"/>
+      <labl>Observed and in/out stock: Sayana Press</labl>
+      <txt><![CDATA[SAYOBS indicates whether facilities that provide Sayana Press currently have supplies in-stock. Some samples report whether or not the interviewer observed the stock; see the Comparability tab.
+
+The question associated with this variable was included in the service delivery point questionnaire.]]></txt>
+      <catgry>
+        <catValu>01</catValu>
+        <labl>In-stock and observed</labl>
+      </catgry>
+      <catgry>
+        <catValu>02</catValu>
+        <labl>In-stock but not observed</labl>
+      </catgry>
+      <catgry>
+        <catValu>03</catValu>
+        <labl>Out of stock</labl>
+      </catgry>
+      <catgry>
+        <catValu>94</catValu>
+        <labl>Not interviewed (SDP questionnaire)</labl>
+      </catgry>
+      <catgry>
+        <catValu>97</catValu>
+        <labl>Don't know</labl>
+      </catgry>
+      <catgry>
+        <catValu>98</catValu>
+        <labl>No response or missing</labl>
+      </catgry>
+      <catgry>
+        <catValu>99</catValu>
+        <labl>NIU (not in universe)</labl>
+      </catgry>
+      <concept vocab="IPUMS">Contraceptive Stock Variables -- TOPICS</concept>
+      <varFormat schema="other" type="numeric"/>
+    </var>
+    <var ID="SAYOUT3MO" files="ExtractData" name="SAYOUT3MO" intrvl="discrete" dcml="0">
+      <location StartPos="246" width="2" EndPos="247"/>
+      <labl>Sayana press stockout past 3 months</labl>
+      <txt><![CDATA[SAYOUT3MO indicates whether facilities with Sayana Press in-stock at the time of the interview (see SAYOBS) had ever been out of stock of Sayana Press within the last 3 months.  
+
+The question associated with this variable was included in the service delivery point questionnaire.]]></txt>
+      <catgry>
+        <catValu>00</catValu>
+        <labl>No</labl>
+      </catgry>
+      <catgry>
+        <catValu>01</catValu>
+        <labl>Yes</labl>
+      </catgry>
+      <catgry>
+        <catValu>94</catValu>
+        <labl>Not interviewed (SDP questionnaire)</labl>
+      </catgry>
+      <catgry>
+        <catValu>97</catValu>
+        <labl>Don't know</labl>
+      </catgry>
+      <catgry>
+        <catValu>98</catValu>
+        <labl>No response or missing</labl>
+      </catgry>
+      <catgry>
+        <catValu>99</catValu>
+        <labl>NIU (not in universe)</labl>
+      </catgry>
+      <concept vocab="IPUMS">Contraceptive Stock Variables -- TOPICS</concept>
+      <varFormat schema="other" type="numeric"/>
+    </var>
+    <var ID="SAYOUTDAY" files="ExtractData" name="SAYOUTDAY" intrvl="discrete" dcml="0">
+      <location StartPos="248" width="4" EndPos="251"/>
+      <labl>Number of days sayana press has been out of stock</labl>
+      <txt><![CDATA[SAYOUTDAY reports how many days Sayana Press have been out of stock (see SAYOBS) from a facility that normally provides Sayana Press (see SAYPROV).
+
+The question associated with this variable was included in the service delivery point questionnaire.]]></txt>
+      <catgry>
+        <catValu>9994</catValu>
+        <labl>Not interviewed (SDP questionnaire)</labl>
+      </catgry>
+      <catgry>
+        <catValu>9997</catValu>
+        <labl>Don't know</labl>
+      </catgry>
+      <catgry>
+        <catValu>9998</catValu>
+        <labl>No response or missing</labl>
+      </catgry>
+      <catgry>
+        <catValu>9999</catValu>
+        <labl>NIU (not in universe)</labl>
+      </catgry>
+      <concept vocab="IPUMS">Contraceptive Stock Variables -- TOPICS</concept>
+      <varFormat schema="other" type="numeric"/>
+    </var>
+  </dataDscr>
+</codeBook>

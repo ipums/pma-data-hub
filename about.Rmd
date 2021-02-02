@@ -1,0 +1,66 @@
+---
+title: "About this blog"
+output:
+  distill::distill_article:
+    self_contained: false
+    toc: true
+    toc_depth: 3
+    toc_float: true
+---
+
+[IPUMS PMA](https://pma.ipums.org) harmonizes the [Performance Monitoring for Action (PMA)](https://www.pmadata.org/) data series (it was formerly known as Performance Monitoring and Accountability 2020 - PMA2020). It provides an interactive web dissemination system for PMA data with variable documentation on thousands of harmonized variables on **family planning, water and sanitation, and health**. PMA is fielded by the Bill & Melinda Gates Foundation and Johns Hopkins University using streamlined and high-frequency data collection in 11 FP2020 pledging countries. [Read more about the project here](https://pma.ipums.org/pma/about.shtml).
+
+IPUMS PMA is just one of many [IPUMS](https://ipums.org/) data projects. IPUMS provides census and survey data from around the world integrated across time and space. IPUMS integration and documentation makes it easy to study change, conduct comparative research, merge information across data types, and analyze individuals within family and community context. Data and services are available free of charge.
+
+# Why a blog?
+
+As the data available at [IPUMS PMA](https://pma.ipums.org) continues to grow, we wanted a space to demonstrate the range ways that PMA data can help address some of today's most pressing women's health concerns. 
+
+You'll find blog posts showing how to use common statistical software to do things like: 
+
+  * compare PMA data across countries and survey years
+  * use service delivery point data to contextualize outcomes for individuals
+  * merge PMA data to external spatial datasets 
+  * explore data related to water, hygiene, nutrition, and food security
+
+# Try out our code!
+
+## Download an article and run it in R
+
+At the top of every post, you'll find a button like this one:
+
+```{r download_button, echo=F, eval=T}
+downloadthis::download_file(
+  path = "./about.Rmd",
+  button_label = "Download this page as R code",
+  button_type = "default",
+  has_icon = T,
+  icon = "fa fa-save"
+)
+```
+
+Click it, and you'll receive an R Markdown file containing the full text of the post along with all of the code you'll need to reproduce it.
+
+<aside>
+You can run an R Markdown (.Rmd) file in R just like you would run a normal R script (.R). <a href="https://rmarkdown.rstudio.com/lesson-1.html">Click here for more information.</a>
+</aside>
+
+## Visit us on GitHub 
+
+While it's *not necessary* to visit [our GitHub repository](https://github.com/ipums/pma-data-hub) to access the code you'll find on this blog, we hope that visitors will feel encouraged to join a conversation, ask questions, or even post code of their own! You can also use the GitHub repository to download code from all of our posts in one step.
+
+To submit a post of your own, please take a look at our [Contributing Guide](CONTRIBUTING.html) and [Code of Conduct](CODE_OF_CONDUCT.html). By contributing to this project, you agree to abide by the terms of each.
+
+If you spot an error or a place where our code could be improved, please consider opening an "issue" on our GitHub repository.
+
+# Statisitcal Software
+
+Currently, most of the code highlighted in our articles is written in **R**, a free and open-source program used by data analysts around the world. We've built the blog, itself, with an R package called [distill](https://rstudio.github.io/distill/). 
+
+<aside>
+New to R? Not to worry! We'll post tips and links to help you get going in the "R tips" menu above.
+</aside>
+
+Experienced R users will notice that we use [tidyverse](https://tidyverse.tidyverse.org/) conventions wherever possible, making the **tidyverse package library** an important prerequisite if you want to try our code on your own. We recommend the excellent, free introductory text [R for Data Science](https://r4ds.had.co.nz/index.html) for newcomers to R and tidyverse, alike. 
+
+**Stata users**: we are also planning to develop Stata code for each of our articles, which will be made available by a designated download button and in a "stata" folder on the GitHub repository. However, the inline code you'll find in our articles is likely to remain in R.

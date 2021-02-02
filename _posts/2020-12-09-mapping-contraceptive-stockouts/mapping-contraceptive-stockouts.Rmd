@@ -1,0 +1,246 @@
+---
+title: "Mapping contraceptive stockouts"
+description: |
+  Build an interactive map showing the percentage of service providers reporting a recent stockout of contraceptive methods 
+categories:
+  - R
+  - Shiny
+  - tmap
+  - Mapping
+  - Contraceptive Stockouts
+  - Service Delivery Points
+author:
+  - name: Matt Gunther
+    affiliation: IPUMS PMA Senior Data Analyst
+date: 12-17-2020
+output:
+  distill::distill_article:
+    self_contained: false
+    toc: true
+    toc_depth: 3
+    toc_float: true
+preview: images/static-map.png
+draft: true
+---
+
+```{r download_button, echo=F}
+downloadthis::download_file(
+  path = "./mapping-contraceptive-stockouts.Rmd",
+  button_label = "Download this page as R code",
+  button_type = "default",
+  has_icon = T,
+  icon = "fa fa-save"
+)
+```
+```{r setup, include=F}
+knitr::opts_chunk$set(echo = T, eval = F, message = F)
+```
+
+# Contraceptive Stockouts
+
+Percentage of facilities experiencing a recent empty stock of each method, relative to the number of facilities in each region / province that normally provide the method (all survey years combined)
+
+<aside>
+A "recent" stockout includes any stockout experienced within 3 months prior to the survey.
+</aside>
+
+```{r, layout="l-page", fig.height=4, preview=TRUE, eval=T, echo=F}
+knitr::include_app("https://method-map.dev.ipums.org/", height = "425px")
+```
+
+*Missing regions / provinces include those with no surveyed facilities and those where no surveyed facilities normally provide the method.*
+
+# How it's made
+
+The R package [Shiny](https://shiny.rstudio.com/) makes it possible to create graphics that respond to user input. In example above, the user can provide three types of input: 
+
+* **Choose a country:** a dropdown menu with 3 choices
+* **Choose a method:** a dropdown menu with 14 choices
+* Interactions with the map (zoom, drag, filter, hover, and click)
+
+We'll use the Shiny function `shinyApp` to collect user input with a "ui" function, and then serve the requested data back to the user with a "server" argument. If you run the code for this application on your own, RStudio will launch a viewer window and continue managing the ui and server until you manually stop the process. To host an application on a website (like we've done here), you'll need to "deploy" it to a server that can run R on demand (read more [here](https://mastering-shiny.org/)).
+
+Shiny provides dropdown menus automatically with the `selectInput` function, so we only need to provide the input labels and ensure that each one corresponds with an option available in the data file. 
+
+Mapping tools, however, are not provided by Shiny. Instead, we'll render our map with the [`tmap`](https://cran.r-project.org/web/packages/tmap/vignettes/tmap-getstarted.html) package, which also contains functions that will handle all of the user's interactions with our map. 
+
+```{r libraries}
+library(tidyverse)
+library(shiny)
+library(tmap)
+```
+
+## Data
+
+To keep things simple, we'll just look at three countries (Ethiopia, Kenya, and  Uganda) and combine stockout data for all available survey years. 
+
+Create a data extract with the following Family Planning - Service Delivery Point [geographic](https://pma.ipums.org/pma-action/variables/group?id=hh_geo) variables:
+
+* `GEOET`
+* `GEOKE`
+* `GEOUGGEN` 
+
+and these variables from the [contraceptive stock](https://pma.ipums.org/pma-action/variables/group?id=fp_stock) group:
+
+* `CONOUT3MO`
+* `CYCBOUT3MO`
+* `DEPOOUT3MO`    
+* `DIAOUT3MO`
+* `EMRGOUT3MO`
+* `FCOUT3MO`
+* `FJOUT3MO`
+* `IMPOUT3MO`
+* `INJOUT3MO`
+* `IUDOUT3MO`
+* `OTHEROUT3MO`
+* `PILLOUT3MO`
+* `PROPILLOUT3MO`
+* `SAYOUT3MO`
+
+(Some variables, like `COUNTRY` and `YEAR`, are included automatically with every extract: no need to select those.)
+
+Load the data as an object, `dat`:
+
+```{r}
+dat <- ipumsr::read_ipums_micro(
+  ddi = "resources/pma_00007.xml",
+  data = "resources/pma_00007.dat.gz"
+)
+```
+
+<aside>
+Remember: replace both file names with your own paths and extract number!
+</aside>
+
+We also need one "simple features" dataset for each of the three maps we'll want to render. I used [`sf::st_read`](https://r-spatial.github.io/sf/reference/st_read.html) to get these files from [highcharts](https://www.highcharts.com/products/maps/), then cleaned up some of the longer region / province names. I created these files ahead of time: you'll find them in the "resources" folder for this post in the PMA Data Hub repository on GitHub.
+
+```{r}
+et_map <- read_rds("resources/et_map.rds")
+ke_map <- read_rds("resources/ke_map.rds")
+ug_map <- read_rds("resources/ug_map.rds")
+```
+
+## User input options
+
+Rather than using variable names in the dropdown menus, create user-friendly labels corresponding to each of the stockout variables and the `COUNTRY` options we'll be using:
+
+```{r}
+methods <- c(
+  "MALE CONDOMS" = "CONOUT3MO",
+  "FEMALE CONDOMS" = "FCOUT3MO",
+  "CYCLE BEADS" = "CYCBOUT3MO",
+  "DIAPHRAGM" = "DIAOUT3MO",
+  "EMERGENCY METHOD" = "EMRGOUT3MO",
+  "FOAM / JELLY" = "FJOUT3MO",      
+  "IMPLANTS" = "IMPOUT3MO",     
+  "INJECTABLE" = "INJOUT3MO",    
+  "IUD" = "IUDOUT3MO",     
+  "PILL" = "PILLOUT3MO",    
+  "DEPO PROVERA" = "DEPOOUT3MO",    
+  "SAYANA PRESS" = "SAYOUT3MO",  
+  "PROGESTIN PILLS" = "PROPILLOUT3MO",
+  "OTHER" = "OTHEROUT3MO"
+)
+
+countries <- c(
+  "UGANDA",
+  "KENYA",
+  "ETHIOPIA"
+)
+```
+
+## Shiny application
+
+The user interface ("ui") creates a page divided into two sections with `sidebarLayout`: the `sidebarPanel` holds our two dropdown menus and some help text, while the `mainPanel` holds the dynamic output rendered by `renderTmap` in our application's "server" function.
+
+The "server" function takes `input` from the user interface. When a user chooses a country, it picks the correct simple features object `map` and then groups the data by region / province using the appropriate geographic variable (`GEOUGGEN`, `GEOKE`, or `GEOET`). Next, it creates a table showing the total number of service providers in each region / province that did and did not experience a recent stockout `N`. It transforms these counts into percentages by region `PCT`, calculates the total number of service providers `TOT`, and attaches that information to `map`.
+
+Everything else is handled by `tmap` functions, including dynamic information rendered as the user clicks, drags, or hovers their mouse over the map.
+
+```{r}
+shinyApp(
+  ui = fluidPage(
+    sidebarLayout(
+      sidebarPanel(
+        selectInput("country", "Choose a country", choices = countries),
+        selectInput("method", "Choose a method", choices = methods),
+        helpText(
+          "Click on any region / province for more information" %>% 
+          em() %>% 
+          strong()
+        ),
+        helpText(
+          "Drag and scroll to resize" %>% 
+          em() %>% 
+          strong()
+        )
+      ), 
+      mainPanel(
+        tmapOutput("map")
+      )
+    )
+  ),
+  server = function(input, output, session){
+    output$map <- renderTmap({
+      if(input$country == "UGANDA"){
+        map <- ug_map
+        groups <- "GEOUGGEN"
+      } else if(input$country == "KENYA"){
+        map <- ke_map
+        groups <- "GEOKE"
+      } else if(input$country == "ETHIOPIA"){
+        map <- et_map
+        groups <- "GEOET"
+      }
+      
+      method <- input$method
+      
+      map <- dat %>%
+        filter(!!sym(method) %in% c(0, 1, 97)) %>% #keep yes, no, don't know
+        group_by(!!sym(groups)) %>% 
+        count(X = !!sym(method) == 0, name = "N") %>%
+        mutate(PCT = 100*N/sum(N)) %>%
+        pivot_wider(
+          id_cols = !!sym(groups),
+          names_from = X,
+          values_from = c(N, PCT)
+        ) %>%
+        mutate(TOT = N_TRUE + N_FALSE) %>%
+        ungroup() %>%
+        rename(
+          name = !!sym(groups),
+          "Pct. SDPs" = PCT_FALSE
+        )  %>% 
+        filter(!is.na(name)) %>%
+        mutate(full_name = as_factor(name) %>% as.character) %>% 
+        left_join(map, ., by = "name") %>%
+        mutate(    
+          id = as_factor(full_name) %>% as.character,
+          name = id,
+          OBJECTID = id
+        ) 
+      
+      tm_shape(map) +
+        tm_basemap(NULL) +
+        tm_polygons(
+          "Pct. SDPs", 
+          alpha = 0.9,
+          border.alpha = 0.3, 
+          palette = c(
+            "#F0E6F0", # gray
+            "#98579B", # pink
+            "#13374C" # blue
+          ),
+          breaks = c(seq(0, 35, by = 5), Inf),
+          popup.vars = c(
+            "SDPs that normally supply (all yrs)" = "TOT",
+            "SDPs with recent stockout (3 mo)" = "N_FALSE",
+            "Pct. of suppliers with recent stockout (3 mo)" = "Pct. SDPs"
+          )
+        )
+    })
+  }
+)
+
+```
+

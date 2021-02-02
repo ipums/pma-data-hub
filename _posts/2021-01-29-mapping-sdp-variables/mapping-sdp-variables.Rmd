@@ -1,0 +1,393 @@
+---
+title: "Mapping Service Delivery Point Data"
+description: |
+  Map spatial variation in the service delivery environment across enumeration areas.
+author:
+  - name: Nina Brooks
+    affiliation: IPUMS PMA Postdoctoral Associate
+    url: http://www.ninarbrooks.com/
+categories:
+  - Individuals in Context
+  - Serivce Delivery Points
+  - Data Manipulation
+  - Mapping
+  - sf
+date: 01-30-2021
+output:
+  distill::distill_article:
+    self_contained: false
+    toc: true
+    toc_depth: 3
+    toc_float: true
+preview: images/bf_fp_map.png
+---
+
+
+```{r setup, echo=F}
+knitr::opts_chunk$set(echo = T, eval = T, message = F)
+options(tibble.print_min=10, tibble.max_extra_cols = 5)
+
+downloadthis::download_dir(
+  path = ".",
+  output_name = basename(getwd()),
+  button_label = "Download this page as R code",
+  button_type = "default",
+  has_icon = T,
+  icon = "fa fa-save"
+)
+```
+
+In our [last post](../2021-01-28-summarize-by-easerved/index.html), we showed how PMA Service Delivery Point (SDP) data can be aggregated to the enumeration area they serve (captured by [EASERVED](https://pma.ipums.org/pma-action/variables/EASERVED)) and linked to individual-level data from a PMA Household and Female survey. In this post, we'll continue thinking about the spatial distribution of SDP summary data. We'll first show how to merge our example data to a GPS dataset obtained from [pmadata.org](https://www.pmadata.org/data/about-data), and we'll then use the new dataset to visualize a few of our variables on a map of Burkina Faso.
+
+# Data
+
+We'll be working with the final `bf_merged` dataset created in the previous post, which is included in the `data` folder when you click with Download button at the top of this page. We'll focus on a handful of `EASEARVED`-level summary variables created in that post:
+
+  * `NUM_METHODS_PROV` - number of methods provided by at least one SDP
+  * `NUM_METHODS_OUT` - number of methods out of stock with at least one SDP
+  * `NUM_METHODS_INSTOCK` - number of methods in-stock with at least one SDP
+  * `NUM_METHODS_OUT3MO` - number of methods out of stock any time in the last 3 months with at least one SDP
+  * `MEAN_OUTDAY` - the mean length of a stockout for any family planning method (measured in days)
+  * `N_SDP` - number of SDPs 
+  
+We'll also use the [URBAN](https://pma.ipums.org/pma-action/variables/URBAN) variable, which identifies whether an EA is in an urban or rural area. 
+
+We'll also be working with the PMA GPS datasets for Burkina Faso. The GPS data include one GPS coordinate per enumeration area. The Burkina Faso Round 5 and 6 surveys sampled the same enumeration areas, which means we can link the GPS data to both rounds. **To use the GPS data you must request access directly from our partners at** [pmadata.org](https://www.pmadata.org/data/about-data). If you want to follow along with this post without accessing the GPS data, we have provided a "toy" GPS dataset in the `data` folder for this post. **The toy data contains randomly sampled locations within Burkina Faso which have no actual relationship to the EAs in the PMA data.** This means none of the interpretations of spatial patterns will hold, but all the code will run.
+
+<aside>
+If you request access to the GPS data, make sure to drop the file into the `data` folder for your local version of this post so you can run everything smoothly.
+</aside>    
+
+The last dataset we'll use in this post are the administrative boundaries for Burkina Faso. Shapefiles with administrative boundaries are widely available for download, but we'll use the
+ones made available from [IPUMS PMA](https://pma.ipums.org/pma/gis_boundary_files.shtml).
+
+
+# Setup
+Make sure you have all of the following packages installed. Once installed, load the packages we'll be using today:
+
+```{r local}
+library(ipumsr)
+library(sf) # primary spatial package
+library(viridis) # for color palettes
+library(tabulator) # for pipe-friendly tabs & cross-tabs
+library(tidyverse)
+```
+
+<aside>
+Check out our posts on <a href="../2020-12-10-get-r-and-packages/index.html#r-packages">R Packages</a> and <a href="../2020-12-10-get-ipums-pma-data/index.html">Loading IPUMS PMA data into R</a>.
+</aside>
+
+Let's start by loading the `bf_merged` data. Remember that we merged the EA-level data into the individual-level data, but the GPS datasets provide coordinates for the enumeration area. So the first thing we'll do is aggregate `bf_merged` to the EA-level, and assign the aggregated data to a new object called `bf_ea`. 
+
+```{r}
+bf_merged <- readRDS("data/bf_merged.rds") 
+
+bf_ea <- bf_merged %>%
+  dplyr::select(-PERSONID) %>%
+  group_by(EAID, SAMPLE) %>%
+  summarise_all(mean, na.rm = T) %>%
+  filter(!is.na(N_SDP)) 
+```
+
+<aside>
+In this example, we'll exclude any EAs where no facilities in our SDP sample provide services with <b>filter(!is.na(N_SDP))</b>
+</aside>
+
+Now, let's read in the GPS data from the data folder and see what the it contains. 
+
+```{r}
+gps <- read_csv("data/bf_gps_fake.csv")
+gps
+```
+
+<aside>
+If you requested access to the actual GPS datasets, make sure to replace the `bf_gps_fake.csv` with the filename of the real data!
+</aside>
+
+```{r, echo = F}
+gps_real <- read_csv("~/R/pma_data/spatial/PMA_BF_GPS_v1_24Jul2018.csv")
+```
+
+The `gps` data has 7 variables:
+
+  * `PMACC`: the country code 
+  * `PMAYEAR`: the 4-digit year of data collection
+  * `REGION`: sub-national administrative division name
+  * `EA_ID`: the enumeration area ID (and how we'll merge this data into other PMA datasets)
+  * `GPSLAT`: the displaced EA's centroid latitude coordinate in decimal degrees
+  * `GPSLONG`: the displaced EA's centroid longitude coordinate in decimal degrees
+  * `DATUM`: the coordinate reference system and geographic datum. This variable is always "WGS84" for the World Geodetic System 1984.
+
+<aside>
+Note that while the `PMAYEAR` variable is 2017 for all EAs, because the same EAs were sampled in the 2017 (Round 5) and 2018 (Round 6) surveys, we can link these coordinates to both samples.
+</aside>
+
+<!-- <aside> -->
+<!-- The `REGION` variable corresponds to the first administrative level in a given country or `adm_1` in GADM language. -->
+<!-- </aside> -->
+
+Note that the `GPSLAT` and `GPSLONG` are **displaced** coordinates of the EA centroid. This is because PMA randomly displaces the geographic coordinates to preserve the privacy of survey respondents. Coordinates are displaced randomly by both angle and distance. Urban EAs are displaced from their true location up to 2 km. Rural EAs are displaced from their true location up to 5 km. Additionally, a random sample of 1% of rural EAs are displaced up to 10km. The PMA GPS data come with documentation that explains the displacement in more detail. The primary spatial package we'll use is simple features or [sf](https://r-spatial.github.io/sf/). We'll use `sf::st_as_sf()` to convert the GPS data to a spatial data object (known as a simple feature collection).
+
+
+```{r}
+gps <- gps %>%
+    rename(EAID = EA_ID) %>% # rename to be consistent with other PMA data
+    st_as_sf(
+      coords = c("GPSLONG", "GPSLAT"), 
+      crs = 4326) # 4326 is the coordinate reference system (CRS) identifier for WGS84
+gps
+```
+
+```{r, echo = F}
+rm(gps)
+gps <- gps_real %>%
+    rename(EAID = EA_ID) %>% # rename to be consistent with other PMA data
+    st_as_sf(
+      coords = c("GPSLONG", "GPSLAT"), 
+      crs = 4326) # 4326 is the coordinate reference system (CRS) identifier for WGS84
+rm(gps_real)
+```
+Now that `gps` is a simple features object, we've lost the `GPSLAT` and `GPSLONG` variables and gained a variable called `geometry`, which contains the spatial information for this data. 
+
+<!-- <aside> -->
+<!-- PMA follows the same displacement protocol as the Demographic and Health Surveys, for those familiar the the DHS spatial data. -->
+<!-- </aside> -->
+
+The last thing we need is the Burkina Faso shapefile, which are available from [IPUMS PMA](https://pma.ipums.org/pma/gis_boundary_files.shtml). You'll need to download the shapefile (`geobf.zip`) from the IPUMS site and save it in the appropriate directory to use it. We've also provided it in the `data` folder for this post in a sub-folder called `geobf`. We can use `sf::st_read()` to read the shapefile into R as an `sf` object. Note that here the `geometry` variable is a `POLYGON`, whereas in the `gps` data it is a `POINT`.
+
+<aside>
+Note that what we call a `shapefile` is actually a collection of many files. More on this in a future post! But for now, just know that you'll need all the files that come in the zipped download and can refer to the collectively with "geobf.shp".
+</aside>
+
+
+```{r, results='hide'}
+bf_shp <- st_read("data/geobf/geobf.shp") 
+```
+
+
+# Merge and Map
+Now that we have all our data, we'll show you how to map variables... but before we do that, let's do some basic, exploratory mapping.
+
+## Basic Maps
+[ggplot2](https://ggplot2.tidyverse.org/) has support for `sf` objects, which makes it really easy to map things using the `ggplot2` system. `ggplot2::geom_sf()` will automatically identify what kind of spatial data you're plotting and handle it appropriately. For example, let's plot the `gps` data (which are points) and the administrative region (which are polygons).
+
+<aside>
+<b>ggplot2</b> is included when you load <b>library(tidyverse)</b>
+</aside>
+
+```{r}
+# Plot EA centroids
+ggplot() +
+  geom_sf(data = gps)
+
+# Plot regions of Burkina Faso
+ggplot() +
+  geom_sf(data = bf_shp)
+
+```
+
+The building-block approach of `ggplot2` ("Grammar of Graphics") also makes it really easy to layer different spatial features on the same map.
+
+```{r}
+# Plot regions of Burkina Faso & EA centroids on the same map
+ggplot() +
+  geom_sf(data = bf_shp) +
+  geom_sf(data = gps)
+  
+```
+
+## Merge GPS and SDP Data
+To map the EA-level variables constructed in the last post, we need to merge the `bf_ea` data and the `gps` data by `EAID`. First, let's rename the `EASEARVED` variable to match the GPS data and then use a `dplyr::right_join` to merge in the SDP data. We need to use a `right_join()` because the sf object must be listed first in our join command to retain the sf class, but we want to ensure that all rows from `bf_ea` are preserved.
+
+<aside>
+Remember, the SDP data contains information from both 2017 and 2018, while the GPS data has a single observation per EA.
+</aside>
+
+```{r}
+bf_ea <- right_join(gps, bf_ea, by = "EAID")
+
+```
+
+## Map SDP data
+Remember, the `bf_ea` data contains information from 2017 & 2018 for the same EA, which can clog up the map depending on how we use this information. To start out, let's use only the 2017 data and add information about the number of service delivery providers that serve a given EA (`N_SDP`). By passing `N_SDP` to the size aesthetic, we can more easily visualize how EAs vary in their access to service delivery providers.
+
+```{r}
+bf_ea2017 <- bf_ea %>%
+  filter(SAMPLE == 85405) # this sample corresponds to the 2017 wave
+
+ggplot() +
+  geom_sf(data = bf_shp) +
+  geom_sf(data = bf_ea2017, 
+          aes(size = N_SDP),
+          alpha = 0.4) 
+
+
+```
+
+From the map, it looks like there may be a few locations where there EAs are both close together and served by many SDPs, which are likely in urban areas. For example, the capital of Burkina Faso, Ouagadougou, is in the center of the map where there are a number of EAs on top of each other. But, it's a little hard to see the variation in size when there are so many values for `N_SDP` and so many EAs on top of each other. Let's do two things to make this more readable. First, we'll create smaller categories of the `N_SDP` variable, and second, we'll map the `URBAN` variable to the color aesthetic.
+
+```{r}
+bf_ea2017 <- bf_ea2017 %>%
+  mutate(
+    N_SDP_CAT = case_when(
+      N_SDP <= 2 ~ 1,
+      N_SDP >2 & N_SDP <= 4 ~ 2,
+      N_SDP >4 ~ 3),
+    N_SDP_CAT = factor(N_SDP_CAT,
+                       levels = c(1, 2, 3),
+                       labels = c("Low", "Mid", "High"),
+                       ordered = T), # needs to be an ORDERED factor to map to the size aesthetic
+    MEAN_OUTDAY = ifelse(is.na(MEAN_OUTDAY), 0, MEAN_OUTDAY),
+    URBAN = factor(URBAN, 
+                   levels = c(0,1),
+                   labels = c("Rural", "Urban"))
+  )
+
+
+# let's take a look at the distribution of this new categorical variable
+bf_ea2017 %>% 
+  tab(URBAN, N_SDP_CAT)
+
+ggplot() +
+  geom_sf(data = bf_shp) +
+  geom_sf(data = bf_ea2017, 
+          aes(size = N_SDP_CAT,
+              color = URBAN),
+          alpha = 0.4) +
+  scale_color_viridis_d() 
+
+```
+From this map we can see that urban areas are generally served by more SDPs -- in fact, no rural EAs fall into the "High" category -- although the difference is perhaps not as stark as one might have expected. But, what is the service environment like? Do urban areas have more stockouts than rural areas? Do SDPs in urban areas offer a greater selection of family planning methods? Did the service environment change between 2017 and 2018? Mapping can shed a lot of light on these questions. 
+
+Let's look at the `NUM_METHODS_PROV` variable created in the last post. This variable captures the number of family planning methods provided by at least one SDP that serves a given EA.
+
+```{r}
+
+bf_ea2017 %>%
+  tab(NUM_METHODS_PROV) %>%
+  arrange(NUM_METHODS_PROV)
+
+```
+
+Since there is not a large range of number of FP methods provided, let's dichotomize this so we can map it to the `shape` aesthetic.
+
+```{r}
+bf_ea2017 <- bf_ea2017 %>%
+  mutate(
+    NUM_METHODS_CAT = case_when(
+      NUM_METHODS_PROV <= 9 ~ 1,
+      NUM_METHODS_PROV >9  ~ 2),
+    NUM_METHODS_CAT = factor(NUM_METHODS_CAT,
+                       levels = c(1, 2),
+                       labels = c("Low (<=9)", "High (>9)"),
+                       ordered = T)
+  )
+
+
+ggplot() +
+  geom_sf(data = bf_shp) +
+  geom_sf(data = bf_ea2017, 
+          aes(size = NUM_METHODS_CAT,
+              shape = URBAN,
+              color = NUM_METHODS_OUT3MO),
+          alpha = 0.4) +
+  scale_color_viridis_c() 
+
+
+```
+
+# Putting it All Together
+Now we have a map that shows spatial variation in availability of different methods of family planning and prevalence of stock-outs, as well as demonstrates how these characteristic differ across urban vs. rural EAs. It's super quick to make a basic map like this, but let's clean up a few things to make it look nicer. 
+
+```{r, layout="l-body-outset", fig.width=7, fig.height=4.5}
+ggplot() +
+  geom_sf(data = bf_shp, fill = "#f2f2f5") +
+  geom_sf(data = bf_ea2017, 
+          aes(size = NUM_METHODS_CAT,
+              shape = URBAN,
+              color = NUM_METHODS_OUT3MO),
+          alpha = 0.4) +
+  scale_color_viridis_c(direction = -1) + # reversing the direction makes the high #s stand out more
+  labs(title = "Spatial Variation in Family Planning Service Environment",
+       subtitle = "Burkina Faso 2017",
+       caption = "Source: IPUMS PMA",
+       shape = "",
+       size = "Methods\nProvided",
+       color = "Out of Stock\n(Past 3 Months)",
+       x = NULL,
+       y = NULL) +
+  theme_minimal() +
+  theme(
+    axis.line = element_blank(),
+    axis.text.x = element_blank(),
+    axis.text.y = element_blank(),
+    axis.ticks = element_blank(),
+    axis.title.x = element_blank(),
+    axis.title.y = element_blank())
+```
+
+```{r, echo = F}
+ggsave(filename = "images/bf_fp_map.png", height = 4.5, width = 7)
+```
+
+This map suggests there is spatial correlation to the stockouts -- with 2 regions responsible for the majority of EAs with stockouts. It also looks like these EAs tend to have more methods provided by the SDPs that serve them. Finally, let's use both years of data and see if there is any temporal variation. To do this, we'll use the original `bf_ea` dataset (instead of `sdp2017`) and re-create the same `NUM_METHODS_CAT` factor variable that dichotomizes the `NUM_METHODS_PROV` variable. Then, we'll use `facet_wrap()` to make a multi-panel plot, with one panel per year.
+
+```{r, layout="l-body-outset", fig.width=7, fig.height=4}
+bf_ea <- bf_ea %>%
+  mutate(
+    NUM_METHODS_CAT = case_when(
+      NUM_METHODS_PROV <= 9 ~ 1,
+      NUM_METHODS_PROV >9  ~ 2),
+    NUM_METHODS_CAT = factor(NUM_METHODS_CAT,
+                       levels = c(1, 2),
+                       labels = c("Low (<=9)", "High (>9)"),
+                       ordered = T),
+    YEAR = case_when(
+      SAMPLE == 85405 ~ 2017,
+      SAMPLE == 85408 ~ 2018
+    ),
+    URBAN = factor(URBAN, 
+                   levels = c(0,1),
+                   labels = c("Urban", "Rural"))
+  )
+
+ggplot() +
+  geom_sf(data = bf_shp, fill = "#f2f2f5") +
+  geom_sf(data = bf_ea, 
+          aes(size = NUM_METHODS_CAT,
+              shape = URBAN,
+              color = NUM_METHODS_OUT3MO),
+          alpha = 0.4) +
+  facet_wrap(~ YEAR) +
+  # reversing the direction makes the high #s stand out more
+  scale_color_viridis_c(direction = -1) + 
+  guides(color = guide_colorbar(barheight = .75,
+                                barwidth = 4.5,
+                                label.position = "top",
+                                label.hjust = 0)) + 
+  labs(title = "Spatial Variation in Family Planning Service Environment",
+       subtitle = "Burkina Faso 2017-2018",
+       caption = "Source: IPUMS PMA",
+       shape = "",
+       size = "Methods\nProvided",
+       color = "# Methods\nOut of Stock\n(Past 3 Months)",
+       x = NULL,
+       y = NULL) +
+  theme_minimal() +
+  theme(
+    axis.line = element_blank(),
+    axis.text.x = element_blank(),
+    axis.text.y = element_blank(),
+    axis.ticks = element_blank(),
+    axis.title.x = element_blank(),
+    axis.title.y = element_blank(),
+    legend.title = element_text(size = 8),
+    legend.position = "bottom") 
+
+```
+
+With the 2018 data included, it looks like the service environment may have improved between 2017 and 2018 with fewer stockouts. However, it also looks the EAs that faced more stockouts in 2017 are not always the same as those facing stockouts in 2018. **But, there is still a spatial pattern to the stockouts in 2018.** It also looks like some EAs had fewer family planning methods available from SDPs in 2018 than in 2017, specifically in the western part of the country.
+
+Future posts may explore other supply-side factors that could influence the SDPs (and look at how these change over time) or examine demand-side factors by merging in the individual-level data.
+
+As always, let us know what kinds of questions about fertility and family planning you're answering -- especially if you're doing anything spatial! 

@@ -1,0 +1,172 @@
+---
+title: "Getting Started with R"
+description: |
+  How to download R for free and install some of the R packages used on this blog
+author:
+  - name: Matt Gunther
+    affiliation: IPUMS PMA Senior Data Analyst 
+categories:
+  - R Tips
+  - R Packages
+date: 11-2-2020
+output:
+  distill::distill_article:
+    self_contained: false
+    toc: true
+---
+
+# Why analyze PMA data with R?
+
+Like all IPUMS data projects, IPUMS PMA data is available free of charge to users who agree to our [terms of use](https://ipums.org/about/terms). That's because we believe that cost and institutional affiliation should not be barriers to answering pressing concerns around women's health. 
+
+**In fact, users can analyze IPUMS PMA data with any software they like!** We've chosen to highlight R, in particular, because it is also free and popular with data analysts throughout the world. It's available for Windows, MacOS, and a wide variety of UNIX platforms and similar systems (including FreeBSD and Linux).
+
+<aside>
+<strong>Non-R users:</strong> IPUMS data extracts are available as CSV or fixed-width DAT with syntax files formatted for SPSS, Stata, and SAS.
+</aside>
+
+## Getting started with R
+
+To get a copy of R for yourself, visit the [Comprehensive R Archive Network](https://cloud.r-project.org/) (CRAN) and choose the right download link for your operating system. 
+
+If you're new to R (or want to refresh your skills), we recommend the excellent, free introductory text [R for Data Science](https://r4ds.had.co.nz/index.html). It also introduces [tidyverse](./index.html#tidyverse) conventions, which we use throughout this blog.
+
+### Our favorite resources
+
+* [R for Data Science](https://r4ds.had.co.nz/index.html), for beginners
+* [Advanced R](https://adv-r.hadley.nz/), for a deeper dive
+* [RSpatial](https://rspatial.org/), for analysis with spatial data
+* [ggplot2](https://ggplot2-book.org/), for data visualization
+* [Mastering Shiny](https://mastering-shiny.org/), for interactive applications
+* [R Markdown: The Definitive Guide](https://bookdown.org/yihui/rmarkdown/), for producing annotated code, word documents, presentations, web pages, and more
+* [R-bloggers](https://www.r-bloggers.com/), for regular news and tutorials 
+
+<aside>
+```{r}
+knitr::include_graphics("images/Rlogo.png")
+```
+© 2016 The R Foundation (<a href="https://creativecommons.org/licenses/by-sa/4.0/">CC-BY-SA 4.0</a>)
+</aside>
+
+## Do I really need statistical software? 
+
+If you're new to data analysis, you might wonder exactly what you're going to find in a toolkit like R. 
+
+Plenty of people come to R after working with more common types of data analysis software, like Microsoft Excel or other spreadsheet programs. If you wanted to, you could absolutely download a CSV file from the IPUMS PMA extract system and open it in Excel. You would find individual **respondents in rows** and their responses for **variables in columns**, and you could make use of built-in spreadsheet functions to do things like:
+
+* Calculate and visualize the distribution of a variable
+* Build pivot tables and graphs examining basic relationships between variables
+* Create new variables of your own that combine data from several variables
+
+However, you might also notice that a spreadsheet comes with certain limitations:
+
+* There is no variable "metadata", including labels for the variables and each response option. For example, you might see that the responses to a certain variable include the numbers 0, 1, and 99 - what do these values actually mean?
+* You might find yourself repeating the same "point" and "click" procedure over and over. Or, maybe you've had to build a library of custom *macro* functions on your own to help automate those procedures. 
+* While you can perform arithmetic with built-in functions, there is little support for more advanced statistical procedures 
+* Graphics are limited within a set of pre-built templates
+* Merging data from external sources (like spatial data) can be very tricky
+
+Statistical software is designed specifically to address these and other issues related to data cleaning and analysis. Learning a program like R takes *a lot of practice*, but doing so will almost certainly make your work much more efficient!
+
+## Are there alternatives?
+
+Yes! Many data analysts use proprietary statistical software like [Stata](https://www.stata.com/), [SAS](http://www.sas.com/en_us/home.html), or [SPSS](https://www.ibm.com/products/spss-statistics). These tools are also powerful, and you may even find them easier to use than R.
+
+<aside>
+Coming soon, we hope to include Stata code for many of the blog posts currently written in R.
+</aside>
+
+Beyond price, R has a few additional advantages that make it a particularly useful tool for working with PMA data:
+
+* **Community support:** R users are particularly active on forums like [Stack Overflow](https://stackoverflow.com/) and [R-bloggers](https://www.r-bloggers.com/). Groups like [R-ladies](https://rladies.org/) even organize in-person meetups in cities around the world to help promote inclusion within the R community. 
+* **Customizability:** Because R is open-source, you can change just about anything you like! With a little practice, you'll be able to create functions and graphics that perfectly match your own needs.
+* **Beyond statistics:** You can use R to build a website (like this one), manage and share a code repository on GitHub, scrape and compile a social media database, or automatically generate word documents, slide presentations, and more! There are practically endless ways to use functional programming in R that have nothing to do with statistics at all. 
+
+If you're a beginner, learning R can be a daunting task. *Keep at it!* And never hesitate to ask questions. 
+
+# RStudio
+
+We **strongly** recommend running R within RStudio, an integrated development environment (IDE) designed to make your experience with R *much easier*. Some of the reasons we use it, ourselves:
+
+* Includes a multi-pane window that puts your R console, source code, output, and help files all in one place
+* Syntax highlighting and code completion
+* Support for [R Projects](https://support.rstudio.com/hc/en-us/articles/200526207-Using-Projects), a crucial approach to organizing your work and sharing it with others
+* Includes [RMarkdown](https://rmarkdown.rstudio.com/), an R package that allows you write text-based documents with embedded snippets of code that can be passed directly to your R console
+* Coming soon: tools like the [command palette](https://blog.rstudio.com/2020/10/14/rstudio-v1-4-preview-command-palette/), an improved [package manager](https://blog.rstudio.com/2020/07/01/announcing-public-package-manager/), and [integrated citation management](https://blog.rstudio.com/2020/11/09/rstudio-1-4-preview-citations/) 
+* Like R, it is available at **no cost** for users on Windows, Mac, and Linux
+
+<aside>
+This blog is, itself, an R Project with an individual R Markdown file for each page on the site. Look for a <strong>download button</strong> at the top of every post: you can download the original R Markdown file, open it in RStudio, and run all of the included code.
+</aside>
+
+# R packages
+
+An R package is a collection of functions created by other R users that you can download and install for yourself. Packages can be distributed in many ways, but **all of the packages we highlight on this blog can be downloaded from CRAN** (the same resource used to download "base" R). A package like `ipumsr` can be downloaded from CRAN by typing the following function into the R console:
+
+<aside>
+This function saves package files in your default "library" location. If you're using a Linux machine and don't have root access, you'll need to <a href="https://www.r-bloggers.com/2010/11/installing-r-packages/">set up R to save packages to a location where you're able to write files.</a>
+</aside>
+
+```{r, echo=T, eval=F}
+install.packages("ipumsr")
+```
+
+Packages also come with help files detailing the purpose and possible inputs (or "arguments") of each included function. Other included metadata explains what version of R you'll need to use the package, and also whether the package borrows functions from any other packages that should also be installed (usually these are called "dependencies"). 
+
+In order to access the functions and help files for a package, you need to load it after installation with:
+
+```{r, echo=T, eval=F}
+library(ipumsr)
+```
+
+**On this blog, we will often show functions together with their package like this:**
+
+```{r, eval=F, echo=T}
+ipumsr::read_ipums_micro(
+  ddi = "~/Downloads/pma_00001.xml",
+  data_file = "~/Downloads/pma_00001.dat.gz"
+)
+```
+
+The function `read_ipums_micro` comes from the package `ipumsr`. *It is not necessary for you to include the package each time you call a function (as long as you've already loaded the package with `library()`);* we're using this notation simply as a reminder (in case you want to consult the original package documentation). 
+
+<aside>
+You can use the <strong>package::function()</strong> notation if you ever want to access a function from a package without loading everything else in the package.
+</aside>
+
+## Essentials 
+
+Here are the packages you'll need to install to reproduce the code on this blog:
+
+### ipumsr
+
+The [ipumsr](https://tech.popdata.org/ipumsr/) package contains functions that make it easy to load IPUMS PMS data into R (mainly `read_ipums_micro`).
+
+It also contains functions that will return variable metadata (like the variable descriptions you see while browsing for data on [pma.ipums.org](https://pma.ipums.org).
+
+### tidyverse
+
+The [tidyverse](https://www.tidyverse.org/packages/) package actually installs a family of related packages, including:
+
+* [ggplot2](https://ggplot2.tidyverse.org/), for data visualization
+* [dplyr](https://dplyr.tidyverse.org/), for data manipulation
+* [tidyr](https://tidyr.tidyverse.org/), for data tidying
+* [readr](https://readr.tidyverse.org/), for data import
+* [purrr](https://purrr.tidyverse.org/), for functional programming
+* [tibble](https://tibble.tidyverse.org/), for tibbles (a modern re-imagining of data frames)
+* [stringr](https://github.com/tidyverse/stringr), for strings
+* [forcats](https://github.com/hadley/forcats), for factors
+
+**This blog uses tidyverse functions and syntax wherever possible** because so-called "tidy" conventions are designed with the expressed purpose of making code and console output more **human readable**. Sometimes, human readability imposes a performance cost: in our experience, IPUMS PMA datasets are small enough that this is not an issue.
+
+<aside>
+For larger datasets, we recommend exploring the package <a href="https://cran.r-project.org/web/packages/data.table/vignettes/datatable-intro.html">data.table</a>.
+</aside>
+
+### shiny
+
+Interactive graphics shown throughout this blog are built with the [shiny](https://shiny.rstudio.com/) package.
+
+## Watch for updates here 
+
+*We may add more package suggestions for future posts!*

@@ -1,0 +1,481 @@
+---
+title: "Recode and Summarize Variables from Multiiple Response Questions"
+description: |
+  Use dplyr::across to summarize variables with a similar naming pattern.
+author:
+  - name: Matt Gunther
+    affiliation: IPUMS PMA Senior Data Analyst
+categories:
+  - Individuals in Context
+  - Data Manipulation
+  - Serivce Delivery Points
+  - dplyr::across
+  - dplyr::summarize
+  - ipumsr::lbl_relabel
+  - ipumsr::lbl_na_if
+date: 01-28-2021
+output:
+  distill::distill_article:
+    self_contained: false
+    toc: true
+    toc_depth: 3
+    toc_float: true
+---
+
+```{r setup, echo=F}
+knitr::opts_chunk$set(echo = TRUE)
+
+downloadthis::download_dir(
+  path = ".",
+  output_name = basename(getwd()),
+  button_label = "Download this page as R code",
+  button_type = "default",
+  has_icon = T,
+  icon = "fa fa-save"
+)
+```
+
+In our [last post](../2021-01-26-sdp-data/index.html), we introduced PMA Service Delivery Point (SDP) data as an important resource for understanding the health services environment experienced by individuals sampled in PMA Household and Female data. For our second post in this [Individuals in Context](../../index.html#category:Individuals_in_Context) series, we'll now take deeper dive into one of the important topics in SDP data: the range and availability of contraceptive methods provided at each facility. 
+
+A common feature of the variables in this topic - and in many other topics - is that you'll find several binary indicators constructed from the same **multiple resposne** item on the SDP questionnaire. We'll see that IPUMS PMA uses a common naming convention to help users group these variables together for use in functions like [dplyr::across](https://dplyr.tidyverse.org/reference/across.html).
+
+# SDP Multiple Response Questions
+
+Every SDP respondent receives a question associated with the variable [FPOFFERED](https://pma.ipums.org/pma-action/variables/FPOFFERED), which indicates whether to facility usually offers family planning services or products:
+
+```
+Do you usually offer family planning services / products?
+
+  [] Yes
+  [] No
+  [] No response
+```
+
+If yes, they'll then receive a multiple response-type question asking about the contraceptive methods provided to clients. The range of options provided on the questionnaire may vary across samples, but most look something like this:
+
+```
+Which of the following methods are provided to clients at this facility? 
+
+  [] Female sterilization
+  [] Male sterilization
+  [] Implant
+  [] IUD
+  [] Injectables - Depo Provera
+  [] Injectables - Sayana Press
+  [] Pill
+  [] Emergency Contraception
+  [] Male Condom
+  [] Female Condom
+  [] Diaphragm
+  [] Foam/Jelly
+  [] Std. Days / Cycle beads
+  [] None of the above
+  [] No response
+```
+
+<aside>
+If the response to <b>FPOFFERED</b> was not "Yes", this question will be skipped and marked "NIU (not in universe)".
+</aside>
+
+This is a multiple response question: each method in the list could be answered individually (`Yes` or `No`), or the respondent could reply `None of the above` or provide `No response`. The IPUMS PMA extract system generates one variable for each of the methods in the list:
+
+  * [FSTPROV](https://pma.ipums.org/pma-action/variables/FSTPROV)
+  * [MSTPROV](https://pma.ipums.org/pma-action/variables/MSTPROV)
+  * [IMPPROV](https://pma.ipums.org/pma-action/variables/IMPPROV)
+  * [IUDPROV](https://pma.ipums.org/pma-action/variables/IUDPROV)
+  * [DEPOPROV](https://pma.ipums.org/pma-action/variables/DEPOPROV)
+  * [SAYPROV](https://pma.ipums.org/pma-action/variables/SAYPROV)
+  * [PILLPROV](https://pma.ipums.org/pma-action/variables/PILLPROV)
+  * [EMRGPROV](https://pma.ipums.org/pma-action/variables/EMRGPROV)
+  * [CONPROV](https://pma.ipums.org/pma-action/variables/CONPROV)
+  * [FCPROV](https://pma.ipums.org/pma-action/variables/FCPROV)
+  * [DIAPROV](https://pma.ipums.org/pma-action/variables/DIAPROV)
+  * [FJPROV](https://pma.ipums.org/pma-action/variables/FJPROV)
+  * [CYCBPROV](https://pma.ipums.org/pma-action/variables/CYCBPROV)
+  
+The questionnaire continues for each one of the methods provided at a given facility. Next, it checks for the current availability of each of the provided methods:
+
+```
+You mentioned that you typically provide the [METHOD] at this facility,
+can you show it to me? If no, probe: Is the [METHOD] out of stock today?
+
+  [] In-stock and observed
+  [] In-stock but not observed
+  [] Out of stock
+  [] No Response
+```
+
+The variables associated with each response end with the same suffix `OBS`:
+
+  * [IMPOBS](https://pma.ipums.org/pma-action/variables/IMPOBS)
+  * [IUDOBS](https://pma.ipums.org/pma-action/variables/IUDOBS)
+  * [DEPOOBS](https://pma.ipums.org/pma-action/variables/DEPOOBS)
+  * [SAYOBS](https://pma.ipums.org/pma-action/variables/SAYOBS)
+  * [PILLOBS](https://pma.ipums.org/pma-action/variables/PILLOBS)
+  * [EMRGOBS](https://pma.ipums.org/pma-action/variables/EMRGOBS)
+  * [CONOBS](https://pma.ipums.org/pma-action/variables/CONOBS)
+  * [FCOBS](https://pma.ipums.org/pma-action/variables/FCOBS)
+  * [DIAOBS](https://pma.ipums.org/pma-action/variables/DIAOBS)
+  * [FJOBS](https://pma.ipums.org/pma-action/variables/FJOBS)
+  * [CYCBOBS](https://pma.ipums.org/pma-action/variables/CYCBOBS)
+
+<aside>
+Sterilization methods were not included in this question.
+
+Note: if a given method was not provided at a facility, it would be skipped and marked <b>"NIU (not in universe)"</b>.
+
+You can always visit a variable's <b>Universe</b> tab for details.
+</aside>
+
+If a facility *did* have a particular method in-stock, it received a question asking whether supplies were unavailable any time in the previous three months:
+
+```
+Has the [METHOD] been out of stock at any time in the last 3 months?
+
+  [] Yes 
+  [] No 
+  [] Don't know
+  [] No response
+```
+
+This question becomes a series of variables ending with the suffix `OUT3MO`:
+
+  * [IMPOUT3MO](https://pma.ipums.org/pma-action/variables/IMPOUT3MO)
+  * [IUDOUT3MO](https://pma.ipums.org/pma-action/variables/IUDOUT3MO)
+  * [DEPOOUT3MO](https://pma.ipums.org/pma-action/variables/DEPOOUT3MO)
+  * [SAYOUT3MO](https://pma.ipums.org/pma-action/variables/SAYOUT3MO)
+  * [PILLOUT3MO](https://pma.ipums.org/pma-action/variables/PILLOUT3MO)
+  * [EMRGOUT3MO](https://pma.ipums.org/pma-action/variables/EMRGOUT3MO)
+  * [CONOUT3MO](https://pma.ipums.org/pma-action/variables/CONOUT3MO)
+  * [FCOUT3MO](https://pma.ipums.org/pma-action/variables/FCOUT3MO)
+  * [DIAOUT3MO](https://pma.ipums.org/pma-action/variables/DIAOUT3MO)
+  * [FJOUT3MO](https://pma.ipums.org/pma-action/variables/FJOUT3MO)
+  * [CYCBOUT3MO](https://pma.ipums.org/pma-action/variables/CYCBOUT3MO)
+
+<aside>
+Again, sterilization methods were not included in this question.
+
+Note: if a given method <i>was not</i> in-stock at a facility where it's normally provided, it would be skipped and marked <b>"NIU (not in universe)"</b>.
+</aside>
+
+On the other hand, if a facility that normally provides a given method *did not* have supplies in-stock during the interview, it received a different question about the duration of the current stockout:
+
+```
+How many days has the [METHOD] been out of stock?
+
+  Number of days____
+```
+
+The resulting variables - each ending with the suffix `OUTDAY` - take an integer value representing the stockout duration in days (except where the value is a non-response code, see [below](#recoding-variables-with-ipumsr)):
+
+  * [IMPOUTDAY](https://pma.ipums.org/pma-action/variables/IMPOUTDAY)
+  * [IUDOUTDAY](https://pma.ipums.org/pma-action/variables/IUDOUTDAY)
+  * [DEPOOUTDAY](https://pma.ipums.org/pma-action/variables/DEPOOUTDAY)
+  * [SAYOUTDAY](https://pma.ipums.org/pma-action/variables/SAYOUTDAY)
+  * [PILLOUTDAY](https://pma.ipums.org/pma-action/variables/PILLOUTDAY)
+  * [EMRGOUTDAY](https://pma.ipums.org/pma-action/variables/EMRGOUTDAY)
+  * [CONOUTDAY](https://pma.ipums.org/pma-action/variables/CONOUTDAY)
+  * [FCOUTDAY](https://pma.ipums.org/pma-action/variables/FCOUTDAY)
+  * [DIAOUTDAY](https://pma.ipums.org/pma-action/variables/DIAOUTDAY)
+  * [FJOUTDAY](https://pma.ipums.org/pma-action/variables/FJOUTDAY)
+  * [CYCBOUTDAY](https://pma.ipums.org/pma-action/variables/CYCBOUTDAY)
+
+<aside>
+Again, sterilization methods were not included in this question.
+
+Note: if a given method <i>was</i> in-stock at a facility where it's normally provided, it would be skipped and marked <b>"NIU (not in universe)"</b>.
+</aside>
+
+# Setup: Load an Example Dataset into R
+
+As you can see, we're left with quite a few variables from just these 4 questions! That's very useful if you're interested in the availability of one method, in particular, **but what if you want to get a picture of the full range of methods provided at a particular facility?**
+
+Fortunately, the repeated use of variable suffixes (`PROV`, `OBS`, `OUT3MO`, and `OUTDAY`) make these variables highly suitable for column-wise processing with [dplyr::across](https://dplyr.tidyverse.org/reference/across.html). 
+
+Let's start with an example data extract containing all of the variables listed above, collected from just two samples:
+
+  * Burkina Faso - 2018 R6
+  * Burkina Faso - 2017 R5
+
+Once you've downloaded an extract, open RStudio and load the packages [tidyverse](https://tidyverse.tidyverse.org/) and
+[ipumsr](http://tech.popdata.org/ipumsr/):
+
+```{r, results='hide'}
+library(tidyverse)
+library(ipumsr)
+```
+
+<aside>
+Check out our posts on <a href="../2020-12-10-get-r-and-packages/index.html#r-packages">R Packages</a> and <a href="../2020-12-10-get-ipums-pma-data/index.html">Loading IPUMS PMA data into R</a>.
+</aside>
+
+Next, use the file paths for your data extract to load it into R (the data for this example can also be found in the `data` folder when you use the Download button at the top of this page).
+
+```{r, results='hide'}
+sdp <- ipumsr::read_ipums_micro(
+  ddi = "data/pma_00008.xml",
+  data = "data/pma_00008.dat.gz"
+)
+```
+
+<aside>
+Change to file paths to match your own extract. You can also use the example extract included in the <b>data</b> folder when you download this post.
+</aside>
+
+Using `dplyr::ends_with`, we'll select only `FACILITYID`, `SAMPLE`, `EAID`, and the variables using one of the four suffixes `PROV`, `OBS`, `OUT3MO`, or `OUTDAY`.
+
+```{r}
+sdp <- sdp %>%  
+  select(
+    FACILITYID,
+    SAMPLE, 
+    EAID, 
+    ends_with("PROV"),
+    ends_with("OBS"),
+    ends_with("OUT3MO"),
+    ends_with("OUTDAY")
+  )
+```
+
+That leaves us with 234 rows - each a facility from one of our two samples - and 49 variables:
+
+```{r, layout = "l-body-outset"}
+sdp
+```
+
+# Recoding Variables with ipumsr
+
+A key feature to remember about IPUMS PMA extracts is that variables often have value labels, which are text labels assigned to the different values taken by a variable. When we load the extract into R with an `ipumsr` function, these variables are imported as `labelled` objects rather than the more common `factor` class of objects. 
+
+<aside>
+<a href="http://tech.popdata.org/ipumsr/articles/value-labels.html">More information</a> on the difference between factors and IPUMS labelled variables.
+</aside>
+
+As a result, IPUMS data users need to take some unusual steps when recoding a variable or handling `NA` values. Happily, the `ipumsr` package provide a few functions (starting with the prefix `lbl_`) that make this process very easy.
+
+Let's take a look at the variable `CONOBS`:
+
+```{r}
+sdp %>% count(CONOBS)
+```
+
+Notice that we have two values representing SDPs with male condoms "in-stock": SDPs where the interviewer personally observed the condoms get `1`, while those where condoms where reported in-stock - but not actually observed by the interviewer - get `2`. 
+
+Depending on your research question, the interviewer's personal observation of each method may or may not be important. You might decide that you'd prefer to **recode** this variable into a simple binary measure that could be easily plugged into a regression model as a dummy variable later on. To do that, you could use the `ipumsr` function [lbl_relabel](http://tech.popdata.org/ipumsr/reference/lbl_relabel.html):
+
+```{r}
+sdp %>% 
+  mutate(CONOBS = lbl_relabel(
+      CONOBS,
+      lbl(1, "In-stock") ~ .val %in% 1:2,
+      lbl(0, "Out of stock") ~ .val == 3
+    )) %>% 
+  count(CONOBS)
+```
+
+That collapses the values `1` and `2` together, and it moves the value `3` ("Out of stock") to `0`. However, we've still got a the values `94` and `99`, which are each a different type of non-response. The easiest strategy here would be to recode any value larger than `90` as `NA`, and we could do that with another `ipumsr` function, [lbl_na_if](http://tech.popdata.org/ipumsr/reference/lbl_na_if.html):
+
+```{r}
+sdp %>% 
+  mutate(
+    CONOBS = lbl_relabel(
+      CONOBS,
+      lbl(1, "in-stock") ~ .val %in% 1:2,
+      lbl(0, "out of stock") ~ .val == 3
+    ),
+    CONOBS = lbl_na_if(
+      CONOBS,
+      ~.val > 90
+    )
+  ) %>% 
+  count(CONOBS)
+```
+
+This works great for our example variable, `CONOBS`. Unfortunately, though, we can't always rely on the rule `~.val > 90` to handle missing responses. For variables like `CONOUTDAY`, a value above 90 could be a valid response: what if a facility experienced a stockout lasting 94 days? For this reason, the non-response values for `CONOUTDAY` are padded with additional digits: 
+
+```{r}
+sdp %>% count(CONOUTDAY)
+```
+
+We could write a different `lbl_na_if` function for our `OUTDAY` variables, but `ipumsr` provides a much nicer workaround: we can specify non-response *labels* rather than *values*, as long as we make sure to use all of the different non-response labels appearing throughout our dataset:
+ 
+```{r}
+sdp %>% 
+  mutate(
+    CONOBS = lbl_relabel(
+      CONOBS,
+      lbl(1, "in-stock") ~ .val %in% 1:2,
+      lbl(0, "out of stock") ~ .val == 3
+    ),
+    CONOBS = lbl_na_if(
+      CONOBS,
+      ~.lbl %in% c(
+        "Not interviewed (SDP questionnaire)",
+        "Don't know",
+        "No response or missing",
+        "NIU (not in universe)"
+      )
+    )
+  ) %>% 
+  count(CONOBS)
+```
+
+Now, we'll be able to recode *all* of our variables with the same pair of functions! To do that, we'll first need to take a look at the column-wise workflow made available by `dplyr::across`.
+
+# Introducing dplyr::across
+
+While there are several ways to apply a function across a set of variables in R, the simplest method comes from a new addition to the `dplyr` package that's loaded when you run `library(tidyverse)`. The function [dplyr::across](https://dplyr.tidyverse.org/reference/across.html) takes two arguments: a function, and a selection of columns where you want that function to be applied. 
+
+<aside>
+<b>dplyr</b> is included when you load <b>library(tidyverse)</b>
+</aside>
+
+Remember that we want collapse the values `1 - In-stock and observed` and `2 - In-stock but not observed` for *all* of the variables ending with `OBS`, not just `CONOBS`. Using `across` and a selection of variables ending with `OBS`, we'll apply the same `lbl_relabel` function we used on `CONOBS` above:
+
+```{r}
+sdp %>% 
+  mutate(
+    across(ends_with("OBS"), ~lbl_relabel(
+      .x,
+      lbl(1, "in-stock") ~ .val %in% 1:2,
+      lbl(0, "out of stock") ~ .val == 3
+    )) 
+  ) %>% 
+  count(CONOBS)
+```
+
+Here, we stick `lbl_relabel` inside a lambda function with syntax from [purrr](https://purrr.tidyverse.org/reference/index.html): the `~` designates a tidy lambda function, which in turn uses `.x` as a kind of pronoun referencing each of the variables returned by `ends_with("OBS")`. We're showing that `CONOBS` still gets recoded as before, but so do all of the other variables in its group! 
+
+We'll use `across` again with `lbl_na_if`, but this time we want to produce `NA` values for *all of the variables in our dataset*. In place of `ends_with("OBS")`, we'll use the selection function `everything()`. This will take care of all the recoding we want to do, so we'll also reassign our data with `sdp <- sdp`:
+
+```{r}
+sdp <- sdp %>% 
+  mutate(
+    across(ends_with("OBS"), ~lbl_relabel(
+      .x,
+      lbl(1, "in-stock") ~ .val %in% 1:2,
+      lbl(0, "out of stock") ~ .val == 3
+    )),
+    across(everything(), ~lbl_na_if(
+      .x,
+      ~.lbl %in% c(
+        "Not interviewed (SDP questionnaire)",
+        "Don't know",
+        "No response or missing",
+        "NIU (not in universe)"
+      )
+    ))
+  )
+```
+
+Let's pick a few variables to check out work:
+
+```{r}
+sdp %>% count(CONOBS)
+sdp %>% count(IMPOBS)
+sdp %>% count(CONOUTDAY)
+sdp %>% count(IMPOUTDAY)
+```
+
+# Summarize Variable Groups by Facility
+
+Everything looks great! Now that we've finished reformatting the data, remember that our ultimate goal is to get some sense of the scope of methods available at a particular facility. 
+
+We'd like to use something like `across` again here, but this time we'll only want to apply our function to a selection of columns *within the same row* (because each row of our dataset represents one facility). To do this, we'll divide the dataset [rowwise](https://dplyr.tidyverse.org/reference/rowwise.html), and then use the related function [c_across](https://dplyr.tidyverse.org/articles/rowwise.html) to apply a calculation across columns within each row.
+
+For instance, suppose we want to create `NUM_METHODS_PROV` to show the total number of methods provided at each facility. Let's look at the `PROV` variables for the first few facilities:
+
+```{r}
+sdp %>% select(ends_with("PROV"))
+```
+
+To calculate `NUM_METHODS_PROV`, we can just find the sum of values across all of the `PROV` variables (thanks to our recoding work, the only possible values here are `1` for "yes", or `0` for "no"). Notice that `c_across` takes only one argument: a selection function like `ends_with("PROV")`. That's because `c_across` works like the familiar concatenate function `c()` used to provide a vector of values to a function like `sum(c(1,2,3))`.
+
+First, use `rowwise()` to signal that we'll only calculate the sum across variables in the same row. Then, use `c_across()` to find the `sum()` of `PROV` variables in each row:
+
+```{r}
+sdp %>% 
+  rowwise() %>% 
+  transmute(NUM_METHODS_PROV = sum(c_across(ends_with("PROV")), na.rm = T))
+```
+
+We can now create a summary variable for each of the four variable groups. Let's create: 
+
+  * `NUM_METHODS_PROV` - number of methods provided 
+  * `NUM_METHODS_INSTOCK` - number of methods in-stock
+  * `NUM_METHODS_OUT3MO` - number of methods out of stock in the last 3 months 
+  * `MEAN_OUTDAY` - the mean length of a stockout for all out of stock methods
+  
+```{r}
+sdp %>% 
+  rowwise() %>% 
+  transmute(
+    NUM_METHODS_PROV = sum(c_across(ends_with("PROV")), na.rm = T),
+    NUM_METHODS_INSTOCK = sum(c_across(ends_with("OBS")), na.rm = T),
+    NUM_METHODS_OUT3MO = sum(c_across(ends_with("OUT3MO")), na.rm = T),
+    MEAN_OUTDAY = mean(c_across(ends_with("OUTDAY")), na.rm = T)
+  )
+```
+
+<aside>
+<b>MEAN_OUTDAY</b> is <b>NaN</b> (not a number) if no methods were out of stock.
+</aside>
+
+# Summarize Variable Groups by EAID
+
+In our [last post](../2021-01-26-sdp-data/index.html), we mentioned that the best use case for SDP data is to aggregate information collected from facilities working in the same geographic sampling units - or **enumeration areas** - used to select individuals for PMA Household and Female samples. In our next post, we'll take a close look at the variable group [EASERVED](https://pma.ipums.org/pma-action/variables/EASERVED), which lists all of the enumeration area codes where a facility is known to provide health services. We'll then introduce a strategy using  [tidyr::pivot_longer](https://tidyr.tidyverse.org/reference/pivot_longer.html) to summarize the full scope of services available to women living in a particular enumeration area. 
+
+For now, let's simply consider all of the sampled facilities *located in* a particular enumeration area. That is, rather than calculating the number of methods provided by *one* facility `NUM_METHODS_PROV`, let's create one variable for each method indicating whether the method was provided by at least one facility in a given enumeration area `EAID` in a given `SAMPLE`. 
+
+For instance, look at the number of facilities providing IUDs in enumeration area `7111` for the Burkina Faso sample collected in 2017:
+
+```{r}
+sdp %>% 
+  filter(EAID == 7111, SAMPLE == 85405) %>% 
+  select(EAID, SAMPLE, FACILITYID, PILLPROV)
+```
+
+We want to use a `summarize` function to create a variable like `ANY_PILLPROV`, which should simply indicate whether any of these four facilities provide contraceptive pills. Three of them *do* provide pills, so we want `ANY_PILLPROV` to be `TRUE`. 
+
+```{r}
+sdp %>% 
+  filter(EAID == 7111, SAMPLE == 85405) %>% 
+  summarize(ANY_PILLPROV = any(PILLPROV == 1))
+```
+
+Now that we're familiar with `across`, we should be able to do the same thing to all `PROV` variables for this particular group of facilities. Let's also introduce a naming convention where we [glue](https://glue.tidyverse.org/) the prefix `ANY_` to the column name referenced by the pronoun `.x`:
+
+```{r}
+sdp %>% 
+  filter(EAID == 7111, SAMPLE == 85405) %>% 
+  summarize(across(ends_with("PROV"), ~any(.x == 1), .names = "ANY_{.col}"))
+```
+
+<aside>
+It looks like <b>none of the sampled facilities in enumeration area 7111 provided emergency contraception in 2017.</b> This could be very important context for understanding the health services available to women sampled from that area!
+</aside>
+
+Let's repeat the same procedure for every enumeration area in each of our samples. Rather than using a `filter` to select one `EAID` in one `SAMPLE`, we'll use `group_by` to work with each `EAID` in each `SAMPLE`.
+
+```{r}
+sdp %>% 
+  group_by(EAID, SAMPLE) %>% 
+  summarize(
+    .groups = "keep",
+    across(ends_with("PROV"), ~any(.x == 1), .names = "ANY_{.col}")
+  )
+```
+
+This is still quite a bit of information! Suppose we want to summarize it even further: let's calculate `NUM_METHODS_PROV` again with our summary output. This time, `NUM_METHODS_PROV` will count the number of methods provided by at least one facility in each group.
+
+```{r}
+sdp %>% 
+  group_by(EAID, SAMPLE) %>% 
+  summarize(
+    .groups = "keep",
+    across(ends_with("PROV"), ~any(.x == 1), .names = "ANY_{.col}")
+  ) %>% 
+  transmute(NUM_METHODS_PROV= sum(c_across(ends_with("PROV")), na.rm = T))
+```
+
+These summaries are exactly the type of SDP data we'd like to attach to a Household and Female dataset! Watch for our next post, where we'll show how to create summaries by *both* `EAID` and `EASERVED`, and then match them to records from female respondents sampled from Burkina Faso in 2017 and 2018. 

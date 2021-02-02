@@ -1,0 +1,400 @@
+---
+title: "Merging Service Delivery Point Data to Household & Female Records"
+description: |
+  Create aggregate measures for women living the areas served by SDPs
+author:
+  - name: Matt Gunther
+    affiliation: IPUMS PMA Senior Data Analyst
+categories:
+  - Individuals in Context
+  - Data Manipulation
+  - Serivce Delivery Points
+  - tidyr::pivot_longer
+date: 01-29-2021
+output:
+  distill::distill_article:
+    self_contained: false
+    toc: true
+    toc_depth: 3
+    toc_float: true
+---
+
+```{r setup, echo=F}
+knitr::opts_chunk$set(echo = TRUE)
+options(tibble.max_extra_cols = 5)
+
+downloadthis::download_dir(
+  path = ".",
+  output_name = basename(getwd()),
+  button_label = "Download this page as R code",
+  button_type = "default",
+  has_icon = T,
+  icon = "fa fa-save"
+)
+```
+
+Welcome to the **third post** in a series all about using PMA Service Delivery Point (SDP) data to better understand [Individuals in Context](../../index.html#category:Individuals_in_Context). In our [last post](../2021-01-28-across-sdp/index.html), we discussed a few of the variable groups related to contraceptive availability, and we showed how to use functions like `dplyr::across` to recode and summarize these variable groups in preparation for merging with Household and Female data.  
+
+Before we dive in, let's quickly revisit the geographic sampling units - or **enumeration areas** - we'll be using to link SDPs with their counterparts in the Household and Female data. 
+
+# Reviewing SDP Sample Design
+
+Remember: the SDP [sample design](../2021-01-26-sdp-data/index.html#sample-design) selects facilities meant to reflect the health service environment experienced by individuals included in Household and Female samples. *If you were designing survey with this goal in mind, how would you select facilities?*
+
+Well, you might target a sample of facilities located within the same geographic sampling units PMA used to define Household and Female samples from the same country in the same year. Presumably, the health services available to a woman living in enumeration area `X` would be captured pretty well if we surveyed a list of facilities also *located* in enumeration area `X`.
+
+But what happens if a lot of women living in enumeration area `X` travel to enumeration area `Y` to receive family planning services? In that case, you'd want to know as much as possible about the service catchment areas for facilities in that country. Then, you could select facilities based on whether they *provide services to* enumeration area `X`, rather than relying simply to those that are located there. 
+
+In fact, PMA partners with government health agencies to obtain information about the service catchment area for all of the **public-sector** health facilities in each participating country. As a result, public SDPs are sampled if one of the enumeration areas used in a corresponding Household and Female sample appears in their service catchment area. 
+
+Because service catchment data are only available for public facilities, PMA uses a different method to select **private-sector** facilities. A private facility will be selected for a SDP sample only if it is located inside the boundaries of an enumeration area included in a corresponding Household and Female sample. 
+
+# Setup: Load an Example Dataset into R
+
+Let's take a look at an example SDP dataset to see how all of this information gets reported. We'll use the same data we highlighted in our [last post](../2021-01-28-across-sdp/index.html), which includes facilities sampled from Burkina Faso in 2017 and 2018. First, load the following packages into R:
+
+```{r}
+library(tidyverse)
+library(ipumsr)
+```
+
+<aside>
+Check out our posts on <a href="../2020-12-10-get-r-and-packages/index.html#r-packages">R Packages</a> and <a href="../2020-12-10-get-ipums-pma-data/index.html">Loading IPUMS PMA data into R</a>.
+</aside>
+
+You'll find the data for this example in the `data` folder if you use the Download button at the top of this page, or you can select a data extract for yourself. For this example, we'll be working with all of the available contraceptive services variables ending with the suffixes `PROV`, `OBS`, `OUT3MO`, and `OUTDAY`; we'll also use the variable group [EASERVED](https://pma.ipums.org/pma-action/variables/EASERVED), which - as we'll see - stores information about the service catchment area for facilities where that information was available. 
+
+We'll load the data, and also use the [steps outlined in our last post](../2021-01-28-across-sdp/index.html#recoding-variables-with-ipumsr) to apply a couple of recoding functions from [ipumsr](http://tech.popdata.org/ipumsr/). 
+
+```{r results='hide'}
+sdp <- ipumsr::read_ipums_micro(
+  ddi = "data/pma_00008.xml",
+  data = "data/pma_00008.dat.gz") %>% 
+  select(-EASERVED) %>% # error from extract system
+  mutate(
+    across(ends_with("OBS"), ~lbl_relabel(
+      .x,
+      lbl(1, "in stock") ~ .val %in% 1:2,
+      lbl(0, "out of stock") ~ .val == 3
+    )),
+    across(everything(), ~lbl_na_if(
+      .x,
+      ~.lbl %in% c(
+        "Not interviewed (SDP questionnaire)",
+        "Don't know",
+        "No response or missing",
+        "NIU (not in universe)"
+      )
+    ))
+  )
+```
+
+# EAID and EASERVED
+
+For the moment, let's just take a look at the basic structure of our data, selecting only the variables `FACILITYID`, `SAMPLE`, `AUTHORITY`, `CONSENTSQ`, and `EAID`. For this preview, we'll also arrange the data in ascending order of `FACILITYID` and `SAMPLE`:
+
+```{r}
+sdp %>% 
+  select(FACILITYID, SAMPLE, AUTHORITY, CONSENTSQ, EAID) %>% 
+  arrange(FACILITYID, SAMPLE)
+```
+
+Each row in our data represents one facility from one sample. Notice that some - but not *all* - facilities appear once in sample `85405` (from 2017), and again in sample `85408` (from 2018).
+
+The variable `AUTHORITY` shows the managing authority for each facility. Following the discussion above, we'll expect to find information about the service catchment area for each facility where the managing authority is `1 - Government`. 
+
+Also notice `CONSENTSQ`, which indicates whether a respondent at each facility consented to be interviewed. When you first obtain a data extract, you should expect most variables to be marked `Not interviewed (SDP questionnaire)` for facilities where `CONSENTSQ` shows `0 - No`. However, we've already taken the extra step of marking all non-response values `NA`: we should now expect to see `NA` substituted for `Not interviewed (SDP questionnaire)`. 
+
+Lastly, take particular note of the variable `EAID`: in SDP data, `EAID` **shows the identification code associated with the enumeration area where a facility is located.** 
+
+We'll find information about the service catchment area for each facility in a different set of variables, each starting with with prefix `EASERVED`:
+
+```{r}
+sdp %>% 
+  select(starts_with("EASERVED")) 
+```
+
+You'll notice that our extract contains 18 EASERVED variables. Why 18? If you created your own data extract, you'll remember that you only selected one variable called `EASERVED`: once you've selected samples, the IPUMS extract system automatically determines the correct number of EASERVED variables for your dataset based on the facility with the largest service catchment list.
+
+<aside>
+Some samples include facilities serving as many as 42 enumeration areas, requiring 42 <b>EASERVED</b> variables!
+</aside>
+
+As we've discussed, PMA only receives service catchment information about **public-sector facilities**. In their case, each `EASERVED` variable contains an ID code for *one* of the enumeration areas in its service catchment list, or else it's `NA`. We'll look at these public-sector facilities first:
+
+```{r}
+sdp %>% count(AUTHORITY)
+```
+
+The vast majority of SDPs in our sample are public-sector facilities. They comprise 202 of the 234 facilities in our sample.
+
+```{r}
+sdp %>% 
+  filter(AUTHORITY == 1) %>% 
+  select(starts_with("EASERVED")) 
+```
+
+Using two of the `dplyr` functions discussed in our [last post](../2021-01-28-across-sdp/index.html) - [summarize](https://dplyr.tidyverse.org/reference/summarise.html) and [across](https://dplyr.tidyverse.org/reference/across.html) - we'll get a better sense of the catchment areas for our public-sector SDPs. Let's see how many missing values exist for each of these `EASERVED` variables:
+
+<aside>
+<b>dplyr</b> is included when you load <b>library(tidyverse)</b>
+</aside>
+
+```{r}
+sdp %>% 
+  filter(AUTHORITY == 1) %>% 
+  summarise(across(starts_with("EASERVED"), ~sum(is.na(.x))))
+```
+
+We see that every public facility serves at least one enumeration area (there are no missing values for `EASERVED1`). However, there are 156 missing values for `EASERVED2`, which tells us that 156 public facilities only serve one enumeration area. Likewise: 173 facilities serve 2 enumeration areas or fewer, 181 serve 3 or fewer, and so forth. 
+
+What about the 32 **non-public facilities**? 
+
+```{r}
+sdp %>% 
+  filter(AUTHORITY != 1) %>% 
+  summarise(across(starts_with("EASERVED"), ~sum(is.na(.x))))
+```
+
+PMA receives no information about the service catchment areas for these facilities, so - as you might expect - there are 32 missing values for `EASERVED2` onward. Note, however, that there are only 4 missing values for `EASERVED1`: for non-public facilities, `EASERVED1` usually contains that same enumeration area code shown in `EAID` (this is the enumeration area where the facility is, itself, located). 
+
+The exception to this rule comes from facilities where `CONSENTSQ` shows that no respondent provided consent to be interviewed. If we'd like, we can copy `EAID` to `EASERVED1` for these facilities using [dplyr::case_when](https://dplyr.tidyverse.org/reference/case_when.html):
+
+```{r}
+sdp <- sdp %>% 
+  mutate(EASERVED1 = case_when(
+    is.na(EASERVED1) ~ EAID,
+    T ~ as.double(EASERVED1)
+  ))
+```
+
+<aside>
+We coerce <b>EASERVED1</b> as a double, matching the class provided by <b>EAID</b>.
+</aside>
+
+Now, *every SDP has at least one enumeration area included in the* `EASERVED` *group.* This will be important in our next step, where we'll see how to summarize the SDP data by groups of facilities serving the same enumeration area. 
+
+# Pivot Longer: EASERVED in Rows
+
+Now that we're familiar with `EASERVED` variables, let's take a look at the kinds of summary statistics we might want to construct from variables related to contraceptive service availability. For example, consider [EMRGPROV](https://pma.ipums.org/pma-action/variables/EMRGPROV), which indicates whether a facility provides emergency contraceptives to clients. 
+
+Remember that, right now, each row of our SDP dataset represents responses from *one* facility per sample. We'll ultimately want to count the number of facilities providing emergency contraceptives to clients in each enumeration area, so we should use the `tidyr` function [pivot_longer](https://tidyr.tidyverse.org/reference/pivot_longer.html) to reshape the data in a way that repeats each facility's response to `EMRGPROV` once for every enumeration area that it serves. 
+
+<aside>
+<b>tidyr</b> is included when you load <b>library(tidyverse)</b>
+</aside>
+
+Take, for example, the first 5 facilities in our dataset: for now, let's just look at the first two `EASERVED` variables, along with each facility's `FACILITYID`, `EAID`, and `EMRGPROV` response:
+
+```{r}
+sdp %>% 
+  slice(1:5) %>% 
+   select(FACILITYID, EASERVED1, EASERVED2, EMRGPROV)
+```
+
+Among these 5 facilities, only facility `7065` provides emergency contraceptives. This facility happens to provide services to 2 enumeration areas: `7725` and `7859`. When we use `pivot_longer`, we'll reshape the data to emphasize a different conclusion: our example shows two enumeration areas where individuals can access emergency contraceptives. We convey this information by placing each enumeration area from `EASERVED1` or `EASERVED2` in its own row:
+
+```{r}
+sdp %>% 
+  slice(1:5) %>% 
+  select(FACILITYID, EASERVED1, EASERVED2, EMRGPROV) %>% 
+  pivot_longer(
+    cols = starts_with("EASERVED"),
+    values_to = "EASERVED",
+    names_to = NULL
+  )
+```
+
+<aside>
+Here, <b>values_to</b> gives the name of a new column where we store the values. If we wanted, we could use <b>names_to</b> to create another column storing the original variable names (<b>EASERVED1</b> and <b>EASERVED2</b>) for each value.
+</aside>
+
+Now, we find that each of the values previously stored in `EASERVED1` and `EASERVED2` appear in a new column, `EASERVED`. Each facility occupies two rows: one for each of the enumeration areas that it serves. 
+
+What about the rows where `EASERVED` contains `NA`? These rows are meaningless: we're repeating each facility's response to `EMRGPROV` twice to represent two enumeration areas, but facilities `7506` and `7982` only serve one enumeration area apiece. We should include the argument `values_drop_na = T` to drop these rows when we use `pivot_longer()`:
+
+```{r}
+sdp %>% 
+  slice(1:5) %>% 
+  select(FACILITYID, EASERVED1, EASERVED2, EMRGPROV) %>% 
+  pivot_longer(
+    cols = starts_with("EASERVED"),
+    values_to = "EASERVED",
+    names_to = NULL,
+    values_drop_na = T
+  )
+```
+
+Now that we know how to `pivot_longer`, let's apply the function to our full dataset:
+
+```{r}
+sdp <- sdp %>%
+  pivot_longer(
+    cols = starts_with("EASERVED"),
+    values_to = "EASERVED",
+    values_drop_na = T,
+    names_to = NULL
+  ) %>%
+  distinct() # in case any facility listed the same EASERVED twice
+```
+
+Dropping each row where `EASERVED` is missing, we're left with 372 rows where information about each SDP gets repeated once for every enumeration area that it serves. (Remember: our original dataset contained only 234 rows because SDPs occupied just one row apiece). 
+
+```{r}
+sdp %>% select(FACILITYID, EASERVED, everything())
+```
+
+# Summarise by EASERVED and SAMPLE
+
+Now that we've reshaped our data, we'll be able to create some simple summary statistics about each of the enumeration areas served by the facilities in our sample. First, let's `group_by(EASERVED, SAMPLE)` and `count()` the number of facilities providing services to each enumeration area in each of our samples:
+
+```{r}
+sdp %>% 
+  group_by(EASERVED, SAMPLE) %>% 
+  summarize(
+    .groups = "keep", 
+    N_SDP = n()
+  )
+```
+
+Continuing with the variable `EMRGPROV`, we can now also count the number of sampled facilities providing emergency contraception to each `EASERVED`:
+
+```{r}
+sdp %>% 
+  group_by(EASERVED, SAMPLE) %>% 
+  summarize(
+    .groups = "keep",
+    N_EMRGPROV = sum(EMRGPROV)
+  )
+```
+
+What if we want to include a count of the facilities providing *each* of the different contraceptive methods in our data? Building on a technique showcased in our [last post](../2021-01-28-across-sdp/index.html#summarize-variable-groups-by-eaid), we could use `dplyr::across` to iterate over all variables ending with the suffix `PROV`:
+
+```{r}
+sdp %>% 
+  group_by(EASERVED, SAMPLE) %>% 
+  summarize(
+    .groups = "keep",
+    across(ends_with("PROV"), ~sum(.x), .names = "N_{.col}")
+  ) 
+```
+
+We'll reduce this information even further, creating a variable `NUM_METHODS_PROV` indicating the number of methods provided by at least one sampled facility:
+
+```{r}
+sdp %>% 
+  group_by(EASERVED, SAMPLE) %>% 
+  summarize(
+    .groups = "keep",
+    across(ends_with("PROV"), ~sum(.x), .names = "N_{.col}")
+  ) %>% 
+  transmute(
+    EASERVED,
+    SAMPLE,
+    NUM_METHODS_PROV = sum(c_across(ends_with("PROV")) > 0, na.rm = T)
+  )
+```
+
+In our last post, we introduced 4 variable groups related to the availability of different contraceptive methods. We'll now create a summary variable for each one, and then show how to attach our new variables to a Household and Female dataset:
+
+  * `N_SDP` - number of SDPs
+  * `NUM_METHODS_PROV` - number of methods provided by at least one SDP
+  * `NUM_METHODS_INSTOCK` - number of methods in-stock with at least one SDP
+  * `NUM_METHODS_OUT3MO` - number of methods out of stock in the last 3 months with at least one SDP 
+  * `MEAN_OUTDAY` - the mean length of a stockout for all out of stock methods
+  
+```{r}
+sdp <- sdp %>% 
+  group_by(EASERVED, SAMPLE) %>% 
+  summarize(
+    .groups = "keep",
+    N_SDP = n(),
+    across(ends_with("PROV"), ~sum(.x, na.rm = T), .names = "N_{.col}"),
+    across(ends_with("OBS"), ~sum(.x, na.rm = T), .names = "N_{.col}"),
+    across(ends_with("OUT3MO"), ~sum(.x, na.rm = T), .names = "N_{.col}"),
+    across(ends_with("OUTDAY"), ~mean(.x, na.rm = T), .names = "N_{.col}"),
+  ) %>% 
+  transmute(
+    EASERVED,
+    SAMPLE,
+    N_SDP,
+    NUM_METHODS_PROV = sum(c_across(ends_with("PROV")) > 0, na.rm = T),
+    NUM_METHODS_INSTOCK = sum(c_across(ends_with("OBS")) > 0, na.rm = T),
+    NUM_METHODS_OUT3MO = sum(c_across(ends_with("OUT3MO")) > 0, na.rm = T),
+    MEAN_OUTDAY = mean(c_across(ends_with("OUTDAY")), na.rm = T)
+  ) %>% 
+  ungroup()
+``` 
+
+# Merging to Household and Female Data
+
+Consider the following female respondent dataset collected from Burkina Faso in 2017 and 2018. It contains a variable [FPCURRUSE](https://pma.ipums.org/pma-action/variables/FPCURRUSE) indicating whether the woman is currently using a method of family planning:
+
+```{r, results='hide'}
+hhf <- read_ipums_micro(
+  ddi = "data/pma_00011.xml",
+  data = "data/pma_00011.dat.gz"
+) %>% 
+  select(PERSONID, EAID, URBAN, SAMPLE, FPCURRUSE) %>% 
+  mutate(
+    across(everything(), ~lbl_na_if(
+      .x,
+      ~.lbl %in% c(
+        "No response or missing",
+        "NIU (not in universe)"
+      )
+    ))
+  )
+```
+
+```{r}
+hhf
+```
+
+You'll notice that each row represents one female respondent with a unique `PERSONID` (non-respondents and other household members have been removed beforehand). We've also got `EAID`, which represents the enumeration area where each respondent resides; the variable `URBAN` indicates whether the enumeration area is primarily "urban" or "rural". 
+
+The variable `SAMPLE` contains the same values seen in our SDP data: 
+
+  * 85405 - Burkina Faso 2017 Round 5
+  * 85408 - Burkina Faso 2018 Round 6
+  
+When we merge, we'll want to match each woman to both a `SAMPLE` and an `EASERVED` from the SDP data. We'll rename `EASERVED` to match the variable `EAID` in the HHF data:
+
+```{r}
+bf_merged <- sdp %>% 
+  rename(EAID = EASERVED) %>% 
+  right_join(hhf, by = c("EAID", "SAMPLE"))
+```
+
+Now, each woman's record contains all of the variables we created above summarizing the SDPs that serve her enumeration area. For example, for all sampled women living in `EAID == 7003` in 2017, the value in `NUM_METHODS_OUT3MO` shows the number of family planning methods that were out of stock with any SDP serving the woman's enumeration area within three months prior to the survey:
+
+```{r}
+bf_merged %>% 
+  filter(EAID == 7003, SAMPLE == 85405) %>% 
+  select(PERSONID, EAID, SAMPLE, NUM_METHODS_OUT3MO)
+```
+
+You'll notice that 55 women were surveyed in `EAID` 7003 in 2017, and each one has the same value (0) for `NUM_METHODS_OUT3MO`. 
+
+We'll dig deeper into the types of research questions that our new combined dataset can answer in our upcoming Data Analysis post. For now, take a look at the apparent relationship between `FPCURRUSE` and `NUM_METHODS_OUT3MO` for all of the women with non-missing responses for both variables:
+
+```{r}
+bf_merged %>% 
+  filter(!is.na(FPCURRUSE) & !is.na(NUM_METHODS_OUT3MO)) %>% 
+  group_by(NUM_METHODS_OUT3MO > 0) %>% 
+  count(FPCURRUSE) %>% 
+  mutate(pct = n/sum(n))
+```
+
+Notably, among those respondents living in an enumeration area that experienced zero stockouts within the 3 months prior to the SDP survey, 35% indicated that they were actively using a family planning method. Compare that to the set of respondents living in an area where at least one method was out of stock during the same time period: only 30% were using a family planning method. 
+
+While a 5% difference may or may not prove to be statistically significant under further analysis, it's not entirely surprising that the reliable availability of contraceptive methods from service providers might influence the contraceptive prevalence rate among women in a given area. 
+
+As always, let us know what kinds of questions about fertility and family planning you're answering with data merged from service providers! 
+
+```{r, echo = F}
+bf_merged %>% write_rds("data/bf_merged.rds")
+```
+
+
+

@@ -1,0 +1,20 @@
+VARIABLE,DESCRIPTION,F1,F2,F 3
+URBAN,Urban/rural status,,.94 *,
+WEALTHQ,Wealth score quintile,,.87 *,
+EDUCATTGEN,Highest level of schooling attended,,.66 *,
+FPCURRECUSER,Current or recent FP user,,0.32,
+DECIDER,Women’s level of say in decisions about whether to use/not use FP,,,
+SAFEDISCKID,Safe to discuss when to have children w/ partner,.66 *,,
+SAFEDISCFP,Safe to discuss FP w/ partner,.71 *,,
+CONFLICTFP,Conflict in relationship if used FP,-0.5,,
+DAMRELFP,Delaying or limiting children would deteriorate relationship w/ partner,-0.44,,
+NEGOTIATEKIDS,Able to negotiate w/ partner when to stop having children,.65 *,,
+BELIEFCARRYPREG,Thinks a woman should not get pregnant if child still on her back,,,.60 *
+BELIEFDAUPREG,Thinks a woman should not get pregnant if daughter is pregnant,,,0.48
+AGREESPACE,Agrees with couple that uses FP to space births,0.45,,0.44
+AGREELIMIT,Agrees with couple that uses FP to limit births,0.52,,
+AGREECONTR,Agrees with man/woman that uses contraception,0.34,,
+AGREEFP,Agrees with couples that use FP,0.59,,0.39
+AGREEPARTFP,Partner agrees with couples that use FP,.69 *,,
+FPTVHR,Heard about FP on TV,,.66 *,0.38
+FPRADIOHR,Heard about FP on the radio,,,0.33

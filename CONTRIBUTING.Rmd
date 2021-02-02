@@ -1,0 +1,13 @@
+---
+title: "Contributing to the PMA Data Hub"
+description: |
+  How to write or propose a change to a post on this blog
+output:
+  distill::distill_article:
+    self_contained: false
+    toc: true
+    toc_depth: 3
+    toc_float: true
+---
+
+*Coming soon!*

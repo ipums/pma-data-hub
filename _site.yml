@@ -1,0 +1,44 @@
+name: "pma-data-hub"
+title: "Data Analysis Hub"
+description: |
+  A blog about PMA data
+output_dir: "docs"
+repository_url: https://github.com/ipums/pma-data-hub
+base_url: https://ipums.github.io/pma-data-hub/
+navbar:
+  search: true
+  logo:
+    image: images/logo-white.png
+    href: https://pma.ipums.org/pma/
+  right:
+    - text: "Posts"
+      href: index.html
+    - text: "R Tips"
+      menu: 
+        - text: "Import IPUMS PMA Data into R"
+          href: posts/2020-12-10-get-ipums-pma-data/index.html
+        - text: "R, RStudio, and R Packages" 
+          href: posts/2020-12-10-get-r-and-packages/index.html
+    - text: "Community"
+      menu: 
+        - text: "Contributing guide"
+          href: CONTRIBUTING.html
+        - text: "Code of conduct"
+          href: CODE_OF_CONDUCT.html
+        - text: "License"
+          href: LICENSE.html
+        - text: "GitHub"
+          href: https://github.com/ipums/pma-data-hub/
+    - text: "About"
+      href: about.html
+    - icon: fa fa-rss
+      href: index.xml 
+  source_url: true
+output: distill::distill_article
+theme: theme.css
+favicon: "images/favicon/favicon-32x32.png"
+collections:
+  posts:
+    disqus: pma-data-hub
+    share: [twitter, linkedin]
+    citations: false

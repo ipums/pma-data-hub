@@ -1,0 +1,1847 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="ipums-ddi-xslt.xsl"?>
+<codeBook xmlns="ddi:codebook:2_5" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="ddi:codebook:2_5 http://www.ddialliance.org/Specification/DDI-Codebook/2.5/XMLSchema/codebook.xsd" version="2.5" ID="ddi2-66_pma_00011.dat-pma.ipums.org">
+  <docDscr>
+    <citation>
+      <titlStmt>
+        <titl>Codebook for an IPUMS-PMA Data Extract</titl>
+        <subTitl>DDI 2.5 metadata describing the extract file  'pma_00011.dat'</subTitl>
+        <IDNo>ddi2-66_pma_00011.dat-pma.ipums.org</IDNo>
+      </titlStmt>
+      <rspStmt>
+        <AuthEnty affiliation="University of Minnesota">Minnesota Population Center</AuthEnty>
+      </rspStmt>
+      <prodStmt>
+        <producer abbr="MPC" affiliation="University of Minnesota" role="Documentation">Minnesota Population Center</producer>
+        <prodDate date="2021-01-13">January 13, 2021</prodDate>
+        <prodPlac>Minnesota Population Center, 50 Willey Hall, 225 - 19th Avenue South, Minneapolis, MN 55455</prodPlac>
+      </prodStmt>
+      <distStmt>
+        <contact affiliation="University of Minnesota" URI="http://pop.umn.edu">Minnesota Population Center</contact>
+      </distStmt>
+    </citation>
+  </docDscr>
+  <stdyDscr>
+    <citation>
+      <titlStmt>
+        <titl>User Extract pma_00011.dat</titl>
+      </titlStmt>
+      <rspStmt>
+        <AuthEnty affiliation="University of Minnesota">Minnesota Population Center</AuthEnty>
+      </rspStmt>
+      <prodStmt>
+        <producer abbr="MPC" affiliation="University of Minnesota" role="Documentation">Minnesota Population Center</producer>
+        <prodDate date="2021-01-13">January 13, 2021</prodDate>
+        <prodPlac>Minnesota Population Center, 50 Willey Hall, 225 - 19th Avenue South, Minneapolis, MN 55455</prodPlac>
+      </prodStmt>
+      <distStmt>
+        <contact affiliation="University of Minnesota" URI="http://pop.umn.edu">Minnesota Population Center</contact>
+      </distStmt>
+      <serStmt>
+        <serName abbr="pma">IPUMS PMA</serName>
+        <serInfo>DOI:10.18128/D081.V4.1</serInfo>
+      </serStmt>
+      <verStmt>
+        <version date="2021-01-13"/>
+      </verStmt>
+    </citation>
+    <stdyInfo>
+      <subject>
+        <topcClas vocab="IPUMS">Technical variables Variables -- TOPICS</topcClas>
+        <topcClas vocab="IPUMS">Weights and Estimation Variables -- TOPICS</topcClas>
+        <topcClas vocab="IPUMS">Geography Variables -- TOPICS</topcClas>
+        <topcClas vocab="IPUMS">Core demographics Variables -- TOPICS</topcClas>
+        <topcClas vocab="IPUMS">Wealth Index Variables -- TOPICS</topcClas>
+        <topcClas vocab="IPUMS">Family Planning Access Variables -- TOPICS</topcClas>
+        <topcClas vocab="IPUMS">Current or Recent Family Planning Use Variables -- TOPICS</topcClas>
+      </subject>
+      <sumDscr ID="sdatref-89">
+        <timePrd event="single" date="2017">2017</timePrd>
+        <nation abbr="bf">Burkina Faso</nation>
+      </sumDscr>
+      <sumDscr ID="sdatref-103">
+        <timePrd event="single" date="2018">2018</timePrd>
+        <nation abbr="bf">Burkina Faso</nation>
+      </sumDscr>
+      <notes><![CDATA[Additional notes on a sample that is part of this study:  ; regular size
+]]></notes>
+      <notes><![CDATA[Additional notes on a sample that is part of this study:  ; regular size
+]]></notes>
+    </stdyInfo>
+    <dataAccs>
+      <useStmt>
+        <confDec required="no"><![CDATA[None]]></confDec>
+        <contact affiliation="Minnesota Population Center" URI="http://pma.ipums.org">IPUMS-PMA</contact>
+        <citReq><![CDATA[Publications and research reports based on the IPUMS-PMA database must cite it appropriately. The citation should include the following:
+
+Elizabeth Heger Boyle, Devon Kristiansen, and Matthew Sobek. IPUMS-PMA: Version 1.0 [dataset] Minneapolis, MN: IPUMS, 2018. https://doi.org/10.18128/D081.V1.0
+
+The licensing agreement for use of IPUMS-PMA data requires that users supply us with the title and full citation for any publications, research reports, or educational materials making use of the data or documentation. Please add your citation to the IPUMS bibliography at http://bibliography.ipums.org/.]]></citReq>
+        <conditions><![CDATA[Users of IPUMS-PMA data must agree to abide by the conditions of use. A user's license is valid for one year and may be renewed.  Users must agree to the following conditions:
+
+(1) No fees may be charged for use or distribution of the data.
+
+(2) Cite IPUMS appropriately.  For information on proper citation, refer to the citation requirement section of this DDI document.
+
+(3) Tell us about any work you do using the IPUMS.  Publications, research reports, or presentations making use of IPUMS-PMA should be added to our Bibliography. Continued funding for the IPUMS depends on our ability to show our sponsor agencies that researchers are using the data for productive purposes.
+
+(4) The IPUMS cannot be used for genealogical research
+
+(5) It is difficult to use the IPUMS to study small geographic areas.  In the IPUMS census samples for years 1940-present, no places having a population of fewer than 100,000 persons can be identified.
+
+(6) Use it for GOOD -- never for EVIL.
+
+(7) Please notify ipums@umn.edu regarding errors in the data or documentation.]]></conditions>
+        <disclaimer>The user of the data acknowledges that the original collector of the data, the authorized distributor of the data, and the relevant funding agency bear no responsibility for use of the data or for interpretations or inferences based upon such uses.</disclaimer>
+      </useStmt>
+    </dataAccs>
+    <notes><![CDATA[User-provided description:  Revision of (sdp merge dataset 2)]]></notes>
+    <notes>This extract is a revision of the user's previous extract, number 10.</notes>
+  </stdyDscr>
+  <fileDscr ID="ExtractData">
+    <fileTxt>
+      <fileName>pma_00011.dat</fileName>
+      <fileCont>Microdata records</fileCont>
+      <fileStrc type="rectangular">
+      </fileStrc>
+      <fileType charset="ISO-8859-1">ISO-8859-1 data file</fileType>
+      <format>fixed length fields</format>
+      <filePlac>Minnesota Population Center, 50 Willey Hall, 225 - 19th Avenue South, Minneapolis, MN 55455</filePlac>
+    </fileTxt>
+  </fileDscr>
+  <dataDscr>
+    <var ID="SAMPLE" files="ExtractData" name="SAMPLE" intrvl="discrete" dcml="0">
+      <location StartPos="1" width="5" EndPos="5"/>
+      <labl>PMA sample number</labl>
+      <txt><![CDATA[SAMPLE is an IPUMS-generated variable that identifies the PMA sample from which the record is drawn.  In some countries and years, PMA conducts more than one round of the survey. The data from each round are separately identified.  In some cases, data from the same country and same round might have been split into more than one file according to geographic region.]]></txt>
+      <catgry>
+        <catValu>85401</catValu>
+        <labl>Burkina Faso 2014 Round 1</labl>
+      </catgry>
+      <catgry>
+        <catValu>85402</catValu>
+        <labl>Burkina Faso 2015 Round 2</labl>
+      </catgry>
+      <catgry>
+        <catValu>85403</catValu>
+        <labl>Burkina Faso 2016 Round 3</labl>
+      </catgry>
+      <catgry>
+        <catValu>85404</catValu>
+        <labl>Burkina Faso 2016 Round 4</labl>
+      </catgry>
+      <catgry>
+        <catValu>18001</catValu>
+        <labl>Congo, Democratic Republic 2013 Round 1</labl>
+      </catgry>
+      <catgry>
+        <catValu>18002</catValu>
+        <labl>Congo, Democratic Republic 2014 Round 2</labl>
+      </catgry>
+      <catgry>
+        <catValu>18003</catValu>
+        <labl>Congo, Democratic Republic 2015 Round 3</labl>
+      </catgry>
+      <catgry>
+        <catValu>18004</catValu>
+        <labl>Congo, Democratic Republic (Kinshasa) 2015 Round 4</labl>
+      </catgry>
+      <catgry>
+        <catValu>18005</catValu>
+        <labl>Congo, Democratic Republic (Kongo Central) 2015 Round 4</labl>
+      </catgry>
+      <catgry>
+        <catValu>18006</catValu>
+        <labl>Congo, Democratic Republic (Kinshasa) 2016 Round 5</labl>
+      </catgry>
+      <catgry>
+        <catValu>18007</catValu>
+        <labl>Congo, Democratic Republic (Kongo Central) 2016 Round 5</labl>
+      </catgry>
+      <catgry>
+        <catValu>23101</catValu>
+        <labl>Ethiopia 2014 Round 1</labl>
+      </catgry>
+      <catgry>
+        <catValu>23102</catValu>
+        <labl>Ethiopia 2014 Round 2</labl>
+      </catgry>
+      <catgry>
+        <catValu>23103</catValu>
+        <labl>Ethiopia 2015 Round 3</labl>
+      </catgry>
+      <catgry>
+        <catValu>23104</catValu>
+        <labl>Ethiopia 2016 Round 4</labl>
+      </catgry>
+      <catgry>
+        <catValu>28801</catValu>
+        <labl>Ghana 2013 Round 1</labl>
+      </catgry>
+      <catgry>
+        <catValu>28802</catValu>
+        <labl>Ghana 2014 Round 2</labl>
+      </catgry>
+      <catgry>
+        <catValu>28803</catValu>
+        <labl>Ghana 2014 Round 3</labl>
+      </catgry>
+      <catgry>
+        <catValu>28804</catValu>
+        <labl>Ghana 2015 Round 4</labl>
+      </catgry>
+      <catgry>
+        <catValu>28805</catValu>
+        <labl>Ghana 2016 Round 5</labl>
+      </catgry>
+      <catgry>
+        <catValu>36001</catValu>
+        <labl>Indonesia 2015 Round 1</labl>
+      </catgry>
+      <catgry>
+        <catValu>36002</catValu>
+        <labl>Indonesia 2016 Round 2</labl>
+      </catgry>
+      <catgry>
+        <catValu>35601</catValu>
+        <labl>India 2016 Round 1</labl>
+      </catgry>
+      <catgry>
+        <catValu>35602</catValu>
+        <labl>India 2017 Round 2</labl>
+      </catgry>
+      <catgry>
+        <catValu>40401</catValu>
+        <labl>Kenya 2014 Round 1</labl>
+      </catgry>
+      <catgry>
+        <catValu>40402</catValu>
+        <labl>Kenya 2014 Round 2</labl>
+      </catgry>
+      <catgry>
+        <catValu>40403</catValu>
+        <labl>Kenya 2015 Round 3</labl>
+      </catgry>
+      <catgry>
+        <catValu>40404</catValu>
+        <labl>Kenya 2015 Round 4</labl>
+      </catgry>
+      <catgry>
+        <catValu>40405</catValu>
+        <labl>Kenya 2016 Round 5</labl>
+      </catgry>
+      <catgry>
+        <catValu>56201</catValu>
+        <labl>Niger 2015 Round 1</labl>
+      </catgry>
+      <catgry>
+        <catValu>56202</catValu>
+        <labl>Niger 2016 Round 2</labl>
+      </catgry>
+      <catgry>
+        <catValu>56203</catValu>
+        <labl>Niger 2016 Round 3</labl>
+      </catgry>
+      <catgry>
+        <catValu>56601</catValu>
+        <labl>Nigeria (Kaduna) 2014 Round 1</labl>
+      </catgry>
+      <catgry>
+        <catValu>56602</catValu>
+        <labl>Nigeria (Lagos) 2014 Round 1</labl>
+      </catgry>
+      <catgry>
+        <catValu>56603</catValu>
+        <labl>Nigeria (Kaduna) 2015 Round 2</labl>
+      </catgry>
+      <catgry>
+        <catValu>56604</catValu>
+        <labl>Nigeria (Lagos) 2015 Round 2</labl>
+      </catgry>
+      <catgry>
+        <catValu>56605</catValu>
+        <labl>Nigeria (National) 2016 Round 3</labl>
+      </catgry>
+      <catgry>
+        <catValu>56606</catValu>
+        <labl>Nigeria (National) 2017 Round 4</labl>
+      </catgry>
+      <catgry>
+        <catValu>80001</catValu>
+        <labl>Uganda 2014 Round 1</labl>
+      </catgry>
+      <catgry>
+        <catValu>80002</catValu>
+        <labl>Uganda 2015 Round 2</labl>
+      </catgry>
+      <catgry>
+        <catValu>80003</catValu>
+        <labl>Uganda 2015 Round 3</labl>
+      </catgry>
+      <catgry>
+        <catValu>80004</catValu>
+        <labl>Uganda 2016 Round 4</labl>
+      </catgry>
+      <catgry>
+        <catValu>38401</catValu>
+        <labl>Cote d'Ivoire 2017 Round 1</labl>
+      </catgry>
+      <catgry>
+        <catValu>23105</catValu>
+        <labl>Ethiopia 2017 Round 5</labl>
+      </catgry>
+      <catgry>
+        <catValu>35603</catValu>
+        <labl>India 2017 Round 3</labl>
+      </catgry>
+      <catgry>
+        <catValu>56204</catValu>
+        <labl>Niger 2017 Round 4</labl>
+      </catgry>
+      <catgry>
+        <catValu>80005</catValu>
+        <labl>Uganda 2017 Round 5</labl>
+      </catgry>
+      <catgry>
+        <catValu>85405</catValu>
+        <labl>Burkina Faso 2017 Round 5</labl>
+      </catgry>
+      <catgry>
+        <catValu>18008</catValu>
+        <labl>Congo, Democratic Republic (Kinshasa) 2017 Round 6</labl>
+      </catgry>
+      <catgry>
+        <catValu>18009</catValu>
+        <labl>Congo, Democratic Republic (Kongo Centrale) 2017 Round 6</labl>
+      </catgry>
+      <catgry>
+        <catValu>40406</catValu>
+        <labl>Kenya 2017 Round 6</labl>
+      </catgry>
+      <catgry>
+        <catValu>38402</catValu>
+        <labl>Cote d'Ivoire 2018 Round 2</labl>
+      </catgry>
+      <catgry>
+        <catValu>23106</catValu>
+        <labl>Ethiopia 2018 Round 6</labl>
+      </catgry>
+      <catgry>
+        <catValu>23107</catValu>
+        <labl>Ethiopia 2016/7 Maternal and Newborn Health Round 1</labl>
+      </catgry>
+      <catgry>
+        <catValu>28806</catValu>
+        <labl>Ghana 2017 Round 6</labl>
+      </catgry>
+      <catgry>
+        <catValu>35604</catValu>
+        <labl>India 2018 Round 4</labl>
+      </catgry>
+      <catgry>
+        <catValu>56205</catValu>
+        <labl>Niger 2018 Round 5</labl>
+      </catgry>
+      <catgry>
+        <catValu>80006</catValu>
+        <labl>Uganda 2018 Round 6</labl>
+      </catgry>
+      <catgry>
+        <catValu>56607</catValu>
+        <labl>Nigeria (Oyo) 2017 Round 1</labl>
+      </catgry>
+      <catgry>
+        <catValu>56608</catValu>
+        <labl>Nigeria (National) 2018 Round 5</labl>
+      </catgry>
+      <catgry>
+        <catValu>85406</catValu>
+        <labl>Burkina Faso 2017 Round 1 Nutrition</labl>
+      </catgry>
+      <catgry>
+        <catValu>85407</catValu>
+        <labl>Burkina Faso 2018 Round 2 Nutrition</labl>
+      </catgry>
+      <catgry>
+        <catValu>85408</catValu>
+        <labl>Burkina Faso 2018 Round 6</labl>
+      </catgry>
+      <catgry>
+        <catValu>18010</catValu>
+        <labl>Congo, Democratic Republic (Kinshasa) 2018 Round 7</labl>
+      </catgry>
+      <catgry>
+        <catValu>18011</catValu>
+        <labl>Congo, Democratic Republic (Kongo Centrale) 2018 Round 7</labl>
+      </catgry>
+      <catgry>
+        <catValu>28807</catValu>
+        <labl>Ghana 2017 Primary Health Care (SDP)</labl>
+      </catgry>
+      <catgry>
+        <catValu>40407</catValu>
+        <labl>Kenya 2017 Round 1 Nutrition</labl>
+      </catgry>
+      <catgry>
+        <catValu>40408</catValu>
+        <labl>Kenya 2018 Round 2 Nutrition</labl>
+      </catgry>
+      <catgry>
+        <catValu>40409</catValu>
+        <labl>Kenya 2018 Round 7</labl>
+      </catgry>
+      <catgry>
+        <catValu>85409</catValu>
+        <labl>Burkina Faso 2019 Baseline</labl>
+      </catgry>
+      <catgry>
+        <catValu>18012</catValu>
+        <labl>Congo, Democratic Republic (Kinshasa) 2019 Baseline</labl>
+      </catgry>
+      <catgry>
+        <catValu>18013</catValu>
+        <labl>Congo, Democratic Republic (Kongo Central) 2019 Baseline</labl>
+      </catgry>
+      <catgry>
+        <catValu>23108</catValu>
+        <labl>Ethiopia 2019 Core</labl>
+      </catgry>
+      <catgry>
+        <catValu>40410</catValu>
+        <labl>Kenya 2019 Baseline</labl>
+      </catgry>
+      <catgry>
+        <catValu>56609</catValu>
+        <labl>Nigeria (Kano) 2019</labl>
+      </catgry>
+      <catgry>
+        <catValu>56610</catValu>
+        <labl>Nigeria (Lagos) 2019</labl>
+      </catgry>
+      <catgry>
+        <catValu>80007</catValu>
+        <labl>Uganda 2019 Followup to Round 6</labl>
+      </catgry>
+      <concept vocab="IPUMS">Technical variables Variables -- TOPICS</concept>
+      <varFormat schema="other" type="numeric"/>
+    </var>
+    <var ID="COUNTRY" files="ExtractData" name="COUNTRY" intrvl="discrete" dcml="0">
+      <location StartPos="6" width="2" EndPos="7"/>
+      <labl>PMA country</labl>
+      <txt><![CDATA[COUNTRY reports the country where the survey was fielded.]]></txt>
+      <catgry>
+        <catValu>01</catValu>
+        <labl>Burkina Faso</labl>
+      </catgry>
+      <catgry>
+        <catValu>02</catValu>
+        <labl>Congo, Democratic Republic</labl>
+      </catgry>
+      <catgry>
+        <catValu>03</catValu>
+        <labl>Ethiopia</labl>
+      </catgry>
+      <catgry>
+        <catValu>04</catValu>
+        <labl>Ghana</labl>
+      </catgry>
+      <catgry>
+        <catValu>05</catValu>
+        <labl>Indonesia</labl>
+      </catgry>
+      <catgry>
+        <catValu>06</catValu>
+        <labl>India</labl>
+      </catgry>
+      <catgry>
+        <catValu>07</catValu>
+        <labl>Kenya</labl>
+      </catgry>
+      <catgry>
+        <catValu>08</catValu>
+        <labl>Niger</labl>
+      </catgry>
+      <catgry>
+        <catValu>09</catValu>
+        <labl>Nigeria</labl>
+      </catgry>
+      <catgry>
+        <catValu>10</catValu>
+        <labl>Uganda</labl>
+      </catgry>
+      <catgry>
+        <catValu>11</catValu>
+        <labl>Cote d'Ivoire</labl>
+      </catgry>
+      <concept vocab="IPUMS">Technical variables Variables -- TOPICS</concept>
+      <varFormat schema="other" type="numeric"/>
+    </var>
+    <var ID="YEAR" files="ExtractData" name="YEAR" intrvl="discrete" dcml="0">
+      <location StartPos="8" width="4" EndPos="11"/>
+      <labl>Year</labl>
+      <txt><![CDATA[YEAR reports the year when the survey was fielded.  Some interviews may have occurred early in the following year.  YEAR does not reflect individual interview years.]]></txt>
+      <concept vocab="IPUMS">Technical variables Variables -- TOPICS</concept>
+      <varFormat schema="other" type="numeric"/>
+    </var>
+    <var ID="ROUND" files="ExtractData" name="ROUND" intrvl="contin" dcml="0">
+      <location StartPos="12" width="2" EndPos="13"/>
+      <labl>PMA survey round in this country</labl>
+      <txt><![CDATA[ROUND reports the survey round within a given country (1st, 2nd, etc.).  In some cases, more than one round of the survey was fielded in the same year.]]></txt>
+      <codInstr><![CDATA[ROUND is an integer variable that represents the round of the survey within that country.]]></codInstr>
+      <concept vocab="IPUMS">Technical variables Variables -- TOPICS</concept>
+      <varFormat schema="other" type="numeric"/>
+    </var>
+    <var ID="HHID" files="ExtractData" name="HHID" intrvl="contin" dcml="0">
+      <location StartPos="14" width="26" EndPos="39"/>
+      <labl>Unique household identification number</labl>
+      <txt><![CDATA[HHID is an IPUMS-constructed variable that uniquely identifies households.  HHID is a concatenation of enumeration area ID number (EAID), a count variable starting from one corresponding to each value of HHIDORIG, year (YEAR), and round (ROUND).  
+
+For cases where HHIDORIG is missing, HHID is a concatenation of enumeration area ID (EAID), household structure number (STRUCTURNO), household number within structure (HHNUM), year (YEAR), and round (ROUND).  
+
+HHID does not allow users to link records of households that have been interviewed in more than one round of survey of PMA.
+
+A different construction is used for cases in which STRUCTURNO and/or HHNUM are missing, or if EAID is not available.  See the Comparability tab for more details.]]></txt>
+      <codInstr><![CDATA[This is a 26-digit numeric variable with 0 implied decimal places]]></codInstr>
+      <concept vocab="IPUMS">Technical variables Variables -- TOPICS</concept>
+      <varFormat schema="other" type="character"/>
+    </var>
+    <var ID="PERSONID" files="ExtractData" name="PERSONID" intrvl="contin" dcml="0">
+      <location StartPos="40" width="32" EndPos="71"/>
+      <labl>Unique person ID number</labl>
+      <txt><![CDATA[PERSONID is an IPUMS-constructed variable that uniquely identifies individuals in household and female files across all samples. PERSONID is a concatenation of the IPUMS-constructed variable HHID, a variable that uniquely identifies households, and LINENO, which is the person's reference number within the household.]]></txt>
+      <codInstr><![CDATA[This is a 32-digit numeric variable with 0 implied decimal places]]></codInstr>
+      <concept vocab="IPUMS">Technical variables Variables -- TOPICS</concept>
+      <varFormat schema="other" type="character"/>
+    </var>
+    <var ID="ELIGIBLE" files="ExtractData" name="ELIGIBLE" intrvl="discrete" dcml="0">
+      <location StartPos="72" width="2" EndPos="73"/>
+      <labl>Eligible female respondent</labl>
+      <txt><![CDATA[ELIGIBLE identifies women aged 15 to 49 who were eligible to answer the female questionnaire. It is possible to have multiple eligible women in the same household, or no eligible women in the household.]]></txt>
+      <catgry>
+        <catValu>00</catValu>
+        <labl>No</labl>
+      </catgry>
+      <catgry>
+        <catValu>01</catValu>
+        <labl>Yes, eligible female respondent</labl>
+      </catgry>
+      <catgry>
+        <catValu>96</catValu>
+        <labl>Not interviewed (household questionnaire)</labl>
+      </catgry>
+      <catgry>
+        <catValu>98</catValu>
+        <labl>No response or missing</labl>
+      </catgry>
+      <concept vocab="IPUMS">Technical variables Variables -- TOPICS</concept>
+      <varFormat schema="other" type="numeric"/>
+    </var>
+    <var ID="EAID" files="ExtractData" name="EAID" intrvl="contin" dcml="0">
+      <location StartPos="74" width="10" EndPos="83"/>
+      <labl>Enumeration area</labl>
+      <txt><![CDATA[EAID reports the geographic enumeration area where the respondent was located.  The EAID is the primary sampling unit for IPUMS PMA.  Due to privacy concerns, the borders of these enumeration areas are not publicly available and the enumeration area is specified via an assigned number rather than a recognized name for a locale.  
+
+Enumeration areas do not cover all areas within each survey country.  After 5 survey rounds using the same enumeration areas, PMA identifies new enumeration areas.  Due to this sampling design, some households, eligible women respondents, or service delivery points might be selected to be interviewed in more than one survey within a 5 year period.  The variables PREVINTERVIEWHQ, PREVINTERVIEWFQ, and PREVINTERVIEWSQ identifies household, female, and service delivery point respondents, respectively, who have been interviewed for PMA in a previous round.  It is not possible, however, to link survey records for the same person between rounds.]]></txt>
+      <codInstr><![CDATA[This is a 10-digit numeric variable with 0 implied decimal places]]></codInstr>
+      <concept vocab="IPUMS">Technical variables Variables -- TOPICS</concept>
+      <varFormat schema="other" type="numeric"/>
+    </var>
+    <var ID="CONSENTFQ" files="ExtractData" name="CONSENTFQ" intrvl="discrete" dcml="0">
+      <location StartPos="84" width="2" EndPos="85"/>
+      <labl>Female respondent provided consent to be interviewed</labl>
+      <txt><![CDATA[CONSENTFQ indicates whether or not the respondent to the female questionnaire completed the survey.  The variable RESULTFQ provides more detail regarding why the interview was not conducted or completed.]]></txt>
+      <catgry>
+        <catValu>00</catValu>
+        <labl>No</labl>
+      </catgry>
+      <catgry>
+        <catValu>01</catValu>
+        <labl>Yes</labl>
+      </catgry>
+      <catgry>
+        <catValu>96</catValu>
+        <labl>Not interviewed (household questionnaire)</labl>
+      </catgry>
+      <catgry>
+        <catValu>99</catValu>
+        <labl>NIU (not in universe)</labl>
+      </catgry>
+      <concept vocab="IPUMS">Technical variables Variables -- TOPICS</concept>
+      <varFormat schema="other" type="numeric"/>
+    </var>
+    <var ID="CONSENTHQ" files="ExtractData" name="CONSENTHQ" intrvl="discrete" dcml="0">
+      <location StartPos="86" width="2" EndPos="87"/>
+      <labl>Household respondent provided consent to be interviewed</labl>
+      <txt><![CDATA[CONSENTHQ indicates whether or not the respondent for the household survey consented to be interviewed and completed the survey. The variable RESULTHQ provides more detail regarding why the interview was not conducted or completed.]]></txt>
+      <catgry>
+        <catValu>00</catValu>
+        <labl>No, was not interviewed</labl>
+      </catgry>
+      <catgry>
+        <catValu>01</catValu>
+        <labl>Yes</labl>
+      </catgry>
+      <catgry>
+        <catValu>98</catValu>
+        <labl>No response or missing</labl>
+      </catgry>
+      <concept vocab="IPUMS">Technical variables Variables -- TOPICS</concept>
+      <varFormat schema="other" type="numeric"/>
+    </var>
+    <var ID="FQWEIGHT" files="ExtractData" name="FQWEIGHT" intrvl="contin" dcml="0">
+      <location StartPos="88" width="20" EndPos="107"/>
+      <labl>Female weight</labl>
+      <txt><![CDATA[FQWEIGHT is a nationally representative inverse probability weight for respondents of the female questionnaire.  FQWEIGHT should be used in analyses of all questions on the female questionnaire.  FQWEIGHT controls for female non-response, but because all eligible females in the household responded to the questionnaire, respondent selection probability does not need to be controlled for.  For more details on how FQWEIGHT was calculated, please see the Weighting Memo [URL omitted from DDI.] from the PMA team.
+
+For person records who were not women aged 15 to 49, the value of FQWEIGHT is zero.]]></txt>
+      <codInstr><![CDATA[This variable is a 17-digit variable with decimal points. All cases that are missing or NIU (not in universe) are coded as zero.]]></codInstr>
+      <concept vocab="IPUMS">Weights and Estimation Variables -- TOPICS</concept>
+      <varFormat schema="other" type="numeric"/>
+    </var>
+    <var ID="STRATA" files="ExtractData" name="STRATA" intrvl="discrete" dcml="0">
+      <location StartPos="108" width="5" EndPos="112"/>
+      <labl>Strata</labl>
+      <txt><![CDATA[STRATA defines the stratification for each sample.  Some countries use only urban/rural stratification, others use regions, and some use both levels of stratification.   Users may use STRATA and EAID (the primary sampling unit) to adjust sampling errors to account for sampling design of IPUMS-PMA samples.
+
+For more information on sample design for IPUMS-PMA surveys, see the sampling design memo [URL omitted from DDI.] for households and women.]]></txt>
+      <catgry>
+        <catValu>23101</catValu>
+        <labl>Addis Ababa - urban, Ethiopia</labl>
+      </catgry>
+      <catgry>
+        <catValu>23102</catValu>
+        <labl>Amhara - urban, Ethiopia</labl>
+      </catgry>
+      <catgry>
+        <catValu>23103</catValu>
+        <labl>Amhara - rural, Ethiopia</labl>
+      </catgry>
+      <catgry>
+        <catValu>23104</catValu>
+        <labl>Oromiya - urban, Ethiopia</labl>
+      </catgry>
+      <catgry>
+        <catValu>23105</catValu>
+        <labl>Oromiya - rural, Ethiopia</labl>
+      </catgry>
+      <catgry>
+        <catValu>23106</catValu>
+        <labl>Other, Ethiopia</labl>
+      </catgry>
+      <catgry>
+        <catValu>23107</catValu>
+        <labl>SNNP - urban, Ethiopia</labl>
+      </catgry>
+      <catgry>
+        <catValu>23108</catValu>
+        <labl>SNNP - rural, Ethiopia</labl>
+      </catgry>
+      <catgry>
+        <catValu>23109</catValu>
+        <labl>Tigray - urban, Ethiopia</labl>
+      </catgry>
+      <catgry>
+        <catValu>23110</catValu>
+        <labl>Tigray - rural, Ethiopia</labl>
+      </catgry>
+      <catgry>
+        <catValu>23111</catValu>
+        <labl>Dire Dawa - urban, Ethiopia</labl>
+      </catgry>
+      <catgry>
+        <catValu>23112</catValu>
+        <labl>Dire Dawa - rural, Ethiopia</labl>
+      </catgry>
+      <catgry>
+        <catValu>23113</catValu>
+        <labl>Afar - urban, Ethiopia</labl>
+      </catgry>
+      <catgry>
+        <catValu>23114</catValu>
+        <labl>Afar - rural, Ethiopia</labl>
+      </catgry>
+      <catgry>
+        <catValu>23115</catValu>
+        <labl>Somali - urban, Ethiopia</labl>
+      </catgry>
+      <catgry>
+        <catValu>23116</catValu>
+        <labl>Somali - rural, Ethiopia</labl>
+      </catgry>
+      <catgry>
+        <catValu>23117</catValu>
+        <labl>Gambella - urban, Ethiopia</labl>
+      </catgry>
+      <catgry>
+        <catValu>23118</catValu>
+        <labl>Gambella - rural, Ethiopia</labl>
+      </catgry>
+      <catgry>
+        <catValu>23119</catValu>
+        <labl>Harari - urban, Ethiopia</labl>
+      </catgry>
+      <catgry>
+        <catValu>23120</catValu>
+        <labl>Harari - rural, Ethiopia</labl>
+      </catgry>
+      <catgry>
+        <catValu>23121</catValu>
+        <labl>BG - rural, Ethiopia</labl>
+      </catgry>
+      <catgry>
+        <catValu>23122</catValu>
+        <labl>BG - urban</labl>
+      </catgry>
+      <catgry>
+        <catValu>28800</catValu>
+        <labl>Ashanti, Ghana</labl>
+      </catgry>
+      <catgry>
+        <catValu>28801</catValu>
+        <labl>Ashanti - urban, Ghana</labl>
+      </catgry>
+      <catgry>
+        <catValu>28802</catValu>
+        <labl>Ashanti - rural, Ghana</labl>
+      </catgry>
+      <catgry>
+        <catValu>28803</catValu>
+        <labl>Brong Ahafo - urban, Ghana</labl>
+      </catgry>
+      <catgry>
+        <catValu>28804</catValu>
+        <labl>Brong Ahafo - rural, Ghana</labl>
+      </catgry>
+      <catgry>
+        <catValu>28805</catValu>
+        <labl>Central - urban, Ghana</labl>
+      </catgry>
+      <catgry>
+        <catValu>28806</catValu>
+        <labl>Central - rural, Ghana</labl>
+      </catgry>
+      <catgry>
+        <catValu>28807</catValu>
+        <labl>Eastern - urban, Ghana</labl>
+      </catgry>
+      <catgry>
+        <catValu>28808</catValu>
+        <labl>Eastern - rural, Ghana</labl>
+      </catgry>
+      <catgry>
+        <catValu>28809</catValu>
+        <labl>Greater Accra - urban, Ghana</labl>
+      </catgry>
+      <catgry>
+        <catValu>28810</catValu>
+        <labl>Greater Accra - rural, Ghana</labl>
+      </catgry>
+      <catgry>
+        <catValu>28811</catValu>
+        <labl>Northern - urban, Ghana</labl>
+      </catgry>
+      <catgry>
+        <catValu>28812</catValu>
+        <labl>Northern - rural, Ghana</labl>
+      </catgry>
+      <catgry>
+        <catValu>28813</catValu>
+        <labl>Upper East - urban, Ghana</labl>
+      </catgry>
+      <catgry>
+        <catValu>28814</catValu>
+        <labl>Upper East - rural, Ghana</labl>
+      </catgry>
+      <catgry>
+        <catValu>28815</catValu>
+        <labl>Upper West - urban, Ghana</labl>
+      </catgry>
+      <catgry>
+        <catValu>28816</catValu>
+        <labl>Upper West - rural, Ghana</labl>
+      </catgry>
+      <catgry>
+        <catValu>28817</catValu>
+        <labl>Volta - urban, Ghana</labl>
+      </catgry>
+      <catgry>
+        <catValu>28818</catValu>
+        <labl>Volta - rural, Ghana</labl>
+      </catgry>
+      <catgry>
+        <catValu>28819</catValu>
+        <labl>Western - urban, Ghana</labl>
+      </catgry>
+      <catgry>
+        <catValu>28820</catValu>
+        <labl>Western - rural, Ghana</labl>
+      </catgry>
+      <catgry>
+        <catValu>35601</catValu>
+        <labl>R1, India</labl>
+      </catgry>
+      <catgry>
+        <catValu>35602</catValu>
+        <labl>R2, India</labl>
+      </catgry>
+      <catgry>
+        <catValu>35603</catValu>
+        <labl>R3, India</labl>
+      </catgry>
+      <catgry>
+        <catValu>35604</catValu>
+        <labl>R4, India</labl>
+      </catgry>
+      <catgry>
+        <catValu>35605</catValu>
+        <labl>R5, India</labl>
+      </catgry>
+      <catgry>
+        <catValu>35606</catValu>
+        <labl>R6, India</labl>
+      </catgry>
+      <catgry>
+        <catValu>35607</catValu>
+        <labl>R7, India</labl>
+      </catgry>
+      <catgry>
+        <catValu>35608</catValu>
+        <labl>R8, India</labl>
+      </catgry>
+      <catgry>
+        <catValu>35609</catValu>
+        <labl>R9, India</labl>
+      </catgry>
+      <catgry>
+        <catValu>35610</catValu>
+        <labl>R10, India</labl>
+      </catgry>
+      <catgry>
+        <catValu>35611</catValu>
+        <labl>R11, India</labl>
+      </catgry>
+      <catgry>
+        <catValu>35612</catValu>
+        <labl>R12, India</labl>
+      </catgry>
+      <catgry>
+        <catValu>35613</catValu>
+        <labl>R13, India</labl>
+      </catgry>
+      <catgry>
+        <catValu>35614</catValu>
+        <labl>R14, India</labl>
+      </catgry>
+      <catgry>
+        <catValu>35615</catValu>
+        <labl>R15, India</labl>
+      </catgry>
+      <catgry>
+        <catValu>35616</catValu>
+        <labl>R16, India</labl>
+      </catgry>
+      <catgry>
+        <catValu>35617</catValu>
+        <labl>R17, India</labl>
+      </catgry>
+      <catgry>
+        <catValu>35618</catValu>
+        <labl>R18, India</labl>
+      </catgry>
+      <catgry>
+        <catValu>35619</catValu>
+        <labl>U1, India</labl>
+      </catgry>
+      <catgry>
+        <catValu>35620</catValu>
+        <labl>U2, India</labl>
+      </catgry>
+      <catgry>
+        <catValu>35621</catValu>
+        <labl>U3, India</labl>
+      </catgry>
+      <catgry>
+        <catValu>35622</catValu>
+        <labl>U4, India</labl>
+      </catgry>
+      <catgry>
+        <catValu>35623</catValu>
+        <labl>U5, India</labl>
+      </catgry>
+      <catgry>
+        <catValu>35624</catValu>
+        <labl>U6, India</labl>
+      </catgry>
+      <catgry>
+        <catValu>36001</catValu>
+        <labl>Other - urban, Indonesia</labl>
+      </catgry>
+      <catgry>
+        <catValu>36002</catValu>
+        <labl>Other - rural, Indonesia</labl>
+      </catgry>
+      <catgry>
+        <catValu>36003</catValu>
+        <labl>Aceh - urban, Indonesia</labl>
+      </catgry>
+      <catgry>
+        <catValu>36004</catValu>
+        <labl>Aceh - rural, Indonesia</labl>
+      </catgry>
+      <catgry>
+        <catValu>36005</catValu>
+        <labl>Bali - urban, Indonesia</labl>
+      </catgry>
+      <catgry>
+        <catValu>36006</catValu>
+        <labl>Bali - rural, Indonesia</labl>
+      </catgry>
+      <catgry>
+        <catValu>36007</catValu>
+        <labl>Banten - urban, Indonesia</labl>
+      </catgry>
+      <catgry>
+        <catValu>36008</catValu>
+        <labl>Banten - rural, Indonesia</labl>
+      </catgry>
+      <catgry>
+        <catValu>36009</catValu>
+        <labl>Bengkulu - rural, Indonesia</labl>
+      </catgry>
+      <catgry>
+        <catValu>36010</catValu>
+        <labl>Di-Yogyakarta - urban, Indonesia</labl>
+      </catgry>
+      <catgry>
+        <catValu>36011</catValu>
+        <labl>Di-Yogyakarta - rural, Indonesia</labl>
+      </catgry>
+      <catgry>
+        <catValu>36012</catValu>
+        <labl>Dki-Jakarta - urban, Indonesia</labl>
+      </catgry>
+      <catgry>
+        <catValu>36013</catValu>
+        <labl>Gorontalo - rural, Indonesia</labl>
+      </catgry>
+      <catgry>
+        <catValu>36014</catValu>
+        <labl>Jambi - urban, Indonesia</labl>
+      </catgry>
+      <catgry>
+        <catValu>36015</catValu>
+        <labl>Jambi - rural, Indonesia</labl>
+      </catgry>
+      <catgry>
+        <catValu>36016</catValu>
+        <labl>Jawa-Barat - urban, Indonesia</labl>
+      </catgry>
+      <catgry>
+        <catValu>36017</catValu>
+        <labl>Jawa-Barat - rural, Indonesia</labl>
+      </catgry>
+      <catgry>
+        <catValu>36018</catValu>
+        <labl>Jawa-Tengah - urban, Indonesia</labl>
+      </catgry>
+      <catgry>
+        <catValu>36019</catValu>
+        <labl>Jawa-Tengah - rural, Indonesia</labl>
+      </catgry>
+      <catgry>
+        <catValu>36020</catValu>
+        <labl>Jawa-Timur - urban, Indonesia</labl>
+      </catgry>
+      <catgry>
+        <catValu>36021</catValu>
+        <labl>Jawa-Timur - rural, Indonesia</labl>
+      </catgry>
+      <catgry>
+        <catValu>36022</catValu>
+        <labl>Kalimantan-Barat - urban, Indonesia</labl>
+      </catgry>
+      <catgry>
+        <catValu>36023</catValu>
+        <labl>Kalimantan-Barat - rural, Indonesia</labl>
+      </catgry>
+      <catgry>
+        <catValu>36024</catValu>
+        <labl>Kalimantan-Selatan - urban, Indonesia</labl>
+      </catgry>
+      <catgry>
+        <catValu>36025</catValu>
+        <labl>Kalimantan-Selatan - rural, Indonesia</labl>
+      </catgry>
+      <catgry>
+        <catValu>36026</catValu>
+        <labl>Kalimantan-Tengah - rural, Indonesia</labl>
+      </catgry>
+      <catgry>
+        <catValu>36027</catValu>
+        <labl>Kalimantan-Timur - urban, Indonesia</labl>
+      </catgry>
+      <catgry>
+        <catValu>36028</catValu>
+        <labl>Kalimantan-Timur - rural, Indonesia</labl>
+      </catgry>
+      <catgry>
+        <catValu>36029</catValu>
+        <labl>Kepulauan-Bangka-Belitung - urban, Indonesia</labl>
+      </catgry>
+      <catgry>
+        <catValu>36030</catValu>
+        <labl>Kepulauan-Bangka-Belitung - rural, Indonesia</labl>
+      </catgry>
+      <catgry>
+        <catValu>36031</catValu>
+        <labl>Kepulauan-Riau - urban, Indonesia</labl>
+      </catgry>
+      <catgry>
+        <catValu>36032</catValu>
+        <labl>Lampung - urban, Indonesia</labl>
+      </catgry>
+      <catgry>
+        <catValu>36033</catValu>
+        <labl>Lampung - rural, Indonesia</labl>
+      </catgry>
+      <catgry>
+        <catValu>36034</catValu>
+        <labl>Maluku - rural, Indonesia</labl>
+      </catgry>
+      <catgry>
+        <catValu>36035</catValu>
+        <labl>Maluku-Utara - rural, Indonesia</labl>
+      </catgry>
+      <catgry>
+        <catValu>36036</catValu>
+        <labl>Nusa-Tenggara-Barat - urban, Indonesia</labl>
+      </catgry>
+      <catgry>
+        <catValu>36037</catValu>
+        <labl>Nusa-Tenggara-Barat - rural, Indonesia</labl>
+      </catgry>
+      <catgry>
+        <catValu>36038</catValu>
+        <labl>Nusa-Tenggara-Timur - urban, Indonesia</labl>
+      </catgry>
+      <catgry>
+        <catValu>36039</catValu>
+        <labl>Nusa-Tenggara-Timur - rural, Indonesia</labl>
+      </catgry>
+      <catgry>
+        <catValu>36040</catValu>
+        <labl>Papua - rural, Indonesia</labl>
+      </catgry>
+      <catgry>
+        <catValu>36041</catValu>
+        <labl>Papua-Barat - urban, Indonesia</labl>
+      </catgry>
+      <catgry>
+        <catValu>36042</catValu>
+        <labl>Riau - urban, Indonesia</labl>
+      </catgry>
+      <catgry>
+        <catValu>36043</catValu>
+        <labl>Riau - rural, Indonesia</labl>
+      </catgry>
+      <catgry>
+        <catValu>36044</catValu>
+        <labl>Sulawesi-Barat - rural, Indonesia</labl>
+      </catgry>
+      <catgry>
+        <catValu>36045</catValu>
+        <labl>Sulawesi-Selatan - urban, Indonesia</labl>
+      </catgry>
+      <catgry>
+        <catValu>36046</catValu>
+        <labl>Sulawesi-Selatan - rural, Indonesia</labl>
+      </catgry>
+      <catgry>
+        <catValu>36047</catValu>
+        <labl>Sulawesi-Tengah - urban, Indonesia</labl>
+      </catgry>
+      <catgry>
+        <catValu>36048</catValu>
+        <labl>Sulawesi-Tengah - rural, Indonesia</labl>
+      </catgry>
+      <catgry>
+        <catValu>36049</catValu>
+        <labl>Sulawesi-Tenggara - urban, Indonesia</labl>
+      </catgry>
+      <catgry>
+        <catValu>36050</catValu>
+        <labl>Sulawesi-Tenggara - rural, Indonesia</labl>
+      </catgry>
+      <catgry>
+        <catValu>36051</catValu>
+        <labl>Sulawesi-Utara - urban, Indonesia</labl>
+      </catgry>
+      <catgry>
+        <catValu>36052</catValu>
+        <labl>Sulawesi-Utara - rural, Indonesia</labl>
+      </catgry>
+      <catgry>
+        <catValu>36053</catValu>
+        <labl>Sumatera-Barat - urban, Indonesia</labl>
+      </catgry>
+      <catgry>
+        <catValu>36054</catValu>
+        <labl>Sumatera-Barat - rural, Indonesia</labl>
+      </catgry>
+      <catgry>
+        <catValu>36055</catValu>
+        <labl>Sumatera-Selatan - urban, Indonesia</labl>
+      </catgry>
+      <catgry>
+        <catValu>36056</catValu>
+        <labl>Sumatera-Selatan - rural, Indonesia</labl>
+      </catgry>
+      <catgry>
+        <catValu>36057</catValu>
+        <labl>Sumatera-Utara - urban, Indonesia</labl>
+      </catgry>
+      <catgry>
+        <catValu>36058</catValu>
+        <labl>Sumatera-Utara - rural, Indonesia</labl>
+      </catgry>
+      <catgry>
+        <catValu>38401</catValu>
+        <labl>Urban, Cote d'Ivoire</labl>
+      </catgry>
+      <catgry>
+        <catValu>38402</catValu>
+        <labl>Rural, Cote d'Ivoire</labl>
+      </catgry>
+      <catgry>
+        <catValu>40401</catValu>
+        <labl>Bungoma, Kenya</labl>
+      </catgry>
+      <catgry>
+        <catValu>40402</catValu>
+        <labl>Kericho, Kenya</labl>
+      </catgry>
+      <catgry>
+        <catValu>40403</catValu>
+        <labl>Kiambu, Kenya</labl>
+      </catgry>
+      <catgry>
+        <catValu>40404</catValu>
+        <labl>Kilifi, Kenya</labl>
+      </catgry>
+      <catgry>
+        <catValu>40405</catValu>
+        <labl>Kitui, Kenya</labl>
+      </catgry>
+      <catgry>
+        <catValu>40406</catValu>
+        <labl>Nairobi, Kenya</labl>
+      </catgry>
+      <catgry>
+        <catValu>40407</catValu>
+        <labl>Nandi, Kenya</labl>
+      </catgry>
+      <catgry>
+        <catValu>40408</catValu>
+        <labl>Nyamira, Kenya</labl>
+      </catgry>
+      <catgry>
+        <catValu>40409</catValu>
+        <labl>Siaya, Kenya</labl>
+      </catgry>
+      <catgry>
+        <catValu>40410</catValu>
+        <labl>Bungoma - urban, Kenya</labl>
+      </catgry>
+      <catgry>
+        <catValu>40411</catValu>
+        <labl>Bungoma - rural, Kenya</labl>
+      </catgry>
+      <catgry>
+        <catValu>40412</catValu>
+        <labl>Kakamega - urban, Kenya</labl>
+      </catgry>
+      <catgry>
+        <catValu>40413</catValu>
+        <labl>Kakamega - rural, Kenya</labl>
+      </catgry>
+      <catgry>
+        <catValu>40414</catValu>
+        <labl>Kericho - urban, Kenya</labl>
+      </catgry>
+      <catgry>
+        <catValu>40415</catValu>
+        <labl>Kericho - rural, Kenya</labl>
+      </catgry>
+      <catgry>
+        <catValu>40416</catValu>
+        <labl>Kiambu - urban, Kenya</labl>
+      </catgry>
+      <catgry>
+        <catValu>40417</catValu>
+        <labl>Kiambu - rural, Kenya</labl>
+      </catgry>
+      <catgry>
+        <catValu>40418</catValu>
+        <labl>Kilifi - urban, Kenya</labl>
+      </catgry>
+      <catgry>
+        <catValu>40419</catValu>
+        <labl>Kilifi - rural, Kenya</labl>
+      </catgry>
+      <catgry>
+        <catValu>40420</catValu>
+        <labl>Kitui - urban, Kenya</labl>
+      </catgry>
+      <catgry>
+        <catValu>40421</catValu>
+        <labl>Kitui - rural, Kenya</labl>
+      </catgry>
+      <catgry>
+        <catValu>40422</catValu>
+        <labl>Nairobi - urban, Kenya</labl>
+      </catgry>
+      <catgry>
+        <catValu>40423</catValu>
+        <labl>Nandi - urban, Kenya</labl>
+      </catgry>
+      <catgry>
+        <catValu>40424</catValu>
+        <labl>Nandi - rural, Kenya</labl>
+      </catgry>
+      <catgry>
+        <catValu>40425</catValu>
+        <labl>Nyamira - urban, Kenya</labl>
+      </catgry>
+      <catgry>
+        <catValu>40426</catValu>
+        <labl>Nyamira - rural, Kenya</labl>
+      </catgry>
+      <catgry>
+        <catValu>40427</catValu>
+        <labl>Siaya - urban, Kenya</labl>
+      </catgry>
+      <catgry>
+        <catValu>40428</catValu>
+        <labl>Siaya - rural, Kenya</labl>
+      </catgry>
+      <catgry>
+        <catValu>40429</catValu>
+        <labl>West_pokot - urban, Kenya</labl>
+      </catgry>
+      <catgry>
+        <catValu>40430</catValu>
+        <labl>West_pokot - rural, Kenya</labl>
+      </catgry>
+      <catgry>
+        <catValu>56201</catValu>
+        <labl>Commune 1, Niger</labl>
+      </catgry>
+      <catgry>
+        <catValu>56202</catValu>
+        <labl>Commune 2, Niger</labl>
+      </catgry>
+      <catgry>
+        <catValu>56203</catValu>
+        <labl>Commune 3, Niger</labl>
+      </catgry>
+      <catgry>
+        <catValu>56204</catValu>
+        <labl>Commune 4, Niger</labl>
+      </catgry>
+      <catgry>
+        <catValu>56205</catValu>
+        <labl>Commune 5, Niger</labl>
+      </catgry>
+      <catgry>
+        <catValu>56206</catValu>
+        <labl>Niamey, Niger</labl>
+      </catgry>
+      <catgry>
+        <catValu>56207</catValu>
+        <labl>Other urban, Niger</labl>
+      </catgry>
+      <catgry>
+        <catValu>56208</catValu>
+        <labl>Rural, Niger</labl>
+      </catgry>
+      <catgry>
+        <catValu>56601</catValu>
+        <labl>Urban, Nigeria</labl>
+      </catgry>
+      <catgry>
+        <catValu>56602</catValu>
+        <labl>Rural, Nigeria</labl>
+      </catgry>
+      <catgry>
+        <catValu>56603</catValu>
+        <labl>Anambra, Nigeria</labl>
+      </catgry>
+      <catgry>
+        <catValu>56604</catValu>
+        <labl>Kaduna, Nigeria</labl>
+      </catgry>
+      <catgry>
+        <catValu>56605</catValu>
+        <labl>Kano, Nigeria</labl>
+      </catgry>
+      <catgry>
+        <catValu>56606</catValu>
+        <labl>Lagos, Nigeria</labl>
+      </catgry>
+      <catgry>
+        <catValu>56607</catValu>
+        <labl>Nasarawa, Nigeria</labl>
+      </catgry>
+      <catgry>
+        <catValu>56608</catValu>
+        <labl>Rivers, Nigeria</labl>
+      </catgry>
+      <catgry>
+        <catValu>56609</catValu>
+        <labl>Taraba, Nigeria</labl>
+      </catgry>
+      <catgry>
+        <catValu>56610</catValu>
+        <labl>Oyo, Nigeria</labl>
+      </catgry>
+      <catgry>
+        <catValu>56611</catValu>
+        <labl>Kano - Urban</labl>
+      </catgry>
+      <catgry>
+        <catValu>56612</catValu>
+        <labl>Kano - Rural</labl>
+      </catgry>
+      <catgry>
+        <catValu>80001</catValu>
+        <labl>Central 1 - urban, Uganda</labl>
+      </catgry>
+      <catgry>
+        <catValu>80002</catValu>
+        <labl>Central 1 - rural, Uganda</labl>
+      </catgry>
+      <catgry>
+        <catValu>80003</catValu>
+        <labl>Central 2 - urban, Uganda</labl>
+      </catgry>
+      <catgry>
+        <catValu>80004</catValu>
+        <labl>Central 2 - rural, Uganda</labl>
+      </catgry>
+      <catgry>
+        <catValu>80005</catValu>
+        <labl>East Central - urban, Uganda</labl>
+      </catgry>
+      <catgry>
+        <catValu>80006</catValu>
+        <labl>East Central - rural, Uganda</labl>
+      </catgry>
+      <catgry>
+        <catValu>80007</catValu>
+        <labl>Eastern - urban, Uganda</labl>
+      </catgry>
+      <catgry>
+        <catValu>80008</catValu>
+        <labl>Eastern - rural, Uganda</labl>
+      </catgry>
+      <catgry>
+        <catValu>80009</catValu>
+        <labl>Kampala - urban, Uganda</labl>
+      </catgry>
+      <catgry>
+        <catValu>80010</catValu>
+        <labl>Karamoja - urban, Uganda</labl>
+      </catgry>
+      <catgry>
+        <catValu>80011</catValu>
+        <labl>Karamoja - rural, Uganda</labl>
+      </catgry>
+      <catgry>
+        <catValu>80012</catValu>
+        <labl>North - urban, Uganda</labl>
+      </catgry>
+      <catgry>
+        <catValu>80013</catValu>
+        <labl>North - rural, Uganda</labl>
+      </catgry>
+      <catgry>
+        <catValu>80014</catValu>
+        <labl>South West - urban, Uganda</labl>
+      </catgry>
+      <catgry>
+        <catValu>80015</catValu>
+        <labl>South West - rural, Uganda</labl>
+      </catgry>
+      <catgry>
+        <catValu>80016</catValu>
+        <labl>West Nile - urban, Uganda</labl>
+      </catgry>
+      <catgry>
+        <catValu>80017</catValu>
+        <labl>West Nile - rural, Uganda</labl>
+      </catgry>
+      <catgry>
+        <catValu>80018</catValu>
+        <labl>Western - urban, Uganda</labl>
+      </catgry>
+      <catgry>
+        <catValu>80019</catValu>
+        <labl>Western - rural, Uganda</labl>
+      </catgry>
+      <catgry>
+        <catValu>85401</catValu>
+        <labl>Urban, Burkina Faso</labl>
+      </catgry>
+      <catgry>
+        <catValu>85402</catValu>
+        <labl>Rural, Burkina Faso</labl>
+      </catgry>
+      <catgry>
+        <catValu>99998</catValu>
+        <labl>No response or missing</labl>
+      </catgry>
+      <concept vocab="IPUMS">Weights and Estimation Variables -- TOPICS</concept>
+      <varFormat schema="other" type="numeric"/>
+    </var>
+    <var ID="URBAN" files="ExtractData" name="URBAN" intrvl="discrete" dcml="0">
+      <location StartPos="113" width="2" EndPos="114"/>
+      <labl>Urban/rural status</labl>
+      <txt><![CDATA[URBAN indicates whether the respondent was located in a place designated as urban or as rural. Urban/rural status varies across countries, depending on the definition of the country's statistical bureau.]]></txt>
+      <catgry>
+        <catValu>00</catValu>
+        <labl>Rural</labl>
+      </catgry>
+      <catgry>
+        <catValu>01</catValu>
+        <labl>Urban</labl>
+      </catgry>
+      <catgry>
+        <catValu>96</catValu>
+        <labl>Not interviewed (household questionnaire)</labl>
+      </catgry>
+      <catgry>
+        <catValu>98</catValu>
+        <labl>No response or missing</labl>
+      </catgry>
+      <concept vocab="IPUMS">Geography Variables -- TOPICS</concept>
+      <varFormat schema="other" type="numeric"/>
+    </var>
+    <var ID="GEOBF" files="ExtractData" name="GEOBF" intrvl="discrete" dcml="0">
+      <location StartPos="115" width="2" EndPos="116"/>
+      <labl>Region, Burkina Faso</labl>
+      <txt><![CDATA[GEOBF reports the region of Burkina Faso in which the respondent was located.]]></txt>
+      <catgry>
+        <catValu>01</catValu>
+        <labl>Boucle du Mouhoun</labl>
+      </catgry>
+      <catgry>
+        <catValu>02</catValu>
+        <labl>Cascades</labl>
+      </catgry>
+      <catgry>
+        <catValu>03</catValu>
+        <labl>Centre</labl>
+      </catgry>
+      <catgry>
+        <catValu>04</catValu>
+        <labl>Centre-Est</labl>
+      </catgry>
+      <catgry>
+        <catValu>05</catValu>
+        <labl>Centre-Nord</labl>
+      </catgry>
+      <catgry>
+        <catValu>06</catValu>
+        <labl>Centre-Ouest</labl>
+      </catgry>
+      <catgry>
+        <catValu>07</catValu>
+        <labl>Centre-Sud</labl>
+      </catgry>
+      <catgry>
+        <catValu>08</catValu>
+        <labl>Est</labl>
+      </catgry>
+      <catgry>
+        <catValu>09</catValu>
+        <labl>Hauts-Bassins</labl>
+      </catgry>
+      <catgry>
+        <catValu>10</catValu>
+        <labl>Nord</labl>
+      </catgry>
+      <catgry>
+        <catValu>11</catValu>
+        <labl>Plateau-Central</labl>
+      </catgry>
+      <catgry>
+        <catValu>12</catValu>
+        <labl>Sahel</labl>
+      </catgry>
+      <catgry>
+        <catValu>13</catValu>
+        <labl>Sud-Ouest</labl>
+      </catgry>
+      <catgry>
+        <catValu>98</catValu>
+        <labl>No response or missing</labl>
+      </catgry>
+      <concept vocab="IPUMS">Geography Variables -- TOPICS</concept>
+      <varFormat schema="other" type="numeric"/>
+    </var>
+    <var ID="PREGNANT" files="ExtractData" name="PREGNANT" intrvl="discrete" dcml="0">
+      <location StartPos="117" width="2" EndPos="118"/>
+      <labl>Pregnancy status</labl>
+      <txt><![CDATA[PREGNANT indicates whether or not the woman was pregnant at the time of the interview.  
+
+The question associated with this variable was included in the female questionnaire.]]></txt>
+      <catgry>
+        <catValu>00</catValu>
+        <labl>No</labl>
+      </catgry>
+      <catgry>
+        <catValu>01</catValu>
+        <labl>Yes</labl>
+      </catgry>
+      <catgry>
+        <catValu>95</catValu>
+        <labl>Not interviewed (female questionnaire)</labl>
+      </catgry>
+      <catgry>
+        <catValu>96</catValu>
+        <labl>Not interviewed (household questionnaire)</labl>
+      </catgry>
+      <catgry>
+        <catValu>97</catValu>
+        <labl>Don't know</labl>
+      </catgry>
+      <catgry>
+        <catValu>98</catValu>
+        <labl>No response</labl>
+      </catgry>
+      <catgry>
+        <catValu>99</catValu>
+        <labl>NIU (not in universe) or missing</labl>
+      </catgry>
+      <concept vocab="IPUMS">Core demographics Variables -- TOPICS</concept>
+      <varFormat schema="other" type="numeric"/>
+    </var>
+    <var ID="WEALTHQ" files="ExtractData" name="WEALTHQ" intrvl="discrete" dcml="0">
+      <location StartPos="119" width="2" EndPos="120"/>
+      <labl>Wealth score quintile</labl>
+      <txt><![CDATA[For all households with complete survey results, WEALTHQ refers to the relative wealth of the household where the woman lives, divided into quintiles from the poorest (Lowest quintile) to the richest (Highest quintile). Wealth is determined by a constructed wealth score (SCORE).
+
+
+SCORE is a constructed variable that combines information on household assets, livestock owned, floor, roof, and wall construction materials, water sources, and toilet facilities to create a total wealth score for the household. 
+Household assets include possessions such as radios, televisions, bicycles, furniture, etc. These options may vary slightly by country and survey year.
+Livestock counted are chickens, sheep, goats, horses/camels, cows/bulls, and local cattle. These options may vary slightly by country and survey year. 
+Floor materials are divided into three categories: natural materials (e.g. earth or dung), rudimentary materials (e.g. planks or palm bamboo), and finished materials (e.g. vinyl, ceramic tiles, cement, or carpet). These options may vary slightly by country and survey year. 
+Roof materials are divided into three categories: natural materials (e.g. a thatched roof or dung/mud), rudimentary materials (e.g. corrugated iron or tin cans), and finished materials (e.g. asbestos, concrete, or tiles). These options may vary slightly by country and survey year. 
+Wall materials are divided into three categories: natural materials (e.g. no walls, cane, or dung/mud), rudimentary materials (e.g. bamboo and mud, plywood, cardboard, or reused wood), and finished materials (e.g. cement, bricks, or wood planks with shingles). These options may vary slightly by country and survey year. 
+Water source includes options such as water piped into the dwelling, a public tap, a dug well, and others.  
+Toilet facility includes options such as a piped sewer system, composting toilet, etc. 
+
+Unweighted means and standard deviations for each of the indicator variables are then used in a principal components analysis to determine the overall household wealth score.
+
+The questions associated with this variable were included in the household questionnaire.
+]]></txt>
+      <catgry>
+        <catValu>01</catValu>
+        <labl>Lowest quintile</labl>
+      </catgry>
+      <catgry>
+        <catValu>02</catValu>
+        <labl>Lower quintile</labl>
+      </catgry>
+      <catgry>
+        <catValu>03</catValu>
+        <labl>Middle quintile</labl>
+      </catgry>
+      <catgry>
+        <catValu>04</catValu>
+        <labl>Higher quintile</labl>
+      </catgry>
+      <catgry>
+        <catValu>05</catValu>
+        <labl>Highest quintile</labl>
+      </catgry>
+      <catgry>
+        <catValu>96</catValu>
+        <labl>Not interviewed (household questionnaire)</labl>
+      </catgry>
+      <catgry>
+        <catValu>98</catValu>
+        <labl>No response or missing</labl>
+      </catgry>
+      <catgry>
+        <catValu>99</catValu>
+        <labl>NIU (not in universe)</labl>
+      </catgry>
+      <concept vocab="IPUMS">Wealth Index Variables -- TOPICS</concept>
+      <varFormat schema="other" type="numeric"/>
+    </var>
+    <var ID="FPPROVIDERGEN" files="ExtractData" name="FPPROVIDERGEN" intrvl="discrete" dcml="0">
+      <location StartPos="121" width="2" EndPos="122"/>
+      <labl>First source of recent or current FP method, general</labl>
+      <txt><![CDATA[FPPROVIDERGEN reports where the woman first received her recent or current family planning method in the general categories of public, private, NGO or other.  A related variable, FPPROVIDER, also reports where the woman first received her recent or current family planning method and retains all details from country-specific response categories.  
+
+The question associated with this variable was included in the female questionnaire.]]></txt>
+      <catgry>
+        <catValu>01</catValu>
+        <labl>Public Sector</labl>
+      </catgry>
+      <catgry>
+        <catValu>02</catValu>
+        <labl>Private Sector</labl>
+      </catgry>
+      <catgry>
+        <catValu>03</catValu>
+        <labl>NGO</labl>
+      </catgry>
+      <catgry>
+        <catValu>04</catValu>
+        <labl>Other</labl>
+      </catgry>
+      <catgry>
+        <catValu>96</catValu>
+        <labl>Not interviewed (household questionnaire)</labl>
+      </catgry>
+      <catgry>
+        <catValu>95</catValu>
+        <labl>Not interviewed (female questionnaire)</labl>
+      </catgry>
+      <catgry>
+        <catValu>97</catValu>
+        <labl>Don't know</labl>
+      </catgry>
+      <catgry>
+        <catValu>98</catValu>
+        <labl>No response</labl>
+      </catgry>
+      <catgry>
+        <catValu>99</catValu>
+        <labl>NIU (not in universe) or missing</labl>
+      </catgry>
+      <concept vocab="IPUMS">Family Planning Access Variables -- TOPICS</concept>
+      <varFormat schema="other" type="numeric"/>
+    </var>
+    <var ID="FPGETDESIRED" files="ExtractData" name="FPGETDESIRED" intrvl="discrete" dcml="0">
+      <location StartPos="123" width="2" EndPos="124"/>
+      <labl>Were able to obtain preferred method of contraception</labl>
+      <txt><![CDATA[For a woman who used a modern family planning method in the past 12 months (MCP and FPBEGINUSECMC), FPGETDESIRED reports if she was able to obtain the family planning method that she wanted to delay or avoid getting pregnant when she first obtained her current or most recent method of contraception.  
+
+The question associated with this variable was included in the female questionnaire.]]></txt>
+      <catgry>
+        <catValu>02</catValu>
+        <labl>Did not have a preference</labl>
+      </catgry>
+      <catgry>
+        <catValu>00</catValu>
+        <labl>No</labl>
+      </catgry>
+      <catgry>
+        <catValu>01</catValu>
+        <labl>Yes</labl>
+      </catgry>
+      <catgry>
+        <catValu>95</catValu>
+        <labl>Not interviewed (female questionnaire)</labl>
+      </catgry>
+      <catgry>
+        <catValu>96</catValu>
+        <labl>Not interviewed (household questionnaire)</labl>
+      </catgry>
+      <catgry>
+        <catValu>98</catValu>
+        <labl>No response</labl>
+      </catgry>
+      <catgry>
+        <catValu>99</catValu>
+        <labl>NIU (not in universe)</labl>
+      </catgry>
+      <concept vocab="IPUMS">Family Planning Access Variables -- TOPICS</concept>
+      <varFormat schema="other" type="numeric"/>
+    </var>
+    <var ID="CP" files="ExtractData" name="CP" intrvl="discrete" dcml="0">
+      <location StartPos="125" width="2" EndPos="126"/>
+      <labl>Contraceptive user</labl>
+      <txt><![CDATA[CP indicates whether or not the woman is currently using any family planning method to delay or avoid becoming pregnant. 
+
+The values in CP are constructed from the variable FPCURREFFMETH, which reports the most effective family planning method the woman is currently using. It is important to note that there may be instances in which women who did not report current use of a contraceptive method (and are thus coded as "NIU (not in universe)" in FPCURREFFMETH) are coded as "Yes" in CP. Specifically, women who do not report current use of a contraceptive method are coded as "Yes" in CP if: 
+a. they reported using emergency contraception in the last 12 months (FPEFFECTIVEYR)
+b. they reported female sterilization as their first contraceptive method (FP1STMETHOD)
+
+Users may also be interested in TCP and MCP, which indicate whether or not the woman is currently using a traditional contraceptive method and a modern contraceptive method, respectively. 
+
+The question associated with this variable was included in the female questionnaire.]]></txt>
+      <catgry>
+        <catValu>00</catValu>
+        <labl>No</labl>
+      </catgry>
+      <catgry>
+        <catValu>01</catValu>
+        <labl>Yes</labl>
+      </catgry>
+      <catgry>
+        <catValu>95</catValu>
+        <labl>Not interviewed (female questionnaire)</labl>
+      </catgry>
+      <catgry>
+        <catValu>96</catValu>
+        <labl>Not interviewed (household questionnaire)</labl>
+      </catgry>
+      <catgry>
+        <catValu>99</catValu>
+        <labl>NIU (not in universe) or missing</labl>
+      </catgry>
+      <concept vocab="IPUMS">Current or Recent Family Planning Use Variables -- TOPICS</concept>
+      <varFormat schema="other" type="numeric"/>
+    </var>
+    <var ID="MCP" files="ExtractData" name="MCP" intrvl="discrete" dcml="0">
+      <location StartPos="127" width="2" EndPos="128"/>
+      <labl>Modern contraceptive user</labl>
+      <txt><![CDATA[MCP indicates whether the woman is currently using a modern family planning method to delay or avoid becoming pregnant. PMA2020 considers sterilization, hormonal and barrier methods, emergency contraception, lactational amenorrhea method (LAM), and the standard days/cycle beads method to be modern methods of contraception.
+
+In most cases MCP is derived from responses recorded in FPCURREFFMETH, which reports the most effective family planning method the woman is currently using. Women who do not report current use of a modern contraceptive method are coded as "Yes" in MCP if: 
+a. they reported using emergency contraception in the last 12 months (FPEFFECTIVEYR)
+b. they reported female sterilization as their first contraceptive method (FP1STMETHOD)
+
+Additionally, women who report current use of the LAM must meet the following conditions to be coded as "Yes" in MCP:
+
+a. they must be less than six months post-partum (see LASTDOBCMC)
+b. they must be amenorrheic (not currently menstruating) (see TIMEMENSTRUATE and TIMEMENSTRUATEVAL)
+c. they must report that they are using LAM with the intention of avoiding or delaying a pregnancy (see FPNOWUSBF)
+
+If any of these conditions are not met, the woman is coded as "No" in MCP and "Yes" in TCP, which indicates whether the woman is currently using a traditional contraceptive method.
+
+Users may also be interested in CP, which indicates whether or not the woman is currently using any contraceptive method. 
+
+The questions associated with this variable were included in the female questionnaire.]]></txt>
+      <catgry>
+        <catValu>00</catValu>
+        <labl>No</labl>
+      </catgry>
+      <catgry>
+        <catValu>01</catValu>
+        <labl>Yes</labl>
+      </catgry>
+      <catgry>
+        <catValu>95</catValu>
+        <labl>Not interviewed (female questionnaire)</labl>
+      </catgry>
+      <catgry>
+        <catValu>96</catValu>
+        <labl>Not interviewed (household questionnaire)</labl>
+      </catgry>
+      <catgry>
+        <catValu>99</catValu>
+        <labl>NIU (not in universe) or missing</labl>
+      </catgry>
+      <concept vocab="IPUMS">Current or Recent Family Planning Use Variables -- TOPICS</concept>
+      <varFormat schema="other" type="numeric"/>
+    </var>
+    <var ID="TCP" files="ExtractData" name="TCP" intrvl="discrete" dcml="0">
+      <location StartPos="129" width="2" EndPos="130"/>
+      <labl>Traditional contraceptive users</labl>
+      <txt><![CDATA[TCP indicates whether the woman is currently using a traditional family planning method to delay or avoid becoming pregnant. PMA2020 considers the rhythm method and withdrawal to be traditional methods of contraception.
+
+The values in TCP are constructed from the variable FPCURREFFMETH, which reports the most effective family planning method the woman is currently using. It is important to note that women who report current use of the lactational amenorrhea method (LAM) may be coded as "Yes" in TCP if they fail to meet any of the following conditions:
+
+a. they must be less than six months post-partum (see LASTDOBCMC)
+b. they must be amenorrheic (not currently menstruating) (see TIMEMENSTRUATE and TIMEMENSTRUATEVAL)
+c. they must report that they are using LAM with the intention of avoiding or delaying a pregnancy (see FPNOWUSBF)
+
+If all of these conditions are met, these women are coded as "No" in TCP and "Yes" in MCP, which indicates whether the woman is currently using a modern contraceptive method.
+
+Users may also be interested in CP, which indicates whether or not the woman is currently using any contraceptive method. 
+
+The questions associated with this variable were included in the female questionnaire.]]></txt>
+      <catgry>
+        <catValu>00</catValu>
+        <labl>No</labl>
+      </catgry>
+      <catgry>
+        <catValu>01</catValu>
+        <labl>Yes</labl>
+      </catgry>
+      <catgry>
+        <catValu>95</catValu>
+        <labl>Not interviewed (female questionnaire)</labl>
+      </catgry>
+      <catgry>
+        <catValu>96</catValu>
+        <labl>Not interviewed (household questionnaire)</labl>
+      </catgry>
+      <catgry>
+        <catValu>99</catValu>
+        <labl>NIU (not in universe) or missing</labl>
+      </catgry>
+      <concept vocab="IPUMS">Current or Recent Family Planning Use Variables -- TOPICS</concept>
+      <varFormat schema="other" type="numeric"/>
+    </var>
+    <var ID="FPCURRUSE" files="ExtractData" name="FPCURRUSE" intrvl="discrete" dcml="0">
+      <location StartPos="131" width="2" EndPos="132"/>
+      <labl>Currently using method of FP</labl>
+      <txt><![CDATA[FPCURRUSE indicates whether the woman is currently using any method of family planning, or doing something to delay or avoid pregnancy.
+
+The question associated with this variable was included in the female questionnaire.]]></txt>
+      <catgry>
+        <catValu>00</catValu>
+        <labl>No</labl>
+      </catgry>
+      <catgry>
+        <catValu>01</catValu>
+        <labl>Yes</labl>
+      </catgry>
+      <catgry>
+        <catValu>95</catValu>
+        <labl>Not interviewed (female questionnaire)</labl>
+      </catgry>
+      <catgry>
+        <catValu>96</catValu>
+        <labl>Not interviewed (household questionnaire)</labl>
+      </catgry>
+      <catgry>
+        <catValu>98</catValu>
+        <labl>No response or missing</labl>
+      </catgry>
+      <catgry>
+        <catValu>99</catValu>
+        <labl>NIU (not in universe)</labl>
+      </catgry>
+      <concept vocab="IPUMS">Current or Recent Family Planning Use Variables -- TOPICS</concept>
+      <varFormat schema="other" type="numeric"/>
+    </var>
+    <var ID="FPCURRECUSER" files="ExtractData" name="FPCURRECUSER" intrvl="discrete" dcml="0">
+      <location StartPos="133" width="2" EndPos="134"/>
+      <labl>Current or recent FP user</labl>
+      <txt><![CDATA[FPCURRECUSER indicates whether the woman was using a method of family planning or doing anything to delay or avoid getting pregnant at the time of the interview, or did anything to delay or avoid getting pregnant in the 12 months before the interview.  
+
+The information in FPCURRECUSER is derived from two different questions. The female questionnaire initially asks "Are you/your partner currently doing something or using any method to delay or avoid getting pregnant?" or some slight variation. The woman's response to this question is reported in FPCURRUSE. Women who answered "No" to this question are then asked "In the last 12 months, have you ever done something or used a method to delay or avoid getting pregnant?" The woman's response to this question is reported in FPUSEYR. Women who responded "Yes" to either of these questions are coded as "Yes" in FPCURRECUSER.
+
+The questions associated with this variable were included in the female questionnaire.]]></txt>
+      <catgry>
+        <catValu>00</catValu>
+        <labl>No</labl>
+      </catgry>
+      <catgry>
+        <catValu>01</catValu>
+        <labl>Yes</labl>
+      </catgry>
+      <catgry>
+        <catValu>95</catValu>
+        <labl>Not interviewed (female questionnaire)</labl>
+      </catgry>
+      <catgry>
+        <catValu>96</catValu>
+        <labl>Not interviewed (household questionnaire)</labl>
+      </catgry>
+      <catgry>
+        <catValu>99</catValu>
+        <labl>NIU (not in universe)</labl>
+      </catgry>
+      <concept vocab="IPUMS">Current or Recent Family Planning Use Variables -- TOPICS</concept>
+      <varFormat schema="other" type="numeric"/>
+    </var>
+  </dataDscr>
+</codeBook>

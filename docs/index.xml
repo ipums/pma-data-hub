@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:media="http://search.yahoo.com/mrss/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:dc="http://purl.org/dc/elements/1.1/" version="2.0">
+  <channel>
+    <title>Data Analysis Hub</title>
+    <link>https://ipums.github.io/pma-data-hub/</link>
+    <atom:link href="https://ipums.github.io/pma-data-hub/index.xml" rel="self" type="application/rss+xml"/>
+    <description>A blog about PMA data
+</description>
+    <image>
+      <title>Data Analysis Hub</title>
+      <url>https://ipums.github.io/pma-data-hub/images/favicon/favicon-32x32.png</url>
+      <link>https://ipums.github.io/pma-data-hub/</link>
+    </image>
+    <generator>Distill</generator>
+    <lastBuildDate>Sat, 30 Jan 2021 00:00:00 +0000</lastBuildDate>
+    <item>
+      <title>Mapping Service Delivery Point Data</title>
+      <dc:creator>Nina Brooks</dc:creator>
+      <link>https://ipums.github.io/pma-data-hub/posts/2021-01-29-mapping-sdp-variables</link>
+      <description>Map spatial variation in the service delivery environment across enumeration areas.</description>
+      <category>Individuals in Context</category>
+      <category>Serivce Delivery Points</category>
+      <category>Data Manipulation</category>
+      <category>Mapping</category>
+      <category>sf</category>
+      <guid>https://ipums.github.io/pma-data-hub/posts/2021-01-29-mapping-sdp-variables</guid>
+      <pubDate>Sat, 30 Jan 2021 00:00:00 +0000</pubDate>
+      <media:content url="https://ipums.github.io/pma-data-hub/posts/2021-01-29-mapping-sdp-variables/images/bf_fp_map.png" medium="image" type="image/png" width="2100" height="1350"/>
+    </item>
+    <item>
+      <title>Merging Service Delivery Point Data to Household &amp; Female Records</title>
+      <dc:creator>Matt Gunther</dc:creator>
+      <link>https://ipums.github.io/pma-data-hub/posts/2021-01-28-summarize-by-easerved</link>
+      <description>Create aggregate measures for women living the areas served by SDPs</description>
+      <category>Individuals in Context</category>
+      <category>Data Manipulation</category>
+      <category>Serivce Delivery Points</category>
+      <category>tidyr::pivot_longer</category>
+      <guid>https://ipums.github.io/pma-data-hub/posts/2021-01-28-summarize-by-easerved</guid>
+      <pubDate>Fri, 29 Jan 2021 00:00:00 +0000</pubDate>
+    </item>
+    <item>
+      <title>Recode and Summarize Variables from Multiiple Response Questions</title>
+      <dc:creator>Matt Gunther</dc:creator>
+      <link>https://ipums.github.io/pma-data-hub/posts/2021-01-28-across-sdp</link>
+      <description>Use dplyr::across to summarize variables with a similar naming pattern.</description>
+      <category>Individuals in Context</category>
+      <category>Data Manipulation</category>
+      <category>Serivce Delivery Points</category>
+      <category>dplyr::across</category>
+      <category>dplyr::summarize</category>
+      <category>ipumsr::lbl_relabel</category>
+      <category>ipumsr::lbl_na_if</category>
+      <guid>https://ipums.github.io/pma-data-hub/posts/2021-01-28-across-sdp</guid>
+      <pubDate>Thu, 28 Jan 2021 00:00:00 +0000</pubDate>
+    </item>
+    <item>
+      <title>Service Delivery Point Data Explained</title>
+      <dc:creator>Matt Gunther</dc:creator>
+      <link>https://ipums.github.io/pma-data-hub/posts/2021-01-26-sdp-data</link>
+      <description>SDP samples are not nationally representative. Learn how to use them to describe the health service environment experienced by individuals.</description>
+      <category>Individuals in Context</category>
+      <category>Data Discovery</category>
+      <category>Service Delivery Points</category>
+      <guid>https://ipums.github.io/pma-data-hub/posts/2021-01-26-sdp-data</guid>
+      <pubDate>Tue, 26 Jan 2021 00:00:00 +0000</pubDate>
+      <media:content url="https://ipums.github.io/pma-data-hub/posts/2021-01-26-sdp-data/images/choose-unit.png" medium="image" type="image/png" width="909" height="632"/>
+    </item>
+    <item>
+      <title>Import IPUMS PMA Data into R</title>
+      <dc:creator>Matt Gunther</dc:creator>
+      <link>https://ipums.github.io/pma-data-hub/posts/2020-12-10-get-ipums-pma-data</link>
+      <description>How to download an IPUMS PMA data extract and start using it in R</description>
+      <category>R Tips</category>
+      <category>R Packages</category>
+      <category>Importing Data</category>
+      <guid>https://ipums.github.io/pma-data-hub/posts/2020-12-10-get-ipums-pma-data</guid>
+      <pubDate>Tue, 10 Nov 2020 00:00:00 +0000</pubDate>
+      <media:content url="https://ipums.github.io/pma-data-hub/posts/2020-12-10-get-ipums-pma-data/images/create-data-extract.png" medium="image" type="image/png" width="910" height="790"/>
+    </item>
+    <item>
+      <title>Getting Started with R</title>
+      <dc:creator>Matt Gunther</dc:creator>
+      <link>https://ipums.github.io/pma-data-hub/posts/2020-12-10-get-r-and-packages</link>
+      <description>How to download R for free and install some of the R packages used on this blog</description>
+      <category>R Tips</category>
+      <category>R Packages</category>
+      <guid>https://ipums.github.io/pma-data-hub/posts/2020-12-10-get-r-and-packages</guid>
+      <pubDate>Mon, 02 Nov 2020 00:00:00 +0000</pubDate>
+      <media:content url="https://ipums.github.io/pma-data-hub/posts/2020-12-10-get-r-and-packages/images/Rlogo.png" medium="image" type="image/png" width="724" height="561"/>
+    </item>
+  </channel>
+</rss>

@@ -1,0 +1,588 @@
+---
+title: "Merging Service Delivery Point Data to Household & Female Records"
+description: |
+  Create aggregate measures that capture the family planning service environment experienced by inviduals 
+author:
+  - name: Matt Gunther
+    affiliation: IPUMS PMA Senior Data Analyst
+categories:
+  - Individual in Context
+  - Data Manipulation
+  - Serivce Delivery Points
+  - tidyr::pivot_longer
+  - dplyr::across
+  - ipumsr::lbl_relabel
+  - ipumsr::lbl_na_if
+date: 01-27-2021
+output:
+  distill::distill_article:
+    self_contained: false
+    toc: true
+    toc_depth: 3
+    toc_float: true
+draft: true
+---
+
+```{r download_button, echo=F}
+downloadthis::download_file(
+  path = "ea-service-environment.Rmd",
+  button_label = "Download this page as R code",
+  button_type = "default",
+  has_icon = T,
+  icon = "fa fa-save"
+)
+```
+
+```{r setup, include=F}
+knitr::opts_chunk$set(echo = T, eval = T, message = F)
+options(tibble.print_min=15, tibble.max_extra_cols = 5)
+```
+
+In our [last post](../2021-01-26-sdp-data/index.html), we explained how PMA Service Delivery Point (SDP) data are designed to describe the family planning services available to women living within each survey's geographic sampling units, or "enumeration areas". In this post, we'll begin with an example SDP dataset collected from Burkina Faso, and we'll then show how to use [EAID](https://pma.ipums.org/pma-action/variables/EAID) and [EASERVED](https://pma.ipums.org/pma-action/variables/EASERVED) to aggregate variables collected from SDPs in each area. The aggregated measures will then be attached to another dataset with records representing individual women, which we will use in an upcoming Data Analysis post exploring how environmental factors impact women's fertility outcomes.
+
+# Data
+
+Head over to [pma.ipums.org](https://pma.ipums.org/pma-action/variables/group) and create a data extract with these samples:
+
+  * Burkina Faso - 2018 R6
+  * Burkina Faso - 2017 R5
+  
+<aside>
+See our post about <a href="../2020-12-10-get-ipums-pma-data/index.html">downloading an IPUMS extract for R</a> for detailed instructions.
+</aside>  
+  
+For this example, suppose we're generally interested both in the types of facilities and in the types of family planning services offered within each enumeration area. 
+
+We'll want to examine a few variables describing the SDP, itself: 
+
+  * [EAID](https://pma.ipums.org/pma-action/variables/EAID) - the enumeration area where the SDP is physically located
+  * [EASERVED](https://pma.ipums.org/pma-action/variables/EASERVED)  - enumeration areas where the SDP provides services (numbered 1-18)
+  * [AUTHORITY](https://pma.ipums.org/pma-action/variables/AUTHORITY)  - the SDP's managing AUTHORITY (government, NGO, faith-based organziation, private organization, or other)
+  * [FACILITYTYPEGEN](https://pma.ipums.org/pma-action/variables/FACILITYTYPEGEN)  - the general facility type (additional detail is provided by the variable `FACILITYTYPE`, but we'll use the more general version in our analysis)
+  * [CONSENTSQ](https://pma.ipums.org/pma-action/variables/CONSENTSQ) - whether the respondent to the SDP questionnaire consented to be interviewed (for those that did not, we still may have some basic information like `EAID`,  `FACILITYTYPEGEN`, etc).
+  
+We'll also want variables describing the family planning services that are normally available, and those that have been out of stock. 
+
+Select these variables describing whether a facility normally provides a given family planning method:
+  
+  * [CONPROV](https://pma.ipums.org/pma-action/variables/CONPROV)
+  * [CYCBPROV](https://pma.ipums.org/pma-action/variables/CYCBPROV)
+  * [DEPOPROV](https://pma.ipums.org/pma-action/variables/DEPOPROV)
+  * [DIAPROV](https://pma.ipums.org/pma-action/variables/DIAPROV)
+  * [EMRGPROV](https://pma.ipums.org/pma-action/variables/EMRGPROV)
+  * [FCPROV](https://pma.ipums.org/pma-action/variables/FCPROV)
+  * [FSTPROV](https://pma.ipums.org/pma-action/variables/FSTPROV)
+  * [FJPROV](https://pma.ipums.org/pma-action/variables/FJPROV)
+  * [IMPPROV](https://pma.ipums.org/pma-action/variables/IMPPROV)
+  * [IUDPROV](https://pma.ipums.org/pma-action/variables/IUDPROV)
+  * [MSTPROV](https://pma.ipums.org/pma-action/variables/MSTPROV)
+  * [PILLPROV](https://pma.ipums.org/pma-action/variables/PILLPROV)
+  * [SAYPROV](https://pma.ipums.org/pma-action/variables/SAYPROV)
+  
+Then select these variables describing whether a facility that provides a given family planning method had supplies in-stock and observed by the interviewer:
+
+  * [CONOBS](https://pma.ipums.org/pma-action/variables/CONOBS)
+  * [CYCBOBS](https://pma.ipums.org/pma-action/variables/CYCBOBS)
+  * [DEPOOBS](https://pma.ipums.org/pma-action/variables/DEPOOBS)
+  * [DIAOBS](https://pma.ipums.org/pma-action/variables/DIAOBS)
+  * [EMRGOBS](https://pma.ipums.org/pma-action/variables/EMRGOBS)
+  * [FCOBS](https://pma.ipums.org/pma-action/variables/FCOBS)
+  * [FJOBS](https://pma.ipums.org/pma-action/variables/FJOBS)
+  * [IMPOBS](https://pma.ipums.org/pma-action/variables/IMPOBS)
+  * [IUDOBS](https://pma.ipums.org/pma-action/variables/IUDOBS)
+  * [PILLOBS](https://pma.ipums.org/pma-action/variables/PILLOBS)
+  * [SAYOBS](https://pma.ipums.org/pma-action/variables/SAYOBS)
+  
+Also select these variables describing whether a facility with the method in-stock had ever experienced a stockout within the last 3 months:
+  
+  * [CONOUT3MO](https://pma.ipums.org/pma-action/variables/CONOUT3MO)
+  * [CYCBOUT3MO](https://pma.ipums.org/pma-action/variables/CYCBOUT3MO)
+  * [DEPOOUT3MO](https://pma.ipums.org/pma-action/variables/DEPOOUT3MO)
+  * [DIAOUT3MO](https://pma.ipums.org/pma-action/variables/DIAOUT3MO)
+  * [EMRGOUT3MO](https://pma.ipums.org/pma-action/variables/EMRGOUT3MO)
+  * [FCOUT3MO](https://pma.ipums.org/pma-action/variables/FCOUT3MO)
+  * [FJOUT3MO](https://pma.ipums.org/pma-action/variables/FJOUT3MO)
+  * [IMPOUT3MO](https://pma.ipums.org/pma-action/variables/IMPOUT3MO)
+  * [IUDOUT3MO](https://pma.ipums.org/pma-action/variables/IUDOUT3MO)
+  * [PILLOUT3MO](https://pma.ipums.org/pma-action/variables/PILLOUT3MO)
+  * [SAYOUT3MO](https://pma.ipums.org/pma-action/variables/SAYOUT3MO)
+  
+Lastly, select these variables reporting the length of the current stockout experienced by a facility that normally provides each method, but was out of stock on the day of the interview:
+  
+  * [CONOUTDAY](https://pma.ipums.org/pma-action/variables/CONOUTDAY)
+  * [CYCBOUTDAY](https://pma.ipums.org/pma-action/variables/CYCBOUTDAY)
+  * [DEPOOUTDAY](https://pma.ipums.org/pma-action/variables/DEPOOUTDAY)
+  * [DIAOUTDAY](https://pma.ipums.org/pma-action/variables/DIAOUTDAY)
+  * [EMRGOUTDAY](https://pma.ipums.org/pma-action/variables/EMRGOUTDAY)
+  * [FCOUTDAY](https://pma.ipums.org/pma-action/variables/FCOUTDAY)
+  * [FJOUTDAY](https://pma.ipums.org/pma-action/variables/FJOUTDAY)
+  * [IMPOUTDAY](https://pma.ipums.org/pma-action/variables/IMPOUTDAY)
+  * [IUDOUTDAY](https://pma.ipums.org/pma-action/variables/IUDOUTDAY)
+  * [PILLOUTDAY](https://pma.ipums.org/pma-action/variables/PILLOUTDAY)
+  * [SAYOUTDAY](https://pma.ipums.org/pma-action/variables/SAYOUTDAY)
+
+# Setup 
+
+We'll be featuring functions from two R packages in this post: [tidyverse](https://tidyverse.tidyverse.org/) and [ipumsr](http://tech.popdata.org/ipumsr/). Once installed, load the two packages with:
+
+```{r local}
+library(tidyverse)
+library(ipumsr)
+```
+
+<aside>
+See our post about <a href="../2020-12-10-get-r-and-packages/index.html#r-packages">getting started with R</a> for help with R package installation.
+</aside>
+
+Load your data extract with `read_ipums_micro` *making sure to change the file paths and extract numbers shown below to match your own*:
+
+```{r, results='hide'}
+sdp <- ipumsr::read_ipums_micro(
+  ddi = "../../data/pma_00008.xml",
+  data = "../../data/pma_00008.dat.gz"
+)
+```
+
+```{r, echo=F}
+# Check with production team about this extra variable
+sdp <- sdp %>% select(-EASERVED)
+```
+
+```{r}
+sdp
+```
+
+# Reformatting with ipumsr functions
+
+A key feature to remember about IPUMS extracts is that variables often have value labels, which are text labels assigned to the different values taken by a variable. When we load the extract into R with an `ipumsr` function, these variables are imported as `labelled` objects rather than the more common `factor` class of objects. 
+
+<aside>
+<a href="http://tech.popdata.org/ipumsr/articles/value-labels.html">More information</a> on the difference between factors and IPUMS labelled variables.
+</aside>
+
+As a result, IPUMS data users need to take some unusual steps when recoding a variable or handling NA values. Luckily, the `ipumsr` package provide a few functions (starting with the prefix `lbl_`) that make this process very easy!
+
+Let's take a look at the variable `CONOBS`:
+
+```{r}
+sdp %>% count(CONOBS)
+```
+
+Notice that we have two values representing SDPs with male condoms "in-stock": SDPs where the interviewer personally observed the condoms get `1`, while those 
+where condoms where reported in-stock - but not observed by the interviewer - get `2`. Suppose we only care about the reported stock, but not the physical observation: we'd want to collapse those two values together, creating a binary "yes" or "no" type of variable in place of the current version of `CONOBS`. The `ipumsr` function [lbl_relabel](http://tech.popdata.org/ipumsr/reference/lbl_relabel.html) will help us do that.
+
+Also take a look at the values `94` and `99`. Both represent different types of non-response: SDPs where no respondent consented to complete the interview get `94`, while any SDP that's beyond the sampling universe for this question gets `99`. ^[Looking at the [Universe tab](https://pma.ipums.org/pma-action/variables/CONOBS#universe_section) for `CONOBS`, we learn that only SDPs that normally provide male condoms received this question - see `CONPROV`.] For our purposes, it will be most helpful to use the `ipumsr` function [lbl_na_if](http://tech.popdata.org/ipumsr/reference/lbl_na_if.html) to mark both of these values `NA`.
+
+Looking at the documentation for both of these functions, the most intuitive way to handle our recoding task is to specify new labels based on the numeric values for `CONOBS`:
+
+```{r}
+sdp %>% 
+  mutate(
+    CONOBS = lbl_relabel(
+      CONOBS,
+      lbl(1, "in stock") ~ .val %in% 1:2,
+      lbl(0, "out of stock") ~ .val == 3
+    ),
+    CONOBS = lbl_na_if(
+      CONOBS,
+      ~.val > 90
+    )
+  ) %>% 
+  count(CONOBS)
+```
+
+That worked perfectly well for just one variable, but we'll ultimately want to recode *all* of the `OBS` variables in our dataset as binary variables. The `dplyr` function [across](https://dplyr.tidyverse.org/reference/across.html) will apply `lbl_relabel` to a series of columns based on some selection function: we'll use `ends_with("OBS")` to perform binary recoding on every variable ending with "OBS".
+
+<aside>
+The <b>dplyr</b> package is loaded into R when you use <b>library(tidyverse)</b>
+</aside>
+
+Our missing values are a bit trickier because we can't reliably use `94` and `99` for every variable. Some variables, like `CONOUTDAY`, are longer because they can take higher values (100 days, 1000 days, etc):
+
+```{r}
+sdp %>% count(CONOUTDAY)
+```
+
+There are also additional non-response options, like "Don't know" and "No response or missing" that don't appear in `CONOBS`, but might appear elsewhere:
+
+```{r}
+sdp %>% count(CONOUT3MO)
+```
+
+Here's the trick: instead of specifying non-response *values* in our dataset, we'll just specify non-response *labels*, since they are consistent across all PMA variables:
+
+```{r}
+sdp %>% 
+  mutate(
+    CONOBS = lbl_relabel(
+      CONOBS,
+      lbl(1, "in stock") ~ .val %in% 1:2,
+      lbl(0, "out of stock") ~ .val == 3
+    ),
+    CONOBS = lbl_na_if(
+      CONOBS,
+      ~.lbl %in% c(
+        "Not interviewed (SDP questionnaire)",
+        "Don't know",
+        "No response or missing",
+        "NIU (not in universe)"
+      )
+    )
+  ) %>% 
+  count(CONOBS)
+```
+
+Finally, let's apply the two recoding functions using `dplyr::across` to span all of the variables we want:
+
+```{r}
+sdp <- sdp %>% 
+  mutate(
+    across(ends_with("OBS"), ~lbl_relabel(
+      .x,
+      lbl(1, "in stock") ~ .val %in% 1:2,
+      lbl(0, "out of stock") ~ .val == 3
+    )),
+    across(everything(), ~lbl_na_if(
+      .x,
+      ~.lbl %in% c(
+        "Not interviewed (SDP questionnaire)",
+        "Don't know",
+        "No response or missing",
+        "NIU (not in universe)"
+      )
+    ))
+  )
+```
+
+
+# Understanding EASERVED variables
+
+Now that we've recoded every variable, let's take a look specifically at the variables describing the service area for each SDP. That information is stored in a group of variables starting with "EASERVED" and ending with the numbers 1-18.^[When you created your data extract, you might remember that you only selected one variable called EASERVED. The IPUMS extract system automatically selects the right number of EASERVED variables based on the maximum number of enumeration areas served by any one SDP in your extract (between 2017 and 2018 in Burkina Faso, the SDP with the widest service area covered 18 enumeration areas).]
+
+Each of these 18 `EASERVED` variables list one of the enumeration areas served by an SDP, but are **fully available only if the SDP is a *public* institution** (this information is limited to public institutions because it's provided by local or national governments, not by the respondent to the SDP questionnaire). 
+
+To see this, take a look at the number of missing values for each of the `EASERVED` variables *just for those SDPs where the managing authority is "Government"* (`AUTHORITY == 1`):
+
+```{r}
+sdp %>% count(AUTHORITY)
+
+sdp %>% 
+  filter(AUTHORITY == 1) %>% 
+  summarise(across(starts_with("EASERVED"), ~sum(is.na(.x))))
+```
+
+We see that we have at least one service area listed for all 202 public SDPs in our dataset (the calculated total number of non-missing values for `EASERVED1` is zero). However, 156 public SDPs serve only one enumeration area, so their remaining `EASERVED` values are all missing (`NA`). There are 173 public SDPs that serve only 2 enumeration areas, 181 that serve only 3, and so on. 
+
+What about non-public SDPs? **For all other types of SDPs where the respondent consented to be interviewed** (`CONSENTSQ == 1`)**, `EASERVED1` will represent the enumeration area where the SDP is located.** However, the remaining `EASERVED` variables will each be missing:
+
+```{r}
+sdp %>% 
+  filter(AUTHORITY != 1) %>% 
+  summarise(across(starts_with("EASERVED"), ~sum(is.na(.x))))
+```
+
+In other words: it's only assumed that every non-public SDP provides services in its *own* enumeration area, even if it really might service additional enumeration areas, as well. 
+
+**What about non-public SDPs that don't consent to be interviewed?** There are 4 of these cases, and you'll see that they account for all of the missing values in `EASERVED1`:
+
+```{r}
+sdp %>% 
+  filter(AUTHORITY != 1) %>% 
+  count(is.na(EASERVED1), CONSENTSQ)
+```
+
+For our analysis, we'd like to set `EASERVED1` to match the SDP's own enumeration area `EAID` even if the respondent did not complete the survey:
+
+```{r}
+sdp <- sdp %>% 
+  mutate(EASERVED1 = case_when(
+    is.na(EASERVED1) ~ EAID,
+    T ~ as.double(EASERVED1)
+  ))
+```
+
+<aside>
+We coerce EASERVED1 as a double to match the class provided by EAID.
+</aside>
+
+Now, every SDP has at least one non-missing EASERVED variable!
+
+# Pivot longer: one EASERVED per row
+
+Remember: our ultimate goal is to summarise the service environment available to women living within each enumeration area, so we're looking for an easy way to calculate summary statistics for each one. 
+
+Right now, the data are formatted so that each SDP occupies a single row. In order to focus instead on the enumeration areas receiving services from the SDPs, we should reshape the data so that the information about each SDP gets repeated in one row for each of the enumeration areas that it serves.
+
+For example, let's look at a few of the variables for the SDPs currently in the first 3 rows of our dataset:
+
+```{r}
+sdp %>% 
+  slice(1:3) %>% 
+  select(FACILITYID, EAID, EASERVED1, EASERVED2, CONPROV, CONOBS)
+```
+
+Facility `7250` is located in enumeration area `7142`, and the first two enumeration areas listed in its service area are `7380` and `7323`: notice that these are *outside of* its own area (`EAID`). 
+
+Facility `7879` is located in enumeration area `7879`, and the first two enumeration areas listed in its service area are `7879` and `7516`: notice that its own area (`EAID`) is included. 
+
+Facility `7506` is located in enumeration area `7483`, and its service area includes only one value: also `7483` (`EAID == EASERVED1`). 
+
+We'll now use the `tidyr` function [pivot_longer](https://tidyr.tidyverse.org/reference/pivot_longer.html) to reshape these data, creating 6 rows: one row for each enumeration area served by each SDP:
+
+<aside>
+The <b>tidyr</b> package is loaded into R when you use <b>library(tidyverse)</b>
+</aside>
+
+```{r}
+sdp %>% 
+  slice(1:3) %>% 
+  select(FACILITYID, EAID, EASERVED1, EASERVED2, CONPROV, CONOBS) %>% 
+  pivot_longer(
+    cols = starts_with("EASERVED")
+  )
+```
+
+Now, each SDP occupies 2 rows: one for `EASERVED1` and one for `EASERVED2`. The function created two new columns automatically: `name` contains the name of the column that was "pivoted", and `value` contains the value from the column that was "pivoted". We can drop `name` and decide to call `value` something like `EASERVED`:
+
+```{r}
+sdp %>% 
+  slice(1:3) %>% 
+  select(FACILITYID, EAID, EASERVED1, EASERVED2, CONPROV, CONOBS) %>% 
+  pivot_longer(
+    cols = starts_with("EASERVED"),
+    values_to = "EASERVED",
+    names_to = NULL
+  )
+```
+
+**Why did we do this?** Now, if we want to summarise the number of facilities that provide male condoms in each enumeration area listed in EASERVED, we can do so very easily:
+
+```{r}
+sdp %>% 
+  slice(1:3) %>% 
+  select(FACILITYID, EAID, EASERVED1, EASERVED2, CONPROV, CONOBS) %>% 
+  pivot_longer(
+    cols = starts_with("EASERVED"),
+    values_to = "EASERVED",
+    names_to = NULL
+  ) %>% 
+  group_by(EASERVED) %>% 
+  summarise(sdps_providing_condoms = sum(CONPROV))
+```
+
+One more thing here: notice that facility `7506` produced an `NA` in our new variable `EASERVED`, since it only provides services in one enumeration area (`EASERVED2 == NA`). We need to drop that row when we pivot using `values_drop_na = T`:
+
+```{r}
+sdp %>% 
+  slice(1:3) %>% 
+  select(FACILITYID, EAID, EASERVED1, EASERVED2, CONPROV, CONOBS) %>% 
+  pivot_longer(
+    cols = starts_with("EASERVED"),
+    values_to = "EASERVED",
+    names_to = NULL,
+    values_drop_na = T
+  ) %>% 
+  group_by(EASERVED) %>% 
+  summarise(sdps_providing_condoms = sum(CONPROV))
+```
+
+Now that we know how to `pivot_longer`, let's apply the function to our full dataset:
+
+```{r}
+sdp <- sdp %>%
+  pivot_longer(
+    cols = starts_with("EASERVED"),
+    values_to = "EASERVED",
+    values_drop_na = T,
+    names_to = NULL
+  ) %>%
+  distinct() # in case any facility listed the same EASERVED twice
+```
+
+Dropping each row where `EASERVED` is missing, we're left with 372 rows where information about each SDP gets repeated once for every enumeration area that it serves. (Remember: our original dataset contained only 234 rows because SDPs occupied just one row apiece). 
+
+```{r}
+sdp %>% select(FACILITYID, EAID, EASERVED, everything())
+```
+
+# Summarise by EASERVED and YEAR
+
+Now that we've finished recoding and reshaping the data, we'll create a few summary statistics describing the service environment in each enumeration area for each survey year.
+
+Let's start by examining the availability of different family planning methods. Using `group_by(EASERVED, YEAR)` and `across` we can test whether each method was normally available from at least one SDP serving each area in each year. We'll use a [glue](https://glue.tidyverse.org/) specification to add the prefix "ANY_" to each `PROV` variable (for example, `CONPROV` will be summarized as `ANY_CONPROV`, because it indicates whether any facility serving the EA provides male condoms).
+
+```{r}
+sdp %>% 
+  group_by(EASERVED, YEAR) %>%
+  summarise(
+    .groups = "keep",
+    across(ends_with("PROV"), ~any(.x == 1), .names = "ANY_{.col}")
+  )
+```
+
+Suppose we only want to know the number of methods provided by at least one SDP in each enumeration area. Using the [row-wise partner](https://dplyr.tidyverse.org/articles/rowwise.html) of `dplyr::across`, called `dplyr::c_across`, we can count the number of TRUE `PROV` variables in each row of the summary output.
+
+```{r}
+sdp %>% 
+  group_by(EASERVED, YEAR) %>%
+  summarise(
+    .groups = "keep",
+    across(ends_with("PROV"), ~any(.x == 1), .names = "ANY_{.col}")
+  ) %>% 
+  transmute(NUM_METHODS_PROV = sum(c_across(ends_with("PROV")), na.rm = T))
+```
+
+<aside>
+The function transmute() works just like mutate(), except that it removes all of the columns except for the result and any grouping variables.
+</aside>
+
+Let's use the same procedure to create summary variables from the `OBS`, `OUT3MO`, and `OUTDAY` variables, too, creating:
+
+  * `NUM_METHODS_PROV` - number of methods provided by at least one SDP
+  * `NUM_METHODS_OUT` - number of methods out of stock with at least one SDP
+  * `NUM_METHODS_INSTOCK` - number of methods in-stock with at least one SDP
+  * `NUM_METHODS_OUT3MO` - number of methods out of stock any time in the last 3 months with at least one SDP
+  * `MEAN_OUTDAY` - the mean length of a stockout for any family planning method (measured in days)
+
+```{r}
+sdp %>% 
+  group_by(EASERVED, YEAR) %>%
+  summarise(
+    .groups = "keep",
+    across(ends_with("PROV"), ~any(.x == 1), .names = "ANY_{.col}"),
+    across(ends_with("OBS"), ~any(.x == 0), .names = "ANY_{.col}_OUT"),
+    across(ends_with("OBS"), ~any(.x == 1), .names = "ANY_{.col}_INSTOCK"),
+    across(ends_with("OUT3MO"), ~any(.x == 1), .names = "ANY_{.col}"),
+    across(ends_with("OUTDAY"), ~mean(.x, na.rm = T), .names = "MEAN_{.col}")
+  ) %>% 
+  transmute(
+    NUM_METHODS_PROV = sum(c_across(ends_with("PROV")), na.rm = T),
+    NUM_METHODS_OUTSTOCK = sum(c_across(ends_with("OBS_OUT")), na.rm = T),
+    NUM_METHODS_INSTOCK = sum(c_across(ends_with("OBS_INSTOCK")), na.rm = T),
+    NUM_METHODS_OUT3MO = sum(c_across(ends_with("OUT3MO")), na.rm = T),
+    MEAN_OUTDAY = mean(c_across(ends_with("OUTDAY")), na.rm = T)
+  )
+```
+
+Finally, let's add a few more summary variables within the same `summarise` function that will help describe the amount and types of facilities serving each enumeration area: 
+
+  * `N_SDP` - number of SDPs 
+  * `N_SDP_INT` - number of SDPs that consented to the interview
+  * `HOSPITAL` - number of SDPs that are hospitals 
+  * `HCENTER` - number of SDPs that are health centers 
+  * `PHARM` - number of SDPs that are pharmacies
+  * `OTHER` - number of SDPs that are an "other" facility type 
+  * `GOV`  - number of SDPs managed by a government authority
+  * `FAITH` - number of SDPs managed by a faith-based authority
+  * `PRIV` - number of SDPs managed by a private sector authority
+  
+<aside>
+This time, we'll replace transmute() with mutate() and select(): with so many new variables coming into play, we should be explicit about which ones we want to add and drop. We'll also remove the grouping variables used in our summary calculations with ungroup().
+</aside>
+
+```{r}
+sdp <- sdp %>% 
+  group_by(EASERVED, YEAR) %>%
+  summarise(
+    .groups = "keep",
+    N_SDP = n(),
+    N_SDP_INT = sum(CONSENTSQ == 1),
+    HOSPITAL = sum(FACILITYTYPEGEN == 1),
+    HCENTER = sum(FACILITYTYPEGEN == 2),
+    PHARM = sum(FACILITYTYPEGEN == 7),
+    OTHER = sum(FACILITYTYPEGEN == 9),
+    GOV  = sum(AUTHORITY == 1),
+    FAITH = sum(AUTHORITY == 3),
+    PRIV = sum(AUTHORITY == 4),
+    across(ends_with("PROV"), ~any(.x == 1), .names = "ANY_{.col}"),
+    across(ends_with("OBS"), ~any(.x == 0), .names = "ANY_{.col}_OUT"),
+    across(ends_with("OBS"), ~any(.x == 1), .names = "ANY_{.col}_INSTOCK"),
+    across(ends_with("OUT3MO"), ~any(.x == 1), .names = "ANY_{.col}"),
+    across(ends_with("OUTDAY"), ~mean(.x, na.rm = T), .names = "MEAN_{.col}")
+  ) %>% 
+  mutate(
+    NUM_METHODS_PROV = sum(c_across(ends_with("PROV")), na.rm = T),
+    NUM_METHODS_OUT = sum(c_across(ends_with("OBS_OUT")), na.rm = T),
+    NUM_METHODS_INSTOCK = sum(c_across(ends_with("OBS_INSTOCK")), na.rm = T),
+    NUM_METHODS_OUT3MO = sum(c_across(ends_with("OUT3MO")), na.rm = T),
+    MEAN_OUTDAY = mean(c_across(ends_with("OUTDAY")), na.rm = T)
+  ) %>%
+  select(
+    -ends_with("PROV"),
+    NUM_METHODS_PROV, # manually kept, since all others ending with "PROV" are dropped
+    -ends_with("OBS_OUT"),
+    -ends_with("OBS_INSTOCK"),
+    -ends_with("OUT3MO"),
+    NUM_METHODS_OUT3MO, # manually kept, since all others ending with "OUT3MO" are dropped
+     -ends_with("OUTDAY"),
+    MEAN_OUTDAY
+  ) %>% 
+  ungroup()
+
+sdp
+```
+
+# Merging to individual records
+
+
+Now that we've created some summary statistics about each enumeration area, we'll want to merge them to a data extract where women are the primary unit of analysis. Consider the following female respondent dataset collected from Burkina Faso in 2017 and 2018; it contains a variable [FPCURRUSE](https://pma.ipums.org/pma-action/variables/FPCURRUSE#description_section) indicating whether the woman is currently using a method of family planning:
+
+```{r, results='hide'}
+hhf <- read_ipums_micro(
+  ddi = "../../data/pma_00011.xml",
+  data = "../../data/pma_00011.dat.gz"
+) %>% 
+  select(PERSONID, EAID, YEAR, URBAN, FPCURRUSE) %>% 
+  mutate(
+    across(everything(), ~lbl_na_if(
+      .x,
+      ~.lbl %in% c(
+        "No response or missing",
+        "NIU (not in universe)"
+      )
+    ))
+  )
+```
+
+```{r}
+hhf
+```
+
+To merge the SDP variables we've created, we'll use [dplyr::right_join](https://dplyr.tidyverse.org/reference/join.html) to ensure that all rows from `hhf` are preserved. In the process, we'll be attaching one row of the `sdp` data to each woman by matching her `EAID` to an `EASERVED`, and by matching her survey `YEAR` to an SDP survey `YEAR`.
+
+```{r}
+bf_merged <- sdp %>% 
+  rename(EAID = EASERVED) %>% 
+  right_join(hhf, by = c("EAID", "YEAR"))
+```
+
+Now, each woman's record contains all of the variables we created above summarizing the SDPs that serve her enumeration area. For example, for all women living in `EAID == 7003` in `YEAR == 2017`, the value in `NUM_METHODS_OUT3MO` shows the number of family planning methods that were out of stock with any SDP serving the woman's enumeration area within three months prior to the survey:
+
+```{r}
+bf_merged %>% 
+  filter(EAID == 7003, YEAR == 2017) %>% 
+  select(PERSONID, EAID, YEAR, NUM_METHODS_OUT3MO)
+```
+
+You'll notice that 55 women were surveyed in `EAID` 7003 in 2017, and each one has the same value (0) for `NUM_METHODS_OUT3MO`. 
+
+We'll dig deeper into the types of research questions that our new combined dataset can answer in our upcoming Data Analysis post. For now, take a look at the apparent relationship between `FPCURRUSE` and `NUM_METHODS_OUT3MO` for all of the women with non-missing responses for both variables:
+
+```{r}
+bf_merged %>% 
+  filter(!is.na(FPCURRUSE) & !is.na(NUM_METHODS_OUT3MO)) %>% 
+  group_by(NUM_METHODS_OUT3MO > 0) %>% 
+  count(FPCURRUSE) %>% 
+  mutate(pct = n/sum(n))
+```
+
+Notably, among those respondents living in an enumeration area that experienced zero stockouts within the 3 months prior to the SDP survey, 35% indicated that they were actively using a family planning method. Compare that to the set of respondents living in an area where at least one method was out of stock during the same time period: only 30% where using a family planning method. 
+
+While a 5% difference may or may not prove to be statistically significant under further analysis, it's not entirely surprising that the reliable availability of contraceptive methods from service providers might influence the contraceptive prevalence rate among women in a given service area. 
+
+As always, let us know what kinds of questions about fertility and family planning you're answering with data merged from service providers! 
+
+```{r, echo = F}
+# bf_merged %>% write_rds("../../data/bf_merged.rds")
+```
+
