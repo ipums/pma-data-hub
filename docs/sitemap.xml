@@ -2,54 +2,46 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" version="1.0">
   <url>
     <loc>https://ipums.github.io/pma-data-hub/about.html</loc>
-    <lastmod>2021-02-01T13:38:49-06:00</lastmod>
-  </url>
-  <url>
-    <loc>https://ipums.github.io/pma-data-hub/blog-post-workflow.html</loc>
-    <lastmod>2021-01-29T14:43:53-06:00</lastmod>
+    <lastmod>2021-02-02T16:07:29+00:00</lastmod>
   </url>
   <url>
     <loc>https://ipums.github.io/pma-data-hub/CODE_OF_CONDUCT.html</loc>
-    <lastmod>2020-12-18T15:46:02-06:00</lastmod>
+    <lastmod>2021-02-02T16:07:24+00:00</lastmod>
   </url>
   <url>
     <loc>https://ipums.github.io/pma-data-hub/CONTRIBUTING.html</loc>
-    <lastmod>2020-12-18T15:46:02-06:00</lastmod>
+    <lastmod>2021-02-02T16:07:24+00:00</lastmod>
   </url>
   <url>
     <loc>https://ipums.github.io/pma-data-hub/</loc>
-    <lastmod>2020-12-21T09:39:55-06:00</lastmod>
+    <lastmod>2021-02-02T16:07:31+00:00</lastmod>
   </url>
   <url>
     <loc>https://ipums.github.io/pma-data-hub/LICENSE.html</loc>
-    <lastmod>2020-12-18T15:46:02-06:00</lastmod>
-  </url>
-  <url>
-    <loc>https://ipums.github.io/pma-data-hub/rmarkdown-intro.html</loc>
-    <lastmod>2021-01-29T14:43:53-06:00</lastmod>
+    <lastmod>2021-02-02T16:07:24+00:00</lastmod>
   </url>
   <url>
     <loc>https://ipums.github.io/pma-data-hub/posts/2021-01-29-mapping-sdp-variables/</loc>
-    <lastmod>2021-02-01T13:54:01-06:00</lastmod>
+    <lastmod>2021-02-02T16:07:28+00:00</lastmod>
   </url>
   <url>
     <loc>https://ipums.github.io/pma-data-hub/posts/2021-01-28-summarize-by-easerved/</loc>
-    <lastmod>2021-02-01T13:55:08-06:00</lastmod>
+    <lastmod>2021-02-02T16:07:28+00:00</lastmod>
   </url>
   <url>
     <loc>https://ipums.github.io/pma-data-hub/posts/2021-01-28-across-sdp/</loc>
-    <lastmod>2021-02-01T13:53:17-06:00</lastmod>
+    <lastmod>2021-02-02T16:07:27+00:00</lastmod>
   </url>
   <url>
     <loc>https://ipums.github.io/pma-data-hub/posts/2021-01-26-sdp-data/</loc>
-    <lastmod>2021-02-01T13:54:28-06:00</lastmod>
+    <lastmod>2021-02-02T16:07:27+00:00</lastmod>
   </url>
   <url>
     <loc>https://ipums.github.io/pma-data-hub/posts/2020-12-10-get-ipums-pma-data/</loc>
-    <lastmod>2020-12-18T15:46:02-06:00</lastmod>
+    <lastmod>2021-02-02T16:07:25+00:00</lastmod>
   </url>
   <url>
     <loc>https://ipums.github.io/pma-data-hub/posts/2020-12-10-get-r-and-packages/</loc>
-    <lastmod>2020-12-18T15:46:02-06:00</lastmod>
+    <lastmod>2021-02-02T16:07:25+00:00</lastmod>
   </url>
 </urlset>
