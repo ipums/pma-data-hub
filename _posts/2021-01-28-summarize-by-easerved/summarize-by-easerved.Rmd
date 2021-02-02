@@ -8,8 +8,8 @@ author:
 categories:
   - Individuals in Context
   - Data Manipulation
-  - Serivce Delivery Points
-  - tidyr::pivot_longer
+  - Service Delivery Points
+  - tidyr
 date: 01-29-2021
 output:
   distill::distill_article:

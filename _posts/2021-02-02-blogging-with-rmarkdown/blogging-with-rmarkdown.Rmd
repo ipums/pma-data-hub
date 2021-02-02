@@ -1,5 +1,5 @@
 ---
-title: "Getting started with RMarkdown"
+title: "Blogging with RMarkdown"
 description: |
   Quick tips for authoring and editing blog posts with RMarkdown
 author:
@@ -43,7 +43,7 @@ distill::create_post("Getting started with RMarkdown")
 At this point, RStudio should look something like this:
 
 ```{r, echo = F}
-knitr::include_graphics("images/internal/new_rmarkdown.png")
+knitr::include_graphics("images/new_rmarkdown.png")
 ```
 
 <aside>
@@ -59,7 +59,7 @@ Your RMarkdown template contains a header consisting of a series of `key: "value
 Here's an example of a complete YAML header for a post on the Data Hub:
 
 ```{r, echo = F}
-knitr::include_graphics("images/internal/yaml.png")
+knitr::include_graphics("images/yaml.png")
 ```
 
 ## Title
@@ -137,7 +137,7 @@ This is the image that will appear alongside your post in the blog homepage. If 
 The file path to your image should be *relative to the RMarkdown file, itself*. For example: 
 
 ```{r, echo = F}
-knitr::include_graphics("images/internal/images.png")
+knitr::include_graphics("images/images.png")
 ```
 
 This shows the folder "2020-12-09-mapping-contraceptive-stockouts" in the "_posts" folder. The .Rmd file lives in the top level of the folder, and the desired image `Rlogo.png` lives in the `images` subfolder. The correct way to reference the image is:
@@ -151,7 +151,7 @@ preview: images/static-map.png
 Each chunk of code in your RMarkdown file must be offset as shown here (note the tic-marks and "r" in curly brackets):
 
 ```{r, echo = F}
-knitr::include_graphics("images/internal/empty_chunk.png")
+knitr::include_graphics("images/empty_chunk.png")
 ```
 
 <aside>

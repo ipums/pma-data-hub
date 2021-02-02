@@ -1,5 +1,12 @@
 ---
 title: "Data Analysis Hub"
 site: distill::distill_website
-listing: posts
+listing: 
+  posts: 
+    - 2021-01-29-mapping-sdp-variables
+    - 2021-01-28-summarize-by-easerved
+    - 2021-01-28-across-sdp
+    - 2021-01-26-sdp-data
+    - 2020-12-10-get-ipums-pma-data
+    - 2020-12-10-get-r-and-packages
 ---

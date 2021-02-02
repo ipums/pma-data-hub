@@ -8,11 +8,9 @@ author:
 categories:
   - Individuals in Context
   - Data Manipulation
-  - Serivce Delivery Points
-  - dplyr::across
-  - dplyr::summarize
-  - ipumsr::lbl_relabel
-  - ipumsr::lbl_na_if
+  - Service Delivery Points
+  - dplyr
+  - ipumsr
 date: 01-28-2021
 output:
   distill::distill_article:
