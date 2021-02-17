@@ -1,5 +1,5 @@
 ---
-title: "Recode and Summarize Variables from Multiiple Response Questions"
+title: "Recode and Summarize Variables from Multiple Response Questions"
 description: |
   Use dplyr::across to summarize variables with a similar naming pattern.
 author:

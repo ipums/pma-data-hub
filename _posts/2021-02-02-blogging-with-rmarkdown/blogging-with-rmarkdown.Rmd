@@ -32,7 +32,7 @@ install.packages("distill")
 
 # Creating a blog post
 
-In this post, we'll assume that you've already reviewed the [Blog Post Workflow](../blog-post-workflow.html), so you're familiar with the process for creating *a new blog post on a new branch* of the Git repository. 
+In this post, we'll assume that you've already reviewed the [Blog Post Workflow](../2021-02-02-blog-post-workflow/index.html), so you're familiar with the process for creating *a new blog post on a new branch* of the Git repository. 
 
 Assuming you've created a new branch for your post, you'll create and open an RMarkdown file when you run:
 

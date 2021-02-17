@@ -1,0 +1,291 @@
+---
+title: "Merging external spatial data"
+description: |
+  How to integrate external spatial data with PMA data.
+author:
+  - name: Nina Brooks
+    affiliation: IPUMS PMA Postdoctoral Associate
+    url: http://www.ninarbrooks.com/
+categories:
+  - Individuals in Context
+  - Service Delivery Points
+  - Data Manipulation
+  - sf
+  - raster
+  - Spatial
+date: 02-04-2021
+output:
+  distill::distill_article:
+    self_contained: false
+    toc: true
+    toc_depth: 3
+    toc_float: true
+preview: images/road_map.png
+---
+
+```{r setup, echo=F}
+knitr::opts_chunk$set(echo = T, eval = T, message = F)
+options(tibble.print_min=10, tibble.max_extra_cols = 5)
+
+downloadthis::download_dir(
+  path = ".",
+  output_name = basename(getwd()),
+  button_label = "Download this page as R code",
+  button_type = "default",
+  has_icon = T,
+  icon = "fa fa-save"
+)
+```
+
+Our [last post](../2021-01-29-mapping-sdp-variables/index.html) showed how to read, merge, and map the PMA GPS data - and how mapping can shed light on interesting spatial variation. A big advantage of the PMA GPS data is that you can also merge in other sources of spatial data, which opens up enormous opportunities for analyzing how contextual and environmental factors affect topics of interest in the PMA data. In this post, we'll show how to merge in two different types of spatial data and construct variables of interest.
+
+# Data
+We'll be using the PMA GPS data for this post. **To use the GPS data you must request access directly from our partners at** [pmadata.org](https://www.pmadata.org/data/about-data). If you want to follow along with this post without accessing the GPS data, we have provided a "toy" GPS dataset in the `data` folder for this post. **The toy data contains randomly sampled locations within Burkina Faso which have no actual relationship to the EAs in the PMA data.** This means none of the interpretations of spatial patterns will hold, but all the code will run. 
+
+
+We will also be introducing two different spatial datasets that represent different kinds of spatial data. The first is population density data from [WorldPop](https://www.worldpop.org/).^[Linard, C., Gilbert, M., Snow, R. W., Noor, A. M., & Tatem, A. J. (2012). Population distribution, settlement patterns and accessibility across Africa in 2010. PloS one, 7(2), e31743.] If you want to download the data from the WorldPop site, we're using the "Unconstrained individual countries 2000-2020 (1 km resolution)" data from 2017 for Burkina Faso. This is **raster** data, which means the data are stored as a grid of values which are rendered on a map as pixels. You can think of this as a matrix that is spatially referenced -- that is each pixel represents a specific area of land on the Earth. Lots of spatial data are stored as rasters including climate data (e.g., temperature and rainfall), elevation, and satellite images. **Note that the raster data is saved as a .tiff (which is a common way of storing raster data).** The resolution of the raster maps to the area that each pixel represents in the real world. The population density is **1 km resolution**, which means that each pixel represents a 1 km by 1 km square on the ground. The figure below shows the impact of different spatial resolutions for the same raster data.^[NEON: https://www.neonscience.org/resources/learning-hub/tutorials/raster-res-extent-pixels-r]
+
+
+```{r, echo = F, fig.cap = "Source: [NEON](https://www.neonscience.org/resources/learning-hub/tutorials/raster-res-extent-pixels-r)"}
+knitr::include_graphics("images/raster-resolution.png")
+
+```
+
+
+<aside>
+There are tons of resources on **earth** data science in R. We recommend the resources by [Earth Lab](https://www.earthdatascience.org) and [NEON by NSF](https://www.neonscience.org). [This post](https://www.neonscience.org/resources/learning-hub/tutorials/raster-data-r) is an excellent introduction to working with rasters in R!
+</aside>
+
+Population density is also conceptually important to the `SDP` data on contraceptive supply that we've been examining through this series of posts. Population density may provide a more nuanced characterization of urbanization than the `URBAN` variable. Additionally, density may be correlated with longer wait times at clinics, which may also impact contraceptive use at the individual level. 
+
+The second spatial dataset we'll introduce is data on road networks in Burkina Faso from the Digital Chart of the World and made publicly available by [DIVA-GIS](http://www.diva-gis.org/), an excellent source for publicly available spatial datasets. Road networks serve as a proxy for accessibility to health clinics -- an important component of the contraceptive service environment -- that may be more nuanced than the binary urban/rural distinction. To download the road data, go to [DIVA-GIS Data](http://www.diva-gis.org/gdata) and select Burkina Faso from the Country dropdown and Roads from the Subject dropdown. You can also access this directly from the `data` folder for this post. The road data is called **vector** data and is stored in a **shapefile (.shp).** Vector data is used to represent real world features and are three basic types: points, lines, and polygons. The road data we're using in this post is an example of vector line data.
+
+<aside>
+Remember the administrative boundaries we used in the previous post were **polygons** and the GPS points for the PMA enumeration areas were **points.** Both are vector data!
+</aside>
+
+All of the data we use in this post is included in the `data` folder when you click with Download button at the top of this page.
+
+# Setup: Load packages and data
+
+We'll be using many of the packages from the last few posts, as well as a new package for specifically working with raster data -- appropriately called [raster](https://rspatial.org/raster/pkg/index.html) and one called [units](https://cran.r-project.org/web/packages/units/index.html), which enables easy conversion between objects of different units. Make sure to install the `raster` and `units` packages first and then load everything we'll be using today:
+
+```{r local}
+library(sf) # primary spatial package
+library(raster) # for working with raster data
+library(viridis) # for color palettes
+library(units) # to easily convert between units
+library(tidyverse)
+```
+
+Let's start by reading in the raster using `raster::raster()` and check out the meta-data.
+
+```{r }
+pop_density <- raster("data/bfa_pd_2017_1km.tif")
+pop_density
+```
+
+Because rasters are essentially just matrices, you can think of the `dimensions` in the same way. At a spatial resolution of 1 km, this raster covers all of Burkina Faso with 648,582 cells. The `resolution` describes the size of the cells  (the length of one side of each square cell). **You may be wondering why this is showing up as 0.00833 when the data has a spatial scale of 1 km by 1 km.** This is because the units that the resolution is reported in depend on the **coordinate reference system** of the data. More on this in a moment.
+
+The `extent` (or spatial extent) refers to the geographic area that the raster covers. The values are in the same `coordinate reference system` as the raster. The `coordinate reference system` or `crs` is the next piece of meta-data we have. "A coordinate reference system (CRS) is a coordinate-based local, regional or global system used to locate geographical entities."^[Wikipedia] The `crs` for this raster is `+proj=longlat +datum=WGS84 +no_defs`. The `crs` contains several pieces of information including the datum (WGS84) and the projection.^[https://www.earthdatascience.org/courses/earth-analytics/spatial-data-r/intro-to-coordinate-reference-systems/] The appropriate CRS to use for any given spatial task depends on what part of the world the data represent and what kind of spatial operations you'll be performing. **It's really important to know what** `crs` **your data are in and make sure that all your spatial data are in the same ** `crs` **if you use more than one kind. Otherwise, they won't line up on a map and any spatial analysis or processing you do will be incorrect.** 
+
+The `projection` of this raster data is described as `longlat`, which actually is **not a `projection`**. A `projection` refers to how the Earth’s surface is flattened so it can be represented as a 2-dimensional raster grid. These data use a `geographic coordinate system`, simply the raw latitude and longitude coordinates, rather than a `projected coordinate system`, which would transform the coordinates into a 2-dimensional plane. Latitude and longitude locate positions on the Earth using angles, so the spacing of each line of latitude as you move north or south along the Earth is not uniform. The units of this reference system are in degrees (of latitude and longitude), so the 0.00833 resolution we saw above is reporting the spatial resolution in **degrees, rather than meters or kilometers**. This `crs` is not ideal for measuring distances because the distance covered by a single degree of latitude or longitude varies greatly across the Earth’s surface. This also means that the stated 1 km resolution is only nominal. At the equator, 0.00833 degrees is approximately equal to 1 km, but this distance, and the ground area represented by each pixel, will vary. Fortunately, Burkina Faso is relatively close to the equator, so the pixels will be quite close to 1 km by 1 km.
+
+The last piece of meta-data to look at are the `values` -- this is reporting the minimum and maximum values across all of the cells. Because these are population density data, it can be interpreted as the number of people in each pixel divided by the area of each pixel (which we know is 1 km^2^)
+
+Now that we've reviewed the raster attributes, let's see what it looks like. We can use the basic `plot` function to do this.
+
+```{r }
+plot(pop_density)
+
+```
+We can see three locations stand out in terms of population density. First is Ouagadougou the capital of Burkina Faso and largest city, right in the center. Then we can see higher density around Bobo Dioulasso and Banfora in the southwest of the country, which are the second and third largest cities in the country. 
+
+Next we'll load the roads data using `sf::st_read()`. 
+
+```{r }
+
+roads <- st_read("data/BFA_roads/BFA_roads.shp", quiet = TRUE)
+roads
+
+```
+This `sf` object also contains meta-data (shown at the top). In terms of meta-data, the `geometry type` field tells us  this data is a `MULTILINESTRING` object, which makes sense since these are roads. The `bbox` (short for bounding box), is the same information as the `extent` field for the raster data -- it tells us the bounds of the geographic area that this spatial data covers. We see the `geographic CRS` which is the coordinate reference system of the data. For this roads dataset it is WGS84, which is the same as the population density raster data. 
+
+The roads data contains several variables: `MED_DESCRI`,  `RTT_DESCRI`, `F_CODE_DES`, `ISO`, `ISOCOUNTRY`, and `geometry`. The first three variables provide some information about the types of roads in this data. `ISO` and `ISOCOUNTRY` simply provide country codes and names for the data. Finally, we see the `geometry` variable, which is the variable that contains the spatial information in an `sf` object. 
+
+We can also plot this roads data to see what it looks like. 
+
+```{r}
+plot(roads)
+```
+
+By calling the basic `plot` function, we get a panel of plots of the road network, with one plot for each variable. We can see some variation in color `MED_DESCRI` and  `RTT_DESCRI`, indicating that there multiple values for those variables. If we wanted just a single plot of the road network, we can get that by calling `plot` on the `geometry` variable:
+
+```{r}
+plot(roads$geometry)
+```
+
+Finally, we'll load the "toy" GPS data and convert it to an `sf` object. The option `crs = 4326` means that we are creating this with the WGS84 coordinate reference system because **4326** is the EPSG code for WGS84.
+
+<aside>
+Most `crs` are assigned an "EPSG code", which is a unique ID that can be used to identify a CRS.
+</aside>
+
+```{r}
+gps <- read_csv("data/bf_gps_fake.csv") %>%
+  rename(EAID = EA_ID) %>% # rename to be consistent with other PMA data
+  st_as_sf(
+    coords = c("GPSLONG", "GPSLAT"), 
+    crs = 4326)
+```
+
+```{r, echo = F}
+# rm(gps)
+# gps <- read_csv("/Users/ninabrooks/Dropbox/MPC/PMA/spatial/PMA_BF_GPS_v1_24Jul2018.csv") %>%
+#   rename(EAID = EA_ID) %>% # rename to be consistent with other PMA data
+#   st_as_sf(
+#     coords = c("GPSLONG", "GPSLAT"), 
+#     crs = 4326)
+
+```
+
+# Population Density: working with raster data
+We want to construct a variable that captures the population density at each enumeration area in the data. We'll use `sf::st_buffer()` to do this, which will construct a buffer circle around each GPS point. The PMA GPS data are randomly displaced to protect the privacy of respondents, so it's imperative to consider this displacement when working with the GPS data to do spatial operations. Because the maximum displacement distance is 10 km, if we construct buffers with a radius of 10 km we can be 100% confident that the true locations of each GPS point fall within that buffer. 
+
+<aside>
+Urban EAs are displaced from their true location up to 2 km. Rural EAs are displaced from their true location up to 5 km. Additionally, a random sample of 1% of rural EAs are displaced up to 10km.
+</aside>
+
+
+```{r, warning=TRUE, message=TRUE}
+buffers <- st_buffer(gps, dist = 10000)
+ggplot() +
+  geom_sf(data = buffers) +
+  geom_sf(data = gps)
+
+```
+
+This giant circle is certainly not what we would expect! What's going on here? Earlier in this post we mentioned that the WGS84 `crs` is a `geographic coordinate system` that simply uses the latitude and longitude coordinates to identify locations and the units are in **degrees, rather than meters or kilometers**. This circle thus has a radius of 10,000 degrees and since the Earth only spans 360 degrees it is fully covered by this circle. As we mentioned, the WGS84 `crs` is not ideal for measuring distances. `R` alerted us of this problem with two warnings: *st_buffer does not correctly buffer longitude/latitude data* and *dist is assumed to be in decimal degrees (arc_degrees)*. This is why it's so important to pay attention to the `crs` of your data.
+
+To properly construct a buffer circle around these GPS points, we need to transform the data to a different projection that uses meters or kilometers. And, because it's essential that all of our data are in the same `crs`, we need to transform or reproject everything. For vector data, we can do this using `sf::st_transform()` and for raster data we'll do this with `raster::projectRaster()`. For the transformation, we're using a `crs` that is projected to meters and is appropriate to the local geography of Burkina Faso. You can read about it on the [epsg.io](https://epsg.io/32630) site. After reprojecting, we'll calculate the buffer again and plot it to make sure this looks right.
+
+```{r, warning=TRUE, message=TRUE}
+# transform the GPS data
+gps_tr <- gps %>% st_transform(crs = 32630)
+gps_tr
+
+# reproject the raster data
+pop_density_tr <- projectRaster(
+  pop_density, 
+  crs = "+proj=utm +zone=30 +datum=WGS84 +units=m +no_defs"
+)
+pop_density_tr
+```
+<aside>
+Note: the <b>projectRaster</b> function takes <b>crs</b> as a character string, rather than the EPSG code 32630. We're using the <a href="https://epsg.io/32630">PROJ.4 code shown in the "Export" menu</a> on the epsg.io site. 
+</aside>
+
+```{r, warning=TRUE, message=TRUE}
+# calculate 10 km (10,000 meter) buffer circles
+buffers_tr <- st_buffer(gps_tr, dist = 10000) # because the units are in meters
+
+# plot
+ggplot() +
+  geom_sf(data = buffers_tr) +
+  geom_sf(data = gps_tr, color = "red")
+
+```
+Looking at the meta-data for both the `gps_tr` and `raster_tr` objects, we can see they have the same **new** projected `crs`: UTM zone 30N. The `raster_tr` meta-data also includes information on the units (`+units=m`) confirming that distances are measured in meters. Turning to the plot, we can see the GPS coordinates marked in red and each has a circle around it.
+
+Now that we have correctly estimated 10 km buffer circles, we can calculate the average population density within each buffer using the `raster::extract()` command and specifying `fun = mean`. This produces an 83 x 1 vector of results, which means we have one population density value for each enumeration area. Printing the first 5 results shows there is some substantial variation in population density.
+
+```{r}
+buffer_density <- raster::extract(pop_density_tr, buffers_tr, 
+                                  fun = mean, na.rm = TRUE,
+                                  cellnumbers = TRUE)
+dim(buffer_density)
+head(buffer_density)
+
+```
+
+Note, that we don't actually need to create the buffers first to extract the mean values of the raster. We can do it all in one step, shown below. **Just make sure to use the** `gps_tr` **object instead of the** `buffer_tr` **object!** But, we'll use those buffers again with the road data.
+
+```{r}
+buffer_density_alt <- raster::extract(pop_density_tr, gps_tr, 
+                                  buffer = 10000,
+                                  fun = mean, na.rm = TRUE)
+head(buffer_density_alt)
+
+```
+
+Finally, so we can merge everything together by `EAID`, let's add the population density calculation directly to the `gps_tr` data. Note that the `raster::extract()` command preserves the order of the inputs, so we know the first row of the density calculation corresponds to the first row of the `gps_tr` data.
+
+```{r}
+gps_tr$pop_density <- raster::extract(
+  pop_density_tr, gps_tr, 
+  buffer = 10000,
+  fun = mean, na.rm = TRUE
+)
+```
+
+# Road Networks: Working with vector data
+Before we do anything with the road data, let's make sure to reproject it to match the rest of our data.
+
+```{r}
+roads_tr <- roads %>%
+  st_transform(crs = 32630)
+```
+
+Because enumeration areas with better access to roads may make it easier for women to reach local service delivery providers. We are going to calculate the total length of roads within each buffer as a proxy for this accessibility. Because each of these buffers was constructed with the same 10 km radius, they have the same area, which means the sum of road length can also be thought of as a road density measure.
+
+First, we need to identify which portions of the road fall into each buffer. We'll use `sf::st_intersection()`, which returns a new `sf` object that contains observations from the first argument that touch (geographically) the second argument. 
+
+<aside>
+Note that there is also an `sf::intersects()` command. This is different than the one we're using because it returns a logical matrix that indicates whether each geometry pair intersects. See more on these types of operations in the [`sf` vignette](https://r-spatial.github.io/sf/articles/sf3.html#geometrical-operations-1).
+</aside>
+
+```{r}
+
+int <- st_intersection(roads_tr, buffers_tr)
+int
+
+```
+The returned object (`int`) is a `data.frame` with `r nrow(int)` observations (far fewer than the original `r nrow(roads_tr)` in the `roads_tr` data). Note that it also contains all the variables from both `roads_tr` and `buffers_tr`, so this operates a bit like an `inner_join`, which means it only includes observations that are in both datasets. We can see the implications of this by making a quick map. The full road network is shown in gray, the buffer circles are in black and the roads that fall into the circles are highlighted in red. Based on this map, it looks like there are a few buffer circles that don't contain any roads. We want to be sure we account for this.
+
+```{r}
+# plot intersection with buffers and road networks 
+ggplot() +
+  geom_sf(data = buffers_tr) +
+  geom_sf(data = roads_tr, color = "grey") +
+  geom_sf(data = int, color = "red")
+```
+
+We can merge in the full list of `EAIDs` to make sure we don't miss this one (or any others) using `sf:st_join()`, which works like `dplyr::left_join()`. It's important that when we do the join, the first argument is `int`, so that it will retain the `LINESTRING` geometry from this dataset, which we need to calculate the road length. Then, we'll calculate the length of the road networks contained in each buffer. We can do this with `sf::st_length()`. Because many of the buffer circles contain multiple roads, we first need calculate the length of each road then we need to aggregate to get the length of **all** roads in a given enumeration area. We'll convert from meters to km for greater readability. **It's important to note that any EAs with buffers that don't contain any roads will not be in the** `int` **dataset, so we'll do a** `dplyr::full_join()` **with** `gps_tr` **to make sure we get them all.** 
+
+Because `int` and `gps_tr` are both `sf` objects, it's not possible to do a standard join -- you can only use `sf::join()` when you have two `sf` objects. That's why we convert both to `data.frames` for the `dplyr::full_join()` and then back into an `sf` object. Finally, we'll convert `int` back into an `sf` object, retaining the `POINT` geometry from `gps_tr`, and replace all `NA` road lengths as 0. 
+
+
+```{r}
+# join, calculate length, & summarize
+int <- int %>%
+  mutate(road_length = st_length(geometry)) %>%
+  group_by(EAID) %>%
+  summarise(road_length = sum(road_length, na.rm = T)) %>%
+  mutate(road_length = set_units(road_length, "km")) %>%
+  as.data.frame() %>%
+  full_join(as.data.frame(gps_tr), by = "EAID") %>%
+  st_sf(sf_column_name = 'geometry.y') %>%
+  dplyr::select(-geometry.x) %>%
+  mutate(road_length = ifelse(is.na(road_length), 0, road_length))
+
+int
+
+```
+
+The added benefit of the `full_join()` with `gps_tr` is that it brings in the `pop_density` variable we created earlier. So now everything is in one dataset!
+
+This can now be merged into other PMA data, such as the individual level dataset `bf_merged` we worked with in the other posts in this module, and the variables can be used for analysis!
+
+As always, let us know if you have any questions and if you're doing anything exciting with the PMA spatial data!
+
+*Special thanks to Tracy Kugler, Nicholas Nagle, and Jonathan Schroeder for excellent help with this post.*

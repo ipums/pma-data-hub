@@ -116,7 +116,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   <!--/radix_placeholder_rmarkdown_metadata-->
   
   <script type="text/json" id="radix-resource-manifest">
-  {"type":"character","attributes":{},"value":["blog-post-workflow_files/anchor-4.2.2/anchor.min.js","blog-post-workflow_files/bowser-1.9.3/bowser.min.js","blog-post-workflow_files/distill-2.2.21/template.v2.js","blog-post-workflow_files/jquery-1.11.3/jquery.min.js","blog-post-workflow_files/webcomponents-2.0.0/webcomponents.js","images/author_post_appears.png","images/branch_name.png","images/clone_info.png","images/clone_success.png","images/draft_accepted.png","images/edit_knit.png","images/file_window1.png","images/git-menu.png","images/knit.png","images/master_only.png","images/new_branch.png","images/new_local_branch.png","images/password.png","images/post_added.png","images/posts_list.png","images/pull_button.png","images/pull_new_branch.png","images/see_branches.png","images/toggle_branches.png","images/use_git.png","images/username.png","images/version_control.png"]}
+  {"type":"character","attributes":{},"value":["blog-post-workflow_files/anchor-4.2.2/anchor.min.js","blog-post-workflow_files/bowser-1.9.3/bowser.min.js","blog-post-workflow_files/distill-2.2.21/template.v2.js","blog-post-workflow_files/jquery-1.11.3/jquery.min.js","blog-post-workflow_files/webcomponents-2.0.0/webcomponents.js","images/author_post_appears.png","images/branch_name.png","images/build.png","images/clone_info.png","images/clone_success.png","images/draft_accepted.png","images/dual-remotes.png","images/edit_knit.png","images/file_window1.png","images/git-menu.png","images/knit.png","images/master_only.png","images/new_branch.png","images/new_local_branch.png","images/password.png","images/post_added.png","images/posts_list.png","images/pull_button.png","images/pull_new_branch.png","images/see_branches.png","images/toggle_branches.png","images/use_git.png","images/username.png","images/version_control.png"]}
   </script>
   <!--radix_placeholder_navigation_in_header-->
   <!--/radix_placeholder_navigation_in_header-->
@@ -1468,7 +1468,9 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 </ul></li>
 <li><a href="#all-users-making-revisions">All users: making revisions</a></li>
 <li><a href="#site-admin">Site Admin</a><ul>
-<li><a href="#squash-and-merge">Squash and Merge</a></li>
+<li><a href="#setup">Setup</a></li>
+<li><a href="#merging">Merging</a></li>
+<li><a href="#other-tips">Other tips</a></li>
 </ul></li>
 </ul>
 </nav>
@@ -1598,7 +1600,7 @@ To open an RStudio project, click on the file <b>pma-data-hub.Rproj</b>. If you 
 <p>In red: notice the folder appears in both your <b>File</b> tab and your <b>Git</b> tab. (Don’t worry about the date on this folder - it’s for internal use and does not need to match the publication date.)</p>
 In green: this is the RMarkdown file where you’ll write your post.
 </aside>
-<p>Check out our <a href="rmarkdown-intro.html">Quick-start Guide for authoring content in RMarkdown</a>!</p>
+<p>Check out our <a href="../2021-02-02-blogging-with-rmarkdown/index.html">Quick-start Guide for Blogging with RMarkdown</a>!</p>
 <p>As you’re writing your post, you can preview it as a fully formatted webpage by hitting the <code>Knit</code> button at the top of your RMarkdown file:</p>
 <div class="layout-chunk" data-layout="l-body">
 <p><img src="images/knit.png" width="1434" /></p>
@@ -1652,7 +1654,7 @@ This editor’s RStudio only knows about the “master” branch so far.
 <div class="layout-chunk" data-layout="l-body">
 <p><img src="images/author_post_appears.png" width="724" /></p>
 </div>
-<p>Check out our <a href="rmarkdown-intro.html">Quick-start Guide for authoring content in RMarkdown</a>!</p>
+<p>Check out our <a href="../2021-02-02-blogging-with-rmarkdown/index.html">Quick-start Guide for Blogging with RMarkdown</a>!</p>
 <p>As you’re writing your post, you can preview it as a fully formatted webpage by hitting the <code>Knit</code> button at the top of your RMarkdown file:</p>
 <div class="layout-chunk" data-layout="l-body">
 <p><img src="images/edit_knit.png" width="1426" /></p>
@@ -1698,26 +1700,71 @@ You can switch between previewing the page in the RStudio Viewer tab, or in your
 </div>
 <p><strong>Please let Matt &amp; Nina know when your revisions are complete and ready to appear on the live blog!</strong></p>
 <h1 id="site-admin">Site Admin</h1>
-<p><em>These instructions will introduce an additional remote to your local repository. Only use them if you’ll be involved with managing updates to the live blog (e.g. Matt &amp; Nina).</em></p>
-<p>Our main goal is to avoid creating divergent commit histories between the internal repository and the public repository. In practice, that means a typical workflow will involve these steps:</p>
+<p><em>These instructions will introduce an additional remote to your local repository. Only use them if you’ll be involved with managing updates to the live blog (e.g. Matt &amp; Nina).</em> All of these functions can be used the in RStudio Terminal.</p>
+<h2 id="setup">Setup</h2>
+<p>Before adding a second remote, it’s best to rename the UMN GitHub remote something like <code>private</code>. You can check the current name with:</p>
+<pre><code>git remote</code></pre>
+<p>If the UMN GitHub is still called <code>origin</code> (by default), rename it with:</p>
+<pre><code>git remote rename origin private</code></pre>
+<p>Likewise, you should give the <code>private</code> branch <code>master</code> a different name, as the second remote will have a <code>master</code> branch, too. To see all of the remote branches currently in use:</p>
+<pre><code>git remote show private</code></pre>
+<p>Checkout <code>master</code> and change its name to something like <code>private-master</code>:</p>
+<pre><code>git checkout master
+git branch -m &quot;private-master&quot;</code></pre>
+<p>Now, add the <strong>public remote</strong> and fetch its branches (there should only be one, called <code>master</code>):</p>
+<pre><code>git remote add public https://github.com/ipums/pma-data-hub
+git fetch public</code></pre>
+<p>Create a local branch called <code>public-master</code> corresponding with <code>master</code> on the <code>public</code> remote:</p>
+<pre><code>git branch public-master public/master</code></pre>
+<p>At this point, you’ll notice that RStudio shows two remotes (with the branches you’ve fetched) and all of the local branches you’ve created so far.</p>
+<div class="layout-chunk" data-layout="l-body">
+<p><img src="images/dual-remotes.png" width="298" /></p>
+</div>
+<aside>
+In this example, we set the local “private-master” branch to track “master” on the private remote. The “public-master” branch tracks “master” on the public remote.
+</aside>
+<h2 id="merging">Merging</h2>
+<p><strong>Our main goal is to avoid creating divergent commit histories between the internal repository and the public repository.</strong> In practice, that means a typical workflow will involve these steps:</p>
 <ol type="1">
-<li>Squash and Merge the author’s branch to internal/master</li>
+<li>Squash and Merge the author’s branch to private/master</li>
 <li>Add the new post to index.Rmd</li>
-<li>Build and Commit the updated site on internal/master</li>
-<li>Merge internal/master to public/master</li>
+<li>Build, Commit, and Push to private/master</li>
+<li>Merge private/master to public/master</li>
 <li>Push to public/master</li>
 </ol>
-<h2 id="squash-and-merge">Squash and Merge</h2>
-<p>Our authoring / editing workflow generates a commit each time someone adds a change to the branch <code>git log</code> (you can run <code>git log</code> on their branch in Terminal to see their full commit history). We will <a href="https://docs.gitlab.com/ee/user/project/merge_requests/squash_and_merge.html">squash and merge</a> this commit history into a single commit on the <code>master</code> branch.</p>
+<p>Our authoring / editing workflow generates a commit each time someone adds a change to the branch <code>git log</code> (you can run <code>git log</code> on any branch to see its full commit history). We will <a href="https://docs.gitlab.com/ee/user/project/merge_requests/squash_and_merge.html">squash and merge</a> this commit history into a single commit on <code>private-master</code>.</p>
+<p>For example, with a new post on the branch <code>blog-post-workflow</code>:</p>
 <pre><code>git checkout private-master
-merge squash: blog-post-workflow
+git merge --squash blog-post-workflow</code></pre>
+<p>We have two posts that should not be included in the blog <a href="../../index.html">index</a>: this one, and the <a href="../2021-02-02-blogging-with-rmarkdown/index.html">Quick-start Guide for Blogging with RMarkdown</a>. In order to make that work, we have to <em>whitelist</em> the posts we <em>do</em> want in the file <code>index.Rmd</code>.<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a></p>
+<p>Now, in RStudio, hit the <code>Build Website</code> button. Look over the site to make sure everything looks good. (We won’t build on <code>public-master</code> to avoid merge conflicts, so get those edits in now.)</p>
+<div class="layout-chunk" data-layout="l-body">
+<p><img src="images/build.png" width="372" /></p>
+</div>
+<p>When you’re ready, add all files and commit your changes with a message like:</p>
+<pre><code>git add .
 git commit -m &quot;new post: blog-post-workflow&quot;</code></pre>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
+<p>Although your local branch has a different name, you can push your commit to <code>master</code> on the <code>private</code> remote with this command:</p>
+<pre><code>git push private HEAD:master</code></pre>
+<p>Wait a few minutes, and you’ll see that the GitHub Pages site hosted at UMN GitHub should update to reflect your changes.</p>
+<p>To merge your <code>private-master</code> to <code>public-master</code>:</p>
+<pre><code>git checkout public-master
+git merge private-master</code></pre>
+<p>Finally, push your changes to the live site:</p>
+<pre><code>git push public HEAD:master</code></pre>
+<h2 id="other-tips">Other tips</h2>
+<p>Need to rollback to a previous commit? Look for it in the <code>git log</code>, and do a hard reset:</p>
+<pre><code>git log
+git reset --hard 58ba4f0396b985fb5ab82c88f7bbc5c9cc619e71</code></pre>
+<p>For a checklist of updated files and their commit status:</p>
+<pre><code>git status</code></pre>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <section class="footnotes" role="doc-endnotes">
 <hr />
 <ol>
 <li id="fn1" role="doc-endnote"><p>You can check its location by running “which git” in Terminal, and “git –version” to check the installed version. If git is somehow not installed, use the “Install git using Homebrew” instructions <a href="https://jennybc.github.io/2014-05-12-ubc/ubc-r/session03_git.html">here</a><a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn2" role="doc-endnote"><p>Mac users: type “which git” in terminal and enter the result; Windows users: look for git.exe (most likely in Program Files)<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3" role="doc-endnote"><p>Annoying, yes? <a href="https://github.com/rstudio/distill/issues">Hopefully</a>, an exclusion logic will become available in the next <code>distll</code> release.<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
 </section>
 <!--radix_placeholder_article_footer-->
