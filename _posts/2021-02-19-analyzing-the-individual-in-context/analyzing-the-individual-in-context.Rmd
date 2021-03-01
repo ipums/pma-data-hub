@@ -1,0 +1,427 @@
+---
+title: "Putting It All Together: Analyzing the Individual in Context"
+description: |
+  Analyzing women's contraceptive use while considering service delivery point and spatial contextual factors.
+author:
+  - name: Nina Brooks
+    affiliation: IPUMS PMA Postdoctoral Associate
+    url: http://www.ninarbrooks.com/
+categories:
+  - Individuals in Context
+  - Service Delivery Points
+  - Data Analysis
+  - survey
+  - dotwhisker
+date: '`r format(Sys.Date(), "%B %d, %Y")`'
+output:
+   distill::distill_article:
+    self_contained: false
+    toc: true
+    toc_depth: 3
+    toc_float: true
+preview: images/results.png
+bibliography: analysis.bib
+---
+
+```{r setup, echo=F}
+knitr::opts_chunk$set(echo = T, eval = T, message = F)
+options(tibble.print_min=10, tibble.max_extra_cols = 5)
+downloadthis::download_dir(
+  path = ".",
+  output_name = basename(getwd()),
+  button_label = "Download this page as R code",
+  button_type = "default",
+  has_icon = T,
+  icon = "fa fa-save"
+)
+```
+
+Throughout our series on [Individuals in Context](../../index.html#category:Individuals_in_Context), we've  been looking at PMA Service Delivery Point (SDP) data as a resource for understanding the health services environment experienced by women surveyed in PMA Household and Female samples. We [created summary variables](../2021-01-28-summarize-by-easerved/index.html) that capture the SDPs that provide services within the same [enumeration areas](../2021-01-26-sdp-data/index.html#sample-design) PMA uses to construct samples of individuals. We've also shown how to complement SDP data with additional information about women's lived environment collected from [external geospatial data](../2021-02-04-merging-external-spatial-data/) sources. 
+
+In this final post, we'll bring everything together and demonstrate the kind of analysis you might want to do with the contextual data we've collected in this series. Specifically, we'll analyze women's **current contraceptive use**, [FPCURRUSE](https://pma.ipums.org/pma-action/variables/FPCURRUSE), taking into account:
+
+<aside>
+`FPCURRUSE` indicates whether a woman is currently using any method of family planning, or doing something to delay or avoid pregnancy.
+</aside>
+
+  * *individual* factors about each woman collected in the Household and Female survey
+  * *availability* factors related to the supply of family planning services provided by SDPs in each woman's enumeration area
+  * *accessibility* factors in each woman's enumeration area - including measures of population density and transportation infrastructure - that we collected from external data sources
+  
+The availability of both detailed individual data on family planning *and* supply-side (service delivery) factors is one of the unique advantages of the PMA data. 
+
+# Setup: Load Packages and Data
+
+We'll load the packages `tidyverse` and `ipumsr`, as usual. Additionally, we'll load [tidymodels](https://www.tidymodels.org/), which helps apply `tidyverse` principles to the models we'll be building, and a few other packages we'll discuss below. 
+
+```{r}
+library(tidyverse)
+library(ipumsr)
+library(tidymodels)
+library(survey)
+library(dotwhisker)
+```
+
+
+We'll be using both of the Burkina Faso datasets we created in earlier posts in this series:
+
+  * `bf_merged` contains a handful of variables from each sampled woman *merged with* summary variables about the SDPs that serve her enumeration area (created in [this post](../2021-01-28-summarize-by-easerved)).
+  * `int` contains population and road density variables for each enumeration area (created in [this post](../2021-02-04-merging-external-spatial-data)). 
+  
+<aside>
+Remember, to use the GPS data you must request access directly from our partners at [pmadata.org](https://www.pmadata.org/data/about-data). The version of `int` we're using in this post is based on the real GPS locations but the GPS data itself is not included.
+</aside>
+
+You'll find both of these datasets included in the `data` folder when you click the Download button at the top of this page. As a reminder, let's take a [glimpse](https://tibble.tidyverse.org/reference/glimpse.html) at the variables we've currently got in each:
+
+```{r}
+bf_merged <- read_rds("data/bf_merged.rds")
+glimpse(bf_merged)
+```
+
+The variables `N_SDP`, `NUM_METHODS_PROV`, `NUM_METHODS_INSTOCK`, `NUM_METHODS_OUT3MO`, `MEAN_OUTDAY`, and `URBAN` all describe the the enumeration area (`EAID`) where a woman identified by `PERSONID` resides. The only other variable from the Household and Female questionnaire, itself, is `FPCURRUSE`. We'll add more variables describing each woman in a moment.
+
+```{r}
+int <- read_rds("data/int.rds") %>% rename_all(toupper)
+glimpse(int)
+```
+
+We'll be using `ROAD_LENGTH` and `POP_DENSITY`, but first we'll need to merge `int` to `bf_merged` by matching up the `EAID` for each woman:
+
+```{r}
+bf_merged <- left_join(bf_merged, int, by = "EAID")
+```
+
+Let's now introduce some new variables obtained from each woman's responses to the Household and Female questionnaire. In the `data` folder, you'll find a new extract from [IPUMS PMA](https://pma.ipums.org/pma/) containing these variables from the Burkina Faso 2017 and 2018 surveys (female respondents only):
+
+  * [AGE](https://pma.ipums.org/pma-action/variables/AGE) - Age (in years)
+  * [MARSTAT](https://pma.ipums.org/pma-action/variables/MARSTAT) - Marital status
+  * [EDUCATTGEN](https://pma.ipums.org/pma-action/variables/EDUCATTGEN) - Highest level of school attended, general (4 categories)
+  * [WEALTHQ](https://pma.ipums.org/pma-action/variables/WEALTHQ) - Wealth score quintile
+  * [BIRTHEVENT](https://pma.ipums.org/pma-action/variables/BIRTHEVENT) - Number of birth events
+
+Following [the practice](../2021-01-28-across-sdp/index.html#introducing-dplyracross) we used when we made `bf_merged`, we'll simply handle all of the different non-response codes in this new extract by recoding them as `NA`. Then, we'll merge the extract to `bf_merged` by matching up each person by `PERSONID`:
+
+```{r, results='hide'}
+bf_merged <- ipumsr::read_ipums_micro(
+  ddi = "data/pma_00018.xml",
+  data_file = "data/pma_00018.dat.gz") %>% 
+  select(PERSONID, AGE, MARSTAT, EDUCATTGEN, WEALTHQ, BIRTHEVENT, STRATA) %>% 
+  mutate(across(everything(), ~lbl_na_if(
+    .x,
+    ~.lbl %in% c(
+      "Not interviewed (female questionnaire)",
+      "Not interviewed (household questionnaire)",
+      "Don't know",
+      "No response or missing",
+      "NIU (not in universe)"
+    )
+  ))) %>% 
+  right_join(bf_merged, by = "PERSONID")
+```
+
+<aside>
+For a refresher on accessing and importing PMA data in R, check out our post [Import IPUMS PMA Data Into R](../2020-12-10-get-ipums-pma-data/index.html).
+</aside>
+
+# Recoding covariates 
+
+All five of the new variables we've introduced are loaded into R as members of both the `integer` and the `haven_labelled` class of objects. But really, only `AGE` and `BIRTHEVENT` should be treated like *continuous* measures in our analysis. For `MARSTAT`, `EDUCATTGEN`, and `WEALTHQ`, the integer values associated with each response are arbitrary; we're much more interested in the labels associated with these numeric values because each of these three variables reflects a *categorical* measurement.  
+
+```{r}
+bf_merged %>% 
+  select(MARSTAT, EDUCATTGEN, WEALTHQ) %>% 
+  map(class)
+```
+
+As you might know, the normal way to handle *categorical* variables in a regression model is to create a [binary dummy variable](https://en.wikipedia.org/wiki/Dummy_variable_(statistics)) associated with each response, and R normally performs this task automatically when it encounters a variable that's a member of the [factor class](https://r4ds.had.co.nz/factors.html). 
+
+If we want, we can simply [coerce](https://r4ds.had.co.nz/vectors.html?q=coercion#coercion) these variables as factors. When we do this and then use the factor in a regression model, R will select the *lowest numbered response* as a "reference group" and create binary dummy variables for the other responses. This makes sense with `WEALTHQ`, where we'd interpret the coefficient for each wealth quintile as an effect *relative to* being in the lowest quintile. 
+
+```{r}
+bf_merged %>% count(WEALTHQ)
+
+bf_merged <- bf_merged %>% 
+  mutate(WEALTHQ = as_factor(WEALTHQ)) 
+
+bf_merged %>% count(WEALTHQ)
+```
+
+Alternatively, we might decide to make our own binary dummy variables. This makes sense when we might want to collapse several responses into one larger category, as with `MARSTAT`: here, for the purpose of analyzing `FPCURRUSE`, we probably only care about whether the woman is partnered (the reasons why she might not be partnered are less meaningful). 
+
+```{r}
+bf_merged %>% count(MARSTAT)
+
+bf_merged <- bf_merged %>%
+  mutate(MARSTAT = lbl_relabel(
+      MARSTAT,
+      lbl(1, "partnered") ~ .val %in% 21:22,
+      lbl(0, "unpartnered") ~ .val %in% c(10, 31, 32)
+  )) 
+
+bf_merged %>% count(MARSTAT)
+```
+
+Another reason to consider recoding categorical variables: what if one response option dominates a huge proportion of the responses in your data? Is it worth sacrificing additional [degrees of freedom](https://en.wikipedia.org/wiki/Degrees_of_freedom_(statistics)) to accommodate dummy variables that could otherwise be merged together? This is the case with `EDUCATTGEN`, where over half of the responses are "never attended". We'll create a single, simplified binary variable where the responses are "some schooling" or "no schooling". 
+
+```{r}
+bf_merged %>% count(EDUCATTGEN)
+
+bf_merged <- bf_merged %>% 
+  mutate(EDUCATTGEN = lbl_relabel(
+      EDUCATTGEN,
+      lbl(1, "some schooling") ~ .val %in% 2:4,
+      lbl(0, "no school") ~ .val == 1
+  )) 
+
+bf_merged %>% count(EDUCATTGEN)
+```
+
+The last thing we'll do here is coerce `SAMPLE` as a factor so that we can control for arbitrary differences caused by selection into the two samples (recall that our dataset contains two samples from Burkina Faso 2017 and 2018). Because the women in each `SAMPLE` were surveyed in two different years, this essentially operates like a survey-year fixed effect. 
+
+```{r}
+bf_merged <- bf_merged %>% 
+  mutate(SAMPLE = as.factor(SAMPLE)) 
+
+bf_merged %>% count(SAMPLE)
+```
+
+# Regression Models 
+
+We're now ready to examine the relative effects *individual* factors on `FPCURRUSE` compared to the *availability* and *accessibility* of family planning services in each woman's enumeration area. Let's begin with a simple model containing the factors we added to the dataset above.
+
+## Individual factors: model with glm
+
+Most R users probably use the *generalized linear model* function [glm](https://www.rdocumentation.org/packages/stats/versions/3.6.2/topics/glm) for this purpose. To keep our demonstration as simple as possible, we'll fit a model using the Ordinary Least-Squares (OLS) method that `glm` adopts by default. We'll use the `tidymodels` function [broom::tidy](https://broom.tidymodels.org/) to clean up the output for our model's coefficient estimates.
+
+<aside>
+Recall that `FPCURRUSE` is a binary response ("yes" or "no"), so you might consider fitting a logit model by adding the argument `family = 'binomial'` to `glm()`. 
+</aside>
+
+```{r}
+m1 <- glm(
+  FPCURRUSE ~
+    AGE + 
+    MARSTAT + 
+    EDUCATTGEN + 
+    BIRTHEVENT  + 
+    WEALTHQ + 
+    SAMPLE,
+  data = bf_merged
+)
+
+tidy(m1)
+```
+
+Because the outcome (`FPCURRUSE`) is binary, this linear regression is a **linear probability model** and the coefficients on each term should be interpreted as a percentage point change in the probability of current family planning use. 
+
+For each of the binary dummy variables we created, the coefficient estimate shows how much the probability `FPCURRUSE == "yes"` increases if the value of the dummy variable is 1. For example, in `MARSTAT` the value 1 represents "partnered" women, while the value 0 represented "unpartnered" women. The coefficient on `MARSTAT` is `r round(m1$coefficients["MARSTAT"], 3)`, meaning our model predicts that **being partnered is associated with an increase in the expected probability of family planning use by `r round(m1$coefficients["MARSTAT"], 3)`.** 
+
+Is this a meaningful difference? Consider that the mean of `FPCURRUSE` is `r bf_merged %>% summarise(mean(FPCURRUSE, na.rm = T)) %>% round(2)`: this is the probability you might use to guess a woman's likelihood for using family planning if we didn't have access to any other variables. Relative to that, an increase of `r round(m1$coefficients["MARSTAT"], 3)` is pretty substantive. 
+
+What about the other coefficients? We also see a large increase in the probability of family planning use for women who have "some schooling", and a smaller increase for those who have more children. 
+
+Notice what happened with `WEALTHQ`, the variable we coerced as a `factor` above. As expected, R created a binary dummy variable from each response option *except* the reference group, which is the "lowest quintile". It's important to remember that each of these dummy variables represents the effect a being in a particular quintile *relative to* the "lowest quintile". These results show that family planning use increases with wealth, which is expected (although the effects don't become large or statistically significant until we get to the "high" and "highest" income quintiles). 
+
+## Individual factors: model with svyglm
+
+There is one problem with the model we created above: as we've discussed, PMA samples households randomly within the same enumeration area, and it's likely that households located together will share many common features. This violates one of the basic assumptions of OLS regression, where we expect modeling errors to be uncorrelated [@Cameron2015]. To address this, we'll need to use a model that allows us to specify the complexities of PMA survey design. A common approach uses the [survey](http://r-survey.r-forge.r-project.org/survey/) package developed by Thomas Lumley.^[We highly recommend Lumley's [-@Lumley2011] book, *Complex Surveys: A Guide to Analysis Using R*.] 
+
+<aside>
+We'll use the package `svyglm` to specify PMA survey design whenever we create analytic models on the PMA Data Analysis Hub!
+</aside>
+
+Lumley's modeling function `survey::svyglm` is similar to `glm`, except that it takes a special `design` argument where `glm` takes a `data` argument. We use the function `survey::svydesign` to specify the data, the cluster ids from `EAID`, and the sampling strata `STRATA` (if we were using the sample weights from `FQWEIGHT`, we could do that here, too):
+
+```{r}
+m2 <- svyglm(
+  FPCURRUSE ~
+    AGE + 
+    MARSTAT + 
+    EDUCATTGEN + 
+    BIRTHEVENT  + 
+    WEALTHQ + 
+    SAMPLE,
+  design = svydesign(
+    ids = ~EAID,
+    strata = ~STRATA,
+    data = bf_merged
+  )
+)
+
+tidy(m2)
+```
+
+To see how this impacts our model estimates, let's visualize the confidence interval for each coefficient with [dotwhisker::dwplot](https://cran.r-project.org/web/packages/dotwhisker/vignettes/dotwhisker-vignette.html). We'll use the same function a few times here, and we'll want to repeat the same visual elements each time, so we'll just wrap everything together in a custom function we're calling `pma_dwplot()`:
+
+```{r}
+pma_dwplot <- function(...){
+  dwplot(
+    bind_rows(...),
+    dodge_size = 0.8,
+    vline = geom_vline(xintercept = 0, colour = "grey60", linetype = 2)) +
+    scale_color_viridis_d(option = "plasma", end = .7) +
+    theme_minimal()
+}
+
+pma_dwplot(
+  tidy(m1) %>% mutate(model = "glm"),
+  tidy(m2) %>% mutate(model = "svyglm")
+)
+```
+
+We can see from this plot that the confidence intervals obtained from `svyglm` are *wider than* those we got from `glm`, but the point estimates for each coefficient are unchanged. We also added a dashed line at 0 to make it really easy to see when coefficients are statistically insignificant at the 5% level (if so, the "whiskers" of a 95% confidence interval will cross 0).
+
+## Availabillity: modeling with SDP variables 
+
+While these individual factors are important, we should also expect the availability and accessibility of family planning services to partially determine their use [@Bongaarts2011]. Back in an [earlier post](../2021-01-28-summarize-by-easerved/index.html#merging-to-household-and-female-data), we observed that the women in our sample appeared to be 5% more likely to use family planning if they lived in an enumeration area where no SDPs reported a recent contraceptive stockout, compared to women living in areas where at least one SDP did experience a recent stockout. Now we'll see if that difference is *statistically significant*, controlling for other factors.
+
+<aside>
+For our purposes, a "recent stockout" is a stockout of any contraceptive method normally provided by an SDP if the stockout occurred within 3 months prior to the survey. 
+</aside>
+
+First, we'll create a binary variable `STOCKOUT` indicating whether each woman lives in an enumeration area where at least one SDP reported a recent stockout:
+
+```{r}
+bf_merged <- bf_merged %>%
+  mutate(STOCKOUT = case_when(
+    NUM_METHODS_OUT3MO > 0 ~ 1,
+    NUM_METHODS_OUT3MO == 0 ~ 0
+  ))
+
+bf_merged %>% count(STOCKOUT)
+```
+
+Next, we'll add `STOCKOUT` to our previous model, along with `NUM_METHODS_PROV` (the number of methods available from at least one SDP serving the woman's enumeration area) and `N_SDP` (the number of sampled SDPs serving the woman's enumeration area).
+
+```{r}
+m3 <- svyglm(
+  FPCURRUSE ~
+    AGE + 
+    MARSTAT + 
+    EDUCATTGEN + 
+    BIRTHEVENT  + 
+    WEALTHQ + 
+    SAMPLE + 
+    STOCKOUT + 
+    NUM_METHODS_PROV + 
+    N_SDP,
+  design = svydesign(
+    ids = ~EAID,
+    strata = ~STRATA,
+    data = bf_merged
+  )
+)
+
+tidy(m3)
+```
+
+Indeed, women living in an enumeration area where we're aware of recent stockouts are less likely to be currently using family planning! The effect isn't quite as large as some of the individual level factors we've examined, but it *is* statistically significant (p < 0.05). 
+
+Does the introduction of SDP variables change our estimates for the individual factors we examined previously? A new `dwplot` seems to show little difference:
+
+```{r}
+pma_dwplot(
+  tidy(m2) %>% mutate(model = "Individual-only"),
+  tidy(m3) %>% mutate(model = "SDP + Individual")
+)
+```
+
+## Accessibility: modeling with external spatial variables 
+
+Availability of family planning methods (or lack thereof) is not the same as accessibility. The variables we created in our [last post](../2021-02-04-merging-external-spatial-data/) using external geospatial data allow us to explore some factors related to *accessibility*, which is what we'll add now. We'll complement these external variables with `URBAN`, indicating whether the woman lives in an urban area.
+
+```{r}
+m4 <- svyglm(
+  FPCURRUSE ~
+    AGE + 
+    MARSTAT + 
+    EDUCATTGEN + 
+    BIRTHEVENT  + 
+    WEALTHQ + 
+    SAMPLE + 
+    STOCKOUT + 
+    NUM_METHODS_PROV + 
+    N_SDP + 
+    POP_DENSITY + 
+    ROAD_LENGTH + 
+    URBAN,
+  design = svydesign(
+    ids = ~EAID,
+    strata = ~STRATA,
+    data = bf_merged
+  )
+)
+
+tidy(m4) 
+
+pma_dwplot(
+  tidy(m2) %>% mutate(model = "Individual-only"),
+  tidy(m3) %>% mutate(model = "SDP + Individual"),
+  tidy(m4) %>% mutate(model = "All")
+) 
+```
+
+This figure with all three models reveals that marital status, education, number of births, and living in an enumeration area that faced recent stockouts are all significantly associated with current family planning use. However, it's pretty difficult to compare the effects across all the variables. The coefficients on age, population density, and road length are particularly hard to examine and compare. `dotwhisker` includes a very handy function that re-scales continuous variables on the right-hand side of your regression model to make them more comparable to binary predictors. Specifically, `dotwhisker::by_2sd()` re-scales continuous input variables by 2 standard deviations following Gelman [-@Gelman2008].^[We recommend checking out the full paper, but the short explanation is that with binary predictors you are comparing a value of `0` to a value of `1` when interpreting coefficients. A 1-unit change in a binary predictor is equivalent to a 2 standard deviation change because the standard deviation of a binary variable with equal probabilities is 0.5.]
+
+While we're adding some last touches to make the plot more readable, we'll also provide a title, clearer variable names on the Y axis, a tighter scale on the X axis, and a caption at the bottom. 
+
+```{r}
+list(
+  tidy(m2) %>% mutate(model = "Individual-only"),
+  tidy(m3) %>% mutate(model = "SDP + Individual"),
+  tidy(m4) %>% mutate(model = "All")
+) %>% 
+  map(~by_2sd(.x, bf_merged)) %>% 
+  bind_rows() %>% 
+  relabel_predictors(
+    c(
+      AGE = "Age",  
+      MARSTAT = "Married", 
+      EDUCATTGEN = "Some Schooling", 
+      BIRTHEVENT = "No. of Children",
+      `WEALTHQLower quintile` = "Lower Wealth Quintile", 
+      `WEALTHQMiddle quintile` = "Middle Wealth Quintile",
+      `WEALTHQHigher quintile` = "Higher Wealth Quintile", 
+      `WEALTHQHighest quintile` = "Highest Wealth Quintile", 
+      STOCKOUT = "Recent Stockout", 
+      NUM_METHODS_PROV = "No. of FP Methods",
+      N_SDP = "No. of SDP Providers",
+      POP_DENSITY = "Population Density (w/i 10 km)",
+      ROAD_LENGTH = "Road length (w/i 10 km)",
+      URBAN = "Lives in Urban EA"
+    )
+  ) %>% 
+  dwplot(
+    dodge_size = 0.8,
+    vline = geom_vline(xintercept = 0, colour = "grey60", linetype = 2)
+  ) + 
+  scale_color_viridis_d(option = "plasma", end = .7) +
+  theme_minimal() +
+  labs(
+    x = "Coefficient",
+    color = NULL,
+    title = "Marital Status Is the Strongest Predictor of Family Planning Use",
+    subtitle = "Impact of Individual and Contextual Factors on Family Planning Use",
+    caption = "Source: IPUMS PMA (Burkina Faso 2017-2018), DIVA-GIS (road length), and WorldPop (population density)"
+  ) +
+  scale_x_continuous(limits = c(-0.1, 0.3)) + # to make space for the legend
+  theme(
+    legend.position = c(0.8, 0.2),
+    title = element_text(size = 10),
+    legend.text = element_text(size = 10),
+    plot.caption = element_text(hjust = 0), #left align the caption
+    legend.background = element_rect(colour = "grey80")
+  ) 
+```
+
+Now that we've re-scaled the continuous input variables by two standard deviations, we can much more easily see the relationship between age and family planning use. Across all models a one-year increase in a woman's age is associated with a five percentage point lower expected probability of using family planning. This effect is statistically significant at the 5% level in all three models as well.
+
+The relationships we observed with marital status, education, and number of children are quite stable across all the models -- even as we added variables representing the service environment and broader context of contraceptive availability the coefficients did not meaningfully change.
+
+This is in pretty striking contrast to what happens to the wealth quintile variables. When we included only woman and SDP characteristics, being in either the higher and highest wealth quintiles was associated with large and statistically significant increases in the probability of using family planning. But as we added geospatial variables and the `URBAN` variable in particular, the coefficients become smaller and the confidence intervals become wider. This indicates that there was likely **omitted variable bias** because wealth is correlated with living in an urban area but when we excluded `URBAN` the wealth quintile variables were capturing some of this relationship with family planning use.
+
+Even though this analysis was relatively simple, it was quite informative about different drivers of family planning use. You could easily extend this analysis to include other factors that influence family planning use, incorporate fixed or random effects, or take advantage of the multiple years of survey data!
+
+As always, let us know if you have any questions on this post or if you're working any fertility related analyses and you have a question that we can help address with the blog!
+

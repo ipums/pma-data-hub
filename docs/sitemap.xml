@@ -14,19 +14,23 @@
   </url>
   <url>
     <loc>https://ipums.github.io/pma-data-hub/</loc>
-    <lastmod>2021-02-17T15:50:25-06:00</lastmod>
+    <lastmod>2021-03-01T16:34:30-06:00</lastmod>
   </url>
   <url>
     <loc>https://ipums.github.io/pma-data-hub/LICENSE.html</loc>
     <lastmod>2021-02-02T12:16:04-06:00</lastmod>
   </url>
   <url>
+    <loc>https://ipums.github.io/pma-data-hub/posts/2021-02-19-analyzing-the-individual-in-context/</loc>
+    <lastmod>2021-03-01T16:34:30-06:00</lastmod>
+  </url>
+  <url>
     <loc>https://ipums.github.io/pma-data-hub/posts/2021-02-04-merging-external-spatial-data/</loc>
-    <lastmod>2021-02-17T15:54:48-06:00</lastmod>
+    <lastmod>2021-03-01T16:34:30-06:00</lastmod>
   </url>
   <url>
     <loc>https://ipums.github.io/pma-data-hub/posts/2021-02-02-blog-post-workflow/</loc>
-    <lastmod>2021-02-16T13:59:57-06:00</lastmod>
+    <lastmod>2021-02-17T16:02:22-06:00</lastmod>
   </url>
   <url>
     <loc>https://ipums.github.io/pma-data-hub/posts/2021-01-29-mapping-sdp-variables/</loc>
@@ -38,7 +42,7 @@
   </url>
   <url>
     <loc>https://ipums.github.io/pma-data-hub/posts/2021-01-28-across-sdp/</loc>
-    <lastmod>2021-02-17T15:48:25-06:00</lastmod>
+    <lastmod>2021-03-01T15:06:39-06:00</lastmod>
   </url>
   <url>
     <loc>https://ipums.github.io/pma-data-hub/posts/2021-01-26-sdp-data/</loc>
@@ -46,7 +50,7 @@
   </url>
   <url>
     <loc>https://ipums.github.io/pma-data-hub/posts/2021-02-02-blogging-with-rmarkdown/</loc>
-    <lastmod>2021-02-16T13:59:57-06:00</lastmod>
+    <lastmod>2021-02-17T16:02:22-06:00</lastmod>
   </url>
   <url>
     <loc>https://ipums.github.io/pma-data-hub/posts/2020-12-10-get-ipums-pma-data/</loc>
