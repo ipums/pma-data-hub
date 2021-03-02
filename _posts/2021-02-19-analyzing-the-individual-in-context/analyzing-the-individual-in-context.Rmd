@@ -366,7 +366,7 @@ This figure with all three models reveals that marital status, education, number
 
 While we're adding some last touches to make the plot more readable, we'll also provide a title, clearer variable names on the Y axis, a tighter scale on the X axis, and a caption at the bottom. 
 
-```{r}
+```{r, l-body-outset}
 list(
   tidy(m2) %>% mutate(model = "Individual-only"),
   tidy(m3) %>% mutate(model = "SDP + Individual"),
@@ -389,7 +389,8 @@ list(
       N_SDP = "No. of SDP Providers",
       POP_DENSITY = "Population Density (w/i 10 km)",
       ROAD_LENGTH = "Road length (w/i 10 km)",
-      URBAN = "Lives in Urban EA"
+      URBAN = "Lives in Urban EA",
+      SAMPLE85408 = "2018 Sample"
     )
   ) %>% 
   dwplot(
@@ -408,11 +409,11 @@ list(
   scale_x_continuous(limits = c(-0.1, 0.3)) + # to make space for the legend
   theme(
     legend.position = c(0.8, 0.2),
-    title = element_text(size = 10),
-    legend.text = element_text(size = 10),
+    title = element_text(size = 8),
+    legend.text = element_text(size = 8),
     plot.caption = element_text(hjust = 0), #left align the caption
     legend.background = element_rect(colour = "grey80")
-  ) 
+  )
 ```
 
 Now that we've re-scaled the continuous input variables by two standard deviations, we can much more easily see the relationship between age and family planning use. Across all models a one-year increase in a woman's age is associated with a five percentage point lower expected probability of using family planning. This effect is statistically significant at the 5% level in all three models as well.
