@@ -39,6 +39,5 @@ theme: theme.css
 favicon: "images/favicon/favicon-32x32.png"
 collections:
   posts:
-    disqus: pma-data-hub
     share: [twitter, linkedin]
     citations: false
