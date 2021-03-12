@@ -41,3 +41,5 @@ collections:
   posts:
     share: [twitter, linkedin]
     citations: false
+google_analytics: "UA-191039907-2"
+
