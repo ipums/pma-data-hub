@@ -23,14 +23,14 @@ output:
 knitr::opts_chunk$set(echo = TRUE)
 options(tibble.max_extra_cols = 5)
 
-downloadthis::download_dir(
-  path = ".",
-  output_name = basename(getwd()),
-  button_label = "Download this page as R code",
-  button_type = "default",
-  has_icon = T,
-  icon = "fa fa-save"
-)
+# downloadthis::download_dir(
+#   path = ".",
+#   output_name = basename(getwd()),
+#   button_label = "Download this page as R code",
+#   button_type = "default",
+#   has_icon = T,
+#   icon = "fa fa-save"
+# )
 ```
 
 Welcome to the **third post** in a series all about using PMA Service Delivery Point (SDP) data to better understand [Individuals in Context](../../index.html#category:Individuals_in_Context). In our [last post](../2021-01-28-across-sdp/index.html), we discussed a few of the variable groups related to contraceptive availability, and we showed how to use functions like `dplyr::across` to recode and summarize these variable groups in preparation for merging with Household and Female data.  
@@ -49,7 +49,7 @@ In fact, PMA partners with government health agencies to obtain information abou
 
 Because service catchment data are only available for public facilities, PMA uses a different method to select **private-sector** facilities. A private facility will be selected for a SDP sample only if it is located inside the boundaries of an enumeration area included in a corresponding Household and Female sample. 
 
-# Setup: Load an Example Dataset into R
+# Setup: Create and Load a Data Extract
 
 Let's take a look at an example SDP dataset to see how all of this information gets reported. We'll use the same data we highlighted in our [last post](../2021-01-28-across-sdp/index.html), which includes facilities sampled from Burkina Faso in 2017 and 2018. First, load the following packages into R:
 
@@ -62,14 +62,24 @@ library(ipumsr)
 Check out our posts on <a href="../2020-12-10-get-r-and-packages/index.html#r-packages">R Packages</a> and <a href="../2020-12-10-get-ipums-pma-data/index.html">Loading IPUMS PMA data into R</a>.
 </aside>
 
-You'll find the data for this example in the `data` folder if you use the Download button at the top of this page, or you can select a data extract for yourself. For this example, we'll be working with all of the available contraceptive services variables ending with the suffixes `PROV`, `OBS`, `OUT3MO`, and `OUTDAY`; we'll also use the variable group [EASERVED](https://pma.ipums.org/pma-action/variables/EASERVED), which - as we'll see - stores information about the service catchment area for facilities where that information was available. 
+Again in this post, we'll be working with all of the available contraceptive [services](https://pma.ipums.org/pma-action/variables/group?id=fp_services) and [stock](https://pma.ipums.org/pma-action/variables/group?id=fp_stock) variables ending with the suffixes `PROV`, `OBS`, `OUT3MO`, and `OUTDAY`. We'll also add the variable group [EASERVED](https://pma.ipums.org/pma-action/variables/EASERVED), which - as we'll see - stores information about the service catchment area for facilities where that information was available. Finally, we'll add a few more variables that we'll explore a bit later: [AUTHORITY](https://pma.ipums.org/pma-action/variables/AUTHORITY), [FACILITYTYPE](https://pma.ipums.org/pma-action/variables/FACILITYTYPE), and [FACILITYTYPEGEN](https://pma.ipums.org/pma-action/variables/FACILITYTYPEGEN).
 
-We'll load the data, and also use the [steps outlined in our last post](../2021-01-28-across-sdp/index.html#recoding-variables-with-ipumsr) to apply a couple of recoding functions from [ipumsr](http://tech.popdata.org/ipumsr/). 
+We'll first load the data using `ipumsr::read_ipums_micro`:
 
 ```{r results='hide'}
 sdp <- ipumsr::read_ipums_micro(
   ddi = "data/pma_00008.xml",
-  data = "data/pma_00008.dat.gz") %>% 
+  data = "data/pma_00008.dat.gz") 
+```
+
+<aside>
+Remember: change these file paths to match your own data extract!
+</aside>
+
+Then, following the [steps outlined in our last post](../2021-01-28-across-sdp/index.html#recoding-variables-with-ipumsr), we'll apply a couple of recoding functions from [ipumsr](http://tech.popdata.org/ipumsr/). 
+
+```{r}
+sdp <- sdp %>% 
   select(-EASERVED) %>% # error from extract system
   mutate(
     across(ends_with("OBS"), ~lbl_relabel(
@@ -91,7 +101,11 @@ sdp <- ipumsr::read_ipums_micro(
 
 # EAID and EASERVED
 
-For the moment, let's just take a look at the basic structure of our data, selecting only the variables `FACILITYID`, `SAMPLE`, `AUTHORITY`, `CONSENTSQ`, and `EAID`. For this preview, we'll also arrange the data in ascending order of `FACILITYID` and `SAMPLE`:
+For the moment, let's just take a look at the basic structure of our data, selecting only the variables [FACILITYID](https://pma.ipums.org/pma-action/variables/FACILITYID), [SAMPLE](https://pma.ipums.org/pma-action/variables/SAMPLE), `AUTHORITY`, [CONSENTSQ](https://pma.ipums.org/pma-action/variables/CONSENTSQ), and [EAID](https://pma.ipums.org/pma-action/variables/EAID). For this preview, we'll also arrange the data in ascending order of `FACILITYID` and `SAMPLE`:
+
+<aside>
+`FACILITYID`, `SAMPLE`, `CONSENTSQ`, and `EAID` are automatically included in every SDP data extract.
+</aside>
 
 ```{r}
 sdp %>% 

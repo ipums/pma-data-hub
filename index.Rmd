@@ -3,6 +3,7 @@ title: "Data Analysis Hub"
 site: distill::distill_website
 listing: 
   posts: 
+    - 2021-04-01-et-internal-migration
     - 2021-02-09-march-2021-data-release
     - 2021-02-19-analyzing-the-individual-in-context
     - 2021-02-04-merging-external-spatial-data

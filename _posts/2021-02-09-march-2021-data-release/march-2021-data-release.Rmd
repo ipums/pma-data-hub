@@ -26,14 +26,14 @@ varlink <- function(var){
   paste0("(https://pma.ipums.org/pma-action/variables/", var, ")")
 }
 
-downloadthis::download_dir(
-  path = ".",
-  output_name = basename(getwd()),
-  button_label = "Download this page as R code",
-  button_type = "default",
-  has_icon = T,
-  icon = "fa fa-save"
-)
+# downloadthis::download_dir(
+#   path = ".",
+#   output_name = basename(getwd()),
+#   button_label = "Download this page as R code",
+#   button_type = "default",
+#   has_icon = T,
+#   icon = "fa fa-save"
+# )
 ```
 
 We're excited to announce the release of several new [Service Delivery Point](../2021-01-26-sdp-data/index.html) samples this month over at [pma.ipums.org]`r varlink("group")`! As always, you'll find the new data harmonized with older samples wherever the new surveys repeat questions you've seen before. The new samples also contain a big batch of new variables derived from questions that were posed for the very first time in PMA surveys, so we'd like to introduce a few of the highlights here.

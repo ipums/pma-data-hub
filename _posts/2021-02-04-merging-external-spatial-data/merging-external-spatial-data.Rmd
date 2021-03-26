@@ -27,20 +27,20 @@ preview: images/road_map.png
 knitr::opts_chunk$set(echo = T, eval = T, message = F)
 options(tibble.print_min=10, tibble.max_extra_cols = 5)
 
-downloadthis::download_dir(
-  path = ".",
-  output_name = basename(getwd()),
-  button_label = "Download this page as R code",
-  button_type = "default",
-  has_icon = T,
-  icon = "fa fa-save"
-)
+# downloadthis::download_dir(
+#   path = ".",
+#   output_name = basename(getwd()),
+#   button_label = "Download this page as R code",
+#   button_type = "default",
+#   has_icon = T,
+#   icon = "fa fa-save"
+# )
 ```
 
 Our [last post](../2021-01-29-mapping-sdp-variables/index.html) showed how to read, merge, and map the PMA GPS data - and how mapping can shed light on interesting spatial variation. A big advantage of the PMA GPS data is that you can also merge in other sources of spatial data, which opens up enormous opportunities for analyzing how contextual and environmental factors affect topics of interest in the PMA data. In this post, we'll show how to merge in two different types of spatial data and construct variables of interest.
 
 # Data
-We'll be using the PMA GPS data for this post. **To use the GPS data you must request access directly from our partners at** [pmadata.org](https://www.pmadata.org/data/about-data). If you want to follow along with this post without accessing the GPS data, we have provided a "toy" GPS dataset in the `data` folder for this post. **The toy data contains randomly sampled locations within Burkina Faso which have no actual relationship to the EAs in the PMA data.** This means none of the interpretations of spatial patterns will hold, but all the code will run. 
+We'll be using toy PMA GPS data for this post. **To use real PMA GPS data you must request access directly from our partners at** [pmadata.org](https://www.pmadata.org/data/about-data). The toy data we'll use here contains randomly sampled locations within Burkina Faso which have no actual relationship to the EAs in the PMA data. This means none of the interpretations of spatial patterns will hold, but all the code will run. 
 
 
 We will also be introducing two different spatial datasets that represent different kinds of spatial data. The first is population density data from [WorldPop](https://www.worldpop.org/).^[Linard, C., Gilbert, M., Snow, R. W., Noor, A. M., & Tatem, A. J. (2012). Population distribution, settlement patterns and accessibility across Africa in 2010. PloS one, 7(2), e31743.] If you want to download the data from the WorldPop site, we're using the "Unconstrained individual countries 2000-2020 (1 km resolution)" data from 2017 for Burkina Faso. This is **raster** data, which means the data are stored as a grid of values which are rendered on a map as pixels. You can think of this as a matrix that is spatially referenced -- that is each pixel represents a specific area of land on the Earth. Lots of spatial data are stored as rasters including climate data (e.g., temperature and rainfall), elevation, and satellite images. **Note that the raster data is saved as a .tiff (which is a common way of storing raster data).** The resolution of the raster maps to the area that each pixel represents in the real world. The population density is **1 km resolution**, which means that each pixel represents a 1 km by 1 km square on the ground. The figure below shows the impact of different spatial resolutions for the same raster data.^[NEON: https://www.neonscience.org/resources/learning-hub/tutorials/raster-res-extent-pixels-r]
@@ -58,17 +58,15 @@ There are tons of resources on **earth** data science in R. We recommend the res
 
 Population density is also conceptually important to the `SDP` data on contraceptive supply that we've been examining through this series of posts. Population density may provide a more nuanced characterization of urbanization than the `URBAN` variable. Additionally, density may be correlated with longer wait times at clinics, which may also impact contraceptive use at the individual level. 
 
-The second spatial dataset we'll introduce is data on road networks in Burkina Faso from the Digital Chart of the World and made publicly available by [DIVA-GIS](http://www.diva-gis.org/), an excellent source for publicly available spatial datasets. Road networks serve as a proxy for accessibility to health clinics -- an important component of the contraceptive service environment -- that may be more nuanced than the binary urban/rural distinction. To download the road data, go to [DIVA-GIS Data](http://www.diva-gis.org/gdata) and select Burkina Faso from the Country dropdown and Roads from the Subject dropdown. You can also access this directly from the `data` folder for this post. The road data is called **vector** data and is stored in a **shapefile (.shp).** Vector data is used to represent real world features and are three basic types: points, lines, and polygons. The road data we're using in this post is an example of vector line data.
+The second spatial dataset we'll introduce is data on road networks in Burkina Faso from the Digital Chart of the World and made publicly available by [DIVA-GIS](http://www.diva-gis.org/), an excellent source for publicly available spatial datasets. Road networks serve as a proxy for accessibility to health clinics -- an important component of the contraceptive service environment -- that may be more nuanced than the binary urban/rural distinction. To download the road data, go to [DIVA-GIS Data](http://www.diva-gis.org/gdata) and select Burkina Faso from the Country dropdown and Roads from the Subject dropdown. The road data is called **vector** data and is stored in a **shapefile (.shp).** Vector data is used to represent real world features and are three basic types: points, lines, and polygons. The road data we're using in this post is an example of vector line data.
 
 <aside>
 Remember the administrative boundaries we used in the previous post were **polygons** and the GPS points for the PMA enumeration areas were **points.** Both are vector data!
 </aside>
 
-All of the data we use in this post is included in the `data` folder when you click with Download button at the top of this page.
-
 # Setup: Load packages and data
 
-We'll be using many of the packages from the last few posts, as well as a new package for specifically working with raster data -- appropriately called [raster](https://rspatial.org/raster/pkg/index.html) and one called [units](https://cran.r-project.org/web/packages/units/index.html), which enables easy conversion between objects of different units. Make sure to install the `raster` and `units` packages first and then load everything we'll be using today:
+We'll be using many of the packages from the last few posts, as well as a new package for specifically working with raster data -- appropriately called [raster](https://rspatial.org/raster/pkg/index.html) -- and one called [units](https://cran.r-project.org/web/packages/units/index.html), which enables easy conversion between objects of different units. Make sure to install the `raster` and `units` packages first and then load everything we'll be using today:
 
 ```{r local}
 library(sf) # primary spatial package
@@ -81,7 +79,7 @@ library(tidyverse)
 Let's start by reading in the raster using `raster::raster()` and check out the meta-data.
 
 ```{r }
-pop_density <- raster("data/bfa_pd_2017_1km.tif")
+pop_density <- raster("bfa_pd_2017_1km.tif")
 pop_density
 ```
 
@@ -105,7 +103,7 @@ Next we'll load the roads data using `sf::st_read()`.
 
 ```{r }
 
-roads <- st_read("data/BFA_roads/BFA_roads.shp", quiet = TRUE)
+roads <- st_read("BFA_roads/BFA_roads.shp", quiet = TRUE)
 roads
 
 ```
@@ -132,7 +130,7 @@ Most `crs` are assigned an "EPSG code", which is a unique ID that can be used to
 </aside>
 
 ```{r}
-gps <- read_csv("data/bf_gps_fake.csv") %>%
+gps <- read_csv("bf_gps_fake.csv") %>%
   rename(EAID = EA_ID) %>% # rename to be consistent with other PMA data
   st_as_sf(
     coords = c("GPSLONG", "GPSLAT"), 
@@ -200,9 +198,13 @@ Looking at the meta-data for both the `gps_tr` and `raster_tr` objects, we can s
 Now that we have correctly estimated 10 km buffer circles, we can calculate the average population density within each buffer using the `raster::extract()` command and specifying `fun = mean`. This produces an 83 x 1 vector of results, which means we have one population density value for each enumeration area. Printing the first 5 results shows there is some substantial variation in population density.
 
 ```{r}
-buffer_density <- raster::extract(pop_density_tr, buffers_tr, 
-                                  fun = mean, na.rm = TRUE,
-                                  cellnumbers = TRUE)
+buffer_density <- raster::extract(
+  pop_density_tr, 
+  buffers_tr, 
+  fun = mean, 
+  na.rm = TRUE,
+  cellnumbers = TRUE
+)
 dim(buffer_density)
 head(buffer_density)
 
@@ -211,9 +213,12 @@ head(buffer_density)
 Note, that we don't actually need to create the buffers first to extract the mean values of the raster. We can do it all in one step, shown below. **Just make sure to use the** `gps_tr` **object instead of the** `buffer_tr` **object!** But, we'll use those buffers again with the road data.
 
 ```{r}
-buffer_density_alt <- raster::extract(pop_density_tr, gps_tr, 
-                                  buffer = 10000,
-                                  fun = mean, na.rm = TRUE)
+buffer_density_alt <- raster::extract(
+  pop_density_tr, gps_tr, 
+  buffer = 10000,
+  fun = mean, 
+  na.rm = TRUE
+)
 head(buffer_density_alt)
 
 ```

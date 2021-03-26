@@ -17,7 +17,7 @@ output:
 
 # Why analyze PMA data with R?
 
-Like all IPUMS data projects, IPUMS PMA data is available free of charge to users who agree to our [terms of use](https://ipums.org/about/terms). That's because we believe that cost and institutional affiliation should not be barriers to answering pressing concerns around women's health. 
+Like all IPUMS data projects, IPUMS PMA data is available free of charge to users who agree to our [terms of use](https://ipums.org/about/terms). That's because we believe that cost and institutional affiliation should not be barriers to answering pressing concerns around women's health. (You can register [here](https://pma.ipums.org/pma/register.shtml) for a free IPUMS PMA user account.)
 
 **In fact, users can analyze IPUMS PMA data with any software they like!** We've chosen to highlight R, in particular, because it is also free and popular with data analysts throughout the world. It's available for Windows, MacOS, and a wide variety of UNIX platforms and similar systems (including FreeBSD and Linux).
 

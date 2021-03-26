@@ -1,0 +1,24 @@
+---
+title: "migration-data-discovery"
+description: |
+  A short description of the post.
+author:
+  - name: Matt Gunther
+    url: {}
+date: 02-25-2021
+output:
+  distill::distill_article:
+    self_contained: false
+---
+
+Migration often leads to major changes in an individual's family planning needs, but it can either increase or decrease those needs under different circumstances. As a result, policies designed to address migrants' **unmet need** for family planning have to calibrate an appropriate supply of services with a mixture demands related to the migration circumstances that are common to a particular place. Several recent PMA samples aim to provide insight into [how and why women migrate](https://pma.ipums.org/pma-action/variables/group?id=fem_mig) to areas where the targeting of family planning services might be improved. 
+
+<aside>
+<b>Unmet need</b> is the difference between an individual's reproductive intentions and contraceptive behavior.
+</aside>
+
+PMA piloted its first migration questions beginning with samples collected in Ethiopia between 2016 and 2019; these questions deal exclusively with a woman's *single most recent migration experience*, provided that she has not always lived in the same place. Beginning in 2019, migration questions were included in surveys administered in several additional countries including Burkina Faso, DRC, Kenya, and Nigeria. In these newer samples, women who had migrated at least once as an adult were asked to reflect on *each one of their migration experiences*...
+
+<aside>
+In fact, a sample collected from Kinshasa, DRC in 2013-2014 included some information related to women's migration histories, but these data were not included in the public release. See <a href="https://genus.springeropen.com/articles/10.1186/s41118-017-0020-8">Anglewicz, Corker, and Kayembe 2017</a>.
+</aside>

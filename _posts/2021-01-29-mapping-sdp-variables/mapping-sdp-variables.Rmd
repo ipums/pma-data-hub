@@ -27,40 +27,39 @@ preview: images/bf_fp_map.png
 knitr::opts_chunk$set(echo = T, eval = T, message = F)
 options(tibble.print_min=10, tibble.max_extra_cols = 5)
 
-downloadthis::download_dir(
-  path = ".",
-  output_name = basename(getwd()),
-  button_label = "Download this page as R code",
-  button_type = "default",
-  has_icon = T,
-  icon = "fa fa-save"
-)
+# downloadthis::download_dir(
+#   path = ".",
+#   output_name = basename(getwd()),
+#   button_label = "Download this page as R code",
+#   button_type = "default",
+#   has_icon = T,
+#   icon = "fa fa-save"
+# )
 ```
 
 In our [last post](../2021-01-28-summarize-by-easerved/index.html), we showed how PMA Service Delivery Point (SDP) data can be aggregated to the enumeration area they serve (captured by [EASERVED](https://pma.ipums.org/pma-action/variables/EASERVED)) and linked to individual-level data from a PMA Household and Female survey. In this post, we'll continue thinking about the spatial distribution of SDP summary data. We'll first show how to merge our example data to a GPS dataset obtained from [pmadata.org](https://www.pmadata.org/data/about-data), and we'll then use the new dataset to visualize a few of our variables on a map of Burkina Faso.
 
 # Data
 
-We'll be working with the final `bf_merged` dataset created in the previous post, which is included in the `data` folder when you click with Download button at the top of this page. We'll focus on a handful of `EASEARVED`-level summary variables created in that post:
+Building on the steps we've covered in the last two posts in [this series](../../index.html#category:Individuals_in_Context), we'll be working with an example dataset we're calling `bf_merged` that contains records from female respondents to the 2017 and 2018 Burkina Faso Household and Female surveys *merged with* five variables we've created from the 2017 and 2018 SDP surveys. These five variables describe services provided within the [enumeration area](../2021-01-26-sdp-data/#sample-design) where each woman resides:
 
   * `NUM_METHODS_PROV` - number of methods provided by at least one SDP
-  * `NUM_METHODS_OUT` - number of methods out of stock with at least one SDP
   * `NUM_METHODS_INSTOCK` - number of methods in-stock with at least one SDP
   * `NUM_METHODS_OUT3MO` - number of methods out of stock any time in the last 3 months with at least one SDP
   * `MEAN_OUTDAY` - the mean length of a stockout for any family planning method (measured in days)
   * `N_SDP` - number of SDPs 
   
-We'll also use the [URBAN](https://pma.ipums.org/pma-action/variables/URBAN) variable, which identifies whether an EA is in an urban or rural area. 
+The remaining four variables in `bf_merged` were taken directly from a data extract containing only female respondents:
 
-We'll also be working with the PMA GPS datasets for Burkina Faso. The GPS data include one GPS coordinate per enumeration area. The Burkina Faso Round 5 and 6 surveys sampled the same enumeration areas, which means we can link the GPS data to both rounds. **To use the GPS data you must request access directly from our partners at** [pmadata.org](https://www.pmadata.org/data/about-data). If you want to follow along with this post without accessing the GPS data, we have provided a "toy" GPS dataset in the `data` folder for this post. **The toy data contains randomly sampled locations within Burkina Faso which have no actual relationship to the EAs in the PMA data.** This means none of the interpretations of spatial patterns will hold, but all the code will run.
+  * [PERSONID](https://pma.ipums.org/pma-action/variables/personid) - unique identifer for each woman
+  * [EAID](https://pma.ipums.org/pma-action/variables/eaid) - unique identifier for each woman's enumeration area
+  * [URBAN](https://pma.ipums.org/pma-action/variables/urban) - whether each woman lives in an urban enumeration area
+  * [FPCURRUSE](https://pma.ipums.org/pma-action/variables/fpcurruse) - whether each woman is currently using any family planning method
 
-<aside>
-If you request access to the GPS data, make sure to drop the file into the `data` folder for your local version of this post so you can run everything smoothly.
-</aside>    
+We'll also be working with toy PMA GPS datasets for Burkina Faso. PMA GPS data include one GPS coordinate per enumeration area. The Burkina Faso Round 5 and 6 surveys sampled the same enumeration areas, which means we can link the GPS data to both rounds. **To use real PMA GPS data you must request access directly from our partners at** [pmadata.org](https://www.pmadata.org/data/about-data). For the purpose of use in this post, we've created a "toy" GPS dataset: **the toy data contains randomly sampled locations within Burkina Faso that have no actual relationship to the EAs in the PMA data.** 
 
 The last dataset we'll use in this post are the administrative boundaries for Burkina Faso. Shapefiles with administrative boundaries are widely available for download, but we'll use the
 ones made available from [IPUMS PMA](https://pma.ipums.org/pma/gis_boundary_files.shtml).
-
 
 # Setup
 Make sure you have all of the following packages installed. Once installed, load the packages we'll be using today:
@@ -77,11 +76,18 @@ library(tidyverse)
 Check out our posts on <a href="../2020-12-10-get-r-and-packages/index.html#r-packages">R Packages</a> and <a href="../2020-12-10-get-ipums-pma-data/index.html">Loading IPUMS PMA data into R</a>.
 </aside>
 
-Let's start by loading the `bf_merged` data. Remember that we merged the EA-level data into the individual-level data, but the GPS datasets provide coordinates for the enumeration area. So the first thing we'll do is aggregate `bf_merged` to the EA-level, and assign the aggregated data to a new object called `bf_ea`. 
+If you followed along with our [last post](../2021-01-28-summarize-by-easerved/index.html), `glimpse(bf_merged)` should list the first few records for all of the variables we have so far:
+
+```{r, echo=F}
+bf_merged <- read_rds("data/bf_merged.rds")
+```
+```{r}
+glimpse(bf_merged)
+```
+
+Remember that we merged the EA-level data into the individual-level data, but the GPS datasets provide coordinates for the enumeration area. So the first thing we'll do is aggregate `bf_merged` to the EA-level, and assign the aggregated data to a new object called `bf_ea`. 
 
 ```{r}
-bf_merged <- readRDS("data/bf_merged.rds") 
-
 bf_ea <- bf_merged %>%
   dplyr::select(-PERSONID) %>%
   group_by(EAID, SAMPLE) %>%
@@ -96,7 +102,7 @@ In this example, we'll exclude any EAs where no facilities in our SDP sample pro
 Now, let's read in the GPS data from the data folder and see what the it contains. 
 
 ```{r}
-gps <- read_csv("data/bf_gps_fake.csv")
+gps <- read_csv("bf_gps_fake.csv")
 gps
 ```
 
@@ -153,15 +159,14 @@ Now that `gps` is a simple features object, we've lost the `GPSLAT` and `GPSLONG
 <!-- PMA follows the same displacement protocol as the Demographic and Health Surveys, for those familiar the the DHS spatial data. -->
 <!-- </aside> -->
 
-The last thing we need is the Burkina Faso shapefile, which are available from [IPUMS PMA](https://pma.ipums.org/pma/gis_boundary_files.shtml). You'll need to download the shapefile (`geobf.zip`) from the IPUMS site and save it in the appropriate directory to use it. We've also provided it in the `data` folder for this post in a sub-folder called `geobf`. We can use `sf::st_read()` to read the shapefile into R as an `sf` object. Note that here the `geometry` variable is a `POLYGON`, whereas in the `gps` data it is a `POINT`.
+The last thing we need is the Burkina Faso shapefile, which are available from [IPUMS PMA](https://pma.ipums.org/pma/gis_boundary_files.shtml). You'll need to download the shapefile (`geobf.zip`) from the IPUMS site and save it in your working directory to use it. We can use `sf::st_read()` to read the shapefile into R as an `sf` object. Note that here the `geometry` variable is a `POLYGON`, whereas in the `gps` data it is a `POINT`.
 
 <aside>
 Note that what we call a `shapefile` is actually a collection of many files. More on this in a future post! But for now, just know that you'll need all the files that come in the zipped download and can refer to the collectively with "geobf.shp".
 </aside>
 
-
 ```{r, results='hide'}
-bf_shp <- st_read("data/geobf/geobf.shp") 
+bf_shp <- st_read("geobf/geobf.shp") 
 ```
 
 

@@ -2,6 +2,3 @@
 .RData
 .Rproj.user
 .DS_Store
-images/internal/
-blog-post-workflow.Rmd
-rmarkdown-into.Rmd

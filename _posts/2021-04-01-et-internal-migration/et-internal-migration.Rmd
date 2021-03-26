@@ -1,0 +1,536 @@
+---
+title: "Unmet need for family planning after internal migration"
+description: |
+  Summary and source code from a recent article using data from Ethiopia.
+author:
+  - name: Matt Gunther
+    affiliation: IPUMS PMA Senior Data Analyst
+date: '04/02/2021'
+categories:
+  - Migration
+  - PMA Publications
+output:
+  distill::distill_article:
+    self_contained: false
+    toc: true
+    toc_depth: 3
+    toc_float: true
+bibliography: et-internal-migration.bib
+preview: images/pred_prob.png
+---
+
+
+```{r setup, echo=F}
+knitr::opts_chunk$set(echo = TRUE)
+options(tibble.max_extra_cols = 5, tibble.print_max = 27, tibble.print_min = 27)
+```
+
+When great new research gets published with PMA data on a topic we're covering here on the Data Analysis Hub, we'll cover the highlights and explore some source code in a [PMA Publications](../../index.html#category:PMA_Publications) post.
+
+<aside>
+Have a recent publication using PMA data that you'd like to feature in a [PMA Publications](../../index.html#category:PMA_Publications) post? Please [let us know](https://github.com/ipums/pma-data-hub/issues/new)!
+</aside>
+
+As part of our new series on [women's migration experiences](../../index.html#category:migration) and their impact on family planning, let's dig into a paper from University of Minnesota researchers [Emily Groene](https://orcid.org/0000-0003-1636-7061) and [Devon Kristiansen](https://pop.umn.edu/people/devon-kristiansen) [-@Groene2021-ka] published in the journal [Population, Space and Place](https://onlinelibrary.wiley.com/doi/abs/10.1002/psp.2376). 
+
+# Motivation
+
+As we'll see throughout this series, migration can be associated with major changes in an individual's fertility intentions and family planning access, and it can *either increase or decrease* the likelihood of experiencing unmet need for family planning under different circumstances. Groene & Kristiansen focus their attention on the particular circumstances around rural-to-urban internal (within-country) migration, which is one of the prevailing modes of migration throughout the countries surveyed by PMA [@McAuliffe2017-sz]. 
+
+Consider all of the potential changes a person might experience when moving from a rural to an urban area: Groene & Kristiansen outline literature that suggests quite a few ways that these changes might impact fertility behavior. Some are likely to increase demand for family planning, for example:
+
+  * Increased availability and access to health services and long-acting contraceptives [@Skiles2015-hq] 
+  * New opportunities for employment, education, and greater wealth that can delay or limit plans for additional births [@Schultz1994-lg]
+  * Diminished incentives for larger family sizes tied to rural culture and livelihoods [@Abebe2007-hv]
+  * Acculturation, or adoption of destination cultural roles and values [@Kohler2000-uc]
+  
+On the other hand, several offsetting factors may push to maintain or even decrease demand for family planning:
+
+  * Spousal separation tied to seasonal migration for employment [@Sevoyan2013-am]
+  * Family planning preferences established prior to migration [@Kulu2005-ho]
+  * Selection into destinations where familiar cultural roles and values are prevalent [@Courgeau1989-py]
+  
+Even when we focus our analysis on rural-urban internal migrants, it's very hard to predict how these and other factors might react to determine the family planning needs for any given person. From a policy perspective, where planning is needed to identify and address **unmet need for family planning services** on a larger scale, Groene & Kristiansen offer important insights into the ways that migration experiences are tied to a particular place. Using female respondents from the Ethiopia 2017 and 2018 samples, they compare unmet need among rural-urban internal migrants to the unmet need experienced by non-migrants in both rural and urban settings. They find that migrants are **less likely to experience unmet need** compared to non-migrants, controlling for a number of demographic factors. 
+  
+<aside>
+<b>Unmet need</b> is the difference between an individual's reproductive intentions and contraceptive behavior.
+</aside>
+
+In this post, we'll show how to recreate their analysis using an IPUMS PMA data extract in R. 
+
+# Data
+
+The Ethiopia 2017 and 2018 samples were among the first PMA samples to include questions related to women's *most recent* migration experience, and about the region where they were born. Their responses are included in variables listed in the [migration](https://pma.ipums.org/pma-action/variables/group/fem_mig) variable group:
+
+  * `LIVEINREGION` - How long living continuously in current region
+  * `LIVEINREGIONYRS` - Number of years continuously living in current region
+  * `LASTREGION`	- Region/country of residence before current region
+  * `LASTUR` -	Urban/rural status of residence before current region
+  * `BIRTHREGIONET`	- Region of woman's birth, Ethiopia
+  * `BIRTHUR` -	Urban/rural status of region of woman's birth
+  * `MIGMAINRSN` - The main reason why moved to current place of residence
+  * `MIGPREKID` - Gave birth before moved to current region
+  * `MIGPREKIDNUM` - Number of sons/daughters before moving to current region
+
+<aside>
+A 2013 sample of women from Kinshasa, DRC were also given questions related to their recent migration history, but these data have not been made available for public use. See Anglewicz et al. [-@Anglewicz2017-jh].
+</aside>
+
+Groene & Kristiansen use the variable [LIVEINREGION](https://pma.ipums.org/pma-action/variables/LIVEINREGION) to determine whether a woman has always lived in the same place and, if not, they use [BIRTHUR](https://pma.ipums.org/pma-action/variables/BIRTHUR) together with [URBAN](https://pma.ipums.org/pma-action/variables/URBAN) to identify those who ultimately moved from a rural place to an urban place. We've created a data extract containing these and all of the other variables discussed below (female respondents only); we'll start by loading it and the following packages in R:
+
+```{r, results='hide'}
+library(ipumsr)
+library(tidyverse)
+library(tidymodels)
+library(survey)
+library(srvyr)
+
+dat <- ipumsr::read_ipums_micro(
+  ddi = "data/pma_00019.xml",
+  data = "data/pma_00019.dat.gz"
+)
+```
+
+<aside>
+If you're a registered user at [pma.ipums.org](https://pma.ipums.org/pma/), you can recreate the authors' data extract by selecting the variables mentioned in this post. 
+
+See our guide for help [importing IPUMS data extracts into R](../2020-12-10-get-ipums-pma-data/index.html).
+</aside>
+
+We'll first label the various non-response values in this dataset with the value `NA` using [ipumsr::lbl_na_if](http://tech.popdata.org/ipumsr/reference/lbl_na_if.html) applied to all variables with  [dplyr::across](https://dplyr.tidyverse.org/reference/across.html):
+
+```{r}
+dat <- dat %>% 
+  mutate(
+    across(everything(), ~lbl_na_if(
+      .x,
+      ~.lbl %in% c(
+        "Don't know",
+        "No response or missing",
+        "NIU (not in universe)",
+        "NIU (not in universe) or missing"
+      )
+    ))
+  )
+```
+
+Ethiopia samples are stratified by region ([GEOET](https://pma.ipums.org/pma-action/variables/GEOET)) and urban status (`URBAN`), resulting in 21 sampling strata from which primary sampling units ([EAID](https://pma.ipums.org/pma-action/variables/EAID)) are selected. The authors exclude women from any [STRATA](https://pma.ipums.org/pma-action/variables/STRATA) where fewer than 200 women were sampled across both sample years:
+
+<aside>
+PMA uses a multistage, stratified cluster sample design. For more information, see PMA's [sample design memo](https://pma.ipums.org/pma/resources/documentation/PMA2020_Survey_Sampling_Strategy_Memo.pdf).
+</aside>
+
+```{r}
+dat %>% count(STRATA) 
+```
+
+Note that this will drop women from `STRATA` numbered 23111-23113 and 23115-23121:
+
+```{r}
+dat <- dat %>% 
+  group_by(STRATA) %>% 
+  mutate(STRATA_N = n()) %>% 
+  ungroup() %>% 
+  filter(STRATA_N > 200)
+```
+
+## Dependent variable
+
+Now, consider the dependent variable [UNMETYN](https://pma.ipums.org/pma-action/variables/UNMETYN), which is a constructed variable indicating whether each respondent currently has an unmet need for family planning. All respondents to the female questionnaire are included in the universe for `UNMETYN`, so women who are not able to become pregnant or are not sexually active are determined to have "no unmet need". 
+
+<aside>
+[UNMETYN](https://pma.ipums.org/pma-action/variables/UNMETYN) is a recoded binary indicator from [UNMETNEED](https://pma.ipums.org/pma-action/variables/UNMETNEED), which contains additional details on *types* of unmet need. 
+</aside>
+
+Within the combined sample of female respondents from both years, about 12% of women demonstrated unmet need for family planning:
+
+```{r}
+dat %>% summarize(mean_UNMETYN = mean(UNMETYN, na.rm = T)) 
+```
+
+We'll use the [survey](http://r-survey.r-forge.r-project.org/survey/) package  - and its tidy companion [srvyr](https://cran.r-project.org/web/packages/srvyr/vignettes/srvyr-vs-survey.html) - to specify PMA sample design in our population estimates. The function `srvyr::survey_mean` uses information about the survey design (given by `srvyr::as_survey_design`) to estimate that an average woman aged 15-49 in Ethiopia has about a 15% chance of experiencing unmet need for family planning:
+
+```{r}
+dat %>% 
+  as_survey_design(
+    id = EAID,
+    nest = T,
+    weight = FQWEIGHT,
+    strata = STRATA
+  ) %>% 
+  summarize(pop_UNMETYN = survey_mean(UNMETYN, vartype = "ci", na.rm = T))
+```
+
+<aside>
+The 95% confidence interval is shown by `pop_UNMETYN_low` and `pop_UNMETYN_upp`
+</aside>
+
+## Key independent variable 
+
+In order to conduct a three-way comparison between rural-urban migrants, rural non-migrants, and urban non-migrants, the authors construct a variable we'll call `MIGRANT_DIR`. 
+
+The first component of `MIGRANT_DIR` evaluates whether each woman ever migrated from her place of birth. Using `LIVEINREGION`, any woman reporting that she has "always" lived in her current region *is not* a migrant, and any woman who has lived in her current region for a number of "months or years" *is* a migrant (note: we cannot determine the migration history for all of the remaining cases, so they will be excluded from further analysis).
+
+```{r}
+dat %>% count(LIVEINREGION)
+```
+  
+Migrants who were born in a rural place `!BIRTHUR` and now live in an urban place `URBAN` meet the definition for rural-urban migrant. Non-migrants are classified by their current `URBAN` status only. All other women are implicitly given the value `NA` and then filtered out of the dataset.
+
+<aside>
+We implicitly assign `NA` to any cases that aren't specified by the logical statements inside `case_when()`.
+</aside>
+
+```{r}
+dat <- dat %>% 
+   mutate(
+     across(c(BIRTHUR, URBAN), ~.x %>% zap_labels),
+     MIGRANT = case_when(
+       LIVEINREGION == 30 ~ T, 
+       LIVEINREGION == 10 ~ F
+     ),
+     MIGRANT_DIR = case_when(
+       MIGRANT & !BIRTHUR & URBAN ~ "rural to urban",
+       !MIGRANT & !URBAN ~ "nonmigrant - rural",
+       !MIGRANT & URBAN ~ "nonmigrant - urban"
+     ) 
+   ) %>% 
+  filter(!is.na(MIGRANT_DIR))
+```
+
+<aside>
+Remember: `BIRTHUR` and `URBAN` are *labeled integers*. Our use of `zap_labels` allows R to ignore their assigned labels and, instead, treat them as *logicals* where `1 == TRUE` and `0 == FALSE`. 
+</aside>
+
+```{r}
+dat %>% count(MIGRANT_DIR)
+```
+
+You may notice that we've created `MIGRANT_DIR` as a string, or a *character* object. We'll [coerce](https://forcats.tidyverse.org/reference/as_factor.html) it as a [factor](https://r4ds.had.co.nz/factors.html) later so we can easily use each of the three classifications in a logistic regression model.
+
+## Covariates
+
+The authors control for a number of covariates in addition to `MIGRANT_DIR`. The following covariates are recoded versions of existing PMA variables:
+  
+  * `BIRTHS`: number of children ever born [CHEB](https://pma.ipums.org/pma-action/variables/CHEB) (2017), or the woman's total number of birth events [BIRTHEVENT](https://pma.ipums.org/pma-action/variables/BIRTHEVENT) (2018, e.g. birth of twins is a single event)
+  * `PARTNERED`: recoded [MARSTAT](https://pma.ipums.org/pma-action/variables/MARSTAT), indicating if the woman is either currently married or living with a partner
+  * `RELGEN`: recoded [RELIGION](https://pma.ipums.org/pma-action/variables/RELIGION) as "muslim", "christian", or "other"
+
+```{r}
+dat <- dat %>% 
+  mutate(
+    across(c(BIRTHEVENT, CHEB), ~.x %>% zap_labels),
+    BIRTHS = case_when(
+      YEAR == 2018 ~ BIRTHEVENT, 
+      T ~ CHEB
+    ),
+    PARTNERED = case_when(
+      MARSTAT %in% 21:22 ~ T, 
+      !is.na(MARSTAT) ~ F
+    ),
+    RELGEN = case_when(
+      RELIGION == 100 ~ "muslim",
+      RELIGION >= 200 & RELIGION < 300 ~ "christian",
+      T ~ "other"
+    )
+  )
+```
+
+The remaining covariates are used without further modification:
+
+  * [AGE](https://pma.ipums.org/pma-action/variables/LIVEINREGION): the woman's age (years)
+  * [WEALTHQ](https://pma.ipums.org/pma-action/variables/WEALTHQ): wealth quintile 
+  * [EDUCATTGEN](https://pma.ipums.org/pma-action/variables/EDUCATTGEN): education level (general)
+  * [HCVISITY](https://pma.ipums.org/pma-action/variables/HCVISITY): whether the woman visited a health facility in the last 12 months
+  * [SUBNATIONAL](https://pma.ipums.org/pma-action/variables/SUBNATIONAL): subnational region
+  * [YEAR](https://pma.ipums.org/pma-action/variables/YEAR): survey year (2017 or 2018)
+
+## Sub-sample
+
+As discussed above, the authors exclude any female respondents from small `STRATA` (n < 200) and those who are neither rural-urban migrants nor non-migrants. Additionally, they remove rural-urban migrants who moved to Ethiopia from another country. Women can indicate this information in two places: they may either list a foreign country in `LASTREGION` or indicate "abroad" as their region of birth in [BIRTHREGIONET](https://pma.ipums.org/pma-action/variables/BIRTHREGIONET). 
+
+```{r}
+dat %>% count(LASTREGION)
+dat %>% count(BIRTHREGIONET)
+dat <- dat %>% 
+  mutate(
+    EXTERNAL = case_when(
+      LASTREGION %in% 200:900 | BIRTHREGIONET == 12 ~ T,
+      T ~ F
+    )
+  ) %>% 
+  filter(!EXTERNAL)
+```
+
+The authors also exclude women whose `PARTNERED` status (i.e. sexual activity) cannot be determined, and women who indicate that they are either "infertile" in [FERTPREF](https://pma.ipums.org/pma-action/variables/FERTPREF) or "menopausal / hysterectomy" in [TIMEMENSTRUATE](https://pma.ipums.org/pma-action/variables/TIMEMENSTRUATE).  Women who are not at risk of pregnancy for these reasons cannot have unmet need, so they are removed from the sample.
+
+```{r}
+dat %>% count(PARTNERED)
+dat %>% count(FERTPREF)
+dat %>% count(TIMEMENSTRUATE)
+
+dat <- dat %>% 
+  mutate(
+    INFERTILE = case_when(
+      FERTPREF == 3 | TIMEMENSTRUATE == 5 ~ T,
+      T ~ F
+    )
+  ) %>% 
+  filter(!is.na(PARTNERED), !INFERTILE)
+```
+
+Lastly, they exclude women with missing values on any of the remaining covariates.
+
+```{r}
+dat <- dat %>%
+  filter(
+    !if_any(c(UNMETYN, EDUCATTGEN, HCVISITY, BIRTHS, MCP), is.na),
+  )
+```
+
+From 15,010 female respondents included in the original extract, this sub-sampling procedure leaves us with 12,630 remaing cases.
+
+```{r}
+dat %>% summarize(n = n())
+```
+
+## Reference groups
+
+As a final processing step, we'll coerce each of our categorical variables (including `MIGRANT_DIR`) as factors. All but one of these is a *labelled integer* object where we'll use the response with the lowest value as a reference group; because we created `MIGRANT_DIR` as a *character* object, we'll specify its reference group manually: 
+
+```{r}
+dat <- dat %>% 
+  mutate(
+    across(
+      c(
+        MIGRANT_DIR, 
+        RELGEN, 
+        WEALTHQ, 
+        EDUCATTGEN, 
+        HCVISITY, 
+        SUBNATIONAL, 
+        PARTNERED,
+        YEAR
+      ), 
+      ~as_factor(.) %>% droplevels()
+    ),
+    MIGRANT_DIR = fct_relevel(MIGRANT_DIR, "nonmigrant - urban")
+  )
+```
+
+# Regression Model
+
+Finally, we're ready to build a regression model for `UNMETYN` using `MIGRANT_DIR` and the covariates discussed above! 
+
+Recall that the function `srvyr::survey_mean` estimated that 15.1% of *all* women aged 15-49 in Ethiopia experience unmet need for family planning. This estimate used all of the women in our original sample prior to the sub-sampling procedure we just discussed. Now that we've created a sub-sample from the original dataset, let's see how the population estimate has changed:
+
+```{r}
+dat %>% 
+  as_survey_design(
+    id = EAID,
+    nest = T,
+    weight = FQWEIGHT,
+    strata = STRATA
+  ) %>% 
+  summarize(pop_UNMETYN = survey_mean(UNMETYN, vartype = "ci", na.rm = T))
+```
+
+Now that we've removed some cases (notably, all women who are infertile), the estimated population mean is close, but somewhat higher at 15.7%. 
+
+Groene & Kristiansen build a multilevel *logistic regression* model for `UNMETYN` that breaks down this full-population estimate for each of the sub-groups represented by our independent variables. We'll report the exponentiated coefficient estimates for each variable, which means that we'll need to interpret each estimate as a *change in the odds* that a woman will experience `UNMETYN` *relative to* a woman in a reference group. 
+
+We'll build the authors' model `m1` using the function [survey::svyglm](https://rdrr.io/cran/survey/man/svyglm.html), which - like `survey_mean` - uses information about the sample design provided by `as_survey_design` to generate cluster-robust standard error estimates:
+
+```{r}
+m1 <- dat %>% 
+  as_survey_design(
+    id = EAID,
+    nest = T,
+    weight = FQWEIGHT,
+    strata = STRATA
+  ) %>% 
+  svyglm(
+    UNMETYN ~  
+      AGE + 
+      MIGRANT_DIR +
+      RELGEN + 
+      WEALTHQ +
+      EDUCATTGEN + 
+      BIRTHS + 
+      HCVISITY + 
+      SUBNATIONAL +
+      PARTNERED + 
+      YEAR,
+    design = .,
+    family = "quasibinomial",
+  ) 
+```
+
+<aside>
+We tell `svyglm` to fit a logistic regression model with `family = "quasibinomial"`. 
+
+Why "quasi" binomial? A simple binomial distribution yields the same point estimates and standard errors, but generates a warning because our use of sample weights produces a non-integer count of women with unmet need.
+</aside>
+
+To simplify the output a bit, we'll show a `tidy` table with just the term, point estimate, the 95% confidence interval, and the p-value (each rounded to two decimal places):
+
+```{r}
+m1 %>% 
+  tidy(exp = T, conf.int = T) %>% 
+  select(term, estimate, conf.low, conf.high, p.value) %>% 
+  mutate(across(where(is.numeric), ~round(.x, 2))) 
+```
+
+## Interpretation
+
+Controlling for all of the covariates we've discussed, the authors find that **rural-urban internal migrants are less likely than both urban and rural non-migrants to experience unmet need for family planning!** 
+
+How do we identify this finding in the model output? Notice that the estimated odds of experiencing `UNMETYN` for `rural to urban` migrants is 0.75, and that the associated 95% confidence interval ranges from 0.59 to 0.95: this represents the migrants' odds *compared to urban non-migrants*. If the 95% confidence interval included the value 1.0, we would say that there's more than a 5% chance that the migrants' odds could be equal to the odds experienced by urban non-migrants. Because it does *not* include 1.0, we instead say that there's a statistically significant difference between the two groups (at the 5% confidence threshold). 
+
+Because the authors selected urban non-migrants as a reference group, our model output shows the relationship between rural non-migrants and rural-urban migrants a bit less clearly. Although the point estimate for `rural to urban` migrants (0.75) is lower than the point estimate for `nonmigrant - rural` (1.15), their respective confidence intervals overlap. In order to see that they actually *are* statistically different, we'd need to run the model again with a different reference group. 
+
+## Predicted Probabilities 
+
+```{r, echo = F}
+options(tibble.max_extra_cols = 5, tibble.print_max = 10, tibble.print_min = 10)
+```
+
+While the output from our logistic regression model helps show the *relative difference* between groups, we're not yet able to predict the *absolute* risk of `UNMETYN` for each group. Recall that, before building our model, we calculated that the average unmet need for all women in Ethiopia (excluding external migrants, infertile women, etc) was about 15.7%. We'll now estimate the average unmet need experienced by all women in Ethiopia sorted into the three groups represented by `MIGRANT_DIR`. 
+
+The `predict` function allows us to make a prediction about each woman's likelihood of experiencing unmet need according to the model `m1`. When we tell `predict` to return `type = "response"`, it gives us the predicted probability that each woman should have `UNMETYN`.
+
+```{r}
+tibble(predicted = predict(m1, type = "response"))
+```
+
+If we wanted to compare each individual's *predicted* probability to the value they actually *do* have for `UNMETYN`, we could attach our prediction back to our dataset. Remember that the original `UNMETYN` variable is binary, whereas the predictions are continuous probabilities that range from 0 to 1. Here, we hope to see that women whose predicted probability exceeds 0.50 have `UNMETYN == 1`, while those whose predicted probability is less than 0.50 have `UNMETYN == 0`:
+
+```{r}
+tibble(predicted = predict(m1, type = "response")) %>% 
+  bind_cols(dat) %>% 
+  select(predicted, UNMETYN) 
+```
+
+We can also use `predict` to calculate predicted probabilities for hypothetical samples. For instance, the authors provide the predicted probabilities for a hypothetical sample of women that is completely identical to the real sample, except that they all share the same value for `MIGRANT_DIR` (all other variables are kept at their originial values). The mean predicted probability derived from this kind of hypothetical sample is known as a **predictive margin**. 
+
+While the point estimates for each group in `MIGRANT_DIR` are easy to calculate with `predict`, the confidence intervals for those estimates are a bit harder to obtain. Here, we'll use [rsample::bootstraps](https://rsample.tidymodels.org/reference/bootstraps.html) to generate 100 replicates of our sample. This will allow us to rebuild our model 100 times:
+
+```{r}
+set.seed(1) # This ensures reproducible bootstrap sampling
+
+boots_dat <- dat %>% 
+  rsample::bootstraps(100, EAID) %>% 
+  transmute(
+    id = parse_number(id),
+    splits = map(splits, as_tibble),
+    model = map(splits, ~{
+      .x %>% 
+        as_survey_design(
+          id = EAID,
+          nest = T,
+          weight = FQWEIGHT,
+          strata = STRATA
+        ) %>% 
+        svyglm(
+          UNMETYN ~  
+            AGE + 
+            MIGRANT_DIR +
+            RELGEN + 
+            WEALTHQ +
+            EDUCATTGEN + 
+            BIRTHS + 
+            HCVISITY + 
+            SUBNATIONAL +
+            PARTNERED + 
+            YEAR,
+          design = .,
+          family = "quasibinomial",
+        ) 
+    })
+  )
+
+boots_dat
+```
+
+Notice that each row of `boots_dat` contains a completely resampled version of `dat` contained in each row of the column `splits`. The column `model` contains the output from a model that's uniquely fitted to the resampled data in `splits`. 
+
+Next, we'll use `predict` separately for each row in `boots_dat`. Because we generate three new rows each time - one prediction for each group in `MIGRANT_DIR` - the resulting data frame has 300 rows. 
+
+```{r}
+boots_dat <- boots_dat %>% 
+  rowwise() %>%
+  mutate(nested_predictions = list(map_df(levels(dat$MIGRANT_DIR), ~{
+    predict(
+      model, 
+      type = "response", 
+      newdata = splits %>% mutate(MIGRANT_DIR = .x)) %>% 
+      tibble() %>% 
+      bind_cols(splits) %>% 
+      as_survey_design(
+        id = EAID,
+        nest = T,
+        weight = FQWEIGHT,
+        strata = STRATA
+      ) %>% 
+      summarise(predicted = survey_mean(., vartype = "ci")) %>% 
+      mutate(MIGRANT_DIR = .x) %>% 
+      select(MIGRANT_DIR, predicted) 
+  }))) %>% 
+  unnest(nested_predictions) 
+
+boots_dat
+```
+
+Finally, we'll calculate: 
+
+  * the **predicted probability** for each group from the mean of 100 bootstrap predictions
+  * the **standard error** of each group's predicted probability from the standard deviation of 100 bootstrap predictions 
+  * the **95% confidence interval** from the product of each group's standard error and `qnrom(0.975)`
+
+```{r}
+group_predictions <- boots_dat %>% 
+  group_by(MIGRANT_DIR) %>% 
+  summarise(
+    mean = mean(predicted),
+    se = sd(predicted),
+    lower = mean - se*qnorm(0.975),
+    upper = mean + se*qnorm(0.975)
+  )
+
+group_predictions
+```
+
+And here are those intervals plotted with `geom_errorbarh` and `geom_point`:
+
+```{r, fig.height=3}
+ggplot(group_predictions) +
+  geom_errorbarh(
+    color = "#A2269C", 
+    aes(height = .2, xmin = lower, xmax = upper, y = MIGRANT_DIR)
+  ) + 
+  geom_point(
+    color = "#A2269C", 
+    aes(x = mean, y = MIGRANT_DIR)
+  ) +
+  geom_text(
+    nudge_y = 0.2,
+    aes(label = round(mean, 3), x = mean, y = MIGRANT_DIR)
+  ) + 
+  scale_x_continuous(breaks = seq(.08, .18, by = .02)) +
+  theme_minimal() + 
+  labs(
+    subtitle = "95% Confidence Interval",
+    title = "Predicted Probability of Unmet Need for Family Planning",
+    y = "",
+    x = ""
+  ) + 
+  theme(
+    plot.title = element_text(hjust = 0.5, size = 14),
+    plot.subtitle = element_text(hjust = 0.5, size = 10)
+  ) 
+``` 
+
+As you can see, the confidence intervals for each group in `MIGRANT_DIR` overlap quite a bit. However, the probability that a rural-urban internal migrant will experience unmet need for family planning seems to be generally lower than the other groups: we show a point-estimate of just 11.7% for migrants compared to 14.3% and 16.1% respectively for urban and rural non-migrants.
+
+To learn more about the conceptual reasons why rural-urban internal migrants in Ethiopia might experience less unmet need for family planning compared to non-migrants, be sure to checkout out Groene & Kristiansen's full article published at [Populations, Space and Place](https://onlinelibrary.wiley.com/doi/abs/10.1002/psp.2376)! And, for more information about migration data available in other PMA samples, stay tuned for upcoming posts in [this series](../../index.html#category:Migration). 
+

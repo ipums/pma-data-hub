@@ -20,19 +20,19 @@
 
 <style type="text/css">code{white-space: pre;}</style>
 <style type="text/css" data-origin="pandoc">
-code.sourceCode > span { display: inline-block; line-height: 1.25; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-code.sourceCode > span:empty { height: 1.2em; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
-code.sourceCode { white-space: pre; position: relative; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
 div.sourceCode { margin: 1em 0; }
 pre.sourceCode { margin: 0; }
 @media screen {
 div.sourceCode { overflow: auto; }
 }
 @media print {
-code.sourceCode { white-space: pre-wrap; }
-code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -52,7 +52,7 @@ pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-le
 div.sourceCode
   {   }
 @media screen {
-code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 code span.al { color: #ad0000; } /* Alert */
 code span.an { color: #5e5e5e; } /* Annotation */
@@ -2421,6 +2421,7 @@ d-appendix d-footnote-list a.footnote-backlink {
 	color: var(--hover-color, white);
 }</style>
 <!--/radix_placeholder_distill-->
+  <script src="../../site_libs/header-attrs-2.6/header-attrs.js"></script>
   <script src="../../site_libs/jquery-1.11.3/jquery.min.js"></script>
   <script src="../../site_libs/anchor-4.2.2/anchor.min.js"></script>
   <script src="../../site_libs/bowser-1.9.3/bowser.min.js"></script>
@@ -2522,11 +2523,13 @@ Community
 <nav class="l-text toc figcaption" id="TOC">
 <h3>Contents</h3>
 <ul>
-<li><a href="#how-to-access-the-data">How to access the data</a><ul>
+<li><a href="#how-to-access-the-data">How to access the data</a>
+<ul>
 <li><a href="#user-guide">User Guide</a></li>
 <li><a href="#youtube-tutorials">YouTube Tutorials</a></li>
 </ul></li>
-<li><a href="#importing-the-data">Importing the data</a><ul>
+<li><a href="#importing-the-data">Importing the data</a>
+<ul>
 <li><a href="#fixed-width-data-format-dat">Fixed-width Data Format (dat)</a></li>
 <li><a href="#the-ipumsr-package">The <code>ipumsr</code> package</a></li>
 </ul></li>
@@ -2537,7 +2540,7 @@ Community
 <h1 id="how-to-access-the-data">How to access the data</h1>
 <h2 id="user-guide">User Guide</h2>
 <p>Visit the IPUMS PMA <a href="https://pma.ipums.org/">data dissemination website</a> to browse the available data, and then follow the posted <a href="https://pma.ipums.org/pma/userguide.shtml">user guide</a> to get started with an extract of interest.</p>
-<p>Note: all users must register for a <strong>free</strong> account. See user guide for details.</p>
+<p>Note: all users must <a href="https://pma.ipums.org/pma/register.shtml">register</a> for a <strong>free</strong> account. See user guide for details.</p>
 <h2 id="youtube-tutorials">YouTube Tutorials</h2>
 <p>Visit the <a href="https://www.youtube.com/playlist?list=PLHMF4C5RDaejhm4Hdm3fulvaoKkhTrOHa">IPUMS PMA YouTube page</a> for a video playlist showing how to do things like:</p>
 <ul>

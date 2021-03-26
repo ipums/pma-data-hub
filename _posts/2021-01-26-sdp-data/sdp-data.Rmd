@@ -22,14 +22,14 @@ preview: images/choose-unit.png
 ```{r setup, echo=F}
 knitr::opts_chunk$set(echo = FALSE)
 
-downloadthis::download_dir(
-  path = ".",
-  output_name = basename(getwd()),
-  button_label = "Download this page as R code",
-  button_type = "default",
-  has_icon = T,
-  icon = "fa fa-save"
-)
+# downloadthis::download_dir(
+#   path = ".",
+#   output_name = basename(getwd()),
+#   button_label = "Download this page as R code",
+#   button_type = "default",
+#   has_icon = T,
+#   icon = "fa fa-save"
+# )
 ```
 
 When you visit [pma.ipums.org](https://pma.ipums.org/pma-action/variables/group) and begin browsing data, you'll notice that PMA data are available for several different units of analysis.
@@ -173,7 +173,7 @@ bf17_hhf <- ipumsr::read_ipums_micro(
 <aside>
 Check out our posts on <a href="../2020-12-10-get-r-and-packages/index.html#r-packages">R Packages</a> and <a href="../2020-12-10-get-ipums-pma-data/index.html">Loading IPUMS PMA data into R</a>.
 
-Change to file paths to match your own extract. You can also use the example extract included in the <b>data</b> folder when you download this post.
+To use this code, be sure to change both file paths to match your own extract!
 </aside>
 
 The [Dataset Notes](https://pma.ipums.org/pma/resources/dataset_notes/hhf/PMA2017_BFR5_HHQFQ_v1_DatasetNotes_26Aug2018_English.pdf) for this sample describe a two-stage cluster design with urban-rural strata, producing a sample of women from **83 enumeration areas**. If we count the number of unique values from [EAID](https://pma.ipums.org/pma-action/variables/EAID#codes_section) in our data, we see that there are 83 unique identification numbers - one for each enumeration area:
@@ -203,7 +203,7 @@ bf17_sdp <- ipumsr::read_ipums_micro(
 ```
 
 <aside>
-Change to file paths to match your own extract. You can also use the example extract included in the <b>data</b> folder when you download this post.
+Remember: to use this code, be sure to change both file paths to match your own extract!
 </aside>
 
 [Dataset Notes](https://pma.ipums.org/pma/resources/dataset_notes/sdp/PMA2017_BFR5_SDP_v1_DatasetNotes_31Aug2018.pdf) for the SDP sample explain that the same 83 enumeration areas used in the Household and Female Sample were used to select facilities for the SDP sample. Moreover, we can confirm that all of enumeration areas in the SDP data also appear in the HHF data:

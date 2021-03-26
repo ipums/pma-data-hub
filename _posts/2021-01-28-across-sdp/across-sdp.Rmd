@@ -23,14 +23,14 @@ output:
 ```{r setup, echo=F}
 knitr::opts_chunk$set(echo = TRUE)
 
-downloadthis::download_dir(
-  path = ".",
-  output_name = basename(getwd()),
-  button_label = "Download this page as R code",
-  button_type = "default",
-  has_icon = T,
-  icon = "fa fa-save"
-)
+# downloadthis::download_dir(
+#   path = ".",
+#   output_name = basename(getwd()),
+#   button_label = "Download this page as R code",
+#   button_type = "default",
+#   has_icon = T,
+#   icon = "fa fa-save"
+# )
 ```
 
 In our [last post](../2021-01-26-sdp-data/index.html), we introduced PMA Service Delivery Point (SDP) data as an important resource for understanding the health services environment experienced by individuals sampled in PMA Household and Female data. For our second post in this [Individuals in Context](../../index.html#category:Individuals_in_Context) series, we'll now take deeper dive into one of the important topics in SDP data: the range and availability of contraceptive methods provided at each facility. 
@@ -207,7 +207,7 @@ library(ipumsr)
 Check out our posts on <a href="../2020-12-10-get-r-and-packages/index.html#r-packages">R Packages</a> and <a href="../2020-12-10-get-ipums-pma-data/index.html">Loading IPUMS PMA data into R</a>.
 </aside>
 
-Next, use the file paths for your data extract to load it into R (the data for this example can also be found in the `data` folder when you use the Download button at the top of this page).
+Next, use the file paths for your data extract to load it into R:
 
 ```{r, results='hide'}
 sdp <- ipumsr::read_ipums_micro(
@@ -217,7 +217,7 @@ sdp <- ipumsr::read_ipums_micro(
 ```
 
 <aside>
-Change to file paths to match your own extract. You can also use the example extract included in the <b>data</b> folder when you download this post.
+Remember: change these file paths to match your own extract!
 </aside>
 
 Using `dplyr::ends_with`, we'll select only `FACILITYID`, `SAMPLE`, `EAID`, and the variables using one of the four suffixes `PROV`, `OBS`, `OUT3MO`, or `OUTDAY`.

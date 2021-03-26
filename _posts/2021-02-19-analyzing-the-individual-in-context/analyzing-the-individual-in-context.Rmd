@@ -12,7 +12,7 @@ categories:
   - Data Analysis
   - survey
   - dotwhisker
-date: '`r format(Sys.Date(), "%B %d, %Y")`'
+date: "3/2/21"
 output:
    distill::distill_article:
     self_contained: false
@@ -26,14 +26,14 @@ bibliography: analysis.bib
 ```{r setup, echo=F}
 knitr::opts_chunk$set(echo = T, eval = T, message = F)
 options(tibble.print_min=10, tibble.max_extra_cols = 5)
-downloadthis::download_dir(
-  path = ".",
-  output_name = basename(getwd()),
-  button_label = "Download this page as R code",
-  button_type = "default",
-  has_icon = T,
-  icon = "fa fa-save"
-)
+# downloadthis::download_dir(
+#   path = ".",
+#   output_name = basename(getwd()),
+#   button_label = "Download this page as R code",
+#   button_type = "default",
+#   has_icon = T,
+#   icon = "fa fa-save"
+# )
 ```
 
 Throughout our series on [Individuals in Context](../../index.html#category:Individuals_in_Context), we've  been looking at PMA Service Delivery Point (SDP) data as a resource for understanding the health services environment experienced by women surveyed in PMA Household and Female samples. We [created summary variables](../2021-01-28-summarize-by-easerved/index.html) that capture the SDPs that provide services within the same [enumeration areas](../2021-01-26-sdp-data/index.html#sample-design) PMA uses to construct samples of individuals. We've also shown how to complement SDP data with additional information about women's lived environment collected from [external geospatial data](../2021-02-04-merging-external-spatial-data/) sources. 
@@ -72,17 +72,21 @@ We'll be using both of the Burkina Faso datasets we created in earlier posts in 
 Remember, to use the GPS data you must request access directly from our partners at [pmadata.org](https://www.pmadata.org/data/about-data). The version of `int` we're using in this post is based on the real GPS locations but the GPS data itself is not included.
 </aside>
 
-You'll find both of these datasets included in the `data` folder when you click the Download button at the top of this page. As a reminder, let's take a [glimpse](https://tibble.tidyverse.org/reference/glimpse.html) at the variables we've currently got in each:
+As a reminder, let's take a [glimpse](https://tibble.tidyverse.org/reference/glimpse.html) at the variables we've currently got in each:
 
-```{r}
+```{r, echo = F}
 bf_merged <- read_rds("data/bf_merged.rds")
+```
+```{r}
 glimpse(bf_merged)
 ```
 
 The variables `N_SDP`, `NUM_METHODS_PROV`, `NUM_METHODS_INSTOCK`, `NUM_METHODS_OUT3MO`, `MEAN_OUTDAY`, and `URBAN` all describe the the enumeration area (`EAID`) where a woman identified by `PERSONID` resides. The only other variable from the Household and Female questionnaire, itself, is `FPCURRUSE`. We'll add more variables describing each woman in a moment.
 
-```{r}
+```{r, echo = F}
 int <- read_rds("data/int.rds") %>% rename_all(toupper)
+```
+```{r}
 glimpse(int)
 ```
 
@@ -92,13 +96,17 @@ We'll be using `ROAD_LENGTH` and `POP_DENSITY`, but first we'll need to merge `i
 bf_merged <- left_join(bf_merged, int, by = "EAID")
 ```
 
-Let's now introduce some new variables obtained from each woman's responses to the Household and Female questionnaire. In the `data` folder, you'll find a new extract from [IPUMS PMA](https://pma.ipums.org/pma/) containing these variables from the Burkina Faso 2017 and 2018 surveys (female respondents only):
+Let's now introduce some new variables obtained from each woman's responses to the Household and Female questionnaire. We'll merge a new data extract with the following variables collected from the Burkina Faso 2017 and 2018 surveys (female respondents only):
 
   * [AGE](https://pma.ipums.org/pma-action/variables/AGE) - Age (in years)
   * [MARSTAT](https://pma.ipums.org/pma-action/variables/MARSTAT) - Marital status
   * [EDUCATTGEN](https://pma.ipums.org/pma-action/variables/EDUCATTGEN) - Highest level of school attended, general (4 categories)
   * [WEALTHQ](https://pma.ipums.org/pma-action/variables/WEALTHQ) - Wealth score quintile
   * [BIRTHEVENT](https://pma.ipums.org/pma-action/variables/BIRTHEVENT) - Number of birth events
+  
+<aside>
+For a refresher on accessing and importing PMA data in R, check out our post [Import IPUMS PMA Data Into R](../2020-12-10-get-ipums-pma-data/index.html).
+</aside>
 
 Following [the practice](../2021-01-28-across-sdp/index.html#introducing-dplyracross) we used when we made `bf_merged`, we'll simply handle all of the different non-response codes in this new extract by recoding them as `NA`. Then, we'll merge the extract to `bf_merged` by matching up each person by `PERSONID`:
 
@@ -119,10 +127,6 @@ bf_merged <- ipumsr::read_ipums_micro(
   ))) %>% 
   right_join(bf_merged, by = "PERSONID")
 ```
-
-<aside>
-For a refresher on accessing and importing PMA data in R, check out our post [Import IPUMS PMA Data Into R](../2020-12-10-get-ipums-pma-data/index.html).
-</aside>
 
 # Recoding covariates 
 

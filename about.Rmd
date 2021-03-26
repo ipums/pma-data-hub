@@ -25,25 +25,7 @@ You'll find blog posts showing how to use common statistical software to do thin
 
 # Try out our code!
 
-## Download an article and run it in R
-
-At the top of every post, you'll find a button like this one:
-
-```{r download_button, echo=F, eval=T}
-downloadthis::download_file(
-  path = "./about.Rmd",
-  button_label = "Download this page as R code",
-  button_type = "default",
-  has_icon = T,
-  icon = "fa fa-save"
-)
-```
-
-Click it, and you'll receive an R Markdown file containing the full text of the post along with all of the code you'll need to reproduce it.
-
-<aside>
-You can run an R Markdown (.Rmd) file in R just like you would run a normal R script (.R). <a href="https://rmarkdown.rstudio.com/lesson-1.html">Click here for more information.</a>
-</aside>
+If you [register for a free IPUMS PMA user account](https://pma.ipums.org/pma/register.shtml), you'll be able to download the same data extracts we feature in our posts.
 
 ## Visit us on GitHub 
 

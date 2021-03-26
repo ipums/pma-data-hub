@@ -20,19 +20,19 @@
 
 <style type="text/css">code{white-space: pre;}</style>
 <style type="text/css" data-origin="pandoc">
-code.sourceCode > span { display: inline-block; line-height: 1.25; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-code.sourceCode > span:empty { height: 1.2em; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
-code.sourceCode { white-space: pre; position: relative; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
 div.sourceCode { margin: 1em 0; }
 pre.sourceCode { margin: 0; }
 @media screen {
 div.sourceCode { overflow: auto; }
 }
 @media print {
-code.sourceCode { white-space: pre-wrap; }
-code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -52,7 +52,7 @@ pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-le
 div.sourceCode
   {   }
 @media screen {
-code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 code span.al { color: #ad0000; } /* Alert */
 code span.an { color: #5e5e5e; } /* Annotation */
@@ -127,7 +127,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <!--/radix_placeholder_rmarkdown_metadata-->
   
   <script type="text/json" id="radix-resource-manifest">
-  {"type":"character","attributes":{},"value":["get-r-and-packages_files/anchor-4.2.2/anchor.min.js","get-r-and-packages_files/bowser-1.9.3/bowser.min.js","get-r-and-packages_files/distill-2.2.21/template.v2.js","get-r-and-packages_files/jquery-1.11.3/jquery.min.js","get-r-and-packages_files/webcomponents-2.0.0/webcomponents.js","images/Rlogo.png"]}
+  {"type":"character","attributes":{},"value":["get-r-and-packages_files/anchor-4.2.2/anchor.min.js","get-r-and-packages_files/bowser-1.9.3/bowser.min.js","get-r-and-packages_files/distill-2.2.21/template.v2.js","get-r-and-packages_files/header-attrs-2.6/header-attrs.js","get-r-and-packages_files/jquery-1.11.3/jquery.min.js","get-r-and-packages_files/webcomponents-2.0.0/webcomponents.js","images/Rlogo.png"]}
   </script>
   <!--radix_placeholder_navigation_in_header-->
 <meta name="distill:offset" content="../.."/>
@@ -2421,6 +2421,7 @@ d-appendix d-footnote-list a.footnote-backlink {
 	color: var(--hover-color, white);
 }</style>
 <!--/radix_placeholder_distill-->
+  <script src="../../site_libs/header-attrs-2.6/header-attrs.js"></script>
   <script src="../../site_libs/jquery-1.11.3/jquery.min.js"></script>
   <script src="../../site_libs/anchor-4.2.2/anchor.min.js"></script>
   <script src="../../site_libs/bowser-1.9.3/bowser.min.js"></script>
@@ -2521,16 +2522,20 @@ Community
 <nav class="l-text toc figcaption" id="TOC">
 <h3>Contents</h3>
 <ul>
-<li><a href="#why-analyze-pma-data-with-r">Why analyze PMA data with R?</a><ul>
-<li><a href="#getting-started-with-r">Getting started with R</a><ul>
+<li><a href="#why-analyze-pma-data-with-r">Why analyze PMA data with R?</a>
+<ul>
+<li><a href="#getting-started-with-r">Getting started with R</a>
+<ul>
 <li><a href="#our-favorite-resources">Our favorite resources</a></li>
 </ul></li>
 <li><a href="#do-i-really-need-statistical-software">Do I really need statistical software?</a></li>
 <li><a href="#are-there-alternatives">Are there alternatives?</a></li>
 </ul></li>
 <li><a href="#rstudio">RStudio</a></li>
-<li><a href="#r-packages">R packages</a><ul>
-<li><a href="#essentials">Essentials</a><ul>
+<li><a href="#r-packages">R packages</a>
+<ul>
+<li><a href="#essentials">Essentials</a>
+<ul>
 <li><a href="#ipumsr">ipumsr</a></li>
 <li><a href="#tidyverse">tidyverse</a></li>
 <li><a href="#shiny">shiny</a></li>
@@ -2541,7 +2546,7 @@ Community
 </nav>
 </div>
 <h1 id="why-analyze-pma-data-with-r">Why analyze PMA data with R?</h1>
-<p>Like all IPUMS data projects, IPUMS PMA data is available free of charge to users who agree to our <a href="https://ipums.org/about/terms">terms of use</a>. That’s because we believe that cost and institutional affiliation should not be barriers to answering pressing concerns around women’s health.</p>
+<p>Like all IPUMS data projects, IPUMS PMA data is available free of charge to users who agree to our <a href="https://ipums.org/about/terms">terms of use</a>. That’s because we believe that cost and institutional affiliation should not be barriers to answering pressing concerns around women’s health. (You can register <a href="https://pma.ipums.org/pma/register.shtml">here</a> for a free IPUMS PMA user account.)</p>
 <p><strong>In fact, users can analyze IPUMS PMA data with any software they like!</strong> We’ve chosen to highlight R, in particular, because it is also free and popular with data analysts throughout the world. It’s available for Windows, MacOS, and a wide variety of UNIX platforms and similar systems (including FreeBSD and Linux).</p>
 <aside>
 <strong>Non-R users:</strong> IPUMS data extracts are available as CSV or fixed-width DAT with syntax files formatted for SPSS, Stata, and SAS.
