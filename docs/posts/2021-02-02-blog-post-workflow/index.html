@@ -20,19 +20,19 @@
 
 <style type="text/css">code{white-space: pre;}</style>
 <style type="text/css" data-origin="pandoc">
-code.sourceCode > span { display: inline-block; line-height: 1.25; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-code.sourceCode > span:empty { height: 1.2em; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
-code.sourceCode { white-space: pre; position: relative; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
 div.sourceCode { margin: 1em 0; }
 pre.sourceCode { margin: 0; }
 @media screen {
 div.sourceCode { overflow: auto; }
 }
 @media print {
-code.sourceCode { white-space: pre-wrap; }
-code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -52,7 +52,7 @@ pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-le
 div.sourceCode
   {   }
 @media screen {
-code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 code span.al { color: #ad0000; } /* Alert */
 code span.an { color: #5e5e5e; } /* Annotation */
@@ -127,7 +127,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <!--/radix_placeholder_rmarkdown_metadata-->
   
   <script type="text/json" id="radix-resource-manifest">
-  {"type":"character","attributes":{},"value":["blog-post-workflow_files/anchor-4.2.2/anchor.min.js","blog-post-workflow_files/bowser-1.9.3/bowser.min.js","blog-post-workflow_files/distill-2.2.21/template.v2.js","blog-post-workflow_files/jquery-1.11.3/jquery.min.js","blog-post-workflow_files/webcomponents-2.0.0/webcomponents.js","images/author_post_appears.png","images/branch_name.png","images/build.png","images/clone_info.png","images/clone_success.png","images/draft_accepted.png","images/dual-remotes.png","images/edit_knit.png","images/file_window1.png","images/git-menu.png","images/knit.png","images/master_only.png","images/new_branch.png","images/new_local_branch.png","images/password.png","images/post_added.png","images/posts_list.png","images/pull_button.png","images/pull_new_branch.png","images/see_branches.png","images/toggle_branches.png","images/use_git.png","images/username.png","images/version_control.png"]}
+  {"type":"character","attributes":{},"value":["blog-post-workflow_files/anchor-4.2.2/anchor.min.js","blog-post-workflow_files/bowser-1.9.3/bowser.min.js","blog-post-workflow_files/distill-2.2.21/template.v2.js","blog-post-workflow_files/header-attrs-2.6/header-attrs.js","blog-post-workflow_files/jquery-1.11.3/jquery.min.js","blog-post-workflow_files/webcomponents-2.0.0/webcomponents.js","images/author_post_appears.png","images/branch_name.png","images/build.png","images/clone_info.png","images/clone_success.png","images/draft_accepted.png","images/dual-remotes.png","images/edit_knit.png","images/file_window1.png","images/git-menu.png","images/knit.png","images/master_only.png","images/new_branch.png","images/new_local_branch.png","images/password.png","images/post_added.png","images/posts_list.png","images/pull_button.png","images/pull_new_branch.png","images/see_branches.png","images/toggle_branches.png","images/use_git.png","images/username.png","images/version_control.png"]}
   </script>
   <!--radix_placeholder_navigation_in_header-->
 <meta name="distill:offset" content="../.."/>
@@ -2271,6 +2271,10 @@ d-article iframe {
     width: 100%;
 }
 
+d-article aside a {
+  color: #98579B;
+}
+
 code {
     font-family: Menlo, Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
 }</style>
@@ -2421,6 +2425,7 @@ d-appendix d-footnote-list a.footnote-backlink {
 	color: var(--hover-color, white);
 }</style>
 <!--/radix_placeholder_distill-->
+  <script src="../../site_libs/header-attrs-2.6/header-attrs.js"></script>
   <script src="../../site_libs/jquery-1.11.3/jquery.min.js"></script>
   <script src="../../site_libs/anchor-4.2.2/anchor.min.js"></script>
   <script src="../../site_libs/bowser-1.9.3/bowser.min.js"></script>
@@ -2520,25 +2525,31 @@ Community
 <nav class="l-text toc figcaption" id="TOC">
 <h3>Contents</h3>
 <ul>
-<li><a href="#all-users-first-time-setup">All users: first time setup</a><ul>
+<li><a href="#all-users-first-time-setup">All users: first time setup</a>
+<ul>
 <li><a href="#r-rstudio-and-required-packages">R, RStudio, and required packages</a></li>
 <li><a href="#initialize-your-umn-github-account">Initialize your UMN GitHub account</a></li>
 <li><a href="#using-umn-github-from-rstudio">Using UMN GitHub from RStudio</a></li>
 <li><a href="#the-pma-data-hub-repository">The PMA Data Hub Repository</a></li>
 </ul></li>
-<li><a href="#authors-creating-a-new-post">Authors: Creating a new post</a><ul>
+<li><a href="#authors-creating-a-new-post">Authors: Creating a new post</a>
+<ul>
 <li><a href="#create-a-new-branch">Create a new branch</a></li>
 <li><a href="#create-a-new-folder-in-_posts">Create a new folder in "_posts"</a></li>
+<li><a href="#put-your-data-in-a-data-folder">Put your data in a “data” folder!</a></li>
 <li><a href="#push-your-post-to-github">Push your post to GitHub</a></li>
 </ul></li>
-<li><a href="#editors">Editors</a><ul>
+<li><a href="#editors">Editors</a>
+<ul>
 <li><a href="#pull-the-authors-branch-to-your-computer">Pull the author’s branch to your computer</a></li>
 <li><a href="#locate-and-edit-the-new-post">Locate and edit the new post</a></li>
 <li><a href="#push-the-edited-post-back-to-github">Push the edited post back to GitHub</a></li>
 </ul></li>
 <li><a href="#all-users-making-revisions">All users: making revisions</a></li>
-<li><a href="#site-admin">Site Admin</a><ul>
+<li><a href="#site-admin">Site Admin</a>
+<ul>
 <li><a href="#setup">Setup</a></li>
+<li><a href="#create-a-git-hook-to-remove-data-from-the-public-repo">Create a Git Hook to remove data from the public repo</a></li>
 <li><a href="#merging">Merging</a></li>
 <li><a href="#other-tips">Other tips</a></li>
 </ul></li>
@@ -2651,14 +2662,14 @@ To open an RStudio project, click on the file <b>pma-data-hub.Rproj</b>. If you 
 <div class="layout-chunk" data-layout="l-body">
 <p><img src="images/file_window1.png" width="1273" /></p>
 </div>
-<p>The program we use to build the blog is called <a href="https://rstudio.github.io/distill/">Distill</a>, and it takes care of all the back-end work as long as we put every new blog post inside of a unique folder within the "_posts" directory. Opening "_posts", you can see that every post is contained within a time-stamped subfolder:</p>
+<p>The program we use to build the blog is called <a href="https://rstudio.github.io/distill/">Distill</a>, and it takes care of all the back-end work as long as we put every new blog post inside of a unique folder within the "_posts" directory. Opening "_posts", you can see that every post is contained within a time-stamped sub-folder:</p>
 <div class="layout-chunk" data-layout="l-body">
 <p><img src="images/posts_list.png" width="764" /></p>
 </div>
 <p>To create one of these folders for your new post, enter the following command into R:</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre><code><span class='fu'>distill</span><span class='fu'>::</span><span class='fu'><a href='https://pkgs.rstudio.com/distill//reference/create_post.html'>create_post</a></span><span class='op'>(</span><span class='st'>"Blog post workflow"</span><span class='op'>)</span>
+<pre><code><span class='fu'>distill</span><span class='fu'>::</span><span class='fu'><a href='https://pkgs.rstudio.com/distill/reference/create_post.html'>create_post</a></span><span class='op'>(</span><span class='st'>"Blog post workflow"</span><span class='op'>)</span>
 </code></pre>
 </div>
 </div>
@@ -2678,6 +2689,11 @@ In green: this is the RMarkdown file where you’ll write your post.
 <aside>
 You can switch between previewing the page in the RStudio Viewer tab, or in your computer’s default web browser. Click the settings icon next to “Knit” for preview options.
 </aside>
+<h2 id="put-your-data-in-a-data-folder">Put your data in a “data” folder!</h2>
+<p>If you’re working with a PMA data extract in your post <strong>put it in a sub-folder called</strong> <code>data</code>. Your editors will need a copy of your extract in order to render your post! For example, I would store the data and the ddi for this post like this:</p>
+<pre><code>./_posts/2021-02-02-blog-post-workflow/data/pma_00008.dat.gz
+./_posts/2021-02-02-blog-post-workflow/data/pma_00008.xml</code></pre>
+<p>It’s OK to push your data to UMN Github! As long as you put it in a folder called <code>data</code>, admin will automatically remove it before posting the public version of the blog.</p>
 <h2 id="push-your-post-to-github">Push your post to GitHub</h2>
 <p>When you’re finished writing, follow these steps to share your post with the team on our Enterprise GitHub page (reminder: it won’t go “live” until Matt or Nina merges your post to <code>master</code> and publishes it to the public GitHub page).</p>
 <p><strong>Press the “Knit” button one more time to render a final HTML version of the page.</strong> (At this point, you may see a number of automatically created files related to your RMarkdown file in the <code>Git</code> tab.)</p>
@@ -2793,6 +2809,29 @@ git fetch public</code></pre>
 <aside>
 In this example, we set the local “private-master” branch to track “master” on the private remote. The “public-master” branch tracks “master” on the public remote.
 </aside>
+<h2 id="create-a-git-hook-to-remove-data-from-the-public-repo">Create a Git Hook to remove data from the public repo</h2>
+<p><strong>We should never push PMA data extracts to the public repository.</strong> Yet, we need to have these data available on the private repository in order to build each others’ posts when we want to review or merge new content.</p>
+<p>You might imagine that the only way to do this would be to manually delete the <code>data</code> folder for each post just before we push something from our local version of <code>public-master</code> to the remote <code>public/master</code>. Luckily, <a href="https://git-scm.com/docs/githooks">git hooks</a> offers a way to automatically delete any incoming data folder headed to a merge with <code>public-master</code>.</p>
+<p>Simply create a file at <code>.git/hooks/post-merge</code> containing the following code:</p>
+<pre><code>#! /bin/sh
+green=&#39;\033[0;32m&#39;
+nc=&#39;\033[0m&#39;
+
+# Start from the repository root.
+cd ./$(git rev-parse --show-cdup)
+
+# Delete data files and empty directories.
+if [ `git rev-parse --abbrev-ref HEAD` == &quot;public-master&quot; ]; then
+  echo &quot;${green}Deleting data files...${nc}&quot;
+  find . -path &#39;*/data/*&#39; -delete
+  find . -type d -empty -delete
+fi</code></pre>
+<aside>
+This will only delete <code>data</code> folders if a branch called <code>public-master</code> is currently checked out when we run <code>git merge</code> (see below). <strong>If you gave a different name to your local public branch, you’ll have to edit this code!</strong>
+</aside>
+<p>You also must make this file executable. For Mac OS users, you can do this by entering the following command into Terminal (assuming you’re already in the pma data hub directory):</p>
+<pre><code>chmod +x .git/hooks/post-merge</code></pre>
+<p>Now, when you follow the merging steps below, any file saved in a folder called <code>data</code> (including all sub-folders) will be deleted automatically.</p>
 <h2 id="merging">Merging</h2>
 <p><strong>Our main goal is to avoid creating divergent commit histories between the internal repository and the public repository.</strong> In practice, that means a typical workflow will involve these steps:</p>
 <ol type="1">
@@ -2819,8 +2858,9 @@ git commit -m &quot;new post: blog-post-workflow&quot;</code></pre>
 <p>Wait a few minutes, and you’ll see that the GitHub Pages site hosted at UMN GitHub should update to reflect your changes.</p>
 <p>To merge your <code>private-master</code> to <code>public-master</code>:</p>
 <pre><code>git checkout public-master
-git merge private-master</code></pre>
-<p>Finally, push your changes to the live site:</p>
+git merge --squash private-master -X theirs</code></pre>
+<p>(It’s good practice to squash commits to private-master, too, since we sometimes make quick-fixes there. The <code>-X theirs</code> part tells Git to defer to <code>private-master</code> over <code>public-master</code> in case there are any conflicts.)</p>
+<p>If you’ve created a Git Hook to automatically delete any <code>data</code> folders (see above), you’re all set! <strong>If not, manually delete them now.</strong> Finally, push your changes to the live site:</p>
 <pre><code>git push public HEAD:master</code></pre>
 <h2 id="other-tips">Other tips</h2>
 <p>Need to rollback to a previous commit? Look for it in the <code>git log</code>, and do a hard reset:</p>
@@ -2828,7 +2868,9 @@ git merge private-master</code></pre>
 git reset --hard 58ba4f0396b985fb5ab82c88f7bbc5c9cc619e71</code></pre>
 <p>For a checklist of updated files and their commit status:</p>
 <pre><code>git status</code></pre>
-<div class="sourceCode" id="cb16"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
+<p>If you ever need to force a push to GitHub (e.g. if you REALLY must overwrite a commit), you can do that with the force option:</p>
+<pre><code>git push -f </code></pre>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <section class="footnotes" role="doc-endnotes">
 <hr />
 <ol>

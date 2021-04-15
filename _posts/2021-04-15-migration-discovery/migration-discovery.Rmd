@@ -1,0 +1,330 @@
+---
+title: "Formatting Migration Recall Data for Longitudinal Analysis"
+description: |
+  Use tidyr::pivot_longer to reshape wide data into a long format.
+author:
+  - name: Matt Gunther
+    affiliation: IPUMS PMA Senior Data Analyst
+date: 04-15-2021
+categories:
+  - Migration
+  - Data Discovery
+  - Data Manipulation
+  - pivot_longer
+  - regex
+output:
+  distill::distill_article:
+    self_contained: false
+    toc: true
+    toc_depth: 3
+    toc_float: true
+preview: images/tidyr_wide.png
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+v <- function(var){
+  paste0("(https://pma.ipums.org/pma-action/variables/", var, ")")
+}
+``` 
+
+Most of the data you'll find at [IPUMS PMA](https://pma.ipums.org/pma/index.shtml) comes from cross-sectional surveys, where each respondent is interviewed only once. However, there are some items on the Female Questionnaire that ask respondents to recall past events. When these **recall data** are linked to a measure of time, the data can be restructured to simulate **longitudinal data** -- or repeated observations on individuals over time. Once the data are in this structure, we can use a range of analytic tools to determine how the frequency or duration of past experiences explains current outcomes.
+
+<aside>
+Currently, only the 2016 Ethiopia [Maternal and Newborn Health](https://pma.ipums.org/pma-action/variables/group?unit_of_analysis=mnh) survey contains data from follow-up interviews. [Panel data](https://www.pmadata.org/data/survey-methodology) related to contraceptive use is coming soon!
+</aside>
+
+One place where you'll find this type of data is on the [migration variables page](https://pma.ipums.org/pma-action/variables/group?id=fem_mig). In our [last post](../2021-04-01-et-internal-migration/index.html), we saw that PMA samples from Ethiopia began including information about each respondent's **single most most recent migration experience** beginning with the 2016 sample. More recently, a number of samples from other countries have collected data about each respondent's **complete migration history**, organized in chronological order. These samples include:
+
+  * Burkina Faso 2020
+  * Congo (DR), Kinshasa 2019
+  * Congo (DR), Kongo Central 2019 
+  * Kenya 2019
+  * Nigeria, Kano 2019
+  * Nigeria, Lagos 2019
+  
+In this post, we'll take a look at the available information in the migration data collected from these newer samples. As we'll see, female respondents who indicate that they have migrated at least once receive the same set of questions *for each place they have lived*, resulting in a dataset that is exceptionally **wide** and cumbersome to use in most time-dependent applications. We'll show how to reshape an example data extract into a much friendlier **long** format using the function [tidyr::pivot_longer](https://tidyr.tidyverse.org/reference/pivot_longer.html).
+
+# Data Availability 
+
+The samples listed above contain data from nearly identical survey questions. In the interview, a respondent is first asked [how long they have lived in their current place of residence](https://pma.ipums.org/pma-action/variables/LIVEINPLACE); if they indicate that they have not "always" lived in the same place, they are then asked [how many places](https://pma.ipums.org/pma-action/variables/PLACELIVENUM) they've lived *for more than six months after age 15 or their first marriage (whichever happened first)*.
+
+<aside>
+Interviewers were instructed to define a **place** as "a community, village, or neighborhood".
+</aside>
+
+Respondents who list at least one such place are then asked to recall information about each place, starting with the place before their current residence. Information about the most recent place is represented by variables beginning with the prefix `PLACE1`. Information about the second most recent place is represented by the prefix `PLACE2`, and so forth. 
+
+In each of these samples, the same questions are repeated for each place until all of the respondent's previous places of residence are fully enumerated. The available information about each place includes:
+
+  * its country
+  * its district or region
+  * the respondent's age when she moved to the place
+  * whether the place was a city, a town, peri-urban, or rural (not available for Nigeria samples)
+  
+Additionally, the respondent could list multiple reasons for migrating *to* each place (note that this information is not available for the respondent's migration to their *current* place of residence). Options include:
+
+  * looking for a job
+  * seasonal work
+  * work (non-seasonal)
+  * want to change jobs
+  * family or village conflict
+  * to attend school
+  * move after completed school
+  * join spouse after marriage
+  * co-reside with boy/girlfriend
+  * divorce/widowhood
+  * hospitalization/health problem
+  * better access to health service
+  * caring for sick relative
+  * followed spouse to job
+  * better land for farming
+  * better education for children
+  * other social reasons
+  * other
+  
+Because the respondent can choose multiple reasons, we'll find one binary indicator for each of these 18 reasons. **As you might imagine, this results in a very wide dataset!** Some respondents move as many as 11 times, resulting in 198 columns from just this one repeated multiple-response question. 
+
+The wide shape of these data is more than an inconvenience: most longitudinal analysis applications require easy access to the **time interval** between events. In their current format, each numbered `PLACE` variable represents a single migration event, but it's difficult to tell how much time passed between any two migrations for a given person. To make this kind of analysis possible, we need to **pivot** the migration variables into a **long** format accompanied by a new variable showing the time interval between each migration. 
+
+
+# Longitudinal Data Structures
+
+Let's take a look at the way migration history variables are currently formatted for one of the samples we discussed above. For this example, we've [created a data extract](../2020-12-10-get-ipums-pma-data/index.html) containing all of the available migration data for the Kenya 2019 sample (female respondents only). We'll load it and the following packages into R:
+
+```{r, results='hide'}
+library(tidyverse)
+library(ipumsr)
+
+dat <- read_ipums_micro(
+  ddi = "data/pma_00022.xml",
+  data = "data/pma_00022.dat.gz"
+)
+```
+
+<aside>
+Remember: change these file paths to match the download location for your own data extract!
+</aside>
+
+```{r, echo=F}
+options(tibble.print_min = 5, tibble.max_extra_cols = 10)
+
+dat <- dat %>% 
+  filter(SAMPLE == 40410) %>% 
+  select(PERSONID, AGE, LIVEINPLACE, PLACELIVENUM, starts_with("PLACE")) %>% 
+  select(-c(
+    matches(".*DISTRICTCD"), 
+    matches(".*DISTRICTNG"), 
+    matches(".*REGION.*")
+  )) 
+```
+
+Like all IPUMS PMA data extracts, this dataset reflects a **cross-sectional survey design** where every response from each person is stored in a *single row*. If you're familiar with **longitudinal data** structures, you know that repeated observations from the same respondents are stored in *separate rows*, where each row represents a different moment in time. Why might this be the case? 
+
+As we'll see in our own data, the *values* for repeated observations and the amount of *time* that passes between observations are related only by a common pattern in the names for each variable when they're stored together in a **wide format**. In our case, the only mark of time between migrations is the respondent's age. Consider the following respondents, who have each migrated at least twice:
+
+```{r}
+dat %>% 
+  filter(PLACELIVENUM %in% 2:7) %>% 
+  select(ends_with("DISTRICTKE"), ends_with("MOVEAGE")) %>% 
+  relocate(starts_with("PLACE1"), starts_with("PLACE2"))
+```
+
+`PLACE1DISTRICTKE` shows the administrative district of the last place a respondent lived before their current place of residence, and `PLACE1MOVEAGE` shows her age when she moved there. `PLACE2DISTRICTKE` shows the district of the second most recent place she lived, and `PLACE2MOVEAGE` shows her age when she moved there. The same pattern would be repeated for all of the places a person might have lived (in this sample, some respondents migrated as many as 7 times). 
+
+<aside>
+You might notice that the respondent in the second row recalls her prior places of residence in reverse chronological order. This particular type of recall error is also easier to fix when we `pivot_longer`.
+</aside>
+
+Suppose you wanted to know something very simple about the relationship between these variables, such as the average age of female migrants arriving at each district in the sample. In this **wide format**, you would first have to find the mean `PLACE1MOVEAGE` for every district in `PLACE1DISTRICTKE`, then the mean `PLACE2MOVEAGE` for every district in `PLACE2DISTRICTKE`, and so forth for all 7 places. Then, you'd need to find the frequency weighted mean for each district in all 7 places. That's quite a bit of extra work for just one simple statistic! 
+
+Imagine you wanted to model the effect of a time-dependent variable on an outcome of interest. For example, you might suppose that the number of times a female respondent gives birth could be related to the length of time she's lived in a district where there are relatively few family planning services available. As you can see, we'd have a hard time building an appropriate model because the relevant data are currently strewn across 14 different variables. Instead, we'd much prefer two work with the data in a **long format** with only two variables: one representing `DISTRICTKE` and one representing `MOVEAGE`. 
+
+## Pivot Longer into One Column
+
+For the moment, let's continue working *just* with the district for each place in an individual's migration history. To keep things simple, we'll create a dataset called `district` containing only the variables ending with the string `DISTRICTKE`.
+
+```{r}
+district <- dat %>% select(ends_with("DISTRICTKE")) 
+
+district
+```
+
+As you can see, a lot of the information contained in `district` isn't really necessary. Every row holds information on 7 places of residence, but most respondents migrated only to 1 or 2 places if they ever migrated at all. The best approach here is to tell R that labels like `NIU (not in universe)` and `No response or missing` each represent a type of missing data that we can recode as `NA`. We can do that with help from `ipumsr::lbl_na_if` and `dplyr::across`:
+
+```{r}
+district <- district %>% 
+  mutate(across(everything(), ~{
+    lbl_na_if(.x, ~.lbl %in% c(
+      "No response or missing",
+      "NIU (not in universe)"
+    ))
+  }))
+
+district
+```
+
+<aside>
+See [this post](../2021-01-28-across-sdp/index.html) for additional details on recoding variables with `ipumsr` and `dplyr::across`.
+</aside>
+
+In order to keep track of individuals, let's also add a column `ID` that represents a short identification number for each person:
+
+```{r}
+district <- district %>% rowid_to_column("ID")
+district
+```
+
+Now, we're ready to use the function `tidyr::pivot_longer` to reshape `district`. The simplest way to use this function is to specify a group of columns with the argument `cols`:
+
+```{r, echo=F}
+options(tibble.print_min = 10, tibble.max_extra_cols = 10)
+```
+
+```{r}
+district %>% pivot_longer(cols = ends_with("DISTRICTKE"))
+```
+
+<aside>
+```{r, echo=F}
+knitr::include_graphics("images/tidyr.png")
+```
+© 2018 RStudio ([CC0 1.0](https://creativecommons.org/publicdomain/zero/1.0/))
+
+[tidyr](https://tidyr.tidyverse.org/index.html) is included with `library(tidyverse)`.
+</aside>
+
+By default, the name of each column moves into a single column called `name`, and the value of each column moves into an adjascent column called `value`. We can manually change the names of these columns with the arguments `names_to` and `values_to`:
+
+```{r}
+district %>% pivot_longer(
+  cols = ends_with("DISTRICTKE"),
+  names_to = "PLACE",
+  values_to = "DISTRICTKE"
+)
+```
+
+Even more conveniently, we can generate these columns automatically if we identify a pattern in the original column names. This approach efficiently handles both the names of the new columns *and* the values stored in each column. Notice that we've manually specified the name of the column `DISTRICTKE` above; this is fine if we're only pivoting one column, but we want to avoid manually writing a name for each new column when we start working with several variables at once. Also, notice the values that appear in the `PLACE` column; wouldn't it be more convenient to extract the index number for each place, rather than the full names of the original columns? 
+
+We'll use the additional argument `names_pattern` to solve both problems at once. Any string enclosed with parentheses `()` in `names_pattern` can be passed, in sequential order, to `names_to`. In this example, we specify a pattern where the string `PLACE` will be followed by a single-digit number `([0-9])` followed by the string `(DISTRICTKE)`. The argument `names_to` places the single-digit number in a column called `PLACE`, and it places the string `DISTRICTKE` in a column that uses a pronoun `.value` to represent the contents of the string. 
+
+```{r}
+district %>% 
+  pivot_longer(
+    cols = ends_with("DISTRICTKE"), 
+    names_pattern = "PLACE([0-9])(DISTRICTKE)",
+    names_to = c("PLACE", ".value")
+  ) 
+```
+
+We can improve the scalability of this code just a little bit more by adding the wildcard `.` in `names_pattern` to represent "any character" and the operator `*` to represent "any number of times". This allows us to write `([0-9]*)` to find an integer of any length (in case some respondents move 10 places or more), and `(.*)` to find a string of any length afterward (this saves us the trouble of writing "DISTRICTKE"). 
+
+```{r}
+district %>% 
+  pivot_longer(
+    cols = ends_with("DISTRICTKE"), 
+    names_pattern = "PLACE([0-9]*)(.*)",
+    names_to = c("PLACE", ".value")
+  ) 
+```
+
+Notice that there are now 66,843 rows in `district`: that's 7 rows for 7 places per respondent. Adding the argument `values_drop_NA = TRUE` drops placeholder values for respondents who lived in fewer than 7 places:
+
+```{r}
+district %>% 
+  pivot_longer(
+    cols = ends_with("DISTRICTKE"), 
+    names_pattern = "PLACE([0-9]*)(.*)",
+    names_to = c("PLACE", ".value"),
+    values_drop_na = TRUE
+  ) 
+```
+
+This step causes any respondent who has *never* migrated from a place they lived for 6 months or more after age 15 / first marriage to be *filtered out* of the data. Here, we see the first 10 rows from all of the remaining female respondents. Individuals 14 and 20 lived in two such places: individual 14 first lived in the district Migori, then moved to Nandi, and finally moved to her current residence (not shown). Individual 20 first lived in Nyamira, then moved to another place also in Nyamira, and finally moved to her current residence (not shown). All of the other displayed respondents lived in exactly one such place. Next, we'll add the **age** at which each of the women moved to each location. 
+
+<aside>
+Remember: these migration history variables contain information about each place a person has lived *prior to their current residence*. You'll find information on the woman's current district of residence in either [GEOKE](https://pma.ipums.org/pma-action/variables/GEOKE) (for Kenya samples) or [SUBNATIONAL](https://pma.ipums.org/pma-action/variables/SUBNATIONAL) (for all samples, including Kenya).
+</aside>
+
+## Pivot Longer into Multiple Columns
+
+Now that we know how to use wildcard operators in `pivot_longer`, we'll be able to start pivoting multiple columns at once. Let's start by adding the respondent's age when they moved to each place. Using the same processing steps we used to make `district`, we'll create a new dataset called `age`.
+
+```{r}
+age <- dat %>% 
+  select(ends_with("DISTRICTKE"), ends_with("MOVEAGE")) %>% 
+  mutate(across(everything(), ~{
+    lbl_na_if(.x, ~.lbl %in% c(
+      "No response or missing",
+      "NIU (not in universe)"
+    ))
+  })) %>% 
+  rowid_to_column("ID")
+```
+
+```{r}
+age %>% relocate(ID, starts_with("PLACE1"), starts_with("PLACE2"))
+```
+
+<aside>
+We're using `relocate` here just so that we can display the `DISTRICTKE` and `MOVEAGE` variables side-by-side. It doesn't change anything else about the structure of the data!
+</aside>
+
+Because we're using the wildcard pattern `(.*)`, the function will treat the string `MOVEEAGE` the same way it treats `DISTRICTKE`. We only need to add the new columns to `cols`:
+
+```{r}
+age <- age %>% 
+  pivot_longer(
+    cols = c(ends_with("DISTRICTKE"), ends_with("MOVEAGE")), 
+    names_pattern = "PLACE([0-9]*)(.*)",
+    names_to = c("PLACE", ".value"),
+    values_drop_na = TRUE
+  ) 
+
+age
+```
+
+**The advantages we've gained with a longer data format are starting to become clear!** Suppose you wanted to know the average age of migrants arriving at each of Kenya's administrative districts in this sample. You could find this information easily with just one `summarise` function:
+
+```{r}
+age %>% 
+  group_by(DISTRICTKE) %>% 
+  summarise(MEAN_AGE = mean(MOVEAGE, na.rm = T))
+```
+
+Let's now pivot all of the migration history columns in our original dataset `dat`. This time, we'll specify that all of the desired `cols` start with the same prefix `PLACE` (but we'll drop the column `PLACELIVENUM`, since it contains the string "PLACE" we're using in `names_pattern`):
+
+```{r}
+dat <- dat %>% 
+  mutate(across(everything(), ~{
+    lbl_na_if(.x, ~.lbl %in% c(
+      "No response or missing",
+      "NIU (not in universe)"
+    ))
+  })) %>% 
+  rowid_to_column("ID") %>% 
+  select(ID, starts_with("PLACE"), -PLACELIVENUM) %>% 
+  pivot_longer(
+    cols = starts_with("PLACE"), 
+    names_pattern = "PLACE([0-9]*)(.*)",
+    names_to = c("PLACE", ".value"),
+    values_drop_na = TRUE
+  )
+
+dat
+```
+
+We're left with a very manageable 24 migration history variables. Among these, all of the variables starting with `Y` indicate a possible reason "why" a respondent migrated to a particular `PLACE`. The simplest way to work with these `Y` variables is to use [tidy selection](https://dplyr.tidyverse.org/reference/dplyr_tidy_select.html) functions, like `starts_with("Y")`. For example, suppose you wanted to know the percentage of all migrations in the sample that happened for all of the available reasons:
+
+```{r}
+dat %>% 
+  summarise(across(starts_with("Y"), ~100*mean(.x))) %>% 
+  glimpse()
+```
+
+Now that we've reshaped our migration recall data from a **wide format** to a  **long format**, obtaining this summary data is a snap. And, as we'll see in an upcoming migration [Data Analysis](../../index.html#category:Data_Analysis) post, using these data in longitudinal analysis can be just as easy. 
+
+<!-- Unless we're *definitely* doing an event history analysis, I think we should leave this more vague and just we'll show how to analyze these data in an upcoming post?
+
+I also think here at the end might be a good place to plug that this code can be useful for reshaping any wide format recall data - which is common in surveys like PMA, DHS, etc..
+-->

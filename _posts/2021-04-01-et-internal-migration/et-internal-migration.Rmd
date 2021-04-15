@@ -9,6 +9,8 @@ date: '04/02/2021'
 categories:
   - Migration
   - PMA Publications
+  - svyglm
+  - bootstraps
 output:
   distill::distill_article:
     self_contained: false
@@ -16,7 +18,7 @@ output:
     toc_depth: 3
     toc_float: true
 bibliography: et-internal-migration.bib
-preview: images/pred_prob.png
+preview: images/pred_prob_h4.png
 ---
 
 
@@ -148,7 +150,14 @@ Within the combined sample of female respondents from both years, about 12% of w
 dat %>% summarize(mean_UNMETYN = mean(UNMETYN, na.rm = T)) 
 ```
 
-We'll use the [survey](http://r-survey.r-forge.r-project.org/survey/) package  - and its tidy companion [srvyr](https://cran.r-project.org/web/packages/srvyr/vignettes/srvyr-vs-survey.html) - to specify PMA sample design in our population estimates. The function `srvyr::survey_mean` uses information about the survey design (given by `srvyr::as_survey_design`) to estimate that an average woman aged 15-49 in Ethiopia has about a 15% chance of experiencing unmet need for family planning:
+We'll use the [survey](http://r-survey.r-forge.r-project.org/survey/) package  - and its tidy companion [srvyr](https://cran.r-project.org/web/packages/srvyr/vignettes/srvyr-vs-survey.html) - to specify PMA sample design in our population estimates. The function `srvyr::survey_mean` uses information about the survey design (given by `srvyr::as_survey_design`) to estimate that an average woman aged 15-49 in Ethiopia has about a 15% chance of experiencing unmet need for family planning, with a 95% confidence interval ranging between 13.5% and 16.7%:
+
+<aside>
+```{r, echo=F}
+knitr::include_graphics("images/srvyr.png")
+```
+© Greg Freedman Ellis et al. ([GPL 2](https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html) | [GPL 3](https://www.gnu.org/licenses/gpl-3.0.html))
+</aside>
 
 ```{r}
 dat %>% 
@@ -162,7 +171,7 @@ dat %>%
 ```
 
 <aside>
-The 95% confidence interval is shown by `pop_UNMETYN_low` and `pop_UNMETYN_upp`
+[srvyr](https://github.com/gergness/srvyr) brings parts of [dplyr](https://github.com/tidyverse/dplyr/) syntax to survey analysis, using the [survey](http://r-survey.r-forge.r-project.org/survey/) package.
 </aside>
 
 ## Key independent variable 
@@ -451,6 +460,15 @@ boots_dat <- dat %>%
 
 boots_dat
 ```
+
+<aside>
+```{r, echo=F}
+knitr::include_graphics("images/rsample.png")
+```
+© 2018 RStudio ([CC0 1.0](https://creativecommons.org/publicdomain/zero/1.0/))
+
+[rsample](https://rsample.tidymodels.org/reference/bootstraps.html) is included with `library(tidymodels)`.
+</aside>
 
 Notice that each row of `boots_dat` contains a completely resampled version of `dat` contained in each row of the column `splits`. The column `model` contains the output from a model that's uniquely fitted to the resampled data in `splits`. 
 

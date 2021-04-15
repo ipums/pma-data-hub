@@ -170,7 +170,7 @@ Now that you've created a new branch in the `Git` window, take a look at the `Fi
 knitr::include_graphics("images/file_window1.png")
 ```
 
-The program we use to build the blog is called [Distill](https://rstudio.github.io/distill/), and it takes care of all the back-end work as long as we put every new blog post inside of a unique folder within the "_posts" directory. Opening "_posts", you can see that every post is contained within a time-stamped subfolder:
+The program we use to build the blog is called [Distill](https://rstudio.github.io/distill/), and it takes care of all the back-end work as long as we put every new blog post inside of a unique folder within the "_posts" directory. Opening "_posts", you can see that every post is contained within a time-stamped sub-folder:
 
 ```{r}
 knitr::include_graphics("images/posts_list.png")
@@ -205,6 +205,18 @@ knitr::include_graphics("images/knit.png")
 <aside>
 You can switch between previewing the page in the RStudio Viewer tab, or in your computer's default web browser. Click the settings icon next to "Knit" for preview options.
 </aside>
+
+## Put your data in a "data" folder!
+
+If you're working with a PMA data extract in your post **put it in a sub-folder called** `data`. Your editors will need a copy of your extract in order to render your post! For example, I would store the data and the ddi for this post like this: 
+
+```
+./_posts/2021-02-02-blog-post-workflow/data/pma_00008.dat.gz
+./_posts/2021-02-02-blog-post-workflow/data/pma_00008.xml
+```
+
+It's OK to push your data to UMN Github! As long as you put it in a folder called `data`, admin will automatically remove it before posting the public version of the blog. 
+
 
 ## Push your post to GitHub
 
@@ -386,6 +398,42 @@ knitr::include_graphics("images/dual-remotes.png")
 In this example, we set the local "private-master" branch to track "master" on the private remote. The "public-master" branch tracks "master" on the public remote.
 </aside>
 
+## Create a Git Hook to remove data from the public repo
+
+**We should never push PMA data extracts to the public repository.** Yet, we need to have these data available on the private repository in order to build each others' posts when we want to review or merge new content. 
+
+You might imagine that the only way to do this would be to manually delete the `data` folder for each post just before we push something from our local version of `public-master` to the remote `public/master`. Luckily, [git hooks](https://git-scm.com/docs/githooks) offers a way to automatically delete any incoming data folder headed to a merge with `public-master`. 
+
+Simply create a file at `.git/hooks/post-merge` containing the following code:
+
+```
+#! /bin/sh
+green='\033[0;32m'
+nc='\033[0m'
+
+# Start from the repository root.
+cd ./$(git rev-parse --show-cdup)
+
+# Delete data files and empty directories.
+if [ `git rev-parse --abbrev-ref HEAD` == "public-master" ]; then
+  echo "${green}Deleting data files...${nc}"
+  find . -path '*/data/*' -delete
+  find . -type d -empty -delete
+fi
+```
+
+<aside>
+This will only delete `data` folders if a branch called `public-master` is currently checked out when we run `git merge` (see below). **If you gave a different name to your local public branch, you'll have to edit this code!**
+</aside>
+
+You also must make this file executable. For Mac OS users, you can do this by entering the following command into Terminal (assuming you're already in the pma data hub directory):
+
+```
+chmod +x .git/hooks/post-merge
+```
+
+Now, when you follow the merging steps below, any file saved in a folder called `data` (including all sub-folders) will be deleted automatically. 
+
 ## Merging
 
 **Our main goal is to avoid creating divergent commit histories between the internal repository and the public repository.** In practice, that means a typical workflow will involve these steps:
@@ -432,10 +480,12 @@ To merge your `private-master` to `public-master`:
 
 ```
 git checkout public-master
-git merge private-master
+git merge --squash private-master -X theirs
 ```
 
-Finally, push your changes to the live site:
+(It's good practice to squash commits to private-master, too, since we sometimes make quick-fixes there. The `-X theirs` part tells Git to defer to `private-master` over `public-master` in case there are any conflicts.)
+
+If you've created a Git Hook to automatically delete any `data` folders (see above), you're all set! **If not, manually delete them now.** Finally, push your changes to the live site:
 
 ```
 git push public HEAD:master
@@ -454,4 +504,10 @@ For a checklist of updated files and their commit status:
 
 ```
 git status
+```
+
+If you ever need to force a push to GitHub (e.g. if you REALLY must overwrite a commit), you can do that with the force option:
+
+```
+git push -f 
 ```

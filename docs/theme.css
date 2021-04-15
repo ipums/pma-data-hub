@@ -185,6 +185,10 @@ d-article iframe {
     width: 100%;
 }
 
+d-article aside a {
+  color: #98579B;
+}
+
 code {
     font-family: Menlo, Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
 }

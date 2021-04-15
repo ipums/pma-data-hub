@@ -9,7 +9,8 @@ categories:
   - Individuals in Context
   - Data Manipulation
   - Service Delivery Points
-  - tidyr
+  - pivot_longer
+  - join
 date: 01-29-2021
 output:
   distill::distill_article:

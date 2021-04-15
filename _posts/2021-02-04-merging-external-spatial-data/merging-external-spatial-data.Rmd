@@ -10,6 +10,7 @@ categories:
   - Individuals in Context
   - Service Delivery Points
   - Data Manipulation
+  - join
   - sf
   - raster
   - Spatial

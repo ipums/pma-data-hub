@@ -9,7 +9,7 @@ categories:
   - Individuals in Context
   - Data Manipulation
   - Service Delivery Points
-  - dplyr
+  - across
   - ipumsr
 date: 01-28-2021
 output:
@@ -18,6 +18,7 @@ output:
     toc: true
     toc_depth: 3
     toc_float: true
+preview: images/logos.png
 ---
 
 ```{r setup, echo=F}
@@ -271,6 +272,13 @@ sdp %>%
   count(CONOBS)
 ```
 
+<aside>
+```{r, echo=F}
+knitr::include_graphics("images/ipumsr.png")
+```
+© 2017 ([MPL 2.0](https://www.mozilla.org/en-US/MPL/2.0/))
+</aside>
+
 That collapses the values `1` and `2` together, and it moves the value `3` ("Out of stock") to `0`. However, we've still got a the values `94` and `99`, which are each a different type of non-response. The easiest strategy here would be to recode any value larger than `90` as `NA`, and we could do that with another `ipumsr` function, [lbl_na_if](http://tech.popdata.org/ipumsr/reference/lbl_na_if.html):
 
 ```{r}
@@ -341,6 +349,13 @@ sdp %>%
   ) %>% 
   count(CONOBS)
 ```
+
+<aside>
+```{r, echo =F}
+knitr::include_graphics("images/dplyr.png")
+```
+© 2018 RStudio ([CC0 1.0](https://creativecommons.org/publicdomain/zero/1.0/))
+</aside>
 
 Here, we stick `lbl_relabel` inside a lambda function with syntax from [purrr](https://purrr.tidyverse.org/reference/index.html): the `~` designates a tidy lambda function, which in turn uses `.x` as a kind of pronoun referencing each of the variables returned by `ends_with("OBS")`. We're showing that `CONOBS` still gets recoded as before, but so do all of the other variables in its group! 
 
