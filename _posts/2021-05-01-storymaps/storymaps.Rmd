@@ -1,0 +1,90 @@
+---
+title: "Visualizing PMA Data with StoryMaps"
+description: |
+  Five outstanding undergraduate research projects integrate dynamic data visualization with spatial analysis and narrative. 
+author:
+  - name: Matt Gunther
+    affiliation: IPUMS PMA Senior Data Analyst
+date: 05-03-2021
+categories:
+  - PMA Publications
+  - StoryMaps
+  - Undergrads
+  - Teaching
+output:
+  distill::distill_article:
+    self_contained: false
+    toc: true
+    toc_depth: 3
+    toc_float: true
+preview: images/featured.png
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+When great new research gets published with PMA data, we like to share it with you in a [PMA Publications](../../index.html#category:PMA_Publications) post. Sometimes we'll take a deep dive into the R code you can use to [reproduce great analysis](../2021-04-01-et-internal-migration/index.html), but today we'll take a look at a different tool that undergraduate students are using to learn about IPUMS PMA and [other IPUMS Global Health data](https://globalhealth.ipums.org/) at the University of Minnesota.
+
+<aside>
+Have a recent publication using PMA data that you’d like to feature in a [PMA Publications](../../index.html#category:PMA_Publications) post? Please [let us know](https://github.com/ipums/pma-data-hub/issues/new)!
+</aside>
+
+This semester, students in the [Global Health Survey Analysis](https://umn.maps.arcgis.com/home/group.html?id=e977beb52a9e4169a0ba5584336cd934&view=list#content) course used an amazing tool called [StoryMaps](https://storymaps.umn.edu/) to develop interactive narratives exploring different topics related to family planning. StoryMaps have been used in both the undergraduate and graduate curriculum throughout the College of Liberal Arts and beyond - we encourage you to check out the full gallery of student projects [here](https://storymaps.umn.edu/pages/gallery)!
+
+*Thanks to course professors [Elizabeth Boyle](https://cla.umn.edu/about/directory/profile/boyle014) and [Kathryn Grace](https://www.kathryn-q-grace.com/) for sharing this great work!*
+
+# Attainment of Sex Preference in India
+
+Author: Lara Rae Erdmann
+
+```{r, layout="l-page"}
+knitr::include_url(
+  "https://storymaps.arcgis.com/stories/6fcdc8dcd95b4ca99b891427b9f38a8b",
+  height = "650px"
+)
+```
+
+# Intimate Partner Violence and Body Weight
+
+Author: Jaclyn Willems
+
+```{r, layout="l-page"}
+knitr::include_url(
+  "https://storymaps.arcgis.com/stories/2a714b3729db49e9841f016e45ccd0bd", 
+  height = "650px"
+)
+```
+
+# Higher Probability that Women Report IPV
+
+Author: Peyton Retterath
+
+```{r, layout="l-page"}
+knitr::include_url(
+  "https://storymaps.arcgis.com/stories/0f265dca10c9450c8586fb0219a92321",
+  height = "650px"
+)
+```
+
+# Empowered Women Raise Healthy Children
+
+Author: Kassandra Fate
+
+```{r, layout="l-page"}
+knitr::include_url(
+  "https://storymaps.arcgis.com/stories/31c34bc1e828494aaca9dea7c42bceb9",
+  height = "650px"
+)
+```
+
+# Wealth and Healthcare can Save Pregnant Women
+
+Author: Hana al'Absi
+
+```{r, layout="l-page"}
+knitr::include_url(
+  "https://storymaps.arcgis.com/stories/84d2ff5d2cd24d1da380e95913f4bd08",
+  height = "650px"
+)
+```
