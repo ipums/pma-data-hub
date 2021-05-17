@@ -1,0 +1,96 @@
+
+10:11:50 From  P*****  to  Everyone : Hi, signal is patchy. I skip some words, and even went off. Just coming back.
+10:11:51 From  P*****  to  Everyone : Can't even see the screen. keeps loading
+10:11:51 From  P*****  to  Everyone : Would you be kind to share the presentation after? thanks
+10:15:54 From  E*****  to  Everyone : How is PMA integrated in the PHC service delivery level: Antenatal care. malaria treatment, etc.
+10:16:37 From  Elizabeth Gummerson  to  Everyone : Yes, we will share presentation afterwards
+10:16:58 From  P*****  to  Everyone : thanks
+10:21:38 From  Nina Brooks  to  Everyone : Blog website: https://ipums.github.io/pma-data-hub/
+10:23:21 From  D*****  to  Everyone : whats your experience of taking only 2 years calendar data, is it a recall issue if we increase by one more year, what are the advantages and disadvantages of 3 years calender data, I think DHS collect for 5years
+10:24:39 From  V*****  to  Everyone : Can we have any measurement for recall bias?
+
+10:35:26 From  M*****  to  Everyone : Will Phase 2 data be collected in every location? What is the anticipated time of release for Phase 2 data? Thank you!
+
+10:36:53 From  E*****  to  Everyone : I see it is research tool and not integrated in service delivery. I thought you were also using it to encourage compliance and FP adherence. .
+
+10:38:57 From  Devon Kristiansen  to  Everyone : https://pma.ipums.org/pma/paa2021_side_event.shtml
+
+10:40:39 From  Sally Safi  to  Everyone : M*****, I will answer your question about anticipated release dates toward the end of the webinar.
+10:40:52 From  M*****  to  Everyone : Thank you so much!
+10:41:19 From  Dana Sarnak  to  Everyone : @D*****: Correct that the DHS collects about 5 years of calendar data. Data does seem to decline the farther you go back in time, so PMA made a decision to only collect a 2 year calendar.
+10:41:52 From  Dana Sarnak  to  Everyone : @E*****: Yes, the contraceptive calendar is a survey tool fo research purposes, not for compliance or adherence with a patient
+10:42:48 From  Dana Sarnak  to  Everyone : @V*****: What do you mean for measurement for the recall bias? I encourage you to look at the DHS report that evaluated quality of calendar data in 67 countries: https://dhsprogram.com/publications/publication-mr17-methodological-reports.cfm
+10:43:10 From  V*****  to  Everyone : thank you
+10:43:53 From  R*****  to  Everyone : Does PMA mark pregnancy abortion in the calendar data?
+10:47:49 From  Nina Brooks  to  Everyone : https://pma.ipums.org/pma/paa2021_side_event.shtml
+
+10:51:01 From  Dana Sarnak  to  Everyone : @R***** : we differentiate between live birth (B) and termination (T) but not specifically abortoin
+10:51:02 From  B*****  to  Everyone : If we don’t see the options?
+10:51:09 From  Elizabeth Gummerson  to  Everyone : R*****- the PMA calendar marks termination of pregnancy, but doesn’t differentiate between stillbirth, abortion, miscarriage
+10:51:24 From  J*****  to  Everyone : I don’t see any options anymore. Can I be put in the Stata room, please? Thanks!
+10:51:32 From  A*****  to  Everyone : the options
+10:51:43 From  G*****  to  Everyone : Yeah the options aren't showing up for me, either
+10:52:30 From  B*****  to  Everyone : R please
+10:52:31 From  G*****  to  Everyone : I'd like to be put in Stata if possible
+10:52:40 From  B*****  to  Everyone : No breakout room chooser has come up
+10:52:46 From  Y***** to  Everyone : Stata for me
+10:52:48 From  W*****  to  Everyone : Stata please
+10:52:58 From  U*****  to  Everyone : Stata please
+10:53:00 From  D*****  to  Everyone : I can’t see options either, can I go to the Stata room?
+10:53:14 From  G*****  to  Everyone : stata here
+10:53:21 From  R***** to  Everyone : stata please.
+10:53:30 From  B*****  to  Everyone : stata please
+10:53:38 From  B*****  to  Everyone : I would like to go to R, but it’s assigned me to Stata.
+10:53:41 From  C*****  to  Everyone : Stata please
+10:53:42 From  K*****  to  Everyone : Stata please
+10:54:59 From  N*****  to  Everyone : Stata
+11:01:15 From  D*****  to  Everyone : screen
+11:01:16 From  O*****  to  Everyone : Please share your screen.
+11:01:46 From  O*****  to  Everyone : Readable. Thanks!
+11:01:47 From  W*****  to  Everyone : font ok
+11:03:09 From  Sally Safi  to  Everyone : Again, this code is available for download here: https://pma.ipums.org/pma/paa2021_side_event.shtml
+11:04:43 From  B*****  to  Everyone : Could you please remind me if we should read it from left to right or vice versa
+11:04:59 From  Dana Sarnak  to  Everyone : B*****, you read the data from right to left in its original form
+11:05:05 From  Dana Sarnak  to  Everyone : But Devon is now reversing
+11:05:29 From  Nina Brooks  to  Everyone : For people more familiar with other programs like stata - this is the same operation as “reshape long”
+11:08:27 From  B*****  to  Everyone : great. thanks
+
+
+11:15:26 From  Nina Brooks  to  Everyone : https://ipums.github.io/pma-data-hub/
+11:18:46 From  F*****  to  Everyone : Are there other modules that have time series data / data that can be used in long format?
+11:18:52 From  Z*****  to  Everyone : are there any published material on calendar data from PMA?
+11:19:32 From  W*****  to  Everyone : Many thanks for the workshop. 
+However, I like to ask about linking other variables (demographics) and household with the calendar
+11:19:46 From  I*****  to  Everyone : Thanks for the workshop. It was informative.
+11:19:47 From  X*****  to  Everyone : with the new panel data, can you look at time for changes in marital status or sexual activity and link them to the calendar
+11:20:16 From  D*****  to  Everyone : can modern contraceptive prevalence rate from two cross sectional surveys be compared with calendar data.  what are the limitations you foresee
+11:21:57 From  R*****  to  Everyone : Could you please describe the covid module in PMA?
+
+11:23:44 From  V*****  to  Everyone : Thank you for the workshop. It was very informative. I will try to using IPUMS data. .
+11:24:10 From  F*****  to  Everyone : The blog looks great!
+11:25:00 From  A*****  to  Everyone : It is interesting and I hope you will share us the recode.  Thanks.
+11:25:18 From  Dana Sarnak  to  Everyone : @F***** Yes you definitely can! That is how people have tried to evaluate calendar quality in the past. You could compare modern contraceptive prevalence rate created from the calendar with independent current use estimates from PMA or even another survey
+11:25:26 From  Dana Sarnak  to  Everyone : The DHS report I put in the chat earlier does this
+11:26:24 From  Dana Sarnak  to  Everyone : @Z*****, here are some papers using PMA contraceptive calendar data: https://www.sciencedirect.com/science/article/pii/S2590151620300058
+11:26:25 From  Dana Sarnak  to  Everyone : https://read.dukeupress.edu/demography/article/58/1/295/167822/A-Panel-Study-of-Fertility-Preferences-and
+11:26:44 From  Nina Brooks  to  Everyone : For today’s Stata and R code: https://pma.ipums.org/pma/paa2021_side_event.shtml
+11:27:50 From  Nina Brooks  to  Everyone : For blog posts and coding tutorials using PMA data: https://ipums.github.io/pma-data-hub/ (check back here for some Q&A answered!)
+11:28:21 From  P*****  to  Everyone : hi Nina and Dana, can you put this on email, thanks. can i request to share the resources on email. am using a phone that is not so friendly
+11:28:54 From  Nina Brooks  to  Everyone : @P*****: absolutely! We’ll also follow up with the recordings
+11:29:10 From  P*****  to  Everyone : thanks and thanks
+11:30:52 From  Elizabeth Gummerson  to  Everyone : Just to clarify- phase 2 data for Kenya, DRC, Nigeria and Burkina Faso should be starting to be released this summer-
+11:31:38 From  M*****  to  Everyone : Thank you!
+11:31:46 From  S*****  to  Everyone : Thanks!
+11:31:48 From  D*****  to  Everyone : thanks, it was useful session
+11:31:51 From  Dana Sarnak  to  Everyone : ***** feel free to email me
+11:31:53 From  L*****  to  Everyone : Thank you!
+11:31:54 From  N*****  to  Everyone : thank you
+11:31:55 From  G*****  to  Everyone : thanks
+11:31:58 From  Y*****  to  Everyone : thank you, PMA and IPUMS!
+11:31:58 From  K*****  to  Everyone : Thank you so much.
+11:31:59 From  P*****  to  Everyone : Thank you
+11:32:00 From  T*****  to  Everyone : great, thanks
+11:32:00 From  R*****  to  Everyone : Thank you
+11:32:04 From  Q*****  to  Everyone : thank you!
+11:32:04 From  J*****  to  Everyone : Thank you
+11:32:05 From  F*****  to  Everyone : Thank you, this was great!

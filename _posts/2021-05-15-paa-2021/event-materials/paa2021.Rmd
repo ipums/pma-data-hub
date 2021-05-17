@@ -1,0 +1,328 @@
+---
+title: "PMA Calendar Data Survival Curves: Kenya"
+author: "Matt Gunther"
+output: html_document
+---
+
+# Setup
+
+Make sure that your have the following packages installed before we start:
+
+  * `ipumsr` - general ipums data tools
+  * `tidyverse` - general data cleaning tools
+  * `survival` - for survival analysis 
+  * `ggfortify` - for plotting survival curves
+
+```{r}
+library(ipumsr)
+library(tidyverse)
+library(survival)
+library(ggfortify)
+options(tibble.print_min = 20, tibble.min_extra_cols = 5)
+```
+
+## Load Data: `dat`
+
+### Walkthrough: data extract with KE 2019 and `CALANDARKE`
+
+Visit [pma.ipums.org](https://pma.ipums.org)
+
+### read_ipums_micro
+
+I put my `ddi` and `data` files in my working directory ahead of time. If yours are somewhere else (e.g. your computer's "downloads" folder), you can provide the full path here. 
+
+```{r}
+dat <- read_ipums_micro(
+  ddi = "pma_00001.xml",
+  data = "pma_00001.dat.gz"
+) 
+
+dat
+```
+
+## Drop Extra Variables
+
+Your extract comes with 11 pre-selected variables that we won't be using in this exercise. Notice, though, that `PERSONID` contains a unique number for each person in the data; *because this number is long and contains the same prefix for each person in the same sample, it's hard to use in an interactive exercise like this one!*. Let's quickly make our own variable `ID` just for the sake of this demonstration:
+
+```{r}
+dat <- dat %>% rowid_to_column("ID")
+
+dat
+```
+
+We'll now select only `ID` and `CALENDARKE`;
+
+```{r}
+dat <- dat %>% select(ID, CALENDARKE)
+
+dat
+```
+
+# Reshaping with `tidyr`
+
+## Parse string 
+
+There are 36 comma-separated values in each `CALENDARKE` string shown above: these represent the 36 months from January 2017 through December 2018.
+
+Some strings begin with a comma (i.e. the first month is blank). These are individuals who were interviewed in November 2018 (see `ID == 2`). *When we split the string into 36 columns, we must shift these individuals to the right, leaving a blank value in the left-most column (December 2018).*
+
+```{r}
+dat <- dat %>% 
+  separate(
+    col = CALENDARKE,
+    into = paste0("cal_ke", 36:1),
+    fill = "left"
+  ) 
+
+dat
+```
+
+## Pivot Longer 
+
+Let's now pivot the data from wide to long so that we'll be able to mark *time* in a new column called `MONTH`. The argument `names_pattern` pulls the number from each variable starting with `cal_ke`, which we then put in the new column `MONTH`.
+
+Notice the each person `ID` occupies 36 rows.
+
+```{r}
+options(tibble.print_min = 40)
+
+dat <- dat %>% 
+  pivot_longer(
+    starts_with("cal_ke"),
+    names_pattern = "cal_ke(.*)",
+    names_to = "MONTH",
+    values_to = "FP"
+  ) 
+
+dat
+```
+
+## Recoding
+
+We've now created a variable `FP` that has the one-character codes from the original `CALENDARKE` variable. This variable will be much easier to work with if we 1) convert it into a factor, and 2) replace missing values with `NA` (Month 36 for individuals interviewed in November 2018). 
+
+We'll also convert `MONTH`from a "character" to an "integer" class. 
+
+```{r}
+dat <- dat %>%
+  mutate(
+    MONTH = as.integer(MONTH),
+    FP = FP %>%
+      na_if("") %>%
+      fct_recode(
+        "Birth" = "B",
+        "Pregnant" = "P",
+        "Pregnancy ended" = "T",
+        "No family planning method used" = "0",
+        "Female Sterilization" = "1",
+        "Male Sterilization" = "2",
+        "Implant" = "3",
+        "IUD" = "4",
+        "Injectables" = "5",
+        "Pill" = "7",
+        "Emergency Contraception" = "8",
+        "Male Condom" = "9",
+        "Female Condom" = "10",
+        "Diaphragm" = "11",
+        "Foam / Jelly" = "12",
+        "Standard Days / Cycle beads" = "13",
+        "LAM" = "14",
+        "Rhythm method" = "30",
+        "Withdrawal" = "31",
+        "Other traditional methods" = "39"
+      )
+  )
+
+dat
+```
+
+# Survival Analysis 
+
+We'll now use the package `survival` to build a Kaplan-Meier survival curve for some of the outcomes in the contraceptive calendar. These curves will *estimate the probability that an individual "survives" - or continues using - a given FP method at each of 36 months, assuming that they used it in month 1*. A key feature of our example is that we'll have *no delayed entry* (we only including women who used a method in month 1). 
+
+## Survival time: Pill (if using in Month 1)
+
+First, identify women who used the pill in month 1. Remove all other women, saving those who remain as a sub-sample called `pills`
+
+```{r}
+pills <- dat %>% 
+  group_by(ID) %>% 
+  mutate(use_m1 = case_when(FP == "Pill" & MONTH == 1 ~ TRUE) %>% any()) %>% 
+  filter(use_m1)
+
+pills 
+```
+
+Next, we'll remove every record for each woman *except for the last recorded month in which they used the pill*. For those whose last month is month 36, we will say she "survived" the full observation period.
+
+To avoid re-entry cases (returning to use of the pill), we'll find the earliest month that a woman was not using the pill. The month prior to this will be her `last_month` of using the pill.
+
+```{r}
+pills <- pills %>% 
+  mutate(
+    non_use_month = case_when(FP != "Pill" | is.na(FP) ~ MONTH),
+    last_month = ifelse(
+      all(is.na(non_use_month)),
+      36,
+      min(non_use_month, na.rm = T) - 1
+    )
+  ) 
+
+pills
+```
+
+We now have to identify whether the `last_month` represents cessation or right-censoring. Remember that a large number of women in our sample have missing values in the 36th month: they are *right-censored* at month 35 if they had been continuously using the pill until that time, so we cannot say that they ceased using at month 35! 
+
+```{r}
+pills <- pills %>% 
+  mutate(right_censored = ifelse(MONTH == 36 & is.na(FP), T, F) %>% any())
+
+pills 
+```
+
+We'll create a logical variable `ceased` to indicate whether each woman actually stopped using the pill at her `last_month`. If not (either because `last_month` is 36, or she is right-censored at month 35), it will take the value `FALSE`.
+
+```{r}
+pills <- pills %>% 
+  mutate(
+    ceased = case_when(
+      right_censored & last_month == 35 ~ F,
+      last_month == 36 ~ F,
+      last_month < 36 ~ T
+    )
+  ) 
+
+pills
+```
+
+Remove all rows except for the row containing each woman's `last_month`.
+
+```{r}
+pills <- pills %>% filter(last_month == MONTH)
+
+pills
+```
+
+Let's now fit the Kaplan Meier estimator with `survfit`, which takes a survival object created by `Surv`. The function `summary` shows the survival probabilities at each month:
+
+```{r}
+pills <- survfit(Surv(last_month, ceased) ~ 1, data = pills)
+
+summary(pills)
+```
+
+We can plot this with `autoplot`:
+
+```{r}
+autoplot(
+  pills,
+  main = "Kaplan-Meier survival estimate: Pills",
+  xlab = "Months",
+  ylab = "Survival Probability",
+  ylim = c(0, 1),
+  censor = F
+)
+```
+
+## Survival time: Implants
+
+We'll just pipe all of the above steps together with `%>%`
+
+```{r}
+implants <- dat %>% 
+  group_by(ID) %>% 
+  mutate(use_m1 = case_when(FP == "Implant" & MONTH == 1 ~ TRUE) %>% any()) %>% 
+  filter(use_m1) %>% 
+  mutate(
+    non_use_month = case_when(FP != "Implant" | is.na(FP) ~ MONTH),
+    last_month = ifelse(
+      all(is.na(non_use_month)),
+      36,
+      min(non_use_month, na.rm = T) - 1
+    ),
+    right_censored = ifelse(MONTH == 36 & is.na(FP), T, F) %>% any(),
+    ceased = case_when(
+      right_censored & last_month == 35 ~ F,
+      last_month == 36 ~ F,
+      last_month < 36 ~ T
+    )
+  ) %>% 
+  filter(last_month == MONTH) %>% 
+  survfit(Surv(last_month, ceased) ~ 1, data = .)
+```
+
+Summary: 
+
+```{r}
+summary(implants)
+```
+
+Plot:
+
+```{r}
+autoplot(
+  implants,
+  main = "Kaplan-Meier survival estimate: Implants",
+  xlab = "Months",
+  ylab = "Survival Probability",
+  ylim = c(0, 1),
+  censor = F
+)
+```
+
+## Survival time: all methods 
+
+To make it easier to examine survival for *all* methods, we'll create an indicator variable `FP_USE` that is `TRUE` as long as `FP` is not missing, "Birth", "Pregnant", "Pregnancy ended", or "No family planning method used".
+
+```{r}
+all_methods <- dat %>% 
+  mutate(
+    FP_USE = case_when(
+      FP == "Birth" ~ F,
+      FP == "Pregnant" ~ F, 
+      FP == "Pregnancy ended" ~ F,
+      FP == "No family planning method used" ~ F,
+      !is.na(FP) ~ T
+    )
+  ) 
+
+all_methods <- all_methods %>% 
+  group_by(ID) %>% 
+  mutate(use_m1 = case_when(FP_USE & MONTH == 1 ~ TRUE) %>% any()) %>% 
+  filter(use_m1) %>% 
+  mutate(
+    non_use_month = case_when(!FP_USE | is.na(FP_USE) ~ MONTH),
+    last_month = ifelse(
+      all(is.na(non_use_month)),
+      36,
+      min(non_use_month, na.rm = T) - 1
+    ),
+    right_censored = ifelse(MONTH == 36 & is.na(FP_USE), T, F) %>% any(),
+    ceased = case_when(
+      right_censored & last_month == 35 ~ F,
+      last_month == 36 ~ F,
+      last_month < 36 ~ T
+    )
+  ) %>% 
+  filter(last_month == MONTH) %>% 
+  survfit(Surv(last_month, ceased) ~ 1, data = .)
+```
+
+Summary: 
+
+```{r}
+summary(all_methods)
+```
+
+Plot: 
+
+```{r}
+autoplot(
+  all_methods,
+  main = "Kaplan-Meier survival estimate: All Methods",
+  xlab = "Months",
+  ylab = "Survival Probability",
+  ylim = c(0, 1),
+  censor = F
+)
+```
