@@ -2432,13 +2432,6 @@ d-appendix d-footnote-list a.footnote-backlink {
   <script src="../../site_libs/webcomponents-2.0.0/webcomponents.js"></script>
   <script src="../../site_libs/distill-2.2.21/template.v2.js"></script>
   <!--radix_placeholder_site_in_header-->
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-191039907-2"></script>
-<script>
-window.dataLayer = window.dataLayer || [];
-function gtag(){dataLayer.push(arguments);}
-gtag('js', new Date());
-gtag('config', 'UA-191039907-2');
-</script>
 <!--/radix_placeholder_site_in_header-->
 
 
@@ -2586,6 +2579,11 @@ Have a recent publication using PMA data that you’d like to feature in a <a hr
 <!--radix_placeholder_article_footer-->
 <div class="article-footer">
   <p class="social_footer">
+    <span class="disqus-comments">
+      <i class="fas fa-comments"></i>
+      &nbsp;
+      <span class="disqus-comment-count" data-disqus-identifier="posts/2021-05-01-storymaps/">Comment on this article</span>
+    </span>
     <span class="article-sharing">
       Share: &nbsp;
       <a href="https://twitter.com/share?text=Visualizing%20PMA%20Data%20with%20StoryMaps&amp;url=https%3A%2F%2Fipums.github.io%2Fpma-data-hub%2Fposts%2F2021-05-01-storymaps%2F">
@@ -2596,6 +2594,20 @@ Have a recent publication using PMA data that you’d like to feature in a <a hr
       </a>
     </span>
   </p>
+  <script id="dsq-count-scr" src="https://pma-data-hub.disqus.com/count.js" async></script>
+  <div id="disqus_thread" class="hidden"></div>
+  <script>
+var disqus_config = function () {
+  this.page.url = 'https://ipums.github.io/pma-data-hub/posts/2021-05-01-storymaps/';
+  this.page.identifier = 'posts/2021-05-01-storymaps/';
+};
+(function() {
+  var d = document, s = d.createElement('script');
+  s.src = 'https://pma-data-hub.disqus.com/embed.js';
+  s.setAttribute('data-timestamp', +new Date());
+  (d.head || d.body).appendChild(s);
+})();
+</script>
 </div>
 <!--/radix_placeholder_article_footer-->
 </div>

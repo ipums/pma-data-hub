@@ -2425,20 +2425,13 @@ d-appendix d-footnote-list a.footnote-backlink {
 	color: var(--hover-color, white);
 }</style>
 <!--/radix_placeholder_distill-->
-  <script src="../../site_libs/header-attrs-2.6/header-attrs.js"></script>
+  <script src="../../site_libs/header-attrs-2.7/header-attrs.js"></script>
   <script src="../../site_libs/jquery-1.11.3/jquery.min.js"></script>
   <script src="../../site_libs/anchor-4.2.2/anchor.min.js"></script>
   <script src="../../site_libs/bowser-1.9.3/bowser.min.js"></script>
   <script src="../../site_libs/webcomponents-2.0.0/webcomponents.js"></script>
   <script src="../../site_libs/distill-2.2.21/template.v2.js"></script>
   <!--radix_placeholder_site_in_header-->
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-191039907-2"></script>
-<script>
-window.dataLayer = window.dataLayer || [];
-function gtag(){dataLayer.push(arguments);}
-gtag('js', new Date());
-gtag('config', 'UA-191039907-2');
-</script>
 <!--/radix_placeholder_site_in_header-->
 
 
@@ -2561,7 +2554,7 @@ Community
 <li><a href="#setup">Setup</a></li>
 <li><a href="#create-a-git-hook-to-remove-data-from-the-public-repo">Create a Git Hook to remove data from the public repo</a></li>
 <li><a href="#merging">Merging</a></li>
-<li><a href="#other-tips">Other tips</a></li>
+<li><a href="#other-git-tips">Other git tips</a></li>
 </ul></li>
 </ul>
 </nav>
@@ -2868,19 +2861,23 @@ git commit -m &quot;new post: blog-post-workflow&quot;</code></pre>
 <p>Wait a few minutes, and you’ll see that the GitHub Pages site hosted at UMN GitHub should update to reflect your changes.</p>
 <p>To merge your <code>private-master</code> to <code>public-master</code>:</p>
 <pre><code>git checkout public-master
-git merge --squash private-master -X theirs</code></pre>
+git merge --squash private-master -X theirs
+git add .
+git commit -m &quot;new post: blog-post-workflow&quot;</code></pre>
 <p>(It’s good practice to squash commits to private-master, too, since we sometimes make quick-fixes there. The <code>-X theirs</code> part tells Git to defer to <code>private-master</code> over <code>public-master</code> in case there are any conflicts.)</p>
 <p>If you’ve created a Git Hook to automatically delete any <code>data</code> folders (see above), you’re all set! <strong>If not, manually delete them now.</strong> Finally, push your changes to the live site:</p>
 <pre><code>git push public HEAD:master</code></pre>
-<h2 id="other-tips">Other tips</h2>
+<h2 id="other-git-tips">Other git tips</h2>
 <p>Need to rollback to a previous commit? Look for it in the <code>git log</code>, and do a hard reset:</p>
 <pre><code>git log
 git reset --hard 58ba4f0396b985fb5ab82c88f7bbc5c9cc619e71</code></pre>
 <p>For a checklist of updated files and their commit status:</p>
 <pre><code>git status</code></pre>
+<p>To see a list of files with unresolved conflicts</p>
+<pre><code>git diff --name-only --diff-filter=U</code></pre>
 <p>If you ever need to force a push to GitHub (e.g. if you REALLY must overwrite a commit), you can do that with the force option:</p>
 <pre><code>git push -f </code></pre>
-<div class="sourceCode" id="cb20"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <section class="footnotes" role="doc-endnotes">
 <hr />
 <ol>
@@ -2892,6 +2889,11 @@ git reset --hard 58ba4f0396b985fb5ab82c88f7bbc5c9cc619e71</code></pre>
 <!--radix_placeholder_article_footer-->
 <div class="article-footer">
   <p class="social_footer">
+    <span class="disqus-comments">
+      <i class="fas fa-comments"></i>
+      &nbsp;
+      <span class="disqus-comment-count" data-disqus-identifier="posts/2021-02-02-blog-post-workflow/">Comment on this article</span>
+    </span>
     <span class="article-sharing">
       Share: &nbsp;
       <a href="https://twitter.com/share?text=Blog%20post%20workflow&amp;url=https%3A%2F%2Fipums.github.io%2Fpma-data-hub%2Fposts%2F2021-02-02-blog-post-workflow%2F">
@@ -2902,6 +2904,20 @@ git reset --hard 58ba4f0396b985fb5ab82c88f7bbc5c9cc619e71</code></pre>
       </a>
     </span>
   </p>
+  <script id="dsq-count-scr" src="https://pma-data-hub.disqus.com/count.js" async></script>
+  <div id="disqus_thread" class="hidden"></div>
+  <script>
+var disqus_config = function () {
+  this.page.url = 'https://ipums.github.io/pma-data-hub/posts/2021-02-02-blog-post-workflow/';
+  this.page.identifier = 'posts/2021-02-02-blog-post-workflow/';
+};
+(function() {
+  var d = document, s = d.createElement('script');
+  s.src = 'https://pma-data-hub.disqus.com/embed.js';
+  s.setAttribute('data-timestamp', +new Date());
+  (d.head || d.body).appendChild(s);
+})();
+</script>
 </div>
 <!--/radix_placeholder_article_footer-->
 </div>

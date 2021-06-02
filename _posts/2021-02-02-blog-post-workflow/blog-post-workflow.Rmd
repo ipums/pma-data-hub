@@ -481,6 +481,8 @@ To merge your `private-master` to `public-master`:
 ```
 git checkout public-master
 git merge --squash private-master -X theirs
+git add .
+git commit -m "new post: blog-post-workflow"
 ```
 
 (It's good practice to squash commits to private-master, too, since we sometimes make quick-fixes there. The `-X theirs` part tells Git to defer to `private-master` over `public-master` in case there are any conflicts.)
@@ -491,7 +493,7 @@ If you've created a Git Hook to automatically delete any `data` folders (see abo
 git push public HEAD:master
 ```
 
-## Other tips
+## Other git tips
 
 Need to rollback to a previous commit? Look for it in the `git log`, and do a hard reset:
 
@@ -504,6 +506,12 @@ For a checklist of updated files and their commit status:
 
 ```
 git status
+```
+
+To see a list of files with unresolved conflicts
+
+```
+git diff --name-only --diff-filter=U
 ```
 
 If you ever need to force a push to GitHub (e.g. if you REALLY must overwrite a commit), you can do that with the force option:
