@@ -13,6 +13,10 @@ navbar:
   right:
     - text: "Posts"
       href: index.html
+    - text: "Courses"
+      menu: 
+        - text: "Introduction to IPUMS PMA Data Analysis"
+          href: introduction.html
     - text: "R Tips"
       menu: 
         - text: "Import IPUMS PMA Data into R"

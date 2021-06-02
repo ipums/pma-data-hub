@@ -1,0 +1,18 @@
+---
+title: "Introduction to IPUMS PMA Data Analysis"
+output:
+  distill::distill_article:
+    self_contained: false
+---
+
+<div class="l-screen-inset">
+  <iframe 
+    style="margin:0 auto; min-width: 100%; height: 2750px" 
+    id="myIframe1" 
+    class="interactive" 
+    src="https://umn.qualtrics.com/jfe/form/SV_eQB2HQE2tY1gpT0" 
+    scrolling="no" 
+    frameborder="no">
+  </iframe>
+</div>
+
