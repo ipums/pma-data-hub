@@ -18,3 +18,21 @@ listing:
     - 2020-12-10-get-ipums-pma-data
     - 2020-12-10-get-r-and-packages
 ---
+
+```{r, include=FALSE, results='asis'}
+library(metathis)
+
+meta() %>%
+  meta_social(
+    title = "IPUMS PMA Data Analysis Hub",
+    description = "Analyze integrated PMA family planning data with R",
+    url = "https://ipums.github.io/pma-data-hub",
+    image = "https://ipums.github.io/pma-data-hub/images/favicon/apple-touch-icon-120x120.png",
+    image_alt = "IPUMS PMA logo",
+    og_type = "website",
+    og_author = "IPUMS PMA",
+    twitter_card_type = "summary",
+    twitter_creator = "@ipumsGH"
+  )
+```
+
