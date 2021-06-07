@@ -46,3 +46,4 @@ collections:
     share: [twitter, linkedin]
     citations: false
     disqus: pma-data-hub
+google_analytics: "UA-191039907-2"
