@@ -3,6 +3,7 @@ title: "Data Analysis Hub"
 site: distill::distill_website
 listing: 
   posts: 
+    - 2021-06-15-covid-discovery
     - 2021-05-24-migration-data-analysis
     - 2021-05-15-paa-2021
     - 2021-05-01-storymaps
@@ -18,6 +19,7 @@ listing:
     - 2020-12-10-get-ipums-pma-data
     - 2020-12-10-get-r-and-packages
 ---
+
 
 ```{r, include=FALSE, results='asis'}
 library(metathis)
