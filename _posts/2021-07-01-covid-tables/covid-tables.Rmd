@@ -1,140 +1,86 @@
 ---
-title: "covid-tables"
+title: "Making Tables with PMA COVID-19 Data"
 description: |
-  A short description of the post.
-author:
-  - name: Tayler Nelson
-    url: {}
-  - name: Saeun Park
-    url: {}
-  - name: Shelby Rutzick
-    url: {}
+  Showcasing the gtsummary package for sample descriptive statistics, weighted population estimates, and model summary output. 
 date: 07-01-2021
+author:
+  - name: Shelby Rutzick
+    url: https://www.linkedin.com/in/shelby-rutzick/
+    affiliation: IPUMS PMA Graduate Research Assistant
+  - name: Matt Gunther
+    affiliation: IPUMS PMA Senior Data Analyst
+categories:
+  - 'COVID-19'
+  - gtsummary
+  - srvyr
+  - purrr
+  - Descriptive Analysis
+  - Data Manipulation 
 output:
   distill::distill_article:
     self_contained: false
+    toc: true
+    toc_depth: 3
+    toc_float: true
+preview: images/gtsummary_wide.png
 ---
 
+Earlier this spring, IPUMS PMA released a harmonized version of the [PMA COVID-19 survey](https://www.pmadata.org/technical-areas/covid-19), which comes from a telephone interview with reproductive aged women in four countries who are all participants in an ongoing panel study related to family planning and reproductive health. **We're excited to feature this urgent resource all summer long here on the Data Analysis Hub**; you'll find find future posts related to PMA COVID-19 data and our last post - [an introduction to the available data](../2021-06-15-covid-discovery) - if you follow along [here](../../index.html#category:COVID-19).
 
-```{r setup, include=FALSE}
-library(tidyverse)
-library(ipumsr)
-library(srvyr)
-library(ggradar)
+As always, one of our main goals on this blog is to introduce tools that make it easy for anyone to explore new data and develop new ideas for research projects. Today, we'll be diving into a topic that has probably frustrated *everyone* who has ever presented or published statistical findings at one time or another: **making publication-ready tables**. 
 
+If you talk to students or colleagues who use R, you might be surprised to learn that many of us don't actually use statistical software to make the tables you see when you read an academic article. In reality, plenty of us just use R to make a model, and then we copy and paste the output into a table we make by hand with Microsoft Word! This can save lots of time, and it's a perfectly reasonable solution if you know that you can make exactly what you want with the tools that Word provides. 
+
+You might consider making tables with R if you've ever found yourself:
+
+  * manually inserting information to several rows or columns that could be calculated by R (like significance symbols \*, \*\*, and \*\*\*)
+  * endlessly tweaking row height, column width, or fonts 
+  * correcting copy / paste errors or typos made while transferring information between R and Word
+  * revisiting work you've already done to format a table for one publication, only to change it all for a different publication, a presentation, or a new file format (PDF, HTML, etc)
+
+<aside>
+```{r, echo=F}
+knitr::include_graphics("images/logo.png")
+```
+© 2020 Daniel D. Sjoberg ([MIT](https://opensource.org/licenses/MIT))
+</aside>
+
+In this post, we'll show you how to get up and running with flexible, easy-to-make tables using [gtsummary](http://www.danieldsjoberg.com/gtsummary/index.html), an R package that builds on the same [tidyverse](https://www.tidyverse.org/) conventions we've featured elsewhere on this blog. There are *a lot* of different packages available to help make tables with R, but - as we'll see - we love `gtsummary` because we think it allows users to maximize choice of style and output formats, all while minimizing the amount of code necessary to implement those choices. 
+
+<aside>
+If `gtsummary` doesn't fit your needs, we also recommend [gt](https://gt.rstudio.com/) (which does much of the heavy-lifting for `gtsummary`), [kableExtra](https://cran.r-project.org/web/packages/kableExtra/vignettes/awesome_table_in_html.html), [flextable](https://davidgohel.github.io/flextable/), and [huxtable](https://hughjonesd.github.io/huxtable/) for different contexts.
+</aside>
+
+# Setup
+
+```{r, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
-
-covid <- read_ipums_micro(
-  ddi = "data/pma_00032.xml",
-  dat = "data/pma_00032.dat.gz"
-)
-
-baseline <- read_ipums_micro(
-  ddi = "data/pma_00033.xml",
-  dat = "data/pma_00033.dat.gz"
-)
 ``` 
 
-# Which variables come from the same question?
+In our last post, we explained that you'll find all of the PMA COVID-19 survey data if you select the new [COVID-19 Unit of Analysis](https://pma.ipums.org/pma-action/extract_requests/clear?return_url=%2Fpma-action%2Fvariables%2Fgroup) in the IPUMS PMA data extract system. 
 
-```{r}
-repeats <- list(
-  # Thinks X
-  thinks  = covid %>% 
-    map(~ipums_var_label(.x)) %>% 
-    keep(~grepl(.x, pattern = "Thinks")) %>% 
-    names(),
+In this post, we'll work with a data extract containing the following variables. You'll be able to follow along with our coding examples if you create and download an extract containing **all four samples** (Female Respondents only) and these variables:
+
+  * [AGE](https://pma.ipums.org/pma-action/variables/AGE)
+  * [MARSTAT](https://pma.ipums.org/pma-action/variables/MARSTAT)
+  * [EDUCATTGEN](https://pma.ipums.org/pma-action/variables/EDUCATTGEN) 
+  * [URBAN](https://pma.ipums.org/pma-action/variables/URBAN) 
+  * [HLTHCAREDIFFFEAR](https://pma.ipums.org/pma-action/variables/HLTHCAREDIFFFEAR)
   
-  # Difficulty accessing healthcare 
-  diff = covid %>% 
-    select(starts_with("HLTHCAREDIFF")) %>% 
-    names(),
-  
-  # Why unable to distance
-  dist = covid %>% 
-    select(starts_with("CANTDIST")) %>% 
-    names(),
-  
-  # Self
-  self = covid %>% 
-    select(starts_with("SELF"), -SELFINCOMELOSSAMT) %>% 
-    names(),
-  
-  # Can reduce Covid-19 risk by:
-  reduce  = covid %>% 
-    select(starts_with("PREV")) %>% 
-    names(),
-  
-  # Common Covid-19 symptoms:
-  symp = covid %>% 
-    select(starts_with("CVSYM")) %>% 
-    names(),
-  
-  # Trust
-  trust  = covid %>% 
-    select(starts_with("CVTRUST")) %>% 
-    names(),
-  
-  # Source
-  learn = covid %>% 
-    select(starts_with("CVLEARN")) %>% 
-    names(),
-  
-  # Current use of FP
-  fpnow = covid %>% 
-    select(starts_with("FPNOWUS")) %>% 
-    names()
-)
+You'll also need to install these R packages if you don't haven't done so before (current versions are recommended):
 
-alones <- covid %>% 
-  names() %>% 
-  keep(~{!.x %in% unlist(repeats)})
-```
+  * [ipumsr](http://tech.popdata.org/ipumsr/index.html) (0.4.5)
+  * [tidyverse](https://www.tidyverse.org/) (1.3.1)
+  * [survey](http://r-survey.r-forge.r-project.org/survey/) (4.0)
+  * [srvyr](http://gdfe.co/srvyr/index.html) (1.0.1)
+  * [gtsummary](http://www.danieldsjoberg.com/gtsummary/index.html) (1.4.1)
 
-# Can we link women from baseline?
+When you've finished downloading your data extract and installing all of these packages, load the packages and use `read_ipums_micro()` to load the data extract into R (make sure to change the file paths to match your own extract):
 
-```{r}
-baseline %>% 
-  select(PERSONIDORIG, FQINSTID, PERSONID)
-
-covid %>% 
-  select(FQINSTID)
-
-covid %>% count(FQINSTID) %>% arrange(desc(n))
-baseline %>% count(FQINSTID) %>% arrange(desc(n))
-any(!covid$FQINSTID %in% baseline$FQINSTID)
-any(!baseline$FQINSTID %in% covid$FQINSTID)
-```
-
-```{r}
-spiders <- covid %>% 
-  as_survey_design() %>% 
-  group_by(group = as_factor(COUNTRY) %>% as.character) %>% 
-  summarise(across(
-    starts_with("CVTRUST"), 
-    ~survey_mean(.x == 1, vartype = NULL)
-  )) 
-
-spiders %>% 
-  ggradar( 
-    plot.legend = T,
-    grid.label.size = 3,
-    legend.text.size = 5,
-    axis.label.size = 2,
-    group.point.size = 0, 
-    group.line.width = 0.5, 
-    base.size = 1
-  ) 
-  
-```
-
-# Draft
-
-If you would like to use any of the code you find in this post, you'll need to install and load the packages [tidyverse](https://tidyverse.tidyverse.org/), [ipumsr](http://tech.popdata.org/ipumsr/), [srvyr](http://gdfe.co/srvyr/index.html), and [gtsummary](http://www.danieldsjoberg.com/gtsummary/index.html). Then, use `read_ipums_micro` to load the data extract you download from the IPUMS PMA website (be sure to change the file paths shown below):
-
-```{r setup, results='hide'}
-library(tidyverse)
+```{r, results='hide'}
 library(ipumsr)
+library(tidyverse)
+library(survey)
 library(srvyr)
 library(gtsummary)
 
@@ -144,296 +90,504 @@ covid <- read_ipums_micro(
 )
 ``` 
 
-For the purpose of generating helpful data visualizations in this post, we'll take two additional data processing steps: 
-
-  1. We'll collapse all missing values as `NA` values
-  2. We'll convert all `labelled` variables^[We make an exception for `AGE`, which will be treated as an integer without labels] into `factor` variables and drop unused labels
-  
-```{r}
+```{r, echo = F, results='hide'}
+library(crayon)
 covid <- covid %>% 
-  mutate(
-    AGE = zap_labels(AGE),
-    across(
-      where(is.labelled), 
-      ~.x %>% 
-        lbl_na_if(
-          ~.lbl %in% c(
-            "Not interviewed (female questionnaire)",
-            "Don't know",
-            "No response or missing",
-            "NIU (not in universe)"
-          )
-        ) %>% 
-        as_factor() %>% 
-        fct_drop()
-  ))
+  select(
+    SAMPLE, COUNTRY, YEAR, ROUND, EAID, CONSENTFQ, CVQWEIGHT, 
+    AGE, MARSTAT, EDUCATTGEN, URBAN, HLTHCAREDIFFFEAR
+  )
+```
+
+As a reminder: women who were interviewed for the PMA COVID-19 survey are participants in a ongoing panel study focused on core PMA topics in reproductive health. The baseline survey for this panel study was conducted just a few months prior to the COVID-19 survey (between November 2019 and February 2020), but data from the baseline survey are *not included* in the COVID-19 dataset you'll download here. *We will show how to locate and merge data from the baseline survey in an upcoming post in this series.* The COVID-19 survey data are structured like all of the other cross-sectional survey datasets available from IPUMS PMA: each woman's responses are stored in a single row.
+
+```{r}
+covid
 ```
 
 <aside>
-R shows the *value* of each variable in graphics produced by `ggplot2`. By converting labelled variables into factor variables, we adopt each variable's *label* as its value.
+Every COVID-19 data extract will contain 7 **preselected** variables in addition to those you select, yourself.
 </aside>
 
-# Samples 
+# Descriptive Statistics Table
 
-## Context and Demographics
+The great thing about `gtsummary` is that you can make a high quality table with just one line of code, but you can also customize any element of your table and easily apply custom styling (you can choose between several [journal-specific themes](http://www.danieldsjoberg.com/gtsummary/dev/articles/themes.html) or create your own). And, unlike many of other table-making packages for R, `gtsummary` supports printing directly to HTML, PDF, Word, and Rich Text Format. 
 
-The four countries represented in the PMA COVID-19 data each adopted various measures to prevent the spread of the virus *prior to the date of the interview*. In all four countries, the first lockdown measures were implemented in March 2020. Although the details of lockdown measures varied slightly, the measures included closing of schools and some workplaces, local requirements to not leave home with few exceptions, and nationwide banning of arrivals from all regions for about two to three months. Figure 1 indicates the number of reported COVID-19 cases and deaths in the four countries as of July 31, 2020. The number of COVID-19 cases differs by country, with Kenya having the highest number of cases per 100,000 people among the four countries. 
-
-```{r, echo = FALSE, fig.cap="DOMO Coronovirus Tracker, 2021:  https://www.domo.com/covid19/data-explorer/all/ ", out.extra="class=external"}
-knitr::include_graphics("images/table1.png")
-```
-
-Each of the four PMA COVID-19 samples were collected between May and August 2020. Women who had participated in the baseline panel survey (collected between November 2019 and February 2020) were interviewed by phone for the COVID-19 follow-up. All participants were between ages 15 and 49 at the time of baseline survey collection. 
-
-Here, we use functions from the handy [gtsummary](http://www.danieldsjoberg.com/gtsummary/index.html) package to examine the age, marital status, education level, urban vs rural status, and total number of sampled women in each country:
+Because `gtsummary` is designed with `tidyverse` users in-mind, you can pipe functions like `dplyr::select` directly into the function [tbl_summary](http://www.danieldsjoberg.com/gtsummary/dev/articles/tbl_summary.html), which will then identify the object class for each variable and calculate default summary statistics accordingly. To demonstrate, we'll `select` a few demographic variables, then break them down by `COUNTRY` in a basic call to  `tbl_summary()`:
 
 ```{r}
 covid %>% 
   select(AGE, MARSTAT, EDUCATTGEN, URBAN, COUNTRY) %>% 
-  mutate(N = 1) %>% 
+  tbl_summary(by = COUNTRY)
+```
+
+<aside>
+This table is not quite done yet, but notice that all of the fonts and other CSS style elements you see throughout this blog have been automatically applied to this table. Imagine how hard that would be if we made our table with Word or Excel!
+</aside>
+
+```{r, message=T, echo=F}
+message(
+  cyan("ℹ "), "Column(s) ", green("AGE"), ", ", green("MARSTAT"), ", ", 
+  green("EDUCATTGEN"), ", ", green("URBAN"), ", ", "and ", green("COUNTRY "),
+  "are class \n", blue("\'haven_labelled\'"), 
+  ". This is an intermediate datastructure not meant ",
+  "for analysis. \nConvert columns with `haven::as_factor()`,",
+  "`labelled::to_factor()`, \n`labelled::unlabelled()`, and `unclass()`. ",
+  blue("\'haven_labelled\' "), "value labels are \nignored when columns are ",
+  "not converted. Failure to convert may have unintended \nconsequences or ",
+  "result in error.\n\n",
+  "• https://haven.tidyverse.org/articles/semantics.html\n",
+  "• https://larmarange.github.io/labelled/articles/intro_labelled.html#unlabelled"
+)
+```
+
+## Display value labels 
+
+This is a very helpful starting point, but it's certainly not a finished product yet. The biggest issue is related to the alert message shown above: as we've discussed [in previous posts](../2021-01-28-across-sdp/#recoding-variables-with-ipumsr), the categorical variables you'll find in IPUMS data extracts are usually imported as `haven_labelled` objects, rather than the more common `factor` class of objects. In practice, this means that every response option from the questionnaire has both a **value** and a **label**:
+
+```{r}
+covid %>% count(MARSTAT)
+```
+
+<aside>
+You can access value labels with the `ipumsr` function [ipums_val_labels](http://tech.popdata.org/ipumsr/reference/ipums_var_info.html). </aside>
+
+The variable `MARSTAT` is a `haven_labelled` object where the **value** of each response is an integer (10, 21, 22, 31, 32, or 98), and the **label** describing each value is shown in square brackets to the right. 
+
+When `gtsummary` warns you that 
+
+  `This is an intermediate datastructure not meant for analysis`
+
+...it's referring to the fact that labels are only an [attribute](https://www.oreilly.com/library/view/r-in-a/9781449358204/ch07s05.html) of the variable. Attributes are metadata meant to assist the analyst running R in real-time, but they aren't typically used by R in graphics or computational analysis. 
+
+In our table, `gtsummary` displays the numeric value for each response, rather than the much more readable labels. The easiest way to change this behavior is to coerce all of our categorical variables to the `factor` object class.
+
+We recommend dividing this process into three steps:
+
+  1. Identify any labels in your dataset that represent non-response codes, like `No response or missing` shown for `MARSTAT`. We'll want to exclude these from our table, so we'll convert them to the generic missing value `NA` with `ipumsr::lbl_na_if()`.
+  2. Identify any labelled variables that *are not* categorical. For example, the variable `AGE` in our dataset is labelled because the values 90 through 99 can represent either a respondent's age in years (if not labelled) or a non-response code (if labelled). After converting non-response codes to `NA` in step 1, we'll want to change the class of variables like `AGE` with `ipumsr::zap_labels()`.
+  3. Coerce all remaining labelled variables as factors with `ipumsr::as_factor()`, and remove any unused response options with `fct_drop()`. 
+
+```{r}
+covid <- covid %>% 
+  mutate(
+    across(everything(), ~lbl_na_if(
+      .x,
+      ~.lbl %in% c(
+        "Logical edit - missing",
+        "Not interviewed (female questionnaire)",
+        "Not interviewed (household questionnaire)",
+        "Don't know",
+        "No response or missing",
+        "NIU (not in universe)"
+      )
+    )),
+    across(AGE, zap_labels),
+    across(where(is.labelled), ~as_factor(.x) %>% fct_drop)
+  )
+```
+
+<aside>
+**Common mistake:** make sure to use the function `as_factor()` from `ipumsr`, and *not* the base R function `as.factor()`. The difference is that the former will use labels for each factor level, while the latter will use the original numeric values. 
+</aside>
+
+Coercing categorical variables as factors will greatly improve the readability of our table. Because we've introduced `NA` values, we'll add the argument `missing = "no"` to exclude them from our table:
+
+```{r}
+covid %>% 
+  select(AGE, MARSTAT, EDUCATTGEN, URBAN, COUNTRY) %>% 
+  tbl_summary(by = COUNTRY, missing = "no")
+```
+
+## Customize variable labels 
+
+You may have noticed that `gtsummary` ignored the *value labels* for each of our `haven_labelled` variables before we converted them into `factor` variables, but it *did* find and use *variable labels*. For example, you see the variable label `Age in female respondent questionnaire` instead of the variable name `AGE`. 
+
+<aside>
+You can access variable labels with the `ipumsr` function [ipums_var_label](http://tech.popdata.org/ipumsr/reference/ipums_var_info.html). </aside>
+
+While this is sometimes helpful behavior, we feel that the word "Age" would have been fine on its own. Likewise, we'd like to clean up the labels for `MARSTAT`, `EDUCATTGEN`, and `URBAN` to make them as concise as possible. 
+
+You can override the `ipumsr` value labels in your table without changing the underlying data. Just add them as a list of formulas via the `label` argument: the variable name goes on the left of `~`, and a character string containing the desired label goes on the right.  
+
+There are a few supporting functions that allow you to stylize these labels. We'll use `italicize_labels()` to print our new labels in italics. 
+
+```{r}
+covid %>% 
+  select(AGE, MARSTAT, EDUCATTGEN, URBAN, COUNTRY) %>% 
+  tbl_summary(
+    by = COUNTRY,
+    missing = "no",
+    label = list(
+      AGE ~ "Age",
+      MARSTAT ~ "Marital status",
+      EDUCATTGEN ~ "Education",
+      URBAN ~ "Urban vs Rural"
+    )
+  ) %>% 
+  italicize_labels() 
+```
+
+## Change default statistics 
+
+What about the statistics that `tbl_summary()` calculates? By default, `tbl_summary()` reports the median (and IQR) for integer variables like `AGE`, and it reports the frequency (and percentage) of each level for all of the `factor` variables we've created. 
+
+You can change the statistics calculated for one or more variables by name, or you can change them for all variables of a similar type (e.g. `all_categorical`).  You'll need to choose or define a custom function, then provide it to the `stat` argument as a character string between curly brackets like this:
+
+`"{mean}"`
+
+Here, we'll demonstrate how to calculate the mean (and standard deviation) for `AGE`, and the percentage for all responses to all factors / categorical variables.
+
+You may also decide to feature *information about which statistics were calculated* more prominently alongside the variable labels, rather than in the footer. Simply pipe your table to the function `add_stat_label()` as shown below: 
+ 
+```{r}
+covid %>% 
+  select(AGE, MARSTAT, EDUCATTGEN, URBAN, COUNTRY) %>% 
+  tbl_summary(
+    by = COUNTRY,
+    missing = "no",
+    label = list(
+      AGE ~ "Age",
+      MARSTAT ~ "Marital status",
+      EDUCATTGEN ~ "Education",
+      URBAN ~ "Urban vs Rural"
+    ),
+    stat = list(
+      AGE ~ "{mean} ({sd})",
+      all_categorical() ~"{p}"
+    )
+  )%>% 
+  italicize_labels() %>% 
+  add_stat_label()
+```
+
+<aside>
+More information about functions for table statistics can be found [here](http://www.danieldsjoberg.com/gtsummary/reference/tbl_summary.html#statistic-argument).
+</aside>
+
+## Customize headers & footnotes 
+
+Table headers and footnotes can be customized with the functions `modify_header()` and `modify_footnote()`. We'll remove the frequencies from our header, use the abbreviated label `DR Congo`, and remove the label `Characteristic` from the first column. Lastly, we'll add a title to our table with `modify_spanning_header()`.
+
+```{r}
+covid %>% 
+  select(AGE, MARSTAT, EDUCATTGEN, URBAN, COUNTRY) %>% 
   tbl_summary(
     by = COUNTRY,
     missing = "no",
     stat = list(
-      all_continuous() ~ "{mean} ({sd})",
-      all_categorical() ~"{p}",
-      N ~ "{N}"
+      AGE ~ "{mean} ({sd})",
+      all_categorical() ~"{p}"
     ),
     label = list(
-      AGE ~ "Mean Age (SD)",
-      MARSTAT ~ "Marital status (%)",
-      EDUCATTGEN ~ "Education (%)",
-      URBAN ~ "Urban vs Rural Status (%)",
-      N ~ "Observations"
+      AGE ~ "Age",
+      MARSTAT ~ "Marital status",
+      EDUCATTGEN ~ "Education",
+      URBAN ~ "Urban vs Rural"
     )
   ) %>% 
-  modify_header(
-    update = list(
+  add_stat_label() %>% 
+  italicize_labels() %>% 
+  modify_header(update = list(
       label ~ " ",
       stat_1 ~ "**Burkina Faso**",
-      stat_2 ~ "**DR Congo**",
+      stat_2 ~ "**DR Congo <br> (Kinshasa)**",
       stat_3 ~ "**Kenya**",
-      stat_4 ~ "**Nigeria**"
-    )
-  ) %>% 
-  modify_footnote(update = everything() ~ NA) %>% 
-  italicize_labels()
-```
-
-In all countries except the Democratic Republic of Congo (DRC), the majority of the respondents were married or living with a man. In the DRC, the vast majority of respondents had higher secondary or more education (97%); by contrast, a majority of respondents in Burkina Faso had less than a secondary level of education (54%). This discrepancy may be the result of the country context of cell phone ownership.
-
-## Survey Weights and Population Inference
-
-Like the baseline survey, the COVID-19 survey contains a normalized survey weight representing the inverse probability that a woman from a given population would **1)** be selected for sampling in the baseline survey, and **2)** own or have access to a phone, and could therefore participate in the COVID-19 follow-up. You can read more about the construction of these weights [here](https://pma.ipums.org/pma/resources/documentation/COVID_Survey_Weight_Construction_Memo.pdf). 
-
-The variable [CVQWEIGHT]`r v(CVQWEIGHT)` contains these calculated weights, and may be used to generate population-level proportions for each variable and in most modeling applications. We recommend use of the [survey](http://r-survey.r-forge.r-project.org/survey/) package - and its tidyverse aligned companion [srvyr](http://gdfe.co/srvyr/index.html) - for specifying weights and generating cluster-robust standard error estimates via [EAID]`r v(EAID)`. For example:
-
-```{r}
-covid %>% 
-  as_survey_design(
-    weights = CVQWEIGHT,
-    id = EAID
-  ) %>% 
-  group_by(COUNTRY, COVIDCONCERN) %>% 
-  summarise(POP_PROP = survey_mean())
+      stat_4 ~ "**Nigeria <br> (Lagos & Kano)**"
+  )) %>% 
+  modify_spanning_header(
+    everything() ~ "## Sample Demographics"
+  ) 
 ```
 
 <aside>
-In this example, `POP_PROP` shows the estimated proportion for each response in the target population, while `POP_PROP_se` shows the cluster-robust standard error estimate for each proportion.
+Text provided to `modify_header()`, `modify_footnote()`, and `modify_spanning_header()` can be stylized with either markdown syntax (shown) or HTML. 
+
+Headers can span individuals columns (as shown in `modify_header()`), groups of columns, or `everything()` (as shown in `modify_spanning_header()`). 
+
+**Tip:** if you simply want to move the sample size from the header into its own row (rather than delete it, as we've done here), you could create a new `factor` variable `N` where every person gets the value `1` in the step after our `select()` function.
 </aside>
 
-**Note: only the Burkina Faso and Kenya samples are designed to be nationally representative!** Survey weights are normalized at the following administrative levels for the DRC and Nigeria samples:
+# Survey Weights 
 
+We mentioned [in our last post](../2021-06-15-covid-discovery/#sample-design) that the PMA COVID-19 survey comes with a new weighting variable, [CVQWEIGHT](https://pma.ipums.org/pma-action/variables/CVQWEIGHT#codes_section), which is analogous to the variable [FQWEIGHT](https://pma.ipums.org/pma-action/variables/FQWEIGHT) found in other Household and Female samples. `CVQWEIGHT` can be used to estimate all of the statistics shown in our table for the broader population represented by each sample (note that two of the samples are not nationally representative):
+
+<aside>
+You'll find more detail about the construction of PMA COVID-19 survey weights [here](https://pma.ipums.org/pma/resources/documentation/COVID_Survey_Weight_Construction_Memo.pdf).
+</aside>
+
+  * Burkina Faso: nationally representative
+  * Kenya: nationally representative
+  * DRC: Kinshasa only  
   * Nigeria: Lagos and Kano only
-  * DRC: Kinshasa only
 
-# Survey Topics
+The [srvyr](http://gdfe.co/srvyr/index.html) package includes several functions that make it easy to incorporate survey weights into a tidy workflow. Simply provide information about the survey design to `srvyr::as_survey_design()`, and then pipe this information to a survey analysis function.
 
-The COVID-19 survey covers 5 substantive topics (presented by order of appearance on the questionnaire administered to all four samples):
+For example, a tidy workflow calculating the mean `AGE` of women in each of the four **samples** might look like this:
 
-  1. COVID-19 Information Sources
-  2. COVID-19 Risk Perception
-  3. COVID-19 Symptoms and Transmission
-  4. COVID-19 Social Consequences
-  5. COVID-19 and Family Planning
-
-# COVID-19 Information Sources
-
-Variables in the [COVID-19 Information Sources]`r v('group?id=fem_cvinfo')` group contain information related to: 
-
-  * [how much]`r v(COVIDINFO)` each woman has heard or read about COVID-19
-  * whether [she knows about]`r v(KNOWCALLCENTER)`, [has used]`r v(TRIEDCALLCENTER)`, and [trusts]`r v(TRUSTCALLCENTER)` an emergency number / call center for reporting suspected COVID-19 cases
-  * whether she learned about COVID-19 from any of 13 sources
-  * which of the same 13 sources she trusts for accurate information about COVID-19 
-
-The same 13 sources of information were listed in all four countries. They range from more formal/official (e.g. radio and government authorities) to more informal/unofficial (e.g. family and friends/neighbors). Users might choose to explore relationships between types of information sources and trust in sources across or within countries.
-
-Weighted percentages of women across the four countries who had heard or read about COVID-19 from each information source are displayed below. *Respondents could report more than one source of information.*
-
-```{r temp}
-knitr::opts_chunk$set(eval = FALSE)
+```{r}
+covid %>% 
+  group_by(COUNTRY) %>% 
+  summarise(mean(AGE))
 ```
 
-```{r, layout="l-page"}
-sources <- covid %>% 
-  mutate(across(
-    starts_with("CVLEARN") | starts_with("CVTRUST"),
-    ~(.x == "Yes")
-  )) %>% 
+You can use `CVQWEIGHT` to estimate the mean `AGE` of reproductive age women in each of the four target **populations** like this: 
+
+```{r}
+covid %>% 
   as_survey_design(weight = CVQWEIGHT) %>%
   group_by(COUNTRY) %>% 
-  summarise(across(
-    starts_with("CVLEARN") | starts_with("CVTRUST"), 
-      ~survey_mean(.x, vartype = NULL, na.rm = T)
-  )) %>% 
-  pivot_longer(
-    !COUNTRY,
-    names_pattern = "CV(LEARN|TRUST)(.*)",
-    names_to = c("QUESTION", "SOURCE"),
-    values_to = "PCT"
-  ) %>% 
-  mutate(across(is_character, ~as_factor(.x)))
-
-sources %>% 
-  filter(QUESTION == "LEARN") %>% 
-  mutate(SOURCE = SOURCE %>% fct_reorder(PCT, mean)) %>%
-  ggplot(aes(fill = COUNTRY, y = PCT, x = SOURCE)) + 
-  geom_bar(position = "dodge", stat = "identity") + 
-  ggtitle("How did you learn about COIVD-19?") + 
-  scale_fill_viridis_d() + 
-  theme_minimal() + 
-  theme(
-    plot.title = element_text(size = 14),
-    text = element_text(size = 8),
-    axis.text.x = element_text(angle=45,hjust=1)
-  ) 
-
-sources %>% 
-  filter(QUESTION == "TRUST") %>% 
-  mutate(SOURCE = SOURCE %>% fct_reorder(PCT, mean)) %>%
-  ggplot(aes(fill = COUNTRY, y = PCT, x = SOURCE)) + 
-  geom_bar(position = "dodge", stat = "identity") + 
-  ggtitle("Which of these sources do you trust for accurate information about Coronavirus (COVID-19)?") + 
-  scale_fill_viridis_d() + 
-  theme_minimal() + 
-  theme(
-    plot.title = element_text(size = 14),
-    text = element_text(size = 8),
-    axis.text.x = element_text(angle=45,hjust=1)
-  ) 
+  summarise(survey_mean(AGE))
 ```
 
-Radio and television were the most common sources of COVID-19 information overall. Perhaps surprisingly, only a small percentage of women in all countries reported hearing about COVID-19 through health personnel and government authorities. Compared to women in other countries, women in Burkina Faso reported receiving COVID-19 information from fewer sources overall and reported hearing about COVID-19 through the television much less than women in other countries. 
+<aside>
+Notice that all four samples skew a bit older compared to their target populations.
+</aside>
 
-Weighted percentages of women across the four countries who trust each source for accurate COVID-19 information are displayed below. Note that women were asked how much they trusted each source regardless of whether they reported having received COVID-19 information from that source.
+Happily, `gtsummary` can read survey information from the function `as_survey_design()`. This saves us the trouble of calculating weighted statistics for each of the variables in our table; instead, we can create weighted statistics for our table with just one line of code if we swap `tbl_summary` for its companion function, `tbl_svysummary()`:
 
-```{r, layout="l-page"}
+```{r}
 covid %>% 
-  mutate(across(
-    starts_with("CVTRUST"), 
-    ~lbl_collapse(.x, ~ifelse(.val == 2, 0, .val))
-  ))  %>% 
-  filter(CVTRUSTGOV < 90) %>% 
-  as_survey_design(weight = CVQWEIGHT) %>% 
-  group_by(COUNTRY) %>% 
-  summarise(
-    across(
-      starts_with("CVTRUST"), # makes one for every CVTRUST variable
-      ~survey_mean(.x, vartype = NULL)
+  as_survey_design(weight = CVQWEIGHT) %>% # CVQWEIGHT goes here
+  select(AGE, MARSTAT, EDUCATTGEN, URBAN, COUNTRY) %>% 
+  tbl_svysummary( # use tbl_svysummary() in place of tbl_summary()
+    by = COUNTRY,
+    missing = "no",
+    stat = list(
+      AGE ~ "{mean} ({sd})",
+      all_categorical() ~"{p}"
+    ),
+    label = list(
+      AGE ~ "Age",
+      MARSTAT ~ "Marital status",
+      EDUCATTGEN ~ "Education",
+      URBAN ~ "Urban vs Rural"
     )
   ) %>% 
-  pivot_longer(
-    starts_with("CVTRUST"),
-    names_pattern = "CVTRUST(.*)",
-    names_to = "source",
-    values_to = "percentage"
-  ) %>%
-  ungroup() %>%
-  mutate(COUNTRY = as_factor(COUNTRY)) %>% 
-  ggplot(aes(fill = COUNTRY, y = percentage, x = source)) + 
-  ggtitle("Trust in Covid-19 Information Sources") +
-  geom_bar(position = "dodge", stat = "identity") + 
-  theme(
-    text = element_text(size = 8),
-    axis.text.x = element_text(angle=45,hjust=1)
+  italicize_labels() %>% 
+  add_stat_label() %>% 
+  modify_header(update = list(
+      label ~ " ",
+      stat_1 ~ "**Burkina Faso**",
+      stat_2 ~ "**DR Congo <br> (Kinshasa)**",
+      stat_3 ~ "**Kenya**",
+      stat_4 ~ "**Nigeria <br> (Lagos & Kano)**"
+  )) %>% 
+  modify_spanning_header(
+    everything() ~ "## Weighted Population Estimates"
   )
-
 ```
 
-Along with being the most common sources of COVID-19 information, radio and television were also highly trusted sources. Despite government authorities and health personnel being less common sources of COVID-19 information, they were highly trusted sources--particularly in Burkina Faso. Women in Burkina Faso report more overall trust across sources as compared to women in other countries.
+<aside>
+```{r, echo=F}
+knitr::include_graphics("images/srvyr.png")
+```
+© Greg Freedman Ellis et al. ([GPL 2](https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html) | [GPL 3](https://www.gnu.org/licenses/gpl-3.0.html))
+</aside>
 
-Users could dig deeper into relationships between information source variables and trust variables by including variables in other groups--such as Core Demographics or Perceptions around COVID--to glean insight into how other differences in characteristics like age, marital status, and level of concern about getting infected might mediate access to and trust in information sources. Users could also analyze relationships between information source variables and trust variables alongside each country’s COVID-19 case number and COVID-19 prevention policies to make assessments, comparisons, and predictions about the effectiveness of countries’ responses to COVID-19.
+We've now made a weighted descriptive statistics table, and we've only changed two lines of code. As we'll see, creating a summary table from a model that uses sample design information can be just as easy.
 
+# Model Summary Table
 
-# 2- COVID-19 Risk Perception
+The `gtsummary` package also contains a function designed to summarise and format output from regression models. For example, let's build a simple logistic regression model for `HLTHCAREDIFFFEAR`, which indicates **whether a woman experienced difficulty accessing healthcare because she was afraid of becoming infected with COVID-19**. We'll try modeling this outcome using the demographic variables that are available for all four samples: `AGE`, `MARSTAT`, and `EDUCATTGEN` (`URBAN` was not available for the DRC sample).
 
-You can find variables about women’s perceived risk of COVID-19 in the Perceptions around COVID variable group on the IPUMS PMA online data dissemination system. Although the degree of concern varies across countries, most respondents in each country expressed that they are very concerned about getting COVID-19 as well as the spread of the virus in their communities. Women in Nigeria expressed the most concern about being infected with COVID-19 and the virus spreading in their community, which was closely followed by women in Kenya. Both of these countries reported the highest number of COVID-19 cases per 100,000 people as of July 31, 2021 out of the four countries surveyed. 
+First, we'll recode `HLTHCAREDIFFFEAR` into a binary indicator that's suitable for use in a logistic regression model. We can collapse responses "No" and "None of the above", since the latter indicates that the woman experienced no difficulties accessing healthcare at all. 
+
+```{r}
+covid %>% count(HLTHCAREDIFFFEAR)
+
+covid <- covid %>% 
+  mutate(HLTHCAREDIFFFEAR = fct_collapse(HLTHCAREDIFFFEAR, No = c(
+    "No", 
+    "None of the above"
+  ))) 
+
+covid %>% count(HLTHCAREDIFFFEAR)
+```
+
+## Results from one model
+
+Because IPUMS PMA samples are collected with geographic clusters - represented by `EAID` - we generally recommend specifying both a sample weight *and* a cluster identification with `as_survey_design()`. We'll need to use a function that can build a general linear model using that survey design information, so we'll use `survey::svyglm()`, rather than the base R function `glm` that might be more familiar. The output of a call to `svyglm()` is not formatted as a publication-ready table. Let's see what happens when we build a model for our **Burkina Faso** sample:
 
 ```{r}
 covid %>% 
-  filter(COVIDCONCERN != "Currently / previously infected with COVID-19") %>%
-  as_survey_design(weight = CVQWEIGHT) %>%
-  group_by(COUNTRY, COVIDCONCERN) %>%
-  summarise(prop = survey_mean()) %>%
-  ggplot(aes(x = COUNTRY, fill = COVIDCONCERN, y = prop)) +
-  geom_bar(position = "fill", stat = "identity") + 
-  xlab("Country") + 
-  ylab("Percent") + 
-  ggtitle("Concern about getting infected for self") + 
-  scale_fill_discrete(name="Self Covid Concern") + 
-  scale_fill_viridis_d() + 
-  theme_minimal()
-```
-
-
-```{r}
-covid %>% 
-  filter(!is.na(COMMCOVIDWORRY)) %>% 
-  as_survey_design(weight = CVQWEIGHT) %>%
-  group_by(COUNTRY, COMMCOVIDWORRY) %>%
-  summarise(prop = survey_mean()) %>%
-  ggplot(aes(x = COUNTRY, fill = COMMCOVIDWORRY, y = prop)) +
-  geom_bar(position = "fill", stat = "identity") + 
-  xlab("Country") + 
-  ylab("Percent") + 
-  ggtitle("Concern about spread of COVID-19 in community") + 
-  scale_fill_discrete(name="Concern") 
-```
-
-# Knowledge
-
-The COVID Knowledge variable group contains 26 new variables related to the women’s knowledge about the symptoms and preventive methods of COVID-19. Among the major three symptoms (fever, cough, and short breath) of COVID-19, more than 80% of women in all four countries acknowledged cough as a symptom of COVID-19. However, respondents were less aware of shortness of breath as a symptom of COVID-19. Especially in Burkina Faso, less than 30% of women answered that shortness of breath is a symptom of COVID-19.
-
-```{r}
-covid %>% 
-  group_by(COUNTRY) %>% 
-  filter(!is.na(CVSYMCOUGH)) %>% 
-  as_survey_design(weight = CVQWEIGHT) %>% 
-  summarise(
-    # cvsymcough = survey_mean(CVSYMCOUGH, vartype = NULL),
-    # cvsymfever = survey_mean(CVSYMFEVER, vartype = NULL),
-    cvsymshortness_of_breath = survey_mean(CVSYMBREATH, vartype = NULL)
+  filter(COUNTRY == "Burkina Faso") %>% 
+  as_survey_design(weight = CVQWEIGHT, id = EAID) %>% 
+  survey::svyglm(
+    formula = HLTHCAREDIFFFEAR ~ AGE + MARSTAT + EDUCATTGEN, 
+    family = "quasibinomial"
   ) 
-  pivot_longer(
-    starts_with("cvsym"),
-    names_pattern = "cvsym(.*)",
-    names_to = "SYMPTOM",
-    values_to = "proportion"
-  ) %>% 
-  ggplot(aes(fill=COUNTRY, y=proportion, x=SYMPTOM)) + 
-  geom_bar(position="dodge", stat="identity") + 
-  xlab("Symptoms") + 
-  ylab("Prevalence") + 
-  ggtitle("Prevalence of knowledge of specific COVID-19 symptoms") +
-  geom_col(position = "dodge") +
-  geom_text(
-    aes(label = round(proportion, 2)), 
-    colour = "black", 
-    size = 3, 
-    vjust = 1.5, 
-    position = position_dodge(.9)
-  )
 ```
 
+<aside>
+Because our use of weights results in non-integer outcomes, we'll also need to use the "quasibinomial" modeling distribution, rather than the more typical "binomial" distribution. 
+</aside>
 
+The function `gtsummary::tbl_regression()` will tidy this output into a much more reader-friendly format. We'll assign labels to each of our variables using the same `label` argument we saw before, and we'll also choose to exponentiate our regression coefficients so that the results will reflect odds ratios:
 
+```{r}
+covid %>% 
+  filter(COUNTRY == "Burkina Faso") %>% 
+  as_survey_design(weight = CVQWEIGHT, id = EAID) %>% 
+  survey::svyglm(
+    formula = HLTHCAREDIFFFEAR ~ AGE + MARSTAT + EDUCATTGEN, 
+    family = "quasibinomial"
+  ) %>% 
+  tbl_regression(
+    exponentiate = TRUE,
+    label = list(
+      AGE ~ "Age",
+      MARSTAT ~ "Marital status",
+      EDUCATTGEN ~ "Education"   
+    )
+  ) 
+```
+
+We can also add conventional "stars" representing the significance of each coefficient with the `add_significance_stars()` function. Here, we could choose to display cluster-robust standard error estimates, but we'll display 95% confidence intervals instead. We'll also customize the header and add a title, using the same `modify` functions shown above.
+
+```{r}
+covid %>% 
+  filter(COUNTRY == "Burkina Faso") %>% 
+  as_survey_design(weight = CVQWEIGHT, id = EAID) %>% 
+  survey::svyglm(
+    formula = HLTHCAREDIFFFEAR ~ AGE + MARSTAT + EDUCATTGEN, 
+    family = "quasibinomial"
+  ) %>% 
+  tbl_regression(
+    exp = TRUE,
+    label = list(
+      AGE ~ "Age",
+      MARSTAT ~ "Marital status",
+      EDUCATTGEN ~ "Education"   
+    )
+  ) %>%
+  modify_footnote(everything() ~ NA, abbreviation = TRUE) %>%
+  add_significance_stars(hide_se = TRUE, hide_ci = FALSE) %>%
+  modify_header(update = list(
+    label ~ " " ,
+    estimate ~ '**Burkina Faso**',
+    ci ~ "95% CI"
+  )) %>% 
+  modify_spanning_header(
+    everything() ~ "## Odds Ratios obtained from Logistic Regression"
+  ) 
+```
+
+## Results from several models 
+
+Researchers often report results from several models if, for example, they want to compare results including a range of different controls. You might also decide to model data from each of the COVID-19 samples separately in order to highlight important differences between their target populations. How would you merge results from four models into a single table? 
+
+If you repeat the same code shown above for *each* of the four samples, you'll obtain four separate tables. We recommend using `purrr::map()` to store these tables in a list, which you can then pass to `gtsummary::tbl_merge()`. Here, we `map` over each of the factor levels in `COUNTRY`, using `tbl_regression()` to build a regression table for each. We pipe a list of four tables to `tbl_merge()`, and then add a header and title.
+
+```{r, layout = "l-body-outset", eval = F}
+levels(covid$COUNTRY) %>% 
+  map(~{
+    covid %>% 
+      as_survey_design(weight = CVQWEIGHT) %>% 
+      filter(COUNTRY == .x) %>% 
+      survey::svyglm(
+        formula = HLTHCAREDIFFFEAR ~ AGE + MARSTAT + EDUCATTGEN, 
+        family = "quasibinomial"
+      ) %>% 
+      tbl_regression(
+        exp = TRUE,
+        label = list(
+          AGE ~ "Age",
+          MARSTAT ~ "Marital status",
+          EDUCATTGEN ~ "Education"   
+        )
+      ) %>% 
+      italicize_labels() %>% 
+      modify_footnote(everything() ~ NA, abbreviation = TRUE) %>%
+      add_significance_stars(hide_se = T, hide_ci = F) %>% 
+      modify_header(update = list(ci ~ "95% CI"))
+  }) %>% 
+  tbl_merge() %>% 
+  modify_header(update = list(
+    label ~ " " ,
+    estimate_1 ~ '**Burkina Faso**',
+    estimate_2 ~ '**DR Congo <br> (Kinshasa)**',
+    estimate_3 ~ '**Kenya**',
+    estimate_4 ~ '**Nigeria <br> (Lagos & Kano)**'
+  )) %>% 
+  modify_spanning_header(
+    everything() ~ "## Odds Ratios obtained from Logistic Regression"
+  ) 
+```
+
+<aside>
+```{r, echo=F}
+knitr::include_graphics("images/purrr.png")
+```
+© RStudio ([CC0 1.0](https://creativecommons.org/publicdomain/zero/1.0/))
+
+[purrr](https://purrr.tidyverse.org/reference/index.html) is included with `library(tidyverse)`.
+</aside>
+
+```{r, layout = "l-body-outset", echo = F}
+levels(covid$COUNTRY) %>% 
+  map(~{
+    covid %>% 
+      as_survey_design(weight = CVQWEIGHT) %>% 
+      filter(COUNTRY == .x) %>% 
+      survey::svyglm(
+        formula = HLTHCAREDIFFFEAR ~ AGE + MARSTAT + EDUCATTGEN, 
+        family = "quasibinomial"
+      ) %>% 
+      tbl_regression(
+        exp = TRUE,
+        label = list(
+          AGE ~ "Age",
+          MARSTAT ~ "Marital status",
+          EDUCATTGEN ~ "Education"   
+        )
+      ) %>% 
+      italicize_labels() %>% 
+      modify_footnote(everything() ~ NA, abbreviation = TRUE) %>%
+      add_significance_stars(hide_se = T, hide_ci = F) %>% 
+      modify_header(update = list(ci ~ "95% CI"))
+  }) %>% 
+  tbl_merge() %>% 
+  modify_header(update = list(
+    label ~ " " ,
+    estimate_1 ~ '**Burkina Faso**',
+    estimate_2 ~ '**DR Congo <br> (Kinshasa)**',
+    estimate_3 ~ '**Kenya**',
+    estimate_4 ~ '**Nigeria <br> (Lagos & Kano)**'
+  )) %>% 
+  modify_spanning_header(
+    everything() ~ "## Odds Ratios obtained from Logistic Regression"
+  ) 
+```
+
+# Output Options 
+
+So now you know that you can make a great-looking table in R that renders nicely in HTML (you're reading this post on a web page, after all). But what if you want to export your table to a Word document, PDF, or some other format? 
+
+For Word documents, try piping your table to the function `gtsummary::as_flex_table()` like this, and then copy / paste the result directly into Word. (You may need to install the package `flextable` first). 
+
+```{r, eval = F}
+covid %>% 
+  select(AGE, MARSTAT, EDUCATTGEN, URBAN, COUNTRY) %>% 
+  tbl_summary(by = COUNTRY) %>% 
+  as_flex_table()
+```
+
+<aside>
+**Skip the copy and paste step!** Did you know that you can [create Word documents in R with RMarkdown](https://rmarkdown.rstudio.com/articles_docx.html)?
+</aside>
+
+Several printers work well for PDF output, including the very popular `kable_extra`. If you're making a PDF with RMarkdown, for example, you could pipe your table into `gtsummary::as_kable_extra()`. (You may need to install the package `kable_extra` first).
+
+```{r, eval = F}
+covid %>% 
+  select(AGE, MARSTAT, EDUCATTGEN, URBAN, COUNTRY) %>% 
+  tbl_summary(by = COUNTRY) %>% 
+  as_kable_extra()
+```
+
+You'll find more information about output options [here](http://www.danieldsjoberg.com/gtsummary/articles/rmarkdown.html).
+
+# Next Steps
+
+We hope you found these steps helpful in using R to create tables for descriptive statistics, survey weights, and model summary output. As always, feel free to reach out to us with any questions. In our next post, we will show how to make likert-style stacked bar charts with R using the PMA COVID-19 survey data. Check back [here](../../index.html#category:COVID-19) in two weeks for the next post in this series!
