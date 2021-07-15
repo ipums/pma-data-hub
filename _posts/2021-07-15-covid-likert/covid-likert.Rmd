@@ -1,0 +1,795 @@
+---
+title: "Visualizing perceptions of risk from COVID-19"
+description: |
+  A guide to bar charts for Likert-type psychometric scales built with ggplot2.
+author:
+  - name: Saeun Park
+    url: http://www.linkedin.com/in/saeun-park
+    affiliation: IPUMS PMA Graduate Research Assistant
+  - name: Matt Gunther
+    affiliation: IPUMS PMA Senior Data Analyst
+date: 07-15-2021
+categories:
+  - 'COVID-19'
+  - Descriptive Analysis
+  - Data Visualization
+  - ggplot2
+output:
+  distill::distill_article:
+    self_contained: false
+    toc: true
+    toc_depth: 3
+    toc_float: true
+preview: images/faceted.png
+---
+
+As we've mentioned throughout [this series](../../index.html#category:COVID-19), one of the most important focus areas of the new [PMA COVID-19 survey](https://www.pmadata.org/technical-areas/covid-19) has to do with **perceptions of risk** expressed by women during the early months of the pandemic. Because all respondents to the COVID-19 survey are participants in a multi-year panel study examining broad topics in reproductive health, analysts will soon be able to link women's attitudes and beliefs about COVID-19 during the summer of 2020 to longer-term health and family planning outcomes. 
+
+In this post, we'll examine one of the most common data visualization tools used to explore attitudinal data: the bar chart. In the PMA COVID-19 survey, women are asked to **rate their level of concern** for several different types of risk associated with the pandemic. The survey uses a four-point scale for such questions, and it includes the following response options:
+
+  * Not concerned
+  * A little concerned
+  * Concerned 
+  * Very concerned
+
+This type of scale is common in psychometric research, particularly where analysts want to compare attitudes about a wide range of topics. You might notice that the responses follow a **bi-polar** format, where more neutral responses are organized at the center, and more extreme responses are listed on either side. This type for scale is sometimes called the [Likert scale](https://en.wikipedia.org/wiki/Likert_scale) after the pioneering social psychologist, Rensis Likert. 
+
+The bar chart is typically used for Likert-type data because:
+
+  * it is **ordinal** (responses should be arranged from a low-level of concern to a high-level of concern)
+  * it is **discrete** (responses are restricted to a small number of pre-defined choices)
+  * repeated use of the same scale allows us to **align** and compare levels of concern on multiple questions 
+  
+We'll discuss some of the many choices you'll have to make about layout, and we'll show how to implement them with the `tidyverse` package [ggplot2](https://ggplot2.tidyverse.org/). 
+
+<aside>
+We also recommend the packages [likert](https://github.com/jbryer/likert) and [hh](https://cran.r-project.org/web/packages/HH/index.html) for Likert-type data.
+</aside>
+
+# Setup
+
+You'll find the data featured in this post if you navigate to the new [COVID-19 Unit of Analysis](https://pma.ipums.org/pma-action/extract_requests/clear?return_url=%2Fpma-action%2Fvariables%2Fgroup) in the IPUMS PMA data extract system. Our examples feature data from **all four samples** (Female Respondents only).
+
+To follow along, make sure to create an extract that includes these variables:
+
+  * [COUNTRY](https://pma.ipums.org/pma-action/variables/COUNTRY)
+  * [CVQWEIGHT](https://pma.ipums.org/pma-action/variables/CVQWEIGHT)
+  * [EAID](https://pma.ipums.org/pma-action/variables/EAID)
+  * [COVIDCONCERN](https://pma.ipums.org/pma-action/variables/COVIDCONCERN)
+  * [COMMCOVIDWORRY](https://pma.ipums.org/pma-action/variables/COMMCOVIDWORRY)
+  * [PREGFEELNOW](https://pma.ipums.org/pma-action/variables/PREGFEELNOW)
+
+You'll also need to install the following packages as needed (current versions are recommended):
+
+  * [ipumsr](http://tech.popdata.org/ipumsr/index.html) (0.4.5)
+  * [tidyverse](https://www.tidyverse.org/) (1.3.1)
+  * [srvyr](http://gdfe.co/srvyr/index.html) (1.0.1)
+  * [showtext](https://github.com/yixuan/showtext) (0.9.2)
+  * [gtsummary](http://www.danieldsjoberg.com/gtsummary/index.html) (1.4.1)
+
+Load those packages and your data extract into R (be sure to change the file paths to match the location of your own extract):
+
+```{r, setup, include=FALSE}
+knitr::opts_chunk$set(
+  fig.height = 4,
+  fig.width = 8,
+  echo = T
+)
+```
+
+```{r, results='hide'}
+library(ipumsr)
+library(tidyverse)
+library(srvyr)
+library(showtext)
+library(gtsummary)
+
+covid <- read_ipums_micro(
+  ddi = "data/pma_00032.xml",
+  dat = "data/pma_00032.dat.gz"
+)
+```
+
+## Featured variable: COVIDCONCERN
+
+To start, let's take a look at just one of the variables that uses the Likert-type scale shown above. In `COVIDCONCERN`, women who have *not already been infected with COVID-19* are asked to rate their level of concern for becoming infected:
+
+```
+How concerned are you about getting infected yourself?
+(Read all options)
+
+  [] Very concerned
+  [] Concerned
+  [] A little concerned
+  [] Not concerned
+  [] I am currently / was infected with COVID-19
+  [] No response
+```
+
+<aside>
+In addition to the two non-response options shown on the questionnaire, women could also be `NIU (not in universe)` if they *had* already been infected.
+</aside>
+
+Let's break down the responses to this question by `COUNTRY`. First, [following the explanation in our last post](../2021-07-01-covid-tables/index.html#display-value-labels), we'd strongly recommend transforming both variables into **factor** objects (this will ensure that their value labels are displayed in graphics output). We'll also edit the `COUNTRY` labels for DRC and Nigeria, and we'll describe the `NIU` cases for `COVIDCONCERN` as women who `Never heard or read about COVID-19`. 
+
+<aside>
+Reminder: only the Burkina Faso and Kenya samples are **nationally representative**. The DRC and Nigeria samples represent **sub-national regions**.
+</aside>
+
+```{r}
+covid <- covid %>% 
+  mutate(
+    across(where(is.labelled), ~as_factor(.x) %>% fct_drop), 
+    COUNTRY = COUNTRY %>%
+      fct_recode(
+        `DRC (Kinshasa)` = "Congo, Democratic Republic",
+        `Nigeria (Lagos & Kano)` = "Nigeria"
+      ),
+    COVIDCONCERN = COVIDCONCERN %>% 
+      fct_recode(
+        `Never heard or read about COVID-19` = "NIU (not in universe)"
+      )
+  )
+```
+
+Using the `gtsummary` package featured in our [last post](../2021-07-01-covid-tables/index.html), you might preview the breakdown of `COVIDCONCERN` by `COUNTRY` in a table as follows:
+
+```{r}
+covid %>% tbl_summary(by = COUNTRY, include = COVIDCONCERN) 
+```
+
+<aside>
+```{r, echo=F, out.width="95%"}
+knitr::include_graphics("images/gtsummary.png")
+```
+© 2020 Daniel D. Sjoberg ([MIT](https://opensource.org/licenses/MIT))
+</aside>
+
+Now we're ready to begin arranging these summary data into a bar chart with `ggplot2`. 
+
+# Basic Bar Charts
+
+As you might know, [ggplot2](https://ggplot2.tidyverse.org/index.html) is part of the `tidyverse` family of packages. For regular readers of this blog, this means that you'll be able to use the same grammar that you're used to seeing elsewhere, but with one important difference: while you'll be able to pipe functions *to* `ggplot()` with the familiar `%>%` operator, functions *within* the package use their own pipe-like operator `+`. 
+
+<aside>
+```{r, echo=F, out.width="75%"}
+knitr::include_graphics("images/ggplot2.png")
+```
+© RStudio ([CC0 1.0](https://creativecommons.org/publicdomain/zero/1.0/))
+</aside>
+
+This `+` operator allows the user to assemble multiple *layers* of visual information onto the same plot. These layers are built from functions that start with the prefix `geom_`, because each layer is more-or-less defined by the geometric shapes that convey information about the data. 
+
+While these `geom_` functions are simple to use and combine, you'll first need to define some common parameters with the function `ggplot()`. This function initializes a kind of "skeleton" plot - or canvas - onto which you'll layer each `geom_` function. Usually, you'll identify variables here that you'll want to map onto the x and y-axes, or onto the "fill" styles (e.g. colors and shadings) within your plot's geometric shapes.
+
+<aside>
+Looking for a free introduction to `ggplot2`? Try [ggplot2: Elegant Graphics for Data Analysis](https://ggplot2-book.org/index.html).
+</aside>
+
+We'll use the `geom_bar()` function after we define some basic parameters for our plot in `ggplot()`: 
+
+```{r}
+covid %>% 
+  ggplot(aes(x = COUNTRY, fill = COVIDCONCERN)) + 
+  geom_bar()
+```
+
+<aside>
+A **stacked bar chart** showing the frequency of each response per sample
+</aside>
+
+In the above function, we initialize our plot with `ggplot()` and define its basic aesthetic qualities with `aes()`: we specify that we'll plot each `COUNTRY` on the x-axis, and - in whatever geometric shapes we draw next - we'll fill its segments with colors defined by `COVIDCONCERN`. Note that the `ggplot()` function doesn't draw anything, itself. Instead, we pipe `ggplot` to `geom_bar()`, which is responsible for drawing and stacking the bars. 
+
+*But what about the values that appeared on the y-axis?* We didn't specify anything in our data, but it seems like `ggplot()` automatically calculated the number of women in each country who selected each response. While this might be a useful default in some situations, here we'd much rather normalize these bars as a *percentage* of the total number of responses for each sample. We'll do this by manipulating the `position` argument in `geom_bar()`.
+
+## Position
+
+The `position` argument in `geom_bar()` determines how the bars representing each response should be arranged on our plot. This argument can take one of several [position adjustment functions](https://ggplot2.tidyverse.org/reference/index.html#section-position-adjustment), and its default behavior uses [position_stack()](https://ggplot2.tidyverse.org/reference/position_stack.html) to "stack" bars representing the frequency of each response. This kind of bar chart is known as a **stacked bar chart**. 
+
+If we want to normalize the size of our bars to the size of each sample, we can use [position_fill()](https://ggplot2.tidyverse.org/reference/position_stack.html) to stretch each stack of bars to an equal length. The result allows us to compare the proportion of responses across samples:
+
+```{r}
+covid %>% 
+  ggplot(aes(x = COUNTRY, fill = COVIDCONCERN)) + 
+  geom_bar(position = position_fill())
+```
+
+<aside>
+A **stacked bar chart** showing the proportion of each response per sample
+</aside>
+
+This arrangement is helpful for comparing more extreme responses, but you may notice that it's still a bit hard to compare the proportion of moderate responses in the middle of each stack. For this reason, you might consider using [position_dodge()](https://ggplot2.tidyverse.org/reference/position_dodge.html) to transform our stacked bar chart into a **grouped bar chart**.
+
+```{r}
+covid %>% 
+  ggplot(aes(x = COUNTRY, fill = COVIDCONCERN)) + 
+  geom_bar(position = position_dodge())
+```
+
+<aside>
+A **grouped bar chart** showing the frequency of each response per sample
+
+Note: the bars for `Kenya` and `Burkina Faso` appear wider because they contain zero responses for some levels of `COVIDCONCERN`. Check out [position_dodge2()](https://ggplot2.tidyverse.org/reference/position_dodge.html) for more control over the width of these bars.
+</aside>
+
+Unfortunately, when we switch `position` from `position_fill()` to `position_dodge()`, we're no longer able to stretch each bar to a normalized length. Instead, we'll need to pre-calculate the proportion of each response and pass it to `geom_bar()` via the `stat` argument.
+
+## Stat
+
+In each of the above plots, we've relied on the default behavior of `geom_bar()` to calculate the frequency of each response and - when requested - to stretch each bar to a normalized length. There are many reasons why you might want to pass your *own* statistics to `geom_bar()`, and you can do so with the argument `stat = "identity"`. 
+
+For example, we might create a table of summary statistics showing the proportion of responses to `COVIDCONCERN` by `COUNTRY`:
+
+```{r}
+concern_tbl <- covid %>% 
+  as_survey_design() %>%
+  group_by(COUNTRY, COVIDCONCERN) %>%
+  summarise(PERCENT = 100 * survey_mean(vartype = NULL))
+
+concern_tbl
+```
+
+Now, if we pass our summary table `concern_tbl` to `ggplot()`, we'll be able to map response percentages in the `PERCENT` column to the y-axis. In the `geom_bar()` function, we'll use `stat = "identity"` to ensure that our pre-calculated statistics are displayed:
+
+```{r}
+concern_tbl %>% 
+  ggplot(aes(x = COUNTRY, fill = COVIDCONCERN, y = PERCENT)) + 
+  geom_bar(
+    position = position_dodge(),
+    stat = "identity"
+  ) 
+```
+
+<aside>
+A **grouped bar chart** showing response percentages per sample
+</aside>
+
+You might also consider pre-calculating statistics if you want to add **layers of text** or **error bars** to your plot. [As we've discussed elsewhere](../2021-07-01-covid-tables/index.html#survey-weights), we love using `as_survey_design()` and `survey_mean()` from the [srvyr](http://gdfe.co/srvyr/index.html) package to generate population-level estimates with cluster-robust standard errors. Here, we'll use `CVQWEIGHT` as a weighting variable and `EAID` as the identification number for each sample cluster, thus creating a population-level summary table called `concern_pop`:
+
+```{r}
+concern_pop <- covid %>% 
+  as_survey_design(weight = CVQWEIGHT, id = EAID) %>%
+  group_by(COUNTRY, COVIDCONCERN) %>%
+  summarise(PERCENT = 100 * survey_mean(vartype = "ci"))
+
+concern_pop
+```
+
+Note the addition of `PERCENT_low` and `PERCENT_upp`, representing the lower and upper bounds of a 95% confidence interval for each population-level estimate of `PERCENT`. We'll use these in a new layer created by `geom_errorbar()`:
+
+```{r}
+concern_pop %>% 
+  ggplot(aes(x = COUNTRY, fill = COVIDCONCERN, y = PERCENT)) + 
+  geom_bar(
+    position =  position_dodge(),
+    stat = "identity"
+  ) + 
+  geom_errorbar(
+    aes(ymin = PERCENT_low, ymax = PERCENT_upp),
+    width = 0.2,
+    position = position_dodge(width = 0.9)
+  )
+```
+
+<aside>
+A **grouped bar chart** showing population-level estimates with 95% confidence intervals
+</aside>
+
+Likewise, pre-calculating statistics in a table like `concern_pop` makes it easy to access statistics by name in `geom_text()`. In this example, adding the text label for each value of `PERCENT` is redundant with the y-axis (not recommended), but you could also include text from *any* column in the pre-calculated table: 
+
+```{r}
+concern_pop %>% 
+  ggplot(aes(x = COUNTRY, fill = COVIDCONCERN, y = PERCENT)) + 
+  geom_bar(
+    position = "dodge",
+    stat = "identity"
+  ) + 
+  geom_text(
+    aes(label = round(PERCENT, 0)),
+    position = position_dodge(0.9),
+    vjust = -0.5
+  )
+```
+
+<aside>
+A **grouped bar chart** showing population-level estimates, annotated with text
+</aside>
+
+# Customization
+
+So far, we've focused all of our attention on passing the correct statistics to `geom_bar()`. Unfortunately, this is only half the battle: our plots still aren't very readable! 
+
+You may have noticed, for example, that the **legend** in each of our plots seems to take up about one third of the usable space. In a blog like ours - where many of you might be reading this post on a mobile phone - this layout is certainly not ideal. Instead, we'll flip the x and y-axes, and then we'll position the legend *below* the plot. 
+
+For example, let's return to the stacked bar chart showing the population-level percentages for each response:
+
+```{r}
+concern_pop %>% 
+  ggplot(aes(x = COUNTRY, fill = COVIDCONCERN, y = PERCENT)) + 
+  geom_bar(stat = "identity") + 
+  coord_flip() + 
+  theme(legend.position = "bottom")
+```
+
+<aside>
+Flip your bar chart into a horizontal orientation with [coord_flip()](https://ggplot2.tidyverse.org/reference/coord_flip.html).
+</aside>
+
+The function [coord_flip()](https://ggplot2.tidyverse.org/reference/coord_flip.html) pivots our plot into a horizontal orientation, and another new function - [theme()](https://ggplot2.tidyverse.org/reference/theme.html) - allows us to move our legend. However, the legend now occupies too much horizontal space: one of the responses appears to be cut-off by the right-hand margin of the page. 
+
+It is possible to manipulate the layout of your legend with another function, [guides()](https://ggplot2.tidyverse.org/reference/guides.html). For example, you might arrange the response codes into two separate columns:
+
+```{r}
+concern_pop %>% 
+  ggplot(aes(x = COUNTRY, fill = COVIDCONCERN, y = PERCENT)) + 
+  geom_bar(stat = "identity") + 
+  coord_flip() + 
+  theme(legend.position = "bottom") + 
+  guides(fill = guide_legend(ncol = 2))
+```
+
+<aside>
+The [guides()](https://ggplot2.tidyverse.org/reference/guides.html) function controls the layout of the legend with  [guide_legend()](https://ggplot2.tidyverse.org/reference/guide_legend.html). 
+
+You can also control the layout of the axes with [guide_axis()](https://ggplot2.tidyverse.org/reference/guide_axis.html).
+</aside>
+
+However, in our particular case, it might make more sense to simply drop the three types of non-response completely. We might do so, in part, **because the remaining responses are part of an ordinal set**. If we restrict the plotted values only to those ordinal responses, we'll also be able to add an **ordinal color scheme** to our plot making the relationship between each response much clearer.
+
+## Color
+
+An easy way to drop non-response options in our particular case is to `filter` only those four responses containing the word "concern" (upper or lower case). Then, when only the four ordinal responses remain, we'll use [scale_fill_brewer()](https://ggplot2.tidyverse.org/reference/scale_brewer.html) to select an ordinal color scheme ("blues" by default). This time, we'll use `guides()` to reverse the order of the responses in our legend:
+
+```{r}
+concern_pop %>% 
+  filter(grepl("concern", COVIDCONCERN, ignore.case = TRUE)) %>% 
+  ggplot(aes(x = COUNTRY, fill = COVIDCONCERN, y = PERCENT)) + 
+  geom_bar(stat = "identity") + 
+  coord_flip() + 
+  theme(legend.position = "bottom") + 
+  scale_fill_brewer() + 
+  guides(fill = guide_legend(reverse = TRUE))
+```
+
+<aside>
+Non-response categories have been dropped, and the remaining responses are represented by an **ordinal color scheme**
+
+Note that the bars no longer sum to 100%
+</aside>
+
+You can choose from several color palettes with `scale_fill_brewer()`, or you can define your own colors using [scale_fill_manual()](https://ggplot2.tidyverse.org/reference/scale_manual.html), where you'll assign a color to each response via a named character vector.
+
+For example, here we'll use some of the [hex color codes](https://www.color-hex.com/) you'll see in the CSS throughout this blog:
+
+```{r}
+concern_pop %>% 
+  filter(grepl("concern", COVIDCONCERN, ignore.case = TRUE)) %>% 
+  ggplot(aes(x = COUNTRY, fill = COVIDCONCERN, y = PERCENT)) + 
+  geom_bar(stat = "identity") + 
+  coord_flip() + 
+  theme(legend.position = "bottom") + 
+  scale_fill_manual(
+    values = alpha(
+      colour = c(
+        "Very concerned" = "#00263A",        # IPUMS Navy
+        "Concerned" = "#4E6C7D",             # IPUMS Dark-Grey
+        "A little concerned" = "#7A99AC",    # IPUMS Blue-Grey
+        "Not concerned" = "#F1F5F7"          # IPUMS Light-Grey
+      )
+    )
+  ) + 
+  guides(fill = guide_legend(reverse = TRUE))
+```
+
+<aside>
+A **user-defined** ordinal color scheme
+</aside>
+
+## Labels and Fonts
+
+There are several ways to add text labels to a plot, but we find it easiest to define every label together in a single function, [labs()](https://ggplot2.tidyverse.org/reference/labs.html). If you want to omit a particular label, you can simply set it to `NULL`:
+
+```{r}
+concern_pop %>% 
+  filter(grepl("concern", COVIDCONCERN, ignore.case = TRUE)) %>% 
+  ggplot(aes(x = COUNTRY, fill = COVIDCONCERN, y = PERCENT)) + 
+  geom_bar(stat = "identity") + 
+  coord_flip() + 
+  theme(legend.position = "bottom") + 
+  scale_fill_manual(
+    values = alpha(
+      colour = c(
+        "Very concerned" = "#00263A",  
+        "Concerned" = "#4E6C7D", 
+        "A little concerned" = "#7A99AC", 
+        "Not concerned" = "#F1F5F7"
+      )
+    )
+  ) + 
+  guides(fill = guide_legend(reverse = TRUE)) + 
+  labs(
+    title = "CONCERN ABOUT GETTING INFECTED WITH COVID-19",
+    subtitle = "Estimated percentage for populations of women age 15-49 (summer 2020)",
+    x = NULL,
+    y = NULL,
+    fill = NULL
+  ) 
+```
+
+<aside>
+Added a title and subtitle. Removed axis and legend labels.
+</aside>
+
+As you can see, the default label fonts for `ggplot2` do not match the fonts used on our blog. If this is an important consideration, you can download a `.ttf` file for your preferred font from a repository like [Google Fonts](https://fonts.google.com/), and then load that file into R with `font_add()`. 
+
+```{r}
+font_add(
+  family = "cabrito", 
+  regular = "fonts/cabritosansnormregular-webfont.ttf"
+)
+```
+
+<aside>
+We saved our `ttf` file in the `fonts` sub-folder of our working directory.
+</aside>
+
+Once you've loaded a font into R, you can make it accessible to `ggplot2` for the remainder of your R session with the function [showtext::showtext_auto()](https://github.com/yixuan/showtext).
+
+```{r}
+showtext_auto()
+```
+
+Now, we can build on our custom `theme()` by defining a general font family and size in `text`. We can also tweak specific details for the `title` and `plot.subtitle`:
+
+```{r, eval = F}
+concern_pop %>% 
+  filter(grepl("concern", COVIDCONCERN, ignore.case = TRUE)) %>% 
+  ggplot(aes(x = COUNTRY, fill = COVIDCONCERN, y = PERCENT)) + 
+  geom_bar(stat = "identity") + 
+  coord_flip() + 
+  scale_fill_manual(
+    values = alpha(
+      colour = c(
+        "Very concerned" = "#00263A",  
+        "Concerned" = "#4E6C7D", 
+        "A little concerned" = "#7A99AC", 
+        "Not concerned" = "#F1F5F7"
+      )
+    )
+  ) + 
+  guides(fill = guide_legend(reverse = TRUE)) + 
+  labs(
+    title = "CONCERN ABOUT GETTING INFECTED WITH COVID-19",
+    subtitle = "Estimated percentage for populations of women age 15-49 (summer 2020)",
+    x = NULL,
+    y = NULL,
+    fill = NULL
+  ) + 
+  theme(
+    text = element_text(family = "cabrito", size = 10),
+    title = element_text(size = 14, color = "#00263A"),
+    plot.subtitle = element_text(size = 12),
+    legend.position = "bottom"
+  ) 
+```
+
+<aside>
+```{r, echo=F, out.width="95%"}
+knitr::include_graphics("images/showtext.png")
+```
+© Yixuan Qiu ([Apache >= 2.0](https://www.apache.org/licenses/LICENSE-2.0))
+</aside>
+
+```{r, echo = F}
+concern_pop %>% 
+  filter(grepl("concern", COVIDCONCERN, ignore.case = TRUE)) %>% 
+  ggplot(aes(x = COUNTRY, fill = COVIDCONCERN, y = PERCENT)) + 
+  geom_bar(stat = "identity") + 
+  coord_flip() + 
+  scale_fill_manual(
+    values = alpha(
+      colour = c(
+        "Very concerned" = "#00263A",  
+        "Concerned" = "#4E6C7D", 
+        "A little concerned" = "#7A99AC", 
+        "Not concerned" = "#F1F5F7"
+      )
+    )
+  ) + 
+  guides(fill = guide_legend(reverse = TRUE)) + 
+  labs(
+    title = "CONCERN ABOUT GETTING INFECTED WITH COVID-19",
+    subtitle = "Estimated percentage for populations of women age 15-49 (summer 2020)",
+    x = NULL,
+    y = NULL,
+    fill = NULL
+  ) + 
+  theme(
+    text = element_text(family = "cabrito", size = 10),
+    title = element_text(size = 14, color = "#00263A"),
+    plot.subtitle = element_text(size = 12),
+    legend.position = "bottom"
+  ) 
+```
+
+<aside>
+Custom **font** family and sizes implemented with `showtext`
+</aside>
+
+# Advanced Bar Charts
+
+## Divergent Stacked Bar Chart
+
+In the previous section, we decided to drop the three types of non-response for `COVIDCONCERN` so that we could adopt an **ordinal color scheme** (each color corresponds with an ordinal level of concern). This improved the readability of our plot by making the relationship between response options more clear. However, this decision also came with a small cost: because our bars no longer represent 100% of each population, it's a bit harder to compare the percentage of women represented by the responses on the *right* side of the plot ("Not concerned"). 
+
+In this case, you might consider the **divergent stacked bar chart**, where "positive" and "negative" levels of concern are plotted in opposite directions from an origin point on our x-axis. You might also consider this if you wanted to directly juxtapose the most extreme responses on our scale: "Very concerned" and "Not concerned". 
+
+Note that three of the responses on our scale reflect *some* level of concern about getting infected with COVID-19; we'll plot these responses in the *positive* direction on our x-axis. The *negative* response - "Not concerned" - will be plotted in the negative direction if we multiply `PERCENT` by -1 for those cases. We'll also give our negative response a secondary color ("PMA Pink") and draw a vertical line at the origin to provide extra clarity. Finally, we'll use a new function `breaks()` to fully customize the order of responses in our legend:
+
+```{r}
+concern_pop <- concern_pop %>% 
+  mutate(PERCENT = if_else(
+   COVIDCONCERN == "Not concerned",
+   -PERCENT,                                  # Multiply by -1
+   PERCENT
+  )) %>% 
+  filter(grepl("concern", COVIDCONCERN, ignore.case = T)) 
+
+concern_pop
+```
+
+<aside>
+The `PERCENT` value for negative responses are multiplied by -1.
+</aside>
+
+```{r}
+concern_pop %>% 
+  ggplot(aes(x = PERCENT, y = COUNTRY, fill = COVIDCONCERN)) + 
+  geom_bar(stat = "identity") +
+  
+  # draws a vertical line at 0 on the x axis
+  geom_vline(xintercept = 0) +
+  
+  # define fill colors (values) and the arrangement of the legend (breaks)
+  scale_fill_manual(
+    values = alpha(
+      colour = c(
+        "Very concerned" = "#00263A",           # PMA Pink
+        "Concerned" = "#4E6C7D",                # IPUMS Dark-Grey
+        "A little concerned" = "#7A99AC",       # IPUMS Blue-Grey
+        "Not concerned" = "#98579B"             # IPUMS Light-Grey
+      )
+    ),
+    breaks = c(
+      "Not concerned",
+      "Very concerned",  
+      "Concerned", 
+      "A little concerned"
+    )
+  ) + 
+  
+  # define labels (labs) and format them as desired (theme)
+  labs(
+    title = "CONCERN ABOUT GETTING INFECTED WITH COVID-19",
+    subtitle = "Estimated percentage for populations of women age 15-49 (summer 2020)",
+    x = NULL,
+    y = NULL,
+    fill = NULL
+  ) + 
+  theme(
+    text = element_text(family = "cabrito", size = 10),
+    title = element_text(size = 14, color = "#00263A"),
+    plot.subtitle = element_text(size = 12),
+    legend.position = "bottom",
+  ) 
+ 
+```
+
+<aside>
+A **divergent bar plot** shows positive and negative responses oriented in opposite directions.
+</aside>
+
+While it is still difficult to compare women who are "Concerned" or "A little concerned", this type of chart makes it easy to compare the most extreme response *while also* comparing the full set of negative response to the full set of positive responses. 
+
+<aside>
+Read more about the debate surrounding divergent stacked bar charts [here](https://www.linkedin.com/pulse/diverging-100-stacked-bars-useless-daniel-zvinca/?published=t) and [here](https://blog.datawrapper.de/divergingbars/).
+</aside>
+
+A word of caution: data visualization experts disagree about [what to do with middle / neutral responses](https://www.datarevelations.com/resources/rethinkingdivergent/). While it's possible to distribute these responses in halves on the outside or in the middle of each bar stack, we much prefer a **facet** showing both neutral and non-response options to the side.
+
+## Faceted Neutral / Non-response
+
+All of the plots we've explored so far have contained a single panel, where both the x and y-axes are uninterrupted for the full width of the display. In some cases, you may want to **facet** multiple panels together. 
+
+For example, consider the variable `PREGFEELNOW`, in which women describe how they would feel if they became pregnant "now". As we'll see, this variable contains *both* a large number of middle / neutral responses ("Mixed happy and unhappy") *and* a large number of non-responses (e.g. women who were pregnant at the time, or who simply did not respond). We'll use a **facet** to show these responses in a separate panel alongside those who provided a positive or negative opinion. 
+
+First, we'll create a summary table and clean up the factor levels for clarity. As we've shown above, we'll make `PERCENT` a negative value for negative responses ("Very unhappy" or "Sort of unhappy"):
+
+```{r}
+pg_tbl <- covid %>% 
+  as_survey_design(weight = CVQWEIGHT, id = EAID) %>%
+  group_by(COUNTRY, PREGFEELNOW) %>%
+  summarise(PERCENT = 100 * survey_mean(vartype = NULL)) %>% 
+  mutate(
+    PREGFEELNOW = factor(
+      PREGFEELNOW, 
+      levels = c(
+        "Sort of unhappy",
+        "Very unhappy", 
+        "Sort of happy",      
+        "Very happy",
+        "No response or missing",
+        "NIU (not in universe)",
+        "Mixed happy and unhappy"
+      )
+    ) %>% fct_recode(`Currently Pregnant` = "NIU (not in universe)"),
+    PERCENT = if_else(
+      PREGFEELNOW %in% c("Very unhappy", "Sort of unhappy"), 
+      -PERCENT, 
+      PERCENT
+    )
+  )
+
+pg_tbl
+```
+
+Next, we'll create a new column that indicates whether we want each response to appear in the second panel in our faceted display. Let's call this column `ASIDE`:
+
+```{r}
+pg_tbl <- pg_tbl %>% 
+  mutate(ASIDE = PREGFEELNOW %in% c(
+      "Mixed happy and unhappy",
+      "No response or missing",
+      "Currently Pregnant" 
+  ))
+
+pg_tbl
+```
+
+Our plot will look similar to the divergent bar chart we made in the previous section, but will now add a new function [facet_grid()](https://ggplot2.tidyverse.org/reference/facet_grid.html) that divides `pg_tbl` into separate panels defined by `ASIDE`: 
+
+```{r}
+pg_tbl %>% 
+  ggplot(aes(x = COUNTRY, fill = PREGFEELNOW, y = PERCENT)) + 
+  geom_bar(stat = "identity") + 
+  coord_flip() + 
+  
+  # facet_grid() can distribute facets in rows and/or columns
+  facet_grid(
+    cols = vars(ASIDE), # here, we choose columns defined by ASIDE
+    scales = "free",    # "free" scales allows for independent facet scales  
+    space = "free"      # "free" space allows for independent facet widths
+  ) + 
+  
+  # we define fill colors (values) and the arrangement of the legend (breaks)
+  scale_fill_manual(
+    values = alpha(c(
+      "Very unhappy" =  "#98579B",   
+      "Sort of unhappy" = "#e8bce8",                  
+      "Mixed happy and unhappy" =  "#969696",         
+      "Sort of happy" =  "#7A99AC",            
+      "Very happy" = "#00263A",     
+      "Currently Pregnant" = "#cccccc", 
+      "No response or missing" = "#F1F5F7"
+    )),
+    breaks = c(
+      "Sort of unhappy",
+      "Very unhappy", 
+      "Very happy",
+      "Sort of happy", 
+      "Mixed happy and unhappy",
+      "Currently Pregnant",
+      "No response or missing"
+    )
+  ) + 
+  guides(fill = guide_legend(nrow = 2, byrow = T)) + 
+  
+  # In theme(), we control labeling for each facet:
+  theme(
+    text = element_text(family = "cabrito", size = 10),
+    title = element_text(size = 14, color = "#00263A"),
+    plot.subtitle = element_text(size = 12),
+    legend.position = "bottom",
+    strip.text = element_blank(), # leaves facet labels blank
+    strip.background = element_blank() # removes background for facet labels
+  ) + 
+  
+  # All other labels are defined in labs() 
+  labs(
+    title = "IF YOU GOT PREGNANT NOW, HOW WOULD YOU FEEL?",
+    subtitle = "Estimated percentage for populations of women age 15-49 (summer 2020)",
+    x = NULL,
+    y = NULL,
+    fill = NULL
+  ) 
+
+```
+
+<aside>
+A **faceted** divergent bar chart 
+</aside>
+
+## Faceted Question Series
+
+Another reason you might want to use **facets** is to align responses to questions that use a common response scale. For example, the variable `COMMCOVIDWORRY` uses the same response options shown in `COVIDCONCERN`, and it reflects each woman's level of concern for the spread of COVID-19 in her community. If we align two bar charts for `COVIDCONCERN` and `COMMCOVIDWORRY` with `facet_grid()`, we'll be able to easily compare women's concerns for personal and communal health.
+
+First, we'll use `pivot_longer` to organize responses to `COVIDCONCERN` and `COMMCOVIDWORRY` in separate rows. Then, we'll pre-calculate our summary statistics in a table called `covid_pop`. 
+
+```{r}
+covid_pop <- covid %>% 
+  select(COUNTRY, CVQWEIGHT, EAID, COVIDCONCERN, COMMCOVIDWORRY) %>% 
+  pivot_longer(
+    c(COVIDCONCERN, COMMCOVIDWORRY),
+    names_to = "QUESTION",
+    values_to = "RESPONSE"
+  ) %>% 
+  as_survey_design(weight = CVQWEIGHT, id = EAID) %>%
+  group_by(COUNTRY, QUESTION, RESPONSE) %>% 
+  summarise(PERCENT = survey_mean(vartype = NULL)) %>% 
+  filter(grepl("concern", RESPONSE, ignore.case = T)) 
+
+covid_pop
+```
+
+<aside>
+To keep things simple, we'll again drop all of the non-response options by filtering only values in `RESPONSE` containing the word "concern".
+</aside>
+
+This time, we'll build separate facets for each `QUESTION`. We'll also arrange facets in the direction *perpendicular to* the direction of the bars (i.e. in rows). 
+
+```{r}
+covid_pop %>% 
+  ggplot(aes(x = COUNTRY, y = PERCENT, fill = RESPONSE)) + 
+  geom_bar(stat = "identity") + 
+  geom_vline(xintercept = 0) +
+  coord_flip() + 
+  
+  # This time, we'll add labels to each facet with labeller()
+  facet_grid(
+    rows = vars(QUESTION), 
+    scales = "free",
+    space = "free",
+    labeller = labeller(QUESTION = c(
+      COMMCOVIDWORRY = "Getting infected",
+      COVIDCONCERN = "Spread in community"
+    ))
+  ) + 
+  
+  # Define fill colors (values) and legend orientation
+  scale_fill_manual(
+    values = alpha(colour = c(
+      "Very concerned" = "#00263A",        # IPUMS Navy
+      "Concerned" = "#4E6C7D",             # IPUMS Dark-Grey
+      "A little concerned" = "#7A99AC",    # IPUMS Blue-Grey
+      "Not concerned" = "#F1F5F7"          # IPUMS Light-Grey
+    ))
+  ) + 
+  guides(fill = guide_legend(reverse = TRUE)) + 
+  
+  # We'll format the labels defined above in strip.text.y
+  # We also increase the panel.spacing by 1 "line"
+  theme(
+    text = element_text(family = "cabrito", size = 10),
+    title = element_text(size = 14, color = "#00263A"),
+    plot.subtitle = element_text(size = 12),
+    legend.position = "bottom",
+    strip.background = element_blank(),
+    strip.text.y = element_text(size = 12, angle = 0),
+    panel.spacing = unit(1, "lines")
+  ) + 
+  
+  # All other labels are defined in labs() 
+  labs(
+    title = "COVID-19 CONCERNS: PERSONAL VS COMMUNAL",
+    subtitle = "Estimated percentage for populations of women age 15-49 (summer 2020)",
+    x = NULL,
+    y = NULL,
+    fill = NULL
+  ) 
+```
+
+# Next Steps
+
+Of course, bar charts are only *one* of the many ways you might choose to visualize Likert-type data from the PMA COVID-19 survey. We think **faceted bar charts** are a great way to compare data from several questions that use the same response scale, or to showcase the different types of *non-response* you'll find in the top-codes used throughout all of the IPUMS PMA data series.
+
+The customization options afforded by `ggplot2` are incredibly powerful, but they can also be overwhelming! We'll practice using tools from `ggplot2` again in our [next post](../../index.html#category:COVID-19), where we'll be thinking about ways to visualize **larger batches of related variables**.

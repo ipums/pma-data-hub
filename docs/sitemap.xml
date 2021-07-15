@@ -5,6 +5,14 @@
     <lastmod>2021-03-26T16:30:29-05:00</lastmod>
   </url>
   <url>
+    <loc>https://ipums.github.io/pma-data-hub/blog-post-workflow.html</loc>
+    <lastmod>2021-07-15T14:22:05-05:00</lastmod>
+  </url>
+  <url>
+    <loc>https://ipums.github.io/pma-data-hub/blogging-with-rmarkdown.html</loc>
+    <lastmod>2021-07-15T14:22:29-05:00</lastmod>
+  </url>
+  <url>
     <loc>https://ipums.github.io/pma-data-hub/CODE_OF_CONDUCT.html</loc>
     <lastmod>2021-02-02T12:16:04-06:00</lastmod>
   </url>
@@ -14,27 +22,31 @@
   </url>
   <url>
     <loc>https://ipums.github.io/pma-data-hub/</loc>
-    <lastmod>2021-07-01T15:10:56-05:00</lastmod>
+    <lastmod>2021-07-15T14:22:28-05:00</lastmod>
   </url>
   <url>
     <loc>https://ipums.github.io/pma-data-hub/introduction.html</loc>
-    <lastmod>2021-06-14T10:18:26-05:00</lastmod>
+    <lastmod>2021-07-08T10:11:54-05:00</lastmod>
   </url>
   <url>
     <loc>https://ipums.github.io/pma-data-hub/LICENSE.html</loc>
     <lastmod>2021-02-02T12:16:04-06:00</lastmod>
   </url>
   <url>
+    <loc>https://ipums.github.io/pma-data-hub/posts/2021-07-15-covid-likert/</loc>
+    <lastmod>2021-07-15T14:22:05-05:00</lastmod>
+  </url>
+  <url>
     <loc>https://ipums.github.io/pma-data-hub/posts/2021-07-01-covid-tables/</loc>
-    <lastmod>2021-07-01T15:10:32-05:00</lastmod>
+    <lastmod>2021-07-08T10:11:54-05:00</lastmod>
   </url>
   <url>
     <loc>https://ipums.github.io/pma-data-hub/posts/2021-06-15-covid-discovery/</loc>
-    <lastmod>2021-06-14T10:31:54-05:00</lastmod>
+    <lastmod>2021-07-08T10:11:54-05:00</lastmod>
   </url>
   <url>
     <loc>https://ipums.github.io/pma-data-hub/posts/2021-05-24-migration-data-analysis/</loc>
-    <lastmod>2021-06-14T10:14:11-05:00</lastmod>
+    <lastmod>2021-07-08T10:11:54-05:00</lastmod>
   </url>
   <url>
     <loc>https://ipums.github.io/pma-data-hub/posts/2021-05-15-paa-2021/</loc>
@@ -65,10 +77,6 @@
     <lastmod>2021-05-14T09:23:13-05:00</lastmod>
   </url>
   <url>
-    <loc>https://ipums.github.io/pma-data-hub/posts/2021-02-02-blog-post-workflow/</loc>
-    <lastmod>2021-06-14T10:14:11-05:00</lastmod>
-  </url>
-  <url>
     <loc>https://ipums.github.io/pma-data-hub/posts/2021-01-29-mapping-sdp-variables/</loc>
     <lastmod>2021-03-26T16:30:28-05:00</lastmod>
   </url>
@@ -83,10 +91,6 @@
   <url>
     <loc>https://ipums.github.io/pma-data-hub/posts/2021-01-26-sdp-data/</loc>
     <lastmod>2021-03-26T16:30:28-05:00</lastmod>
-  </url>
-  <url>
-    <loc>https://ipums.github.io/pma-data-hub/posts/2021-02-02-blogging-with-rmarkdown/</loc>
-    <lastmod>2021-03-12T14:59:01-06:00</lastmod>
   </url>
   <url>
     <loc>https://ipums.github.io/pma-data-hub/posts/2020-12-10-get-ipums-pma-data/</loc>

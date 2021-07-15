@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:media="http://search.yahoo.com/mrss/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:dc="http://purl.org/dc/elements/1.1/" version="2.0">
+  <channel>
+    <title>Data Analysis Hub</title>
+    <link>https://ipums.github.io/pma-data-hub/</link>
+    <atom:link href="https://ipums.github.io/pma-data-hub/index.xml" rel="self" type="application/rss+xml"/>
+    <description>A blog about PMA data
+</description>
+    <image>
+      <title>Data Analysis Hub</title>
+      <url>https://ipums.github.io/pma-data-hub/images/favicon/favicon-32x32.png</url>
+      <link>https://ipums.github.io/pma-data-hub/</link>
+    </image>
+    <generator>Distill</generator>
+    <lastBuildDate>Thu, 15 Jul 2021 00:00:00 +0000</lastBuildDate>
+    <item>
+      <title>Visualizing perceptions of risk from COVID-19</title>
+      <dc:creator>Saeun Park</dc:creator>
+      <dc:creator>Matt Gunther</dc:creator>
+      <link>https://ipums.github.io/pma-data-hub/posts/2021-07-15-covid-likert</link>
+      <description>A guide to bar charts for Likert-type psychometric scales built with ggplot2.</description>
+      <category>COVID-19</category>
+      <category>Descriptive Analysis</category>
+      <category>Data Visualization</category>
+      <category>ggplot2</category>
+      <guid>https://ipums.github.io/pma-data-hub/posts/2021-07-15-covid-likert</guid>
+      <pubDate>Thu, 15 Jul 2021 00:00:00 +0000</pubDate>
+      <media:content url="https://ipums.github.io/pma-data-hub/posts/2021-07-15-covid-likert/images/faceted.png" medium="image" type="image/png" width="1388" height="682"/>
+    </item>
+    <item>
+      <title>Making Tables with PMA COVID-19 Data</title>
+      <dc:creator>Shelby Rutzick</dc:creator>
+      <dc:creator>Matt Gunther</dc:creator>
+      <link>https://ipums.github.io/pma-data-hub/posts/2021-07-01-covid-tables</link>
+      <description>Showcasing the gtsummary package for sample descriptive statistics, weighted population estimates, and model summary output.</description>
+      <category>COVID-19</category>
+      <category>gtsummary</category>
+      <category>srvyr</category>
+      <category>purrr</category>
+      <category>Descriptive Analysis</category>
+      <category>Data Manipulation</category>
+      <guid>https://ipums.github.io/pma-data-hub/posts/2021-07-01-covid-tables</guid>
+      <pubDate>Thu, 01 Jul 2021 00:00:00 +0000</pubDate>
+      <media:content url="https://ipums.github.io/pma-data-hub/posts/2021-07-01-covid-tables/images/gtsummary_wide.png" medium="image" type="image/png" width="483" height="230"/>
+    </item>
+    <item>
+      <title>New PMA COVID-19 Survey Data</title>
+      <dc:creator>Matt Gunther</dc:creator>
+      <link>https://ipums.github.io/pma-data-hub/posts/2021-06-15-covid-discovery</link>
+      <description>A new panel study promises insights into the impact of COVID-19 on family planning and reproductive health.</description>
+      <category>COVID-19</category>
+      <category>Panel Data</category>
+      <category>Data Discovery</category>
+      <category>New Data</category>
+      <guid>https://ipums.github.io/pma-data-hub/posts/2021-06-15-covid-discovery</guid>
+      <pubDate>Tue, 15 Jun 2021 00:00:00 +0000</pubDate>
+      <media:content url="https://ipums.github.io/pma-data-hub/posts/2021-06-15-covid-discovery/images/new_data_white.png" medium="image" type="image/png" width="2555" height="1437"/>
+    </item>
+    <item>
+      <title>Visualizing migration patterns over time</title>
+      <dc:creator>Nina Brooks</dc:creator>
+      <link>https://ipums.github.io/pma-data-hub/posts/2021-05-24-migration-data-analysis</link>
+      <description>How to visualize patterns in migration data using alluvial plots, line plots, and density plots.</description>
+      <category>Migration</category>
+      <category>Data Analysis</category>
+      <category>Data Visualization</category>
+      <category>Descriptive Analysis</category>
+      <category>ggalluvial</category>
+      <category>ggridges</category>
+      <guid>https://ipums.github.io/pma-data-hub/posts/2021-05-24-migration-data-analysis</guid>
+      <pubDate>Wed, 02 Jun 2021 00:00:00 +0000</pubDate>
+      <media:content url="https://ipums.github.io/pma-data-hub/posts/2021-05-24-migration-data-analysis/images/migration_alluvial.png" medium="image" type="image/png" width="936" height="574"/>
+    </item>
+    <item>
+      <title>Making the Contraceptive Calendar Data Work For You</title>
+      <dc:creator>Matt Gunther</dc:creator>
+      <link>https://ipums.github.io/pma-data-hub/posts/2021-05-15-paa-2021</link>
+      <description>R and Stata code with video from an event held at the Population Association of America 2021 Annual Meeting.</description>
+      <category>PMA Publications</category>
+      <category>PAA 2021</category>
+      <category>Contraceptive Calendar</category>
+      <category>Stata</category>
+      <guid>https://ipums.github.io/pma-data-hub/posts/2021-05-15-paa-2021</guid>
+      <pubDate>Sat, 15 May 2021 00:00:00 +0000</pubDate>
+      <media:content url="https://ipums.github.io/pma-data-hub/posts/2021-05-15-paa-2021/images/featured.png" medium="image" type="image/png" width="2880" height="1800"/>
+    </item>
+    <item>
+      <title>Visualizing PMA Data with StoryMaps</title>
+      <dc:creator>Matt Gunther</dc:creator>
+      <link>https://ipums.github.io/pma-data-hub/posts/2021-05-01-storymaps</link>
+      <description>Five outstanding undergraduate research projects integrate dynamic data visualization with spatial analysis and narrative.</description>
+      <category>PMA Publications</category>
+      <category>StoryMaps</category>
+      <category>Undergrads</category>
+      <category>Teaching</category>
+      <guid>https://ipums.github.io/pma-data-hub/posts/2021-05-01-storymaps</guid>
+      <pubDate>Mon, 03 May 2021 00:00:00 +0000</pubDate>
+      <media:content url="https://ipums.github.io/pma-data-hub/posts/2021-05-01-storymaps/images/featured.png" medium="image" type="image/png" width="2190" height="1254"/>
+    </item>
+    <item>
+      <title>Formatting Migration Recall Data for Longitudinal Analysis</title>
+      <dc:creator>Matt Gunther</dc:creator>
+      <link>https://ipums.github.io/pma-data-hub/posts/2021-04-15-migration-discovery</link>
+      <description>Use tidyr::pivot_longer to reshape wide data into a long format.</description>
+      <category>Migration</category>
+      <category>Data Discovery</category>
+      <category>Data Manipulation</category>
+      <category>pivot_longer</category>
+      <category>regex</category>
+      <guid>https://ipums.github.io/pma-data-hub/posts/2021-04-15-migration-discovery</guid>
+      <pubDate>Thu, 15 Apr 2021 00:00:00 +0000</pubDate>
+      <media:content url="https://ipums.github.io/pma-data-hub/posts/2021-04-15-migration-discovery/images/tidyr_wide.png" medium="image" type="image/png" width="960" height="540"/>
+    </item>
+    <item>
+      <title>Unmet need for family planning after internal migration</title>
+      <dc:creator>Matt Gunther</dc:creator>
+      <link>https://ipums.github.io/pma-data-hub/posts/2021-04-01-et-internal-migration</link>
+      <description>Summary and source code from a recent article using data from Ethiopia.</description>
+      <category>Migration</category>
+      <category>PMA Publications</category>
+      <category>svyglm</category>
+      <category>bootstraps</category>
+      <guid>https://ipums.github.io/pma-data-hub/posts/2021-04-01-et-internal-migration</guid>
+      <pubDate>Fri, 02 Apr 2021 00:00:00 +0000</pubDate>
+      <media:content url="https://ipums.github.io/pma-data-hub/posts/2021-04-01-et-internal-migration/images/pred_prob_h4.png" medium="image" type="image/png" width="2683" height="1200"/>
+    </item>
+    <item>
+      <title>New SDP Data Available Spring 2021</title>
+      <dc:creator>Matt Gunther</dc:creator>
+      <link>https://ipums.github.io/pma-data-hub/posts/2021-02-09-march-2021-data-release</link>
+      <description>Get details on new variables related to labor &amp; delivery services, antenatal care, vaccinations, facility shipment schedules, and more!</description>
+      <category>New Data</category>
+      <category>Data Discovery</category>
+      <guid>https://ipums.github.io/pma-data-hub/posts/2021-02-09-march-2021-data-release</guid>
+      <pubDate>Mon, 15 Mar 2021 00:00:00 +0000</pubDate>
+      <media:content url="https://ipums.github.io/pma-data-hub/posts/2021-02-09-march-2021-data-release/images/new_data_white.png" medium="image" type="image/png" width="2555" height="1437"/>
+    </item>
+    <item>
+      <title>Putting It All Together: Analyzing the Individual in Context</title>
+      <dc:creator>Nina Brooks</dc:creator>
+      <link>https://ipums.github.io/pma-data-hub/posts/2021-02-19-analyzing-the-individual-in-context</link>
+      <description>Analyzing women's contraceptive use while considering service delivery point and spatial contextual factors.</description>
+      <category>Individuals in Context</category>
+      <category>Service Delivery Points</category>
+      <category>Data Analysis</category>
+      <category>survey</category>
+      <category>dotwhisker</category>
+      <guid>https://ipums.github.io/pma-data-hub/posts/2021-02-19-analyzing-the-individual-in-context</guid>
+      <pubDate>Tue, 02 Mar 2021 00:00:00 +0000</pubDate>
+      <media:content url="https://ipums.github.io/pma-data-hub/posts/2021-02-19-analyzing-the-individual-in-context/images/results.png" medium="image" type="image/png" width="1950" height="1199"/>
+    </item>
+    <item>
+      <title>Merging external spatial data</title>
+      <dc:creator>Nina Brooks</dc:creator>
+      <link>https://ipums.github.io/pma-data-hub/posts/2021-02-04-merging-external-spatial-data</link>
+      <description>How to integrate external spatial data with PMA data.</description>
+      <category>Individuals in Context</category>
+      <category>Service Delivery Points</category>
+      <category>Data Manipulation</category>
+      <category>join</category>
+      <category>sf</category>
+      <category>raster</category>
+      <category>Spatial</category>
+      <guid>https://ipums.github.io/pma-data-hub/posts/2021-02-04-merging-external-spatial-data</guid>
+      <pubDate>Mon, 15 Feb 2021 00:00:00 +0000</pubDate>
+      <media:content url="https://ipums.github.io/pma-data-hub/posts/2021-02-04-merging-external-spatial-data/images/road_map.png" medium="image" type="image/png" width="936" height="574"/>
+    </item>
+    <item>
+      <title>Mapping Service Delivery Point Data</title>
+      <dc:creator>Nina Brooks</dc:creator>
+      <link>https://ipums.github.io/pma-data-hub/posts/2021-01-29-mapping-sdp-variables</link>
+      <description>Map spatial variation in the service delivery environment across enumeration areas.</description>
+      <category>Individuals in Context</category>
+      <category>Service Delivery Points</category>
+      <category>Data Manipulation</category>
+      <category>Mapping</category>
+      <category>sf</category>
+      <guid>https://ipums.github.io/pma-data-hub/posts/2021-01-29-mapping-sdp-variables</guid>
+      <pubDate>Sat, 30 Jan 2021 00:00:00 +0000</pubDate>
+      <media:content url="https://ipums.github.io/pma-data-hub/posts/2021-01-29-mapping-sdp-variables/images/bf_fp_map.png" medium="image" type="image/png" width="2100" height="1350"/>
+    </item>
+    <item>
+      <title>Merging Service Delivery Point Data to Household &amp; Female Records</title>
+      <dc:creator>Matt Gunther</dc:creator>
+      <link>https://ipums.github.io/pma-data-hub/posts/2021-01-28-summarize-by-easerved</link>
+      <description>Create aggregate measures for women living the areas served by SDPs</description>
+      <category>Individuals in Context</category>
+      <category>Data Manipulation</category>
+      <category>Service Delivery Points</category>
+      <category>pivot_longer</category>
+      <category>join</category>
+      <guid>https://ipums.github.io/pma-data-hub/posts/2021-01-28-summarize-by-easerved</guid>
+      <pubDate>Fri, 29 Jan 2021 00:00:00 +0000</pubDate>
+    </item>
+    <item>
+      <title>Recode and Summarize Variables from Multiple Response Questions</title>
+      <dc:creator>Matt Gunther</dc:creator>
+      <link>https://ipums.github.io/pma-data-hub/posts/2021-01-28-across-sdp</link>
+      <description>Use dplyr::across to summarize variables with a similar naming pattern.</description>
+      <category>Individuals in Context</category>
+      <category>Data Manipulation</category>
+      <category>Service Delivery Points</category>
+      <category>across</category>
+      <category>ipumsr</category>
+      <guid>https://ipums.github.io/pma-data-hub/posts/2021-01-28-across-sdp</guid>
+      <pubDate>Thu, 28 Jan 2021 00:00:00 +0000</pubDate>
+      <media:content url="https://ipums.github.io/pma-data-hub/posts/2021-01-28-across-sdp/images/logos.png" medium="image" type="image/png" width="960" height="540"/>
+    </item>
+    <item>
+      <title>Service Delivery Point Data Explained</title>
+      <dc:creator>Matt Gunther</dc:creator>
+      <link>https://ipums.github.io/pma-data-hub/posts/2021-01-26-sdp-data</link>
+      <description>SDP samples are not nationally representative. Learn how to use them to describe the health service environment experienced by individuals.</description>
+      <category>Individuals in Context</category>
+      <category>Data Discovery</category>
+      <category>Service Delivery Points</category>
+      <guid>https://ipums.github.io/pma-data-hub/posts/2021-01-26-sdp-data</guid>
+      <pubDate>Tue, 26 Jan 2021 00:00:00 +0000</pubDate>
+      <media:content url="https://ipums.github.io/pma-data-hub/posts/2021-01-26-sdp-data/images/choose-unit.png" medium="image" type="image/png" width="909" height="632"/>
+    </item>
+    <item>
+      <title>Import IPUMS PMA Data into R</title>
+      <dc:creator>Matt Gunther</dc:creator>
+      <link>https://ipums.github.io/pma-data-hub/posts/2020-12-10-get-ipums-pma-data</link>
+      <description>How to download an IPUMS PMA data extract and start using it in R</description>
+      <category>R Tips</category>
+      <category>R Packages</category>
+      <category>Importing Data</category>
+      <guid>https://ipums.github.io/pma-data-hub/posts/2020-12-10-get-ipums-pma-data</guid>
+      <pubDate>Tue, 10 Nov 2020 00:00:00 +0000</pubDate>
+      <media:content url="https://ipums.github.io/pma-data-hub/posts/2020-12-10-get-ipums-pma-data/images/create-data-extract.png" medium="image" type="image/png" width="910" height="790"/>
+    </item>
+    <item>
+      <title>Getting Started with R</title>
+      <dc:creator>Matt Gunther</dc:creator>
+      <link>https://ipums.github.io/pma-data-hub/posts/2020-12-10-get-r-and-packages</link>
+      <description>How to download R for free and install some of the R packages used on this blog</description>
+      <category>R Tips</category>
+      <category>R Packages</category>
+      <guid>https://ipums.github.io/pma-data-hub/posts/2020-12-10-get-r-and-packages</guid>
+      <pubDate>Mon, 02 Nov 2020 00:00:00 +0000</pubDate>
+      <media:content url="https://ipums.github.io/pma-data-hub/posts/2020-12-10-get-r-and-packages/images/Rlogo.png" medium="image" type="image/png" width="724" height="561"/>
+    </item>
+  </channel>
+</rss>

@@ -1,0 +1,2707 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1"/>
+  <meta name="generator" content="distill" />
+
+  <style type="text/css">
+  /* Hide doc at startup (prevent jankiness while JS renders/transforms) */
+  body {
+    visibility: hidden;
+  }
+  </style>
+
+ <!--radix_placeholder_import_source-->
+ <!--/radix_placeholder_import_source-->
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css" data-origin="pandoc">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ad0000; } /* Alert */
+code span.an { color: #5e5e5e; } /* Annotation */
+code span.at { color: #20794d; } /* Attribute */
+code span.bn { color: #ad0000; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007ba5; } /* ControlFlow */
+code span.ch { color: #20794d; } /* Char */
+code span.cn { color: #8f5902; } /* Constant */
+code span.co { color: #5e5e5e; } /* Comment */
+code span.cv { color: #5e5e5e; font-style: italic; } /* CommentVar */
+code span.do { color: #5e5e5e; font-style: italic; } /* Documentation */
+code span.dt { color: #ad0000; } /* DataType */
+code span.dv { color: #ad0000; } /* DecVal */
+code span.er { color: #ad0000; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #ad0000; } /* Float */
+code span.fu { color: #4758ab; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #5e5e5e; } /* Information */
+code span.kw { color: #007ba5; } /* Keyword */
+code span.op { color: #5e5e5e; } /* Operator */
+code span.ot { color: #007ba5; } /* Other */
+code span.pp { color: #ad0000; } /* Preprocessor */
+code span.sc { color: #20794d; } /* SpecialChar */
+code span.ss { color: #20794d; } /* SpecialString */
+code span.st { color: #20794d; } /* String */
+code span.va { color: #111111; } /* Variable */
+code span.vs { color: #20794d; } /* VerbatimString */
+code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
+</style>
+
+  <!--radix_placeholder_meta_tags-->
+  <title>Visualizing perceptions of risk from COVID-19</title>
+
+  <meta property="description" itemprop="description" content="A guide to bar charts for Likert-type psychometric scales built with ggplot2."/>
+
+
+  <!--  https://schema.org/Article -->
+  <meta property="article:published" itemprop="datePublished" content="2021-07-15"/>
+  <meta property="article:created" itemprop="dateCreated" content="2021-07-15"/>
+  <meta name="article:author" content="Saeun Park"/>
+  <meta name="article:author" content="Matt Gunther"/>
+
+  <!--  https://developers.facebook.com/docs/sharing/webmasters#markup -->
+  <meta property="og:title" content="Visualizing perceptions of risk from COVID-19"/>
+  <meta property="og:type" content="article"/>
+  <meta property="og:description" content="A guide to bar charts for Likert-type psychometric scales built with ggplot2."/>
+  <meta property="og:locale" content="en_US"/>
+
+  <!--  https://dev.twitter.com/cards/types/summary -->
+  <meta property="twitter:card" content="summary"/>
+  <meta property="twitter:title" content="Visualizing perceptions of risk from COVID-19"/>
+  <meta property="twitter:description" content="A guide to bar charts for Likert-type psychometric scales built with ggplot2."/>
+
+  <!--/radix_placeholder_meta_tags-->
+  <!--radix_placeholder_rmarkdown_metadata-->
+
+  <script type="text/json" id="radix-rmarkdown-metadata">
+  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","author","date","categories","output","preview"]}},"value":[{"type":"character","attributes":{},"value":["Visualizing perceptions of risk from COVID-19"]},{"type":"character","attributes":{},"value":["A guide to bar charts for Likert-type psychometric scales built with ggplot2.\n"]},{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","url","affiliation"]}},"value":[{"type":"character","attributes":{},"value":["Saeun Park"]},{"type":"character","attributes":{},"value":["http://www.linkedin.com/in/saeun-park"]},{"type":"character","attributes":{},"value":["IPUMS PMA Graduate Research Assistant"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","affiliation"]}},"value":[{"type":"character","attributes":{},"value":["Matt Gunther"]},{"type":"character","attributes":{},"value":["IPUMS PMA Senior Data Analyst"]}]}]},{"type":"character","attributes":{},"value":["07-15-2021"]},{"type":"character","attributes":{},"value":["COVID-19","Descriptive Analysis","Data Visualization","ggplot2"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["self_contained","toc","toc_depth","toc_float"]}},"value":[{"type":"logical","attributes":{},"value":[false]},{"type":"logical","attributes":{},"value":[true]},{"type":"integer","attributes":{},"value":[3]},{"type":"logical","attributes":{},"value":[true]}]}]},{"type":"character","attributes":{},"value":["images/faceted.png"]}]}
+  </script>
+  <!--/radix_placeholder_rmarkdown_metadata-->
+  
+  <script type="text/json" id="radix-resource-manifest">
+  {"type":"character","attributes":{},"value":["covid-likert_files/anchor-4.2.2/anchor.min.js","covid-likert_files/bowser-1.9.3/bowser.min.js","covid-likert_files/distill-2.2.21/template.v2.js","covid-likert_files/figure-html5/unnamed-chunk-10-1.png","covid-likert_files/figure-html5/unnamed-chunk-10-2.png","covid-likert_files/figure-html5/unnamed-chunk-11-1.png","covid-likert_files/figure-html5/unnamed-chunk-11-2.png","covid-likert_files/figure-html5/unnamed-chunk-12-1.png","covid-likert_files/figure-html5/unnamed-chunk-12-2.png","covid-likert_files/figure-html5/unnamed-chunk-13-1.png","covid-likert_files/figure-html5/unnamed-chunk-14-1.png","covid-likert_files/figure-html5/unnamed-chunk-15-1.png","covid-likert_files/figure-html5/unnamed-chunk-16-1.png","covid-likert_files/figure-html5/unnamed-chunk-17-1.png","covid-likert_files/figure-html5/unnamed-chunk-18-1.png","covid-likert_files/figure-html5/unnamed-chunk-19-1.png","covid-likert_files/figure-html5/unnamed-chunk-20-1.png","covid-likert_files/figure-html5/unnamed-chunk-21-1.png","covid-likert_files/figure-html5/unnamed-chunk-22-1.png","covid-likert_files/figure-html5/unnamed-chunk-23-1.png","covid-likert_files/figure-html5/unnamed-chunk-24-1.png","covid-likert_files/figure-html5/unnamed-chunk-25-1.png","covid-likert_files/figure-html5/unnamed-chunk-26-1.png","covid-likert_files/figure-html5/unnamed-chunk-27-1.png","covid-likert_files/figure-html5/unnamed-chunk-28-1.png","covid-likert_files/figure-html5/unnamed-chunk-29-1.png","covid-likert_files/figure-html5/unnamed-chunk-30-1.png","covid-likert_files/figure-html5/unnamed-chunk-4-1.png","covid-likert_files/figure-html5/unnamed-chunk-4-2.png","covid-likert_files/figure-html5/unnamed-chunk-5-1.png","covid-likert_files/figure-html5/unnamed-chunk-5-2.png","covid-likert_files/figure-html5/unnamed-chunk-6-1.png","covid-likert_files/figure-html5/unnamed-chunk-7-1.png","covid-likert_files/figure-html5/unnamed-chunk-7-2.png","covid-likert_files/figure-html5/unnamed-chunk-8-1.png","covid-likert_files/figure-html5/unnamed-chunk-8-2.png","covid-likert_files/figure-html5/unnamed-chunk-9-1.png","covid-likert_files/figure-html5/unnamed-chunk-9-2.png","covid-likert_files/header-attrs-2.7/header-attrs.js","covid-likert_files/header-attrs-2.9/header-attrs.js","covid-likert_files/jquery-1.11.3/jquery.min.js","covid-likert_files/webcomponents-2.0.0/webcomponents.js","data/pma_00032.dat.gz","data/pma_00032.xml","fonts/cabritosanscondbold-webfont.ttf","fonts/cabritosansconddemi-webfont.ttf","fonts/cabritosansnormregular-webfont.ttf","images/divergent.png","images/faceted.png","images/ggplot2.png","images/gtsummary.png","images/showtext.png"]}
+  </script>
+  <!--radix_placeholder_navigation_in_header-->
+  <!--/radix_placeholder_navigation_in_header-->
+  <!--radix_placeholder_distill-->
+
+  <style type="text/css">
+
+  body {
+    background-color: white;
+  }
+
+  .pandoc-table {
+    width: 100%;
+  }
+
+  .pandoc-table>caption {
+    margin-bottom: 10px;
+  }
+
+  .pandoc-table th:not([align]) {
+    text-align: left;
+  }
+
+  .pagedtable-footer {
+    font-size: 15px;
+  }
+
+  d-byline .byline {
+    grid-template-columns: 2fr 2fr;
+  }
+
+  d-byline .byline h3 {
+    margin-block-start: 1.5em;
+  }
+
+  d-byline .byline .authors-affiliations h3 {
+    margin-block-start: 0.5em;
+  }
+
+  .authors-affiliations .orcid-id {
+    width: 16px;
+    height:16px;
+    margin-left: 4px;
+    margin-right: 4px;
+    vertical-align: middle;
+    padding-bottom: 2px;
+  }
+
+  d-title .dt-tags {
+    margin-top: 1em;
+    grid-column: text;
+  }
+
+  .dt-tags .dt-tag {
+    text-decoration: none;
+    display: inline-block;
+    color: rgba(0,0,0,0.6);
+    padding: 0em 0.4em;
+    margin-right: 0.5em;
+    margin-bottom: 0.4em;
+    font-size: 70%;
+    border: 1px solid rgba(0,0,0,0.2);
+    border-radius: 3px;
+    text-transform: uppercase;
+    font-weight: 500;
+  }
+
+  d-article table.gt_table td,
+  d-article table.gt_table th {
+    border-bottom: none;
+  }
+
+  .html-widget {
+    margin-bottom: 2.0em;
+  }
+
+  .l-screen-inset {
+    padding-right: 16px;
+  }
+
+  .l-screen .caption {
+    margin-left: 10px;
+  }
+
+  .shaded {
+    background: rgb(247, 247, 247);
+    padding-top: 20px;
+    padding-bottom: 20px;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  }
+
+  .shaded .html-widget {
+    margin-bottom: 0;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+  }
+
+  .shaded .shaded-content {
+    background: white;
+  }
+
+  .text-output {
+    margin-top: 0;
+    line-height: 1.5em;
+  }
+
+  .hidden {
+    display: none !important;
+  }
+
+  d-article {
+    padding-top: 2.5rem;
+    padding-bottom: 30px;
+  }
+
+  d-appendix {
+    padding-top: 30px;
+  }
+
+  d-article>p>img {
+    width: 100%;
+  }
+
+  d-article h2 {
+    margin: 1rem 0 1.5rem 0;
+  }
+
+  d-article h3 {
+    margin-top: 1.5rem;
+  }
+
+  d-article iframe {
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    margin-bottom: 2.0em;
+    width: 100%;
+  }
+
+  /* Tweak code blocks */
+
+  d-article div.sourceCode code,
+  d-article pre code {
+    font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+  }
+
+  d-article pre,
+  d-article div.sourceCode,
+  d-article div.sourceCode pre {
+    overflow: auto;
+  }
+
+  d-article div.sourceCode {
+    background-color: white;
+  }
+
+  d-article div.sourceCode pre {
+    padding-left: 10px;
+    font-size: 12px;
+    border-left: 2px solid rgba(0,0,0,0.1);
+  }
+
+  d-article pre {
+    font-size: 12px;
+    color: black;
+    background: none;
+    margin-top: 0;
+    text-align: left;
+    white-space: pre;
+    word-spacing: normal;
+    word-break: normal;
+    word-wrap: normal;
+    line-height: 1.5;
+
+    -moz-tab-size: 4;
+    -o-tab-size: 4;
+    tab-size: 4;
+
+    -webkit-hyphens: none;
+    -moz-hyphens: none;
+    -ms-hyphens: none;
+    hyphens: none;
+  }
+
+  d-article pre a {
+    border-bottom: none;
+  }
+
+  d-article pre a:hover {
+    border-bottom: none;
+    text-decoration: underline;
+  }
+
+  @media(min-width: 768px) {
+
+  d-article pre,
+  d-article div.sourceCode,
+  d-article div.sourceCode pre {
+    overflow: visible !important;
+  }
+
+  d-article div.sourceCode pre {
+    padding-left: 18px;
+    font-size: 14px;
+  }
+
+  d-article pre {
+    font-size: 14px;
+  }
+
+  }
+
+  figure img.external {
+    background: white;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    box-shadow: 0 1px 8px rgba(0, 0, 0, 0.1);
+    padding: 18px;
+    box-sizing: border-box;
+  }
+
+  /* CSS for d-contents */
+
+  .d-contents {
+    grid-column: text;
+    color: rgba(0,0,0,0.8);
+    font-size: 0.9em;
+    padding-bottom: 1em;
+    margin-bottom: 1em;
+    padding-bottom: 0.5em;
+    margin-bottom: 1em;
+    padding-left: 0.25em;
+    justify-self: start;
+  }
+
+  @media(min-width: 1000px) {
+    .d-contents.d-contents-float {
+      height: 0;
+      grid-column-start: 1;
+      grid-column-end: 4;
+      justify-self: center;
+      padding-right: 3em;
+      padding-left: 2em;
+    }
+  }
+
+  .d-contents nav h3 {
+    font-size: 18px;
+    margin-top: 0;
+    margin-bottom: 1em;
+  }
+
+  .d-contents li {
+    list-style-type: none
+  }
+
+  .d-contents nav > ul {
+    padding-left: 0;
+  }
+
+  .d-contents ul {
+    padding-left: 1em
+  }
+
+  .d-contents nav ul li {
+    margin-top: 0.6em;
+    margin-bottom: 0.2em;
+  }
+
+  .d-contents nav a {
+    font-size: 13px;
+    border-bottom: none;
+    text-decoration: none
+    color: rgba(0, 0, 0, 0.8);
+  }
+
+  .d-contents nav a:hover {
+    text-decoration: underline solid rgba(0, 0, 0, 0.6)
+  }
+
+  .d-contents nav > ul > li > a {
+    font-weight: 600;
+  }
+
+  .d-contents nav > ul > li > ul {
+    font-weight: inherit;
+  }
+
+  .d-contents nav > ul > li > ul > li {
+    margin-top: 0.2em;
+  }
+
+
+  .d-contents nav ul {
+    margin-top: 0;
+    margin-bottom: 0.25em;
+  }
+
+  .d-article-with-toc h2:nth-child(2) {
+    margin-top: 0;
+  }
+
+
+  /* Figure */
+
+  .figure {
+    position: relative;
+    margin-bottom: 2.5em;
+    margin-top: 1.5em;
+  }
+
+  .figure img {
+    width: 100%;
+  }
+
+  .figure .caption {
+    color: rgba(0, 0, 0, 0.6);
+    font-size: 12px;
+    line-height: 1.5em;
+  }
+
+  .figure img.external {
+    background: white;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    box-shadow: 0 1px 8px rgba(0, 0, 0, 0.1);
+    padding: 18px;
+    box-sizing: border-box;
+  }
+
+  .figure .caption a {
+    color: rgba(0, 0, 0, 0.6);
+  }
+
+  .figure .caption b,
+  .figure .caption strong, {
+    font-weight: 600;
+    color: rgba(0, 0, 0, 1.0);
+  }
+
+  /* Citations */
+
+  d-article .citation {
+    color: inherit;
+    cursor: inherit;
+  }
+
+  div.hanging-indent{
+    margin-left: 1em; text-indent: -1em;
+  }
+
+
+  /* Tweak 1000px media break to show more text */
+
+  @media(min-width: 1000px) {
+    .base-grid,
+    distill-header,
+    d-title,
+    d-abstract,
+    d-article,
+    d-appendix,
+    distill-appendix,
+    d-byline,
+    d-footnote-list,
+    d-citation-list,
+    distill-footer {
+      grid-template-columns: [screen-start] 1fr [page-start kicker-start] 80px [middle-start] 50px [text-start kicker-end] 65px 65px 65px 65px 65px 65px 65px 65px [text-end gutter-start] 65px [middle-end] 65px [page-end gutter-end] 1fr [screen-end];
+      grid-column-gap: 16px;
+    }
+
+    .grid {
+      grid-column-gap: 16px;
+    }
+
+    d-article {
+      font-size: 1.06rem;
+      line-height: 1.7em;
+    }
+    figure .caption, .figure .caption, figure figcaption {
+      font-size: 13px;
+    }
+  }
+
+  @media(min-width: 1180px) {
+    .base-grid,
+    distill-header,
+    d-title,
+    d-abstract,
+    d-article,
+    d-appendix,
+    distill-appendix,
+    d-byline,
+    d-footnote-list,
+    d-citation-list,
+    distill-footer {
+      grid-template-columns: [screen-start] 1fr [page-start kicker-start] 60px [middle-start] 60px [text-start kicker-end] 60px 60px 60px 60px 60px 60px 60px 60px [text-end gutter-start] 60px [middle-end] 60px [page-end gutter-end] 1fr [screen-end];
+      grid-column-gap: 32px;
+    }
+
+    .grid {
+      grid-column-gap: 32px;
+    }
+  }
+
+
+  /* Get the citation styles for the appendix (not auto-injected on render since
+     we do our own rendering of the citation appendix) */
+
+  d-appendix .citation-appendix,
+  .d-appendix .citation-appendix {
+    font-size: 11px;
+    line-height: 15px;
+    border-left: 1px solid rgba(0, 0, 0, 0.1);
+    padding-left: 18px;
+    border: 1px solid rgba(0,0,0,0.1);
+    background: rgba(0, 0, 0, 0.02);
+    padding: 10px 18px;
+    border-radius: 3px;
+    color: rgba(150, 150, 150, 1);
+    overflow: hidden;
+    margin-top: -12px;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+  }
+
+  /* Include appendix styles here so they can be overridden */
+
+  d-appendix {
+    contain: layout style;
+    font-size: 0.8em;
+    line-height: 1.7em;
+    margin-top: 60px;
+    margin-bottom: 0;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    color: rgba(0,0,0,0.5);
+    padding-top: 60px;
+    padding-bottom: 48px;
+  }
+
+  d-appendix h3 {
+    grid-column: page-start / text-start;
+    font-size: 15px;
+    font-weight: 500;
+    margin-top: 1em;
+    margin-bottom: 0;
+    color: rgba(0,0,0,0.65);
+  }
+
+  d-appendix h3 + * {
+    margin-top: 1em;
+  }
+
+  d-appendix ol {
+    padding: 0 0 0 15px;
+  }
+
+  @media (min-width: 768px) {
+    d-appendix ol {
+      padding: 0 0 0 30px;
+      margin-left: -30px;
+    }
+  }
+
+  d-appendix li {
+    margin-bottom: 1em;
+  }
+
+  d-appendix a {
+    color: rgba(0, 0, 0, 0.6);
+  }
+
+  d-appendix > * {
+    grid-column: text;
+  }
+
+  d-appendix > d-footnote-list,
+  d-appendix > d-citation-list,
+  d-appendix > distill-appendix {
+    grid-column: screen;
+  }
+
+  /* Include footnote styles here so they can be overridden */
+
+  d-footnote-list {
+    contain: layout style;
+  }
+
+  d-footnote-list > * {
+    grid-column: text;
+  }
+
+  d-footnote-list a.footnote-backlink {
+    color: rgba(0,0,0,0.3);
+    padding-left: 0.5em;
+  }
+
+
+
+  /* Anchor.js */
+
+  .anchorjs-link {
+    /*transition: all .25s linear; */
+    text-decoration: none;
+    border-bottom: none;
+  }
+  *:hover > .anchorjs-link {
+    margin-left: -1.125em !important;
+    text-decoration: none;
+    border-bottom: none;
+  }
+
+  /* Social footer */
+
+  .social_footer {
+    margin-top: 30px;
+    margin-bottom: 0;
+    color: rgba(0,0,0,0.67);
+  }
+
+  .disqus-comments {
+    margin-right: 30px;
+  }
+
+  .disqus-comment-count {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.4);
+    cursor: pointer;
+  }
+
+  #disqus_thread {
+    margin-top: 30px;
+  }
+
+  .article-sharing a {
+    border-bottom: none;
+    margin-right: 8px;
+  }
+
+  .article-sharing a:hover {
+    border-bottom: none;
+  }
+
+  .sidebar-section.subscribe {
+    font-size: 12px;
+    line-height: 1.6em;
+  }
+
+  .subscribe p {
+    margin-bottom: 0.5em;
+  }
+
+
+  .article-footer .subscribe {
+    font-size: 15px;
+    margin-top: 45px;
+  }
+
+
+  .sidebar-section.custom {
+    font-size: 12px;
+    line-height: 1.6em;
+  }
+
+  .custom p {
+    margin-bottom: 0.5em;
+  }
+
+  /* Styles for listing layout (hide title) */
+  .layout-listing d-title, .layout-listing .d-title {
+    display: none;
+  }
+
+  /* Styles for posts lists (not auto-injected) */
+
+
+  .posts-with-sidebar {
+    padding-left: 45px;
+    padding-right: 45px;
+  }
+
+  .posts-list .description h2,
+  .posts-list .description p {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", Arial, sans-serif;
+  }
+
+  .posts-list .description h2 {
+    font-weight: 700;
+    border-bottom: none;
+    padding-bottom: 0;
+  }
+
+  .posts-list h2.post-tag {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+    padding-bottom: 12px;
+  }
+  .posts-list {
+    margin-top: 60px;
+    margin-bottom: 24px;
+  }
+
+  .posts-list .post-preview {
+    text-decoration: none;
+    overflow: hidden;
+    display: block;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    padding: 24px 0;
+  }
+
+  .post-preview-last {
+    border-bottom: none !important;
+  }
+
+  .posts-list .posts-list-caption {
+    grid-column: screen;
+    font-weight: 400;
+  }
+
+  .posts-list .post-preview h2 {
+    margin: 0 0 6px 0;
+    line-height: 1.2em;
+    font-style: normal;
+    font-size: 24px;
+  }
+
+  .posts-list .post-preview p {
+    margin: 0 0 12px 0;
+    line-height: 1.4em;
+    font-size: 16px;
+  }
+
+  .posts-list .post-preview .thumbnail {
+    box-sizing: border-box;
+    margin-bottom: 24px;
+    position: relative;
+    max-width: 500px;
+  }
+  .posts-list .post-preview img {
+    width: 100%;
+    display: block;
+  }
+
+  .posts-list .metadata {
+    font-size: 12px;
+    line-height: 1.4em;
+    margin-bottom: 18px;
+  }
+
+  .posts-list .metadata > * {
+    display: inline-block;
+  }
+
+  .posts-list .metadata .publishedDate {
+    margin-right: 2em;
+  }
+
+  .posts-list .metadata .dt-authors {
+    display: block;
+    margin-top: 0.3em;
+    margin-right: 2em;
+  }
+
+  .posts-list .dt-tags {
+    display: block;
+    line-height: 1em;
+  }
+
+  .posts-list .dt-tags .dt-tag {
+    display: inline-block;
+    color: rgba(0,0,0,0.6);
+    padding: 0.3em 0.4em;
+    margin-right: 0.2em;
+    margin-bottom: 0.4em;
+    font-size: 60%;
+    border: 1px solid rgba(0,0,0,0.2);
+    border-radius: 3px;
+    text-transform: uppercase;
+    font-weight: 500;
+  }
+
+  .posts-list img {
+    opacity: 1;
+  }
+
+  .posts-list img[data-src] {
+    opacity: 0;
+  }
+
+  .posts-more {
+    clear: both;
+  }
+
+
+  .posts-sidebar {
+    font-size: 16px;
+  }
+
+  .posts-sidebar h3 {
+    font-size: 16px;
+    margin-top: 0;
+    margin-bottom: 0.5em;
+    font-weight: 400;
+    text-transform: uppercase;
+  }
+
+  .sidebar-section {
+    margin-bottom: 30px;
+  }
+
+  .categories ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .categories li {
+    color: rgba(0, 0, 0, 0.8);
+    margin-bottom: 0;
+  }
+
+  .categories li>a {
+    border-bottom: none;
+  }
+
+  .categories li>a:hover {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.4);
+  }
+
+  .categories .active {
+    font-weight: 600;
+  }
+
+  .categories .category-count {
+    color: rgba(0, 0, 0, 0.4);
+  }
+
+
+  @media(min-width: 768px) {
+    .posts-list .post-preview h2 {
+      font-size: 26px;
+    }
+    .posts-list .post-preview .thumbnail {
+      float: right;
+      width: 30%;
+      margin-bottom: 0;
+    }
+    .posts-list .post-preview .description {
+      float: left;
+      width: 45%;
+    }
+    .posts-list .post-preview .metadata {
+      float: left;
+      width: 20%;
+      margin-top: 8px;
+    }
+    .posts-list .post-preview p {
+      margin: 0 0 12px 0;
+      line-height: 1.5em;
+      font-size: 16px;
+    }
+    .posts-with-sidebar .posts-list {
+      float: left;
+      width: 75%;
+    }
+    .posts-with-sidebar .posts-sidebar {
+      float: right;
+      width: 20%;
+      margin-top: 60px;
+      padding-top: 24px;
+      padding-bottom: 24px;
+    }
+  }
+
+
+  /* Improve display for browsers without grid (IE/Edge <= 15) */
+
+  .downlevel {
+    line-height: 1.6em;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", Arial, sans-serif;
+    margin: 0;
+  }
+
+  .downlevel .d-title {
+    padding-top: 6rem;
+    padding-bottom: 1.5rem;
+  }
+
+  .downlevel .d-title h1 {
+    font-size: 50px;
+    font-weight: 700;
+    line-height: 1.1em;
+    margin: 0 0 0.5rem;
+  }
+
+  .downlevel .d-title p {
+    font-weight: 300;
+    font-size: 1.2rem;
+    line-height: 1.55em;
+    margin-top: 0;
+  }
+
+  .downlevel .d-byline {
+    padding-top: 0.8em;
+    padding-bottom: 0.8em;
+    font-size: 0.8rem;
+    line-height: 1.8em;
+  }
+
+  .downlevel .section-separator {
+    border: none;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+  }
+
+  .downlevel .d-article {
+    font-size: 1.06rem;
+    line-height: 1.7em;
+    padding-top: 1rem;
+    padding-bottom: 2rem;
+  }
+
+
+  .downlevel .d-appendix {
+    padding-left: 0;
+    padding-right: 0;
+    max-width: none;
+    font-size: 0.8em;
+    line-height: 1.7em;
+    margin-bottom: 0;
+    color: rgba(0,0,0,0.5);
+    padding-top: 40px;
+    padding-bottom: 48px;
+  }
+
+  .downlevel .footnotes ol {
+    padding-left: 13px;
+  }
+
+  .downlevel .base-grid,
+  .downlevel .distill-header,
+  .downlevel .d-title,
+  .downlevel .d-abstract,
+  .downlevel .d-article,
+  .downlevel .d-appendix,
+  .downlevel .distill-appendix,
+  .downlevel .d-byline,
+  .downlevel .d-footnote-list,
+  .downlevel .d-citation-list,
+  .downlevel .distill-footer,
+  .downlevel .appendix-bottom,
+  .downlevel .posts-container {
+    padding-left: 40px;
+    padding-right: 40px;
+  }
+
+  @media(min-width: 768px) {
+    .downlevel .base-grid,
+    .downlevel .distill-header,
+    .downlevel .d-title,
+    .downlevel .d-abstract,
+    .downlevel .d-article,
+    .downlevel .d-appendix,
+    .downlevel .distill-appendix,
+    .downlevel .d-byline,
+    .downlevel .d-footnote-list,
+    .downlevel .d-citation-list,
+    .downlevel .distill-footer,
+    .downlevel .appendix-bottom,
+    .downlevel .posts-container {
+    padding-left: 150px;
+    padding-right: 150px;
+    max-width: 900px;
+  }
+  }
+
+  .downlevel pre code {
+    display: block;
+    border-left: 2px solid rgba(0, 0, 0, .1);
+    padding: 0 0 0 20px;
+    font-size: 14px;
+  }
+
+  .downlevel code, .downlevel pre {
+    color: black;
+    background: none;
+    font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+    text-align: left;
+    white-space: pre;
+    word-spacing: normal;
+    word-break: normal;
+    word-wrap: normal;
+    line-height: 1.5;
+
+    -moz-tab-size: 4;
+    -o-tab-size: 4;
+    tab-size: 4;
+
+    -webkit-hyphens: none;
+    -moz-hyphens: none;
+    -ms-hyphens: none;
+    hyphens: none;
+  }
+
+  .downlevel .posts-list .post-preview {
+    color: inherit;
+  }
+
+
+
+  </style>
+
+  <script type="application/javascript">
+
+  function is_downlevel_browser() {
+    if (bowser.isUnsupportedBrowser({ msie: "12", msedge: "16"},
+                                   window.navigator.userAgent)) {
+      return true;
+    } else {
+      return window.load_distill_framework === undefined;
+    }
+  }
+
+  // show body when load is complete
+  function on_load_complete() {
+
+    // add anchors
+    if (window.anchors) {
+      window.anchors.options.placement = 'left';
+      window.anchors.add('d-article > h2, d-article > h3, d-article > h4, d-article > h5');
+    }
+
+
+    // set body to visible
+    document.body.style.visibility = 'visible';
+
+    // force redraw for leaflet widgets
+    if (window.HTMLWidgets) {
+      var maps = window.HTMLWidgets.findAll(".leaflet");
+      $.each(maps, function(i, el) {
+        var map = this.getMap();
+        map.invalidateSize();
+        map.eachLayer(function(layer) {
+          if (layer instanceof L.TileLayer)
+            layer.redraw();
+        });
+      });
+    }
+
+    // trigger 'shown' so htmlwidgets resize
+    $('d-article').trigger('shown');
+  }
+
+  function init_distill() {
+
+    init_common();
+
+    // create front matter
+    var front_matter = $('<d-front-matter></d-front-matter>');
+    $('#distill-front-matter').wrap(front_matter);
+
+    // create d-title
+    $('.d-title').changeElementType('d-title');
+
+    // create d-byline
+    var byline = $('<d-byline></d-byline>');
+    $('.d-byline').replaceWith(byline);
+
+    // create d-article
+    var article = $('<d-article></d-article>');
+    $('.d-article').wrap(article).children().unwrap();
+
+    // move posts container into article
+    $('.posts-container').appendTo($('d-article'));
+
+    // create d-appendix
+    $('.d-appendix').changeElementType('d-appendix');
+
+    // flag indicating that we have appendix items
+    var appendix = $('.appendix-bottom').children('h3').length > 0;
+
+    // replace footnotes with <d-footnote>
+    $('.footnote-ref').each(function(i, val) {
+      appendix = true;
+      var href = $(this).attr('href');
+      var id = href.replace('#', '');
+      var fn = $('#' + id);
+      var fn_p = $('#' + id + '>p');
+      fn_p.find('.footnote-back').remove();
+      var text = fn_p.html();
+      var dtfn = $('<d-footnote></d-footnote>');
+      dtfn.html(text);
+      $(this).replaceWith(dtfn);
+    });
+    // remove footnotes
+    $('.footnotes').remove();
+
+    // move refs into #references-listing
+    $('#references-listing').replaceWith($('#refs'));
+
+    $('h1.appendix, h2.appendix').each(function(i, val) {
+      $(this).changeElementType('h3');
+    });
+    $('h3.appendix').each(function(i, val) {
+      var id = $(this).attr('id');
+      $('.d-contents a[href="#' + id + '"]').parent().remove();
+      appendix = true;
+      $(this).nextUntil($('h1, h2, h3')).addBack().appendTo($('d-appendix'));
+    });
+
+    // show d-appendix if we have appendix content
+    $("d-appendix").css('display', appendix ? 'grid' : 'none');
+
+    // localize layout chunks to just output
+    $('.layout-chunk').each(function(i, val) {
+
+      // capture layout
+      var layout = $(this).attr('data-layout');
+
+      // apply layout to markdown level block elements
+      var elements = $(this).children().not('div.sourceCode, pre, script');
+      elements.each(function(i, el) {
+        var layout_div = $('<div class="' + layout + '"></div>');
+        if (layout_div.hasClass('shaded')) {
+          var shaded_content = $('<div class="shaded-content"></div>');
+          $(this).wrap(shaded_content);
+          $(this).parent().wrap(layout_div);
+        } else {
+          $(this).wrap(layout_div);
+        }
+      });
+
+
+      // unwrap the layout-chunk div
+      $(this).children().unwrap();
+    });
+
+    // remove code block used to force  highlighting css
+    $('.distill-force-highlighting-css').parent().remove();
+
+    // remove empty line numbers inserted by pandoc when using a
+    // custom syntax highlighting theme
+    $('code.sourceCode a:empty').remove();
+
+    // load distill framework
+    load_distill_framework();
+
+    // wait for window.distillRunlevel == 4 to do post processing
+    function distill_post_process() {
+
+      if (!window.distillRunlevel || window.distillRunlevel < 4)
+        return;
+
+      // hide author/affiliations entirely if we have no authors
+      var front_matter = JSON.parse($("#distill-front-matter").html());
+      var have_authors = front_matter.authors && front_matter.authors.length > 0;
+      if (!have_authors)
+        $('d-byline').addClass('hidden');
+
+      // article with toc class
+      $('.d-contents').parent().addClass('d-article-with-toc');
+
+      // strip links that point to #
+      $('.authors-affiliations').find('a[href="#"]').removeAttr('href');
+
+      // add orcid ids
+      $('.authors-affiliations').find('.author').each(function(i, el) {
+        var orcid_id = front_matter.authors[i].orcidID;
+        if (orcid_id) {
+          var a = $('<a></a>');
+          a.attr('href', 'https://orcid.org/' + orcid_id);
+          var img = $('<img></img>');
+          img.addClass('orcid-id');
+          img.attr('alt', 'ORCID ID');
+          img.attr('src','data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA2ZpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDo1N0NEMjA4MDI1MjA2ODExOTk0QzkzNTEzRjZEQTg1NyIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDozM0NDOEJGNEZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDozM0NDOEJGM0ZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ1M1IE1hY2ludG9zaCI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOkZDN0YxMTc0MDcyMDY4MTE5NUZFRDc5MUM2MUUwNEREIiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjU3Q0QyMDgwMjUyMDY4MTE5OTRDOTM1MTNGNkRBODU3Ii8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+84NovQAAAR1JREFUeNpiZEADy85ZJgCpeCB2QJM6AMQLo4yOL0AWZETSqACk1gOxAQN+cAGIA4EGPQBxmJA0nwdpjjQ8xqArmczw5tMHXAaALDgP1QMxAGqzAAPxQACqh4ER6uf5MBlkm0X4EGayMfMw/Pr7Bd2gRBZogMFBrv01hisv5jLsv9nLAPIOMnjy8RDDyYctyAbFM2EJbRQw+aAWw/LzVgx7b+cwCHKqMhjJFCBLOzAR6+lXX84xnHjYyqAo5IUizkRCwIENQQckGSDGY4TVgAPEaraQr2a4/24bSuoExcJCfAEJihXkWDj3ZAKy9EJGaEo8T0QSxkjSwORsCAuDQCD+QILmD1A9kECEZgxDaEZhICIzGcIyEyOl2RkgwAAhkmC+eAm0TAAAAABJRU5ErkJggg==');
+          a.append(img);
+          $(this).append(a);
+        }
+      });
+
+      // hide elements of author/affiliations grid that have no value
+      function hide_byline_column(caption) {
+        $('d-byline').find('h3:contains("' + caption + '")').parent().css('visibility', 'hidden');
+      }
+
+      // affiliations
+      var have_affiliations = false;
+      for (var i = 0; i<front_matter.authors.length; ++i) {
+        var author = front_matter.authors[i];
+        if (author.affiliation !== "&nbsp;") {
+          have_affiliations = true;
+          break;
+        }
+      }
+      if (!have_affiliations)
+        $('d-byline').find('h3:contains("Affiliations")').css('visibility', 'hidden');
+
+      // published date
+      if (!front_matter.publishedDate)
+        hide_byline_column("Published");
+
+      // document object identifier
+      var doi = $('d-byline').find('h3:contains("DOI")');
+      var doi_p = doi.next().empty();
+      if (!front_matter.doi) {
+        // if we have a citation and valid citationText then link to that
+        if ($('#citation').length > 0 && front_matter.citationText) {
+          doi.html('Citation');
+          $('<a href="#citation"></a>')
+            .text(front_matter.citationText)
+            .appendTo(doi_p);
+        } else {
+          hide_byline_column("DOI");
+        }
+      } else {
+        $('<a></a>')
+           .attr('href', "https://doi.org/" + front_matter.doi)
+           .html(front_matter.doi)
+           .appendTo(doi_p);
+      }
+
+       // change plural form of authors/affiliations
+      if (front_matter.authors.length === 1) {
+        var grid = $('.authors-affiliations');
+        grid.children('h3:contains("Authors")').text('Author');
+        grid.children('h3:contains("Affiliations")').text('Affiliation');
+      }
+
+      // remove d-appendix and d-footnote-list local styles
+      $('d-appendix > style:first-child').remove();
+      $('d-footnote-list > style:first-child').remove();
+
+      // move appendix-bottom entries to the bottom
+      $('.appendix-bottom').appendTo('d-appendix').children().unwrap();
+      $('.appendix-bottom').remove();
+
+      // clear polling timer
+      clearInterval(tid);
+
+      // show body now that everything is ready
+      on_load_complete();
+    }
+
+    var tid = setInterval(distill_post_process, 50);
+    distill_post_process();
+
+  }
+
+  function init_downlevel() {
+
+    init_common();
+
+     // insert hr after d-title
+    $('.d-title').after($('<hr class="section-separator"/>'));
+
+    // check if we have authors
+    var front_matter = JSON.parse($("#distill-front-matter").html());
+    var have_authors = front_matter.authors && front_matter.authors.length > 0;
+
+    // manage byline/border
+    if (!have_authors)
+      $('.d-byline').remove();
+    $('.d-byline').after($('<hr class="section-separator"/>'));
+    $('.d-byline a').remove();
+
+    // remove toc
+    $('.d-contents').remove();
+
+    // move appendix elements
+    $('h1.appendix, h2.appendix').each(function(i, val) {
+      $(this).changeElementType('h3');
+    });
+    $('h3.appendix').each(function(i, val) {
+      $(this).nextUntil($('h1, h2, h3')).addBack().appendTo($('.d-appendix'));
+    });
+
+
+    // inject headers into references and footnotes
+    var refs_header = $('<h3></h3>');
+    refs_header.text('References');
+    $('#refs').prepend(refs_header);
+
+    var footnotes_header = $('<h3></h3');
+    footnotes_header.text('Footnotes');
+    $('.footnotes').children('hr').first().replaceWith(footnotes_header);
+
+    // move appendix-bottom entries to the bottom
+    $('.appendix-bottom').appendTo('.d-appendix').children().unwrap();
+    $('.appendix-bottom').remove();
+
+    // remove appendix if it's empty
+    if ($('.d-appendix').children().length === 0)
+      $('.d-appendix').remove();
+
+    // prepend separator above appendix
+    $('.d-appendix').before($('<hr class="section-separator" style="clear: both"/>'));
+
+    // trim code
+    $('pre>code').each(function(i, val) {
+      $(this).html($.trim($(this).html()));
+    });
+
+    // move posts-container right before article
+    $('.posts-container').insertBefore($('.d-article'));
+
+    $('body').addClass('downlevel');
+
+    on_load_complete();
+  }
+
+
+  function init_common() {
+
+    // jquery plugin to change element types
+    (function($) {
+      $.fn.changeElementType = function(newType) {
+        var attrs = {};
+
+        $.each(this[0].attributes, function(idx, attr) {
+          attrs[attr.nodeName] = attr.nodeValue;
+        });
+
+        this.replaceWith(function() {
+          return $("<" + newType + "/>", attrs).append($(this).contents());
+        });
+      };
+    })(jQuery);
+
+    // prevent underline for linked images
+    $('a > img').parent().css({'border-bottom' : 'none'});
+
+    // mark non-body figures created by knitr chunks as 100% width
+    $('.layout-chunk').each(function(i, val) {
+      var figures = $(this).find('img, .html-widget');
+      if ($(this).attr('data-layout') !== "l-body") {
+        figures.css('width', '100%');
+      } else {
+        figures.css('max-width', '100%');
+        figures.filter("[width]").each(function(i, val) {
+          var fig = $(this);
+          fig.css('width', fig.attr('width') + 'px');
+        });
+
+      }
+    });
+
+    // auto-append index.html to post-preview links in file: protocol
+    // and in rstudio ide preview
+    $('.post-preview').each(function(i, val) {
+      if (window.location.protocol === "file:")
+        $(this).attr('href', $(this).attr('href') + "index.html");
+    });
+
+    // get rid of index.html references in header
+    if (window.location.protocol !== "file:") {
+      $('.distill-site-header a[href]').each(function(i,val) {
+        $(this).attr('href', $(this).attr('href').replace("index.html", "./"));
+      });
+    }
+
+    // add class to pandoc style tables
+    $('tr.header').parent('thead').parent('table').addClass('pandoc-table');
+    $('.kable-table').children('table').addClass('pandoc-table');
+
+    // add figcaption style to table captions
+    $('caption').parent('table').addClass("figcaption");
+
+    // initialize posts list
+    if (window.init_posts_list)
+      window.init_posts_list();
+
+    // implmement disqus comment link
+    $('.disqus-comment-count').click(function() {
+      window.headroom_prevent_pin = true;
+      $('#disqus_thread').toggleClass('hidden');
+      if (!$('#disqus_thread').hasClass('hidden')) {
+        var offset = $(this).offset();
+        $(window).resize();
+        $('html, body').animate({
+          scrollTop: offset.top - 35
+        });
+      }
+    });
+  }
+
+  document.addEventListener('DOMContentLoaded', function() {
+    if (is_downlevel_browser())
+      init_downlevel();
+    else
+      window.addEventListener('WebComponentsReady', init_distill);
+  });
+
+  </script>
+
+  <!--/radix_placeholder_distill-->
+  <script src="covid-likert_files/header-attrs-2.7/header-attrs.js"></script>
+  <script src="covid-likert_files/jquery-1.11.3/jquery.min.js"></script>
+  <script src="covid-likert_files/anchor-4.2.2/anchor.min.js"></script>
+  <script src="covid-likert_files/bowser-1.9.3/bowser.min.js"></script>
+  <script src="covid-likert_files/webcomponents-2.0.0/webcomponents.js"></script>
+  <script src="covid-likert_files/distill-2.2.21/template.v2.js"></script>
+  <!--radix_placeholder_site_in_header-->
+  <!--/radix_placeholder_site_in_header-->
+
+
+</head>
+
+<body>
+
+<!--radix_placeholder_front_matter-->
+
+<script id="distill-front-matter" type="text/json">
+{"title":"Visualizing perceptions of risk from COVID-19","description":"A guide to bar charts for Likert-type psychometric scales built with ggplot2.","authors":[{"author":"Saeun Park","authorURL":"http://www.linkedin.com/in/saeun-park","affiliation":"IPUMS PMA Graduate Research Assistant","affiliationURL":"#","orcidID":""},{"author":"Matt Gunther","authorURL":"#","affiliation":"IPUMS PMA Senior Data Analyst","affiliationURL":"#","orcidID":""}],"publishedDate":"2021-07-15T00:00:00.000+00:00","citationText":"Park & Gunther, 2021"}
+</script>
+
+<!--/radix_placeholder_front_matter-->
+<!--radix_placeholder_navigation_before_body-->
+<!--/radix_placeholder_navigation_before_body-->
+<!--radix_placeholder_site_before_body-->
+<!--/radix_placeholder_site_before_body-->
+
+<div class="d-title">
+<h1>Visualizing perceptions of risk from COVID-19</h1>
+<!--radix_placeholder_categories-->
+<div class="dt-tags">
+<div class="dt=tag">COVID-19</div>
+<div class="dt=tag">Descriptive Analysis</div>
+<div class="dt=tag">Data Visualization</div>
+<div class="dt=tag">ggplot2</div>
+</div>
+<!--/radix_placeholder_categories-->
+<p><p>A guide to bar charts for Likert-type psychometric scales built with ggplot2.</p></p>
+</div>
+
+<div class="d-byline">
+  Saeun Park <a href="http://www.linkedin.com/in/saeun-park" class="uri">http://www.linkedin.com/in/saeun-park</a> (IPUMS PMA Graduate Research Assistant)
+  
+,   Matt Gunther  (IPUMS PMA Senior Data Analyst)
+  
+<br/>07-15-2021
+</div>
+
+<div class="d-article">
+<div class="d-contents d-contents-float">
+<nav class="l-text toc figcaption" id="TOC">
+<h3>Contents</h3>
+<ul>
+<li><a href="#setup">Setup</a>
+<ul>
+<li><a href="#featured-variable-covidconcern">Featured variable: COVIDCONCERN</a></li>
+</ul></li>
+<li><a href="#basic-bar-charts">Basic Bar Charts</a>
+<ul>
+<li><a href="#position">Position</a></li>
+<li><a href="#stat">Stat</a></li>
+</ul></li>
+<li><a href="#customization">Customization</a>
+<ul>
+<li><a href="#color">Color</a></li>
+<li><a href="#labels-and-fonts">Labels and Fonts</a></li>
+</ul></li>
+<li><a href="#advanced-bar-charts">Advanced Bar Charts</a>
+<ul>
+<li><a href="#divergent-stacked-bar-chart">Divergent Stacked Bar Chart</a></li>
+<li><a href="#faceted-neutral-non-response">Faceted Neutral / Non-response</a></li>
+<li><a href="#faceted-question-series">Faceted Question Series</a></li>
+</ul></li>
+<li><a href="#next-steps">Next Steps</a></li>
+</ul>
+</nav>
+</div>
+<p>As we’ve mentioned throughout <a href="../../index.html#category:COVID-19">this series</a>, one of the most important focus areas of the new <a href="https://www.pmadata.org/technical-areas/covid-19">PMA COVID-19 survey</a> has to do with <strong>perceptions of risk</strong> expressed by women during the early months of the pandemic. Because all respondents to the COVID-19 survey are participants in a multi-year panel study examining broad topics in reproductive health, analysts will soon be able to link women’s attitudes and beliefs about COVID-19 during the summer of 2020 to longer-term health and family planning outcomes.</p>
+<p>In this post, we’ll examine one of the most common data visualization tools used to explore attitudinal data: the bar chart. In the PMA COVID-19 survey, women are asked to <strong>rate their level of concern</strong> for several different types of risk associated with the pandemic. The survey uses a four-point scale for such questions, and it includes the following response options:</p>
+<ul>
+<li>Not concerned</li>
+<li>A little concerned</li>
+<li>Concerned</li>
+<li>Very concerned</li>
+</ul>
+<p>This type of scale is common in psychometric research, particularly where analysts want to compare attitudes about a wide range of topics. You might notice that the responses follow a <strong>bi-polar</strong> format, where more neutral responses are organized at the center, and more extreme responses are listed on either side. This type for scale is sometimes called the <a href="https://en.wikipedia.org/wiki/Likert_scale">Likert scale</a> after the pioneering social psychologist, Rensis Likert.</p>
+<p>The bar chart is typically used for Likert-type data because:</p>
+<ul>
+<li>it is <strong>ordinal</strong> (responses should be arranged from a low-level of concern to a high-level of concern)</li>
+<li>it is <strong>discrete</strong> (responses are restricted to a small number of pre-defined choices)</li>
+<li>repeated use of the same scale allows us to <strong>align</strong> and compare levels of concern on multiple questions</li>
+</ul>
+<p>We’ll discuss some of the many choices you’ll have to make about layout, and we’ll show how to implement them with the <code>tidyverse</code> package <a href="https://ggplot2.tidyverse.org/">ggplot2</a>.</p>
+<aside>
+We also recommend the packages <a href="https://github.com/jbryer/likert">likert</a> and <a href="https://cran.r-project.org/web/packages/HH/index.html">hh</a> for Likert-type data.
+</aside>
+<h1 id="setup">Setup</h1>
+<p>You’ll find the data featured in this post if you navigate to the new <a href="https://pma.ipums.org/pma-action/extract_requests/clear?return_url=%2Fpma-action%2Fvariables%2Fgroup">COVID-19 Unit of Analysis</a> in the IPUMS PMA data extract system. Our examples feature data from <strong>all four samples</strong> (Female Respondents only).</p>
+<p>To follow along, make sure to create an extract that includes these variables:</p>
+<ul>
+<li><a href="https://pma.ipums.org/pma-action/variables/COUNTRY">COUNTRY</a></li>
+<li><a href="https://pma.ipums.org/pma-action/variables/CVQWEIGHT">CVQWEIGHT</a></li>
+<li><a href="https://pma.ipums.org/pma-action/variables/EAID">EAID</a></li>
+<li><a href="https://pma.ipums.org/pma-action/variables/COVIDCONCERN">COVIDCONCERN</a></li>
+<li><a href="https://pma.ipums.org/pma-action/variables/COMMCOVIDWORRY">COMMCOVIDWORRY</a></li>
+<li><a href="https://pma.ipums.org/pma-action/variables/PREGFEELNOW">PREGFEELNOW</a></li>
+</ul>
+<p>You’ll also need to install the following packages as needed (current versions are recommended):</p>
+<ul>
+<li><a href="http://tech.popdata.org/ipumsr/index.html">ipumsr</a> (0.4.5)</li>
+<li><a href="https://www.tidyverse.org/">tidyverse</a> (1.3.1)</li>
+<li><a href="http://gdfe.co/srvyr/index.html">srvyr</a> (1.0.1)</li>
+<li><a href="https://github.com/yixuan/showtext">showtext</a> (0.9.2)</li>
+<li><a href="http://www.danieldsjoberg.com/gtsummary/index.html">gtsummary</a> (1.4.1)</li>
+</ul>
+<p>Load those packages and your data extract into R (be sure to change the file paths to match the location of your own extract):</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre><code><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://www.ipums.org'>ipumsr</a></span><span class='op'>)</span>
+<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://tidyverse.tidyverse.org'>tidyverse</a></span><span class='op'>)</span>
+<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='http://gdfe.co/srvyr/'>srvyr</a></span><span class='op'>)</span>
+<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://github.com/yixuan/showtext'>showtext</a></span><span class='op'>)</span>
+<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://github.com/ddsjoberg/gtsummary'>gtsummary</a></span><span class='op'>)</span>
+
+<span class='va'>covid</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/ipumsr/man/read_ipums_micro.html'>read_ipums_micro</a></span><span class='op'>(</span>
+  ddi <span class='op'>=</span> <span class='st'>"data/pma_00032.xml"</span>,
+  dat <span class='op'>=</span> <span class='st'>"data/pma_00032.dat.gz"</span>
+<span class='op'>)</span>
+</code></pre>
+</div>
+</div>
+<h2 id="featured-variable-covidconcern">Featured variable: COVIDCONCERN</h2>
+<p>To start, let’s take a look at just one of the variables that uses the Likert-type scale shown above. In <code>COVIDCONCERN</code>, women who have <em>not already been infected with COVID-19</em> are asked to rate their level of concern for becoming infected:</p>
+<pre><code>How concerned are you about getting infected yourself?
+(Read all options)
+
+  [] Very concerned
+  [] Concerned
+  [] A little concerned
+  [] Not concerned
+  [] I am currently / was infected with COVID-19
+  [] No response</code></pre>
+<aside>
+In addition to the two non-response options shown on the questionnaire, women could also be <code>NIU (not in universe)</code> if they <em>had</em> already been infected.
+</aside>
+<p>Let’s break down the responses to this question by <code>COUNTRY</code>. First, <a href="../2021-07-01-covid-tables/index.html#display-value-labels">following the explanation in our last post</a>, we’d strongly recommend transforming both variables into <strong>factor</strong> objects (this will ensure that their value labels are displayed in graphics output). We’ll also edit the <code>COUNTRY</code> labels for DRC and Nigeria, and we’ll describe the <code>NIU</code> cases for <code>COVIDCONCERN</code> as women who <code>Never heard or read about COVID-19</code>.</p>
+<aside>
+Reminder: only the Burkina Faso and Kenya samples are <strong>nationally representative</strong>. The DRC and Nigeria samples represent <strong>sub-national regions</strong>.
+</aside>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre><code><span class='va'>covid</span> <span class='op'>&lt;-</span> <span class='va'>covid</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='http://gdfe.co/srvyr/reference/dplyr_single.html'>mutate</a></span><span class='op'>(</span>
+    <span class='fu'><a href='https://dplyr.tidyverse.org/reference/across.html'>across</a></span><span class='op'>(</span><span class='fu'>where</span><span class='op'>(</span><span class='va'>is.labelled</span><span class='op'>)</span>, <span class='op'>~</span><span class='fu'><a href='https://forcats.tidyverse.org/reference/as_factor.html'>as_factor</a></span><span class='op'>(</span><span class='va'>.x</span><span class='op'>)</span> <span class='op'>%&gt;%</span> <span class='va'>fct_drop</span><span class='op'>)</span>, 
+    COUNTRY <span class='op'>=</span> <span class='va'>COUNTRY</span> <span class='op'>%&gt;%</span>
+      <span class='fu'>fct_recode</span><span class='op'>(</span>
+        `DRC (Kinshasa)` <span class='op'>=</span> <span class='st'>"Congo, Democratic Republic"</span>,
+        `Nigeria (Lagos &amp; Kano)` <span class='op'>=</span> <span class='st'>"Nigeria"</span>
+      <span class='op'>)</span>,
+    COVIDCONCERN <span class='op'>=</span> <span class='va'>COVIDCONCERN</span> <span class='op'>%&gt;%</span> 
+      <span class='fu'>fct_recode</span><span class='op'>(</span>
+        `Never heard or read about COVID-19` <span class='op'>=</span> <span class='st'>"NIU (not in universe)"</span>
+      <span class='op'>)</span>
+  <span class='op'>)</span>
+</code></pre>
+</div>
+</div>
+<p>Using the <code>gtsummary</code> package featured in our <a href="../2021-07-01-covid-tables/index.html">last post</a>, you might preview the breakdown of <code>COVIDCONCERN</code> by <code>COUNTRY</code> in a table as follows:</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre><code><span class='va'>covid</span> <span class='op'>%&gt;%</span> <span class='fu'><a href='http://www.danieldsjoberg.com/gtsummary//reference/tbl_summary.html'>tbl_summary</a></span><span class='op'>(</span>by <span class='op'>=</span> <span class='va'>COUNTRY</span>, include <span class='op'>=</span> <span class='va'>COVIDCONCERN</span><span class='op'>)</span> 
+</code></pre>
+</div>
+<div id="krkehjokdw" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>html {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
+}
+
+#krkehjokdw .gt_table {
+  display: table;
+  border-collapse: collapse;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#krkehjokdw .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#krkehjokdw .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#krkehjokdw .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 0;
+  padding-bottom: 4px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#krkehjokdw .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#krkehjokdw .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#krkehjokdw .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#krkehjokdw .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#krkehjokdw .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#krkehjokdw .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#krkehjokdw .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#krkehjokdw .gt_group_heading {
+  padding: 8px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#krkehjokdw .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#krkehjokdw .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#krkehjokdw .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#krkehjokdw .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#krkehjokdw .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 12px;
+}
+
+#krkehjokdw .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#krkehjokdw .gt_first_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+}
+
+#krkehjokdw .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#krkehjokdw .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#krkehjokdw .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#krkehjokdw .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#krkehjokdw .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#krkehjokdw .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding: 4px;
+}
+
+#krkehjokdw .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#krkehjokdw .gt_sourcenote {
+  font-size: 90%;
+  padding: 4px;
+}
+
+#krkehjokdw .gt_left {
+  text-align: left;
+}
+
+#krkehjokdw .gt_center {
+  text-align: center;
+}
+
+#krkehjokdw .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#krkehjokdw .gt_font_normal {
+  font-weight: normal;
+}
+
+#krkehjokdw .gt_font_bold {
+  font-weight: bold;
+}
+
+#krkehjokdw .gt_font_italic {
+  font-style: italic;
+}
+
+#krkehjokdw .gt_super {
+  font-size: 65%;
+}
+
+#krkehjokdw .gt_footnote_marks {
+  font-style: italic;
+  font-weight: normal;
+  font-size: 65%;
+}
+</style>
+<table class="gt_table">
+  
+  <thead class="gt_col_headings">
+    <tr>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1"><strong>Characteristic</strong></th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1"><strong>Burkina Faso</strong>, N = 3,528<sup class="gt_footnote_marks">1</sup></th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1"><strong>DRC (Kinshasa)</strong>, N = 1,324<sup class="gt_footnote_marks">1</sup></th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1"><strong>Kenya</strong>, N = 5,986<sup class="gt_footnote_marks">1</sup></th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1"><strong>Nigeria (Lagos &amp; Kano)</strong>, N = 1,346<sup class="gt_footnote_marks">1</sup></th>
+    </tr>
+  </thead>
+  <tbody class="gt_table_body">
+    <tr><td class="gt_row gt_left">Concerned about getting infected</td>
+<td class="gt_row gt_center"></td>
+<td class="gt_row gt_center"></td>
+<td class="gt_row gt_center"></td>
+<td class="gt_row gt_center"></td></tr>
+    <tr><td class="gt_row gt_left" style="text-align: left; text-indent: 10px;">Not concerned</td>
+<td class="gt_row gt_center">238 (6.7%)</td>
+<td class="gt_row gt_center">259 (20%)</td>
+<td class="gt_row gt_center">236 (3.9%)</td>
+<td class="gt_row gt_center">39 (2.9%)</td></tr>
+    <tr><td class="gt_row gt_left" style="text-align: left; text-indent: 10px;">A little concerned</td>
+<td class="gt_row gt_center">365 (10%)</td>
+<td class="gt_row gt_center">161 (12%)</td>
+<td class="gt_row gt_center">171 (2.9%)</td>
+<td class="gt_row gt_center">30 (2.2%)</td></tr>
+    <tr><td class="gt_row gt_left" style="text-align: left; text-indent: 10px;">Concerned</td>
+<td class="gt_row gt_center">752 (21%)</td>
+<td class="gt_row gt_center">210 (16%)</td>
+<td class="gt_row gt_center">759 (13%)</td>
+<td class="gt_row gt_center">170 (13%)</td></tr>
+    <tr><td class="gt_row gt_left" style="text-align: left; text-indent: 10px;">Very concerned</td>
+<td class="gt_row gt_center">2,168 (61%)</td>
+<td class="gt_row gt_center">689 (52%)</td>
+<td class="gt_row gt_center">4,818 (80%)</td>
+<td class="gt_row gt_center">1,100 (82%)</td></tr>
+    <tr><td class="gt_row gt_left" style="text-align: left; text-indent: 10px;">Currently / previously infected with COVID-19</td>
+<td class="gt_row gt_center">2 (&lt;0.1%)</td>
+<td class="gt_row gt_center">1 (&lt;0.1%)</td>
+<td class="gt_row gt_center">0 (0%)</td>
+<td class="gt_row gt_center">2 (0.1%)</td></tr>
+    <tr><td class="gt_row gt_left" style="text-align: left; text-indent: 10px;">No response or missing</td>
+<td class="gt_row gt_center">0 (0%)</td>
+<td class="gt_row gt_center">2 (0.2%)</td>
+<td class="gt_row gt_center">2 (&lt;0.1%)</td>
+<td class="gt_row gt_center">1 (&lt;0.1%)</td></tr>
+    <tr><td class="gt_row gt_left" style="text-align: left; text-indent: 10px;">Never heard or read about COVID-19</td>
+<td class="gt_row gt_center">3 (&lt;0.1%)</td>
+<td class="gt_row gt_center">2 (0.2%)</td>
+<td class="gt_row gt_center">0 (0%)</td>
+<td class="gt_row gt_center">4 (0.3%)</td></tr>
+  </tbody>
+  
+  <tfoot>
+    <tr class="gt_footnotes">
+      <td colspan="5">
+        <p class="gt_footnote">
+          <sup class="gt_footnote_marks">
+            <em>1</em>
+          </sup>
+           
+          n (%)
+          <br />
+        </p>
+      </td>
+    </tr>
+  </tfoot>
+</table>
+</div>
+</div>
+<aside>
+<div class="layout-chunk" data-layout="l-body">
+<p><img src="images/gtsummary.png" width="95%" /></p>
+</div>
+© 2020 Daniel D. Sjoberg (<a href="https://opensource.org/licenses/MIT">MIT</a>)
+</aside>
+<p>Now we’re ready to begin arranging these summary data into a bar chart with <code>ggplot2</code>.</p>
+<h1 id="basic-bar-charts">Basic Bar Charts</h1>
+<p>As you might know, <a href="https://ggplot2.tidyverse.org/index.html">ggplot2</a> is part of the <code>tidyverse</code> family of packages. For regular readers of this blog, this means that you’ll be able to use the same grammar that you’re used to seeing elsewhere, but with one important difference: while you’ll be able to pipe functions <em>to</em> <code>ggplot()</code> with the familiar <code>%&gt;%</code> operator, functions <em>within</em> the package use their own pipe-like operator <code>+</code>.</p>
+<aside>
+<div class="layout-chunk" data-layout="l-body">
+<p><img src="images/ggplot2.png" width="75%" /></p>
+</div>
+© RStudio (<a href="https://creativecommons.org/publicdomain/zero/1.0/">CC0 1.0</a>)
+</aside>
+<p>This <code>+</code> operator allows the user to assemble multiple <em>layers</em> of visual information onto the same plot. These layers are built from functions that start with the prefix <code>geom_</code>, because each layer is more-or-less defined by the geometric shapes that convey information about the data.</p>
+<p>While these <code>geom_</code> functions are simple to use and combine, you’ll first need to define some common parameters with the function <code>ggplot()</code>. This function initializes a kind of “skeleton” plot - or canvas - onto which you’ll layer each <code>geom_</code> function. Usually, you’ll identify variables here that you’ll want to map onto the x and y-axes, or onto the “fill” styles (e.g. colors and shadings) within your plot’s geometric shapes.</p>
+<aside>
+Looking for a free introduction to <code>ggplot2</code>? Try <a href="https://ggplot2-book.org/index.html">ggplot2: Elegant Graphics for Data Analysis</a>.
+</aside>
+<p>We’ll use the <code>geom_bar()</code> function after we define some basic parameters for our plot in <code>ggplot()</code>:</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre><code><span class='va'>covid</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'>ggplot</span><span class='op'>(</span><span class='fu'>aes</span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>COUNTRY</span>, fill <span class='op'>=</span> <span class='va'>COVIDCONCERN</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span> 
+  <span class='fu'>geom_bar</span><span class='op'>(</span><span class='op'>)</span>
+</code></pre>
+</div>
+<p><img src="covid-likert_files/figure-html5/unnamed-chunk-6-1.png" width="768" /></p>
+</div>
+<aside>
+A <strong>stacked bar chart</strong> showing the frequency of each response per sample
+</aside>
+<p>In the above function, we initialize our plot with <code>ggplot()</code> and define its basic aesthetic qualities with <code>aes()</code>: we specify that we’ll plot each <code>COUNTRY</code> on the x-axis, and - in whatever geometric shapes we draw next - we’ll fill its segments with colors defined by <code>COVIDCONCERN</code>. Note that the <code>ggplot()</code> function doesn’t draw anything, itself. Instead, we pipe <code>ggplot</code> to <code>geom_bar()</code>, which is responsible for drawing and stacking the bars.</p>
+<p><em>But what about the values that appeared on the y-axis?</em> We didn’t specify anything in our data, but it seems like <code>ggplot()</code> automatically calculated the number of women in each country who selected each response. While this might be a useful default in some situations, here we’d much rather normalize these bars as a <em>percentage</em> of the total number of responses for each sample. We’ll do this by manipulating the <code>position</code> argument in <code>geom_bar()</code>.</p>
+<h2 id="position">Position</h2>
+<p>The <code>position</code> argument in <code>geom_bar()</code> determines how the bars representing each response should be arranged on our plot. This argument can take one of several <a href="https://ggplot2.tidyverse.org/reference/index.html#section-position-adjustment">position adjustment functions</a>, and its default behavior uses <a href="https://ggplot2.tidyverse.org/reference/position_stack.html">position_stack()</a> to “stack” bars representing the frequency of each response. This kind of bar chart is known as a <strong>stacked bar chart</strong>.</p>
+<p>If we want to normalize the size of our bars to the size of each sample, we can use <a href="https://ggplot2.tidyverse.org/reference/position_stack.html">position_fill()</a> to stretch each stack of bars to an equal length. The result allows us to compare the proportion of responses across samples:</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre><code><span class='va'>covid</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'>ggplot</span><span class='op'>(</span><span class='fu'>aes</span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>COUNTRY</span>, fill <span class='op'>=</span> <span class='va'>COVIDCONCERN</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span> 
+  <span class='fu'>geom_bar</span><span class='op'>(</span>position <span class='op'>=</span> <span class='fu'>position_fill</span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>
+</code></pre>
+</div>
+<p><img src="covid-likert_files/figure-html5/unnamed-chunk-7-1.png" width="768" /></p>
+</div>
+<aside>
+A <strong>stacked bar chart</strong> showing the proportion of each response per sample
+</aside>
+<p>This arrangement is helpful for comparing more extreme responses, but you may notice that it’s still a bit hard to compare the proportion of moderate responses in the middle of each stack. For this reason, you might consider using <a href="https://ggplot2.tidyverse.org/reference/position_dodge.html">position_dodge()</a> to transform our stacked bar chart into a <strong>grouped bar chart</strong>.</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre><code><span class='va'>covid</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'>ggplot</span><span class='op'>(</span><span class='fu'>aes</span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>COUNTRY</span>, fill <span class='op'>=</span> <span class='va'>COVIDCONCERN</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span> 
+  <span class='fu'>geom_bar</span><span class='op'>(</span>position <span class='op'>=</span> <span class='fu'>position_dodge</span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>
+</code></pre>
+</div>
+<p><img src="covid-likert_files/figure-html5/unnamed-chunk-8-1.png" width="768" /></p>
+</div>
+<aside>
+<p>A <strong>grouped bar chart</strong> showing the frequency of each response per sample</p>
+Note: the bars for <code>Kenya</code> and <code>Burkina Faso</code> appear wider because they contain zero responses for some levels of <code>COVIDCONCERN</code>. Check out <a href="https://ggplot2.tidyverse.org/reference/position_dodge.html">position_dodge2()</a> for more control over the width of these bars.
+</aside>
+<p>Unfortunately, when we switch <code>position</code> from <code>position_fill()</code> to <code>position_dodge()</code>, we’re no longer able to stretch each bar to a normalized length. Instead, we’ll need to pre-calculate the proportion of each response and pass it to <code>geom_bar()</code> via the <code>stat</code> argument.</p>
+<h2 id="stat">Stat</h2>
+<p>In each of the above plots, we’ve relied on the default behavior of <code>geom_bar()</code> to calculate the frequency of each response and - when requested - to stretch each bar to a normalized length. There are many reasons why you might want to pass your <em>own</em> statistics to <code>geom_bar()</code>, and you can do so with the argument <code>stat = "identity"</code>.</p>
+<p>For example, we might create a table of summary statistics showing the proportion of responses to <code>COVIDCONCERN</code> by <code>COUNTRY</code>:</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre><code><span class='va'>concern_tbl</span> <span class='op'>&lt;-</span> <span class='va'>covid</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='http://gdfe.co/srvyr/reference/as_survey_design.html'>as_survey_design</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+  <span class='fu'><a href='http://gdfe.co/srvyr/reference/group_by.html'>group_by</a></span><span class='op'>(</span><span class='va'>COUNTRY</span>, <span class='va'>COVIDCONCERN</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+  <span class='fu'><a href='http://gdfe.co/srvyr/reference/summarise.html'>summarise</a></span><span class='op'>(</span>PERCENT <span class='op'>=</span> <span class='fl'>100</span> <span class='op'>*</span> <span class='fu'><a href='http://gdfe.co/srvyr/reference/survey_mean.html'>survey_mean</a></span><span class='op'>(</span>vartype <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span><span class='op'>)</span>
+
+<span class='va'>concern_tbl</span>
+</code></pre>
+</div>
+<pre><code># A tibble: 25 x 3
+# Groups:   COUNTRY [4]
+   COUNTRY        COVIDCONCERN                                 PERCENT
+   &lt;fct&gt;          &lt;fct&gt;                                          &lt;dbl&gt;
+ 1 Burkina Faso   Not concerned                                 6.75  
+ 2 Burkina Faso   A little concerned                           10.3   
+ 3 Burkina Faso   Concerned                                    21.3   
+ 4 Burkina Faso   Very concerned                               61.5   
+ 5 Burkina Faso   Currently / previously infected with COVID-…  0.0567
+ 6 Burkina Faso   Never heard or read about COVID-19            0.0850
+ 7 DRC (Kinshasa) Not concerned                                19.6   
+ 8 DRC (Kinshasa) A little concerned                           12.2   
+ 9 DRC (Kinshasa) Concerned                                    15.9   
+10 DRC (Kinshasa) Very concerned                               52.0   
+# … with 15 more rows</code></pre>
+</div>
+<p>Now, if we pass our summary table <code>concern_tbl</code> to <code>ggplot()</code>, we’ll be able to map response percentages in the <code>PERCENT</code> column to the y-axis. In the <code>geom_bar()</code> function, we’ll use <code>stat = "identity"</code> to ensure that our pre-calculated statistics are displayed:</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre><code><span class='va'>concern_tbl</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'>ggplot</span><span class='op'>(</span><span class='fu'>aes</span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>COUNTRY</span>, fill <span class='op'>=</span> <span class='va'>COVIDCONCERN</span>, y <span class='op'>=</span> <span class='va'>PERCENT</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span> 
+  <span class='fu'>geom_bar</span><span class='op'>(</span>
+    position <span class='op'>=</span> <span class='fu'>position_dodge</span><span class='op'>(</span><span class='op'>)</span>,
+    stat <span class='op'>=</span> <span class='st'>"identity"</span>
+  <span class='op'>)</span> 
+</code></pre>
+</div>
+<p><img src="covid-likert_files/figure-html5/unnamed-chunk-10-1.png" width="768" /></p>
+</div>
+<aside>
+A <strong>grouped bar chart</strong> showing response percentages per sample
+</aside>
+<p>You might also consider pre-calculating statistics if you want to add <strong>layers of text</strong> or <strong>error bars</strong> to your plot. <a href="../2021-07-01-covid-tables/index.html#survey-weights">As we’ve discussed elsewhere</a>, we love using <code>as_survey_design()</code> and <code>survey_mean()</code> from the <a href="http://gdfe.co/srvyr/index.html">srvyr</a> package to generate population-level estimates with cluster-robust standard errors. Here, we’ll use <code>CVQWEIGHT</code> as a weighting variable and <code>EAID</code> as the identification number for each sample cluster, thus creating a population-level summary table called <code>concern_pop</code>:</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre><code><span class='va'>concern_pop</span> <span class='op'>&lt;-</span> <span class='va'>covid</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='http://gdfe.co/srvyr/reference/as_survey_design.html'>as_survey_design</a></span><span class='op'>(</span>weight <span class='op'>=</span> <span class='va'>CVQWEIGHT</span>, id <span class='op'>=</span> <span class='va'>EAID</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+  <span class='fu'><a href='http://gdfe.co/srvyr/reference/group_by.html'>group_by</a></span><span class='op'>(</span><span class='va'>COUNTRY</span>, <span class='va'>COVIDCONCERN</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+  <span class='fu'><a href='http://gdfe.co/srvyr/reference/summarise.html'>summarise</a></span><span class='op'>(</span>PERCENT <span class='op'>=</span> <span class='fl'>100</span> <span class='op'>*</span> <span class='fu'><a href='http://gdfe.co/srvyr/reference/survey_mean.html'>survey_mean</a></span><span class='op'>(</span>vartype <span class='op'>=</span> <span class='st'>"ci"</span><span class='op'>)</span><span class='op'>)</span>
+
+<span class='va'>concern_pop</span>
+</code></pre>
+</div>
+<pre><code># A tibble: 25 x 5
+# Groups:   COUNTRY [4]
+   COUNTRY    COVIDCONCERN             PERCENT PERCENT_low PERCENT_upp
+   &lt;fct&gt;      &lt;fct&gt;                      &lt;dbl&gt;       &lt;dbl&gt;       &lt;dbl&gt;
+ 1 Burkina F… Not concerned             6.18        3.70        8.66  
+ 2 Burkina F… A little concerned        8.35        5.61       11.1   
+ 3 Burkina F… Concerned                17.7        14.3        21.2   
+ 4 Burkina F… Very concerned           67.7        62.1        73.3   
+ 5 Burkina F… Currently / previously …  0.0251     -0.0103      0.0604
+ 6 Burkina F… Never heard or read abo…  0.0484     -0.0149      0.112 
+ 7 DRC (Kins… Not concerned            18.8        14.9        22.7   
+ 8 DRC (Kins… A little concerned        9.77        7.71       11.8   
+ 9 DRC (Kins… Concerned                17.0        13.0        21.1   
+10 DRC (Kins… Very concerned           54.0        48.5        59.5   
+# … with 15 more rows</code></pre>
+</div>
+<p>Note the addition of <code>PERCENT_low</code> and <code>PERCENT_upp</code>, representing the lower and upper bounds of a 95% confidence interval for each population-level estimate of <code>PERCENT</code>. We’ll use these in a new layer created by <code>geom_errorbar()</code>:</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre><code><span class='va'>concern_pop</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'>ggplot</span><span class='op'>(</span><span class='fu'>aes</span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>COUNTRY</span>, fill <span class='op'>=</span> <span class='va'>COVIDCONCERN</span>, y <span class='op'>=</span> <span class='va'>PERCENT</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span> 
+  <span class='fu'>geom_bar</span><span class='op'>(</span>
+    position <span class='op'>=</span>  <span class='fu'>position_dodge</span><span class='op'>(</span><span class='op'>)</span>,
+    stat <span class='op'>=</span> <span class='st'>"identity"</span>
+  <span class='op'>)</span> <span class='op'>+</span> 
+  <span class='fu'>geom_errorbar</span><span class='op'>(</span>
+    <span class='fu'>aes</span><span class='op'>(</span>ymin <span class='op'>=</span> <span class='va'>PERCENT_low</span>, ymax <span class='op'>=</span> <span class='va'>PERCENT_upp</span><span class='op'>)</span>,
+    width <span class='op'>=</span> <span class='fl'>0.2</span>,
+    position <span class='op'>=</span> <span class='fu'>position_dodge</span><span class='op'>(</span>width <span class='op'>=</span> <span class='fl'>0.9</span><span class='op'>)</span>
+  <span class='op'>)</span>
+</code></pre>
+</div>
+<p><img src="covid-likert_files/figure-html5/unnamed-chunk-12-1.png" width="768" /></p>
+</div>
+<aside>
+A <strong>grouped bar chart</strong> showing population-level estimates with 95% confidence intervals
+</aside>
+<p>Likewise, pre-calculating statistics in a table like <code>concern_pop</code> makes it easy to access statistics by name in <code>geom_text()</code>. In this example, adding the text label for each value of <code>PERCENT</code> is redundant with the y-axis (not recommended), but you could also include text from <em>any</em> column in the pre-calculated table:</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre><code><span class='va'>concern_pop</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'>ggplot</span><span class='op'>(</span><span class='fu'>aes</span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>COUNTRY</span>, fill <span class='op'>=</span> <span class='va'>COVIDCONCERN</span>, y <span class='op'>=</span> <span class='va'>PERCENT</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span> 
+  <span class='fu'>geom_bar</span><span class='op'>(</span>
+    position <span class='op'>=</span> <span class='st'>"dodge"</span>,
+    stat <span class='op'>=</span> <span class='st'>"identity"</span>
+  <span class='op'>)</span> <span class='op'>+</span> 
+  <span class='fu'>geom_text</span><span class='op'>(</span>
+    <span class='fu'>aes</span><span class='op'>(</span>label <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Round.html'>round</a></span><span class='op'>(</span><span class='va'>PERCENT</span>, <span class='fl'>0</span><span class='op'>)</span><span class='op'>)</span>,
+    position <span class='op'>=</span> <span class='fu'>position_dodge</span><span class='op'>(</span><span class='fl'>0.9</span><span class='op'>)</span>,
+    vjust <span class='op'>=</span> <span class='op'>-</span><span class='fl'>0.5</span>
+  <span class='op'>)</span>
+</code></pre>
+</div>
+<p><img src="covid-likert_files/figure-html5/unnamed-chunk-13-1.png" width="768" /></p>
+</div>
+<aside>
+A <strong>grouped bar chart</strong> showing population-level estimates, annotated with text
+</aside>
+<h1 id="customization">Customization</h1>
+<p>So far, we’ve focused all of our attention on passing the correct statistics to <code>geom_bar()</code>. Unfortunately, this is only half the battle: our plots still aren’t very readable!</p>
+<p>You may have noticed, for example, that the <strong>legend</strong> in each of our plots seems to take up about one third of the usable space. In a blog like ours - where many of you might be reading this post on a mobile phone - this layout is certainly not ideal. Instead, we’ll flip the x and y-axes, and then we’ll position the legend <em>below</em> the plot.</p>
+<p>For example, let’s return to the stacked bar chart showing the population-level percentages for each response:</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre><code><span class='va'>concern_pop</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'>ggplot</span><span class='op'>(</span><span class='fu'>aes</span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>COUNTRY</span>, fill <span class='op'>=</span> <span class='va'>COVIDCONCERN</span>, y <span class='op'>=</span> <span class='va'>PERCENT</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span> 
+  <span class='fu'>geom_bar</span><span class='op'>(</span>stat <span class='op'>=</span> <span class='st'>"identity"</span><span class='op'>)</span> <span class='op'>+</span> 
+  <span class='fu'>coord_flip</span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span> 
+  <span class='fu'>theme</span><span class='op'>(</span>legend.position <span class='op'>=</span> <span class='st'>"bottom"</span><span class='op'>)</span>
+</code></pre>
+</div>
+<p><img src="covid-likert_files/figure-html5/unnamed-chunk-14-1.png" width="768" /></p>
+</div>
+<aside>
+Flip your bar chart into a horizontal orientation with <a href="https://ggplot2.tidyverse.org/reference/coord_flip.html">coord_flip()</a>.
+</aside>
+<p>The function <a href="https://ggplot2.tidyverse.org/reference/coord_flip.html">coord_flip()</a> pivots our plot into a horizontal orientation, and another new function - <a href="https://ggplot2.tidyverse.org/reference/theme.html">theme()</a> - allows us to move our legend. However, the legend now occupies too much horizontal space: one of the responses appears to be cut-off by the right-hand margin of the page.</p>
+<p>It is possible to manipulate the layout of your legend with another function, <a href="https://ggplot2.tidyverse.org/reference/guides.html">guides()</a>. For example, you might arrange the response codes into two separate columns:</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre><code><span class='va'>concern_pop</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'>ggplot</span><span class='op'>(</span><span class='fu'>aes</span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>COUNTRY</span>, fill <span class='op'>=</span> <span class='va'>COVIDCONCERN</span>, y <span class='op'>=</span> <span class='va'>PERCENT</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span> 
+  <span class='fu'>geom_bar</span><span class='op'>(</span>stat <span class='op'>=</span> <span class='st'>"identity"</span><span class='op'>)</span> <span class='op'>+</span> 
+  <span class='fu'>coord_flip</span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span> 
+  <span class='fu'>theme</span><span class='op'>(</span>legend.position <span class='op'>=</span> <span class='st'>"bottom"</span><span class='op'>)</span> <span class='op'>+</span> 
+  <span class='fu'>guides</span><span class='op'>(</span>fill <span class='op'>=</span> <span class='fu'>guide_legend</span><span class='op'>(</span>ncol <span class='op'>=</span> <span class='fl'>2</span><span class='op'>)</span><span class='op'>)</span>
+</code></pre>
+</div>
+<p><img src="covid-likert_files/figure-html5/unnamed-chunk-15-1.png" width="768" /></p>
+</div>
+<aside>
+<p>The <a href="https://ggplot2.tidyverse.org/reference/guides.html">guides()</a> function controls the layout of the legend with <a href="https://ggplot2.tidyverse.org/reference/guide_legend.html">guide_legend()</a>.</p>
+You can also control the layout of the axes with <a href="https://ggplot2.tidyverse.org/reference/guide_axis.html">guide_axis()</a>.
+</aside>
+<p>However, in our particular case, it might make more sense to simply drop the three types of non-response completely. We might do so, in part, <strong>because the remaining responses are part of an ordinal set</strong>. If we restrict the plotted values only to those ordinal responses, we’ll also be able to add an <strong>ordinal color scheme</strong> to our plot making the relationship between each response much clearer.</p>
+<h2 id="color">Color</h2>
+<p>An easy way to drop non-response options in our particular case is to <code>filter</code> only those four responses containing the word “concern” (upper or lower case). Then, when only the four ordinal responses remain, we’ll use <a href="https://ggplot2.tidyverse.org/reference/scale_brewer.html">scale_fill_brewer()</a> to select an ordinal color scheme (“blues” by default). This time, we’ll use <code>guides()</code> to reverse the order of the responses in our legend:</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre><code><span class='va'>concern_pop</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='http://gdfe.co/srvyr/reference/dplyr_single.html'>filter</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/grep.html'>grepl</a></span><span class='op'>(</span><span class='st'>"concern"</span>, <span class='va'>COVIDCONCERN</span>, ignore.case <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'>ggplot</span><span class='op'>(</span><span class='fu'>aes</span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>COUNTRY</span>, fill <span class='op'>=</span> <span class='va'>COVIDCONCERN</span>, y <span class='op'>=</span> <span class='va'>PERCENT</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span> 
+  <span class='fu'>geom_bar</span><span class='op'>(</span>stat <span class='op'>=</span> <span class='st'>"identity"</span><span class='op'>)</span> <span class='op'>+</span> 
+  <span class='fu'>coord_flip</span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span> 
+  <span class='fu'>theme</span><span class='op'>(</span>legend.position <span class='op'>=</span> <span class='st'>"bottom"</span><span class='op'>)</span> <span class='op'>+</span> 
+  <span class='fu'>scale_fill_brewer</span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span> 
+  <span class='fu'>guides</span><span class='op'>(</span>fill <span class='op'>=</span> <span class='fu'>guide_legend</span><span class='op'>(</span>reverse <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span><span class='op'>)</span>
+</code></pre>
+</div>
+<p><img src="covid-likert_files/figure-html5/unnamed-chunk-16-1.png" width="768" /></p>
+</div>
+<aside>
+<p>Non-response categories have been dropped, and the remaining responses are represented by an <strong>ordinal color scheme</strong></p>
+Note that the bars no longer sum to 100%
+</aside>
+<p>You can choose from several color palettes with <code>scale_fill_brewer()</code>, or you can define your own colors using <a href="https://ggplot2.tidyverse.org/reference/scale_manual.html">scale_fill_manual()</a>, where you’ll assign a color to each response via a named character vector.</p>
+<p>For example, here we’ll use some of the <a href="https://www.color-hex.com/">hex color codes</a> you’ll see in the CSS throughout this blog:</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre><code><span class='va'>concern_pop</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='http://gdfe.co/srvyr/reference/dplyr_single.html'>filter</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/grep.html'>grepl</a></span><span class='op'>(</span><span class='st'>"concern"</span>, <span class='va'>COVIDCONCERN</span>, ignore.case <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'>ggplot</span><span class='op'>(</span><span class='fu'>aes</span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>COUNTRY</span>, fill <span class='op'>=</span> <span class='va'>COVIDCONCERN</span>, y <span class='op'>=</span> <span class='va'>PERCENT</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span> 
+  <span class='fu'>geom_bar</span><span class='op'>(</span>stat <span class='op'>=</span> <span class='st'>"identity"</span><span class='op'>)</span> <span class='op'>+</span> 
+  <span class='fu'>coord_flip</span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span> 
+  <span class='fu'>theme</span><span class='op'>(</span>legend.position <span class='op'>=</span> <span class='st'>"bottom"</span><span class='op'>)</span> <span class='op'>+</span> 
+  <span class='fu'>scale_fill_manual</span><span class='op'>(</span>
+    values <span class='op'>=</span> <span class='fu'>alpha</span><span class='op'>(</span>
+      colour <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span>
+        <span class='st'>"Very concerned"</span> <span class='op'>=</span> <span class='st'>"#00263A"</span>,        <span class='co'># IPUMS Navy</span>
+        <span class='st'>"Concerned"</span> <span class='op'>=</span> <span class='st'>"#4E6C7D"</span>,             <span class='co'># IPUMS Dark-Grey</span>
+        <span class='st'>"A little concerned"</span> <span class='op'>=</span> <span class='st'>"#7A99AC"</span>,    <span class='co'># IPUMS Blue-Grey</span>
+        <span class='st'>"Not concerned"</span> <span class='op'>=</span> <span class='st'>"#F1F5F7"</span>          <span class='co'># IPUMS Light-Grey</span>
+      <span class='op'>)</span>
+    <span class='op'>)</span>
+  <span class='op'>)</span> <span class='op'>+</span> 
+  <span class='fu'>guides</span><span class='op'>(</span>fill <span class='op'>=</span> <span class='fu'>guide_legend</span><span class='op'>(</span>reverse <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span><span class='op'>)</span>
+</code></pre>
+</div>
+<p><img src="covid-likert_files/figure-html5/unnamed-chunk-17-1.png" width="768" /></p>
+</div>
+<aside>
+A <strong>user-defined</strong> ordinal color scheme
+</aside>
+<h2 id="labels-and-fonts">Labels and Fonts</h2>
+<p>There are several ways to add text labels to a plot, but we find it easiest to define every label together in a single function, <a href="https://ggplot2.tidyverse.org/reference/labs.html">labs()</a>. If you want to omit a particular label, you can simply set it to <code>NULL</code>:</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre><code><span class='va'>concern_pop</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='http://gdfe.co/srvyr/reference/dplyr_single.html'>filter</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/grep.html'>grepl</a></span><span class='op'>(</span><span class='st'>"concern"</span>, <span class='va'>COVIDCONCERN</span>, ignore.case <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'>ggplot</span><span class='op'>(</span><span class='fu'>aes</span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>COUNTRY</span>, fill <span class='op'>=</span> <span class='va'>COVIDCONCERN</span>, y <span class='op'>=</span> <span class='va'>PERCENT</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span> 
+  <span class='fu'>geom_bar</span><span class='op'>(</span>stat <span class='op'>=</span> <span class='st'>"identity"</span><span class='op'>)</span> <span class='op'>+</span> 
+  <span class='fu'>coord_flip</span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span> 
+  <span class='fu'>theme</span><span class='op'>(</span>legend.position <span class='op'>=</span> <span class='st'>"bottom"</span><span class='op'>)</span> <span class='op'>+</span> 
+  <span class='fu'>scale_fill_manual</span><span class='op'>(</span>
+    values <span class='op'>=</span> <span class='fu'>alpha</span><span class='op'>(</span>
+      colour <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span>
+        <span class='st'>"Very concerned"</span> <span class='op'>=</span> <span class='st'>"#00263A"</span>,  
+        <span class='st'>"Concerned"</span> <span class='op'>=</span> <span class='st'>"#4E6C7D"</span>, 
+        <span class='st'>"A little concerned"</span> <span class='op'>=</span> <span class='st'>"#7A99AC"</span>, 
+        <span class='st'>"Not concerned"</span> <span class='op'>=</span> <span class='st'>"#F1F5F7"</span>
+      <span class='op'>)</span>
+    <span class='op'>)</span>
+  <span class='op'>)</span> <span class='op'>+</span> 
+  <span class='fu'>guides</span><span class='op'>(</span>fill <span class='op'>=</span> <span class='fu'>guide_legend</span><span class='op'>(</span>reverse <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span> 
+  <span class='fu'>labs</span><span class='op'>(</span>
+    title <span class='op'>=</span> <span class='st'>"CONCERN ABOUT GETTING INFECTED WITH COVID-19"</span>,
+    subtitle <span class='op'>=</span> <span class='st'>"Estimated percentage for populations of women age 15-49 (summer 2020)"</span>,
+    x <span class='op'>=</span> <span class='cn'>NULL</span>,
+    y <span class='op'>=</span> <span class='cn'>NULL</span>,
+    fill <span class='op'>=</span> <span class='cn'>NULL</span>
+  <span class='op'>)</span> 
+</code></pre>
+</div>
+<p><img src="covid-likert_files/figure-html5/unnamed-chunk-18-1.png" width="768" /></p>
+</div>
+<aside>
+Added a title and subtitle. Removed axis and legend labels.
+</aside>
+<p>As you can see, the default label fonts for <code>ggplot2</code> do not match the fonts used on our blog. If this is an important consideration, you can download a <code>.ttf</code> file for your preferred font from a repository like <a href="https://fonts.google.com/">Google Fonts</a>, and then load that file into R with <code>font_add()</code>.</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre><code><span class='fu'>font_add</span><span class='op'>(</span>
+  family <span class='op'>=</span> <span class='st'>"cabrito"</span>, 
+  regular <span class='op'>=</span> <span class='st'>"fonts/cabritosansnormregular-webfont.ttf"</span>
+<span class='op'>)</span>
+</code></pre>
+</div>
+</div>
+<aside>
+We saved our <code>ttf</code> file in the <code>fonts</code> sub-folder of our working directory.
+</aside>
+<p>Once you’ve loaded a font into R, you can make it accessible to <code>ggplot2</code> for the remainder of your R session with the function <a href="https://github.com/yixuan/showtext">showtext::showtext_auto()</a>.</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre><code><span class='fu'><a href='https://rdrr.io/pkg/showtext/man/showtext_auto.html'>showtext_auto</a></span><span class='op'>(</span><span class='op'>)</span>
+</code></pre>
+</div>
+</div>
+<p>Now, we can build on our custom <code>theme()</code> by defining a general font family and size in <code>text</code>. We can also tweak specific details for the <code>title</code> and <code>plot.subtitle</code>:</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre><code><span class='va'>concern_pop</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='http://gdfe.co/srvyr/reference/dplyr_single.html'>filter</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/grep.html'>grepl</a></span><span class='op'>(</span><span class='st'>"concern"</span>, <span class='va'>COVIDCONCERN</span>, ignore.case <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'>ggplot</span><span class='op'>(</span><span class='fu'>aes</span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>COUNTRY</span>, fill <span class='op'>=</span> <span class='va'>COVIDCONCERN</span>, y <span class='op'>=</span> <span class='va'>PERCENT</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span> 
+  <span class='fu'>geom_bar</span><span class='op'>(</span>stat <span class='op'>=</span> <span class='st'>"identity"</span><span class='op'>)</span> <span class='op'>+</span> 
+  <span class='fu'>coord_flip</span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span> 
+  <span class='fu'>scale_fill_manual</span><span class='op'>(</span>
+    values <span class='op'>=</span> <span class='fu'>alpha</span><span class='op'>(</span>
+      colour <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span>
+        <span class='st'>"Very concerned"</span> <span class='op'>=</span> <span class='st'>"#00263A"</span>,  
+        <span class='st'>"Concerned"</span> <span class='op'>=</span> <span class='st'>"#4E6C7D"</span>, 
+        <span class='st'>"A little concerned"</span> <span class='op'>=</span> <span class='st'>"#7A99AC"</span>, 
+        <span class='st'>"Not concerned"</span> <span class='op'>=</span> <span class='st'>"#F1F5F7"</span>
+      <span class='op'>)</span>
+    <span class='op'>)</span>
+  <span class='op'>)</span> <span class='op'>+</span> 
+  <span class='fu'>guides</span><span class='op'>(</span>fill <span class='op'>=</span> <span class='fu'>guide_legend</span><span class='op'>(</span>reverse <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span> 
+  <span class='fu'>labs</span><span class='op'>(</span>
+    title <span class='op'>=</span> <span class='st'>"CONCERN ABOUT GETTING INFECTED WITH COVID-19"</span>,
+    subtitle <span class='op'>=</span> <span class='st'>"Estimated percentage for populations of women age 15-49 (summer 2020)"</span>,
+    x <span class='op'>=</span> <span class='cn'>NULL</span>,
+    y <span class='op'>=</span> <span class='cn'>NULL</span>,
+    fill <span class='op'>=</span> <span class='cn'>NULL</span>
+  <span class='op'>)</span> <span class='op'>+</span> 
+  <span class='fu'>theme</span><span class='op'>(</span>
+    text <span class='op'>=</span> <span class='fu'>element_text</span><span class='op'>(</span>family <span class='op'>=</span> <span class='st'>"cabrito"</span>, size <span class='op'>=</span> <span class='fl'>10</span><span class='op'>)</span>,
+    title <span class='op'>=</span> <span class='fu'>element_text</span><span class='op'>(</span>size <span class='op'>=</span> <span class='fl'>14</span>, color <span class='op'>=</span> <span class='st'>"#00263A"</span><span class='op'>)</span>,
+    plot.subtitle <span class='op'>=</span> <span class='fu'>element_text</span><span class='op'>(</span>size <span class='op'>=</span> <span class='fl'>12</span><span class='op'>)</span>,
+    legend.position <span class='op'>=</span> <span class='st'>"bottom"</span>
+  <span class='op'>)</span> 
+</code></pre>
+</div>
+</div>
+<aside>
+<div class="layout-chunk" data-layout="l-body">
+<p><img src="images/showtext.png" width="95%" /></p>
+</div>
+© Yixuan Qiu (<a href="https://www.apache.org/licenses/LICENSE-2.0">Apache &gt;= 2.0</a>)
+</aside>
+<div class="layout-chunk" data-layout="l-body">
+<p><img src="covid-likert_files/figure-html5/unnamed-chunk-23-1.png" width="768" /></p>
+</div>
+<aside>
+Custom <strong>font</strong> family and sizes implemented with <code>showtext</code>
+</aside>
+<h1 id="advanced-bar-charts">Advanced Bar Charts</h1>
+<h2 id="divergent-stacked-bar-chart">Divergent Stacked Bar Chart</h2>
+<p>In the previous section, we decided to drop the three types of non-response for <code>COVIDCONCERN</code> so that we could adopt an <strong>ordinal color scheme</strong> (each color corresponds with an ordinal level of concern). This improved the readability of our plot by making the relationship between response options more clear. However, this decision also came with a small cost: because our bars no longer represent 100% of each population, it’s a bit harder to compare the percentage of women represented by the responses on the <em>right</em> side of the plot (“Not concerned”).</p>
+<p>In this case, you might consider the <strong>divergent stacked bar chart</strong>, where “positive” and “negative” levels of concern are plotted in opposite directions from an origin point on our x-axis. You might also consider this if you wanted to directly juxtapose the most extreme responses on our scale: “Very concerned” and “Not concerned”.</p>
+<p>Note that three of the responses on our scale reflect <em>some</em> level of concern about getting infected with COVID-19; we’ll plot these responses in the <em>positive</em> direction on our x-axis. The <em>negative</em> response - “Not concerned” - will be plotted in the negative direction if we multiply <code>PERCENT</code> by -1 for those cases. We’ll also give our negative response a secondary color (“PMA Pink”) and draw a vertical line at the origin to provide extra clarity. Finally, we’ll use a new function <code>breaks()</code> to fully customize the order of responses in our legend:</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre><code><span class='va'>concern_pop</span> <span class='op'>&lt;-</span> <span class='va'>concern_pop</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='http://gdfe.co/srvyr/reference/dplyr_single.html'>mutate</a></span><span class='op'>(</span>PERCENT <span class='op'>=</span> <span class='fu'>if_else</span><span class='op'>(</span>
+   <span class='va'>COVIDCONCERN</span> <span class='op'>==</span> <span class='st'>"Not concerned"</span>,
+   <span class='op'>-</span><span class='va'>PERCENT</span>,                                  <span class='co'># Multiply by -1</span>
+   <span class='va'>PERCENT</span>
+  <span class='op'>)</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='http://gdfe.co/srvyr/reference/dplyr_single.html'>filter</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/grep.html'>grepl</a></span><span class='op'>(</span><span class='st'>"concern"</span>, <span class='va'>COVIDCONCERN</span>, ignore.case <span class='op'>=</span> <span class='cn'>T</span><span class='op'>)</span><span class='op'>)</span> 
+
+<span class='va'>concern_pop</span>
+</code></pre>
+</div>
+<pre><code># A tibble: 16 x 5
+# Groups:   COUNTRY [4]
+   COUNTRY            COVIDCONCERN     PERCENT PERCENT_low PERCENT_upp
+   &lt;fct&gt;              &lt;fct&gt;              &lt;dbl&gt;       &lt;dbl&gt;       &lt;dbl&gt;
+ 1 Burkina Faso       Not concerned      -6.18       3.70         8.66
+ 2 Burkina Faso       A little concer…    8.35       5.61        11.1 
+ 3 Burkina Faso       Concerned          17.7       14.3         21.2 
+ 4 Burkina Faso       Very concerned     67.7       62.1         73.3 
+ 5 DRC (Kinshasa)     Not concerned     -18.8       14.9         22.7 
+ 6 DRC (Kinshasa)     A little concer…    9.77       7.71        11.8 
+ 7 DRC (Kinshasa)     Concerned          17.0       13.0         21.1 
+ 8 DRC (Kinshasa)     Very concerned     54.0       48.5         59.5 
+ 9 Kenya              Not concerned      -4.84       2.44         7.23
+10 Kenya              A little concer…    3.45       2.12         4.79
+11 Kenya              Concerned          13.1       10.4         15.7 
+12 Kenya              Very concerned     78.6       74.6         82.7 
+13 Nigeria (Lagos &amp; … Not concerned      -3.17       1.45         4.89
+14 Nigeria (Lagos &amp; … A little concer…    2.04       0.899        3.19
+15 Nigeria (Lagos &amp; … Concerned          14.1        6.18        22.0 
+16 Nigeria (Lagos &amp; … Very concerned     80.3       72.6         87.9 </code></pre>
+</div>
+<aside>
+The <code>PERCENT</code> value for negative responses are multiplied by -1.
+</aside>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre><code><span class='va'>concern_pop</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'>ggplot</span><span class='op'>(</span><span class='fu'>aes</span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>PERCENT</span>, y <span class='op'>=</span> <span class='va'>COUNTRY</span>, fill <span class='op'>=</span> <span class='va'>COVIDCONCERN</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span> 
+  <span class='fu'>geom_bar</span><span class='op'>(</span>stat <span class='op'>=</span> <span class='st'>"identity"</span><span class='op'>)</span> <span class='op'>+</span>
+  
+  <span class='co'># draws a vertical line at 0 on the x axis</span>
+  <span class='fu'>geom_vline</span><span class='op'>(</span>xintercept <span class='op'>=</span> <span class='fl'>0</span><span class='op'>)</span> <span class='op'>+</span>
+  
+  <span class='co'># define fill colors (values) and the arrangement of the legend (breaks)</span>
+  <span class='fu'>scale_fill_manual</span><span class='op'>(</span>
+    values <span class='op'>=</span> <span class='fu'>alpha</span><span class='op'>(</span>
+      colour <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span>
+        <span class='st'>"Very concerned"</span> <span class='op'>=</span> <span class='st'>"#00263A"</span>,           <span class='co'># PMA Pink</span>
+        <span class='st'>"Concerned"</span> <span class='op'>=</span> <span class='st'>"#4E6C7D"</span>,                <span class='co'># IPUMS Dark-Grey</span>
+        <span class='st'>"A little concerned"</span> <span class='op'>=</span> <span class='st'>"#7A99AC"</span>,       <span class='co'># IPUMS Blue-Grey</span>
+        <span class='st'>"Not concerned"</span> <span class='op'>=</span> <span class='st'>"#98579B"</span>             <span class='co'># IPUMS Light-Grey</span>
+      <span class='op'>)</span>
+    <span class='op'>)</span>,
+    breaks <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span>
+      <span class='st'>"Not concerned"</span>,
+      <span class='st'>"Very concerned"</span>,  
+      <span class='st'>"Concerned"</span>, 
+      <span class='st'>"A little concerned"</span>
+    <span class='op'>)</span>
+  <span class='op'>)</span> <span class='op'>+</span> 
+  
+  <span class='co'># define labels (labs) and format them as desired (theme)</span>
+  <span class='fu'>labs</span><span class='op'>(</span>
+    title <span class='op'>=</span> <span class='st'>"CONCERN ABOUT GETTING INFECTED WITH COVID-19"</span>,
+    subtitle <span class='op'>=</span> <span class='st'>"Estimated percentage for populations of women age 15-49 (summer 2020)"</span>,
+    x <span class='op'>=</span> <span class='cn'>NULL</span>,
+    y <span class='op'>=</span> <span class='cn'>NULL</span>,
+    fill <span class='op'>=</span> <span class='cn'>NULL</span>
+  <span class='op'>)</span> <span class='op'>+</span> 
+  <span class='fu'>theme</span><span class='op'>(</span>
+    text <span class='op'>=</span> <span class='fu'>element_text</span><span class='op'>(</span>family <span class='op'>=</span> <span class='st'>"cabrito"</span>, size <span class='op'>=</span> <span class='fl'>10</span><span class='op'>)</span>,
+    title <span class='op'>=</span> <span class='fu'>element_text</span><span class='op'>(</span>size <span class='op'>=</span> <span class='fl'>14</span>, color <span class='op'>=</span> <span class='st'>"#00263A"</span><span class='op'>)</span>,
+    plot.subtitle <span class='op'>=</span> <span class='fu'>element_text</span><span class='op'>(</span>size <span class='op'>=</span> <span class='fl'>12</span><span class='op'>)</span>,
+    legend.position <span class='op'>=</span> <span class='st'>"bottom"</span>,
+  <span class='op'>)</span> 
+</code></pre>
+</div>
+<p><img src="covid-likert_files/figure-html5/unnamed-chunk-25-1.png" width="768" /></p>
+</div>
+<aside>
+A <strong>divergent bar plot</strong> shows positive and negative responses oriented in opposite directions.
+</aside>
+<p>While it is still difficult to compare women who are “Concerned” or “A little concerned”, this type of chart makes it easy to compare the most extreme response <em>while also</em> comparing the full set of negative response to the full set of positive responses.</p>
+<aside>
+Read more about the debate surrounding divergent stacked bar charts <a href="https://www.linkedin.com/pulse/diverging-100-stacked-bars-useless-daniel-zvinca/?published=t">here</a> and <a href="https://blog.datawrapper.de/divergingbars/">here</a>.
+</aside>
+<p>A word of caution: data visualization experts disagree about <a href="https://www.datarevelations.com/resources/rethinkingdivergent/">what to do with middle / neutral responses</a>. While it’s possible to distribute these responses in halves on the outside or in the middle of each bar stack, we much prefer a <strong>facet</strong> showing both neutral and non-response options to the side.</p>
+<h2 id="faceted-neutral-non-response">Faceted Neutral / Non-response</h2>
+<p>All of the plots we’ve explored so far have contained a single panel, where both the x and y-axes are uninterrupted for the full width of the display. In some cases, you may want to <strong>facet</strong> multiple panels together.</p>
+<p>For example, consider the variable <code>PREGFEELNOW</code>, in which women describe how they would feel if they became pregnant “now”. As we’ll see, this variable contains <em>both</em> a large number of middle / neutral responses (“Mixed happy and unhappy”) <em>and</em> a large number of non-responses (e.g. women who were pregnant at the time, or who simply did not respond). We’ll use a <strong>facet</strong> to show these responses in a separate panel alongside those who provided a positive or negative opinion.</p>
+<p>First, we’ll create a summary table and clean up the factor levels for clarity. As we’ve shown above, we’ll make <code>PERCENT</code> a negative value for negative responses (“Very unhappy” or “Sort of unhappy”):</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre><code><span class='va'>pg_tbl</span> <span class='op'>&lt;-</span> <span class='va'>covid</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='http://gdfe.co/srvyr/reference/as_survey_design.html'>as_survey_design</a></span><span class='op'>(</span>weight <span class='op'>=</span> <span class='va'>CVQWEIGHT</span>, id <span class='op'>=</span> <span class='va'>EAID</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+  <span class='fu'><a href='http://gdfe.co/srvyr/reference/group_by.html'>group_by</a></span><span class='op'>(</span><span class='va'>COUNTRY</span>, <span class='va'>PREGFEELNOW</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+  <span class='fu'><a href='http://gdfe.co/srvyr/reference/summarise.html'>summarise</a></span><span class='op'>(</span>PERCENT <span class='op'>=</span> <span class='fl'>100</span> <span class='op'>*</span> <span class='fu'><a href='http://gdfe.co/srvyr/reference/survey_mean.html'>survey_mean</a></span><span class='op'>(</span>vartype <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='http://gdfe.co/srvyr/reference/dplyr_single.html'>mutate</a></span><span class='op'>(</span>
+    PREGFEELNOW <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span><span class='op'>(</span>
+      <span class='va'>PREGFEELNOW</span>, 
+      levels <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span>
+        <span class='st'>"Sort of unhappy"</span>,
+        <span class='st'>"Very unhappy"</span>, 
+        <span class='st'>"Sort of happy"</span>,      
+        <span class='st'>"Very happy"</span>,
+        <span class='st'>"No response or missing"</span>,
+        <span class='st'>"NIU (not in universe)"</span>,
+        <span class='st'>"Mixed happy and unhappy"</span>
+      <span class='op'>)</span>
+    <span class='op'>)</span> <span class='op'>%&gt;%</span> <span class='fu'>fct_recode</span><span class='op'>(</span>`Currently Pregnant` <span class='op'>=</span> <span class='st'>"NIU (not in universe)"</span><span class='op'>)</span>,
+    PERCENT <span class='op'>=</span> <span class='fu'>if_else</span><span class='op'>(</span>
+      <span class='va'>PREGFEELNOW</span> <span class='op'>%in%</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"Very unhappy"</span>, <span class='st'>"Sort of unhappy"</span><span class='op'>)</span>, 
+      <span class='op'>-</span><span class='va'>PERCENT</span>, 
+      <span class='va'>PERCENT</span>
+    <span class='op'>)</span>
+  <span class='op'>)</span>
+
+<span class='va'>pg_tbl</span>
+</code></pre>
+</div>
+<pre><code># A tibble: 28 x 3
+# Groups:   COUNTRY [4]
+   COUNTRY        PREGFEELNOW             PERCENT
+   &lt;fct&gt;          &lt;fct&gt;                     &lt;dbl&gt;
+ 1 Burkina Faso   Very unhappy            -29.1  
+ 2 Burkina Faso   Sort of unhappy         -11.1  
+ 3 Burkina Faso   Mixed happy and unhappy   5.65 
+ 4 Burkina Faso   Sort of happy            15.0  
+ 5 Burkina Faso   Very happy               30.8  
+ 6 Burkina Faso   No response or missing    0.333
+ 7 Burkina Faso   Currently Pregnant        7.99 
+ 8 DRC (Kinshasa) Very unhappy            -44.6  
+ 9 DRC (Kinshasa) Sort of unhappy         -11.2  
+10 DRC (Kinshasa) Mixed happy and unhappy   5.90 
+# … with 18 more rows</code></pre>
+</div>
+<p>Next, we’ll create a new column that indicates whether we want each response to appear in the second panel in our faceted display. Let’s call this column <code>ASIDE</code>:</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre><code><span class='va'>pg_tbl</span> <span class='op'>&lt;-</span> <span class='va'>pg_tbl</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='http://gdfe.co/srvyr/reference/dplyr_single.html'>mutate</a></span><span class='op'>(</span>ASIDE <span class='op'>=</span> <span class='va'>PREGFEELNOW</span> <span class='op'>%in%</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span>
+      <span class='st'>"Mixed happy and unhappy"</span>,
+      <span class='st'>"No response or missing"</span>,
+      <span class='st'>"Currently Pregnant"</span> 
+  <span class='op'>)</span><span class='op'>)</span>
+
+<span class='va'>pg_tbl</span>
+</code></pre>
+</div>
+<pre><code># A tibble: 28 x 4
+# Groups:   COUNTRY [4]
+   COUNTRY        PREGFEELNOW             PERCENT ASIDE
+   &lt;fct&gt;          &lt;fct&gt;                     &lt;dbl&gt; &lt;lgl&gt;
+ 1 Burkina Faso   Very unhappy            -29.1   FALSE
+ 2 Burkina Faso   Sort of unhappy         -11.1   FALSE
+ 3 Burkina Faso   Mixed happy and unhappy   5.65  TRUE 
+ 4 Burkina Faso   Sort of happy            15.0   FALSE
+ 5 Burkina Faso   Very happy               30.8   FALSE
+ 6 Burkina Faso   No response or missing    0.333 TRUE 
+ 7 Burkina Faso   Currently Pregnant        7.99  TRUE 
+ 8 DRC (Kinshasa) Very unhappy            -44.6   FALSE
+ 9 DRC (Kinshasa) Sort of unhappy         -11.2   FALSE
+10 DRC (Kinshasa) Mixed happy and unhappy   5.90  TRUE 
+# … with 18 more rows</code></pre>
+</div>
+<p>Our plot will look similar to the divergent bar chart we made in the previous section, but will now add a new function <a href="https://ggplot2.tidyverse.org/reference/facet_grid.html">facet_grid()</a> that divides <code>pg_tbl</code> into separate panels defined by <code>ASIDE</code>:</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre><code><span class='va'>pg_tbl</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'>ggplot</span><span class='op'>(</span><span class='fu'>aes</span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>COUNTRY</span>, fill <span class='op'>=</span> <span class='va'>PREGFEELNOW</span>, y <span class='op'>=</span> <span class='va'>PERCENT</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span> 
+  <span class='fu'>geom_bar</span><span class='op'>(</span>stat <span class='op'>=</span> <span class='st'>"identity"</span><span class='op'>)</span> <span class='op'>+</span> 
+  <span class='fu'>coord_flip</span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span> 
+  
+  <span class='co'># facet_grid() can distribute facets in rows and/or columns</span>
+  <span class='fu'>facet_grid</span><span class='op'>(</span>
+    cols <span class='op'>=</span> <span class='fu'><a href='http://gdfe.co/srvyr/reference/summarise_all.html'>vars</a></span><span class='op'>(</span><span class='va'>ASIDE</span><span class='op'>)</span>, <span class='co'># here, we choose columns defined by ASIDE</span>
+    scales <span class='op'>=</span> <span class='st'>"free"</span>,    <span class='co'># "free" scales allows for independent facet scales  </span>
+    space <span class='op'>=</span> <span class='st'>"free"</span>      <span class='co'># "free" space allows for independent facet widths</span>
+  <span class='op'>)</span> <span class='op'>+</span> 
+  
+  <span class='co'># we define fill colors (values) and the arrangement of the legend (breaks)</span>
+  <span class='fu'>scale_fill_manual</span><span class='op'>(</span>
+    values <span class='op'>=</span> <span class='fu'>alpha</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span>
+      <span class='st'>"Very unhappy"</span> <span class='op'>=</span>  <span class='st'>"#98579B"</span>,   
+      <span class='st'>"Sort of unhappy"</span> <span class='op'>=</span> <span class='st'>"#e8bce8"</span>,                  
+      <span class='st'>"Mixed happy and unhappy"</span> <span class='op'>=</span>  <span class='st'>"#969696"</span>,         
+      <span class='st'>"Sort of happy"</span> <span class='op'>=</span>  <span class='st'>"#7A99AC"</span>,            
+      <span class='st'>"Very happy"</span> <span class='op'>=</span> <span class='st'>"#00263A"</span>,     
+      <span class='st'>"Currently Pregnant"</span> <span class='op'>=</span> <span class='st'>"#cccccc"</span>, 
+      <span class='st'>"No response or missing"</span> <span class='op'>=</span> <span class='st'>"#F1F5F7"</span>
+    <span class='op'>)</span><span class='op'>)</span>,
+    breaks <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span>
+      <span class='st'>"Sort of unhappy"</span>,
+      <span class='st'>"Very unhappy"</span>, 
+      <span class='st'>"Very happy"</span>,
+      <span class='st'>"Sort of happy"</span>, 
+      <span class='st'>"Mixed happy and unhappy"</span>,
+      <span class='st'>"Currently Pregnant"</span>,
+      <span class='st'>"No response or missing"</span>
+    <span class='op'>)</span>
+  <span class='op'>)</span> <span class='op'>+</span> 
+  <span class='fu'>guides</span><span class='op'>(</span>fill <span class='op'>=</span> <span class='fu'>guide_legend</span><span class='op'>(</span>nrow <span class='op'>=</span> <span class='fl'>2</span>, byrow <span class='op'>=</span> <span class='cn'>T</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span> 
+  
+  <span class='co'># In theme(), we control labeling for each facet:</span>
+  <span class='fu'>theme</span><span class='op'>(</span>
+    text <span class='op'>=</span> <span class='fu'>element_text</span><span class='op'>(</span>family <span class='op'>=</span> <span class='st'>"cabrito"</span>, size <span class='op'>=</span> <span class='fl'>10</span><span class='op'>)</span>,
+    title <span class='op'>=</span> <span class='fu'>element_text</span><span class='op'>(</span>size <span class='op'>=</span> <span class='fl'>14</span>, color <span class='op'>=</span> <span class='st'>"#00263A"</span><span class='op'>)</span>,
+    plot.subtitle <span class='op'>=</span> <span class='fu'>element_text</span><span class='op'>(</span>size <span class='op'>=</span> <span class='fl'>12</span><span class='op'>)</span>,
+    legend.position <span class='op'>=</span> <span class='st'>"bottom"</span>,
+    strip.text <span class='op'>=</span> <span class='fu'>element_blank</span><span class='op'>(</span><span class='op'>)</span>, <span class='co'># leaves facet labels blank</span>
+    strip.background <span class='op'>=</span> <span class='fu'>element_blank</span><span class='op'>(</span><span class='op'>)</span> <span class='co'># removes background for facet labels</span>
+  <span class='op'>)</span> <span class='op'>+</span> 
+  
+  <span class='co'># All other labels are defined in labs() </span>
+  <span class='fu'>labs</span><span class='op'>(</span>
+    title <span class='op'>=</span> <span class='st'>"IF YOU GOT PREGNANT NOW, HOW WOULD YOU FEEL?"</span>,
+    subtitle <span class='op'>=</span> <span class='st'>"Estimated percentage for populations of women age 15-49 (summer 2020)"</span>,
+    x <span class='op'>=</span> <span class='cn'>NULL</span>,
+    y <span class='op'>=</span> <span class='cn'>NULL</span>,
+    fill <span class='op'>=</span> <span class='cn'>NULL</span>
+  <span class='op'>)</span> 
+</code></pre>
+</div>
+<p><img src="covid-likert_files/figure-html5/unnamed-chunk-28-1.png" width="768" /></p>
+</div>
+<aside>
+A <strong>faceted</strong> divergent bar chart
+</aside>
+<h2 id="faceted-question-series">Faceted Question Series</h2>
+<p>Another reason you might want to use <strong>facets</strong> is to align responses to questions that use a common response scale. For example, the variable <code>COMMCOVIDWORRY</code> uses the same response options shown in <code>COVIDCONCERN</code>, and it reflects each woman’s level of concern for the spread of COVID-19 in her community. If we align two bar charts for <code>COVIDCONCERN</code> and <code>COMMCOVIDWORRY</code> with <code>facet_grid()</code>, we’ll be able to easily compare women’s concerns for personal and communal health.</p>
+<p>First, we’ll use <code>pivot_longer</code> to organize responses to <code>COVIDCONCERN</code> and <code>COMMCOVIDWORRY</code> in separate rows. Then, we’ll pre-calculate our summary statistics in a table called <code>covid_pop</code>.</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre><code><span class='va'>covid_pop</span> <span class='op'>&lt;-</span> <span class='va'>covid</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='http://gdfe.co/srvyr/reference/dplyr_single.html'>select</a></span><span class='op'>(</span><span class='va'>COUNTRY</span>, <span class='va'>CVQWEIGHT</span>, <span class='va'>EAID</span>, <span class='va'>COVIDCONCERN</span>, <span class='va'>COMMCOVIDWORRY</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'>pivot_longer</span><span class='op'>(</span>
+    <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='va'>COVIDCONCERN</span>, <span class='va'>COMMCOVIDWORRY</span><span class='op'>)</span>,
+    names_to <span class='op'>=</span> <span class='st'>"QUESTION"</span>,
+    values_to <span class='op'>=</span> <span class='st'>"RESPONSE"</span>
+  <span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='http://gdfe.co/srvyr/reference/as_survey_design.html'>as_survey_design</a></span><span class='op'>(</span>weight <span class='op'>=</span> <span class='va'>CVQWEIGHT</span>, id <span class='op'>=</span> <span class='va'>EAID</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+  <span class='fu'><a href='http://gdfe.co/srvyr/reference/group_by.html'>group_by</a></span><span class='op'>(</span><span class='va'>COUNTRY</span>, <span class='va'>QUESTION</span>, <span class='va'>RESPONSE</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='http://gdfe.co/srvyr/reference/summarise.html'>summarise</a></span><span class='op'>(</span>PERCENT <span class='op'>=</span> <span class='fu'><a href='http://gdfe.co/srvyr/reference/survey_mean.html'>survey_mean</a></span><span class='op'>(</span>vartype <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='http://gdfe.co/srvyr/reference/dplyr_single.html'>filter</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/grep.html'>grepl</a></span><span class='op'>(</span><span class='st'>"concern"</span>, <span class='va'>RESPONSE</span>, ignore.case <span class='op'>=</span> <span class='cn'>T</span><span class='op'>)</span><span class='op'>)</span> 
+
+<span class='va'>covid_pop</span>
+</code></pre>
+</div>
+<pre><code># A tibble: 32 x 4
+# Groups:   COUNTRY, QUESTION [8]
+   COUNTRY        QUESTION       RESPONSE           PERCENT
+   &lt;fct&gt;          &lt;chr&gt;          &lt;fct&gt;                &lt;dbl&gt;
+ 1 Burkina Faso   COMMCOVIDWORRY Not concerned       0.0422
+ 2 Burkina Faso   COMMCOVIDWORRY A little concerned  0.0741
+ 3 Burkina Faso   COMMCOVIDWORRY Concerned           0.215 
+ 4 Burkina Faso   COMMCOVIDWORRY Very concerned      0.668 
+ 5 Burkina Faso   COVIDCONCERN   Not concerned       0.0618
+ 6 Burkina Faso   COVIDCONCERN   A little concerned  0.0835
+ 7 Burkina Faso   COVIDCONCERN   Concerned           0.177 
+ 8 Burkina Faso   COVIDCONCERN   Very concerned      0.677 
+ 9 DRC (Kinshasa) COMMCOVIDWORRY Not concerned       0.161 
+10 DRC (Kinshasa) COMMCOVIDWORRY A little concerned  0.0943
+# … with 22 more rows</code></pre>
+</div>
+<aside>
+To keep things simple, we’ll again drop all of the non-response options by filtering only values in <code>RESPONSE</code> containing the word “concern”.
+</aside>
+<p>This time, we’ll build separate facets for each <code>QUESTION</code>. We’ll also arrange facets in the direction <em>perpendicular to</em> the direction of the bars (i.e. in rows).</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre><code><span class='va'>covid_pop</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'>ggplot</span><span class='op'>(</span><span class='fu'>aes</span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>COUNTRY</span>, y <span class='op'>=</span> <span class='va'>PERCENT</span>, fill <span class='op'>=</span> <span class='va'>RESPONSE</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span> 
+  <span class='fu'>geom_bar</span><span class='op'>(</span>stat <span class='op'>=</span> <span class='st'>"identity"</span><span class='op'>)</span> <span class='op'>+</span> 
+  <span class='fu'>geom_vline</span><span class='op'>(</span>xintercept <span class='op'>=</span> <span class='fl'>0</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'>coord_flip</span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span> 
+  
+  <span class='co'># This time, we'll add labels to each facet with labeller()</span>
+  <span class='fu'>facet_grid</span><span class='op'>(</span>
+    rows <span class='op'>=</span> <span class='fu'><a href='http://gdfe.co/srvyr/reference/summarise_all.html'>vars</a></span><span class='op'>(</span><span class='va'>QUESTION</span><span class='op'>)</span>, 
+    scales <span class='op'>=</span> <span class='st'>"free"</span>,
+    space <span class='op'>=</span> <span class='st'>"free"</span>,
+    labeller <span class='op'>=</span> <span class='fu'>labeller</span><span class='op'>(</span>QUESTION <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span>
+      COMMCOVIDWORRY <span class='op'>=</span> <span class='st'>"Getting infected"</span>,
+      COVIDCONCERN <span class='op'>=</span> <span class='st'>"Spread in community"</span>
+    <span class='op'>)</span><span class='op'>)</span>
+  <span class='op'>)</span> <span class='op'>+</span> 
+  
+  <span class='co'># Define fill colors (values) and legend orientation</span>
+  <span class='fu'>scale_fill_manual</span><span class='op'>(</span>
+    values <span class='op'>=</span> <span class='fu'>alpha</span><span class='op'>(</span>colour <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span>
+      <span class='st'>"Very concerned"</span> <span class='op'>=</span> <span class='st'>"#00263A"</span>,        <span class='co'># IPUMS Navy</span>
+      <span class='st'>"Concerned"</span> <span class='op'>=</span> <span class='st'>"#4E6C7D"</span>,             <span class='co'># IPUMS Dark-Grey</span>
+      <span class='st'>"A little concerned"</span> <span class='op'>=</span> <span class='st'>"#7A99AC"</span>,    <span class='co'># IPUMS Blue-Grey</span>
+      <span class='st'>"Not concerned"</span> <span class='op'>=</span> <span class='st'>"#F1F5F7"</span>          <span class='co'># IPUMS Light-Grey</span>
+    <span class='op'>)</span><span class='op'>)</span>
+  <span class='op'>)</span> <span class='op'>+</span> 
+  <span class='fu'>guides</span><span class='op'>(</span>fill <span class='op'>=</span> <span class='fu'>guide_legend</span><span class='op'>(</span>reverse <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span> 
+  
+  <span class='co'># We'll format the labels defined above in strip.text.y</span>
+  <span class='co'># We also increase the panel.spacing by 1 "line"</span>
+  <span class='fu'>theme</span><span class='op'>(</span>
+    text <span class='op'>=</span> <span class='fu'>element_text</span><span class='op'>(</span>family <span class='op'>=</span> <span class='st'>"cabrito"</span>, size <span class='op'>=</span> <span class='fl'>10</span><span class='op'>)</span>,
+    title <span class='op'>=</span> <span class='fu'>element_text</span><span class='op'>(</span>size <span class='op'>=</span> <span class='fl'>14</span>, color <span class='op'>=</span> <span class='st'>"#00263A"</span><span class='op'>)</span>,
+    plot.subtitle <span class='op'>=</span> <span class='fu'>element_text</span><span class='op'>(</span>size <span class='op'>=</span> <span class='fl'>12</span><span class='op'>)</span>,
+    legend.position <span class='op'>=</span> <span class='st'>"bottom"</span>,
+    strip.background <span class='op'>=</span> <span class='fu'>element_blank</span><span class='op'>(</span><span class='op'>)</span>,
+    strip.text.y <span class='op'>=</span> <span class='fu'>element_text</span><span class='op'>(</span>size <span class='op'>=</span> <span class='fl'>12</span>, angle <span class='op'>=</span> <span class='fl'>0</span><span class='op'>)</span>,
+    panel.spacing <span class='op'>=</span> <span class='fu'>unit</span><span class='op'>(</span><span class='fl'>1</span>, <span class='st'>"lines"</span><span class='op'>)</span>
+  <span class='op'>)</span> <span class='op'>+</span> 
+  
+  <span class='co'># All other labels are defined in labs() </span>
+  <span class='fu'>labs</span><span class='op'>(</span>
+    title <span class='op'>=</span> <span class='st'>"COVID-19 CONCERNS: PERSONAL VS COMMUNAL"</span>,
+    subtitle <span class='op'>=</span> <span class='st'>"Estimated percentage for populations of women age 15-49 (summer 2020)"</span>,
+    x <span class='op'>=</span> <span class='cn'>NULL</span>,
+    y <span class='op'>=</span> <span class='cn'>NULL</span>,
+    fill <span class='op'>=</span> <span class='cn'>NULL</span>
+  <span class='op'>)</span> 
+</code></pre>
+</div>
+<p><img src="covid-likert_files/figure-html5/unnamed-chunk-30-1.png" width="768" /></p>
+</div>
+<h1 id="next-steps">Next Steps</h1>
+<p>Of course, bar charts are only <em>one</em> of the many ways you might choose to visualize Likert-type data from the PMA COVID-19 survey. We think <strong>faceted bar charts</strong> are a great way to compare data from several questions that use the same response scale, or to showcase the different types of <em>non-response</em> you’ll find in the top-codes used throughout all of the IPUMS PMA data series.</p>
+<p>The customization options afforded by <code>ggplot2</code> are incredibly powerful, but they can also be overwhelming! We’ll practice using tools from <code>ggplot2</code> again in our <a href="../../index.html#category:COVID-19">next post</a>, where we’ll be thinking about ways to visualize <strong>larger batches of related variables</strong>.</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
+<!--radix_placeholder_article_footer-->
+<!--/radix_placeholder_article_footer-->
+</div>
+
+<div class="d-appendix">
+</div>
+
+
+<!--radix_placeholder_site_after_body-->
+<!--/radix_placeholder_site_after_body-->
+<!--radix_placeholder_appendices-->
+<div class="appendix-bottom"></div>
+<!--/radix_placeholder_appendices-->
+<!--radix_placeholder_navigation_after_body-->
+<!--/radix_placeholder_navigation_after_body-->
+
+</body>
+
+</html>
