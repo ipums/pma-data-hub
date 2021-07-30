@@ -12,7 +12,24 @@
       <link>https://ipums.github.io/pma-data-hub/</link>
     </image>
     <generator>Distill</generator>
-    <lastBuildDate>Thu, 15 Jul 2021 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sun, 01 Aug 2021 00:00:00 +0000</lastBuildDate>
+    <item>
+      <title>Three ways to visualize binary survey data</title>
+      <dc:creator>Tayler Nelson</dc:creator>
+      <dc:creator>Matt Gunther</dc:creator>
+      <link>https://ipums.github.io/pma-data-hub/posts/2021-08-01-covid-batches</link>
+      <description>You can compare levels of trust and efficacy for 13 information sources in 4 countries with data from the new PMA COVID-19 survey. Let's talk data visualization options.</description>
+      <category>COVID-19</category>
+      <category>Data Visualization</category>
+      <category>ggplot2</category>
+      <category>fmsb</category>
+      <category>Bar Charts</category>
+      <category>Lollipop Charts</category>
+      <category>Radar Charts</category>
+      <guid>https://ipums.github.io/pma-data-hub/posts/2021-08-01-covid-batches</guid>
+      <pubDate>Sun, 01 Aug 2021 00:00:00 +0000</pubDate>
+      <media:content url="https://ipums.github.io/pma-data-hub/posts/2021-08-01-covid-batches/images/preview2.png" medium="image" type="image/png" width="1134" height="872"/>
+    </item>
     <item>
       <title>Visualizing perceptions of risk from COVID-19</title>
       <dc:creator>Saeun Park</dc:creator>
