@@ -16,3 +16,8 @@ output:
   </iframe>
 </div>
 
+<aside>
+**Trouble loading this page?**
+
+You may need to disable your ad-blocker or switch browsers.
+</aside>

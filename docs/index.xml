@@ -12,7 +12,19 @@
       <link>https://ipums.github.io/pma-data-hub/</link>
     </image>
     <generator>Distill</generator>
-    <lastBuildDate>Sun, 01 Aug 2021 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sat, 07 Aug 2021 00:00:00 +0000</lastBuildDate>
+    <item>
+      <title>New Online Course: Introduction to IPUMS PMA Data Analysis</title>
+      <link>https://ipums.github.io/pma-data-hub/posts/2021-08-07-pma-intro</link>
+      <description>Explore IPUMS PMA data with R right in your browser, or download Stata code for offline practice</description>
+      <category>Online Courses</category>
+      <category>learnr</category>
+      <category>Stata</category>
+      <category>Qualtrics</category>
+      <guid>https://ipums.github.io/pma-data-hub/posts/2021-08-07-pma-intro</guid>
+      <pubDate>Sat, 07 Aug 2021 00:00:00 +0000</pubDate>
+      <media:content url="https://ipums.github.io/pma-data-hub/posts/2021-08-07-pma-intro/../../images/new_course.png" medium="image" type="image/png" width="2999" height="1687"/>
+    </item>
     <item>
       <title>Three ways to visualize binary survey data</title>
       <dc:creator>Tayler Nelson</dc:creator>
