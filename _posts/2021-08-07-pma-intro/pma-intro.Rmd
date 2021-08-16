@@ -7,11 +7,6 @@ output:
   distill::distill_article:
     self_contained: false
 preview: ../../images/new_course.png
-categories:
-  - Online Courses
-  - learnr
-  - Stata
-  - Qualtrics
 ---
 
 Today, we're proud to announce the launch of a brand new feature on the IPUMS PMA Data Analysis Hub: our very first online course! 

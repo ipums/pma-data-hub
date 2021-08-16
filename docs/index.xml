@@ -12,15 +12,25 @@
       <link>https://ipums.github.io/pma-data-hub/</link>
     </image>
     <generator>Distill</generator>
-    <lastBuildDate>Sat, 07 Aug 2021 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sun, 15 Aug 2021 00:00:00 +0000</lastBuildDate>
+    <item>
+      <title>Multinomial Regression with Complex Survey Design</title>
+      <dc:creator>Devon Kristiansen</dc:creator>
+      <dc:creator>Matt Gunther</dc:creator>
+      <link>https://ipums.github.io/pma-data-hub/posts/2021-08-15-covid-analysis</link>
+      <description>The PMA COVID-19 survey is part of a broader panel study. We discuss how to merge it with the baseline survey, and how to specify sample weights and cluster information with the new svyVGAM package.</description>
+      <category>COVID-19</category>
+      <category>Data Analysis</category>
+      <category>svyVGAM</category>
+      <category>Multinomial Logit</category>
+      <guid>https://ipums.github.io/pma-data-hub/posts/2021-08-15-covid-analysis</guid>
+      <pubDate>Sun, 15 Aug 2021 00:00:00 +0000</pubDate>
+      <media:content url="https://ipums.github.io/pma-data-hub/posts/2021-08-15-covid-analysis/images/alluvial.png" medium="image" type="image/png" width="1422" height="714"/>
+    </item>
     <item>
       <title>New Online Course: Introduction to IPUMS PMA Data Analysis</title>
       <link>https://ipums.github.io/pma-data-hub/posts/2021-08-07-pma-intro</link>
       <description>Explore IPUMS PMA data with R right in your browser, or download Stata code for offline practice</description>
-      <category>Online Courses</category>
-      <category>learnr</category>
-      <category>Stata</category>
-      <category>Qualtrics</category>
       <guid>https://ipums.github.io/pma-data-hub/posts/2021-08-07-pma-intro</guid>
       <pubDate>Sat, 07 Aug 2021 00:00:00 +0000</pubDate>
       <media:content url="https://ipums.github.io/pma-data-hub/posts/2021-08-07-pma-intro/../../images/new_course.png" medium="image" type="image/png" width="2999" height="1687"/>
