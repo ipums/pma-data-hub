@@ -2156,8 +2156,14 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
     color: #00263A;
   }
 
+  d-title h1{
+    font-weight: 500;
+  }
+
   d-article h1{
+    font-size: 36px;
     line-height: 1.1em;
+    font-weight: 100;
   }
 
   d-article h2{
@@ -2165,6 +2171,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
       font-family: "cabrito_sans_cond_demi";
       text-transform: uppercase;
       color: #00263A;
+      font-weight: 100;
   }
 
   d-article h3{
@@ -2173,6 +2180,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
     color: #00263A;
     margin-top: 1.5rem;
     margin-bottom: 1em;
+    font-weight: 100;
   }
 
   d-article h4{
@@ -2182,6 +2190,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
     text-transform: unset;
     margin-top: 1.5rem;
     margin-bottom: 1em;
+    font-weight: 100;
   }
 
   d-article h5{
@@ -2190,6 +2199,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
     color: #00263A;
     margin-top: 1.5rem;
     margin-bottom: 1em;
+    font-weight: 100;
   }
 
   d-article li {
@@ -2198,12 +2208,17 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
       padding-left: 0;
   }
 
+  .d-contents nav > ul > li > a {
+      font-weight: 100;
+  }
+
   body{
     font-family: 'cabrito_subset';
   }
 
   b, strong {
     font-family: "cabrito_sans_cond_demi";
+    font-weight: 100;
   }
 
   p>a {
@@ -2261,6 +2276,15 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 
   d-article aside a {
     color: #98579B;
+  }
+
+  @media(max-width: 767px){
+    aside{
+      width: 50%;
+      position: relative;
+      left: 25%;
+      padding-bottom: 20px;
+    }
   }
 
   code {
@@ -2578,7 +2602,7 @@ Community
 <p>First things first: you must install install <a href="https://git-scm.com/">Git</a> on your computer if it isn’t there already. Mac OS comes with git installed,<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> while other users should <a href="http://git-scm.com/downloads">download</a> the right Git for their operation system. <em>If you’re using RStudio on the gp1 server, Git is already installed.</em></p>
 <p>Next, open the <code>Global Options</code> menu in RStudio and locate the Git/SVN tab. Ensure that the box shown below is checked, and then enter the location of the executable file<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a> for your Git installation:</p>
 <div class="layout-chunk" data-layout="l-body">
-<p><img src="images/git-menu.png" width="590" /></p>
+<p><img src="images/bpw/git-menu.png" width="590" /></p>
 </div>
 <p>Lastly, you should provide Git with a username, email, and Personal Access Token (PAT) for your UMN GitHub account. If you’ve installed <a href="https://usethis.r-lib.org/articles/articles/git-credentials.html">usethis</a> as shown <a href="#r-rstudio-and-required-packages">above</a>, you’ll be able to set these up with R commands (changes will be applied to globally wherever you use Git on your operating system). First, set the username and email address for your UMN GitHub account. For example, mine are:</p>
 <aside>
@@ -2609,11 +2633,11 @@ Community
 <h2 id="the-pma-data-hub-repository">The PMA Data Hub Repository</h2>
 <p>Open RStudio and navigate to <code>File &gt; New Project</code>, then select <code>Version Control</code>:</p>
 <div class="layout-chunk" data-layout="l-body">
-<p><img src="images/version_control.png" width="527" /></p>
+<p><img src="images/bpw/version_control.png" width="527" /></p>
 </div>
 <p>Choose <code>Git</code> to clone our project from a GitHub repository:</p>
 <div class="layout-chunk" data-layout="l-body">
-<p><img src="images/use_git.png" width="529" /></p>
+<p><img src="images/bpw/use_git.png" width="529" /></p>
 </div>
 <p>On the next menu page, enter the address for the enterprise repository exactly as shown (do not clone the public repository):</p>
 <pre><code>https://github.umn.edu/mpc/pma-data-hub/</code></pre>
@@ -2624,18 +2648,18 @@ Community
 When choosing a place to save this project, <b>do not save to a network drive</b>. This seems to cause RStudio to crash!
 </aside>
 <div class="layout-chunk" data-layout="l-body">
-<p><img src="images/clone_info.png" width="530" /></p>
+<p><img src="images/bpw/clone_info.png" width="530" /></p>
 </div>
 <p>If you have not configured Git to automatically use your UMN GitHub credentials with the <a href="#using-umn-github-from-rstudio">steps shown above</a>, you may be prompted to provide them in a pop-up window:</p>
 <div class="layout-chunk" data-layout="l-body">
-<p><img src="images/username.png" width="629" /><img src="images/password.png" width="631" /></p>
+<p><img src="images/bpw/username.png" width="629" /><img src="images/bpw/password.png" width="631" /></p>
 </div>
 <aside>
 Until you configure Git with these credentials, you’ll have to do this every time you interact with GitHub. Additionally, <b>password authentication for GitHub will be deprecated in the near future</b> so you’ll need to do it soon!
 </aside>
 <p>After a short bit, RStudio will relaunch and open the new project. If you adjust the windows to show the tabs <code>Git</code> (left) and <code>Files</code> (right), you should see something like this:</p>
 <div class="layout-chunk" data-layout="l-body">
-<p><img src="images/clone_success.png" width="1274" /></p>
+<p><img src="images/bpw/clone_success.png" width="1274" /></p>
 </div>
 <p>You have now downloaded a copy of the Enterprise repository to your computer!</p>
 <p>Moreover, because you’ve connected these files to a GitHub repository, the RStudio Project will now keep track of changes you make to the files in this folder, and it will prompt you to upload your changes back to GitHub: as you add, edit, or delete files, a list of changes will appear in the <code>Git</code> tab.</p>
@@ -2648,21 +2672,21 @@ To open an RStudio project, click on the file <b>pma-data-hub.Rproj</b>. If you 
 <h2 id="create-a-new-branch">Create a new branch</h2>
 <p>Notice that the <code>Git</code> tab in RStudio has a purple icon:</p>
 <div class="layout-chunk" data-layout="l-body">
-<p><img src="images/new_branch.png" width="483" /></p>
+<p><img src="images/bpw/new_branch.png" width="483" /></p>
 </div>
 <p>Click this icon to create a new branch. You can name it anything you like, but we recommend using your URL slug if possible (e.g. “blog-post-workflow” is the end of the URL for this webpage). Leave the box next to “Sync branch with remote” <strong>checked</strong>, as this will create your branch both locally and on our GitHub page:</p>
 <div class="layout-chunk" data-layout="l-body">
-<p><img src="images/branch_name.png" width="317" /></p>
+<p><img src="images/bpw/branch_name.png" width="317" /></p>
 </div>
 <p>RStudio now displays the new branch in place of “master” to show that we’re working on the new branch, instead!</p>
 <h2 id="create-a-new-folder-in-_posts">Create a new folder in "_posts"</h2>
 <p>Now that you’ve created a new branch in the <code>Git</code> window, take a look at the <code>File</code> window.</p>
 <div class="layout-chunk" data-layout="l-body">
-<p><img src="images/file_window1.png" width="1273" /></p>
+<p><img src="images/bpw/file_window1.png" width="1273" /></p>
 </div>
 <p>The program we use to build the blog is called <a href="https://rstudio.github.io/distill/">Distill</a>, and it takes care of all the back-end work as long as we put every new blog post inside of a unique folder within the "_posts" directory. Opening "_posts", you can see that every post is contained within a time-stamped sub-folder:</p>
 <div class="layout-chunk" data-layout="l-body">
-<p><img src="images/posts_list.png" width="764" /></p>
+<p><img src="images/bpw/posts_list.png" width="764" /></p>
 </div>
 <p>To create one of these folders for your new post, enter the following command into R:</p>
 <div class="layout-chunk" data-layout="l-body">
@@ -2673,7 +2697,7 @@ To open an RStudio project, click on the file <b>pma-data-hub.Rproj</b>. If you 
 </div>
 <p>This does two things: it creates the folder automatically (circled in red), and it opens a new RMarkdown file where you can begin writing your post (circled in green).</p>
 <div class="layout-chunk" data-layout="l-body">
-<p><img src="images/post_added.png" width="1430" /></p>
+<p><img src="images/bpw/post_added.png" width="1430" /></p>
 </div>
 <aside>
 <p>In red: notice the folder appears in both your <b>File</b> tab and your <b>Git</b> tab. (Don’t worry about the date on this folder - it’s for internal use and does not need to match the publication date.)</p>
@@ -2682,7 +2706,7 @@ In green: this is the RMarkdown file where you’ll write your post.
 <p>Check out our <a href="../2021-02-02-blogging-with-rmarkdown/index.html">Quick-start Guide for Blogging with RMarkdown</a>!</p>
 <p>As you’re writing your post, you can preview it as a fully formatted webpage by hitting the <code>Knit</code> button at the top of your RMarkdown file:</p>
 <div class="layout-chunk" data-layout="l-body">
-<p><img src="images/knit.png" width="1434" /></p>
+<p><img src="images/bpw/knit.png" width="1434" /></p>
 </div>
 <aside>
 You can switch between previewing the page in the RStudio Viewer tab, or in your computer’s default web browser. Click the settings icon next to “Knit” for preview options.
@@ -2706,42 +2730,42 @@ You can switch between previewing the page in the RStudio Viewer tab, or in your
 </div>
 <p>Now, if you visit our Enterprise GitHub page, your post will appear in a new branch! (It will not yet appear on the copy of the blog we have posted there, which is rendered only from <code>master</code>.)</p>
 <div class="layout-chunk" data-layout="l-body">
-<p><img src="images/see_branches.png" width="1418" /></p>
+<p><img src="images/bpw/see_branches.png" width="1418" /></p>
 </div>
 <h1 id="editors">Editors</h1>
 <h2 id="pull-the-authors-branch-to-your-computer">Pull the author’s branch to your computer</h2>
 <p>Any time that you want to review an author’s post, you’ll always need to get the latest copy of their branch from our Enterprise GitHub page. If this is the first time you’ve read a draft for the post, the author’s branch won’t yet be listed in RStudio.</p>
 <div class="layout-chunk" data-layout="l-body">
-<p><img src="images/master_only.png" width="597" /></p>
+<p><img src="images/bpw/master_only.png" width="597" /></p>
 </div>
 <aside>
 This editor’s RStudio only knows about the “master” branch so far.
 </aside>
 <p>The <code>Pull</code> button in RStudio’s <code>Git</code> tab will gather information about all of the new branches on GitHub, and it will download a copy of each one onto your computer:</p>
 <div class="layout-chunk" data-layout="l-body">
-<p><img src="images/pull_button.png" width="716" /></p>
+<p><img src="images/bpw/pull_button.png" width="716" /></p>
 </div>
 <p>Clicking it will bring up a dialogue screen. RStudio reports that it discovered a new branch <code>blog-post-workflow</code> living at the remote repository <code>origin</code>.</p>
 <div class="layout-chunk" data-layout="l-body">
-<p><img src="images/pull_new_branch.png" width="631" /></p>
+<p><img src="images/bpw/pull_new_branch.png" width="631" /></p>
 </div>
 <p>Returning to RStudio’s main window, notice that you can now toggle between the working on the remote <code>master</code> branch, or the new remote branch called <code>blog-post-workflow</code>. When you’re ready to edit the author’s post, use this menu to select their branch.</p>
 <div class="layout-chunk" data-layout="l-body">
-<p><img src="images/toggle_branches.png" width="419" /></p>
+<p><img src="images/bpw/toggle_branches.png" width="419" /></p>
 </div>
 <p>RStudio automatically creates a local version of this branch on your computer, and it reports that your changes will be tracked and pushed to the remote branch of the same name.</p>
 <div class="layout-chunk" data-layout="l-body">
-<p><img src="images/new_local_branch.png" width="626" /></p>
+<p><img src="images/bpw/new_local_branch.png" width="626" /></p>
 </div>
 <h2 id="locate-and-edit-the-new-post">Locate and edit the new post</h2>
 <p>Now, RStudio shows that you’re working on the author’s branch in the <code>Git</code> tab, and you’ll see their post listed in the <code>_posts</code> folder on the <code>Files</code> tab. Navigate to the <code>.Rmd</code> file for their post, then click it to begin making edits.</p>
 <div class="layout-chunk" data-layout="l-body">
-<p><img src="images/author_post_appears.png" width="724" /></p>
+<p><img src="images/bpw/author_post_appears.png" width="724" /></p>
 </div>
 <p>Check out our <a href="../2021-02-02-blogging-with-rmarkdown/index.html">Quick-start Guide for Blogging with RMarkdown</a>!</p>
 <p>As you’re writing your post, you can preview it as a fully formatted webpage by hitting the <code>Knit</code> button at the top of your RMarkdown file:</p>
 <div class="layout-chunk" data-layout="l-body">
-<p><img src="images/edit_knit.png" width="1426" /></p>
+<p><img src="images/bpw/edit_knit.png" width="1426" /></p>
 </div>
 <aside>
 You can switch between previewing the page in the RStudio Viewer tab, or in your computer’s default web browser. Click the settings icon next to “Knit” for preview options.
@@ -2760,18 +2784,18 @@ You can switch between previewing the page in the RStudio Viewer tab, or in your
 </div>
 <p>Now, if you visit our Enterprise GitHub page, you’ll see that your edited files appear on the author’s branch. (They will not yet appear on the copy of the blog we have posted there, which is rendered only from <code>master</code>.)</p>
 <div class="layout-chunk" data-layout="l-body">
-<p><img src="images/draft_accepted.png" width="1422" /></p>
+<p><img src="images/bpw/draft_accepted.png" width="1422" /></p>
 </div>
 <h1 id="all-users-making-revisions">All users: making revisions</h1>
 <p>When you’ve finished pushing something to GitHub, <strong>please email your collaborators to let them know about next steps!</strong></p>
 <p>To get your collaborator’s latest updates from GitHub, <strong>you should launch the pma-data-hub RStudio project file</strong> called <code>pma-data-hub.Rproj</code>. If you forget to open the project file, RStudio will not be able to access the contents of your Git folder (it won’t know that there’s a GitHub repository for the project at all).</p>
 <p>When you open the project file, RStudio will again display a <code>Git</code> tab. Click on the <code>Pull</code> button to get your collaborator’s latest changes.</p>
 <div class="layout-chunk" data-layout="l-body">
-<p><img src="images/pull_button.png" width="716" /></p>
+<p><img src="images/bpw/pull_button.png" width="716" /></p>
 </div>
 <p>Switch from the <code>master</code> branch to the branch associated with your post:</p>
 <div class="layout-chunk" data-layout="l-body">
-<p><img src="images/toggle_branches.png" width="419" /></p>
+<p><img src="images/bpw/toggle_branches.png" width="419" /></p>
 </div>
 <p>After you’re finished incorporating their feedback into the RMarkdown file (.Rmd), <strong>click Knit</strong> and then run these commands in Terminal again to send your work back to GitHub:</p>
 <div class="layout-chunk" data-layout="l-body">
@@ -2802,7 +2826,7 @@ git fetch public</code></pre>
 <pre><code>git branch public-master public/master</code></pre>
 <p>At this point, you’ll notice that RStudio shows two remotes (with the branches you’ve fetched) and all of the local branches you’ve created so far.</p>
 <div class="layout-chunk" data-layout="l-body">
-<p><img src="images/dual-remotes.png" width="298" /></p>
+<p><img src="images/bpw/dual-remotes.png" width="298" /></p>
 </div>
 <aside>
 In this example, we set the local “private-master” branch to track “master” on the private remote. The “public-master” branch tracks “master” on the public remote.
@@ -2844,7 +2868,7 @@ This will only delete <code>data</code> folders if a branch called <code>public-
 git merge --squash blog-post-workflow</code></pre>
 <p>Now, in RStudio, hit the <code>Build Website</code> button. Look over the site to make sure everything looks good. (We won’t build on <code>public-master</code> to avoid merge conflicts, so get those edits in now.)</p>
 <div class="layout-chunk" data-layout="l-body">
-<p><img src="images/build.png" width="372" /></p>
+<p><img src="images/bpw/build.png" width="372" /></p>
 </div>
 <p>When you’re ready, add all files and commit your changes with a message like:</p>
 <pre><code>git add .

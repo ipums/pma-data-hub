@@ -93,7 +93,7 @@
       <category>New Data</category>
       <guid>https://ipums.github.io/pma-data-hub/posts/2021-06-15-covid-discovery</guid>
       <pubDate>Tue, 15 Jun 2021 00:00:00 +0000</pubDate>
-      <media:content url="https://ipums.github.io/pma-data-hub/posts/2021-06-15-covid-discovery/images/new_data_white.png" medium="image" type="image/png" width="2555" height="1437"/>
+      <media:content url="https://ipums.github.io/pma-data-hub/posts/2021-06-15-covid-discovery/../../images/new_data.png" medium="image" type="image/png" width="2555" height="1437"/>
     </item>
     <item>
       <title>Visualizing migration patterns over time</title>
@@ -172,7 +172,7 @@
       <category>Data Discovery</category>
       <guid>https://ipums.github.io/pma-data-hub/posts/2021-02-09-march-2021-data-release</guid>
       <pubDate>Mon, 15 Mar 2021 00:00:00 +0000</pubDate>
-      <media:content url="https://ipums.github.io/pma-data-hub/posts/2021-02-09-march-2021-data-release/images/new_data_white.png" medium="image" type="image/png" width="2555" height="1437"/>
+      <media:content url="https://ipums.github.io/pma-data-hub/posts/2021-02-09-march-2021-data-release/../../images/new_data.png" medium="image" type="image/png" width="2555" height="1437"/>
     </item>
     <item>
       <title>Putting It All Together: Analyzing the Individual in Context</title>
@@ -278,7 +278,6 @@
       <category>R Packages</category>
       <guid>https://ipums.github.io/pma-data-hub/posts/2020-12-10-get-r-and-packages</guid>
       <pubDate>Mon, 02 Nov 2020 00:00:00 +0000</pubDate>
-      <media:content url="https://ipums.github.io/pma-data-hub/posts/2020-12-10-get-r-and-packages/images/Rlogo.png" medium="image" type="image/png" width="724" height="561"/>
     </item>
   </channel>
 </rss>

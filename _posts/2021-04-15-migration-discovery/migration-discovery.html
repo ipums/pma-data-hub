@@ -116,7 +116,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   <!--/radix_placeholder_rmarkdown_metadata-->
   
   <script type="text/json" id="radix-resource-manifest">
-  {"type":"character","attributes":{},"value":["data/pma_00021.dat.gz","data/pma_00021.xml","data/pma_00022.dat.gz","data/pma_00022.xml","images/tidyr_wide.png","images/tidyr.png","migration-discovery_files/anchor-4.2.2/anchor.min.js","migration-discovery_files/bowser-1.9.3/bowser.min.js","migration-discovery_files/distill-2.2.21/template.v2.js","migration-discovery_files/header-attrs-2.7/header-attrs.js","migration-discovery_files/jquery-1.11.3/jquery.min.js","migration-discovery_files/popper-2.6.0/popper.min.js","migration-discovery_files/tippy-6.2.7/tippy-bundle.umd.min.js","migration-discovery_files/tippy-6.2.7/tippy-light-border.css","migration-discovery_files/tippy-6.2.7/tippy.css","migration-discovery_files/tippy-6.2.7/tippy.umd.min.js","migration-discovery_files/webcomponents-2.0.0/webcomponents.js"]}
+  {"type":"character","attributes":{},"value":["data/pma_00021.dat.gz","data/pma_00021.xml","data/pma_00022.dat.gz","data/pma_00022.xml","images/tidyr_wide.png","migration-discovery_files/anchor-4.2.2/anchor.min.js","migration-discovery_files/bowser-1.9.3/bowser.min.js","migration-discovery_files/distill-2.2.21/template.v2.js","migration-discovery_files/header-attrs-2.7/header-attrs.js","migration-discovery_files/header-attrs-2.9/header-attrs.js","migration-discovery_files/jquery-1.11.3/jquery.min.js","migration-discovery_files/popper-2.6.0/popper.min.js","migration-discovery_files/tippy-6.2.7/tippy-bundle.umd.min.js","migration-discovery_files/tippy-6.2.7/tippy-light-border.css","migration-discovery_files/tippy-6.2.7/tippy.css","migration-discovery_files/tippy-6.2.7/tippy.umd.min.js","migration-discovery_files/webcomponents-2.0.0/webcomponents.js"]}
   </script>
   <!--radix_placeholder_navigation_in_header-->
   <!--/radix_placeholder_navigation_in_header-->
@@ -1404,7 +1404,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   </script>
 
   <!--/radix_placeholder_distill-->
-  <script src="migration-discovery_files/header-attrs-2.7/header-attrs.js"></script>
+  <script src="migration-discovery_files/header-attrs-2.9/header-attrs.js"></script>
   <script src="migration-discovery_files/jquery-1.11.3/jquery.min.js"></script>
   <script src="migration-discovery_files/anchor-4.2.2/anchor.min.js"></script>
   <script src="migration-discovery_files/bowser-1.9.3/bowser.min.js"></script>
@@ -1518,7 +1518,7 @@ Interviewers were instructed to define a <strong>place</strong> as “a communit
 <p>Let’s take a look at the way migration history variables are currently formatted for one of the samples we discussed above. For this example, we’ve <a href="../2020-12-10-get-ipums-pma-data/index.html">created a data extract</a> containing all of the available migration data for the Kenya 2019 sample (female respondents only). We’ll load it and the following packages into R:</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre><code><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='http://tidyverse.tidyverse.org'>tidyverse</a></span><span class='op'>)</span>
+<pre><code><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://tidyverse.tidyverse.org'>tidyverse</a></span><span class='op'>)</span>
 <span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://www.ipums.org'>ipumsr</a></span><span class='op'>)</span>
 
 <span class='va'>dat</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/ipumsr/man/read_ipums_micro.html'>read_ipums_micro</a></span><span class='op'>(</span>
@@ -1660,7 +1660,9 @@ See <a href="../2021-01-28-across-sdp/index.html">this post</a> for additional d
 </div>
 <aside>
 <div class="layout-chunk" data-layout="l-body">
-<p><img src="images/tidyr.png" width="368" /></p>
+<a href="https://tidyr.tidyverse.org">
+<img src="../../images/hex/tidyr.png"/>
+</a>
 </div>
 <p>© 2018 RStudio (<a href="https://creativecommons.org/publicdomain/zero/1.0/">CC0 1.0</a>)</p>
 <a href="https://tidyr.tidyverse.org/index.html">tidyr</a> is included with <code>library(tidyverse)</code>.
@@ -1857,7 +1859,7 @@ We’re using <code>relocate</code> here just so that we can display the <code>D
 </div>
 <pre><code># A tibble: 48 x 2
       DISTRICTKE MEAN_AGE
- *     &lt;int+lbl&gt;    &lt;dbl&gt;
+       &lt;int+lbl&gt;    &lt;dbl&gt;
  1  1 [Bungoma]      18.5
  2  2 [Kericho]      18.0
  3  3 [Kiambu]       20.7

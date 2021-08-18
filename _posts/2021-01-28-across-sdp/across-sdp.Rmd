@@ -274,7 +274,10 @@ sdp %>%
 
 <aside>
 ```{r, echo=F}
-knitr::include_graphics("images/ipumsr.png")
+htmltools::a(
+  href = "http://tech.popdata.org/ipumsr/",
+  htmltools::img(src = "../../images/hex/ipumsr.png")
+)
 ```
 © 2017 ([MPL 2.0](https://www.mozilla.org/en-US/MPL/2.0/))
 </aside>
@@ -352,7 +355,10 @@ sdp %>%
 
 <aside>
 ```{r, echo =F}
-knitr::include_graphics("images/dplyr.png")
+htmltools::a(
+  href = "https://dplyr.tidyverse.org",
+  htmltools::img(src = "../../images/hex/dplyr.png")
+)
 ```
 © 2018 RStudio ([CC0 1.0](https://creativecommons.org/publicdomain/zero/1.0/))
 </aside>

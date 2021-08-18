@@ -15,7 +15,7 @@ output:
     toc: true
     toc_depth: 3
     toc_float: true
-preview: images/new_data_white.png
+preview: ../../images/new_data.png
 ---
 
 ```{r setup, echo=F}
@@ -40,7 +40,7 @@ We're excited to announce the release of several new [Service Delivery Point](..
 
 <aside>
 ```{r, echo=F}
-knitr::include_graphics("images/new_data_white.png")
+knitr::include_graphics("../../images/new_data.png")
 ```
 </aside>
 

@@ -154,7 +154,10 @@ We'll use the [survey](http://r-survey.r-forge.r-project.org/survey/) package  -
 
 <aside>
 ```{r, echo=F}
-knitr::include_graphics("images/srvyr.png")
+htmltools::a(
+  href = "http://gdfe.co/srvyr/index.html",
+  htmltools::img(src = "../../images/hex/srvyr.png")
+)
 ```
 © Greg Freedman Ellis et al. ([GPL 2](https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html) | [GPL 3](https://www.gnu.org/licenses/gpl-3.0.html))
 </aside>
@@ -463,7 +466,10 @@ boots_dat
 
 <aside>
 ```{r, echo=F}
-knitr::include_graphics("images/rsample.png")
+htmltools::a(
+  href = "https://rsample.tidymodels.org",
+  htmltools::img(src = "../../images/hex/rsample.png")
+)
 ```
 © 2018 RStudio ([CC0 1.0](https://creativecommons.org/publicdomain/zero/1.0/))
 

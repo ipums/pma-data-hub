@@ -103,20 +103,14 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <meta property="og:type" content="article"/>
 <meta property="og:description" content="How to download R for free and install some of the R packages used on this blog"/>
 <meta property="og:url" content="https://ipums.github.io/pma-data-hub/posts/2020-12-10-get-r-and-packages/"/>
-<meta property="og:image" content="https://ipums.github.io/pma-data-hub/posts/2020-12-10-get-r-and-packages/images/Rlogo.png"/>
-<meta property="og:image:width" content="724"/>
-<meta property="og:image:height" content="561"/>
 <meta property="og:locale" content="en_US"/>
 <meta property="og:site_name" content="Data Analysis Hub"/>
 
 <!--  https://dev.twitter.com/cards/types/summary -->
-<meta property="twitter:card" content="summary_large_image"/>
+<meta property="twitter:card" content="summary"/>
 <meta property="twitter:title" content="Data Analysis Hub: Getting Started with R"/>
 <meta property="twitter:description" content="How to download R for free and install some of the R packages used on this blog"/>
 <meta property="twitter:url" content="https://ipums.github.io/pma-data-hub/posts/2020-12-10-get-r-and-packages/"/>
-<meta property="twitter:image" content="https://ipums.github.io/pma-data-hub/posts/2020-12-10-get-r-and-packages/images/Rlogo.png"/>
-<meta property="twitter:image:width" content="724"/>
-<meta property="twitter:image:height" content="561"/>
 <meta property="twitter:site" content="@ipumsGH"/>
 
 <!--/radix_placeholder_meta_tags-->
@@ -128,7 +122,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <!--/radix_placeholder_rmarkdown_metadata-->
   
   <script type="text/json" id="radix-resource-manifest">
-  {"type":"character","attributes":{},"value":["get-r-and-packages_files/anchor-4.2.2/anchor.min.js","get-r-and-packages_files/bowser-1.9.3/bowser.min.js","get-r-and-packages_files/distill-2.2.21/template.v2.js","get-r-and-packages_files/header-attrs-2.6/header-attrs.js","get-r-and-packages_files/jquery-1.11.3/jquery.min.js","get-r-and-packages_files/webcomponents-2.0.0/webcomponents.js","images/Rlogo.png"]}
+  {"type":"character","attributes":{},"value":["get-r-and-packages_files/anchor-4.2.2/anchor.min.js","get-r-and-packages_files/bowser-1.9.3/bowser.min.js","get-r-and-packages_files/distill-2.2.21/template.v2.js","get-r-and-packages_files/header-attrs-2.6/header-attrs.js","get-r-and-packages_files/header-attrs-2.9/header-attrs.js","get-r-and-packages_files/jquery-1.11.3/jquery.min.js","get-r-and-packages_files/webcomponents-2.0.0/webcomponents.js"]}
   </script>
   <!--radix_placeholder_navigation_in_header-->
 <meta name="distill:offset" content="../.."/>
@@ -2169,8 +2163,14 @@ h1{
   color: #00263A;
 }
 
+d-title h1{
+  font-weight: 500;
+}
+
 d-article h1{
+  font-size: 36px;
   line-height: 1.1em;
+  font-weight: 100;
 }
 
 d-article h2{
@@ -2178,6 +2178,7 @@ d-article h2{
     font-family: "cabrito_sans_cond_demi";
     text-transform: uppercase;
     color: #00263A;
+    font-weight: 100;
 }
 
 d-article h3{
@@ -2186,6 +2187,7 @@ d-article h3{
   color: #00263A;
   margin-top: 1.5rem;
   margin-bottom: 1em;
+  font-weight: 100;
 }
 
 d-article h4{
@@ -2195,6 +2197,7 @@ d-article h4{
   text-transform: unset;
   margin-top: 1.5rem;
   margin-bottom: 1em;
+  font-weight: 100;
 }
 
 d-article h5{
@@ -2203,6 +2206,7 @@ d-article h5{
   color: #00263A;
   margin-top: 1.5rem;
   margin-bottom: 1em;
+  font-weight: 100;
 }
 
 d-article li {
@@ -2211,12 +2215,17 @@ d-article li {
     padding-left: 0;
 }
 
+.d-contents nav > ul > li > a {
+    font-weight: 100;
+}
+
 body{
   font-family: 'cabrito_subset';
 }
 
 b, strong {
   font-family: "cabrito_sans_cond_demi";
+  font-weight: 100;
 }
 
 p>a {
@@ -2274,6 +2283,15 @@ d-article iframe {
 
 d-article aside a {
   color: #98579B;
+}
+
+@media(max-width: 767px){
+  aside{
+    width: 50%;
+    position: relative;
+    left: 25%;
+    padding-bottom: 20px;
+  }
 }
 
 code {
@@ -2426,7 +2444,7 @@ d-appendix d-footnote-list a.footnote-backlink {
 	color: var(--hover-color, white);
 }</style>
 <!--/radix_placeholder_distill-->
-  <script src="../../site_libs/header-attrs-2.6/header-attrs.js"></script>
+  <script src="../../site_libs/header-attrs-2.9/header-attrs.js"></script>
   <script src="../../site_libs/jquery-1.11.3/jquery.min.js"></script>
   <script src="../../site_libs/anchor-4.2.2/anchor.min.js"></script>
   <script src="../../site_libs/bowser-1.9.3/bowser.min.js"></script>
@@ -2584,7 +2602,9 @@ Community
 </ul>
 <aside>
 <div class="layout-chunk" data-layout="l-body">
-<p><img src="images/Rlogo.png" width="362" /></p>
+<a href="https://cran.r-project.org/">
+<img src="../../images/hex/Rlogo.png"/>
+</a>
 </div>
 © 2016 The R Foundation (<a href="https://creativecommons.org/licenses/by-sa/4.0/">CC-BY-SA 4.0</a>)
 </aside>

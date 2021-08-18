@@ -187,7 +187,10 @@ district %>% pivot_longer(cols = ends_with("DISTRICTKE"))
 
 <aside>
 ```{r, echo=F}
-knitr::include_graphics("images/tidyr.png")
+htmltools::a(
+  href = "https://tidyr.tidyverse.org",
+  htmltools::img(src = "../../images/hex/tidyr.png")
+)
 ```
 © 2018 RStudio ([CC0 1.0](https://creativecommons.org/publicdomain/zero/1.0/))
 

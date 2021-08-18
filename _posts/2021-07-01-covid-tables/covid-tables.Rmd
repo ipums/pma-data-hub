@@ -40,7 +40,10 @@ You might consider making tables with R if you've ever found yourself:
 
 <aside>
 ```{r, echo=F}
-knitr::include_graphics("images/logo.png")
+htmltools::a(
+  href = "http://www.danieldsjoberg.com/gtsummary/index.html",
+  htmltools::img(src = "../../images/hex/gtsummary.png")
+)
 ```
 © 2020 Daniel D. Sjoberg ([MIT](https://opensource.org/licenses/MIT))
 </aside>
@@ -380,7 +383,10 @@ covid %>%
 
 <aside>
 ```{r, echo=F}
-knitr::include_graphics("images/srvyr.png")
+htmltools::a(
+  href = "http://gdfe.co/srvyr/index.html",
+  htmltools::img(src = "../../images/hex/srvyr.png")
+)
 ```
 © Greg Freedman Ellis et al. ([GPL 2](https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html) | [GPL 3](https://www.gnu.org/licenses/gpl-3.0.html))
 </aside>
@@ -517,7 +523,10 @@ levels(covid$COUNTRY) %>%
 
 <aside>
 ```{r, echo=F}
-knitr::include_graphics("images/purrr.png")
+htmltools::a(
+  href = "http://purrr.tidyverse.org",
+  htmltools::img(src = "../../images/hex/purrr.png")
+)
 ```
 © RStudio ([CC0 1.0](https://creativecommons.org/publicdomain/zero/1.0/))
 

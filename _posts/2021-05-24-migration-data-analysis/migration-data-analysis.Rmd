@@ -138,7 +138,10 @@ The `ggalluvial` package makes it easy to generate alluvial plots using the `ggp
   
 <aside>
 ```{r, echo=F}
-knitr::include_graphics("images/ggplot2.png")
+htmltools::a(
+  href = "https://ggplot2.tidyverse.org",
+  htmltools::img(src = "../../images/hex/ggplot2.png")
+)
 ```
 © RStudio ([CC0 1.0](https://creativecommons.org/publicdomain/zero/1.0/))
 
@@ -259,7 +262,10 @@ mig_reasons <- dat %>%
 
 <aside>
 ```{r, echo=F}
-knitr::include_graphics("images/forcats.png")
+htmltools::a(
+  href = "https://forcats.tidyverse.org",
+  htmltools::img(src = "../../images/hex/forcats.png")
+)
 ```
 © RStudio ([CC0 1.0](https://creativecommons.org/publicdomain/zero/1.0/))
 

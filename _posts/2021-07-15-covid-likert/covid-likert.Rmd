@@ -140,7 +140,10 @@ covid %>% tbl_summary(by = COUNTRY, include = COVIDCONCERN)
 
 <aside>
 ```{r, echo=F, out.width="95%"}
-knitr::include_graphics("images/gtsummary.png")
+htmltools::a(
+  href = "http://www.danieldsjoberg.com/gtsummary/index.html",
+  htmltools::img(src = "../../images/hex/gtsummary.png")
+)
 ```
 © 2020 Daniel D. Sjoberg ([MIT](https://opensource.org/licenses/MIT))
 </aside>
@@ -153,7 +156,10 @@ As you might know, [ggplot2](https://ggplot2.tidyverse.org/index.html) is part o
 
 <aside>
 ```{r, echo=F, out.width="75%"}
-knitr::include_graphics("images/ggplot2.png")
+htmltools::a(
+  href = "https://ggplot2.tidyverse.org/index.html",
+  htmltools::img(src = "../../images/hex/ggplot2.png")
+)
 ```
 © RStudio ([CC0 1.0](https://creativecommons.org/publicdomain/zero/1.0/))
 </aside>
@@ -475,7 +481,10 @@ concern_pop %>%
 
 <aside>
 ```{r, echo=F, out.width="95%"}
-knitr::include_graphics("images/showtext.png")
+htmltools::a(
+  href = "https://github.com/yixuan/showtext",
+  htmltools::img(src = "../../images/hex/showtext.png")
+)
 ```
 © Yixuan Qiu ([Apache >= 2.0](https://www.apache.org/licenses/LICENSE-2.0))
 </aside>

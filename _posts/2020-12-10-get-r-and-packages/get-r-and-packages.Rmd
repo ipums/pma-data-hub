@@ -43,7 +43,10 @@ If you're new to R (or want to refresh your skills), we recommend the excellent,
 
 <aside>
 ```{r}
-knitr::include_graphics("images/Rlogo.png")
+htmltools::a(
+  href = "https://cran.r-project.org/",
+  htmltools::img(src = "../../images/hex/Rlogo.png")
+)
 ```
 © 2016 The R Foundation (<a href="https://creativecommons.org/licenses/by-sa/4.0/">CC-BY-SA 4.0</a>)
 </aside>

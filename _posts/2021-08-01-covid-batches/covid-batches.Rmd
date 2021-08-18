@@ -207,9 +207,8 @@ recoded <- covid %>%
 ```{r, echo=F, out.width="95%"}
 htmltools::a(
   href = "http://tech.popdata.org/ipumsr/",
-  htmltools::img(src = "images/ipumsr.png")
+  htmltools::img(src = "../../images/hex/ipumsr.png")
 )
-# knitr::include_graphics("images/ipumsr.png")
 ```
 © 2017 ([MPL 2.0](https://www.mozilla.org/en-US/MPL/2.0/))
 </aside>
@@ -256,7 +255,7 @@ Of course, the entire purpose of `across()` is to apply a function to *multiple*
 ```{r, echo=F, out.width="95%"}
 htmltools::a(
   href = "https://dplyr.tidyverse.org/",
-  htmltools::img(src = "images/dplyr.png")
+  htmltools::img(src = "../../images/hex/dplyr.png")
 )
 ```
 © 2018 RStudio ([CC0 1.0](https://creativecommons.org/publicdomain/zero/1.0/))
@@ -380,7 +379,7 @@ summary <- map_df(
 ```{r, echo=F, out.width="95%"}
 htmltools::a(
   href = "https://purrr.tidyverse.org/",
-  htmltools::img(src = "images/purrr.png")
+  htmltools::img(src = "../../images/hex/purrr.png")
 )
 ```
 © RStudio ([CC0 1.0](https://creativecommons.org/publicdomain/zero/1.0/))
@@ -478,7 +477,7 @@ theme_pma <- function(title, subtitle){
 ```{r, echo=F, out.width="95%"}
 htmltools::a(
   href = "https://ggplot2.tidyverse.org/",
-  htmltools::img(src = "images/ggplot2.png")
+  htmltools::img(src = "../../images/hex/ggplot2.png")
 )
 ```
 © RStudio ([CC0 1.0](https://creativecommons.org/publicdomain/zero/1.0/))

@@ -2156,8 +2156,14 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
     color: #00263A;
   }
 
+  d-title h1{
+    font-weight: 500;
+  }
+
   d-article h1{
+    font-size: 36px;
     line-height: 1.1em;
+    font-weight: 100;
   }
 
   d-article h2{
@@ -2165,6 +2171,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
       font-family: "cabrito_sans_cond_demi";
       text-transform: uppercase;
       color: #00263A;
+      font-weight: 100;
   }
 
   d-article h3{
@@ -2173,6 +2180,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
     color: #00263A;
     margin-top: 1.5rem;
     margin-bottom: 1em;
+    font-weight: 100;
   }
 
   d-article h4{
@@ -2182,6 +2190,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
     text-transform: unset;
     margin-top: 1.5rem;
     margin-bottom: 1em;
+    font-weight: 100;
   }
 
   d-article h5{
@@ -2190,6 +2199,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
     color: #00263A;
     margin-top: 1.5rem;
     margin-bottom: 1em;
+    font-weight: 100;
   }
 
   d-article li {
@@ -2198,12 +2208,17 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
       padding-left: 0;
   }
 
+  .d-contents nav > ul > li > a {
+      font-weight: 100;
+  }
+
   body{
     font-family: 'cabrito_subset';
   }
 
   b, strong {
     font-family: "cabrito_sans_cond_demi";
+    font-weight: 100;
   }
 
   p>a {
@@ -2261,6 +2276,15 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 
   d-article aside a {
     color: #98579B;
+  }
+
+  @media(max-width: 767px){
+    aside{
+      width: 50%;
+      position: relative;
+      left: 25%;
+      padding-bottom: 20px;
+    }
   }
 
   code {
@@ -2572,7 +2596,7 @@ Community
 </div>
 <p>At this point, RStudio should look something like this:</p>
 <div class="layout-chunk" data-layout="l-body">
-<p><img src="images/new_rmarkdown.png" width="1280" /></p>
+<p><img src="images/bwrmd/new_rmarkdown.png" width="1280" /></p>
 </div>
 <aside>
 Circled in red: notice that a new folder was created in the "_posts" directory shown in the <b>Files</b> tab, and your new files also are now being tracked in the <b>Git</b> tab.
@@ -2582,7 +2606,7 @@ Circled in red: notice that a new folder was created in the "_posts" directory s
 <p>Your RMarkdown template contains a header consisting of a series of <code>key: "value"</code> pairs written in <a href="https://yaml.org/">YAML</a>. This is where we store metadata for each article appearing both at 1) the top of every blog post, and 2) on the blog homepage.</p>
 <p>Here’s an example of a complete YAML header for a post on the Data Hub:</p>
 <div class="layout-chunk" data-layout="l-body">
-<p><img src="images/yaml.png" width="609" /></p>
+<p><img src="images/bwrmd/yaml.png" width="609" /></p>
 </div>
 <h2 id="title">Title</h2>
 <p>This will be the main Title shown in CSS style H1 at the top of your post. We automatically reformat to all-caps, so this is <em>not</em> case-sensitive.</p>
@@ -2640,7 +2664,7 @@ Circled in red: notice that a new folder was created in the "_posts" directory s
 <p>This is the image that will appear alongside your post in the blog homepage. If you don’t specify an image, <code>distill</code> will automatically select the first image in your post; if there are no images, the space will be left blank (but please consider using one!)</p>
 <p>The file path to your image should be <em>relative to the RMarkdown file, itself</em>. For example:</p>
 <div class="layout-chunk" data-layout="l-body">
-<p><img src="images/images.png" width="649" /></p>
+<p><img src="images/bwrmd/images.png" width="649" /></p>
 </div>
 <p>This shows the folder “2020-12-09-mapping-contraceptive-stockouts” in the "_posts" folder. The .Rmd file lives in the top level of the folder, and the desired image <code>Rlogo.png</code> lives in the <code>images</code> subfolder. The correct way to reference the image is:</p>
 <div class="layout-chunk" data-layout="l-body">
@@ -2652,7 +2676,7 @@ Circled in red: notice that a new folder was created in the "_posts" directory s
 <h1 id="code-chunks">Code chunks</h1>
 <p>Each chunk of code in your RMarkdown file must be offset as shown here (note the tic-marks and “r” in curly brackets):</p>
 <div class="layout-chunk" data-layout="l-body">
-<p><img src="images/empty_chunk.png" width="411" /></p>
+<p><img src="images/bwrmd/empty_chunk.png" width="411" /></p>
 </div>
 <aside>
 The “r” tells R to interpret this chunk as R code (RMarkdown also supports other languages like Python, Julia, C++, and SQL).

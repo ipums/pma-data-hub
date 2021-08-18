@@ -17,7 +17,7 @@ output:
     toc: true
     toc_depth: 3
     toc_float: true
-preview: images/new_data_white.png
+preview: ../../images/new_data.png
 bibliography: covid-discovery.bib
 ---
 
@@ -38,7 +38,7 @@ The COVID-19 pandemic has strained healthcare systems across the globe, and rese
   
 <aside>
 ```{r, echo=F}
-knitr::include_graphics("images/new_data_white.png")
+knitr::include_graphics("../../images/new_data.png")
 ```
 </aside>
 

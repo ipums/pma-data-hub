@@ -129,7 +129,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <!--/radix_placeholder_rmarkdown_metadata-->
   
   <script type="text/json" id="radix-resource-manifest">
-  {"type":"character","attributes":{},"value":["covid-tables_files/anchor-4.2.2/anchor.min.js","covid-tables_files/bowser-1.9.3/bowser.min.js","covid-tables_files/distill-2.2.21/template.v2.js","covid-tables_files/header-attrs-2.7/header-attrs.js","covid-tables_files/jquery-1.11.3/jquery.min.js","covid-tables_files/webcomponents-2.0.0/webcomponents.js","data/pma_00032.dat.gz","data/pma_00032.xml","data/pma_00033.dat.gz","data/pma_00033.xml","data/pma_00035.dat.gz","data/pma_00035.xml","data/pma_00036.dat.gz","data/pma_00036.xml","images/forcats.png","images/gtsummary_wide.png","images/logo.png","images/purrr.png","images/srvyr.png","images/table1.png","images/table2.png"]}
+  {"type":"character","attributes":{},"value":["covid-tables_files/anchor-4.2.2/anchor.min.js","covid-tables_files/bowser-1.9.3/bowser.min.js","covid-tables_files/distill-2.2.21/template.v2.js","covid-tables_files/header-attrs-2.7/header-attrs.js","covid-tables_files/header-attrs-2.9/header-attrs.js","covid-tables_files/jquery-1.11.3/jquery.min.js","covid-tables_files/webcomponents-2.0.0/webcomponents.js","data/pma_00032.dat.gz","data/pma_00032.xml","data/pma_00033.dat.gz","data/pma_00033.xml","data/pma_00035.dat.gz","data/pma_00035.xml","data/pma_00036.dat.gz","data/pma_00036.xml","images/gtsummary_wide.png","images/table1.png","images/table2.png"]}
   </script>
   <!--radix_placeholder_navigation_in_header-->
 <meta name="distill:offset" content="../.."/>
@@ -2170,8 +2170,14 @@ h1{
   color: #00263A;
 }
 
+d-title h1{
+  font-weight: 500;
+}
+
 d-article h1{
+  font-size: 36px;
   line-height: 1.1em;
+  font-weight: 100;
 }
 
 d-article h2{
@@ -2179,6 +2185,7 @@ d-article h2{
     font-family: "cabrito_sans_cond_demi";
     text-transform: uppercase;
     color: #00263A;
+    font-weight: 100;
 }
 
 d-article h3{
@@ -2187,6 +2194,7 @@ d-article h3{
   color: #00263A;
   margin-top: 1.5rem;
   margin-bottom: 1em;
+  font-weight: 100;
 }
 
 d-article h4{
@@ -2196,6 +2204,7 @@ d-article h4{
   text-transform: unset;
   margin-top: 1.5rem;
   margin-bottom: 1em;
+  font-weight: 100;
 }
 
 d-article h5{
@@ -2204,6 +2213,7 @@ d-article h5{
   color: #00263A;
   margin-top: 1.5rem;
   margin-bottom: 1em;
+  font-weight: 100;
 }
 
 d-article li {
@@ -2212,12 +2222,17 @@ d-article li {
     padding-left: 0;
 }
 
+.d-contents nav > ul > li > a {
+    font-weight: 100;
+}
+
 body{
   font-family: 'cabrito_subset';
 }
 
 b, strong {
   font-family: "cabrito_sans_cond_demi";
+  font-weight: 100;
 }
 
 p>a {
@@ -2275,6 +2290,15 @@ d-article iframe {
 
 d-article aside a {
   color: #98579B;
+}
+
+@media(max-width: 767px){
+  aside{
+    width: 50%;
+    position: relative;
+    left: 25%;
+    padding-bottom: 20px;
+  }
 }
 
 code {
@@ -2427,7 +2451,7 @@ d-appendix d-footnote-list a.footnote-backlink {
 	color: var(--hover-color, white);
 }</style>
 <!--/radix_placeholder_distill-->
-  <script src="../../site_libs/header-attrs-2.7/header-attrs.js"></script>
+  <script src="../../site_libs/header-attrs-2.9/header-attrs.js"></script>
   <script src="../../site_libs/jquery-1.11.3/jquery.min.js"></script>
   <script src="../../site_libs/anchor-4.2.2/anchor.min.js"></script>
   <script src="../../site_libs/bowser-1.9.3/bowser.min.js"></script>
@@ -2578,7 +2602,9 @@ Community
 </ul>
 <aside>
 <div class="layout-chunk" data-layout="l-body">
-<p><img src="images/logo.png" width="120" /></p>
+<a href="http://www.danieldsjoberg.com/gtsummary/index.html">
+<img src="../../images/hex/gtsummary.png"/>
+</a>
 </div>
 © 2020 Daniel D. Sjoberg (<a href="https://opensource.org/licenses/MIT">MIT</a>)
 </aside>
@@ -2658,12 +2684,12 @@ Every COVID-19 data extract will contain 7 <strong>preselected</strong> variable
   <span class='fu'><a href='http://www.danieldsjoberg.com/gtsummary//reference/tbl_summary.html'>tbl_summary</a></span><span class='op'>(</span>by <span class='op'>=</span> <span class='va'>COUNTRY</span><span class='op'>)</span>
 </code></pre>
 </div>
-<div id="kxnzywrrqt" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<div id="dsrccgmvvf" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
 
-#kxnzywrrqt .gt_table {
+#dsrccgmvvf .gt_table {
   display: table;
   border-collapse: collapse;
   margin-left: auto;
@@ -2688,7 +2714,7 @@ Every COVID-19 data extract will contain 7 <strong>preselected</strong> variable
   border-left-color: #D3D3D3;
 }
 
-#kxnzywrrqt .gt_heading {
+#dsrccgmvvf .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -2700,7 +2726,7 @@ Every COVID-19 data extract will contain 7 <strong>preselected</strong> variable
   border-right-color: #D3D3D3;
 }
 
-#kxnzywrrqt .gt_title {
+#dsrccgmvvf .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -2710,7 +2736,7 @@ Every COVID-19 data extract will contain 7 <strong>preselected</strong> variable
   border-bottom-width: 0;
 }
 
-#kxnzywrrqt .gt_subtitle {
+#dsrccgmvvf .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -2720,13 +2746,13 @@ Every COVID-19 data extract will contain 7 <strong>preselected</strong> variable
   border-top-width: 0;
 }
 
-#kxnzywrrqt .gt_bottom_border {
+#dsrccgmvvf .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#kxnzywrrqt .gt_col_headings {
+#dsrccgmvvf .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -2741,7 +2767,7 @@ Every COVID-19 data extract will contain 7 <strong>preselected</strong> variable
   border-right-color: #D3D3D3;
 }
 
-#kxnzywrrqt .gt_col_heading {
+#dsrccgmvvf .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2761,7 +2787,7 @@ Every COVID-19 data extract will contain 7 <strong>preselected</strong> variable
   overflow-x: hidden;
 }
 
-#kxnzywrrqt .gt_column_spanner_outer {
+#dsrccgmvvf .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2773,15 +2799,15 @@ Every COVID-19 data extract will contain 7 <strong>preselected</strong> variable
   padding-right: 4px;
 }
 
-#kxnzywrrqt .gt_column_spanner_outer:first-child {
+#dsrccgmvvf .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#kxnzywrrqt .gt_column_spanner_outer:last-child {
+#dsrccgmvvf .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#kxnzywrrqt .gt_column_spanner {
+#dsrccgmvvf .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -2793,7 +2819,7 @@ Every COVID-19 data extract will contain 7 <strong>preselected</strong> variable
   width: 100%;
 }
 
-#kxnzywrrqt .gt_group_heading {
+#dsrccgmvvf .gt_group_heading {
   padding: 8px;
   color: #333333;
   background-color: #FFFFFF;
@@ -2815,7 +2841,7 @@ Every COVID-19 data extract will contain 7 <strong>preselected</strong> variable
   vertical-align: middle;
 }
 
-#kxnzywrrqt .gt_empty_group_heading {
+#dsrccgmvvf .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -2830,15 +2856,15 @@ Every COVID-19 data extract will contain 7 <strong>preselected</strong> variable
   vertical-align: middle;
 }
 
-#kxnzywrrqt .gt_from_md > :first-child {
+#dsrccgmvvf .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#kxnzywrrqt .gt_from_md > :last-child {
+#dsrccgmvvf .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#kxnzywrrqt .gt_row {
+#dsrccgmvvf .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2857,7 +2883,7 @@ Every COVID-19 data extract will contain 7 <strong>preselected</strong> variable
   overflow-x: hidden;
 }
 
-#kxnzywrrqt .gt_stub {
+#dsrccgmvvf .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2869,7 +2895,7 @@ Every COVID-19 data extract will contain 7 <strong>preselected</strong> variable
   padding-left: 12px;
 }
 
-#kxnzywrrqt .gt_summary_row {
+#dsrccgmvvf .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -2879,7 +2905,7 @@ Every COVID-19 data extract will contain 7 <strong>preselected</strong> variable
   padding-right: 5px;
 }
 
-#kxnzywrrqt .gt_first_summary_row {
+#dsrccgmvvf .gt_first_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2889,7 +2915,7 @@ Every COVID-19 data extract will contain 7 <strong>preselected</strong> variable
   border-top-color: #D3D3D3;
 }
 
-#kxnzywrrqt .gt_grand_summary_row {
+#dsrccgmvvf .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -2899,7 +2925,7 @@ Every COVID-19 data extract will contain 7 <strong>preselected</strong> variable
   padding-right: 5px;
 }
 
-#kxnzywrrqt .gt_first_grand_summary_row {
+#dsrccgmvvf .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2909,11 +2935,11 @@ Every COVID-19 data extract will contain 7 <strong>preselected</strong> variable
   border-top-color: #D3D3D3;
 }
 
-#kxnzywrrqt .gt_striped {
+#dsrccgmvvf .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#kxnzywrrqt .gt_table_body {
+#dsrccgmvvf .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -2922,7 +2948,7 @@ Every COVID-19 data extract will contain 7 <strong>preselected</strong> variable
   border-bottom-color: #D3D3D3;
 }
 
-#kxnzywrrqt .gt_footnotes {
+#dsrccgmvvf .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -2936,13 +2962,13 @@ Every COVID-19 data extract will contain 7 <strong>preselected</strong> variable
   border-right-color: #D3D3D3;
 }
 
-#kxnzywrrqt .gt_footnote {
+#dsrccgmvvf .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding: 4px;
 }
 
-#kxnzywrrqt .gt_sourcenotes {
+#dsrccgmvvf .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -2956,41 +2982,41 @@ Every COVID-19 data extract will contain 7 <strong>preselected</strong> variable
   border-right-color: #D3D3D3;
 }
 
-#kxnzywrrqt .gt_sourcenote {
+#dsrccgmvvf .gt_sourcenote {
   font-size: 90%;
   padding: 4px;
 }
 
-#kxnzywrrqt .gt_left {
+#dsrccgmvvf .gt_left {
   text-align: left;
 }
 
-#kxnzywrrqt .gt_center {
+#dsrccgmvvf .gt_center {
   text-align: center;
 }
 
-#kxnzywrrqt .gt_right {
+#dsrccgmvvf .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#kxnzywrrqt .gt_font_normal {
+#dsrccgmvvf .gt_font_normal {
   font-weight: normal;
 }
 
-#kxnzywrrqt .gt_font_bold {
+#dsrccgmvvf .gt_font_bold {
   font-weight: bold;
 }
 
-#kxnzywrrqt .gt_font_italic {
+#dsrccgmvvf .gt_font_italic {
   font-style: italic;
 }
 
-#kxnzywrrqt .gt_super {
+#dsrccgmvvf .gt_super {
   font-size: 65%;
 }
 
-#kxnzywrrqt .gt_footnote_marks {
+#dsrccgmvvf .gt_footnote_marks {
   font-style: italic;
   font-weight: normal;
   font-size: 65%;
@@ -3184,12 +3210,12 @@ You can access value labels with the <code>ipumsr</code> function <a href="http:
   <span class='fu'><a href='http://www.danieldsjoberg.com/gtsummary//reference/tbl_summary.html'>tbl_summary</a></span><span class='op'>(</span>by <span class='op'>=</span> <span class='va'>COUNTRY</span>, missing <span class='op'>=</span> <span class='st'>"no"</span><span class='op'>)</span>
 </code></pre>
 </div>
-<div id="stwrfzpuio" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<div id="xzjnyzpawq" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
 
-#stwrfzpuio .gt_table {
+#xzjnyzpawq .gt_table {
   display: table;
   border-collapse: collapse;
   margin-left: auto;
@@ -3214,7 +3240,7 @@ You can access value labels with the <code>ipumsr</code> function <a href="http:
   border-left-color: #D3D3D3;
 }
 
-#stwrfzpuio .gt_heading {
+#xzjnyzpawq .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -3226,7 +3252,7 @@ You can access value labels with the <code>ipumsr</code> function <a href="http:
   border-right-color: #D3D3D3;
 }
 
-#stwrfzpuio .gt_title {
+#xzjnyzpawq .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -3236,7 +3262,7 @@ You can access value labels with the <code>ipumsr</code> function <a href="http:
   border-bottom-width: 0;
 }
 
-#stwrfzpuio .gt_subtitle {
+#xzjnyzpawq .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -3246,13 +3272,13 @@ You can access value labels with the <code>ipumsr</code> function <a href="http:
   border-top-width: 0;
 }
 
-#stwrfzpuio .gt_bottom_border {
+#xzjnyzpawq .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#stwrfzpuio .gt_col_headings {
+#xzjnyzpawq .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -3267,7 +3293,7 @@ You can access value labels with the <code>ipumsr</code> function <a href="http:
   border-right-color: #D3D3D3;
 }
 
-#stwrfzpuio .gt_col_heading {
+#xzjnyzpawq .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -3287,7 +3313,7 @@ You can access value labels with the <code>ipumsr</code> function <a href="http:
   overflow-x: hidden;
 }
 
-#stwrfzpuio .gt_column_spanner_outer {
+#xzjnyzpawq .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -3299,15 +3325,15 @@ You can access value labels with the <code>ipumsr</code> function <a href="http:
   padding-right: 4px;
 }
 
-#stwrfzpuio .gt_column_spanner_outer:first-child {
+#xzjnyzpawq .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#stwrfzpuio .gt_column_spanner_outer:last-child {
+#xzjnyzpawq .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#stwrfzpuio .gt_column_spanner {
+#xzjnyzpawq .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -3319,7 +3345,7 @@ You can access value labels with the <code>ipumsr</code> function <a href="http:
   width: 100%;
 }
 
-#stwrfzpuio .gt_group_heading {
+#xzjnyzpawq .gt_group_heading {
   padding: 8px;
   color: #333333;
   background-color: #FFFFFF;
@@ -3341,7 +3367,7 @@ You can access value labels with the <code>ipumsr</code> function <a href="http:
   vertical-align: middle;
 }
 
-#stwrfzpuio .gt_empty_group_heading {
+#xzjnyzpawq .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -3356,15 +3382,15 @@ You can access value labels with the <code>ipumsr</code> function <a href="http:
   vertical-align: middle;
 }
 
-#stwrfzpuio .gt_from_md > :first-child {
+#xzjnyzpawq .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#stwrfzpuio .gt_from_md > :last-child {
+#xzjnyzpawq .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#stwrfzpuio .gt_row {
+#xzjnyzpawq .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -3383,7 +3409,7 @@ You can access value labels with the <code>ipumsr</code> function <a href="http:
   overflow-x: hidden;
 }
 
-#stwrfzpuio .gt_stub {
+#xzjnyzpawq .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -3395,7 +3421,7 @@ You can access value labels with the <code>ipumsr</code> function <a href="http:
   padding-left: 12px;
 }
 
-#stwrfzpuio .gt_summary_row {
+#xzjnyzpawq .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -3405,7 +3431,7 @@ You can access value labels with the <code>ipumsr</code> function <a href="http:
   padding-right: 5px;
 }
 
-#stwrfzpuio .gt_first_summary_row {
+#xzjnyzpawq .gt_first_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -3415,7 +3441,7 @@ You can access value labels with the <code>ipumsr</code> function <a href="http:
   border-top-color: #D3D3D3;
 }
 
-#stwrfzpuio .gt_grand_summary_row {
+#xzjnyzpawq .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -3425,7 +3451,7 @@ You can access value labels with the <code>ipumsr</code> function <a href="http:
   padding-right: 5px;
 }
 
-#stwrfzpuio .gt_first_grand_summary_row {
+#xzjnyzpawq .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -3435,11 +3461,11 @@ You can access value labels with the <code>ipumsr</code> function <a href="http:
   border-top-color: #D3D3D3;
 }
 
-#stwrfzpuio .gt_striped {
+#xzjnyzpawq .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#stwrfzpuio .gt_table_body {
+#xzjnyzpawq .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -3448,7 +3474,7 @@ You can access value labels with the <code>ipumsr</code> function <a href="http:
   border-bottom-color: #D3D3D3;
 }
 
-#stwrfzpuio .gt_footnotes {
+#xzjnyzpawq .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -3462,13 +3488,13 @@ You can access value labels with the <code>ipumsr</code> function <a href="http:
   border-right-color: #D3D3D3;
 }
 
-#stwrfzpuio .gt_footnote {
+#xzjnyzpawq .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding: 4px;
 }
 
-#stwrfzpuio .gt_sourcenotes {
+#xzjnyzpawq .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -3482,41 +3508,41 @@ You can access value labels with the <code>ipumsr</code> function <a href="http:
   border-right-color: #D3D3D3;
 }
 
-#stwrfzpuio .gt_sourcenote {
+#xzjnyzpawq .gt_sourcenote {
   font-size: 90%;
   padding: 4px;
 }
 
-#stwrfzpuio .gt_left {
+#xzjnyzpawq .gt_left {
   text-align: left;
 }
 
-#stwrfzpuio .gt_center {
+#xzjnyzpawq .gt_center {
   text-align: center;
 }
 
-#stwrfzpuio .gt_right {
+#xzjnyzpawq .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#stwrfzpuio .gt_font_normal {
+#xzjnyzpawq .gt_font_normal {
   font-weight: normal;
 }
 
-#stwrfzpuio .gt_font_bold {
+#xzjnyzpawq .gt_font_bold {
   font-weight: bold;
 }
 
-#stwrfzpuio .gt_font_italic {
+#xzjnyzpawq .gt_font_italic {
   font-style: italic;
 }
 
-#stwrfzpuio .gt_super {
+#xzjnyzpawq .gt_super {
   font-size: 65%;
 }
 
-#stwrfzpuio .gt_footnote_marks {
+#xzjnyzpawq .gt_footnote_marks {
   font-style: italic;
   font-weight: normal;
   font-size: 65%;
@@ -3653,12 +3679,12 @@ You can access variable labels with the <code>ipumsr</code> function <a href="ht
   <span class='fu'><a href='http://www.danieldsjoberg.com/gtsummary//reference/bold_italicize_labels_levels.html'>italicize_labels</a></span><span class='op'>(</span><span class='op'>)</span> 
 </code></pre>
 </div>
-<div id="pwwdfettay" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<div id="jlzrstwmkm" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
 
-#pwwdfettay .gt_table {
+#jlzrstwmkm .gt_table {
   display: table;
   border-collapse: collapse;
   margin-left: auto;
@@ -3683,7 +3709,7 @@ You can access variable labels with the <code>ipumsr</code> function <a href="ht
   border-left-color: #D3D3D3;
 }
 
-#pwwdfettay .gt_heading {
+#jlzrstwmkm .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -3695,7 +3721,7 @@ You can access variable labels with the <code>ipumsr</code> function <a href="ht
   border-right-color: #D3D3D3;
 }
 
-#pwwdfettay .gt_title {
+#jlzrstwmkm .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -3705,7 +3731,7 @@ You can access variable labels with the <code>ipumsr</code> function <a href="ht
   border-bottom-width: 0;
 }
 
-#pwwdfettay .gt_subtitle {
+#jlzrstwmkm .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -3715,13 +3741,13 @@ You can access variable labels with the <code>ipumsr</code> function <a href="ht
   border-top-width: 0;
 }
 
-#pwwdfettay .gt_bottom_border {
+#jlzrstwmkm .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#pwwdfettay .gt_col_headings {
+#jlzrstwmkm .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -3736,7 +3762,7 @@ You can access variable labels with the <code>ipumsr</code> function <a href="ht
   border-right-color: #D3D3D3;
 }
 
-#pwwdfettay .gt_col_heading {
+#jlzrstwmkm .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -3756,7 +3782,7 @@ You can access variable labels with the <code>ipumsr</code> function <a href="ht
   overflow-x: hidden;
 }
 
-#pwwdfettay .gt_column_spanner_outer {
+#jlzrstwmkm .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -3768,15 +3794,15 @@ You can access variable labels with the <code>ipumsr</code> function <a href="ht
   padding-right: 4px;
 }
 
-#pwwdfettay .gt_column_spanner_outer:first-child {
+#jlzrstwmkm .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#pwwdfettay .gt_column_spanner_outer:last-child {
+#jlzrstwmkm .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#pwwdfettay .gt_column_spanner {
+#jlzrstwmkm .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -3788,7 +3814,7 @@ You can access variable labels with the <code>ipumsr</code> function <a href="ht
   width: 100%;
 }
 
-#pwwdfettay .gt_group_heading {
+#jlzrstwmkm .gt_group_heading {
   padding: 8px;
   color: #333333;
   background-color: #FFFFFF;
@@ -3810,7 +3836,7 @@ You can access variable labels with the <code>ipumsr</code> function <a href="ht
   vertical-align: middle;
 }
 
-#pwwdfettay .gt_empty_group_heading {
+#jlzrstwmkm .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -3825,15 +3851,15 @@ You can access variable labels with the <code>ipumsr</code> function <a href="ht
   vertical-align: middle;
 }
 
-#pwwdfettay .gt_from_md > :first-child {
+#jlzrstwmkm .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#pwwdfettay .gt_from_md > :last-child {
+#jlzrstwmkm .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#pwwdfettay .gt_row {
+#jlzrstwmkm .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -3852,7 +3878,7 @@ You can access variable labels with the <code>ipumsr</code> function <a href="ht
   overflow-x: hidden;
 }
 
-#pwwdfettay .gt_stub {
+#jlzrstwmkm .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -3864,7 +3890,7 @@ You can access variable labels with the <code>ipumsr</code> function <a href="ht
   padding-left: 12px;
 }
 
-#pwwdfettay .gt_summary_row {
+#jlzrstwmkm .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -3874,7 +3900,7 @@ You can access variable labels with the <code>ipumsr</code> function <a href="ht
   padding-right: 5px;
 }
 
-#pwwdfettay .gt_first_summary_row {
+#jlzrstwmkm .gt_first_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -3884,7 +3910,7 @@ You can access variable labels with the <code>ipumsr</code> function <a href="ht
   border-top-color: #D3D3D3;
 }
 
-#pwwdfettay .gt_grand_summary_row {
+#jlzrstwmkm .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -3894,7 +3920,7 @@ You can access variable labels with the <code>ipumsr</code> function <a href="ht
   padding-right: 5px;
 }
 
-#pwwdfettay .gt_first_grand_summary_row {
+#jlzrstwmkm .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -3904,11 +3930,11 @@ You can access variable labels with the <code>ipumsr</code> function <a href="ht
   border-top-color: #D3D3D3;
 }
 
-#pwwdfettay .gt_striped {
+#jlzrstwmkm .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#pwwdfettay .gt_table_body {
+#jlzrstwmkm .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -3917,7 +3943,7 @@ You can access variable labels with the <code>ipumsr</code> function <a href="ht
   border-bottom-color: #D3D3D3;
 }
 
-#pwwdfettay .gt_footnotes {
+#jlzrstwmkm .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -3931,13 +3957,13 @@ You can access variable labels with the <code>ipumsr</code> function <a href="ht
   border-right-color: #D3D3D3;
 }
 
-#pwwdfettay .gt_footnote {
+#jlzrstwmkm .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding: 4px;
 }
 
-#pwwdfettay .gt_sourcenotes {
+#jlzrstwmkm .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -3951,41 +3977,41 @@ You can access variable labels with the <code>ipumsr</code> function <a href="ht
   border-right-color: #D3D3D3;
 }
 
-#pwwdfettay .gt_sourcenote {
+#jlzrstwmkm .gt_sourcenote {
   font-size: 90%;
   padding: 4px;
 }
 
-#pwwdfettay .gt_left {
+#jlzrstwmkm .gt_left {
   text-align: left;
 }
 
-#pwwdfettay .gt_center {
+#jlzrstwmkm .gt_center {
   text-align: center;
 }
 
-#pwwdfettay .gt_right {
+#jlzrstwmkm .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#pwwdfettay .gt_font_normal {
+#jlzrstwmkm .gt_font_normal {
   font-weight: normal;
 }
 
-#pwwdfettay .gt_font_bold {
+#jlzrstwmkm .gt_font_bold {
   font-weight: bold;
 }
 
-#pwwdfettay .gt_font_italic {
+#jlzrstwmkm .gt_font_italic {
   font-style: italic;
 }
 
-#pwwdfettay .gt_super {
+#jlzrstwmkm .gt_super {
   font-size: 65%;
 }
 
-#pwwdfettay .gt_footnote_marks {
+#jlzrstwmkm .gt_footnote_marks {
   font-style: italic;
   font-weight: normal;
   font-size: 65%;
@@ -4125,12 +4151,12 @@ You can access variable labels with the <code>ipumsr</code> function <a href="ht
   <span class='fu'><a href='http://www.danieldsjoberg.com/gtsummary//reference/add_stat_label.html'>add_stat_label</a></span><span class='op'>(</span><span class='op'>)</span>
 </code></pre>
 </div>
-<div id="ixercuznem" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<div id="eqvdsbjivr" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
 
-#ixercuznem .gt_table {
+#eqvdsbjivr .gt_table {
   display: table;
   border-collapse: collapse;
   margin-left: auto;
@@ -4155,7 +4181,7 @@ You can access variable labels with the <code>ipumsr</code> function <a href="ht
   border-left-color: #D3D3D3;
 }
 
-#ixercuznem .gt_heading {
+#eqvdsbjivr .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -4167,7 +4193,7 @@ You can access variable labels with the <code>ipumsr</code> function <a href="ht
   border-right-color: #D3D3D3;
 }
 
-#ixercuznem .gt_title {
+#eqvdsbjivr .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -4177,7 +4203,7 @@ You can access variable labels with the <code>ipumsr</code> function <a href="ht
   border-bottom-width: 0;
 }
 
-#ixercuznem .gt_subtitle {
+#eqvdsbjivr .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -4187,13 +4213,13 @@ You can access variable labels with the <code>ipumsr</code> function <a href="ht
   border-top-width: 0;
 }
 
-#ixercuznem .gt_bottom_border {
+#eqvdsbjivr .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#ixercuznem .gt_col_headings {
+#eqvdsbjivr .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -4208,7 +4234,7 @@ You can access variable labels with the <code>ipumsr</code> function <a href="ht
   border-right-color: #D3D3D3;
 }
 
-#ixercuznem .gt_col_heading {
+#eqvdsbjivr .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -4228,7 +4254,7 @@ You can access variable labels with the <code>ipumsr</code> function <a href="ht
   overflow-x: hidden;
 }
 
-#ixercuznem .gt_column_spanner_outer {
+#eqvdsbjivr .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -4240,15 +4266,15 @@ You can access variable labels with the <code>ipumsr</code> function <a href="ht
   padding-right: 4px;
 }
 
-#ixercuznem .gt_column_spanner_outer:first-child {
+#eqvdsbjivr .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#ixercuznem .gt_column_spanner_outer:last-child {
+#eqvdsbjivr .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#ixercuznem .gt_column_spanner {
+#eqvdsbjivr .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -4260,7 +4286,7 @@ You can access variable labels with the <code>ipumsr</code> function <a href="ht
   width: 100%;
 }
 
-#ixercuznem .gt_group_heading {
+#eqvdsbjivr .gt_group_heading {
   padding: 8px;
   color: #333333;
   background-color: #FFFFFF;
@@ -4282,7 +4308,7 @@ You can access variable labels with the <code>ipumsr</code> function <a href="ht
   vertical-align: middle;
 }
 
-#ixercuznem .gt_empty_group_heading {
+#eqvdsbjivr .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -4297,15 +4323,15 @@ You can access variable labels with the <code>ipumsr</code> function <a href="ht
   vertical-align: middle;
 }
 
-#ixercuznem .gt_from_md > :first-child {
+#eqvdsbjivr .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#ixercuznem .gt_from_md > :last-child {
+#eqvdsbjivr .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#ixercuznem .gt_row {
+#eqvdsbjivr .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -4324,7 +4350,7 @@ You can access variable labels with the <code>ipumsr</code> function <a href="ht
   overflow-x: hidden;
 }
 
-#ixercuznem .gt_stub {
+#eqvdsbjivr .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -4336,7 +4362,7 @@ You can access variable labels with the <code>ipumsr</code> function <a href="ht
   padding-left: 12px;
 }
 
-#ixercuznem .gt_summary_row {
+#eqvdsbjivr .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -4346,7 +4372,7 @@ You can access variable labels with the <code>ipumsr</code> function <a href="ht
   padding-right: 5px;
 }
 
-#ixercuznem .gt_first_summary_row {
+#eqvdsbjivr .gt_first_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -4356,7 +4382,7 @@ You can access variable labels with the <code>ipumsr</code> function <a href="ht
   border-top-color: #D3D3D3;
 }
 
-#ixercuznem .gt_grand_summary_row {
+#eqvdsbjivr .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -4366,7 +4392,7 @@ You can access variable labels with the <code>ipumsr</code> function <a href="ht
   padding-right: 5px;
 }
 
-#ixercuznem .gt_first_grand_summary_row {
+#eqvdsbjivr .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -4376,11 +4402,11 @@ You can access variable labels with the <code>ipumsr</code> function <a href="ht
   border-top-color: #D3D3D3;
 }
 
-#ixercuznem .gt_striped {
+#eqvdsbjivr .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#ixercuznem .gt_table_body {
+#eqvdsbjivr .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -4389,7 +4415,7 @@ You can access variable labels with the <code>ipumsr</code> function <a href="ht
   border-bottom-color: #D3D3D3;
 }
 
-#ixercuznem .gt_footnotes {
+#eqvdsbjivr .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -4403,13 +4429,13 @@ You can access variable labels with the <code>ipumsr</code> function <a href="ht
   border-right-color: #D3D3D3;
 }
 
-#ixercuznem .gt_footnote {
+#eqvdsbjivr .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding: 4px;
 }
 
-#ixercuznem .gt_sourcenotes {
+#eqvdsbjivr .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -4423,41 +4449,41 @@ You can access variable labels with the <code>ipumsr</code> function <a href="ht
   border-right-color: #D3D3D3;
 }
 
-#ixercuznem .gt_sourcenote {
+#eqvdsbjivr .gt_sourcenote {
   font-size: 90%;
   padding: 4px;
 }
 
-#ixercuznem .gt_left {
+#eqvdsbjivr .gt_left {
   text-align: left;
 }
 
-#ixercuznem .gt_center {
+#eqvdsbjivr .gt_center {
   text-align: center;
 }
 
-#ixercuznem .gt_right {
+#eqvdsbjivr .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#ixercuznem .gt_font_normal {
+#eqvdsbjivr .gt_font_normal {
   font-weight: normal;
 }
 
-#ixercuznem .gt_font_bold {
+#eqvdsbjivr .gt_font_bold {
   font-weight: bold;
 }
 
-#ixercuznem .gt_font_italic {
+#eqvdsbjivr .gt_font_italic {
   font-style: italic;
 }
 
-#ixercuznem .gt_super {
+#eqvdsbjivr .gt_super {
   font-size: 65%;
 }
 
-#ixercuznem .gt_footnote_marks {
+#eqvdsbjivr .gt_footnote_marks {
   font-style: italic;
   font-weight: normal;
   font-size: 65%;
@@ -4593,12 +4619,12 @@ More information about functions for table statistics can be found <a href="http
   <span class='op'>)</span> 
 </code></pre>
 </div>
-<div id="sorajibhzm" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<div id="ngdrevjbzf" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
 
-#sorajibhzm .gt_table {
+#ngdrevjbzf .gt_table {
   display: table;
   border-collapse: collapse;
   margin-left: auto;
@@ -4623,7 +4649,7 @@ More information about functions for table statistics can be found <a href="http
   border-left-color: #D3D3D3;
 }
 
-#sorajibhzm .gt_heading {
+#ngdrevjbzf .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -4635,7 +4661,7 @@ More information about functions for table statistics can be found <a href="http
   border-right-color: #D3D3D3;
 }
 
-#sorajibhzm .gt_title {
+#ngdrevjbzf .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -4645,7 +4671,7 @@ More information about functions for table statistics can be found <a href="http
   border-bottom-width: 0;
 }
 
-#sorajibhzm .gt_subtitle {
+#ngdrevjbzf .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -4655,13 +4681,13 @@ More information about functions for table statistics can be found <a href="http
   border-top-width: 0;
 }
 
-#sorajibhzm .gt_bottom_border {
+#ngdrevjbzf .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#sorajibhzm .gt_col_headings {
+#ngdrevjbzf .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -4676,7 +4702,7 @@ More information about functions for table statistics can be found <a href="http
   border-right-color: #D3D3D3;
 }
 
-#sorajibhzm .gt_col_heading {
+#ngdrevjbzf .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -4696,7 +4722,7 @@ More information about functions for table statistics can be found <a href="http
   overflow-x: hidden;
 }
 
-#sorajibhzm .gt_column_spanner_outer {
+#ngdrevjbzf .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -4708,15 +4734,15 @@ More information about functions for table statistics can be found <a href="http
   padding-right: 4px;
 }
 
-#sorajibhzm .gt_column_spanner_outer:first-child {
+#ngdrevjbzf .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#sorajibhzm .gt_column_spanner_outer:last-child {
+#ngdrevjbzf .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#sorajibhzm .gt_column_spanner {
+#ngdrevjbzf .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -4728,7 +4754,7 @@ More information about functions for table statistics can be found <a href="http
   width: 100%;
 }
 
-#sorajibhzm .gt_group_heading {
+#ngdrevjbzf .gt_group_heading {
   padding: 8px;
   color: #333333;
   background-color: #FFFFFF;
@@ -4750,7 +4776,7 @@ More information about functions for table statistics can be found <a href="http
   vertical-align: middle;
 }
 
-#sorajibhzm .gt_empty_group_heading {
+#ngdrevjbzf .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -4765,15 +4791,15 @@ More information about functions for table statistics can be found <a href="http
   vertical-align: middle;
 }
 
-#sorajibhzm .gt_from_md > :first-child {
+#ngdrevjbzf .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#sorajibhzm .gt_from_md > :last-child {
+#ngdrevjbzf .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#sorajibhzm .gt_row {
+#ngdrevjbzf .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -4792,7 +4818,7 @@ More information about functions for table statistics can be found <a href="http
   overflow-x: hidden;
 }
 
-#sorajibhzm .gt_stub {
+#ngdrevjbzf .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -4804,7 +4830,7 @@ More information about functions for table statistics can be found <a href="http
   padding-left: 12px;
 }
 
-#sorajibhzm .gt_summary_row {
+#ngdrevjbzf .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -4814,7 +4840,7 @@ More information about functions for table statistics can be found <a href="http
   padding-right: 5px;
 }
 
-#sorajibhzm .gt_first_summary_row {
+#ngdrevjbzf .gt_first_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -4824,7 +4850,7 @@ More information about functions for table statistics can be found <a href="http
   border-top-color: #D3D3D3;
 }
 
-#sorajibhzm .gt_grand_summary_row {
+#ngdrevjbzf .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -4834,7 +4860,7 @@ More information about functions for table statistics can be found <a href="http
   padding-right: 5px;
 }
 
-#sorajibhzm .gt_first_grand_summary_row {
+#ngdrevjbzf .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -4844,11 +4870,11 @@ More information about functions for table statistics can be found <a href="http
   border-top-color: #D3D3D3;
 }
 
-#sorajibhzm .gt_striped {
+#ngdrevjbzf .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#sorajibhzm .gt_table_body {
+#ngdrevjbzf .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -4857,7 +4883,7 @@ More information about functions for table statistics can be found <a href="http
   border-bottom-color: #D3D3D3;
 }
 
-#sorajibhzm .gt_footnotes {
+#ngdrevjbzf .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -4871,13 +4897,13 @@ More information about functions for table statistics can be found <a href="http
   border-right-color: #D3D3D3;
 }
 
-#sorajibhzm .gt_footnote {
+#ngdrevjbzf .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding: 4px;
 }
 
-#sorajibhzm .gt_sourcenotes {
+#ngdrevjbzf .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -4891,41 +4917,41 @@ More information about functions for table statistics can be found <a href="http
   border-right-color: #D3D3D3;
 }
 
-#sorajibhzm .gt_sourcenote {
+#ngdrevjbzf .gt_sourcenote {
   font-size: 90%;
   padding: 4px;
 }
 
-#sorajibhzm .gt_left {
+#ngdrevjbzf .gt_left {
   text-align: left;
 }
 
-#sorajibhzm .gt_center {
+#ngdrevjbzf .gt_center {
   text-align: center;
 }
 
-#sorajibhzm .gt_right {
+#ngdrevjbzf .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#sorajibhzm .gt_font_normal {
+#ngdrevjbzf .gt_font_normal {
   font-weight: normal;
 }
 
-#sorajibhzm .gt_font_bold {
+#ngdrevjbzf .gt_font_bold {
   font-weight: bold;
 }
 
-#sorajibhzm .gt_font_italic {
+#ngdrevjbzf .gt_font_italic {
   font-style: italic;
 }
 
-#sorajibhzm .gt_super {
+#ngdrevjbzf .gt_super {
   font-size: 65%;
 }
 
-#sorajibhzm .gt_footnote_marks {
+#ngdrevjbzf .gt_footnote_marks {
   font-style: italic;
   font-weight: normal;
   font-size: 65%;
@@ -5118,12 +5144,12 @@ Notice that all four samples skew a bit older compared to their target populatio
   <span class='op'>)</span>
 </code></pre>
 </div>
-<div id="dozvdtbmqv" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<div id="szjdcizczs" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
 
-#dozvdtbmqv .gt_table {
+#szjdcizczs .gt_table {
   display: table;
   border-collapse: collapse;
   margin-left: auto;
@@ -5148,7 +5174,7 @@ Notice that all four samples skew a bit older compared to their target populatio
   border-left-color: #D3D3D3;
 }
 
-#dozvdtbmqv .gt_heading {
+#szjdcizczs .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -5160,7 +5186,7 @@ Notice that all four samples skew a bit older compared to their target populatio
   border-right-color: #D3D3D3;
 }
 
-#dozvdtbmqv .gt_title {
+#szjdcizczs .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -5170,7 +5196,7 @@ Notice that all four samples skew a bit older compared to their target populatio
   border-bottom-width: 0;
 }
 
-#dozvdtbmqv .gt_subtitle {
+#szjdcizczs .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -5180,13 +5206,13 @@ Notice that all four samples skew a bit older compared to their target populatio
   border-top-width: 0;
 }
 
-#dozvdtbmqv .gt_bottom_border {
+#szjdcizczs .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#dozvdtbmqv .gt_col_headings {
+#szjdcizczs .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -5201,7 +5227,7 @@ Notice that all four samples skew a bit older compared to their target populatio
   border-right-color: #D3D3D3;
 }
 
-#dozvdtbmqv .gt_col_heading {
+#szjdcizczs .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -5221,7 +5247,7 @@ Notice that all four samples skew a bit older compared to their target populatio
   overflow-x: hidden;
 }
 
-#dozvdtbmqv .gt_column_spanner_outer {
+#szjdcizczs .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -5233,15 +5259,15 @@ Notice that all four samples skew a bit older compared to their target populatio
   padding-right: 4px;
 }
 
-#dozvdtbmqv .gt_column_spanner_outer:first-child {
+#szjdcizczs .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#dozvdtbmqv .gt_column_spanner_outer:last-child {
+#szjdcizczs .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#dozvdtbmqv .gt_column_spanner {
+#szjdcizczs .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -5253,7 +5279,7 @@ Notice that all four samples skew a bit older compared to their target populatio
   width: 100%;
 }
 
-#dozvdtbmqv .gt_group_heading {
+#szjdcizczs .gt_group_heading {
   padding: 8px;
   color: #333333;
   background-color: #FFFFFF;
@@ -5275,7 +5301,7 @@ Notice that all four samples skew a bit older compared to their target populatio
   vertical-align: middle;
 }
 
-#dozvdtbmqv .gt_empty_group_heading {
+#szjdcizczs .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -5290,15 +5316,15 @@ Notice that all four samples skew a bit older compared to their target populatio
   vertical-align: middle;
 }
 
-#dozvdtbmqv .gt_from_md > :first-child {
+#szjdcizczs .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#dozvdtbmqv .gt_from_md > :last-child {
+#szjdcizczs .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#dozvdtbmqv .gt_row {
+#szjdcizczs .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -5317,7 +5343,7 @@ Notice that all four samples skew a bit older compared to their target populatio
   overflow-x: hidden;
 }
 
-#dozvdtbmqv .gt_stub {
+#szjdcizczs .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -5329,7 +5355,7 @@ Notice that all four samples skew a bit older compared to their target populatio
   padding-left: 12px;
 }
 
-#dozvdtbmqv .gt_summary_row {
+#szjdcizczs .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -5339,7 +5365,7 @@ Notice that all four samples skew a bit older compared to their target populatio
   padding-right: 5px;
 }
 
-#dozvdtbmqv .gt_first_summary_row {
+#szjdcizczs .gt_first_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -5349,7 +5375,7 @@ Notice that all four samples skew a bit older compared to their target populatio
   border-top-color: #D3D3D3;
 }
 
-#dozvdtbmqv .gt_grand_summary_row {
+#szjdcizczs .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -5359,7 +5385,7 @@ Notice that all four samples skew a bit older compared to their target populatio
   padding-right: 5px;
 }
 
-#dozvdtbmqv .gt_first_grand_summary_row {
+#szjdcizczs .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -5369,11 +5395,11 @@ Notice that all four samples skew a bit older compared to their target populatio
   border-top-color: #D3D3D3;
 }
 
-#dozvdtbmqv .gt_striped {
+#szjdcizczs .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#dozvdtbmqv .gt_table_body {
+#szjdcizczs .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -5382,7 +5408,7 @@ Notice that all four samples skew a bit older compared to their target populatio
   border-bottom-color: #D3D3D3;
 }
 
-#dozvdtbmqv .gt_footnotes {
+#szjdcizczs .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -5396,13 +5422,13 @@ Notice that all four samples skew a bit older compared to their target populatio
   border-right-color: #D3D3D3;
 }
 
-#dozvdtbmqv .gt_footnote {
+#szjdcizczs .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding: 4px;
 }
 
-#dozvdtbmqv .gt_sourcenotes {
+#szjdcizczs .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -5416,41 +5442,41 @@ Notice that all four samples skew a bit older compared to their target populatio
   border-right-color: #D3D3D3;
 }
 
-#dozvdtbmqv .gt_sourcenote {
+#szjdcizczs .gt_sourcenote {
   font-size: 90%;
   padding: 4px;
 }
 
-#dozvdtbmqv .gt_left {
+#szjdcizczs .gt_left {
   text-align: left;
 }
 
-#dozvdtbmqv .gt_center {
+#szjdcizczs .gt_center {
   text-align: center;
 }
 
-#dozvdtbmqv .gt_right {
+#szjdcizczs .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#dozvdtbmqv .gt_font_normal {
+#szjdcizczs .gt_font_normal {
   font-weight: normal;
 }
 
-#dozvdtbmqv .gt_font_bold {
+#szjdcizczs .gt_font_bold {
   font-weight: bold;
 }
 
-#dozvdtbmqv .gt_font_italic {
+#szjdcizczs .gt_font_italic {
   font-style: italic;
 }
 
-#dozvdtbmqv .gt_super {
+#szjdcizczs .gt_super {
   font-size: 65%;
 }
 
-#dozvdtbmqv .gt_footnote_marks {
+#szjdcizczs .gt_footnote_marks {
   font-style: italic;
   font-weight: normal;
   font-size: 65%;
@@ -5557,7 +5583,9 @@ Notice that all four samples skew a bit older compared to their target populatio
 </div>
 <aside>
 <div class="layout-chunk" data-layout="l-body">
-<p><img src="images/srvyr.png" width="596" /></p>
+<a href="http://gdfe.co/srvyr/index.html">
+<img src="../../images/hex/srvyr.png"/>
+</a>
 </div>
 © Greg Freedman Ellis et al. (<a href="https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html">GPL 2</a> | <a href="https://www.gnu.org/licenses/gpl-3.0.html">GPL 3</a>)
 </aside>
@@ -5665,12 +5693,12 @@ Because our use of weights results in non-integer outcomes, we’ll also need to
   <span class='op'>)</span> 
 </code></pre>
 </div>
-<div id="vvjjcvsgqd" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<div id="vajexzdwpf" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
 
-#vvjjcvsgqd .gt_table {
+#vajexzdwpf .gt_table {
   display: table;
   border-collapse: collapse;
   margin-left: auto;
@@ -5695,7 +5723,7 @@ Because our use of weights results in non-integer outcomes, we’ll also need to
   border-left-color: #D3D3D3;
 }
 
-#vvjjcvsgqd .gt_heading {
+#vajexzdwpf .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -5707,7 +5735,7 @@ Because our use of weights results in non-integer outcomes, we’ll also need to
   border-right-color: #D3D3D3;
 }
 
-#vvjjcvsgqd .gt_title {
+#vajexzdwpf .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -5717,7 +5745,7 @@ Because our use of weights results in non-integer outcomes, we’ll also need to
   border-bottom-width: 0;
 }
 
-#vvjjcvsgqd .gt_subtitle {
+#vajexzdwpf .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -5727,13 +5755,13 @@ Because our use of weights results in non-integer outcomes, we’ll also need to
   border-top-width: 0;
 }
 
-#vvjjcvsgqd .gt_bottom_border {
+#vajexzdwpf .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#vvjjcvsgqd .gt_col_headings {
+#vajexzdwpf .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -5748,7 +5776,7 @@ Because our use of weights results in non-integer outcomes, we’ll also need to
   border-right-color: #D3D3D3;
 }
 
-#vvjjcvsgqd .gt_col_heading {
+#vajexzdwpf .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -5768,7 +5796,7 @@ Because our use of weights results in non-integer outcomes, we’ll also need to
   overflow-x: hidden;
 }
 
-#vvjjcvsgqd .gt_column_spanner_outer {
+#vajexzdwpf .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -5780,15 +5808,15 @@ Because our use of weights results in non-integer outcomes, we’ll also need to
   padding-right: 4px;
 }
 
-#vvjjcvsgqd .gt_column_spanner_outer:first-child {
+#vajexzdwpf .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#vvjjcvsgqd .gt_column_spanner_outer:last-child {
+#vajexzdwpf .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#vvjjcvsgqd .gt_column_spanner {
+#vajexzdwpf .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -5800,7 +5828,7 @@ Because our use of weights results in non-integer outcomes, we’ll also need to
   width: 100%;
 }
 
-#vvjjcvsgqd .gt_group_heading {
+#vajexzdwpf .gt_group_heading {
   padding: 8px;
   color: #333333;
   background-color: #FFFFFF;
@@ -5822,7 +5850,7 @@ Because our use of weights results in non-integer outcomes, we’ll also need to
   vertical-align: middle;
 }
 
-#vvjjcvsgqd .gt_empty_group_heading {
+#vajexzdwpf .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -5837,15 +5865,15 @@ Because our use of weights results in non-integer outcomes, we’ll also need to
   vertical-align: middle;
 }
 
-#vvjjcvsgqd .gt_from_md > :first-child {
+#vajexzdwpf .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#vvjjcvsgqd .gt_from_md > :last-child {
+#vajexzdwpf .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#vvjjcvsgqd .gt_row {
+#vajexzdwpf .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -5864,7 +5892,7 @@ Because our use of weights results in non-integer outcomes, we’ll also need to
   overflow-x: hidden;
 }
 
-#vvjjcvsgqd .gt_stub {
+#vajexzdwpf .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -5876,7 +5904,7 @@ Because our use of weights results in non-integer outcomes, we’ll also need to
   padding-left: 12px;
 }
 
-#vvjjcvsgqd .gt_summary_row {
+#vajexzdwpf .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -5886,7 +5914,7 @@ Because our use of weights results in non-integer outcomes, we’ll also need to
   padding-right: 5px;
 }
 
-#vvjjcvsgqd .gt_first_summary_row {
+#vajexzdwpf .gt_first_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -5896,7 +5924,7 @@ Because our use of weights results in non-integer outcomes, we’ll also need to
   border-top-color: #D3D3D3;
 }
 
-#vvjjcvsgqd .gt_grand_summary_row {
+#vajexzdwpf .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -5906,7 +5934,7 @@ Because our use of weights results in non-integer outcomes, we’ll also need to
   padding-right: 5px;
 }
 
-#vvjjcvsgqd .gt_first_grand_summary_row {
+#vajexzdwpf .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -5916,11 +5944,11 @@ Because our use of weights results in non-integer outcomes, we’ll also need to
   border-top-color: #D3D3D3;
 }
 
-#vvjjcvsgqd .gt_striped {
+#vajexzdwpf .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#vvjjcvsgqd .gt_table_body {
+#vajexzdwpf .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -5929,7 +5957,7 @@ Because our use of weights results in non-integer outcomes, we’ll also need to
   border-bottom-color: #D3D3D3;
 }
 
-#vvjjcvsgqd .gt_footnotes {
+#vajexzdwpf .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -5943,13 +5971,13 @@ Because our use of weights results in non-integer outcomes, we’ll also need to
   border-right-color: #D3D3D3;
 }
 
-#vvjjcvsgqd .gt_footnote {
+#vajexzdwpf .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding: 4px;
 }
 
-#vvjjcvsgqd .gt_sourcenotes {
+#vajexzdwpf .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -5963,41 +5991,41 @@ Because our use of weights results in non-integer outcomes, we’ll also need to
   border-right-color: #D3D3D3;
 }
 
-#vvjjcvsgqd .gt_sourcenote {
+#vajexzdwpf .gt_sourcenote {
   font-size: 90%;
   padding: 4px;
 }
 
-#vvjjcvsgqd .gt_left {
+#vajexzdwpf .gt_left {
   text-align: left;
 }
 
-#vvjjcvsgqd .gt_center {
+#vajexzdwpf .gt_center {
   text-align: center;
 }
 
-#vvjjcvsgqd .gt_right {
+#vajexzdwpf .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#vvjjcvsgqd .gt_font_normal {
+#vajexzdwpf .gt_font_normal {
   font-weight: normal;
 }
 
-#vvjjcvsgqd .gt_font_bold {
+#vajexzdwpf .gt_font_bold {
   font-weight: bold;
 }
 
-#vvjjcvsgqd .gt_font_italic {
+#vajexzdwpf .gt_font_italic {
   font-style: italic;
 }
 
-#vvjjcvsgqd .gt_super {
+#vajexzdwpf .gt_super {
   font-size: 65%;
 }
 
-#vvjjcvsgqd .gt_footnote_marks {
+#vajexzdwpf .gt_footnote_marks {
   font-style: italic;
   font-weight: normal;
   font-size: 65%;
@@ -6111,12 +6139,12 @@ Because our use of weights results in non-integer outcomes, we’ll also need to
   <span class='op'>)</span> 
 </code></pre>
 </div>
-<div id="mstftyjihh" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<div id="sxpcxfeabb" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
 
-#mstftyjihh .gt_table {
+#sxpcxfeabb .gt_table {
   display: table;
   border-collapse: collapse;
   margin-left: auto;
@@ -6141,7 +6169,7 @@ Because our use of weights results in non-integer outcomes, we’ll also need to
   border-left-color: #D3D3D3;
 }
 
-#mstftyjihh .gt_heading {
+#sxpcxfeabb .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -6153,7 +6181,7 @@ Because our use of weights results in non-integer outcomes, we’ll also need to
   border-right-color: #D3D3D3;
 }
 
-#mstftyjihh .gt_title {
+#sxpcxfeabb .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -6163,7 +6191,7 @@ Because our use of weights results in non-integer outcomes, we’ll also need to
   border-bottom-width: 0;
 }
 
-#mstftyjihh .gt_subtitle {
+#sxpcxfeabb .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -6173,13 +6201,13 @@ Because our use of weights results in non-integer outcomes, we’ll also need to
   border-top-width: 0;
 }
 
-#mstftyjihh .gt_bottom_border {
+#sxpcxfeabb .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#mstftyjihh .gt_col_headings {
+#sxpcxfeabb .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -6194,7 +6222,7 @@ Because our use of weights results in non-integer outcomes, we’ll also need to
   border-right-color: #D3D3D3;
 }
 
-#mstftyjihh .gt_col_heading {
+#sxpcxfeabb .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -6214,7 +6242,7 @@ Because our use of weights results in non-integer outcomes, we’ll also need to
   overflow-x: hidden;
 }
 
-#mstftyjihh .gt_column_spanner_outer {
+#sxpcxfeabb .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -6226,15 +6254,15 @@ Because our use of weights results in non-integer outcomes, we’ll also need to
   padding-right: 4px;
 }
 
-#mstftyjihh .gt_column_spanner_outer:first-child {
+#sxpcxfeabb .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#mstftyjihh .gt_column_spanner_outer:last-child {
+#sxpcxfeabb .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#mstftyjihh .gt_column_spanner {
+#sxpcxfeabb .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -6246,7 +6274,7 @@ Because our use of weights results in non-integer outcomes, we’ll also need to
   width: 100%;
 }
 
-#mstftyjihh .gt_group_heading {
+#sxpcxfeabb .gt_group_heading {
   padding: 8px;
   color: #333333;
   background-color: #FFFFFF;
@@ -6268,7 +6296,7 @@ Because our use of weights results in non-integer outcomes, we’ll also need to
   vertical-align: middle;
 }
 
-#mstftyjihh .gt_empty_group_heading {
+#sxpcxfeabb .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -6283,15 +6311,15 @@ Because our use of weights results in non-integer outcomes, we’ll also need to
   vertical-align: middle;
 }
 
-#mstftyjihh .gt_from_md > :first-child {
+#sxpcxfeabb .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#mstftyjihh .gt_from_md > :last-child {
+#sxpcxfeabb .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#mstftyjihh .gt_row {
+#sxpcxfeabb .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -6310,7 +6338,7 @@ Because our use of weights results in non-integer outcomes, we’ll also need to
   overflow-x: hidden;
 }
 
-#mstftyjihh .gt_stub {
+#sxpcxfeabb .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -6322,7 +6350,7 @@ Because our use of weights results in non-integer outcomes, we’ll also need to
   padding-left: 12px;
 }
 
-#mstftyjihh .gt_summary_row {
+#sxpcxfeabb .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -6332,7 +6360,7 @@ Because our use of weights results in non-integer outcomes, we’ll also need to
   padding-right: 5px;
 }
 
-#mstftyjihh .gt_first_summary_row {
+#sxpcxfeabb .gt_first_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -6342,7 +6370,7 @@ Because our use of weights results in non-integer outcomes, we’ll also need to
   border-top-color: #D3D3D3;
 }
 
-#mstftyjihh .gt_grand_summary_row {
+#sxpcxfeabb .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -6352,7 +6380,7 @@ Because our use of weights results in non-integer outcomes, we’ll also need to
   padding-right: 5px;
 }
 
-#mstftyjihh .gt_first_grand_summary_row {
+#sxpcxfeabb .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -6362,11 +6390,11 @@ Because our use of weights results in non-integer outcomes, we’ll also need to
   border-top-color: #D3D3D3;
 }
 
-#mstftyjihh .gt_striped {
+#sxpcxfeabb .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#mstftyjihh .gt_table_body {
+#sxpcxfeabb .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -6375,7 +6403,7 @@ Because our use of weights results in non-integer outcomes, we’ll also need to
   border-bottom-color: #D3D3D3;
 }
 
-#mstftyjihh .gt_footnotes {
+#sxpcxfeabb .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -6389,13 +6417,13 @@ Because our use of weights results in non-integer outcomes, we’ll also need to
   border-right-color: #D3D3D3;
 }
 
-#mstftyjihh .gt_footnote {
+#sxpcxfeabb .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding: 4px;
 }
 
-#mstftyjihh .gt_sourcenotes {
+#sxpcxfeabb .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -6409,41 +6437,41 @@ Because our use of weights results in non-integer outcomes, we’ll also need to
   border-right-color: #D3D3D3;
 }
 
-#mstftyjihh .gt_sourcenote {
+#sxpcxfeabb .gt_sourcenote {
   font-size: 90%;
   padding: 4px;
 }
 
-#mstftyjihh .gt_left {
+#sxpcxfeabb .gt_left {
   text-align: left;
 }
 
-#mstftyjihh .gt_center {
+#sxpcxfeabb .gt_center {
   text-align: center;
 }
 
-#mstftyjihh .gt_right {
+#sxpcxfeabb .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#mstftyjihh .gt_font_normal {
+#sxpcxfeabb .gt_font_normal {
   font-weight: normal;
 }
 
-#mstftyjihh .gt_font_bold {
+#sxpcxfeabb .gt_font_bold {
   font-weight: bold;
 }
 
-#mstftyjihh .gt_font_italic {
+#sxpcxfeabb .gt_font_italic {
   font-style: italic;
 }
 
-#mstftyjihh .gt_super {
+#sxpcxfeabb .gt_super {
   font-size: 65%;
 }
 
-#mstftyjihh .gt_footnote_marks {
+#sxpcxfeabb .gt_footnote_marks {
   font-style: italic;
   font-weight: normal;
   font-size: 65%;
@@ -6563,18 +6591,20 @@ Because our use of weights results in non-integer outcomes, we’ll also need to
 </div>
 <aside>
 <div class="layout-chunk" data-layout="l-body">
-<p><img src="images/purrr.png" width="1103" /></p>
+<a href="http://purrr.tidyverse.org">
+<img src="../../images/hex/purrr.png"/>
+</a>
 </div>
 <p>© RStudio (<a href="https://creativecommons.org/publicdomain/zero/1.0/">CC0 1.0</a>)</p>
 <a href="https://purrr.tidyverse.org/reference/index.html">purrr</a> is included with <code>library(tidyverse)</code>.
 </aside>
 <div class="layout-chunk" data-layout="l-body-outset">
-<div id="vspiuvkkei" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<div id="klfevxmdhs" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
 
-#vspiuvkkei .gt_table {
+#klfevxmdhs .gt_table {
   display: table;
   border-collapse: collapse;
   margin-left: auto;
@@ -6599,7 +6629,7 @@ Because our use of weights results in non-integer outcomes, we’ll also need to
   border-left-color: #D3D3D3;
 }
 
-#vspiuvkkei .gt_heading {
+#klfevxmdhs .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -6611,7 +6641,7 @@ Because our use of weights results in non-integer outcomes, we’ll also need to
   border-right-color: #D3D3D3;
 }
 
-#vspiuvkkei .gt_title {
+#klfevxmdhs .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -6621,7 +6651,7 @@ Because our use of weights results in non-integer outcomes, we’ll also need to
   border-bottom-width: 0;
 }
 
-#vspiuvkkei .gt_subtitle {
+#klfevxmdhs .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -6631,13 +6661,13 @@ Because our use of weights results in non-integer outcomes, we’ll also need to
   border-top-width: 0;
 }
 
-#vspiuvkkei .gt_bottom_border {
+#klfevxmdhs .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#vspiuvkkei .gt_col_headings {
+#klfevxmdhs .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -6652,7 +6682,7 @@ Because our use of weights results in non-integer outcomes, we’ll also need to
   border-right-color: #D3D3D3;
 }
 
-#vspiuvkkei .gt_col_heading {
+#klfevxmdhs .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -6672,7 +6702,7 @@ Because our use of weights results in non-integer outcomes, we’ll also need to
   overflow-x: hidden;
 }
 
-#vspiuvkkei .gt_column_spanner_outer {
+#klfevxmdhs .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -6684,15 +6714,15 @@ Because our use of weights results in non-integer outcomes, we’ll also need to
   padding-right: 4px;
 }
 
-#vspiuvkkei .gt_column_spanner_outer:first-child {
+#klfevxmdhs .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#vspiuvkkei .gt_column_spanner_outer:last-child {
+#klfevxmdhs .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#vspiuvkkei .gt_column_spanner {
+#klfevxmdhs .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -6704,7 +6734,7 @@ Because our use of weights results in non-integer outcomes, we’ll also need to
   width: 100%;
 }
 
-#vspiuvkkei .gt_group_heading {
+#klfevxmdhs .gt_group_heading {
   padding: 8px;
   color: #333333;
   background-color: #FFFFFF;
@@ -6726,7 +6756,7 @@ Because our use of weights results in non-integer outcomes, we’ll also need to
   vertical-align: middle;
 }
 
-#vspiuvkkei .gt_empty_group_heading {
+#klfevxmdhs .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -6741,15 +6771,15 @@ Because our use of weights results in non-integer outcomes, we’ll also need to
   vertical-align: middle;
 }
 
-#vspiuvkkei .gt_from_md > :first-child {
+#klfevxmdhs .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#vspiuvkkei .gt_from_md > :last-child {
+#klfevxmdhs .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#vspiuvkkei .gt_row {
+#klfevxmdhs .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -6768,7 +6798,7 @@ Because our use of weights results in non-integer outcomes, we’ll also need to
   overflow-x: hidden;
 }
 
-#vspiuvkkei .gt_stub {
+#klfevxmdhs .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -6780,7 +6810,7 @@ Because our use of weights results in non-integer outcomes, we’ll also need to
   padding-left: 12px;
 }
 
-#vspiuvkkei .gt_summary_row {
+#klfevxmdhs .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -6790,7 +6820,7 @@ Because our use of weights results in non-integer outcomes, we’ll also need to
   padding-right: 5px;
 }
 
-#vspiuvkkei .gt_first_summary_row {
+#klfevxmdhs .gt_first_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -6800,7 +6830,7 @@ Because our use of weights results in non-integer outcomes, we’ll also need to
   border-top-color: #D3D3D3;
 }
 
-#vspiuvkkei .gt_grand_summary_row {
+#klfevxmdhs .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -6810,7 +6840,7 @@ Because our use of weights results in non-integer outcomes, we’ll also need to
   padding-right: 5px;
 }
 
-#vspiuvkkei .gt_first_grand_summary_row {
+#klfevxmdhs .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -6820,11 +6850,11 @@ Because our use of weights results in non-integer outcomes, we’ll also need to
   border-top-color: #D3D3D3;
 }
 
-#vspiuvkkei .gt_striped {
+#klfevxmdhs .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#vspiuvkkei .gt_table_body {
+#klfevxmdhs .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -6833,7 +6863,7 @@ Because our use of weights results in non-integer outcomes, we’ll also need to
   border-bottom-color: #D3D3D3;
 }
 
-#vspiuvkkei .gt_footnotes {
+#klfevxmdhs .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -6847,13 +6877,13 @@ Because our use of weights results in non-integer outcomes, we’ll also need to
   border-right-color: #D3D3D3;
 }
 
-#vspiuvkkei .gt_footnote {
+#klfevxmdhs .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding: 4px;
 }
 
-#vspiuvkkei .gt_sourcenotes {
+#klfevxmdhs .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -6867,41 +6897,41 @@ Because our use of weights results in non-integer outcomes, we’ll also need to
   border-right-color: #D3D3D3;
 }
 
-#vspiuvkkei .gt_sourcenote {
+#klfevxmdhs .gt_sourcenote {
   font-size: 90%;
   padding: 4px;
 }
 
-#vspiuvkkei .gt_left {
+#klfevxmdhs .gt_left {
   text-align: left;
 }
 
-#vspiuvkkei .gt_center {
+#klfevxmdhs .gt_center {
   text-align: center;
 }
 
-#vspiuvkkei .gt_right {
+#klfevxmdhs .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#vspiuvkkei .gt_font_normal {
+#klfevxmdhs .gt_font_normal {
   font-weight: normal;
 }
 
-#vspiuvkkei .gt_font_bold {
+#klfevxmdhs .gt_font_bold {
   font-weight: bold;
 }
 
-#vspiuvkkei .gt_font_italic {
+#klfevxmdhs .gt_font_italic {
   font-style: italic;
 }
 
-#vspiuvkkei .gt_super {
+#klfevxmdhs .gt_super {
   font-size: 65%;
 }
 
-#vspiuvkkei .gt_footnote_marks {
+#klfevxmdhs .gt_footnote_marks {
   font-style: italic;
   font-weight: normal;
   font-size: 65%;

@@ -49,7 +49,7 @@ First things first: you must install install [Git](https://git-scm.com/) on your
 Next, open the `Global Options` menu in RStudio and locate the Git/SVN tab. Ensure that the box shown below is checked, and then enter the location of the executable file^[Mac users: type "which git" in terminal and enter the result; Windows users: look for git.exe (most likely in Program Files)] for your Git installation:
 
 ```{r}
-knitr::include_graphics("images/git-menu.png")
+knitr::include_graphics("images/bpw/git-menu.png")
 ```
 
 Lastly, you should provide Git with a username, email, and Personal Access Token (PAT) for your UMN GitHub account. If you've installed [usethis](https://usethis.r-lib.org/articles/articles/git-credentials.html) as shown [above](#r-rstudio-and-required-packages), you'll be able to set these up with R commands (changes will be applied to globally wherever you use Git on your operating system). First, set the username and email address for your UMN GitHub account. For example, mine are:
@@ -82,13 +82,13 @@ You'll be asked to enter a new password or token: copy and paste your PAT from y
 Open RStudio and navigate to `File > New Project`, then select `Version Control`:
 
 ```{r}
-knitr::include_graphics("images/version_control.png")
+knitr::include_graphics("images/bpw/version_control.png")
 ```
 
 Choose `Git` to clone our project from a GitHub repository:
 
 ```{r}
-knitr::include_graphics("images/use_git.png")
+knitr::include_graphics("images/bpw/use_git.png")
 ```
 
 On the next menu page, enter the address for the enterprise repository exactly as shown (do not clone the public repository):
@@ -110,14 +110,14 @@ When choosing a place to save this project, <b>do not save to a network drive</b
 </aside>
 
 ```{r}
-knitr::include_graphics("images/clone_info.png")
+knitr::include_graphics("images/bpw/clone_info.png")
 ```
 
 If you have not configured Git to automatically use your UMN GitHub credentials with the [steps shown above](#using-umn-github-from-rstudio), you may be prompted to provide them in a pop-up window:
 
 ```{r}
-knitr::include_graphics("images/username.png")
-knitr::include_graphics("images/password.png")
+knitr::include_graphics("images/bpw/username.png")
+knitr::include_graphics("images/bpw/password.png")
 ```
 
 <aside>
@@ -127,7 +127,7 @@ Until you configure Git with these credentials, you'll have to do this every tim
 After a short bit, RStudio will relaunch and open the new project. If you adjust the windows to show the tabs `Git` (left) and `Files` (right), you should see something like this:
 
 ```{r}
-knitr::include_graphics("images/clone_success.png")
+knitr::include_graphics("images/bpw/clone_success.png")
 ```
 
 You have now downloaded a copy of the Enterprise repository to your computer! 
@@ -149,13 +149,13 @@ In general, Matt and postdocs will be responsible for merging finished blog post
 Notice that the `Git` tab in RStudio has a purple icon:
 
 ```{r}
-knitr::include_graphics("images/new_branch.png")
+knitr::include_graphics("images/bpw/new_branch.png")
 ```
 
 Click this icon to create a new branch. You can name it anything you like, but we recommend using your URL slug if possible (e.g. "blog-post-workflow" is the end of the URL for this webpage). Leave the box next to "Sync branch with remote" **checked**, as this will create your branch both locally and on our GitHub page:
 
 ```{r}
-knitr::include_graphics("images/branch_name.png")
+knitr::include_graphics("images/bpw/branch_name.png")
 ```
 
 RStudio now displays the new branch in place of "master" to show that we're working on the new branch, instead! 
@@ -165,13 +165,13 @@ RStudio now displays the new branch in place of "master" to show that we're work
 Now that you've created a new branch in the `Git` window, take a look at the `File` window.
 
 ```{r}
-knitr::include_graphics("images/file_window1.png")
+knitr::include_graphics("images/bpw/file_window1.png")
 ```
 
 The program we use to build the blog is called [Distill](https://rstudio.github.io/distill/), and it takes care of all the back-end work as long as we put every new blog post inside of a unique folder within the "_posts" directory. Opening "_posts", you can see that every post is contained within a time-stamped sub-folder:
 
 ```{r}
-knitr::include_graphics("images/posts_list.png")
+knitr::include_graphics("images/bpw/posts_list.png")
 ```
 
 To create one of these folders for your new post, enter the following command into R:
@@ -183,7 +183,7 @@ distill::create_post("Blog post workflow")
 This does two things: it creates the folder automatically (circled in red), and it opens a new RMarkdown file where you can begin writing your post (circled in green).
 
 ```{r}
-knitr::include_graphics("images/post_added.png")
+knitr::include_graphics("images/bpw/post_added.png")
 ```
 
 <aside>
@@ -197,7 +197,7 @@ Check out our [Quick-start Guide for Blogging with RMarkdown](../2021-02-02-blog
 As you're writing your post, you can preview it as a fully formatted webpage by hitting the `Knit` button at the top of your RMarkdown file:
 
 ```{r}
-knitr::include_graphics("images/knit.png")
+knitr::include_graphics("images/bpw/knit.png")
 ```
 
 <aside>
@@ -233,7 +233,7 @@ gert::git_push()
 Now, if you visit our Enterprise GitHub page, your post will appear in a new branch! (It will not yet appear on the copy of the blog we have posted there, which is rendered only from `master`.)
 
 ```{r}
-knitr::include_graphics("images/see_branches.png")
+knitr::include_graphics("images/bpw/see_branches.png")
 ```
 
 # Editors 
@@ -243,7 +243,7 @@ knitr::include_graphics("images/see_branches.png")
 Any time that you want to review an author's post, you'll always need to get the latest copy of their branch from our Enterprise GitHub page. If this is the first time you've read a draft for the post, the author's branch won't yet be listed in RStudio.
 
 ```{r}
-knitr::include_graphics("images/master_only.png")
+knitr::include_graphics("images/bpw/master_only.png")
 ```
 
 <aside>
@@ -253,25 +253,25 @@ This editor's RStudio only knows about the "master" branch so far.
 The `Pull` button in RStudio's `Git` tab will gather information about all of the new branches on GitHub, and it will download a copy of each one onto your computer:
 
 ```{r}
-knitr::include_graphics("images/pull_button.png")
+knitr::include_graphics("images/bpw/pull_button.png")
 ```
 
 Clicking it will bring up a dialogue screen. RStudio reports that it discovered a new branch `blog-post-workflow` living at the remote repository `origin`.
 
 ```{r}
-knitr::include_graphics("images/pull_new_branch.png")
+knitr::include_graphics("images/bpw/pull_new_branch.png")
 ```
 
 Returning to RStudio's main window, notice that you can now toggle between the working on the remote `master` branch, or the new remote branch called `blog-post-workflow`. When you're ready to edit the author's post, use this menu to select their branch.
 
 ```{r}
-knitr::include_graphics("images/toggle_branches.png")
+knitr::include_graphics("images/bpw/toggle_branches.png")
 ```
 
 RStudio automatically creates a local version of this branch on your computer, and it reports that your changes will be tracked and pushed to the remote branch of the same name.
 
 ```{r}
-knitr::include_graphics("images/new_local_branch.png")
+knitr::include_graphics("images/bpw/new_local_branch.png")
 ```
 
 ## Locate and edit the new post
@@ -279,7 +279,7 @@ knitr::include_graphics("images/new_local_branch.png")
 Now, RStudio shows that you're working on the author's branch in the `Git` tab, and you'll see their post listed in the `_posts` folder on the `Files` tab. Navigate to the `.Rmd` file for their post, then click it to begin making edits.
 
 ```{r}
-knitr::include_graphics("images/author_post_appears.png")
+knitr::include_graphics("images/bpw/author_post_appears.png")
 ```
 
 Check out our [Quick-start Guide for Blogging with RMarkdown](../2021-02-02-blogging-with-rmarkdown/index.html)!
@@ -287,7 +287,7 @@ Check out our [Quick-start Guide for Blogging with RMarkdown](../2021-02-02-blog
 As you're writing your post, you can preview it as a fully formatted webpage by hitting the `Knit` button at the top of your RMarkdown file:
 
 ```{r}
-knitr::include_graphics("images/edit_knit.png")
+knitr::include_graphics("images/bpw/edit_knit.png")
 ```
 
 <aside>
@@ -311,7 +311,7 @@ gert::git_push()
 Now, if you visit our Enterprise GitHub page, you'll see that your edited files  appear on the author's branch. (They will not yet appear on the copy of the blog we have posted there, which is rendered only from `master`.)
 
 ```{r}
-knitr::include_graphics("images/draft_accepted.png")
+knitr::include_graphics("images/bpw/draft_accepted.png")
 ```
 
 # All users: making revisions
@@ -323,13 +323,13 @@ To get your collaborator's latest updates from GitHub, **you should launch the p
 When you open the project file, RStudio will again display a `Git` tab. Click on the `Pull` button to get your collaborator's latest changes.
 
 ```{r}
-knitr::include_graphics("images/pull_button.png")
+knitr::include_graphics("images/bpw/pull_button.png")
 ```
 
 Switch from the `master` branch to the branch associated with your post:
 
 ```{r}
-knitr::include_graphics("images/toggle_branches.png")
+knitr::include_graphics("images/bpw/toggle_branches.png")
 ```
 
 After you're finished incorporating their feedback into the RMarkdown file (.Rmd), **click Knit** and then run these commands in Terminal again to send your work back to GitHub:
@@ -389,7 +389,7 @@ git branch public-master public/master
 At this point, you'll notice that RStudio shows two remotes (with the branches you've fetched) and all of the local branches you've created so far. 
 
 ```{r}
-knitr::include_graphics("images/dual-remotes.png")
+knitr::include_graphics("images/bpw/dual-remotes.png")
 ```
 
 <aside>
@@ -453,7 +453,7 @@ git merge --squash blog-post-workflow
 Now, in RStudio, hit the `Build Website` button. Look over the site to make sure everything looks good. (We won't build on `public-master` to avoid merge conflicts, so get those edits in now.)
 
 ```{r}
-knitr::include_graphics("images/build.png")
+knitr::include_graphics("images/bpw/build.png")
 ```
 
 When you're ready, add all files and commit your changes with a message like:
