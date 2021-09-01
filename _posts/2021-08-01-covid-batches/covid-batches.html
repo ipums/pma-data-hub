@@ -1801,12 +1801,12 @@ Here <code>.x</code> represents each of the variables selected for manipulation 
 # … with 89 more rows</code></pre>
 </div>
 <h2 id="plot-theme">Plot theme</h2>
-<p>A custom <code>theme</code> usually modifies one of the <a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">pre-made themes</a> available in <code>ggplot2</code>. Here, we make some small changes to <code>theme_minimal()</code>, and we’ll list the modified theme together with a few additional <code>ggplot2</code> functions that we’ll want to use in each plot. Our theme will also contain a custom <strong>font</strong> that we’ve downloaded and saved in the “fonts” subfolder of our working directory.</p>
+<p>A custom <code>theme</code> usually modifies one of the <a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">pre-made themes</a> available in <code>ggplot2</code>. Here, we make some small changes to <code>theme_minimal()</code>, and we’ll list the modified theme together with a few additional <code>ggplot2</code> functions that we’ll want to use in each plot. Our theme will also contain a custom <strong>font</strong> that we’ve downloaded and saved in the “fonts” subfolder of our <a href="https://github.com/ipums/pma-data-hub">project root</a> directory.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre><code><span class='fu'>font_add</span><span class='op'>(</span>
   family <span class='op'>=</span> <span class='st'>"cabrito"</span>, 
-  regular <span class='op'>=</span> <span class='st'>"fonts/cabritosansnormregular-webfont.ttf"</span>
+  regular <span class='op'>=</span> <span class='st'>"../../fonts/cabritosansnormregular-webfont.ttf"</span>
 <span class='op'>)</span>
 <span class='fu'><a href='https://rdrr.io/pkg/showtext/man/showtext_auto.html'>showtext_auto</a></span><span class='op'>(</span><span class='op'>)</span>
 

@@ -393,12 +393,12 @@ summary
 
 ## Plot theme
 
-A custom `theme` usually modifies one of the [pre-made themes](https://ggplot2.tidyverse.org/reference/ggtheme.html) available in `ggplot2`. Here, we make some small changes to `theme_minimal()`, and we'll list the modified theme together with a few additional `ggplot2` functions that we'll want to use in each plot. Our theme will also contain a custom **font** that we've downloaded and saved in the "fonts" subfolder of our working directory.
+A custom `theme` usually modifies one of the [pre-made themes](https://ggplot2.tidyverse.org/reference/ggtheme.html) available in `ggplot2`. Here, we make some small changes to `theme_minimal()`, and we'll list the modified theme together with a few additional `ggplot2` functions that we'll want to use in each plot. Our theme will also contain a custom **font** that we've downloaded and saved in the "fonts" subfolder of our [project root](https://github.com/ipums/pma-data-hub) directory.
 
 ```{r}
 font_add(
   family = "cabrito", 
-  regular = "fonts/cabritosansnormregular-webfont.ttf"
+  regular = "../../fonts/cabritosansnormregular-webfont.ttf"
 )
 showtext_auto()
 

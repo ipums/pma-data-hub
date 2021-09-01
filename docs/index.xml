@@ -12,7 +12,20 @@
       <link>https://ipums.github.io/pma-data-hub/</link>
     </image>
     <generator>Distill</generator>
-    <lastBuildDate>Sun, 15 Aug 2021 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 01 Sep 2021 00:00:00 +0000</lastBuildDate>
+    <item>
+      <title>Introducing PMA Nutrition Data</title>
+      <dc:creator>Matt Gunther</dc:creator>
+      <link>https://ipums.github.io/pma-data-hub/posts/2021-09-01-nutrition-discovery</link>
+      <description>Nutrition surveys are available for women, young children, and health service providers in their area.</description>
+      <category>Nutrition</category>
+      <category>Data Discovery</category>
+      <category>Service Delivery Points</category>
+      <category>Infant and Young Child Feeding</category>
+      <guid>https://ipums.github.io/pma-data-hub/posts/2021-09-01-nutrition-discovery</guid>
+      <pubDate>Wed, 01 Sep 2021 00:00:00 +0000</pubDate>
+      <media:content url="https://ipums.github.io/pma-data-hub/posts/2021-09-01-nutrition-discovery/images/unitofanalysis.png" medium="image" type="image/png" width="2062" height="1654"/>
+    </item>
     <item>
       <title>Multinomial Regression with Complex Survey Design</title>
       <dc:creator>Devon Kristiansen</dc:creator>

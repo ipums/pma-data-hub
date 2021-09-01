@@ -2220,6 +2220,14 @@ d-article li {
     margin-bottom: 0;
     margin-left: 1rem;
     padding-left: 0;
+    color: #00263A;
+}
+
+d-article table {
+    color: #00263A;
+}
+.d-contents nav > ul > li > a {
+    font-weight: 100;
 }
 
 .d-contents nav > ul > li > a {
@@ -2302,7 +2310,7 @@ d-article aside a {
 }
 
 code {
-    font-family: Menlo, Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+  font-family: Menlo, Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
 }</style>
 <style type="text/css">
 /* base style */
@@ -2690,7 +2698,7 @@ If you’d like to explore an <strong>ordered logit model</strong> for these out
 <pre><code><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://github.com/yixuan/showtext'>showtext</a></span><span class='op'>)</span>
 <span class='fu'>font_add</span><span class='op'>(</span>
   family <span class='op'>=</span> <span class='st'>"cabrito"</span>, 
-  regular <span class='op'>=</span> <span class='st'>"fonts/cabritosansnormregular-webfont.ttf"</span>
+  regular <span class='op'>=</span> <span class='st'>"../../fonts/cabritosansnormregular-webfont.ttf"</span>
 <span class='op'>)</span>
 <span class='fu'><a href='https://rdrr.io/pkg/showtext/man/showtext_auto.html'>showtext_auto</a></span><span class='op'>(</span><span class='op'>)</span>
 
@@ -3438,7 +3446,7 @@ See <a href="https://cran.r-project.org/web/packages/svyVGAM/svyVGAM.pdf">packag
     }
     ret
 }
-&lt;bytecode: 0x7fd4b531c798&gt;
+&lt;bytecode: 0x7fdb364ee358&gt;
 &lt;environment: namespace:broom&gt;</code></pre>
 </div>
 <p>We’ll modify this function a bit, <a href="https://www.tidymodels.org/learn/develop/broom/">creating our own tidy method</a> <code>tidy.svyVGAM()</code> (you may need to make modifications for general use):</p>
