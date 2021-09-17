@@ -1,0 +1,441 @@
+---
+title: "Update: Matching Records in 2018 Nutrition Surveys"
+description: |
+  It's now much easier to perform row-wise operations with pre-grouped data! 
+author:
+  - name: Matt Gunther
+    affiliation: IPUMS PMA Senior Data Analyst
+categories:
+  - Nutrition
+  - Data Manipulation
+  - rowwise
+  - group_by
+  - cur_data
+  - pmap
+output:
+  distill::distill_article:
+    self_contained: false
+    toc: true
+    toc_depth: 3
+    toc_float: true
+preview: images/logos.png
+date: 09-15-2021
+---
+
+When IPUMS PMA first released harmonized 2018 [nutrition surveys](https://www.pmadata.org/technical-areas/nutrition) from households in Burkina Faso and Kenya, we published a [user note](https://pma.ipums.org/pma/mother_pointer_var.shtml) describing how to match **children and mothers in the same household** with [pmap](https://purrr.tidyverse.org/reference/map2.html) - a function designed to iterate over several variables simultaneously. 
+
+Our challenge was this: IPUMS PMA nutrition data are actually a **harmonized** version of three separate surveys. When you download and open a nutrition data extract, any given row may contain variables associated with:
+
+  * a household screening questionnaire, 
+  * a nutrition questionnaire for all children under age 5, and
+  * a nutrition questionnaire for selected women aged 10-49
+  
+As we mentioned in our [last post](../2021-09-01-nutrition-discovery/), all children under age 5 living in one of the screened households were sampled in the subsequent **child nutrition survey**. However, women aged 10-49 were only selected for the **female nutrition survey** from a random sub-sample of screened households (45% of sampled households in Burkina Faso, 25% in Kenya). 
+
+We imagine that many users will want to link children to mothers where possible, particularly because the **female nutrition survey** includes questions about [antenatal care](https://pma.ipums.org/pma-action/variables/group?id=hlth_recpreganc) and [nutrtion support](https://pma.ipums.org/pma-action/variables/group?id=hlth_recadvice) the mother received during her most recent pregnancy. Our user note offered code you could use to, at minimum, link sampled mothers to their *youngest* sampled child. 
+
+In this post, we'd like to offer an updated version of this code that uses the [rowwise](https://dplyr.tidyverse.org/reference/rowwise.html) function released with [dplyr 1.0.0](https://www.tidyverse.org/blog/2020/04/dplyr-1-0-0-rowwise/) last year. Both approaches work great! But, we believe that the `rowwise` approach is a quite bit easier to read and understand. 
+
+# Setup 
+
+To keep things simple, we'll use a data extract from Burkina Faso 2018 that contains *only* household members who participated in either the **child nutrition survey** or the **female nutrition survey** (you can request a file with all household members if you select "All Cases" at checkout). We'll use the [tidyverse](https://tidyverse.tidyverse.org/) and [ipumsr](http://tech.popdata.org/ipumsr/) packages to load our data into R.
+
+```{r, results='hide', include=FALSE}
+options(tibble.print_min = 10, tibble.max_extra_cols = 5)
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(ipumsr)
+library(kableExtra)
+
+dat <- read_ipums_micro(
+  ddi = "data/pma_00002.xml",
+  data = "data/pma_00002.dat.gz") %>% 
+  # Include only the Burkina Faso 2018 sample & nutrition respondents 
+  filter(SAMPLE == 85407, ELIGTYPE <= 20)
+```
+
+```{r, eval = F}
+library(tidyverse)
+library(ipumsr)
+
+dat <- read_ipums_micro(
+  ddi = "data/pma_00002.xml",
+  data = "data/pma_00002.dat.gz"
+)
+```
+
+<aside>
+```{r, echo=F, out.width="95%"}
+htmltools::a(
+  href = "http://tech.popdata.org/ipumsr/",
+  htmltools::img(src = "../../images/hex/ipumsr.png")
+)
+```
+© 2017 ([MPL 2.0](https://www.mozilla.org/en-US/MPL/2.0/))
+</aside>
+
+For the purposes of this post, we'll be working with only a small subset of variables (feel free to include any number of variables when you create your own extract). Also: in order to make our coding examples a bit more readable, we'll take an extra step of reassigning shorter identification numbers to each household and person - this is **not recommended practice in general** and we do so only to reduce the number of characters in [HHID](https://pma.ipums.org/pma-action/variables/HHID) (20) and [PERSONID](https://pma.ipums.org/pma-action/variables/PERSONID) (22) to 4.
+
+```{r}
+dat <- dat %>% 
+  select(
+    HHID,
+    ELIGTYPE,
+    AGEHQ,
+    RELATEKID,
+    KIDBIRTHYR,
+    KIDBIRTHMO,
+    LASTBIRTHYR,
+    LASTBIRTHMO,
+    KIDARMCIRCVAL,
+    RPANCPREGMO
+  ) %>% 
+  arrange(HHID, ELIGTYPE) %>% 
+  rowid_to_column(var = "PERSONID") %>% 
+  group_by(HHID) %>% 
+  mutate(HHID = cur_group_id()) %>% 
+  ungroup()
+```
+
+<aside>
+```{r, echo=F, out.width="95%"}
+htmltools::a(
+  href = "https://dplyr.tidyverse.org/",
+  htmltools::img(src = "../../images/hex/dplyr.png")
+)
+```
+© 2018 RStudio ([CC0 1.0](https://creativecommons.org/publicdomain/zero/1.0/))
+</aside>
+
+# Matching with multiple varialbes
+
+For any given household in our dataset, there should always be *at least* one child under age 5 who participated in the **child nutrition survey**. We also expect roughly 45% of households should also include *at least* one woman aged 10-49 who particpated in the **female nutrition survey**. 
+
+A typical household might look something like this:
+
+```{r, echo = FALSE, layout="l-page"}
+dat %>% 
+  filter(HHID == 1598) %>% 
+  mutate(
+    label = as_factor(ELIGTYPE),
+    ELIGTYPE = as.factor(ELIGTYPE),
+    ELIGTYPE = paste(ELIGTYPE, "-", label)
+  ) %>% 
+  select(
+    HHID,
+    PERSONID, 
+    AGEHQ, 
+    ELIGTYPE,
+    KIDBIRTHMO,
+    KIDBIRTHYR,
+    LASTBIRTHMO,
+    LASTBIRTHYR
+  ) %>% 
+  mutate(
+    across(everything(), ~case_when(!.x %in% c(99,9999) ~ as_factor(.x)))
+  ) %>% 
+  arrange(AGEHQ) %>% 
+  kable() %>% 
+  kable_styling() %>% 
+  scroll_box(
+    width = "100%", 
+    box_css = "margin-bottom: 1em; border: 0px solid #ddd; padding: 5px;"
+  )
+```
+
+All members of the household share the same household ID in `HHID`. Each person has a unique `PERSONID`, while [AGEHQ](https://pma.ipums.org/pma-action/variables/AGEHQ) gives their age (when the household questionnaire was completed) and  [ELIGTYPE](https://pma.ipums.org/pma-action/variables/ELIGTYPE) describes their eligibility for sub-modules on either the child or female nutrition questionnaire (both the numeric code and label are shown). 
+
+In this household, it's easy to spot the mother for each infant: each infant's birth month [KIDBIRTHMO](https://pma.ipums.org/pma-action/variables/KIDBIRTHMO) and year [KIDBIRTHYR](https://pma.ipums.org/pma-action/variables/KIDBIRTHYR) match the month and year of one woman's most recent delivery shown in [LASTBIRTHMO](https://pma.ipums.org/pma-action/variables/LASTBIRTHMO) and [LASTBIRTHYR](https://pma.ipums.org/pma-action/variables/LASTBIRTHYR). Unfortunately, it's not possible to match the 4 year-old child to a mother (women were only asked about the date of their most recent birth). 
+
+Once the matches are identified by *both month and year*, we could attach any number of variables from the mother's record onto the record for the child. For demonstration purposes, we'll just attach her `PERSONID` as a new variable called `MOMID`. If the child's mother cannot be determined - or if a particular row contains data from a mother, rather than a child - we'll assign the value `NA` to `MOMID`.
+
+# Identifying the "current group"
+
+Imagine dividing our search in two basic steps: first, we'll want to **group** our data into households. Then, we'll iterate through person in the dataset: if that person is a child, we'll search the members of their **group** for a woman with a matching birth month and year.
+
+Let's focus on the first step for a moment. A simple way to minimize the number of records involved with the search for each child's mother is to [group_by](https://dplyr.tidyverse.org/reference/group_by.html) `HHID`, and then create a unique subset of the larger dataset for each child. After we've **grouped** the data, we'll use [cur_data](https://dplyr.tidyverse.org/reference/context.html) to return the **current data** for each group. For convenience, you might save this miniature dataset as a column in `dat` - we'll call ours `HH_DATA`:
+
+```{r}
+dat <- dat %>% 
+  group_by(HHID) %>% 
+  mutate(HH_DATA = list(cur_data())) %>% 
+  ungroup()
+```
+
+
+<aside>
+For **grouped** data, `cur_data()` returns a dataset with one row for each member of the group.
+</aside>
+
+If you now look at `dat`, you'll see we've stored one table in `HH_DATA` for each person. If you opened one of those tables, you'd see:
+
+  * one row for each person living in the individual's household
+  * all columns from `dat` except for the grouping column `HHID` (10 in total)
+
+```{r}
+dat %>% select(PERSONID, HHID, HH_DATA)
+```
+
+Let's [pull](https://dplyr.tidyverse.org/reference/pull.html) `HH_DATA` for the first four individuals in `dat` (essentially printing the contents of the list):
+
+```{r}
+dat %>% 
+  slice(1:4) %>% 
+  pull(HH_DATA)
+```
+
+The first three individuals are members of the same household, so they appear in eachother's `HH_DATA`. The fourth is a member of a second household, and so on. 
+
+For our purposes, it's perfectly fine to leave the household datasets in a list. Once we define a search function to find each child's mother, we'll simply apply it to each row of `HH_DATA`. For example, suppose we just wanted to find the age of the oldest person in each household. We would use [rowwise](https://dplyr.tidyverse.org/reference/rowwise.html) to iterate over each row in `dat`, looking for the maximum value of `AGEHQ` in the `HH_DATA` table stored in each row.  
+
+```{r}
+dat %>% 
+  rowwise() %>% 
+  mutate(HH_AGE_OLDEST = max(HH_DATA$AGEHQ)) %>% 
+  select(PERSONID, HHID, AGEHQ, HH_AGE_OLDEST)
+```
+
+The main difference between `max` and the function we'll use for our search is that `max` returns the *same* value for every person in the household; strictly speaking, it's not necessary to do a row-wise search through pre-grouped household data in this case. Our problem is more complex: we want to return a *specific* value for each person via `rowwise`, but we also want to restrict each person's search to members of a pre-defined group. 
+
+# Row-wise search within groups
+
+Now that we've isolated data for each person's household in `HH_DATA`, we need to write a custom function that will match birth months and years, and then return a value for `MOMID` only if exactly one match is found. 
+
+To save time, we'll only perform our search if `ELIGTYPE` shows that the current row contains data for a sampled child. In other words, the value for `ELIGTYPE` should be less than 20.
+
+```{r}
+dat %>% count(ELIGTYPE)
+```
+
+The [case_when](https://dplyr.tidyverse.org/reference/case_when.html) function makes this job simple: we'll explicitly define a function for the "case when" `ELIGTYPE < 20`, but we'll *not* specify what to in the "case when" `ELIGTYPE == 20`. A nice feature of `case_when` is that it automatically returns the value `NA` for any cases that are not handled explicitly: 
+
+```{r}
+dat %>% 
+  count(ELIGTYPE) %>% 
+  mutate(EXAMPLE = case_when(ELIGTYPE < 20 ~ TRUE))
+```
+
+As we've seen, one way to identify the likely mother for each child is to match the mother's `LASTBIRTHMO` and `LASTBIRTHYR` to the child's `KIDBIRTHMO` and `KIDBIRTHYR`. *If there is only one match* in the household, we'll return the mother's `PERSONID` from `HH_DATA` as a new column `MOMID`. On the other hand, *if multiple women could be the mother* or if *no match could be found*, we'll return the value `NA`. 
+
+```{r}
+dat <- dat %>% 
+  rowwise() %>%
+  mutate(MOMID = case_when(ELIGTYPE < 20 ~ {
+    # re-name these in order to avoid confusion with the columns in HH_DATA:
+    kid_month <- KIDBIRTHMO
+    kid_year <- KIDBIRTHYR
+    
+    # pull the PERSONID for any match
+    moms <- HH_DATA %>% 
+      filter(LASTBIRTHMO == kid_month, LASTBIRTHYR == kid_year) %>% 
+      pull(PERSONID)
+    
+    # if exactly one match was found, return that PERSONID
+    # otherwise, return NA
+    ifelse(length(moms) == 1, moms, NA) 
+  })) %>% 
+  ungroup()
+```
+
+Let's return to our example household: 
+
+```{r, echo = FALSE, layout="l-page"}
+dat %>% 
+  filter(HHID == 1598) %>% 
+  mutate(
+    label = as_factor(ELIGTYPE),
+    ELIGTYPE = as.factor(ELIGTYPE),
+    ELIGTYPE = paste(ELIGTYPE, "-", label)
+  ) %>% 
+  select(
+    HHID,
+    PERSONID,
+    MOMID,
+    AGEHQ, 
+    ELIGTYPE,
+    KIDBIRTHMO,
+    KIDBIRTHYR,
+    LASTBIRTHMO,
+    LASTBIRTHYR
+  ) %>% 
+  mutate(
+    across(everything(), ~case_when(!.x %in% c(99,9999) ~ as_factor(.x)))
+  ) %>% 
+  arrange(AGEHQ) %>% 
+  kable() %>% 
+  kable_styling() %>% 
+  scroll_box(
+    width = "100%", 
+    box_css = "margin-bottom: 1em; border: 0px solid #ddd; padding: 5px;"
+  )
+```
+
+Success! `MOMID` shows the correct `PERSONID` for the mother of each infant, and it contains expected `NA` values as discussed above. 
+
+But how many children were matched to a mother, overall? Remember that a slight majority of sampled children (approximately 55%) live in households where no women were sampled for the **female nutrition survey**. We'll flag the rest with an indicator `WOMEN_IN_HH`, then test whether each child was `LINKED` with a mother:
+
+```{r}
+dat %>%
+  group_by(HHID) %>% 
+  mutate(WOMEN_IN_HH = any(ELIGTYPE == 20)) %>% 
+  filter(ELIGTYPE < 20) %>% 
+  ungroup() %>% 
+  count(WOMEN_IN_HH, LINKED = !is.na(MOMID)) %>% 
+  mutate(pct = 100*prop.table(n))
+```
+
+So far, we've managed to locate the mother for only about 28% of the children in our sample. Around 17% of the remaining children *do* live with a sampled woman, but could not be linked with a mother by matched birthdates. 
+
+Let's see if we can improve on these results.
+
+# Expanded search 
+
+In our first search, our use of `LASTBIRTHMO` and `LASTBIRTHYR` ensured that only mother's *most recent child* could be linked to her record. It's possible to expand these criteria in certain circumstances using [RELATEKID](https://pma.ipums.org/pma-action/variables/RELATEKID), which describes the relationship between each child and the person who provided responses to the interviewer on their behalf. 
+
+```{r}
+dat %>% count(RELATEKID)
+```
+
+When `RELATEKID == 1`, this respondent is *the child's mother*. So, suppose we have a household like this one: 
+
+```{r, echo = FALSE, layout="l-page"}
+dat %>% 
+  filter(HHID == 61) %>% 
+  mutate(
+    label = as_factor(ELIGTYPE),
+    ELIGTYPE = as.factor(ELIGTYPE),
+    ELIGTYPE = paste(ELIGTYPE, "-", label)
+  ) %>% 
+  select(
+    HHID,
+    PERSONID,
+    MOMID,
+    AGEHQ, 
+    ELIGTYPE,
+    RELATEKID,
+    KIDBIRTHMO,
+    KIDBIRTHYR,
+    LASTBIRTHMO,
+    LASTBIRTHYR
+  ) %>% 
+  mutate(
+    across(everything(), ~case_when(!.x %in% c(99,9999) ~ as_factor(.x)))
+  ) %>% 
+  arrange(AGEHQ) %>% 
+  kable() %>% 
+  kable_styling() %>% 
+  scroll_box(
+    width = "100%", 
+    box_css = "margin-bottom: 1em; border: 0px solid #ddd; padding: 5px;"
+  )
+```
+
+We've already matched the youngest child in this household with our first search, but the older child remains unlinked. Fortunately, `RELATEKID` tells us that the older child's mother *also lives in the household*, since she provided responses on their behalf. 
+
+Because there is only one reproductive age woman living in this particular household, it's reasonable to assume that the same woman is the mother for *both* children. 
+
+Let's implement these criteria in a new search, creating `MOMID2`. 
+
+```{r}
+dat <- dat %>% 
+  rowwise() %>%
+  mutate(MOMID2 = case_when(ELIGTYPE < 20 ~ {
+    # This is the same as above: if we find a match, we'll call it `mom`
+    kid_month <- KIDBIRTHMO
+    kid_year <- KIDBIRTHYR
+    moms <- HH_DATA %>%
+      filter(LASTBIRTHMO == kid_month, LASTBIRTHYR == kid_year) %>%
+      pull(PERSONID)
+    mom <- ifelse(length(moms) == 1, moms, NA)
+    
+    # Additionally, if `mom` is NA, we'll look at `RELATEKID`
+    # If the respondent was the child's mother, and only one woman in the 
+    # household has ever given birth, we'll define that woman as `mom`
+    if(is.na(mom)){
+      moms <- HH_DATA %>% 
+        filter(LASTBIRTHYR < 9000) %>% 
+        pull(PERSONID) 
+      mom <- ifelse(length(moms) == 1 & RELATEKID == 1, moms, NA)
+    }
+    mom
+  })) %>% 
+  ungroup() 
+```
+
+Now, both of the children in our example household will show the same `MOMID2`: 
+
+```{r, echo = FALSE, layout="l-page"}
+dat %>% 
+  filter(HHID == 61) %>% 
+  mutate(
+    label = as_factor(ELIGTYPE),
+    ELIGTYPE = as.factor(ELIGTYPE),
+    ELIGTYPE = paste(ELIGTYPE, "-", label)
+  ) %>% 
+  select(
+    HHID,
+    PERSONID,
+    MOMID,
+    MOMID2,
+    AGEHQ, 
+    ELIGTYPE,
+    RELATEKID,
+    KIDBIRTHMO,
+    KIDBIRTHYR,
+    LASTBIRTHMO,
+    LASTBIRTHYR
+  ) %>% 
+  mutate(
+    across(everything(), ~case_when(!.x %in% c(99,9999) ~ as_factor(.x)))
+  ) %>% 
+  arrange(AGEHQ) %>% 
+  kable() %>% 
+  kable_styling() %>% 
+  scroll_box(
+    width = "100%", 
+    box_css = "margin-bottom: 1em; border: 0px solid #ddd; padding: 5px;"
+  )
+```
+
+How much does `MOMID2` improve on the results from `MOMID`? 
+
+```{r}
+dat %>%
+  group_by(HHID) %>% 
+  mutate(WOMEN_IN_HH = any(ELIGTYPE == 20)) %>% 
+  filter(ELIGTYPE < 20) %>% 
+  ungroup() %>% 
+  count(WOMEN_IN_HH, LINKED1 = !is.na(MOMID), LINKED2 = !is.na(MOMID2)) %>% 
+  mutate(pct = 100*prop.table(n))
+```
+
+Our second search found mothers for an additional 283 children, or about 10% of the overall **child nutrition sample**. Setting aside the 55% of child who could not possibly be linked because of sample design restrictions, we were unable to find a mother in only 7% of cases (many of these may not live with their mother, or else we have insufficient information to identify a match). 
+
+# New research questions
+
+Now that we've linked as many children as possible to their mother's data, we'll be able to explore how certain **antenatal interventions** might impact child growth and nutrition. Consider our first example household again: 
+
+```{r, echo = FALSE, layout="l-page"}
+dat %>% 
+  filter(HHID == 1598) %>% 
+  select(PERSONID, MOMID, AGEHQ, KIDARMCIRCVAL, RPANCPREGMO) %>% 
+  mutate(
+    across(everything(), ~case_when(.x != 99 ~ as_factor(.x)))
+  ) %>% 
+  arrange(AGEHQ) %>% 
+  kable() %>% 
+  kable_styling() %>% 
+  scroll_box(
+    width = "100%", 
+    box_css = "margin-bottom: 1em; border: 0px solid #ddd; padding: 5px;"
+  )
+```
+
+We've added two new variables here:
+
+  * [KIDARMCIRCVAL](https://pma.ipums.org/pma-action/variables/KIDARMCIRCVAL) shows the Mid-Upper Arm Circumference (MUAC) for each child in centimeters. For children older than 6 months, a MUAC smaller than [11.5 centimeters ](https://supply.unicef.org/s0145620.html) is commonly used to screen for acute malnutrition. 
+  * [RPANCPREGMO](https://pma.ipums.org/pma-action/variables/RPANCPREGMO) reports the first month of the mother's most recent pregnancy when she first received antenatal care.
+  
+Now that we've established a link between the infants and mothers, it's possible to investigate how infants are impacted by, for example, the timing or quality of antenatal care provided to their mother during pregnancy. In this household, the `KIDARMCIRCVAL` shown for the child in row 3 suggests that they may be at risk for acute malnutrition. We also observe in `RPANCPREGMO` that their mother received no antenatal care until the third trimester of her pregnancy (month 7). If we took the additional step of attaching the value in `RPANCPREGMO` to the appropriate child's record - for example, in a variable we might call `MOM_ANCPREGMO` - we could then build a model examining this relationship in the larger dataset.
+
+In our next post, we'll continue our series on [PMA nutrition surveys](../../#category:Nutrition) as we consider more ways to measure nutritional outcomes in children. In particular, we'll be looking at common assessment tools for recommended infant and young child feeding practices (IYCFP) and how to create them from dietary intake data in the **child nutrition survey**. 
