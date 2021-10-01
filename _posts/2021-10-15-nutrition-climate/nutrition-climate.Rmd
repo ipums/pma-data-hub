@@ -1,0 +1,50 @@
+---
+title: "nutrition-climate"
+description: |
+  A short description of the post.
+author:
+  - name: Matt Gunther
+    url: {}
+date: 10-15-2021
+output:
+  distill::distill_article:
+    self_contained: false
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(ipumsr)
+library(chirps)
+library(sf)
+```
+
+
+```{r}
+tapajos <- chirps::tapajos
+
+# sample three points within the Tapajos area
+set.seed(1234)
+tp_point <- st_sample(tapajos, 3)
+
+# coerce as sf points
+tp_point <- st_as_sf(tp_point)
+
+dt <- get_chirps(tp_point, dates = c("2013-01-01","2018-12-31"))
+```
+
+```{r}
+plot(tapajos)
+
+dt
+
+precip_indices(dt) %>% tibble() %>% print(n = Inf)
+```
+
+```{r}
+library(raster)
+```
+
+
+

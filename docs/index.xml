@@ -12,7 +12,20 @@
       <link>https://ipums.github.io/pma-data-hub/</link>
     </image>
     <generator>Distill</generator>
-    <lastBuildDate>Wed, 15 Sep 2021 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Fri, 01 Oct 2021 00:00:00 +0000</lastBuildDate>
+    <item>
+      <title>Infant and Young Child Feeding (IYCF) Indicators for PMA Nutrition Data</title>
+      <dc:creator>Matt Gunther</dc:creator>
+      <link>https://ipums.github.io/pma-data-hub/posts/2021-10-01-nutrition-indicators</link>
+      <description>Use WHO guidelines to calculate Minimum Dietary Diversity (MDD), Minimum Meal Frequency (MMF), and Minimum Acceptable Diet (MAD).</description>
+      <category>Nutrition</category>
+      <category>IYCF</category>
+      <category>Indicators</category>
+      <category>Data Manipulation</category>
+      <guid>https://ipums.github.io/pma-data-hub/posts/2021-10-01-nutrition-indicators</guid>
+      <pubDate>Fri, 01 Oct 2021 00:00:00 +0000</pubDate>
+      <media:content url="https://ipums.github.io/pma-data-hub/posts/2021-10-01-nutrition-indicators/nutrition-indicators_files/figure-html5/unnamed-chunk-22-1.png" medium="image" type="image/png" width="1920" height="1152"/>
+    </item>
     <item>
       <title>Update: Matching Records in 2018 Nutrition Surveys</title>
       <dc:creator>Matt Gunther</dc:creator>
