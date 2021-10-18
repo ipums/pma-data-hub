@@ -56,7 +56,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 }
 code span.al { color: #ad0000; } /* Alert */
 code span.an { color: #5e5e5e; } /* Annotation */
-code span.at { color: #20794d; } /* Attribute */
+code span.at { } /* Attribute */
 code span.bn { color: #ad0000; } /* BaseN */
 code span.bu { } /* BuiltIn */
 code span.cf { color: #007ba5; } /* ControlFlow */
@@ -77,12 +77,34 @@ code span.kw { color: #007ba5; } /* Keyword */
 code span.op { color: #5e5e5e; } /* Operator */
 code span.ot { color: #007ba5; } /* Other */
 code span.pp { color: #ad0000; } /* Preprocessor */
-code span.sc { color: #20794d; } /* SpecialChar */
+code span.sc { color: #5e5e5e; } /* SpecialChar */
 code span.ss { color: #20794d; } /* SpecialString */
 code span.st { color: #20794d; } /* String */
 code span.va { color: #111111; } /* Variable */
 code span.vs { color: #20794d; } /* VerbatimString */
 code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
+</style>
+
+<style>
+  div.csl-bib-body { }
+  div.csl-entry {
+    clear: both;
+    }
+  .hanging div.csl-entry {
+    margin-left:2em;
+    text-indent:-2em;
+  }
+  div.csl-left-margin {
+    min-width:2em;
+    float:left;
+  }
+  div.csl-right-inline {
+    margin-left:2em;
+    padding-left:1em;
+  }
+  div.csl-indent {
+    margin-left: 2em;
+  }
 </style>
 
   <!--radix_placeholder_meta_tags-->
@@ -471,8 +493,15 @@ d-title {
   top: 0;
 }
 
+/* adjust viewport for navbar height */
+/* helps vertically center bootstrap (non-distill) content */
+.min-vh-100 {
+  min-height: calc(100vh - 100px) !important;
+}
+
 </style>
 
+<script src="../../site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <link href="../../site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet"/>
 <link href="../../site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet"/>
 <script src="../../site_libs/headroom-0.9.4/headroom.min.js"></script>
@@ -580,19 +609,21 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
           var results = fuse.search(query, searchOptions);
           callback(results
             .map(function(result) { return result.item; })
-            .filter(function(item) { return !!item.description; })
           );
         },
         templates: {
           suggestion: function(suggestion) {
+            var img = suggestion.preview && Object.keys(suggestion.preview).length > 0
+              ? `<img src="${offsetURL(suggestion.preview)}"</img>`
+              : '';
             var html = `
               <div class="search-item">
                 <h3>${suggestion.title}</h3>
                 <div class="search-item-description">
-                  ${suggestion.description}
+                  ${suggestion.description || ''}
                 </div>
                 <div class="search-item-preview">
-                  <img src="${suggestion.preview ? offsetURL(suggestion.preview) : ''}"</img>
+                  ${img}
                 </div>
               </div>
             `;
@@ -615,6 +646,10 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 
 <style type="text/css">
+
+.nav-search {
+  font-size: x-small;
+}
 
 /* Algolioa Autocomplete */
 
@@ -690,6 +725,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 }
 
 .algolia-autocomplete .aa-dropdown-menu .aa-suggestion .search-item h3 {
+  font-size: 1rem;
   margin-block-start: 0;
   margin-block-end: 5px;
 }
@@ -917,6 +953,11 @@ d-article pre a:hover {
   text-decoration: underline;
 }
 
+d-article details {
+  grid-column: text;
+  margin-bottom: 0.8em;
+}
+
 @media(min-width: 768px) {
 
 d-article pre,
@@ -1071,6 +1112,17 @@ d-article .citation {
 
 div.hanging-indent{
   margin-left: 1em; text-indent: -1em;
+}
+
+/* Citation hover box */
+
+.tippy-box[data-theme~=light-border] {
+  background-color: rgba(250, 250, 250, 0.95);
+}
+
+.tippy-content > p {
+  margin-bottom: 0;
+  padding: 2px;
 }
 
 
@@ -1738,7 +1790,7 @@ function init_distill() {
     var layout = $(this).attr('data-layout');
 
     // apply layout to markdown level block elements
-    var elements = $(this).children().not('div.sourceCode, pre, script');
+    var elements = $(this).children().not('details, div.sourceCode, pre, script');
     elements.each(function(i, el) {
       var layout_div = $('<div class="' + layout + '"></div>');
       if (layout_div.hasClass('shaded')) {
@@ -1853,6 +1905,23 @@ function init_distill() {
     // move appendix-bottom entries to the bottom
     $('.appendix-bottom').appendTo('d-appendix').children().unwrap();
     $('.appendix-bottom').remove();
+
+    // hoverable references
+    $('span.citation[data-cites]').each(function() {
+      var refs = $(this).attr('data-cites').split(" ");
+      var refHtml = refs.map(function(ref) {
+        return "<p>" + $('#ref-' + ref).html() + "</p>";
+      }).join("\n");
+      window.tippy(this, {
+        allowHTML: true,
+        content: refHtml,
+        maxWidth: 500,
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'light-border',
+        placement: 'bottom-start'
+      });
+    });
 
     // clear polling timer
     clearInterval(tid);
@@ -2337,7 +2406,7 @@ h1, h2, h3, h4, h5, h6,
 
 d-article div.sourceCode code,
 d-article pre code {
-	font-family: var(--mono-font), var(--mono-default);
+  font-family: var(--mono-font), var(--mono-default);
 }
 
 
@@ -2362,76 +2431,78 @@ d-article h6 {
 }
 
 /*-- BODY --*/
-/* only text inside of <p> tags */
-d-article > p {
+d-article > p,  /* only text inside of <p> tags */
+d-article > ul, /* lists */
+d-article > ol {
   color: var(--body-color, rgba(0, 0, 0, 0.8));
   font-size: var(--body-size, 1.06rem);
 }
 
+
 /*-- CODE --*/
 d-article div.sourceCode code,
 d-article pre code {
-	font-size: var(--code-size, 14px);
+  font-size: var(--code-size, 14px);
 }
 
 /*-- ASIDE --*/
 d-article aside {
-	font-size: var(--aside-size, 12px);
-	color: var(--aside-color, rgba(0, 0, 0, 0.6));
+  font-size: var(--aside-size, 12px);
+  color: var(--aside-color, rgba(0, 0, 0, 0.6));
 }
 
 /*-- FIGURE CAPTIONS --*/
 figure .caption,
 figure figcaption,
 .figure .caption {
-	font-size: var(--fig-cap-size, 13px);
-	color: var(--fig-cap-color, rgba(0, 0, 0, 0.6));
+  font-size: var(--fig-cap-size, 13px);
+  color: var(--fig-cap-color, rgba(0, 0, 0, 0.6));
 }
 
 /*-- METADATA --*/
 d-byline h3 {
-	font-size: var(--heading-size, 0.6rem);
-	color: var(--heading-color, rgba(0, 0, 0, 0.5));
+  font-size: var(--heading-size, 0.6rem);
+  color: var(--heading-color, rgba(0, 0, 0, 0.5));
 }
 
 d-byline {
-	font-size: var(--body-size, 0.8rem);
-	color: var(--body-color, rgba(0, 0, 0, 0.8));
+  font-size: var(--body-size, 0.8rem);
+  color: var(--body-color, rgba(0, 0, 0, 0.8));
 }
 
 d-byline a,
 d-article d-byline a {
-	color: var(--body-color, rgba(0, 0, 0, 0.8));
+  color: var(--body-color, rgba(0, 0, 0, 0.8));
 }
 
 /*-- TABLE OF CONTENTS --*/
 .d-contents nav h3 {
-	font-size: var(--heading-size, 18px);
+  font-size: var(--heading-size, 18px);
 }
 
 .d-contents nav a {
-	font-size: var(--contents-size, 13px);
+  font-size: var(--contents-size, 13px);
 }
 
 /*-- APPENDIX --*/
 d-appendix h3 {
   font-size: var(--heading-size, 15px);
-	color: var(--heading-color, rgba(0, 0, 0, 0.65));
+  color: var(--heading-color, rgba(0, 0, 0, 0.65));
 }
 
 d-appendix {
   font-size: var(--text-size, 0.8em);
-	color: var(--text-color, rgba(0, 0, 0, 0.5));
+  color: var(--text-color, rgba(0, 0, 0, 0.5));
 }
 
 d-appendix d-footnote-list a.footnote-backlink {
-	color: var(--text-color, rgba(0, 0, 0, 0.5));
+  color: var(--text-color, rgba(0, 0, 0, 0.5));
 }
 
 /*-- WEBSITE HEADER + FOOTER --*/
 .distill-site-header .title {
-	font-size: var(--title-size, 18px);
-	font-family: var(--navbar-font), var(--heading-default);
+  font-size: var(--title-size, 18px);
+  font-family: var(--navbar-font), var(--heading-default);
 }
 
 .distill-site-header a,
@@ -2439,35 +2510,45 @@ d-appendix d-footnote-list a.footnote-backlink {
   font-family: var(--navbar-font), var(--heading-default);
 }
 
-.distill-site-header a:hover {
-	color: var(--hover-color, white);
+.nav-dropdown .nav-dropbtn {
+  color: var(--text-color, rgba(255, 255, 255, 0.8));
+  font-size: var(--text-size, 15px);
+}
+
+.distill-site-header a:hover,
+.nav-dropdown:hover .nav-dropbtn {
+  color: var(--hover-color, white);
 }
 
 .distill-site-header {
-	font-size: var(--text-size, 15px);
-	color: var(--text-color, rgba(255, 255, 255, 0.8));
-	background-color: var(--bkgd-color, #0F2E3D);
+  font-size: var(--text-size, 15px);
+  color: var(--text-color, rgba(255, 255, 255, 0.8));
+  background-color: var(--bkgd-color, #0F2E3D);
 }
 
 .distill-site-footer {
-	font-size: var(--text-size, 15px);
-	color: var(--text-color, rgba(255, 255, 255, 0.8));
-	background-color: var(--bkgd-color, #0F2E3D);
+  font-size: var(--text-size, 15px);
+  color: var(--text-color, rgba(255, 255, 255, 0.8));
+  background-color: var(--bkgd-color, #0F2E3D);
 }
 
 .distill-site-footer a:hover {
-	color: var(--hover-color, white);
+  color: var(--hover-color, white);
 }</style>
 <!--/radix_placeholder_distill-->
-  <script src="../../site_libs/header-attrs-2.6/header-attrs.js"></script>
-  <script src="../../site_libs/jquery-1.11.3/jquery.min.js"></script>
+  <script src="../../site_libs/header-attrs-2.11/header-attrs.js"></script>
+  <script src="../../site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+  <script src="../../site_libs/popper-2.6.0/popper.min.js"></script>
+  <link href="../../site_libs/tippy-6.2.7/tippy.css" rel="stylesheet" />
+  <link href="../../site_libs/tippy-6.2.7/tippy-light-border.css" rel="stylesheet" />
+  <script src="../../site_libs/tippy-6.2.7/tippy.umd.min.js"></script>
   <script src="../../site_libs/anchor-4.2.2/anchor.min.js"></script>
   <script src="../../site_libs/bowser-1.9.3/bowser.min.js"></script>
   <script src="../../site_libs/webcomponents-2.0.0/webcomponents.js"></script>
   <script src="../../site_libs/distill-2.2.21/template.v2.js"></script>
   <!--radix_placeholder_site_in_header-->
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-191039907-2"></script>
-<script>
+<script type="text/javascript" cookie-consent="tracking" async src="https://www.googletagmanager.com/gtag/js?id=UA-191039907-2"></script>
+<script type="text/javascript" cookie-consent="tracking">
 window.dataLayer = window.dataLayer || [];
 function gtag(){dataLayer.push(arguments);}
 gtag('js', new Date());
@@ -2483,7 +2564,7 @@ gtag('config', 'UA-191039907-2');
 <!--radix_placeholder_front_matter-->
 
 <script id="distill-front-matter" type="text/json">
-{"title":"Putting It All Together: Analyzing the Individual in Context","description":"Analyzing women's contraceptive use while considering service delivery point and spatial contextual factors.","authors":[{"author":"Nina Brooks","authorURL":"http://www.ninarbrooks.com/","affiliation":"IPUMS PMA Postdoctoral Associate","affiliationURL":"#","orcidID":""}],"publishedDate":"2021-03-02T00:00:00.000+00:00","citationText":"Brooks, 2021"}
+{"title":"Putting It All Together: Analyzing the Individual in Context","description":"Analyzing women's contraceptive use while considering service delivery point and spatial contextual factors.","authors":[{"author":"Nina Brooks","authorURL":"http://www.ninarbrooks.com/","affiliation":"IPUMS PMA Postdoctoral Associate","affiliationURL":"#","orcidID":""}],"publishedDate":"2021-03-02T00:00:00.000-06:00","citationText":"Brooks, 2021"}
 </script>
 
 <!--/radix_placeholder_front_matter-->
@@ -2606,7 +2687,7 @@ Community
 <p>We’ll load the packages <code>tidyverse</code> and <code>ipumsr</code>, as usual. Additionally, we’ll load <a href="https://www.tidymodels.org/">tidymodels</a>, which helps apply <code>tidyverse</code> principles to the models we’ll be building, and a few other packages we’ll discuss below.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre><code><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='http://tidyverse.tidyverse.org'>tidyverse</a></span><span class='op'>)</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://tidyverse.tidyverse.org'>tidyverse</a></span><span class='op'>)</span>
 <span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://www.ipums.org'>ipumsr</a></span><span class='op'>)</span>
 <span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://tidymodels.tidymodels.org'>tidymodels</a></span><span class='op'>)</span>
 <span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='http://r-survey.r-forge.r-project.org/survey/'>survey</a></span><span class='op'>)</span>
@@ -2628,21 +2709,21 @@ Remember, to use the GPS data you must request access directly from our partners
 </div>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre><code><span class='fu'>glimpse</span><span class='op'>(</span><span class='va'>bf_merged</span><span class='op'>)</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'>glimpse</span><span class='op'>(</span><span class='va'>bf_merged</span><span class='op'>)</span>
 </code></pre>
 </div>
 <pre><code>Rows: 6,944
 Columns: 10
-$ EAID                &lt;dbl+lbl&gt; 7003, 7003, 7003, 7003, 7003, 7003,…
-$ SAMPLE              &lt;int+lbl&gt; 85405, 85405, 85405, 85405, 85405, …
-$ N_SDP               &lt;int&gt; 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, …
-$ NUM_METHODS_PROV    &lt;int&gt; 10, 10, 10, 10, 10, 10, 10, 10, 10, 10,…
-$ NUM_METHODS_INSTOCK &lt;int&gt; 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, …
-$ NUM_METHODS_OUT3MO  &lt;int&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, …
-$ MEAN_OUTDAY         &lt;dbl&gt; NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN,…
-$ PERSONID            &lt;chr&gt; &quot;0700300000019732017504&quot;, &quot;070030000001…
-$ URBAN               &lt;int+lbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,…
-$ FPCURRUSE           &lt;int+lbl&gt; 0, 0, 1, 1, 0, 0, 0, 0, 0, 1, 0, 0,…</code></pre>
+$ EAID                &lt;dbl+lbl&gt; 7003, 7003, 7003, 7003, 7003, 7003, …
+$ SAMPLE              &lt;int+lbl&gt; 85405, 85405, 85405, 85405, 85405, 8…
+$ N_SDP               &lt;int&gt; 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3…
+$ NUM_METHODS_PROV    &lt;int&gt; 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, …
+$ NUM_METHODS_INSTOCK &lt;int&gt; 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8…
+$ NUM_METHODS_OUT3MO  &lt;int&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0…
+$ MEAN_OUTDAY         &lt;dbl&gt; NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, …
+$ PERSONID            &lt;chr&gt; &quot;0700300000019732017504&quot;, &quot;0700300000019…
+$ URBAN               &lt;int+lbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, …
+$ FPCURRUSE           &lt;int+lbl&gt; 0, 0, 1, 1, 0, 0, 0, 0, 0, 1, 0, 0, …</code></pre>
 </div>
 <p>The variables <code>N_SDP</code>, <code>NUM_METHODS_PROV</code>, <code>NUM_METHODS_INSTOCK</code>, <code>NUM_METHODS_OUT3MO</code>, <code>MEAN_OUTDAY</code>, and <code>URBAN</code> all describe the the enumeration area (<code>EAID</code>) where a woman identified by <code>PERSONID</code> resides. The only other variable from the Household and Female questionnaire, itself, is <code>FPCURRUSE</code>. We’ll add more variables describing each woman in a moment.</p>
 <div class="layout-chunk" data-layout="l-body">
@@ -2650,23 +2731,23 @@ $ FPCURRUSE           &lt;int+lbl&gt; 0, 0, 1, 1, 0, 0, 0, 0, 0, 1, 0, 0,…</co
 </div>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre><code><span class='fu'>glimpse</span><span class='op'>(</span><span class='va'>int</span><span class='op'>)</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'>glimpse</span><span class='op'>(</span><span class='va'>int</span><span class='op'>)</span>
 </code></pre>
 </div>
 <pre><code>Rows: 83
 Columns: 7
-$ EAID        &lt;dbl&gt; 7003, 7006, 7009, 7016, 7026, 7042, 7048, 7056,…
-$ ROAD_LENGTH &lt;dbl&gt; 30.29857, 28.87695, 24.08644, 41.92500, 67.6741…
-$ PMACC       &lt;chr&gt; &quot;BF&quot;, &quot;BF&quot;, &quot;BF&quot;, &quot;BF&quot;, &quot;BF&quot;, &quot;BF&quot;, &quot;BF&quot;, &quot;BF&quot;,…
-$ PMAYEAR     &lt;dbl&gt; 2017, 2017, 2017, 2017, 2017, 2017, 2017, 2017,…
-$ REGION      &lt;chr&gt; &quot;5. centre-nord&quot;, &quot;5. centre-nord&quot;, &quot;8. est&quot;, &quot;…
-$ DATUM       &lt;chr&gt; &quot;WGS84&quot;, &quot;WGS84&quot;, &quot;WGS84&quot;, &quot;WGS84&quot;, &quot;WGS84&quot;, &quot;W…
-$ POP_DENSITY &lt;dbl&gt; 74.04364, 51.75554, 15.66303, 91.25882, 416.232…</code></pre>
+$ EAID        &lt;dbl&gt; 7003, 7006, 7009, 7016, 7026, 7042, 7048, 7056, …
+$ ROAD_LENGTH &lt;dbl&gt; 30.29857, 28.87695, 24.08644, 41.92500, 67.67416…
+$ PMACC       &lt;chr&gt; &quot;BF&quot;, &quot;BF&quot;, &quot;BF&quot;, &quot;BF&quot;, &quot;BF&quot;, &quot;BF&quot;, &quot;BF&quot;, &quot;BF&quot;, …
+$ PMAYEAR     &lt;dbl&gt; 2017, 2017, 2017, 2017, 2017, 2017, 2017, 2017, …
+$ REGION      &lt;chr&gt; &quot;5. centre-nord&quot;, &quot;5. centre-nord&quot;, &quot;8. est&quot;, &quot;1…
+$ DATUM       &lt;chr&gt; &quot;WGS84&quot;, &quot;WGS84&quot;, &quot;WGS84&quot;, &quot;WGS84&quot;, &quot;WGS84&quot;, &quot;WG…
+$ POP_DENSITY &lt;dbl&gt; 74.04364, 51.75554, 15.66303, 91.25882, 416.2320…</code></pre>
 </div>
 <p>We’ll be using <code>ROAD_LENGTH</code> and <code>POP_DENSITY</code>, but first we’ll need to merge <code>int</code> to <code>bf_merged</code> by matching up the <code>EAID</code> for each woman:</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre><code><span class='va'>bf_merged</span> <span class='op'>&lt;-</span> <span class='fu'>left_join</span><span class='op'>(</span><span class='va'>bf_merged</span>, <span class='va'>int</span>, by <span class='op'>=</span> <span class='st'>"EAID"</span><span class='op'>)</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>bf_merged</span> <span class='op'>&lt;-</span> <span class='fu'>left_join</span><span class='op'>(</span><span class='va'>bf_merged</span>, <span class='va'>int</span>, by <span class='op'>=</span> <span class='st'>"EAID"</span><span class='op'>)</span>
 </code></pre>
 </div>
 </div>
@@ -2684,7 +2765,7 @@ For a refresher on accessing and importing PMA data in R, check out our post <a 
 <p>Following <a href="../2021-01-28-across-sdp/index.html#introducing-dplyracross">the practice</a> we used when we made <code>bf_merged</code>, we’ll simply handle all of the different non-response codes in this new extract by recoding them as <code>NA</code>. Then, we’ll merge the extract to <code>bf_merged</code> by matching up each person by <code>PERSONID</code>:</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre><code><span class='va'>bf_merged</span> <span class='op'>&lt;-</span> <span class='fu'>ipumsr</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/ipumsr/man/read_ipums_micro.html'>read_ipums_micro</a></span><span class='op'>(</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>bf_merged</span> <span class='op'>&lt;-</span> <span class='fu'>ipumsr</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/ipumsr/man/read_ipums_micro.html'>read_ipums_micro</a></span><span class='op'>(</span>
   ddi <span class='op'>=</span> <span class='st'>"data/pma_00018.xml"</span>,
   data_file <span class='op'>=</span> <span class='st'>"data/pma_00018.dat.gz"</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
   <span class='fu'>select</span><span class='op'>(</span><span class='va'>PERSONID</span>, <span class='va'>AGE</span>, <span class='va'>MARSTAT</span>, <span class='va'>EDUCATTGEN</span>, <span class='va'>WEALTHQ</span>, <span class='va'>BIRTHEVENT</span>, <span class='va'>STRATA</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
@@ -2706,7 +2787,7 @@ For a refresher on accessing and importing PMA data in R, check out our post <a 
 <p>All five of the new variables we’ve introduced are loaded into R as members of both the <code>integer</code> and the <code>haven_labelled</code> class of objects. But really, only <code>AGE</code> and <code>BIRTHEVENT</code> should be treated like <em>continuous</em> measures in our analysis. For <code>MARSTAT</code>, <code>EDUCATTGEN</code>, and <code>WEALTHQ</code>, the integer values associated with each response are arbitrary; we’re much more interested in the labels associated with these numeric values because each of these three variables reflects a <em>categorical</em> measurement.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre><code><span class='va'>bf_merged</span> <span class='op'>%&gt;%</span> 
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>bf_merged</span> <span class='op'>%&gt;%</span> 
   <span class='fu'>select</span><span class='op'>(</span><span class='va'>MARSTAT</span>, <span class='va'>EDUCATTGEN</span>, <span class='va'>WEALTHQ</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
   <span class='fu'>map</span><span class='op'>(</span><span class='va'>class</span><span class='op'>)</span>
 </code></pre>
@@ -2724,12 +2805,12 @@ $WEALTHQ
 <p>If we want, we can simply <a href="https://r4ds.had.co.nz/vectors.html?q=coercion#coercion">coerce</a> these variables as factors. When we do this and then use the factor in a regression model, R will select the <em>lowest numbered response</em> as a “reference group” and create binary dummy variables for the other responses. This makes sense with <code>WEALTHQ</code>, where we’d interpret the coefficient for each wealth quintile as an effect <em>relative to</em> being in the lowest quintile.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre><code><span class='va'>bf_merged</span> <span class='op'>%&gt;%</span> <span class='fu'>count</span><span class='op'>(</span><span class='va'>WEALTHQ</span><span class='op'>)</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>bf_merged</span> <span class='op'>%&gt;%</span> <span class='fu'>count</span><span class='op'>(</span><span class='va'>WEALTHQ</span><span class='op'>)</span>
 </code></pre>
 </div>
-<pre><code># A tibble: 6 x 2
+<pre><code># A tibble: 6 × 2
                 WEALTHQ     n
-*             &lt;int+lbl&gt; &lt;int&gt;
+              &lt;int+lbl&gt; &lt;int&gt;
 1  1 [Lowest quintile]   1200
 2  2 [Lower quintile]    1031
 3  3 [Middle quintile]    984
@@ -2737,15 +2818,15 @@ $WEALTHQ
 5  5 [Highest quintile]  2474
 6 NA                        2</code></pre>
 <div class="sourceCode">
-<pre><code><span class='va'>bf_merged</span> <span class='op'>&lt;-</span> <span class='va'>bf_merged</span> <span class='op'>%&gt;%</span> 
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>bf_merged</span> <span class='op'>&lt;-</span> <span class='va'>bf_merged</span> <span class='op'>%&gt;%</span> 
   <span class='fu'>mutate</span><span class='op'>(</span>WEALTHQ <span class='op'>=</span> <span class='fu'><a href='https://forcats.tidyverse.org/reference/as_factor.html'>as_factor</a></span><span class='op'>(</span><span class='va'>WEALTHQ</span><span class='op'>)</span><span class='op'>)</span> 
 
 <span class='va'>bf_merged</span> <span class='op'>%&gt;%</span> <span class='fu'>count</span><span class='op'>(</span><span class='va'>WEALTHQ</span><span class='op'>)</span>
 </code></pre>
 </div>
-<pre><code># A tibble: 6 x 2
+<pre><code># A tibble: 6 × 2
   WEALTHQ              n
-* &lt;fct&gt;            &lt;int&gt;
+  &lt;fct&gt;            &lt;int&gt;
 1 Lowest quintile   1200
 2 Lower quintile    1031
 3 Middle quintile    984
@@ -2756,19 +2837,19 @@ $WEALTHQ
 <p>Alternatively, we might decide to make our own binary dummy variables. This makes sense when we might want to collapse several responses into one larger category, as with <code>MARSTAT</code>: here, for the purpose of analyzing <code>FPCURRUSE</code>, we probably only care about whether the woman is partnered (the reasons why she might not be partnered are less meaningful).</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre><code><span class='va'>bf_merged</span> <span class='op'>%&gt;%</span> <span class='fu'>count</span><span class='op'>(</span><span class='va'>MARSTAT</span><span class='op'>)</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>bf_merged</span> <span class='op'>%&gt;%</span> <span class='fu'>count</span><span class='op'>(</span><span class='va'>MARSTAT</span><span class='op'>)</span>
 </code></pre>
 </div>
-<pre><code># A tibble: 5 x 2
+<pre><code># A tibble: 5 × 2
                              MARSTAT     n
-*                          &lt;int+lbl&gt; &lt;int&gt;
+                           &lt;int+lbl&gt; &lt;int&gt;
 1 10 [Never married]                  1876
 2 21 [Currently married]              4307
 3 22 [Currently living with partner]   410
 4 31 [Divorced or separated]           163
 5 32 [Widow or widower]                188</code></pre>
 <div class="sourceCode">
-<pre><code><span class='va'>bf_merged</span> <span class='op'>&lt;-</span> <span class='va'>bf_merged</span> <span class='op'>%&gt;%</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>bf_merged</span> <span class='op'>&lt;-</span> <span class='va'>bf_merged</span> <span class='op'>%&gt;%</span>
   <span class='fu'>mutate</span><span class='op'>(</span>MARSTAT <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/pkg/ipumsr/man/lbl_relabel.html'>lbl_relabel</a></span><span class='op'>(</span>
       <span class='va'>MARSTAT</span>,
       <span class='fu'><a href='https://rdrr.io/pkg/ipumsr/man/lbl.html'>lbl</a></span><span class='op'>(</span><span class='fl'>1</span>, <span class='st'>"partnered"</span><span class='op'>)</span> <span class='op'>~</span> <span class='va'>.val</span> <span class='op'>%in%</span> <span class='fl'>21</span><span class='op'>:</span><span class='fl'>22</span>,
@@ -2778,28 +2859,28 @@ $WEALTHQ
 <span class='va'>bf_merged</span> <span class='op'>%&gt;%</span> <span class='fu'>count</span><span class='op'>(</span><span class='va'>MARSTAT</span><span class='op'>)</span>
 </code></pre>
 </div>
-<pre><code># A tibble: 2 x 2
+<pre><code># A tibble: 2 × 2
           MARSTAT     n
-*       &lt;dbl+lbl&gt; &lt;int&gt;
+        &lt;dbl+lbl&gt; &lt;int&gt;
 1 0 [unpartnered]  2227
 2 1 [partnered]    4717</code></pre>
 </div>
 <p>Another reason to consider recoding categorical variables: what if one response option dominates a huge proportion of the responses in your data? Is it worth sacrificing additional <a href="https://en.wikipedia.org/wiki/Degrees_of_freedom_(statistics)">degrees of freedom</a> to accommodate dummy variables that could otherwise be merged together? This is the case with <code>EDUCATTGEN</code>, where over half of the responses are “never attended.” We’ll create a single, simplified binary variable where the responses are “some schooling” or “no schooling.”</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre><code><span class='va'>bf_merged</span> <span class='op'>%&gt;%</span> <span class='fu'>count</span><span class='op'>(</span><span class='va'>EDUCATTGEN</span><span class='op'>)</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>bf_merged</span> <span class='op'>%&gt;%</span> <span class='fu'>count</span><span class='op'>(</span><span class='va'>EDUCATTGEN</span><span class='op'>)</span>
 </code></pre>
 </div>
-<pre><code># A tibble: 5 x 2
+<pre><code># A tibble: 5 × 2
                     EDUCATTGEN     n
-*                    &lt;int+lbl&gt; &lt;int&gt;
+                     &lt;int+lbl&gt; &lt;int&gt;
 1  1 [Never attended]           3605
 2  2 [Primary/Middle school]    1212
 3  3 [Secondary/post-primary]   1893
 4  4 [Tertiary/post-secondary]   231
 5 NA                               3</code></pre>
 <div class="sourceCode">
-<pre><code><span class='va'>bf_merged</span> <span class='op'>&lt;-</span> <span class='va'>bf_merged</span> <span class='op'>%&gt;%</span> 
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>bf_merged</span> <span class='op'>&lt;-</span> <span class='va'>bf_merged</span> <span class='op'>%&gt;%</span> 
   <span class='fu'>mutate</span><span class='op'>(</span>EDUCATTGEN <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/pkg/ipumsr/man/lbl_relabel.html'>lbl_relabel</a></span><span class='op'>(</span>
       <span class='va'>EDUCATTGEN</span>,
       <span class='fu'><a href='https://rdrr.io/pkg/ipumsr/man/lbl.html'>lbl</a></span><span class='op'>(</span><span class='fl'>1</span>, <span class='st'>"some schooling"</span><span class='op'>)</span> <span class='op'>~</span> <span class='va'>.val</span> <span class='op'>%in%</span> <span class='fl'>2</span><span class='op'>:</span><span class='fl'>4</span>,
@@ -2809,9 +2890,9 @@ $WEALTHQ
 <span class='va'>bf_merged</span> <span class='op'>%&gt;%</span> <span class='fu'>count</span><span class='op'>(</span><span class='va'>EDUCATTGEN</span><span class='op'>)</span>
 </code></pre>
 </div>
-<pre><code># A tibble: 3 x 2
+<pre><code># A tibble: 3 × 2
            EDUCATTGEN     n
-*           &lt;dbl+lbl&gt; &lt;int&gt;
+            &lt;dbl+lbl&gt; &lt;int&gt;
 1  0 [no school]       3605
 2  1 [some schooling]  3336
 3 NA                      3</code></pre>
@@ -2819,15 +2900,15 @@ $WEALTHQ
 <p>The last thing we’ll do here is coerce <code>SAMPLE</code> as a factor so that we can control for arbitrary differences caused by selection into the two samples (recall that our dataset contains two samples from Burkina Faso 2017 and 2018). Because the women in each <code>SAMPLE</code> were surveyed in two different years, this essentially operates like a survey-year fixed effect.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre><code><span class='va'>bf_merged</span> <span class='op'>&lt;-</span> <span class='va'>bf_merged</span> <span class='op'>%&gt;%</span> 
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>bf_merged</span> <span class='op'>&lt;-</span> <span class='va'>bf_merged</span> <span class='op'>%&gt;%</span> 
   <span class='fu'>mutate</span><span class='op'>(</span>SAMPLE <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>as.factor</a></span><span class='op'>(</span><span class='va'>SAMPLE</span><span class='op'>)</span><span class='op'>)</span> 
 
 <span class='va'>bf_merged</span> <span class='op'>%&gt;%</span> <span class='fu'>count</span><span class='op'>(</span><span class='va'>SAMPLE</span><span class='op'>)</span>
 </code></pre>
 </div>
-<pre><code># A tibble: 2 x 2
+<pre><code># A tibble: 2 × 2
   SAMPLE     n
-* &lt;fct&gt;  &lt;int&gt;
+  &lt;fct&gt;  &lt;int&gt;
 1 85405   3556
 2 85408   3388</code></pre>
 </div>
@@ -2840,7 +2921,7 @@ Recall that <code>FPCURRUSE</code> is a binary response (“yes” or “no”),
 </aside>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre><code><span class='va'>m1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/glm.html'>glm</a></span><span class='op'>(</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>m1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/glm.html'>glm</a></span><span class='op'>(</span>
   <span class='va'>FPCURRUSE</span> <span class='op'>~</span>
     <span class='va'>AGE</span> <span class='op'>+</span> 
     <span class='va'>MARSTAT</span> <span class='op'>+</span> 
@@ -2854,7 +2935,7 @@ Recall that <code>FPCURRUSE</code> is a binary response (“yes” or “no”),
 <span class='fu'>tidy</span><span class='op'>(</span><span class='va'>m1</span><span class='op'>)</span>
 </code></pre>
 </div>
-<pre><code># A tibble: 10 x 5
+<pre><code># A tibble: 10 × 5
    term                    estimate std.error statistic  p.value
    &lt;chr&gt;                      &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;
  1 (Intercept)              0.0421   0.0260       1.62  1.06e- 1
@@ -2881,7 +2962,7 @@ We’ll use the package <code>svyglm</code> to specify PMA survey design wheneve
 <p>Lumley’s modeling function <code>survey::svyglm</code> is similar to <code>glm</code>, except that it takes a special <code>design</code> argument where <code>glm</code> takes a <code>data</code> argument. We use the function <code>survey::svydesign</code> to specify the data, the cluster ids from <code>EAID</code>, and the sampling strata <code>STRATA</code> (if we were using the sample weights from <code>FQWEIGHT</code>, we could do that here, too):</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre><code><span class='va'>m2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/survey/man/svyglm.html'>svyglm</a></span><span class='op'>(</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>m2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/survey/man/svyglm.html'>svyglm</a></span><span class='op'>(</span>
   <span class='va'>FPCURRUSE</span> <span class='op'>~</span>
     <span class='va'>AGE</span> <span class='op'>+</span> 
     <span class='va'>MARSTAT</span> <span class='op'>+</span> 
@@ -2899,7 +2980,7 @@ We’ll use the package <code>svyglm</code> to specify PMA survey design wheneve
 <span class='fu'>tidy</span><span class='op'>(</span><span class='va'>m2</span><span class='op'>)</span>
 </code></pre>
 </div>
-<pre><code># A tibble: 10 x 5
+<pre><code># A tibble: 10 × 5
    term                    estimate std.error statistic  p.value
    &lt;chr&gt;                      &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;
  1 (Intercept)              0.0421    0.0366      1.15  2.54e- 1
@@ -2916,7 +2997,7 @@ We’ll use the package <code>svyglm</code> to specify PMA survey design wheneve
 <p>To see how this impacts our model estimates, let’s visualize the confidence interval for each coefficient with <a href="https://cran.r-project.org/web/packages/dotwhisker/vignettes/dotwhisker-vignette.html">dotwhisker::dwplot</a>. We’ll use the same function a few times here, and we’ll want to repeat the same visual elements each time, so we’ll just wrap everything together in a custom function we’re calling <code>pma_dwplot()</code>:</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre><code><span class='va'>pma_dwplot</span> <span class='op'>&lt;-</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>...</span><span class='op'>)</span><span class='op'>{</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>pma_dwplot</span> <span class='op'>&lt;-</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>...</span><span class='op'>)</span><span class='op'>{</span>
   <span class='fu'><a href='https://rdrr.io/pkg/dotwhisker/man/dwplot.html'>dwplot</a></span><span class='op'>(</span>
     <span class='fu'>bind_rows</span><span class='op'>(</span><span class='va'>...</span><span class='op'>)</span>,
     dodge_size <span class='op'>=</span> <span class='fl'>0.8</span>,
@@ -2942,7 +3023,7 @@ For our purposes, a “recent stockout” is a stockout of any contraceptive met
 <p>First, we’ll create a binary variable <code>STOCKOUT</code> indicating whether each woman lives in an enumeration area where at least one SDP reported a recent stockout:</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre><code><span class='va'>bf_merged</span> <span class='op'>&lt;-</span> <span class='va'>bf_merged</span> <span class='op'>%&gt;%</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>bf_merged</span> <span class='op'>&lt;-</span> <span class='va'>bf_merged</span> <span class='op'>%&gt;%</span>
   <span class='fu'>mutate</span><span class='op'>(</span>STOCKOUT <span class='op'>=</span> <span class='fu'>case_when</span><span class='op'>(</span>
     <span class='va'>NUM_METHODS_OUT3MO</span> <span class='op'>&gt;</span> <span class='fl'>0</span> <span class='op'>~</span> <span class='fl'>1</span>,
     <span class='va'>NUM_METHODS_OUT3MO</span> <span class='op'>==</span> <span class='fl'>0</span> <span class='op'>~</span> <span class='fl'>0</span>
@@ -2951,9 +3032,9 @@ For our purposes, a “recent stockout” is a stockout of any contraceptive met
 <span class='va'>bf_merged</span> <span class='op'>%&gt;%</span> <span class='fu'>count</span><span class='op'>(</span><span class='va'>STOCKOUT</span><span class='op'>)</span>
 </code></pre>
 </div>
-<pre><code># A tibble: 3 x 2
+<pre><code># A tibble: 3 × 2
   STOCKOUT     n
-*    &lt;dbl&gt; &lt;int&gt;
+     &lt;dbl&gt; &lt;int&gt;
 1        0  4561
 2        1  1725
 3       NA   658</code></pre>
@@ -2961,7 +3042,7 @@ For our purposes, a “recent stockout” is a stockout of any contraceptive met
 <p>Next, we’ll add <code>STOCKOUT</code> to our previous model, along with <code>NUM_METHODS_PROV</code> (the number of methods available from at least one SDP serving the woman’s enumeration area) and <code>N_SDP</code> (the number of sampled SDPs serving the woman’s enumeration area).</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre><code><span class='va'>m3</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/survey/man/svyglm.html'>svyglm</a></span><span class='op'>(</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>m3</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/survey/man/svyglm.html'>svyglm</a></span><span class='op'>(</span>
   <span class='va'>FPCURRUSE</span> <span class='op'>~</span>
     <span class='va'>AGE</span> <span class='op'>+</span> 
     <span class='va'>MARSTAT</span> <span class='op'>+</span> 
@@ -2982,7 +3063,7 @@ For our purposes, a “recent stockout” is a stockout of any contraceptive met
 <span class='fu'>tidy</span><span class='op'>(</span><span class='va'>m3</span><span class='op'>)</span>
 </code></pre>
 </div>
-<pre><code># A tibble: 13 x 5
+<pre><code># A tibble: 13 × 5
    term                     estimate std.error statistic  p.value
    &lt;chr&gt;                       &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;
  1 (Intercept)              0.113      0.105      1.08   2.85e- 1
@@ -3003,7 +3084,7 @@ For our purposes, a “recent stockout” is a stockout of any contraceptive met
 <p>Does the introduction of SDP variables change our estimates for the individual factors we examined previously? A new <code>dwplot</code> seems to show little difference:</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre><code><span class='fu'>pma_dwplot</span><span class='op'>(</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'>pma_dwplot</span><span class='op'>(</span>
   <span class='fu'>tidy</span><span class='op'>(</span><span class='va'>m2</span><span class='op'>)</span> <span class='op'>%&gt;%</span> <span class='fu'>mutate</span><span class='op'>(</span>model <span class='op'>=</span> <span class='st'>"Individual-only"</span><span class='op'>)</span>,
   <span class='fu'>tidy</span><span class='op'>(</span><span class='va'>m3</span><span class='op'>)</span> <span class='op'>%&gt;%</span> <span class='fu'>mutate</span><span class='op'>(</span>model <span class='op'>=</span> <span class='st'>"SDP + Individual"</span><span class='op'>)</span>
 <span class='op'>)</span>
@@ -3015,7 +3096,7 @@ For our purposes, a “recent stockout” is a stockout of any contraceptive met
 <p>Availability of family planning methods (or lack thereof) is not the same as accessibility. The variables we created in our <a href="../2021-02-04-merging-external-spatial-data/">last post</a> using external geospatial data allow us to explore some factors related to <em>accessibility</em>, which is what we’ll add now. We’ll complement these external variables with <code>URBAN</code>, indicating whether the woman lives in an urban area.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre><code><span class='va'>m4</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/survey/man/svyglm.html'>svyglm</a></span><span class='op'>(</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>m4</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/survey/man/svyglm.html'>svyglm</a></span><span class='op'>(</span>
   <span class='va'>FPCURRUSE</span> <span class='op'>~</span>
     <span class='va'>AGE</span> <span class='op'>+</span> 
     <span class='va'>MARSTAT</span> <span class='op'>+</span> 
@@ -3039,7 +3120,7 @@ For our purposes, a “recent stockout” is a stockout of any contraceptive met
 <span class='fu'>tidy</span><span class='op'>(</span><span class='va'>m4</span><span class='op'>)</span> 
 </code></pre>
 </div>
-<pre><code># A tibble: 16 x 5
+<pre><code># A tibble: 16 × 5
    term                       estimate  std.error statistic  p.value
    &lt;chr&gt;                         &lt;dbl&gt;      &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;
  1 (Intercept)              0.0833     0.117         0.712  4.79e- 1
@@ -3059,7 +3140,7 @@ For our purposes, a “recent stockout” is a stockout of any contraceptive met
 15 ROAD_LENGTH              0.00110    0.00144       0.760  4.50e- 1
 16 URBAN                    0.0773     0.0370        2.09   4.03e- 2</code></pre>
 <div class="sourceCode">
-<pre><code><span class='fu'>pma_dwplot</span><span class='op'>(</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'>pma_dwplot</span><span class='op'>(</span>
   <span class='fu'>tidy</span><span class='op'>(</span><span class='va'>m2</span><span class='op'>)</span> <span class='op'>%&gt;%</span> <span class='fu'>mutate</span><span class='op'>(</span>model <span class='op'>=</span> <span class='st'>"Individual-only"</span><span class='op'>)</span>,
   <span class='fu'>tidy</span><span class='op'>(</span><span class='va'>m3</span><span class='op'>)</span> <span class='op'>%&gt;%</span> <span class='fu'>mutate</span><span class='op'>(</span>model <span class='op'>=</span> <span class='st'>"SDP + Individual"</span><span class='op'>)</span>,
   <span class='fu'>tidy</span><span class='op'>(</span><span class='va'>m4</span><span class='op'>)</span> <span class='op'>%&gt;%</span> <span class='fu'>mutate</span><span class='op'>(</span>model <span class='op'>=</span> <span class='st'>"All"</span><span class='op'>)</span>
@@ -3072,7 +3153,7 @@ For our purposes, a “recent stockout” is a stockout of any contraceptive met
 <p>While we’re adding some last touches to make the plot more readable, we’ll also provide a title, clearer variable names on the Y axis, a tighter scale on the X axis, and a caption at the bottom.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre><code><span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>
   <span class='fu'>tidy</span><span class='op'>(</span><span class='va'>m2</span><span class='op'>)</span> <span class='op'>%&gt;%</span> <span class='fu'>mutate</span><span class='op'>(</span>model <span class='op'>=</span> <span class='st'>"Individual-only"</span><span class='op'>)</span>,
   <span class='fu'>tidy</span><span class='op'>(</span><span class='va'>m3</span><span class='op'>)</span> <span class='op'>%&gt;%</span> <span class='fu'>mutate</span><span class='op'>(</span>model <span class='op'>=</span> <span class='st'>"SDP + Individual"</span><span class='op'>)</span>,
   <span class='fu'>tidy</span><span class='op'>(</span><span class='va'>m4</span><span class='op'>)</span> <span class='op'>%&gt;%</span> <span class='fu'>mutate</span><span class='op'>(</span>model <span class='op'>=</span> <span class='st'>"All"</span><span class='op'>)</span>
@@ -3170,7 +3251,7 @@ Lumley, Thomas. 2011. <em>Complex Surveys: A Guide to Analysis Using <span>R</sp
   </p>
   <script id="dsq-count-scr" src="https://pma-data-hub.disqus.com/count.js" async></script>
   <div id="disqus_thread" class="hidden"></div>
-  <script>
+  <script type="text/javascript" cookie-consent="functionality">
 var disqus_config = function () {
   this.page.url = 'https://ipums.github.io/pma-data-hub/posts/2021-02-19-analyzing-the-individual-in-context/';
   this.page.identifier = 'posts/2021-02-19-analyzing-the-individual-in-context/';
@@ -3200,13 +3281,15 @@ var disqus_config = function () {
   <p>If you see mistakes or want to suggest changes, please <a href="https://github.com/ipums/pma-data-hub/issues/new">create an issue</a> on the source repository.</p>
 </div>
 <!--/radix_placeholder_appendices-->
-<!--radix_placeholder_navigation_after_body-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/REC-html40/loose.dtd">
+<!--radix_placeholder_navigation_after_body--><html><body>
 <div class="distill-site-nav distill-site-footer">
-  <p>Developed by <a href="https://www.ipums.org">IPUMS</a> at the University of Minnesota</p>
-  <p>Licensed under the <a href="https://www.mozilla.org/en-US/MPL/2.0/">Mozilla Public License Version 2.0</a></p>
-  <p>Site built with <a href="https://rstudio.github.io/distill/">Distill for R Markdown</a></p>
+<p>Developed by <a href="https://www.ipums.org">IPUMS</a> at the University of Minnesota</p>
+<p>Licensed under the <a href="https://www.mozilla.org/en-US/MPL/2.0/">Mozilla Public License Version 2.0</a></p>
+<p>Site built with <a href="https://rstudio.github.io/distill/">Distill for R Markdown</a></p>
 </div>
 <!--/radix_placeholder_navigation_after_body-->
+</body></html>
 
 
 </body>

@@ -56,7 +56,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 }
 code span.al { color: #ad0000; } /* Alert */
 code span.an { color: #5e5e5e; } /* Annotation */
-code span.at { color: #20794d; } /* Attribute */
+code span.at { } /* Attribute */
 code span.bn { color: #ad0000; } /* BaseN */
 code span.bu { } /* BuiltIn */
 code span.cf { color: #007ba5; } /* ControlFlow */
@@ -77,13 +77,14 @@ code span.kw { color: #007ba5; } /* Keyword */
 code span.op { color: #5e5e5e; } /* Operator */
 code span.ot { color: #007ba5; } /* Other */
 code span.pp { color: #ad0000; } /* Preprocessor */
-code span.sc { color: #20794d; } /* SpecialChar */
+code span.sc { color: #5e5e5e; } /* SpecialChar */
 code span.ss { color: #20794d; } /* SpecialString */
 code span.st { color: #20794d; } /* String */
 code span.va { color: #111111; } /* Variable */
 code span.vs { color: #20794d; } /* VerbatimString */
 code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 </style>
+
 
   <!--radix_placeholder_meta_tags-->
 <title>Data Analysis Hub: Update: Matching Records in 2018 Nutrition Surveys</title>
@@ -466,8 +467,15 @@ d-title {
   top: 0;
 }
 
+/* adjust viewport for navbar height */
+/* helps vertically center bootstrap (non-distill) content */
+.min-vh-100 {
+  min-height: calc(100vh - 100px) !important;
+}
+
 </style>
 
+<script src="../../site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <link href="../../site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet"/>
 <link href="../../site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet"/>
 <script src="../../site_libs/headroom-0.9.4/headroom.min.js"></script>
@@ -575,19 +583,21 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
           var results = fuse.search(query, searchOptions);
           callback(results
             .map(function(result) { return result.item; })
-            .filter(function(item) { return !!item.description; })
           );
         },
         templates: {
           suggestion: function(suggestion) {
+            var img = suggestion.preview && Object.keys(suggestion.preview).length > 0
+              ? `<img src="${offsetURL(suggestion.preview)}"</img>`
+              : '';
             var html = `
               <div class="search-item">
                 <h3>${suggestion.title}</h3>
                 <div class="search-item-description">
-                  ${suggestion.description}
+                  ${suggestion.description || ''}
                 </div>
                 <div class="search-item-preview">
-                  <img src="${suggestion.preview ? offsetURL(suggestion.preview) : ''}"</img>
+                  ${img}
                 </div>
               </div>
             `;
@@ -610,6 +620,10 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 
 <style type="text/css">
+
+.nav-search {
+  font-size: x-small;
+}
 
 /* Algolioa Autocomplete */
 
@@ -685,6 +699,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 }
 
 .algolia-autocomplete .aa-dropdown-menu .aa-suggestion .search-item h3 {
+  font-size: 1rem;
   margin-block-start: 0;
   margin-block-end: 5px;
 }
@@ -912,6 +927,11 @@ d-article pre a:hover {
   text-decoration: underline;
 }
 
+d-article details {
+  grid-column: text;
+  margin-bottom: 0.8em;
+}
+
 @media(min-width: 768px) {
 
 d-article pre,
@@ -1066,6 +1086,17 @@ d-article .citation {
 
 div.hanging-indent{
   margin-left: 1em; text-indent: -1em;
+}
+
+/* Citation hover box */
+
+.tippy-box[data-theme~=light-border] {
+  background-color: rgba(250, 250, 250, 0.95);
+}
+
+.tippy-content > p {
+  margin-bottom: 0;
+  padding: 2px;
 }
 
 
@@ -1733,7 +1764,7 @@ function init_distill() {
     var layout = $(this).attr('data-layout');
 
     // apply layout to markdown level block elements
-    var elements = $(this).children().not('div.sourceCode, pre, script');
+    var elements = $(this).children().not('details, div.sourceCode, pre, script');
     elements.each(function(i, el) {
       var layout_div = $('<div class="' + layout + '"></div>');
       if (layout_div.hasClass('shaded')) {
@@ -1848,6 +1879,23 @@ function init_distill() {
     // move appendix-bottom entries to the bottom
     $('.appendix-bottom').appendTo('d-appendix').children().unwrap();
     $('.appendix-bottom').remove();
+
+    // hoverable references
+    $('span.citation[data-cites]').each(function() {
+      var refs = $(this).attr('data-cites').split(" ");
+      var refHtml = refs.map(function(ref) {
+        return "<p>" + $('#ref-' + ref).html() + "</p>";
+      }).join("\n");
+      window.tippy(this, {
+        allowHTML: true,
+        content: refHtml,
+        maxWidth: 500,
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'light-border',
+        placement: 'bottom-start'
+      });
+    });
 
     // clear polling timer
     clearInterval(tid);
@@ -2332,7 +2380,7 @@ h1, h2, h3, h4, h5, h6,
 
 d-article div.sourceCode code,
 d-article pre code {
-	font-family: var(--mono-font), var(--mono-default);
+  font-family: var(--mono-font), var(--mono-default);
 }
 
 
@@ -2357,76 +2405,78 @@ d-article h6 {
 }
 
 /*-- BODY --*/
-/* only text inside of <p> tags */
-d-article > p {
+d-article > p,  /* only text inside of <p> tags */
+d-article > ul, /* lists */
+d-article > ol {
   color: var(--body-color, rgba(0, 0, 0, 0.8));
   font-size: var(--body-size, 1.06rem);
 }
 
+
 /*-- CODE --*/
 d-article div.sourceCode code,
 d-article pre code {
-	font-size: var(--code-size, 14px);
+  font-size: var(--code-size, 14px);
 }
 
 /*-- ASIDE --*/
 d-article aside {
-	font-size: var(--aside-size, 12px);
-	color: var(--aside-color, rgba(0, 0, 0, 0.6));
+  font-size: var(--aside-size, 12px);
+  color: var(--aside-color, rgba(0, 0, 0, 0.6));
 }
 
 /*-- FIGURE CAPTIONS --*/
 figure .caption,
 figure figcaption,
 .figure .caption {
-	font-size: var(--fig-cap-size, 13px);
-	color: var(--fig-cap-color, rgba(0, 0, 0, 0.6));
+  font-size: var(--fig-cap-size, 13px);
+  color: var(--fig-cap-color, rgba(0, 0, 0, 0.6));
 }
 
 /*-- METADATA --*/
 d-byline h3 {
-	font-size: var(--heading-size, 0.6rem);
-	color: var(--heading-color, rgba(0, 0, 0, 0.5));
+  font-size: var(--heading-size, 0.6rem);
+  color: var(--heading-color, rgba(0, 0, 0, 0.5));
 }
 
 d-byline {
-	font-size: var(--body-size, 0.8rem);
-	color: var(--body-color, rgba(0, 0, 0, 0.8));
+  font-size: var(--body-size, 0.8rem);
+  color: var(--body-color, rgba(0, 0, 0, 0.8));
 }
 
 d-byline a,
 d-article d-byline a {
-	color: var(--body-color, rgba(0, 0, 0, 0.8));
+  color: var(--body-color, rgba(0, 0, 0, 0.8));
 }
 
 /*-- TABLE OF CONTENTS --*/
 .d-contents nav h3 {
-	font-size: var(--heading-size, 18px);
+  font-size: var(--heading-size, 18px);
 }
 
 .d-contents nav a {
-	font-size: var(--contents-size, 13px);
+  font-size: var(--contents-size, 13px);
 }
 
 /*-- APPENDIX --*/
 d-appendix h3 {
   font-size: var(--heading-size, 15px);
-	color: var(--heading-color, rgba(0, 0, 0, 0.65));
+  color: var(--heading-color, rgba(0, 0, 0, 0.65));
 }
 
 d-appendix {
   font-size: var(--text-size, 0.8em);
-	color: var(--text-color, rgba(0, 0, 0, 0.5));
+  color: var(--text-color, rgba(0, 0, 0, 0.5));
 }
 
 d-appendix d-footnote-list a.footnote-backlink {
-	color: var(--text-color, rgba(0, 0, 0, 0.5));
+  color: var(--text-color, rgba(0, 0, 0, 0.5));
 }
 
 /*-- WEBSITE HEADER + FOOTER --*/
 .distill-site-header .title {
-	font-size: var(--title-size, 18px);
-	font-family: var(--navbar-font), var(--heading-default);
+  font-size: var(--title-size, 18px);
+  font-family: var(--navbar-font), var(--heading-default);
 }
 
 .distill-site-header a,
@@ -2434,37 +2484,47 @@ d-appendix d-footnote-list a.footnote-backlink {
   font-family: var(--navbar-font), var(--heading-default);
 }
 
-.distill-site-header a:hover {
-	color: var(--hover-color, white);
+.nav-dropdown .nav-dropbtn {
+  color: var(--text-color, rgba(255, 255, 255, 0.8));
+  font-size: var(--text-size, 15px);
+}
+
+.distill-site-header a:hover,
+.nav-dropdown:hover .nav-dropbtn {
+  color: var(--hover-color, white);
 }
 
 .distill-site-header {
-	font-size: var(--text-size, 15px);
-	color: var(--text-color, rgba(255, 255, 255, 0.8));
-	background-color: var(--bkgd-color, #0F2E3D);
+  font-size: var(--text-size, 15px);
+  color: var(--text-color, rgba(255, 255, 255, 0.8));
+  background-color: var(--bkgd-color, #0F2E3D);
 }
 
 .distill-site-footer {
-	font-size: var(--text-size, 15px);
-	color: var(--text-color, rgba(255, 255, 255, 0.8));
-	background-color: var(--bkgd-color, #0F2E3D);
+  font-size: var(--text-size, 15px);
+  color: var(--text-color, rgba(255, 255, 255, 0.8));
+  background-color: var(--bkgd-color, #0F2E3D);
 }
 
 .distill-site-footer a:hover {
-	color: var(--hover-color, white);
+  color: var(--hover-color, white);
 }</style>
 <!--/radix_placeholder_distill-->
-  <script src="../../site_libs/header-attrs-2.9/header-attrs.js"></script>
+  <script src="../../site_libs/header-attrs-2.11/header-attrs.js"></script>
   <script src="../../site_libs/kePrint-0.0.1/kePrint.js"></script>
   <link href="../../site_libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
-  <script src="../../site_libs/jquery-1.11.3/jquery.min.js"></script>
+  <script src="../../site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+  <script src="../../site_libs/popper-2.6.0/popper.min.js"></script>
+  <link href="../../site_libs/tippy-6.2.7/tippy.css" rel="stylesheet" />
+  <link href="../../site_libs/tippy-6.2.7/tippy-light-border.css" rel="stylesheet" />
+  <script src="../../site_libs/tippy-6.2.7/tippy.umd.min.js"></script>
   <script src="../../site_libs/anchor-4.2.2/anchor.min.js"></script>
   <script src="../../site_libs/bowser-1.9.3/bowser.min.js"></script>
   <script src="../../site_libs/webcomponents-2.0.0/webcomponents.js"></script>
   <script src="../../site_libs/distill-2.2.21/template.v2.js"></script>
   <!--radix_placeholder_site_in_header-->
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-191039907-2"></script>
-<script>
+<script type="text/javascript" cookie-consent="tracking" async src="https://www.googletagmanager.com/gtag/js?id=UA-191039907-2"></script>
+<script type="text/javascript" cookie-consent="tracking">
 window.dataLayer = window.dataLayer || [];
 function gtag(){dataLayer.push(arguments);}
 gtag('js', new Date());
@@ -2480,7 +2540,7 @@ gtag('config', 'UA-191039907-2');
 <!--radix_placeholder_front_matter-->
 
 <script id="distill-front-matter" type="text/json">
-{"title":"Update: Matching Records in 2018 Nutrition Surveys","description":"It's now much easier to perform row-wise operations with pre-grouped data!","authors":[{"author":"Matt Gunther","authorURL":"#","affiliation":"IPUMS PMA Senior Data Analyst","affiliationURL":"#","orcidID":""}],"publishedDate":"2021-09-15T00:00:00.000+00:00","citationText":"Gunther, 2021"}
+{"title":"Update: Matching Records in 2018 Nutrition Surveys","description":"It's now much easier to perform row-wise operations with pre-grouped data!","authors":[{"author":"Matt Gunther","authorURL":"#","affiliation":"IPUMS PMA Senior Data Analyst","affiliationURL":"#","orcidID":""}],"publishedDate":"2021-09-15T00:00:00.000-05:00","citationText":"Gunther, 2021"}
 </script>
 
 <!--/radix_placeholder_front_matter-->
@@ -2597,7 +2657,7 @@ Community
 <p>To keep things simple, we’ll use a data extract from Burkina Faso 2018 that contains <em>only</em> household members who participated in either the <strong>child nutrition survey</strong> or the <strong>female nutrition survey</strong> (you can request a file with all household members if you select “All Cases” at checkout). We’ll use the <a href="https://tidyverse.tidyverse.org/">tidyverse</a> and <a href="http://tech.popdata.org/ipumsr/">ipumsr</a> packages to load our data into R.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre><code><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://tidyverse.tidyverse.org'>tidyverse</a></span><span class='op'>)</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://tidyverse.tidyverse.org'>tidyverse</a></span><span class='op'>)</span>
 <span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://www.ipums.org'>ipumsr</a></span><span class='op'>)</span>
 
 <span class='va'>dat</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/ipumsr/man/read_ipums_micro.html'>read_ipums_micro</a></span><span class='op'>(</span>
@@ -2618,7 +2678,7 @@ Community
 <p>For the purposes of this post, we’ll be working with only a small subset of variables (feel free to include any number of variables when you create your own extract). Also: in order to make our coding examples a bit more readable, we’ll take an extra step of reassigning shorter identification numbers to each household and person - this is <strong>not recommended practice in general</strong> and we do so only to reduce the number of characters in <a href="https://pma.ipums.org/pma-action/variables/HHID">HHID</a> (20) and <a href="https://pma.ipums.org/pma-action/variables/PERSONID">PERSONID</a> (22) to 4.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre><code><span class='va'>dat</span> <span class='op'>&lt;-</span> <span class='va'>dat</span> <span class='op'>%&gt;%</span> 
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>dat</span> <span class='op'>&lt;-</span> <span class='va'>dat</span> <span class='op'>%&gt;%</span> 
   <span class='fu'>select</span><span class='op'>(</span>
     <span class='va'>HHID</span>,
     <span class='va'>ELIGTYPE</span>,
@@ -2876,7 +2936,7 @@ July
 <p>Let’s focus on the first step for a moment. A simple way to minimize the number of records involved with the search for each child’s mother is to <a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a> <code>HHID</code>, and then create a unique subset of the larger dataset for each child. After we’ve <strong>grouped</strong> the data, we’ll use <a href="https://dplyr.tidyverse.org/reference/context.html">cur_data</a> to return the <strong>current data</strong> for each group. For convenience, you might save this miniature dataset as a column in <code>dat</code> - we’ll call ours <code>HH_DATA</code>:</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre><code><span class='va'>dat</span> <span class='op'>&lt;-</span> <span class='va'>dat</span> <span class='op'>%&gt;%</span> 
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>dat</span> <span class='op'>&lt;-</span> <span class='va'>dat</span> <span class='op'>%&gt;%</span> 
   <span class='fu'>group_by</span><span class='op'>(</span><span class='va'>HHID</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
   <span class='fu'>mutate</span><span class='op'>(</span>HH_DATA <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='fu'>cur_data</span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
   <span class='fu'>ungroup</span><span class='op'>(</span><span class='op'>)</span>
@@ -2893,34 +2953,34 @@ For <strong>grouped</strong> data, <code>cur_data()</code> returns a dataset wit
 </ul>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre><code><span class='va'>dat</span> <span class='op'>%&gt;%</span> <span class='fu'>select</span><span class='op'>(</span><span class='va'>PERSONID</span>, <span class='va'>HHID</span>, <span class='va'>HH_DATA</span><span class='op'>)</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>dat</span> <span class='op'>%&gt;%</span> <span class='fu'>select</span><span class='op'>(</span><span class='va'>PERSONID</span>, <span class='va'>HHID</span>, <span class='va'>HH_DATA</span><span class='op'>)</span>
 </code></pre>
 </div>
-<pre><code># A tibble: 5,267 x 3
-   PERSONID  HHID HH_DATA               
-      &lt;int&gt; &lt;int&gt; &lt;list&gt;                
- 1        1     1 &lt;tibble[,10] [3 × 10]&gt;
- 2        2     1 &lt;tibble[,10] [3 × 10]&gt;
- 3        3     1 &lt;tibble[,10] [3 × 10]&gt;
- 4        4     2 &lt;tibble[,10] [2 × 10]&gt;
- 5        5     2 &lt;tibble[,10] [2 × 10]&gt;
- 6        6     3 &lt;tibble[,10] [2 × 10]&gt;
- 7        7     3 &lt;tibble[,10] [2 × 10]&gt;
- 8        8     4 &lt;tibble[,10] [1 × 10]&gt;
- 9        9     5 &lt;tibble[,10] [5 × 10]&gt;
-10       10     5 &lt;tibble[,10] [5 × 10]&gt;
+<pre><code># A tibble: 5,267 × 3
+   PERSONID  HHID HH_DATA          
+      &lt;int&gt; &lt;int&gt; &lt;list&gt;           
+ 1        1     1 &lt;tibble [3 × 10]&gt;
+ 2        2     1 &lt;tibble [3 × 10]&gt;
+ 3        3     1 &lt;tibble [3 × 10]&gt;
+ 4        4     2 &lt;tibble [2 × 10]&gt;
+ 5        5     2 &lt;tibble [2 × 10]&gt;
+ 6        6     3 &lt;tibble [2 × 10]&gt;
+ 7        7     3 &lt;tibble [2 × 10]&gt;
+ 8        8     4 &lt;tibble [1 × 10]&gt;
+ 9        9     5 &lt;tibble [5 × 10]&gt;
+10       10     5 &lt;tibble [5 × 10]&gt;
 # … with 5,257 more rows</code></pre>
 </div>
 <p>Let’s <a href="https://dplyr.tidyverse.org/reference/pull.html">pull</a> <code>HH_DATA</code> for the first four individuals in <code>dat</code> (essentially printing the contents of the list):</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre><code><span class='va'>dat</span> <span class='op'>%&gt;%</span> 
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>dat</span> <span class='op'>%&gt;%</span> 
   <span class='fu'>slice</span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>4</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
   <span class='fu'>pull</span><span class='op'>(</span><span class='va'>HH_DATA</span><span class='op'>)</span>
 </code></pre>
 </div>
 <pre><code>[[1]]
-# A tibble: 3 x 10
+# A tibble: 3 × 10
   PERSONID  ELIGTYPE AGEHQ RELATEKID KIDBIRTHYR KIDBIRTHMO LASTBIRTHYR
      &lt;int&gt; &lt;int+lbl&gt; &lt;int&gt; &lt;int+lbl&gt;      &lt;dbl&gt;  &lt;int+lbl&gt;   &lt;int+lbl&gt;
 1        1 14 [Aged…     4 1 [Mothe…       2014  6 [June]  9999 [NIU …
@@ -2930,7 +2990,7 @@ For <strong>grouped</strong> data, <code>cur_data()</code> returns a dataset wit
 #   KIDARMCIRCVAL &lt;dbl+lbl&gt;, RPANCPREGMO &lt;int+lbl&gt;
 
 [[2]]
-# A tibble: 3 x 10
+# A tibble: 3 × 10
   PERSONID  ELIGTYPE AGEHQ RELATEKID KIDBIRTHYR KIDBIRTHMO LASTBIRTHYR
      &lt;int&gt; &lt;int+lbl&gt; &lt;int&gt; &lt;int+lbl&gt;      &lt;dbl&gt;  &lt;int+lbl&gt;   &lt;int+lbl&gt;
 1        1 14 [Aged…     4 1 [Mothe…       2014  6 [June]  9999 [NIU …
@@ -2940,7 +3000,7 @@ For <strong>grouped</strong> data, <code>cur_data()</code> returns a dataset wit
 #   KIDARMCIRCVAL &lt;dbl+lbl&gt;, RPANCPREGMO &lt;int+lbl&gt;
 
 [[3]]
-# A tibble: 3 x 10
+# A tibble: 3 × 10
   PERSONID  ELIGTYPE AGEHQ RELATEKID KIDBIRTHYR KIDBIRTHMO LASTBIRTHYR
      &lt;int&gt; &lt;int+lbl&gt; &lt;int&gt; &lt;int+lbl&gt;      &lt;dbl&gt;  &lt;int+lbl&gt;   &lt;int+lbl&gt;
 1        1 14 [Aged…     4 1 [Mothe…       2014  6 [June]  9999 [NIU …
@@ -2950,7 +3010,7 @@ For <strong>grouped</strong> data, <code>cur_data()</code> returns a dataset wit
 #   KIDARMCIRCVAL &lt;dbl+lbl&gt;, RPANCPREGMO &lt;int+lbl&gt;
 
 [[4]]
-# A tibble: 2 x 10
+# A tibble: 2 × 10
   PERSONID  ELIGTYPE AGEHQ RELATEKID KIDBIRTHYR KIDBIRTHMO LASTBIRTHYR
      &lt;int&gt; &lt;int+lbl&gt; &lt;int&gt; &lt;int+lbl&gt;      &lt;dbl&gt;  &lt;int+lbl&gt;   &lt;int+lbl&gt;
 1        4 14 [Aged…     3  1 [Moth…       2014  9 [Septe… 9999 [NIU …
@@ -2962,13 +3022,13 @@ For <strong>grouped</strong> data, <code>cur_data()</code> returns a dataset wit
 <p>For our purposes, it’s perfectly fine to leave the household datasets in a list. Once we define a search function to find each child’s mother, we’ll simply apply it to each row of <code>HH_DATA</code>. For example, suppose we just wanted to find the age of the oldest person in each household. We would use <a href="https://dplyr.tidyverse.org/reference/rowwise.html">rowwise</a> to iterate over each row in <code>dat</code>, looking for the maximum value of <code>AGEHQ</code> in the <code>HH_DATA</code> table stored in each row.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre><code><span class='va'>dat</span> <span class='op'>%&gt;%</span> 
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>dat</span> <span class='op'>%&gt;%</span> 
   <span class='fu'>rowwise</span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
   <span class='fu'>mutate</span><span class='op'>(</span>HH_AGE_OLDEST <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Extremes.html'>max</a></span><span class='op'>(</span><span class='va'>HH_DATA</span><span class='op'>$</span><span class='va'>AGEHQ</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
   <span class='fu'>select</span><span class='op'>(</span><span class='va'>PERSONID</span>, <span class='va'>HHID</span>, <span class='va'>AGEHQ</span>, <span class='va'>HH_AGE_OLDEST</span><span class='op'>)</span>
 </code></pre>
 </div>
-<pre><code># A tibble: 5,267 x 4
+<pre><code># A tibble: 5,267 × 4
 # Rowwise: 
    PERSONID  HHID     AGEHQ HH_AGE_OLDEST
       &lt;int&gt; &lt;int&gt; &lt;int+lbl&gt;     &lt;int+lbl&gt;
@@ -2990,10 +3050,10 @@ For <strong>grouped</strong> data, <code>cur_data()</code> returns a dataset wit
 <p>To save time, we’ll only perform our search if <code>ELIGTYPE</code> shows that the current row contains data for a sampled child. In other words, the value for <code>ELIGTYPE</code> should be less than 20.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre><code><span class='va'>dat</span> <span class='op'>%&gt;%</span> <span class='fu'>count</span><span class='op'>(</span><span class='va'>ELIGTYPE</span><span class='op'>)</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>dat</span> <span class='op'>%&gt;%</span> <span class='fu'>count</span><span class='op'>(</span><span class='va'>ELIGTYPE</span><span class='op'>)</span>
 </code></pre>
 </div>
-<pre><code># A tibble: 3 x 2
+<pre><code># A tibble: 3 × 2
                              ELIGTYPE     n
                             &lt;int+lbl&gt; &lt;int&gt;
 1 11 [Infant under age 2 (INF)]        1194
@@ -3003,12 +3063,12 @@ For <strong>grouped</strong> data, <code>cur_data()</code> returns a dataset wit
 <p>The <a href="https://dplyr.tidyverse.org/reference/case_when.html">case_when</a> function makes this job simple: we’ll explicitly define a function for the “case when” <code>ELIGTYPE &lt; 20</code>, but we’ll <em>not</em> specify what to in the “case when” <code>ELIGTYPE == 20</code>. A nice feature of <code>case_when</code> is that it automatically returns the value <code>NA</code> for any cases that are not handled explicitly:</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre><code><span class='va'>dat</span> <span class='op'>%&gt;%</span> 
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>dat</span> <span class='op'>%&gt;%</span> 
   <span class='fu'>count</span><span class='op'>(</span><span class='va'>ELIGTYPE</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
   <span class='fu'>mutate</span><span class='op'>(</span>EXAMPLE <span class='op'>=</span> <span class='fu'>case_when</span><span class='op'>(</span><span class='va'>ELIGTYPE</span> <span class='op'>&lt;</span> <span class='fl'>20</span> <span class='op'>~</span> <span class='cn'>TRUE</span><span class='op'>)</span><span class='op'>)</span>
 </code></pre>
 </div>
-<pre><code># A tibble: 3 x 3
+<pre><code># A tibble: 3 × 3
                              ELIGTYPE     n EXAMPLE
                             &lt;int+lbl&gt; &lt;int&gt; &lt;lgl&gt;  
 1 11 [Infant under age 2 (INF)]        1194 TRUE   
@@ -3018,7 +3078,7 @@ For <strong>grouped</strong> data, <code>cur_data()</code> returns a dataset wit
 <p>As we’ve seen, one way to identify the likely mother for each child is to match the mother’s <code>LASTBIRTHMO</code> and <code>LASTBIRTHYR</code> to the child’s <code>KIDBIRTHMO</code> and <code>KIDBIRTHYR</code>. <em>If there is only one match</em> in the household, we’ll return the mother’s <code>PERSONID</code> from <code>HH_DATA</code> as a new column <code>MOMID</code>. On the other hand, <em>if multiple women could be the mother</em> or if <em>no match could be found</em>, we’ll return the value <code>NA</code>.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre><code><span class='va'>dat</span> <span class='op'>&lt;-</span> <span class='va'>dat</span> <span class='op'>%&gt;%</span> 
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>dat</span> <span class='op'>&lt;-</span> <span class='va'>dat</span> <span class='op'>%&gt;%</span> 
   <span class='fu'>rowwise</span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
   <span class='fu'>mutate</span><span class='op'>(</span>MOMID <span class='op'>=</span> <span class='fu'>case_when</span><span class='op'>(</span><span class='va'>ELIGTYPE</span> <span class='op'>&lt;</span> <span class='fl'>20</span> <span class='op'>~</span> <span class='op'>{</span>
     <span class='co'># re-name these in order to avoid confusion with the columns in HH_DATA:</span>
@@ -3285,7 +3345,7 @@ July
 <p>But how many children were matched to a mother, overall? Remember that a slight majority of sampled children (approximately 55%) live in households where no women were sampled for the <strong>female nutrition survey</strong>. We’ll flag the rest with an indicator <code>WOMEN_IN_HH</code>, then test whether each child was <code>LINKED</code> with a mother:</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre><code><span class='va'>dat</span> <span class='op'>%&gt;%</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>dat</span> <span class='op'>%&gt;%</span>
   <span class='fu'>group_by</span><span class='op'>(</span><span class='va'>HHID</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
   <span class='fu'>mutate</span><span class='op'>(</span>WOMEN_IN_HH <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/any.html'>any</a></span><span class='op'>(</span><span class='va'>ELIGTYPE</span> <span class='op'>==</span> <span class='fl'>20</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
   <span class='fu'><a href='https://rdrr.io/r/stats/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>ELIGTYPE</span> <span class='op'>&lt;</span> <span class='fl'>20</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
@@ -3294,7 +3354,7 @@ July
   <span class='fu'>mutate</span><span class='op'>(</span>pct <span class='op'>=</span> <span class='fl'>100</span><span class='op'>*</span><span class='fu'><a href='https://rdrr.io/r/base/proportions.html'>prop.table</a></span><span class='op'>(</span><span class='va'>n</span><span class='op'>)</span><span class='op'>)</span>
 </code></pre>
 </div>
-<pre><code># A tibble: 3 x 4
+<pre><code># A tibble: 3 × 4
   WOMEN_IN_HH LINKED     n   pct
   &lt;lgl&gt;       &lt;lgl&gt;  &lt;int&gt; &lt;dbl&gt;
 1 FALSE       FALSE   1579  55.3
@@ -3307,10 +3367,10 @@ July
 <p>In our first search, our use of <code>LASTBIRTHMO</code> and <code>LASTBIRTHYR</code> ensured that only mother’s <em>most recent child</em> could be linked to her record. It’s possible to expand these criteria in certain circumstances using <a href="https://pma.ipums.org/pma-action/variables/RELATEKID">RELATEKID</a>, which describes the relationship between each child and the person who provided responses to the interviewer on their behalf.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre><code><span class='va'>dat</span> <span class='op'>%&gt;%</span> <span class='fu'>count</span><span class='op'>(</span><span class='va'>RELATEKID</span><span class='op'>)</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>dat</span> <span class='op'>%&gt;%</span> <span class='fu'>count</span><span class='op'>(</span><span class='va'>RELATEKID</span><span class='op'>)</span>
 </code></pre>
 </div>
-<pre><code># A tibble: 7 x 2
+<pre><code># A tibble: 7 × 2
                    RELATEKID     n
                    &lt;int+lbl&gt; &lt;int&gt;
 1  1 [Mother]                 2646
@@ -3465,7 +3525,7 @@ May
 <p>Let’s implement these criteria in a new search, creating <code>MOMID2</code>.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre><code><span class='va'>dat</span> <span class='op'>&lt;-</span> <span class='va'>dat</span> <span class='op'>%&gt;%</span> 
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>dat</span> <span class='op'>&lt;-</span> <span class='va'>dat</span> <span class='op'>%&gt;%</span> 
   <span class='fu'>rowwise</span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
   <span class='fu'>mutate</span><span class='op'>(</span>MOMID2 <span class='op'>=</span> <span class='fu'>case_when</span><span class='op'>(</span><span class='va'>ELIGTYPE</span> <span class='op'>&lt;</span> <span class='fl'>20</span> <span class='op'>~</span> <span class='op'>{</span>
     <span class='co'># This is the same as above: if we find a match, we'll call it `mom`</span>
@@ -3645,7 +3705,7 @@ May
 <p>How much does <code>MOMID2</code> improve on the results from <code>MOMID</code>?</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre><code><span class='va'>dat</span> <span class='op'>%&gt;%</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>dat</span> <span class='op'>%&gt;%</span>
   <span class='fu'>group_by</span><span class='op'>(</span><span class='va'>HHID</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
   <span class='fu'>mutate</span><span class='op'>(</span>WOMEN_IN_HH <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/any.html'>any</a></span><span class='op'>(</span><span class='va'>ELIGTYPE</span> <span class='op'>==</span> <span class='fl'>20</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
   <span class='fu'><a href='https://rdrr.io/r/stats/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>ELIGTYPE</span> <span class='op'>&lt;</span> <span class='fl'>20</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
@@ -3654,7 +3714,7 @@ May
   <span class='fu'>mutate</span><span class='op'>(</span>pct <span class='op'>=</span> <span class='fl'>100</span><span class='op'>*</span><span class='fu'><a href='https://rdrr.io/r/base/proportions.html'>prop.table</a></span><span class='op'>(</span><span class='va'>n</span><span class='op'>)</span><span class='op'>)</span>
 </code></pre>
 </div>
-<pre><code># A tibble: 4 x 5
+<pre><code># A tibble: 4 × 5
   WOMEN_IN_HH LINKED1 LINKED2     n   pct
   &lt;lgl&gt;       &lt;lgl&gt;   &lt;lgl&gt;   &lt;int&gt; &lt;dbl&gt;
 1 FALSE       FALSE   FALSE    1579 55.3 
@@ -3839,7 +3899,7 @@ NA
   </p>
   <script id="dsq-count-scr" src="https://pma-data-hub.disqus.com/count.js" async></script>
   <div id="disqus_thread" class="hidden"></div>
-  <script>
+  <script type="text/javascript" cookie-consent="functionality">
 var disqus_config = function () {
   this.page.url = 'https://ipums.github.io/pma-data-hub/posts/2021-09-15-nutrition-linking/';
   this.page.identifier = 'posts/2021-09-15-nutrition-linking/';
@@ -3867,13 +3927,15 @@ var disqus_config = function () {
   <p>If you see mistakes or want to suggest changes, please <a href="https://github.com/ipums/pma-data-hub/issues/new">create an issue</a> on the source repository.</p>
 </div>
 <!--/radix_placeholder_appendices-->
-<!--radix_placeholder_navigation_after_body-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/REC-html40/loose.dtd">
+<!--radix_placeholder_navigation_after_body--><html><body>
 <div class="distill-site-nav distill-site-footer">
-  <p>Developed by <a href="https://www.ipums.org">IPUMS</a> at the University of Minnesota</p>
-  <p>Licensed under the <a href="https://www.mozilla.org/en-US/MPL/2.0/">Mozilla Public License Version 2.0</a></p>
-  <p>Site built with <a href="https://rstudio.github.io/distill/">Distill for R Markdown</a></p>
+<p>Developed by <a href="https://www.ipums.org">IPUMS</a> at the University of Minnesota</p>
+<p>Licensed under the <a href="https://www.mozilla.org/en-US/MPL/2.0/">Mozilla Public License Version 2.0</a></p>
+<p>Site built with <a href="https://rstudio.github.io/distill/">Distill for R Markdown</a></p>
 </div>
 <!--/radix_placeholder_navigation_after_body-->
+</body></html>
 
 
 </body>

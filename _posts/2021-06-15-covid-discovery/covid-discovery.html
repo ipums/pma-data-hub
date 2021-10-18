@@ -56,7 +56,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 }
 code span.al { color: #ad0000; } /* Alert */
 code span.an { color: #5e5e5e; } /* Annotation */
-code span.at { color: #20794d; } /* Attribute */
+code span.at { } /* Attribute */
 code span.bn { color: #ad0000; } /* BaseN */
 code span.bu { } /* BuiltIn */
 code span.cf { color: #007ba5; } /* ControlFlow */
@@ -77,12 +77,34 @@ code span.kw { color: #007ba5; } /* Keyword */
 code span.op { color: #5e5e5e; } /* Operator */
 code span.ot { color: #007ba5; } /* Other */
 code span.pp { color: #ad0000; } /* Preprocessor */
-code span.sc { color: #20794d; } /* SpecialChar */
+code span.sc { color: #5e5e5e; } /* SpecialChar */
 code span.ss { color: #20794d; } /* SpecialString */
 code span.st { color: #20794d; } /* String */
 code span.va { color: #111111; } /* Variable */
 code span.vs { color: #20794d; } /* VerbatimString */
 code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
+</style>
+
+<style>
+  div.csl-bib-body { }
+  div.csl-entry {
+    clear: both;
+    }
+  .hanging div.csl-entry {
+    margin-left:2em;
+    text-indent:-2em;
+  }
+  div.csl-left-margin {
+    min-width:2em;
+    float:left;
+  }
+  div.csl-right-inline {
+    margin-left:2em;
+    padding-left:1em;
+  }
+  div.csl-indent {
+    margin-left: 2em;
+  }
 </style>
 
   <!--radix_placeholder_meta_tags-->
@@ -117,7 +139,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   <!--/radix_placeholder_rmarkdown_metadata-->
   
   <script type="text/json" id="radix-resource-manifest">
-  {"type":"character","attributes":{},"value":["covid-discovery_files/anchor-4.2.2/anchor.min.js","covid-discovery_files/bowser-1.9.3/bowser.min.js","covid-discovery_files/distill-2.2.21/template.v2.js","covid-discovery_files/figure-html5/unnamed-chunk-1-1.png","covid-discovery_files/figure-html5/unnamed-chunk-10-1.png","covid-discovery_files/figure-html5/unnamed-chunk-2-1.png","covid-discovery_files/figure-html5/unnamed-chunk-3-1.png","covid-discovery_files/figure-html5/unnamed-chunk-4-1.png","covid-discovery_files/figure-html5/unnamed-chunk-5-1.png","covid-discovery_files/figure-html5/unnamed-chunk-6-1.png","covid-discovery_files/figure-html5/unnamed-chunk-7-1.png","covid-discovery_files/figure-html5/unnamed-chunk-8-1.png","covid-discovery_files/figure-html5/unnamed-chunk-9-1.png","covid-discovery_files/header-attrs-2.7/header-attrs.js","covid-discovery_files/jquery-1.11.3/jquery.min.js","covid-discovery_files/popper-2.6.0/popper.min.js","covid-discovery_files/tippy-6.2.7/tippy-bundle.umd.min.js","covid-discovery_files/tippy-6.2.7/tippy-light-border.css","covid-discovery_files/tippy-6.2.7/tippy.css","covid-discovery_files/tippy-6.2.7/tippy.umd.min.js","covid-discovery_files/webcomponents-2.0.0/webcomponents.js","covid-discovery.bib","images/samples.png","images/table1.png","images/table2.png","images/topics.png","images/unit.png"]}
+  {"type":"character","attributes":{},"value":["covid-discovery_files/anchor-4.2.2/anchor.min.js","covid-discovery_files/bowser-1.9.3/bowser.min.js","covid-discovery_files/distill-2.2.21/template.v2.js","covid-discovery_files/figure-html5/unnamed-chunk-1-1.png","covid-discovery_files/figure-html5/unnamed-chunk-10-1.png","covid-discovery_files/figure-html5/unnamed-chunk-2-1.png","covid-discovery_files/figure-html5/unnamed-chunk-3-1.png","covid-discovery_files/figure-html5/unnamed-chunk-4-1.png","covid-discovery_files/figure-html5/unnamed-chunk-5-1.png","covid-discovery_files/figure-html5/unnamed-chunk-6-1.png","covid-discovery_files/figure-html5/unnamed-chunk-7-1.png","covid-discovery_files/figure-html5/unnamed-chunk-8-1.png","covid-discovery_files/figure-html5/unnamed-chunk-9-1.png","covid-discovery_files/header-attrs-2.7/header-attrs.js","covid-discovery_files/header-attrs-2.9/header-attrs.js","covid-discovery_files/jquery-1.11.3/jquery.min.js","covid-discovery_files/popper-2.6.0/popper.min.js","covid-discovery_files/tippy-6.2.7/tippy-bundle.umd.min.js","covid-discovery_files/tippy-6.2.7/tippy-light-border.css","covid-discovery_files/tippy-6.2.7/tippy.css","covid-discovery_files/tippy-6.2.7/tippy.umd.min.js","covid-discovery_files/webcomponents-2.0.0/webcomponents.js","covid-discovery.bib","images/samples.png","images/table1.png","images/table2.png","images/topics.png","images/unit.png"]}
   </script>
   <!--radix_placeholder_navigation_in_header-->
   <!--/radix_placeholder_navigation_in_header-->
@@ -309,6 +331,11 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
     text-decoration: underline;
   }
 
+  d-article details {
+    grid-column: text;
+    margin-bottom: 0.8em;
+  }
+
   @media(min-width: 768px) {
 
   d-article pre,
@@ -463,6 +490,17 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 
   div.hanging-indent{
     margin-left: 1em; text-indent: -1em;
+  }
+
+  /* Citation hover box */
+
+  .tippy-box[data-theme~=light-border] {
+    background-color: rgba(250, 250, 250, 0.95);
+  }
+
+  .tippy-content > p {
+    margin-bottom: 0;
+    padding: 2px;
   }
 
 
@@ -1130,7 +1168,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
       var layout = $(this).attr('data-layout');
 
       // apply layout to markdown level block elements
-      var elements = $(this).children().not('div.sourceCode, pre, script');
+      var elements = $(this).children().not('details, div.sourceCode, pre, script');
       elements.each(function(i, el) {
         var layout_div = $('<div class="' + layout + '"></div>');
         if (layout_div.hasClass('shaded')) {
@@ -1245,6 +1283,23 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
       // move appendix-bottom entries to the bottom
       $('.appendix-bottom').appendTo('d-appendix').children().unwrap();
       $('.appendix-bottom').remove();
+
+      // hoverable references
+      $('span.citation[data-cites]').each(function() {
+        var refs = $(this).attr('data-cites').split(" ");
+        var refHtml = refs.map(function(ref) {
+          return "<p>" + $('#ref-' + ref).html() + "</p>";
+        }).join("\n");
+        window.tippy(this, {
+          allowHTML: true,
+          content: refHtml,
+          maxWidth: 500,
+          interactive: true,
+          interactiveBorder: 10,
+          theme: 'light-border',
+          placement: 'bottom-start'
+        });
+      });
 
       // clear polling timer
       clearInterval(tid);
@@ -1405,8 +1460,12 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   </script>
 
   <!--/radix_placeholder_distill-->
-  <script src="covid-discovery_files/header-attrs-2.9/header-attrs.js"></script>
-  <script src="covid-discovery_files/jquery-1.11.3/jquery.min.js"></script>
+  <script src="covid-discovery_files/header-attrs-2.11/header-attrs.js"></script>
+  <script src="covid-discovery_files/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+  <script src="covid-discovery_files/popper-2.6.0/popper.min.js"></script>
+  <link href="covid-discovery_files/tippy-6.2.7/tippy.css" rel="stylesheet" />
+  <link href="covid-discovery_files/tippy-6.2.7/tippy-light-border.css" rel="stylesheet" />
+  <script src="covid-discovery_files/tippy-6.2.7/tippy.umd.min.js"></script>
   <script src="covid-discovery_files/anchor-4.2.2/anchor.min.js"></script>
   <script src="covid-discovery_files/bowser-1.9.3/bowser.min.js"></script>
   <script src="covid-discovery_files/webcomponents-2.0.0/webcomponents.js"></script>
@@ -1422,7 +1481,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <!--radix_placeholder_front_matter-->
 
 <script id="distill-front-matter" type="text/json">
-{"title":"New PMA COVID-19 Survey Data","description":"A new panel study promises insights into the impact of COVID-19 on family planning and reproductive health.","authors":[{"author":"Matt Gunther","authorURL":"#","affiliation":"IPUMS PMA Senior Data Analyst","affiliationURL":"#","orcidID":""}],"publishedDate":"2021-06-15T00:00:00.000+00:00","citationText":"Gunther, 2021"}
+{"title":"New PMA COVID-19 Survey Data","description":"A new panel study promises insights into the impact of COVID-19 on family planning and reproductive health.","authors":[{"author":"Matt Gunther","authorURL":"#","affiliation":"IPUMS PMA Senior Data Analyst","affiliationURL":"#","orcidID":""}],"publishedDate":"2021-06-15T00:00:00.000-05:00","citationText":"Gunther, 2021"}
 </script>
 
 <!--/radix_placeholder_front_matter-->

@@ -56,7 +56,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 }
 code span.al { color: #ad0000; } /* Alert */
 code span.an { color: #5e5e5e; } /* Annotation */
-code span.at { color: #20794d; } /* Attribute */
+code span.at { } /* Attribute */
 code span.bn { color: #ad0000; } /* BaseN */
 code span.bu { } /* BuiltIn */
 code span.cf { color: #007ba5; } /* ControlFlow */
@@ -77,13 +77,14 @@ code span.kw { color: #007ba5; } /* Keyword */
 code span.op { color: #5e5e5e; } /* Operator */
 code span.ot { color: #007ba5; } /* Other */
 code span.pp { color: #ad0000; } /* Preprocessor */
-code span.sc { color: #20794d; } /* SpecialChar */
+code span.sc { color: #5e5e5e; } /* SpecialChar */
 code span.ss { color: #20794d; } /* SpecialString */
 code span.st { color: #20794d; } /* String */
 code span.va { color: #111111; } /* Variable */
 code span.vs { color: #20794d; } /* VerbatimString */
 code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 </style>
+
 
   <!--radix_placeholder_meta_tags-->
   <title>Data Analysis Hub: Blog post workflow</title>
@@ -453,8 +454,15 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
     top: 0;
   }
 
+  /* adjust viewport for navbar height */
+  /* helps vertically center bootstrap (non-distill) content */
+  .min-vh-100 {
+    min-height: calc(100vh - 100px) !important;
+  }
+
   </style>
 
+  <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
   <link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet"/>
   <link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet"/>
   <script src="site_libs/headroom-0.9.4/headroom.min.js"></script>
@@ -562,19 +570,21 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
             var results = fuse.search(query, searchOptions);
             callback(results
               .map(function(result) { return result.item; })
-              .filter(function(item) { return !!item.description; })
             );
           },
           templates: {
             suggestion: function(suggestion) {
+              var img = suggestion.preview && Object.keys(suggestion.preview).length > 0
+                ? `<img src="${offsetURL(suggestion.preview)}"</img>`
+                : '';
               var html = `
                 <div class="search-item">
                   <h3>${suggestion.title}</h3>
                   <div class="search-item-description">
-                    ${suggestion.description}
+                    ${suggestion.description || ''}
                   </div>
                   <div class="search-item-preview">
-                    <img src="${suggestion.preview ? offsetURL(suggestion.preview) : ''}"</img>
+                    ${img}
                   </div>
                 </div>
               `;
@@ -597,6 +607,10 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   </script>
 
   <style type="text/css">
+
+  .nav-search {
+    font-size: x-small;
+  }
 
   /* Algolioa Autocomplete */
 
@@ -672,6 +686,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   }
 
   .algolia-autocomplete .aa-dropdown-menu .aa-suggestion .search-item h3 {
+    font-size: 1rem;
     margin-block-start: 0;
     margin-block-end: 5px;
   }
@@ -899,6 +914,11 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
     text-decoration: underline;
   }
 
+  d-article details {
+    grid-column: text;
+    margin-bottom: 0.8em;
+  }
+
   @media(min-width: 768px) {
 
   d-article pre,
@@ -1053,6 +1073,17 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 
   div.hanging-indent{
     margin-left: 1em; text-indent: -1em;
+  }
+
+  /* Citation hover box */
+
+  .tippy-box[data-theme~=light-border] {
+    background-color: rgba(250, 250, 250, 0.95);
+  }
+
+  .tippy-content > p {
+    margin-bottom: 0;
+    padding: 2px;
   }
 
 
@@ -1720,7 +1751,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
       var layout = $(this).attr('data-layout');
 
       // apply layout to markdown level block elements
-      var elements = $(this).children().not('div.sourceCode, pre, script');
+      var elements = $(this).children().not('details, div.sourceCode, pre, script');
       elements.each(function(i, el) {
         var layout_div = $('<div class="' + layout + '"></div>');
         if (layout_div.hasClass('shaded')) {
@@ -1835,6 +1866,23 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
       // move appendix-bottom entries to the bottom
       $('.appendix-bottom').appendTo('d-appendix').children().unwrap();
       $('.appendix-bottom').remove();
+
+      // hoverable references
+      $('span.citation[data-cites]').each(function() {
+        var refs = $(this).attr('data-cites').split(" ");
+        var refHtml = refs.map(function(ref) {
+          return "<p>" + $('#ref-' + ref).html() + "</p>";
+        }).join("\n");
+        window.tippy(this, {
+          allowHTML: true,
+          content: refHtml,
+          maxWidth: 500,
+          interactive: true,
+          interactiveBorder: 10,
+          theme: 'light-border',
+          placement: 'bottom-start'
+        });
+      });
 
       // clear polling timer
       clearInterval(tid);
@@ -2319,7 +2367,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 
   d-article div.sourceCode code,
   d-article pre code {
-  	font-family: var(--mono-font), var(--mono-default);
+    font-family: var(--mono-font), var(--mono-default);
   }
 
 
@@ -2344,76 +2392,78 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   }
 
   /*-- BODY --*/
-  /* only text inside of <p> tags */
-  d-article > p {
+  d-article > p,  /* only text inside of <p> tags */
+  d-article > ul, /* lists */
+  d-article > ol {
     color: var(--body-color, rgba(0, 0, 0, 0.8));
     font-size: var(--body-size, 1.06rem);
   }
 
+
   /*-- CODE --*/
   d-article div.sourceCode code,
   d-article pre code {
-  	font-size: var(--code-size, 14px);
+    font-size: var(--code-size, 14px);
   }
 
   /*-- ASIDE --*/
   d-article aside {
-  	font-size: var(--aside-size, 12px);
-  	color: var(--aside-color, rgba(0, 0, 0, 0.6));
+    font-size: var(--aside-size, 12px);
+    color: var(--aside-color, rgba(0, 0, 0, 0.6));
   }
 
   /*-- FIGURE CAPTIONS --*/
   figure .caption,
   figure figcaption,
   .figure .caption {
-  	font-size: var(--fig-cap-size, 13px);
-  	color: var(--fig-cap-color, rgba(0, 0, 0, 0.6));
+    font-size: var(--fig-cap-size, 13px);
+    color: var(--fig-cap-color, rgba(0, 0, 0, 0.6));
   }
 
   /*-- METADATA --*/
   d-byline h3 {
-  	font-size: var(--heading-size, 0.6rem);
-  	color: var(--heading-color, rgba(0, 0, 0, 0.5));
+    font-size: var(--heading-size, 0.6rem);
+    color: var(--heading-color, rgba(0, 0, 0, 0.5));
   }
 
   d-byline {
-  	font-size: var(--body-size, 0.8rem);
-  	color: var(--body-color, rgba(0, 0, 0, 0.8));
+    font-size: var(--body-size, 0.8rem);
+    color: var(--body-color, rgba(0, 0, 0, 0.8));
   }
 
   d-byline a,
   d-article d-byline a {
-  	color: var(--body-color, rgba(0, 0, 0, 0.8));
+    color: var(--body-color, rgba(0, 0, 0, 0.8));
   }
 
   /*-- TABLE OF CONTENTS --*/
   .d-contents nav h3 {
-  	font-size: var(--heading-size, 18px);
+    font-size: var(--heading-size, 18px);
   }
 
   .d-contents nav a {
-  	font-size: var(--contents-size, 13px);
+    font-size: var(--contents-size, 13px);
   }
 
   /*-- APPENDIX --*/
   d-appendix h3 {
     font-size: var(--heading-size, 15px);
-  	color: var(--heading-color, rgba(0, 0, 0, 0.65));
+    color: var(--heading-color, rgba(0, 0, 0, 0.65));
   }
 
   d-appendix {
     font-size: var(--text-size, 0.8em);
-  	color: var(--text-color, rgba(0, 0, 0, 0.5));
+    color: var(--text-color, rgba(0, 0, 0, 0.5));
   }
 
   d-appendix d-footnote-list a.footnote-backlink {
-  	color: var(--text-color, rgba(0, 0, 0, 0.5));
+    color: var(--text-color, rgba(0, 0, 0, 0.5));
   }
 
   /*-- WEBSITE HEADER + FOOTER --*/
   .distill-site-header .title {
-  	font-size: var(--title-size, 18px);
-  	font-family: var(--navbar-font), var(--heading-default);
+    font-size: var(--title-size, 18px);
+    font-family: var(--navbar-font), var(--heading-default);
   }
 
   .distill-site-header a,
@@ -2421,35 +2471,44 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
     font-family: var(--navbar-font), var(--heading-default);
   }
 
-  .distill-site-header a:hover {
-  	color: var(--hover-color, white);
+  .nav-dropdown .nav-dropbtn {
+    color: var(--text-color, rgba(255, 255, 255, 0.8));
+    font-size: var(--text-size, 15px);
+  }
+
+  .distill-site-header a:hover,
+  .nav-dropdown:hover .nav-dropbtn {
+    color: var(--hover-color, white);
   }
 
   .distill-site-header {
-  	font-size: var(--text-size, 15px);
-  	color: var(--text-color, rgba(255, 255, 255, 0.8));
-  	background-color: var(--bkgd-color, #0F2E3D);
+    font-size: var(--text-size, 15px);
+    color: var(--text-color, rgba(255, 255, 255, 0.8));
+    background-color: var(--bkgd-color, #0F2E3D);
   }
 
   .distill-site-footer {
-  	font-size: var(--text-size, 15px);
-  	color: var(--text-color, rgba(255, 255, 255, 0.8));
-  	background-color: var(--bkgd-color, #0F2E3D);
+    font-size: var(--text-size, 15px);
+    color: var(--text-color, rgba(255, 255, 255, 0.8));
+    background-color: var(--bkgd-color, #0F2E3D);
   }
 
   .distill-site-footer a:hover {
-  	color: var(--hover-color, white);
+    color: var(--hover-color, white);
   }</style>
   <!--/radix_placeholder_distill-->
-  <script src="site_libs/header-attrs-2.9/header-attrs.js"></script>
-  <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+  <script src="site_libs/header-attrs-2.11/header-attrs.js"></script>
+  <script src="site_libs/popper-2.6.0/popper.min.js"></script>
+  <link href="site_libs/tippy-6.2.7/tippy.css" rel="stylesheet" />
+  <link href="site_libs/tippy-6.2.7/tippy-light-border.css" rel="stylesheet" />
+  <script src="site_libs/tippy-6.2.7/tippy.umd.min.js"></script>
   <script src="site_libs/anchor-4.2.2/anchor.min.js"></script>
   <script src="site_libs/bowser-1.9.3/bowser.min.js"></script>
   <script src="site_libs/webcomponents-2.0.0/webcomponents.js"></script>
   <script src="site_libs/distill-2.2.21/template.v2.js"></script>
   <!--radix_placeholder_site_in_header-->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-191039907-2"></script>
-  <script>
+  <script type="text/javascript" cookie-consent="tracking" async src="https://www.googletagmanager.com/gtag/js?id=UA-191039907-2"></script>
+  <script type="text/javascript" cookie-consent="tracking">
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
@@ -2465,7 +2524,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <!--radix_placeholder_front_matter-->
 
 <script id="distill-front-matter" type="text/json">
-{"title":"Blog post workflow","description":"How to create or review a PMA Data Hub blog post","authors":[{"author":"Matt Gunther","authorURL":"#","affiliation":"&nbsp;","affiliationURL":"#","orcidID":""}],"publishedDate":"2021-02-02T00:00:00.000+00:00","citationText":"Gunther, 2021"}
+{"title":"Blog post workflow","description":"How to create or review a PMA Data Hub blog post","authors":[{"author":"Matt Gunther","authorURL":"#","affiliation":"&nbsp;","affiliationURL":"#","orcidID":""}],"publishedDate":"2021-02-02T00:00:00.000-06:00","citationText":"Gunther, 2021"}
 </script>
 
 <!--/radix_placeholder_front_matter-->
@@ -2590,7 +2649,7 @@ Community
 <p>When you’ve got RStudio set up, install these packages:</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre><code><span class='fu'><a href='https://rdrr.io/r/utils/install.packages.html'>install.packages</a></span><span class='op'>(</span><span class='st'>"rmarkdown"</span><span class='op'>)</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/utils/install.packages.html'>install.packages</a></span><span class='op'>(</span><span class='st'>"rmarkdown"</span><span class='op'>)</span>
 <span class='fu'><a href='https://rdrr.io/r/utils/install.packages.html'>install.packages</a></span><span class='op'>(</span><span class='st'>"knitr"</span><span class='op'>)</span>
 <span class='fu'><a href='https://rdrr.io/r/utils/install.packages.html'>install.packages</a></span><span class='op'>(</span><span class='st'>"distill"</span><span class='op'>)</span>
 <span class='fu'><a href='https://rdrr.io/r/utils/install.packages.html'>install.packages</a></span><span class='op'>(</span><span class='st'>"usethis"</span><span class='op'>)</span>
@@ -2606,6 +2665,10 @@ Community
 <p>First things first: you must install install <a href="https://git-scm.com/">Git</a> on your computer if it isn’t there already. Mac OS comes with git installed,<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> while other users should <a href="http://git-scm.com/downloads">download</a> the right Git for their operation system. <em>If you’re using RStudio on the gp1 server, Git is already installed.</em></p>
 <p>Next, open the <code>Global Options</code> menu in RStudio and locate the Git/SVN tab. Ensure that the box shown below is checked, and then enter the location of the executable file<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a> for your Git installation:</p>
 <div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'>knitr</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/knitr/man/include_graphics.html'>include_graphics</a></span><span class='op'>(</span><span class='st'>"images/bpw/git-menu.png"</span><span class='op'>)</span>
+</code></pre>
+</div>
 <p><img src="images/bpw/git-menu.png" width="590" /></p>
 </div>
 <p>Lastly, you should provide Git with a username, email, and Personal Access Token (PAT) for your UMN GitHub account. If you’ve installed <a href="https://usethis.r-lib.org/articles/articles/git-credentials.html">usethis</a> as shown <a href="#r-rstudio-and-required-packages">above</a>, you’ll be able to set these up with R commands (changes will be applied to globally wherever you use Git on your operating system). First, set the username and email address for your UMN GitHub account. For example, mine are:</p>
@@ -2614,7 +2677,7 @@ Community
 </aside>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre><code><span class='fu'>gert</span><span class='fu'>::</span><span class='fu'><a href='https://docs.ropensci.org/gert/reference/git_config.html'>git_config_global_set</a></span><span class='op'>(</span><span class='st'>"user.name"</span>, <span class='st'>"Matt Gunther"</span><span class='op'>)</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'>gert</span><span class='fu'>::</span><span class='fu'><a href='https://docs.ropensci.org/gert/reference/git_config.html'>git_config_global_set</a></span><span class='op'>(</span><span class='st'>"user.name"</span>, <span class='st'>"Matt Gunther"</span><span class='op'>)</span>
 <span class='fu'>gert</span><span class='fu'>::</span><span class='fu'><a href='https://docs.ropensci.org/gert/reference/git_config.html'>git_config_global_set</a></span><span class='op'>(</span><span class='st'>"user.email"</span>, <span class='st'>"mgunther@umn.edu"</span><span class='op'>)</span>
 </code></pre>
 </div>
@@ -2622,14 +2685,14 @@ Community
 <p>Then, create a PAT for your account with:</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre><code><span class='fu'>usethis</span><span class='fu'>::</span><span class='fu'><a href='https://usethis.r-lib.org/reference/github-token.html'>create_github_token</a></span><span class='op'>(</span>host <span class='op'>=</span> <span class='st'>"https://github.umn.edu"</span><span class='op'>)</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'>usethis</span><span class='fu'>::</span><span class='fu'><a href='https://usethis.r-lib.org/reference/github-token.html'>create_github_token</a></span><span class='op'>(</span>host <span class='op'>=</span> <span class='st'>"https://github.umn.edu"</span><span class='op'>)</span>
 </code></pre>
 </div>
 </div>
 <p>Your browser will open to a webpage. <strong>Check all the boxes you see</strong>, then click the green <code>Generate Token</code> button. On the next page, notice the very long string shown in the green box: this is your PAT. <em>Don’t close this page yet!</em>. Return to R and call:</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre><code><span class='fu'>gitcreds</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/gitcreds/man/gitcreds_get.html'>gitcreds_set</a></span><span class='op'>(</span><span class='st'>"https://github.umn.edu"</span><span class='op'>)</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'>gitcreds</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/gitcreds/man/gitcreds_get.html'>gitcreds_set</a></span><span class='op'>(</span><span class='st'>"https://github.umn.edu"</span><span class='op'>)</span>
 </code></pre>
 </div>
 </div>
@@ -2637,10 +2700,18 @@ Community
 <h2 id="the-pma-data-hub-repository">The PMA Data Hub Repository</h2>
 <p>Open RStudio and navigate to <code>File &gt; New Project</code>, then select <code>Version Control</code>:</p>
 <div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'>knitr</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/knitr/man/include_graphics.html'>include_graphics</a></span><span class='op'>(</span><span class='st'>"images/bpw/version_control.png"</span><span class='op'>)</span>
+</code></pre>
+</div>
 <p><img src="images/bpw/version_control.png" width="527" /></p>
 </div>
 <p>Choose <code>Git</code> to clone our project from a GitHub repository:</p>
 <div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'>knitr</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/knitr/man/include_graphics.html'>include_graphics</a></span><span class='op'>(</span><span class='st'>"images/bpw/use_git.png"</span><span class='op'>)</span>
+</code></pre>
+</div>
 <p><img src="images/bpw/use_git.png" width="529" /></p>
 </div>
 <p>On the next menu page, enter the address for the enterprise repository exactly as shown (do not clone the public repository):</p>
@@ -2652,17 +2723,34 @@ Community
 When choosing a place to save this project, <b>do not save to a network drive</b>. This seems to cause RStudio to crash!
 </aside>
 <div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'>knitr</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/knitr/man/include_graphics.html'>include_graphics</a></span><span class='op'>(</span><span class='st'>"images/bpw/clone_info.png"</span><span class='op'>)</span>
+</code></pre>
+</div>
 <p><img src="images/bpw/clone_info.png" width="530" /></p>
 </div>
 <p>If you have not configured Git to automatically use your UMN GitHub credentials with the <a href="#using-umn-github-from-rstudio">steps shown above</a>, you may be prompted to provide them in a pop-up window:</p>
 <div class="layout-chunk" data-layout="l-body">
-<p><img src="images/bpw/username.png" width="629" /><img src="images/bpw/password.png" width="631" /></p>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'>knitr</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/knitr/man/include_graphics.html'>include_graphics</a></span><span class='op'>(</span><span class='st'>"images/bpw/username.png"</span><span class='op'>)</span>
+</code></pre>
+</div>
+<img src="images/bpw/username.png" width="629" />
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'>knitr</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/knitr/man/include_graphics.html'>include_graphics</a></span><span class='op'>(</span><span class='st'>"images/bpw/password.png"</span><span class='op'>)</span>
+</code></pre>
+</div>
+<p><img src="images/bpw/password.png" width="631" /></p>
 </div>
 <aside>
 Until you configure Git with these credentials, you’ll have to do this every time you interact with GitHub. Additionally, <b>password authentication for GitHub will be deprecated in the near future</b> so you’ll need to do it soon!
 </aside>
 <p>After a short bit, RStudio will relaunch and open the new project. If you adjust the windows to show the tabs <code>Git</code> (left) and <code>Files</code> (right), you should see something like this:</p>
 <div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'>knitr</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/knitr/man/include_graphics.html'>include_graphics</a></span><span class='op'>(</span><span class='st'>"images/bpw/clone_success.png"</span><span class='op'>)</span>
+</code></pre>
+</div>
 <p><img src="images/bpw/clone_success.png" width="1274" /></p>
 </div>
 <p>You have now downloaded a copy of the Enterprise repository to your computer!</p>
@@ -2676,31 +2764,51 @@ To open an RStudio project, click on the file <b>pma-data-hub.Rproj</b>. If you 
 <h2 id="create-a-new-branch">Create a new branch</h2>
 <p>Notice that the <code>Git</code> tab in RStudio has a purple icon:</p>
 <div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'>knitr</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/knitr/man/include_graphics.html'>include_graphics</a></span><span class='op'>(</span><span class='st'>"images/bpw/new_branch.png"</span><span class='op'>)</span>
+</code></pre>
+</div>
 <p><img src="images/bpw/new_branch.png" width="483" /></p>
 </div>
 <p>Click this icon to create a new branch. You can name it anything you like, but we recommend using your URL slug if possible (e.g. “blog-post-workflow” is the end of the URL for this webpage). Leave the box next to “Sync branch with remote” <strong>checked</strong>, as this will create your branch both locally and on our GitHub page:</p>
 <div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'>knitr</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/knitr/man/include_graphics.html'>include_graphics</a></span><span class='op'>(</span><span class='st'>"images/bpw/branch_name.png"</span><span class='op'>)</span>
+</code></pre>
+</div>
 <p><img src="images/bpw/branch_name.png" width="317" /></p>
 </div>
 <p>RStudio now displays the new branch in place of “master” to show that we’re working on the new branch, instead!</p>
 <h2 id="create-a-new-folder-in-_posts">Create a new folder in "_posts"</h2>
 <p>Now that you’ve created a new branch in the <code>Git</code> window, take a look at the <code>File</code> window.</p>
 <div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'>knitr</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/knitr/man/include_graphics.html'>include_graphics</a></span><span class='op'>(</span><span class='st'>"images/bpw/file_window1.png"</span><span class='op'>)</span>
+</code></pre>
+</div>
 <p><img src="images/bpw/file_window1.png" width="1273" /></p>
 </div>
 <p>The program we use to build the blog is called <a href="https://rstudio.github.io/distill/">Distill</a>, and it takes care of all the back-end work as long as we put every new blog post inside of a unique folder within the "_posts" directory. Opening "_posts", you can see that every post is contained within a time-stamped sub-folder:</p>
 <div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'>knitr</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/knitr/man/include_graphics.html'>include_graphics</a></span><span class='op'>(</span><span class='st'>"images/bpw/posts_list.png"</span><span class='op'>)</span>
+</code></pre>
+</div>
 <p><img src="images/bpw/posts_list.png" width="764" /></p>
 </div>
 <p>To create one of these folders for your new post, enter the following command into R:</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre><code><span class='fu'>distill</span><span class='fu'>::</span><span class='fu'><a href='https://pkgs.rstudio.com/distill/reference/create_post.html'>create_post</a></span><span class='op'>(</span><span class='st'>"Blog post workflow"</span><span class='op'>)</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'>distill</span><span class='fu'>::</span><span class='fu'><a href='https://pkgs.rstudio.com/distill/reference/create_post.html'>create_post</a></span><span class='op'>(</span><span class='st'>"Blog post workflow"</span><span class='op'>)</span>
 </code></pre>
 </div>
 </div>
 <p>This does two things: it creates the folder automatically (circled in red), and it opens a new RMarkdown file where you can begin writing your post (circled in green).</p>
 <div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'>knitr</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/knitr/man/include_graphics.html'>include_graphics</a></span><span class='op'>(</span><span class='st'>"images/bpw/post_added.png"</span><span class='op'>)</span>
+</code></pre>
+</div>
 <p><img src="images/bpw/post_added.png" width="1430" /></p>
 </div>
 <aside>
@@ -2710,6 +2818,10 @@ In green: this is the RMarkdown file where you’ll write your post.
 <p>Check out our <a href="../2021-02-02-blogging-with-rmarkdown/index.html">Quick-start Guide for Blogging with RMarkdown</a>!</p>
 <p>As you’re writing your post, you can preview it as a fully formatted webpage by hitting the <code>Knit</code> button at the top of your RMarkdown file:</p>
 <div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'>knitr</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/knitr/man/include_graphics.html'>include_graphics</a></span><span class='op'>(</span><span class='st'>"images/bpw/knit.png"</span><span class='op'>)</span>
+</code></pre>
+</div>
 <p><img src="images/bpw/knit.png" width="1434" /></p>
 </div>
 <aside>
@@ -2726,7 +2838,7 @@ You can switch between previewing the page in the RStudio Viewer tab, or in your
 <p>Now, enter the following commands directly into the R console, <em>but please adjust the brief commit “message” as necessary to describe your change!</em></p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre><code><span class='fu'>gert</span><span class='fu'>::</span><span class='fu'><a href='https://docs.ropensci.org/gert/reference/git_commit.html'>git_add</a></span><span class='op'>(</span><span class='st'>"."</span><span class='op'>)</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'>gert</span><span class='fu'>::</span><span class='fu'><a href='https://docs.ropensci.org/gert/reference/git_commit.html'>git_add</a></span><span class='op'>(</span><span class='st'>"."</span><span class='op'>)</span>
 <span class='fu'>gert</span><span class='fu'>::</span><span class='fu'><a href='https://docs.ropensci.org/gert/reference/git_commit.html'>git_commit</a></span><span class='op'>(</span><span class='st'>"Draft published: blog-post-workflow"</span><span class='op'>)</span>
 <span class='fu'>gert</span><span class='fu'>::</span><span class='fu'><a href='https://docs.ropensci.org/gert/reference/git_fetch.html'>git_push</a></span><span class='op'>(</span><span class='op'>)</span>
 </code></pre>
@@ -2734,12 +2846,20 @@ You can switch between previewing the page in the RStudio Viewer tab, or in your
 </div>
 <p>Now, if you visit our Enterprise GitHub page, your post will appear in a new branch! (It will not yet appear on the copy of the blog we have posted there, which is rendered only from <code>master</code>.)</p>
 <div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'>knitr</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/knitr/man/include_graphics.html'>include_graphics</a></span><span class='op'>(</span><span class='st'>"images/bpw/see_branches.png"</span><span class='op'>)</span>
+</code></pre>
+</div>
 <p><img src="images/bpw/see_branches.png" width="1418" /></p>
 </div>
 <h1 id="editors">Editors</h1>
 <h2 id="pull-the-authors-branch-to-your-computer">Pull the author’s branch to your computer</h2>
 <p>Any time that you want to review an author’s post, you’ll always need to get the latest copy of their branch from our Enterprise GitHub page. If this is the first time you’ve read a draft for the post, the author’s branch won’t yet be listed in RStudio.</p>
 <div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'>knitr</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/knitr/man/include_graphics.html'>include_graphics</a></span><span class='op'>(</span><span class='st'>"images/bpw/master_only.png"</span><span class='op'>)</span>
+</code></pre>
+</div>
 <p><img src="images/bpw/master_only.png" width="597" /></p>
 </div>
 <aside>
@@ -2747,28 +2867,52 @@ This editor’s RStudio only knows about the “master” branch so far.
 </aside>
 <p>The <code>Pull</code> button in RStudio’s <code>Git</code> tab will gather information about all of the new branches on GitHub, and it will download a copy of each one onto your computer:</p>
 <div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'>knitr</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/knitr/man/include_graphics.html'>include_graphics</a></span><span class='op'>(</span><span class='st'>"images/bpw/pull_button.png"</span><span class='op'>)</span>
+</code></pre>
+</div>
 <p><img src="images/bpw/pull_button.png" width="716" /></p>
 </div>
 <p>Clicking it will bring up a dialogue screen. RStudio reports that it discovered a new branch <code>blog-post-workflow</code> living at the remote repository <code>origin</code>.</p>
 <div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'>knitr</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/knitr/man/include_graphics.html'>include_graphics</a></span><span class='op'>(</span><span class='st'>"images/bpw/pull_new_branch.png"</span><span class='op'>)</span>
+</code></pre>
+</div>
 <p><img src="images/bpw/pull_new_branch.png" width="631" /></p>
 </div>
 <p>Returning to RStudio’s main window, notice that you can now toggle between the working on the remote <code>master</code> branch, or the new remote branch called <code>blog-post-workflow</code>. When you’re ready to edit the author’s post, use this menu to select their branch.</p>
 <div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'>knitr</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/knitr/man/include_graphics.html'>include_graphics</a></span><span class='op'>(</span><span class='st'>"images/bpw/toggle_branches.png"</span><span class='op'>)</span>
+</code></pre>
+</div>
 <p><img src="images/bpw/toggle_branches.png" width="419" /></p>
 </div>
 <p>RStudio automatically creates a local version of this branch on your computer, and it reports that your changes will be tracked and pushed to the remote branch of the same name.</p>
 <div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'>knitr</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/knitr/man/include_graphics.html'>include_graphics</a></span><span class='op'>(</span><span class='st'>"images/bpw/new_local_branch.png"</span><span class='op'>)</span>
+</code></pre>
+</div>
 <p><img src="images/bpw/new_local_branch.png" width="626" /></p>
 </div>
 <h2 id="locate-and-edit-the-new-post">Locate and edit the new post</h2>
 <p>Now, RStudio shows that you’re working on the author’s branch in the <code>Git</code> tab, and you’ll see their post listed in the <code>_posts</code> folder on the <code>Files</code> tab. Navigate to the <code>.Rmd</code> file for their post, then click it to begin making edits.</p>
 <div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'>knitr</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/knitr/man/include_graphics.html'>include_graphics</a></span><span class='op'>(</span><span class='st'>"images/bpw/author_post_appears.png"</span><span class='op'>)</span>
+</code></pre>
+</div>
 <p><img src="images/bpw/author_post_appears.png" width="724" /></p>
 </div>
 <p>Check out our <a href="../2021-02-02-blogging-with-rmarkdown/index.html">Quick-start Guide for Blogging with RMarkdown</a>!</p>
 <p>As you’re writing your post, you can preview it as a fully formatted webpage by hitting the <code>Knit</code> button at the top of your RMarkdown file:</p>
 <div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'>knitr</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/knitr/man/include_graphics.html'>include_graphics</a></span><span class='op'>(</span><span class='st'>"images/bpw/edit_knit.png"</span><span class='op'>)</span>
+</code></pre>
+</div>
 <p><img src="images/bpw/edit_knit.png" width="1426" /></p>
 </div>
 <aside>
@@ -2780,7 +2924,7 @@ You can switch between previewing the page in the RStudio Viewer tab, or in your
 <p>Now, enter the following commands directly into the R console, <em>but please adjust the brief commit “message” as necessary to describe your change!</em></p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre><code><span class='fu'>gert</span><span class='fu'>::</span><span class='fu'><a href='https://docs.ropensci.org/gert/reference/git_commit.html'>git_add</a></span><span class='op'>(</span><span class='st'>"."</span><span class='op'>)</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'>gert</span><span class='fu'>::</span><span class='fu'><a href='https://docs.ropensci.org/gert/reference/git_commit.html'>git_add</a></span><span class='op'>(</span><span class='st'>"."</span><span class='op'>)</span>
 <span class='fu'>gert</span><span class='fu'>::</span><span class='fu'><a href='https://docs.ropensci.org/gert/reference/git_commit.html'>git_commit</a></span><span class='op'>(</span><span class='st'>"Draft edited: blog-post-workflow"</span><span class='op'>)</span>
 <span class='fu'>gert</span><span class='fu'>::</span><span class='fu'><a href='https://docs.ropensci.org/gert/reference/git_fetch.html'>git_push</a></span><span class='op'>(</span><span class='op'>)</span>
 </code></pre>
@@ -2788,6 +2932,10 @@ You can switch between previewing the page in the RStudio Viewer tab, or in your
 </div>
 <p>Now, if you visit our Enterprise GitHub page, you’ll see that your edited files appear on the author’s branch. (They will not yet appear on the copy of the blog we have posted there, which is rendered only from <code>master</code>.)</p>
 <div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'>knitr</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/knitr/man/include_graphics.html'>include_graphics</a></span><span class='op'>(</span><span class='st'>"images/bpw/draft_accepted.png"</span><span class='op'>)</span>
+</code></pre>
+</div>
 <p><img src="images/bpw/draft_accepted.png" width="1422" /></p>
 </div>
 <h1 id="all-users-making-revisions">All users: making revisions</h1>
@@ -2795,16 +2943,24 @@ You can switch between previewing the page in the RStudio Viewer tab, or in your
 <p>To get your collaborator’s latest updates from GitHub, <strong>you should launch the pma-data-hub RStudio project file</strong> called <code>pma-data-hub.Rproj</code>. If you forget to open the project file, RStudio will not be able to access the contents of your Git folder (it won’t know that there’s a GitHub repository for the project at all).</p>
 <p>When you open the project file, RStudio will again display a <code>Git</code> tab. Click on the <code>Pull</code> button to get your collaborator’s latest changes.</p>
 <div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'>knitr</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/knitr/man/include_graphics.html'>include_graphics</a></span><span class='op'>(</span><span class='st'>"images/bpw/pull_button.png"</span><span class='op'>)</span>
+</code></pre>
+</div>
 <p><img src="images/bpw/pull_button.png" width="716" /></p>
 </div>
 <p>Switch from the <code>master</code> branch to the branch associated with your post:</p>
 <div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'>knitr</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/knitr/man/include_graphics.html'>include_graphics</a></span><span class='op'>(</span><span class='st'>"images/bpw/toggle_branches.png"</span><span class='op'>)</span>
+</code></pre>
+</div>
 <p><img src="images/bpw/toggle_branches.png" width="419" /></p>
 </div>
 <p>After you’re finished incorporating their feedback into the RMarkdown file (.Rmd), <strong>click Knit</strong> and then run these commands in Terminal again to send your work back to GitHub:</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre><code><span class='fu'>gert</span><span class='fu'>::</span><span class='fu'><a href='https://docs.ropensci.org/gert/reference/git_commit.html'>git_add</a></span><span class='op'>(</span><span class='st'>"."</span><span class='op'>)</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'>gert</span><span class='fu'>::</span><span class='fu'><a href='https://docs.ropensci.org/gert/reference/git_commit.html'>git_add</a></span><span class='op'>(</span><span class='st'>"."</span><span class='op'>)</span>
 <span class='fu'>gert</span><span class='fu'>::</span><span class='fu'><a href='https://docs.ropensci.org/gert/reference/git_commit.html'>git_commit</a></span><span class='op'>(</span><span class='st'>"Draft complete: blog-post-workflow"</span><span class='op'>)</span>
 <span class='fu'>gert</span><span class='fu'>::</span><span class='fu'><a href='https://docs.ropensci.org/gert/reference/git_fetch.html'>git_push</a></span><span class='op'>(</span><span class='op'>)</span>
 </code></pre>
@@ -2830,6 +2986,10 @@ git fetch public</code></pre>
 <pre><code>git branch public-master public/master</code></pre>
 <p>At this point, you’ll notice that RStudio shows two remotes (with the branches you’ve fetched) and all of the local branches you’ve created so far.</p>
 <div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'>knitr</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/knitr/man/include_graphics.html'>include_graphics</a></span><span class='op'>(</span><span class='st'>"images/bpw/dual-remotes.png"</span><span class='op'>)</span>
+</code></pre>
+</div>
 <p><img src="images/bpw/dual-remotes.png" width="298" /></p>
 </div>
 <aside>
@@ -2872,6 +3032,10 @@ This will only delete <code>data</code> folders if a branch called <code>public-
 git merge --squash blog-post-workflow</code></pre>
 <p>Now, in RStudio, hit the <code>Build Website</code> button. Look over the site to make sure everything looks good. (We won’t build on <code>public-master</code> to avoid merge conflicts, so get those edits in now.)</p>
 <div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'>knitr</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/knitr/man/include_graphics.html'>include_graphics</a></span><span class='op'>(</span><span class='st'>"images/bpw/build.png"</span><span class='op'>)</span>
+</code></pre>
+</div>
 <p><img src="images/bpw/build.png" width="372" /></p>
 </div>
 <p>When you’re ready, add all files and commit your changes with a message like:</p>

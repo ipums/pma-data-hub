@@ -57,7 +57,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 }
 code span.al { color: #ad0000; } /* Alert */
 code span.an { color: #5e5e5e; } /* Annotation */
-code span.at { color: #20794d; } /* Attribute */
+code span.at { } /* Attribute */
 code span.bn { color: #ad0000; } /* BaseN */
 code span.bu { } /* BuiltIn */
 code span.cf { color: #007ba5; } /* ControlFlow */
@@ -78,13 +78,14 @@ code span.kw { color: #007ba5; } /* Keyword */
 code span.op { color: #5e5e5e; } /* Operator */
 code span.ot { color: #007ba5; } /* Other */
 code span.pp { color: #ad0000; } /* Preprocessor */
-code span.sc { color: #20794d; } /* SpecialChar */
+code span.sc { color: #5e5e5e; } /* SpecialChar */
 code span.ss { color: #20794d; } /* SpecialString */
 code span.st { color: #20794d; } /* String */
 code span.va { color: #111111; } /* Variable */
 code span.vs { color: #20794d; } /* VerbatimString */
 code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 </style>
+
 
   <!--radix_placeholder_meta_tags-->
   <title>Data Analysis Hub</title>
@@ -447,8 +448,15 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
     top: 0;
   }
 
+  /* adjust viewport for navbar height */
+  /* helps vertically center bootstrap (non-distill) content */
+  .min-vh-100 {
+    min-height: calc(100vh - 100px) !important;
+  }
+
   </style>
 
+  <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
   <link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet"/>
   <link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet"/>
   <script src="site_libs/headroom-0.9.4/headroom.min.js"></script>
@@ -556,19 +564,21 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
             var results = fuse.search(query, searchOptions);
             callback(results
               .map(function(result) { return result.item; })
-              .filter(function(item) { return !!item.description; })
             );
           },
           templates: {
             suggestion: function(suggestion) {
+              var img = suggestion.preview && Object.keys(suggestion.preview).length > 0
+                ? `<img src="${offsetURL(suggestion.preview)}"</img>`
+                : '';
               var html = `
                 <div class="search-item">
                   <h3>${suggestion.title}</h3>
                   <div class="search-item-description">
-                    ${suggestion.description}
+                    ${suggestion.description || ''}
                   </div>
                   <div class="search-item-preview">
-                    <img src="${suggestion.preview ? offsetURL(suggestion.preview) : ''}"</img>
+                    ${img}
                   </div>
                 </div>
               `;
@@ -591,6 +601,10 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   </script>
 
   <style type="text/css">
+
+  .nav-search {
+    font-size: x-small;
+  }
 
   /* Algolioa Autocomplete */
 
@@ -666,6 +680,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   }
 
   .algolia-autocomplete .aa-dropdown-menu .aa-suggestion .search-item h3 {
+    font-size: 1rem;
     margin-block-start: 0;
     margin-block-end: 5px;
   }
@@ -893,6 +908,11 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
     text-decoration: underline;
   }
 
+  d-article details {
+    grid-column: text;
+    margin-bottom: 0.8em;
+  }
+
   @media(min-width: 768px) {
 
   d-article pre,
@@ -1047,6 +1067,17 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 
   div.hanging-indent{
     margin-left: 1em; text-indent: -1em;
+  }
+
+  /* Citation hover box */
+
+  .tippy-box[data-theme~=light-border] {
+    background-color: rgba(250, 250, 250, 0.95);
+  }
+
+  .tippy-content > p {
+    margin-bottom: 0;
+    padding: 2px;
   }
 
 
@@ -1714,7 +1745,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
       var layout = $(this).attr('data-layout');
 
       // apply layout to markdown level block elements
-      var elements = $(this).children().not('div.sourceCode, pre, script');
+      var elements = $(this).children().not('details, div.sourceCode, pre, script');
       elements.each(function(i, el) {
         var layout_div = $('<div class="' + layout + '"></div>');
         if (layout_div.hasClass('shaded')) {
@@ -1829,6 +1860,23 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
       // move appendix-bottom entries to the bottom
       $('.appendix-bottom').appendTo('d-appendix').children().unwrap();
       $('.appendix-bottom').remove();
+
+      // hoverable references
+      $('span.citation[data-cites]').each(function() {
+        var refs = $(this).attr('data-cites').split(" ");
+        var refHtml = refs.map(function(ref) {
+          return "<p>" + $('#ref-' + ref).html() + "</p>";
+        }).join("\n");
+        window.tippy(this, {
+          allowHTML: true,
+          content: refHtml,
+          maxWidth: 500,
+          interactive: true,
+          interactiveBorder: 10,
+          theme: 'light-border',
+          placement: 'bottom-start'
+        });
+      });
 
       // clear polling timer
       clearInterval(tid);
@@ -2313,7 +2361,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 
   d-article div.sourceCode code,
   d-article pre code {
-  	font-family: var(--mono-font), var(--mono-default);
+    font-family: var(--mono-font), var(--mono-default);
   }
 
 
@@ -2338,76 +2386,78 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   }
 
   /*-- BODY --*/
-  /* only text inside of <p> tags */
-  d-article > p {
+  d-article > p,  /* only text inside of <p> tags */
+  d-article > ul, /* lists */
+  d-article > ol {
     color: var(--body-color, rgba(0, 0, 0, 0.8));
     font-size: var(--body-size, 1.06rem);
   }
 
+
   /*-- CODE --*/
   d-article div.sourceCode code,
   d-article pre code {
-  	font-size: var(--code-size, 14px);
+    font-size: var(--code-size, 14px);
   }
 
   /*-- ASIDE --*/
   d-article aside {
-  	font-size: var(--aside-size, 12px);
-  	color: var(--aside-color, rgba(0, 0, 0, 0.6));
+    font-size: var(--aside-size, 12px);
+    color: var(--aside-color, rgba(0, 0, 0, 0.6));
   }
 
   /*-- FIGURE CAPTIONS --*/
   figure .caption,
   figure figcaption,
   .figure .caption {
-  	font-size: var(--fig-cap-size, 13px);
-  	color: var(--fig-cap-color, rgba(0, 0, 0, 0.6));
+    font-size: var(--fig-cap-size, 13px);
+    color: var(--fig-cap-color, rgba(0, 0, 0, 0.6));
   }
 
   /*-- METADATA --*/
   d-byline h3 {
-  	font-size: var(--heading-size, 0.6rem);
-  	color: var(--heading-color, rgba(0, 0, 0, 0.5));
+    font-size: var(--heading-size, 0.6rem);
+    color: var(--heading-color, rgba(0, 0, 0, 0.5));
   }
 
   d-byline {
-  	font-size: var(--body-size, 0.8rem);
-  	color: var(--body-color, rgba(0, 0, 0, 0.8));
+    font-size: var(--body-size, 0.8rem);
+    color: var(--body-color, rgba(0, 0, 0, 0.8));
   }
 
   d-byline a,
   d-article d-byline a {
-  	color: var(--body-color, rgba(0, 0, 0, 0.8));
+    color: var(--body-color, rgba(0, 0, 0, 0.8));
   }
 
   /*-- TABLE OF CONTENTS --*/
   .d-contents nav h3 {
-  	font-size: var(--heading-size, 18px);
+    font-size: var(--heading-size, 18px);
   }
 
   .d-contents nav a {
-  	font-size: var(--contents-size, 13px);
+    font-size: var(--contents-size, 13px);
   }
 
   /*-- APPENDIX --*/
   d-appendix h3 {
     font-size: var(--heading-size, 15px);
-  	color: var(--heading-color, rgba(0, 0, 0, 0.65));
+    color: var(--heading-color, rgba(0, 0, 0, 0.65));
   }
 
   d-appendix {
     font-size: var(--text-size, 0.8em);
-  	color: var(--text-color, rgba(0, 0, 0, 0.5));
+    color: var(--text-color, rgba(0, 0, 0, 0.5));
   }
 
   d-appendix d-footnote-list a.footnote-backlink {
-  	color: var(--text-color, rgba(0, 0, 0, 0.5));
+    color: var(--text-color, rgba(0, 0, 0, 0.5));
   }
 
   /*-- WEBSITE HEADER + FOOTER --*/
   .distill-site-header .title {
-  	font-size: var(--title-size, 18px);
-  	font-family: var(--navbar-font), var(--heading-default);
+    font-size: var(--title-size, 18px);
+    font-family: var(--navbar-font), var(--heading-default);
   }
 
   .distill-site-header a,
@@ -2415,31 +2465,37 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
     font-family: var(--navbar-font), var(--heading-default);
   }
 
-  .distill-site-header a:hover {
-  	color: var(--hover-color, white);
+  .nav-dropdown .nav-dropbtn {
+    color: var(--text-color, rgba(255, 255, 255, 0.8));
+    font-size: var(--text-size, 15px);
+  }
+
+  .distill-site-header a:hover,
+  .nav-dropdown:hover .nav-dropbtn {
+    color: var(--hover-color, white);
   }
 
   .distill-site-header {
-  	font-size: var(--text-size, 15px);
-  	color: var(--text-color, rgba(255, 255, 255, 0.8));
-  	background-color: var(--bkgd-color, #0F2E3D);
+    font-size: var(--text-size, 15px);
+    color: var(--text-color, rgba(255, 255, 255, 0.8));
+    background-color: var(--bkgd-color, #0F2E3D);
   }
 
   .distill-site-footer {
-  	font-size: var(--text-size, 15px);
-  	color: var(--text-color, rgba(255, 255, 255, 0.8));
-  	background-color: var(--bkgd-color, #0F2E3D);
+    font-size: var(--text-size, 15px);
+    color: var(--text-color, rgba(255, 255, 255, 0.8));
+    background-color: var(--bkgd-color, #0F2E3D);
   }
 
   .distill-site-footer a:hover {
-  	color: var(--hover-color, white);
+    color: var(--hover-color, white);
   }</style>
   <!--/radix_placeholder_distill-->
-  <script src="site_libs/header-attrs-2.9/header-attrs.js"></script>
+  <script src="site_libs/header-attrs-2.11/header-attrs.js"></script>
   <meta name="twitter:title" content="IPUMS PMA Data Analysis Hub"/>
   <meta name="twitter:description" content="Analyze integrated PMA family planning data with R"/>
   <meta name="twitter:url" content="https://ipums.github.io/pma-data-hub"/>
-  <meta name="twitter:image:src" content="https://ipums.github.io/pma-data-hub/images/favicon/apple-touch-icon-120x120.png"/>
+  <meta name="twitter:image" content="https://ipums.github.io/pma-data-hub/images/favicon/apple-touch-icon-120x120.png"/>
   <meta name="twitter:image:alt" content="IPUMS PMA logo"/>
   <meta name="twitter:card" content="summary"/>
   <meta name="twitter:creator" content="@ipumsGH"/>
@@ -2452,14 +2508,17 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   <meta property="og:type" content="website"/>
   <meta property="og:locale" content="en_US"/>
   <meta property="article:author" content="IPUMS PMA"/>
-  <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+  <script src="site_libs/popper-2.6.0/popper.min.js"></script>
+  <link href="site_libs/tippy-6.2.7/tippy.css" rel="stylesheet" />
+  <link href="site_libs/tippy-6.2.7/tippy-light-border.css" rel="stylesheet" />
+  <script src="site_libs/tippy-6.2.7/tippy.umd.min.js"></script>
   <script src="site_libs/anchor-4.2.2/anchor.min.js"></script>
   <script src="site_libs/bowser-1.9.3/bowser.min.js"></script>
   <script src="site_libs/webcomponents-2.0.0/webcomponents.js"></script>
   <script src="site_libs/distill-2.2.21/template.v2.js"></script>
   <!--radix_placeholder_site_in_header-->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-191039907-2"></script>
-  <script>
+  <script type="text/javascript" cookie-consent="tracking" async src="https://www.googletagmanager.com/gtag/js?id=UA-191039907-2"></script>
+  <script type="text/javascript" cookie-consent="tracking">
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
@@ -2553,7 +2612,7 @@ function init_posts_list() {
     var src = $(img).attr('data-src');
     if (src) {
       $(img).attr('src', src);
-      $(img).load(function() {
+      $(img).on("load", function() {
         img.removeAttribute('data-src');
       });
     }
@@ -2599,6 +2658,7 @@ function init_posts_list() {
 
       // mark posts that match the category visible
       var page_category = window.location.hash.replace(/^#category:/, "");
+      page_category = decodeURIComponent(page_category)
       var posts = $('.post-metadata').map(function(idx, script) {
         var metadata = $.parseJSON($(script).html());
         var post = null;
@@ -2614,7 +2674,7 @@ function init_posts_list() {
       set_posts_visible(posts, true);
 
       // mark the hash active
-      $('.categories li>a[href="' + window.location.hash + '"]').addClass('active');
+      $('.categories li>a[href="' + decodeURIComponent(window.location.hash) + '"]').addClass('active');
 
       // update the list_caption
       var list_caption = $('.posts-list-caption');
@@ -2677,6 +2737,32 @@ function init_posts_list() {
 <div class="posts-container posts-with-sidebar posts-apply-limit l-screen-inset">
 <div class="posts-list">
 <h1 class="posts-list-caption" data-caption="Data Analysis Hub">Data Analysis Hub</h1>
+<a href="posts/2021-10-15-nutrition-climate/" class="post-preview">
+<script class="post-metadata" type="text/json">{"categories":["Nutrition","CHIRPS","Precipitation","Climate","Agriculture","terra","sf","ggspatial"]}</script>
+<div class="metadata">
+<div class="publishedDate">Oct. 15, 2021</div>
+<div class="dt-authors">
+<div class="dt-author">Matt Gunther</div>
+</div>
+</div>
+<div class="thumbnail">
+<img src="posts/2021-10-15-nutrition-climate/nutrition-climate_files/figure-html5/unnamed-chunk-42-1.png"/>
+</div>
+<div class="description">
+<h2>How to use CHIRPS Climate Data with PMA Nutrition Surveys</h2>
+<div class="dt-tags">
+<div class="dt-tag">Nutrition</div>
+<div class="dt-tag">CHIRPS</div>
+<div class="dt-tag">Precipitation</div>
+<div class="dt-tag">Climate</div>
+<div class="dt-tag">Agriculture</div>
+<div class="dt-tag">terra</div>
+<div class="dt-tag">sf</div>
+<div class="dt-tag">ggspatial</div>
+</div>
+<p>Remotely sensed daily precipitation data is an incredible resource for understanding rainfed food systems.</p>
+</div>
+</a>
 <a href="posts/2021-10-01-nutrition-indicators/" class="post-preview">
 <script class="post-metadata" type="text/json">{"categories":["Nutrition","IYCF","Indicators","Data Manipulation"]}</script>
 <div class="metadata">
@@ -2775,7 +2861,7 @@ function init_posts_list() {
 <div class="dt-authors"></div>
 </div>
 <div class="thumbnail">
-<img src="posts/2021-08-07-pma-intro/../../images/new_course.png"/>
+<img data-src="posts/2021-08-07-pma-intro/../../images/new_course.png"/>
 </div>
 <div class="description">
 <h2>New Online Course: Introduction to IPUMS PMA Data Analysis</h2>
@@ -3198,10 +3284,14 @@ function init_posts_list() {
 <ul>
 <li>
 <a href="#category:Articles">Articles</a>
-<span class="category-count">(23)</span>
+<span class="category-count">(24)</span>
 </li>
 <li>
 <a href="#category:across">across</a>
+<span class="category-count">(1)</span>
+</li>
+<li>
+<a href="#category:Agriculture">Agriculture</a>
 <span class="category-count">(1)</span>
 </li>
 <li>
@@ -3210,6 +3300,14 @@ function init_posts_list() {
 </li>
 <li>
 <a href="#category:bootstraps">bootstraps</a>
+<span class="category-count">(1)</span>
+</li>
+<li>
+<a href="#category:CHIRPS">CHIRPS</a>
+<span class="category-count">(1)</span>
+</li>
+<li>
+<a href="#category:Climate">Climate</a>
 <span class="category-count">(1)</span>
 </li>
 <li>
@@ -3262,6 +3360,10 @@ function init_posts_list() {
 </li>
 <li>
 <a href="#category:ggridges">ggridges</a>
+<span class="category-count">(1)</span>
+</li>
+<li>
+<a href="#category:ggspatial">ggspatial</a>
 <span class="category-count">(1)</span>
 </li>
 <li>
@@ -3322,7 +3424,7 @@ function init_posts_list() {
 </li>
 <li>
 <a href="#category:Nutrition">Nutrition</a>
-<span class="category-count">(3)</span>
+<span class="category-count">(4)</span>
 </li>
 <li>
 <a href="#category:PAA_2021">PAA 2021</a>
@@ -3342,6 +3444,10 @@ function init_posts_list() {
 </li>
 <li>
 <a href="#category:pmap">pmap</a>
+<span class="category-count">(1)</span>
+</li>
+<li>
+<a href="#category:Precipitation">Precipitation</a>
 <span class="category-count">(1)</span>
 </li>
 <li>
@@ -3378,7 +3484,7 @@ function init_posts_list() {
 </li>
 <li>
 <a href="#category:sf">sf</a>
-<span class="category-count">(2)</span>
+<span class="category-count">(3)</span>
 </li>
 <li>
 <a href="#category:Spatial">Spatial</a>
@@ -3410,6 +3516,10 @@ function init_posts_list() {
 </li>
 <li>
 <a href="#category:Teaching">Teaching</a>
+<span class="category-count">(1)</span>
+</li>
+<li>
+<a href="#category:terra">terra</a>
 <span class="category-count">(1)</span>
 </li>
 <li>

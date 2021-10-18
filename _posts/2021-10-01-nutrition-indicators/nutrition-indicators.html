@@ -56,7 +56,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 }
 code span.al { color: #ad0000; } /* Alert */
 code span.an { color: #5e5e5e; } /* Annotation */
-code span.at { color: #20794d; } /* Attribute */
+code span.at { } /* Attribute */
 code span.bn { color: #ad0000; } /* BaseN */
 code span.bu { } /* BuiltIn */
 code span.cf { color: #007ba5; } /* ControlFlow */
@@ -77,12 +77,34 @@ code span.kw { color: #007ba5; } /* Keyword */
 code span.op { color: #5e5e5e; } /* Operator */
 code span.ot { color: #007ba5; } /* Other */
 code span.pp { color: #ad0000; } /* Preprocessor */
-code span.sc { color: #20794d; } /* SpecialChar */
+code span.sc { color: #5e5e5e; } /* SpecialChar */
 code span.ss { color: #20794d; } /* SpecialString */
 code span.st { color: #20794d; } /* String */
 code span.va { color: #111111; } /* Variable */
 code span.vs { color: #20794d; } /* VerbatimString */
 code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
+</style>
+
+<style>
+  div.csl-bib-body { }
+  div.csl-entry {
+    clear: both;
+    }
+  .hanging div.csl-entry {
+    margin-left:2em;
+    text-indent:-2em;
+  }
+  div.csl-left-margin {
+    min-width:2em;
+    float:left;
+  }
+  div.csl-right-inline {
+    margin-left:2em;
+    padding-left:1em;
+  }
+  div.csl-indent {
+    margin-left: 2em;
+  }
 </style>
 
   <!--radix_placeholder_meta_tags-->
@@ -310,6 +332,11 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
     text-decoration: underline;
   }
 
+  d-article details {
+    grid-column: text;
+    margin-bottom: 0.8em;
+  }
+
   @media(min-width: 768px) {
 
   d-article pre,
@@ -464,6 +491,17 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 
   div.hanging-indent{
     margin-left: 1em; text-indent: -1em;
+  }
+
+  /* Citation hover box */
+
+  .tippy-box[data-theme~=light-border] {
+    background-color: rgba(250, 250, 250, 0.95);
+  }
+
+  .tippy-content > p {
+    margin-bottom: 0;
+    padding: 2px;
   }
 
 
@@ -1131,7 +1169,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
       var layout = $(this).attr('data-layout');
 
       // apply layout to markdown level block elements
-      var elements = $(this).children().not('div.sourceCode, pre, script');
+      var elements = $(this).children().not('details, div.sourceCode, pre, script');
       elements.each(function(i, el) {
         var layout_div = $('<div class="' + layout + '"></div>');
         if (layout_div.hasClass('shaded')) {
@@ -1246,6 +1284,23 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
       // move appendix-bottom entries to the bottom
       $('.appendix-bottom').appendTo('d-appendix').children().unwrap();
       $('.appendix-bottom').remove();
+
+      // hoverable references
+      $('span.citation[data-cites]').each(function() {
+        var refs = $(this).attr('data-cites').split(" ");
+        var refHtml = refs.map(function(ref) {
+          return "<p>" + $('#ref-' + ref).html() + "</p>";
+        }).join("\n");
+        window.tippy(this, {
+          allowHTML: true,
+          content: refHtml,
+          maxWidth: 500,
+          interactive: true,
+          interactiveBorder: 10,
+          theme: 'light-border',
+          placement: 'bottom-start'
+        });
+      });
 
       // clear polling timer
       clearInterval(tid);
@@ -1406,8 +1461,12 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   </script>
 
   <!--/radix_placeholder_distill-->
-  <script src="nutrition-indicators_files/header-attrs-2.9/header-attrs.js"></script>
-  <script src="nutrition-indicators_files/jquery-1.11.3/jquery.min.js"></script>
+  <script src="nutrition-indicators_files/header-attrs-2.11/header-attrs.js"></script>
+  <script src="nutrition-indicators_files/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+  <script src="nutrition-indicators_files/popper-2.6.0/popper.min.js"></script>
+  <link href="nutrition-indicators_files/tippy-6.2.7/tippy.css" rel="stylesheet" />
+  <link href="nutrition-indicators_files/tippy-6.2.7/tippy-light-border.css" rel="stylesheet" />
+  <script src="nutrition-indicators_files/tippy-6.2.7/tippy.umd.min.js"></script>
   <script src="nutrition-indicators_files/anchor-4.2.2/anchor.min.js"></script>
   <script src="nutrition-indicators_files/bowser-1.9.3/bowser.min.js"></script>
   <script src="nutrition-indicators_files/webcomponents-2.0.0/webcomponents.js"></script>
@@ -1423,7 +1482,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <!--radix_placeholder_front_matter-->
 
 <script id="distill-front-matter" type="text/json">
-{"title":"Infant and Young Child Feeding (IYCF) Indicators for PMA Nutrition Data","description":"Use WHO guidelines to calculate Minimum Dietary Diversity (MDD), Minimum Meal Frequency (MMF), and Minimum Acceptable Diet (MAD).","authors":[{"author":"Matt Gunther","authorURL":"#","affiliation":"IPUMS PMA Senior Data Analyst","affiliationURL":"#","orcidID":""}],"publishedDate":"2021-10-01T00:00:00.000+00:00","citationText":"Gunther, 2021"}
+{"title":"Infant and Young Child Feeding (IYCF) Indicators for PMA Nutrition Data","description":"Use WHO guidelines to calculate Minimum Dietary Diversity (MDD), Minimum Meal Frequency (MMF), and Minimum Acceptable Diet (MAD).","authors":[{"author":"Matt Gunther","authorURL":"#","affiliation":"IPUMS PMA Senior Data Analyst","affiliationURL":"#","orcidID":""}],"publishedDate":"2021-10-01T00:00:00.000-05:00","citationText":"Gunther, 2021"}
 </script>
 
 <!--/radix_placeholder_front_matter-->
@@ -1478,7 +1537,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <p>We’ll load the data extract into R with the packages <a href="http://tech.popdata.org/ipumsr/">ipumsr</a> and <a href="https://tidyverse.tidyverse.org/">tidyverse</a>.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre><code><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://www.ipums.org'>ipumsr</a></span><span class='op'>)</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://www.ipums.org'>ipumsr</a></span><span class='op'>)</span>
 <span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://tidyverse.tidyverse.org'>tidyverse</a></span><span class='op'>)</span>
 
 <span class='va'>dat</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/ipumsr/man/read_ipums_micro.html'>read_ipums_micro</a></span><span class='op'>(</span>
@@ -1491,7 +1550,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <p>For all graphs in this post, we’ll use a custom <a href="https://ggplot2.tidyverse.org/index.html">ggplot2</a> theme we’ll call <code>theme_pma</code>. Check out <a href="../2021-07-15-covid-likert/">this post</a> for more information about how to develop and use a graphics theme like this one:</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre><code><span class='fu'>sysfonts</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/sysfonts/man/font_add.html'>font_add</a></span><span class='op'>(</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'>sysfonts</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/sysfonts/man/font_add.html'>font_add</a></span><span class='op'>(</span>
   family <span class='op'>=</span> <span class='st'>"cabrito"</span>, 
   regular <span class='op'>=</span> <span class='st'>"../../fonts/cabritosansnormregular-webfont.ttf"</span>
 <span class='op'>)</span>
@@ -1566,7 +1625,7 @@ KIDAGEMO &amp;=&amp; INTFCQCMC - KIDBIRTHCMC - 1\\
 <p>Note that all of the date variables contain special top-codes designating missing values; we’ll use <a href="https://dplyr.tidyverse.org/reference/case_when.html">dplyr::case_when</a> to calculate CMC codes <em>only</em> for non-missing dates (all other cases will be marked <code>NA</code> automatically).</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre><code><span class='va'>dat</span> <span class='op'>&lt;-</span> <span class='va'>dat</span> <span class='op'>%&gt;%</span> 
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>dat</span> <span class='op'>&lt;-</span> <span class='va'>dat</span> <span class='op'>%&gt;%</span> 
   <span class='fu'>mutate</span><span class='op'>(</span>
     KIDBIRTHCMC <span class='op'>=</span> <span class='fu'>case_when</span><span class='op'>(</span>
       <span class='va'>KIDBIRTHMO</span> <span class='op'>&lt;=</span> <span class='fl'>12</span> <span class='op'>&amp;</span> <span class='va'>KIDBIRTHYR</span> <span class='op'>&lt;=</span> <span class='fl'>2017</span> <span class='op'>~</span> 
@@ -1583,10 +1642,10 @@ KIDAGEMO &amp;=&amp; INTFCQCMC - KIDBIRTHCMC - 1\\
 <p>As we mentioned, the interview date is only located on the record for the <em>woman</em> in each household who provided nutrition information for herself <em>and</em> on behalf of each sampled child. As a result, <code>INTFCQCMC</code> is currently <code>NA</code> for each child.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre><code><span class='va'>dat</span> <span class='op'>%&gt;%</span> <span class='fu'>count</span><span class='op'>(</span><span class='va'>ELIGTYPE</span>, <span class='va'>INTFCQCMC</span><span class='op'>)</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>dat</span> <span class='op'>%&gt;%</span> <span class='fu'>count</span><span class='op'>(</span><span class='va'>ELIGTYPE</span>, <span class='va'>INTFCQCMC</span><span class='op'>)</span>
 </code></pre>
 </div>
-<pre><code># A tibble: 7 x 3
+<pre><code># A tibble: 7 × 3
                              ELIGTYPE INTFCQCMC     n
                             &lt;int+lbl&gt;     &lt;dbl&gt; &lt;int&gt;
 1 11 [Infant under age 2 (INF)]              NA  2436
@@ -1605,7 +1664,7 @@ KIDAGEMO &amp;=&amp; INTFCQCMC - KIDBIRTHCMC - 1\\
 </ul>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre><code><span class='va'>dat</span> <span class='op'>&lt;-</span> <span class='va'>dat</span> <span class='op'>%&gt;%</span>  
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>dat</span> <span class='op'>&lt;-</span> <span class='va'>dat</span> <span class='op'>%&gt;%</span>  
   <span class='fu'>select</span><span class='op'>(</span>
     <span class='va'>HHID</span>, 
     <span class='va'>PERSONID</span>,
@@ -1643,10 +1702,10 @@ KIDAGEMO &amp;=&amp; INTFCQCMC - KIDBIRTHCMC - 1\\
 <p>Let’s now check to see whether an interview date <code>INTFCQCMC</code> was determined for every child:</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre><code><span class='va'>dat</span> <span class='op'>%&gt;%</span> <span class='fu'>count</span><span class='op'>(</span><span class='va'>ELIGTYPE</span>, <span class='va'>INTFCQCMC</span><span class='op'>)</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>dat</span> <span class='op'>%&gt;%</span> <span class='fu'>count</span><span class='op'>(</span><span class='va'>ELIGTYPE</span>, <span class='va'>INTFCQCMC</span><span class='op'>)</span>
 </code></pre>
 </div>
-<pre><code># A tibble: 14 x 3
+<pre><code># A tibble: 14 × 3
                               ELIGTYPE INTFCQCMC     n
                              &lt;int+lbl&gt;     &lt;dbl&gt; &lt;int&gt;
  1 11 [Infant under age 2 (INF)]            1410  1663
@@ -1667,7 +1726,7 @@ KIDAGEMO &amp;=&amp; INTFCQCMC - KIDBIRTHCMC - 1\\
 <p>Success! Now, we can calculate the minimum age of every sampled child as <code>KIDAGEMO</code>.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre><code><span class='va'>dat</span> <span class='op'>&lt;-</span> <span class='va'>dat</span> <span class='op'>%&gt;%</span> <span class='fu'>mutate</span><span class='op'>(</span>KIDAGEMO <span class='op'>=</span> <span class='va'>INTFCQCMC</span> <span class='op'>-</span> <span class='va'>KIDBIRTHCMC</span> <span class='op'>-</span> <span class='fl'>1</span><span class='op'>)</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>dat</span> <span class='op'>&lt;-</span> <span class='va'>dat</span> <span class='op'>%&gt;%</span> <span class='fu'>mutate</span><span class='op'>(</span>KIDAGEMO <span class='op'>=</span> <span class='va'>INTFCQCMC</span> <span class='op'>-</span> <span class='va'>KIDBIRTHCMC</span> <span class='op'>-</span> <span class='fl'>1</span><span class='op'>)</span>
 </code></pre>
 </div>
 </div>
@@ -1677,14 +1736,14 @@ The official <a href="https://www.pmadata.org/sites/default/files/data_product_r
 </aside>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre><code><span class='va'>dat</span> <span class='op'>&lt;-</span> <span class='va'>dat</span> <span class='op'>%&gt;%</span> <span class='fu'><a href='https://rdrr.io/r/stats/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>KIDAGEMO</span> <span class='op'>&gt;=</span> <span class='fl'>6</span> <span class='op'>&amp;</span> <span class='va'>INFCHECK</span> <span class='op'>==</span> <span class='fl'>1</span><span class='op'>)</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>dat</span> <span class='op'>&lt;-</span> <span class='va'>dat</span> <span class='op'>%&gt;%</span> <span class='fu'><a href='https://rdrr.io/r/stats/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>KIDAGEMO</span> <span class='op'>&gt;=</span> <span class='fl'>6</span> <span class='op'>&amp;</span> <span class='va'>INFCHECK</span> <span class='op'>==</span> <span class='fl'>1</span><span class='op'>)</span>
 </code></pre>
 </div>
 </div>
 <p>For convenience, we’ll also create a factor <code>KIDAGEMO_3</code> that aggregates children into three groups:</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre><code><span class='va'>dat</span> <span class='op'>&lt;-</span> <span class='va'>dat</span> <span class='op'>%&gt;%</span> 
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>dat</span> <span class='op'>&lt;-</span> <span class='va'>dat</span> <span class='op'>%&gt;%</span> 
   <span class='fu'>mutate</span><span class='op'>(</span>KIDAGEMO_3 <span class='op'>=</span> <span class='fu'>case_when</span><span class='op'>(</span>
     <span class='va'>KIDAGEMO</span> <span class='op'>&lt;</span> <span class='fl'>12</span> <span class='op'>~</span> <span class='st'>"6-11 months"</span>,
     <span class='va'>KIDAGEMO</span> <span class='op'>&lt;</span> <span class='fl'>18</span> <span class='op'>~</span> <span class='st'>"12-17 months"</span>,
@@ -1805,7 +1864,7 @@ Did ${under_2yr_child_name} eat or drink:
 <p>We’ll create one “group” variable with the prefix <code>GRP_</code> for each food group. In cases where more than one harmonized variable is used, we’ll use <a href="https://dplyr.tidyverse.org/reference/across.html">dplyr::if_any</a> to indicate whether <em>any</em> of the constituent foods was eaten yesterday.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre><code><span class='va'>dat</span> <span class='op'>&lt;-</span> <span class='va'>dat</span> <span class='op'>%&gt;%</span> 
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>dat</span> <span class='op'>&lt;-</span> <span class='va'>dat</span> <span class='op'>%&gt;%</span> 
   <span class='fu'>mutate</span><span class='op'>(</span>
     GRP_BF <span class='op'>=</span> <span class='va'>INFBFNOW</span> <span class='op'>==</span> <span class='fl'>1</span>,
     GRP_NUT <span class='op'>=</span> <span class='va'>INFYESTBEAN</span> <span class='op'>==</span> <span class='fl'>1</span>,
@@ -1834,14 +1893,14 @@ Did ${under_2yr_child_name} eat or drink:
 <p>Let’s preview the proportion of infants in each age range from <code>KIDAGEMO_3</code> who consumed foods from each of the <strong>8 food groups</strong> yesterday. First, we’ll make a summary table with <a href="https://dplyr.tidyverse.org/reference/summarise.html">dplyr::summarise</a> showing the proportion of children in each age range that consumed foods from each group:</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre><code><span class='va'>grp_summary</span> <span class='op'>&lt;-</span> <span class='va'>dat</span> <span class='op'>%&gt;%</span> 
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>grp_summary</span> <span class='op'>&lt;-</span> <span class='va'>dat</span> <span class='op'>%&gt;%</span> 
   <span class='fu'>group_by</span><span class='op'>(</span><span class='va'>KIDAGEMO_3</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
   <span class='fu'>summarise</span><span class='op'>(</span><span class='fu'>across</span><span class='op'>(</span><span class='fu'><a href='https://tidyselect.r-lib.org/reference/starts_with.html'>starts_with</a></span><span class='op'>(</span><span class='st'>"GRP"</span><span class='op'>)</span>, <span class='op'>~</span><span class='fl'>100</span><span class='op'>*</span><span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span><span class='op'>(</span><span class='va'>.x</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span> 
 
 <span class='va'>grp_summary</span>
 </code></pre>
 </div>
-<pre><code># A tibble: 3 x 9
+<pre><code># A tibble: 3 × 9
   KIDAGEMO_3   GRP_BF GRP_NUT GRP_EGG GRP_OTH GRP_GRAIN GRP_DAIRY
   &lt;fct&gt;         &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;
 1 6-11 months    94.6    6.95    4.90    5.69      83.6      20.2
@@ -1852,7 +1911,7 @@ Did ${under_2yr_child_name} eat or drink:
 <p>We’ll use <a href="https://tidyr.tidyverse.org/reference/pivot_longer.html">tidyr::pivot_longer</a> to create a long version of the table containing labels for each food group written <em>exactly</em> as we want them to appear on a <a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a>.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre><code><span class='va'>grp_summary</span> <span class='op'>&lt;-</span> <span class='va'>grp_summary</span> <span class='op'>%&gt;%</span> 
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>grp_summary</span> <span class='op'>&lt;-</span> <span class='va'>grp_summary</span> <span class='op'>%&gt;%</span> 
   <span class='fu'>pivot_longer</span><span class='op'>(</span>
     <span class='op'>!</span><span class='va'>KIDAGEMO_3</span>,
     names_pattern <span class='op'>=</span> <span class='st'>"GRP_(.*)"</span>,
@@ -1877,7 +1936,7 @@ Did ${under_2yr_child_name} eat or drink:
 <span class='va'>grp_summary</span>
 </code></pre>
 </div>
-<pre><code># A tibble: 24 x 3
+<pre><code># A tibble: 24 × 3
    KIDAGEMO_3   group                                  value
    &lt;fct&gt;        &lt;fct&gt;                                  &lt;dbl&gt;
  1 6-11 months  &quot;Breastmilk&quot;                           94.6 
@@ -1895,7 +1954,7 @@ Did ${under_2yr_child_name} eat or drink:
 <p>Now, we’ll create a <a href="../2021-08-01-covid-batches/#bar-charts">grouped bar chart</a> using the custom <code>theme_pma</code> created above.</p>
 <div class="layout-chunk" data-layout="l-page">
 <div class="sourceCode">
-<pre><code><span class='va'>grp_summary</span> <span class='op'>%&gt;%</span> 
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>grp_summary</span> <span class='op'>%&gt;%</span> 
   <span class='fu'>ggplot</span><span class='op'>(</span><span class='fu'>aes</span><span class='op'>(</span>fill <span class='op'>=</span> <span class='va'>KIDAGEMO_3</span>, x <span class='op'>=</span> <span class='va'>group</span>, y <span class='op'>=</span> <span class='va'>value</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span> 
   <span class='fu'>geom_bar</span><span class='op'>(</span>width <span class='op'>=</span> <span class='fl'>.6</span>, position <span class='op'>=</span> <span class='fu'>position_dodge</span><span class='op'>(</span><span class='fl'>0.6</span><span class='op'>)</span>, stat <span class='op'>=</span> <span class='st'>"identity"</span><span class='op'>)</span> <span class='op'>+</span> 
   <span class='fu'>theme_pma</span><span class='op'>(</span>
@@ -1909,7 +1968,7 @@ Did ${under_2yr_child_name} eat or drink:
 <p>Finally, we’ll calculate <code>MDD</code>. Because <code>MDD</code> combines indicators from multiple columns, we’ll use <a href="https://dplyr.tidyverse.org/reference/c_across.html">dplyr::c_across</a>. If the total sum of values in all columns with the prefix <code>GRP</code> is at least 5, the child will meet the WHO criteria for “Minimum Dietary Diversity.”</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre><code><span class='va'>dat</span> <span class='op'>&lt;-</span> <span class='va'>dat</span> <span class='op'>%&gt;%</span> 
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>dat</span> <span class='op'>&lt;-</span> <span class='va'>dat</span> <span class='op'>%&gt;%</span> 
   <span class='fu'>rowwise</span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
   <span class='fu'>mutate</span><span class='op'>(</span>MDD <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span><span class='op'>(</span><span class='fu'>c_across</span><span class='op'>(</span><span class='fu'><a href='https://tidyselect.r-lib.org/reference/starts_with.html'>starts_with</a></span><span class='op'>(</span><span class='st'>"GRP"</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>&gt;=</span> <span class='fl'>5</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
   <span class='fu'>ungroup</span><span class='op'>(</span><span class='op'>)</span> 
@@ -1919,7 +1978,7 @@ Did ${under_2yr_child_name} eat or drink:
 <p>We’ll add <code>MDD</code> as a <a href="https://ggplot2.tidyverse.org/reference/facet_grid.html">facet</a> to the plot we made above.</p>
 <div class="layout-chunk" data-layout="l-page">
 <div class="sourceCode">
-<pre><code><span class='va'>dat</span> <span class='op'>%&gt;%</span> 
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>dat</span> <span class='op'>%&gt;%</span> 
   <span class='fu'>group_by</span><span class='op'>(</span><span class='va'>KIDAGEMO_3</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
   <span class='fu'>summarise</span><span class='op'>(</span>group <span class='op'>=</span> <span class='st'>"MDD"</span>, value <span class='op'>=</span> <span class='fl'>100</span><span class='op'>*</span><span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span><span class='op'>(</span><span class='va'>MDD</span><span class='op'>)</span>, aside <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
   <span class='fu'>bind_rows</span><span class='op'>(</span><span class='va'>grp_summary</span> <span class='op'>%&gt;%</span> <span class='fu'>mutate</span><span class='op'>(</span>aside <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
@@ -1950,7 +2009,7 @@ Did ${under_2yr_child_name} eat or drink:
 <p>For each <code>NUM</code> variable, we should be careful to note the reason why cases may appear “NIU (not in universe)”: these are children whose mother answered in a previous question that they <em>did not consume the food yesterday</em>. We’ll re-code these NIU cases as 0, rather than treat them as “missing.” On the other hand, we’ll assign the value <code>NA</code> to any child whose mother “did not know” whether they received the food yesterday.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre><code><span class='va'>dat</span> <span class='op'>&lt;-</span> <span class='va'>dat</span> <span class='op'>%&gt;%</span> 
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>dat</span> <span class='op'>&lt;-</span> <span class='va'>dat</span> <span class='op'>%&gt;%</span> 
   <span class='fu'>mutate</span><span class='op'>(</span>
     <span class='fu'>across</span><span class='op'>(</span>
       <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='va'>INFMILKNUM</span>, <span class='va'>INFYOGNUM</span>, <span class='va'>INFFORMNUM</span>, <span class='va'>INFFOODNUM</span><span class='op'>)</span>, 
@@ -1967,7 +2026,7 @@ Did ${under_2yr_child_name} eat or drink:
 <p>Now, we’ll calculate <code>MILKFEEDS</code> as a <code>sum</code> of the three constituent <code>NUM</code> variables for dairy products (unless all are <code>NA</code>, in which case we’ll return <code>NA</code>).</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre><code><span class='va'>dat</span> <span class='op'>&lt;-</span> <span class='va'>dat</span> <span class='op'>%&gt;%</span> 
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>dat</span> <span class='op'>&lt;-</span> <span class='va'>dat</span> <span class='op'>%&gt;%</span> 
   <span class='fu'>rowwise</span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
   <span class='fu'>mutate</span><span class='op'>(</span>MILKFEEDS <span class='op'>=</span> <span class='fu'>case_when</span><span class='op'>(</span>
     <span class='op'>!</span><span class='fu'>if_all</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='va'>INFMILKNUM</span>, <span class='va'>INFYOGNUM</span>, <span class='va'>INFFORMNUM</span><span class='op'>)</span>, <span class='va'>is.na</span><span class='op'>)</span> <span class='op'>~</span> 
@@ -1980,7 +2039,7 @@ Did ${under_2yr_child_name} eat or drink:
 <p>Finally, we’ll use <code>case_when</code> to apply separate calculations of <code>MMF</code> depending on whether the child is under 9 months, and whether they are breastfeeding.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre><code><span class='va'>dat</span> <span class='op'>&lt;-</span> <span class='va'>dat</span> <span class='op'>%&gt;%</span> 
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>dat</span> <span class='op'>&lt;-</span> <span class='va'>dat</span> <span class='op'>%&gt;%</span> 
   <span class='fu'>mutate</span><span class='op'>(</span>MMF <span class='op'>=</span> <span class='fu'>case_when</span><span class='op'>(</span>
     <span class='va'>KIDAGEMO</span> <span class='op'>&lt;</span> <span class='fl'>9</span> <span class='op'>&amp;</span> <span class='va'>GRP_BF</span> <span class='op'>~</span> <span class='va'>INFFOODNUM</span> <span class='op'>&gt;=</span> <span class='fl'>2</span>,
     <span class='va'>KIDAGEMO</span> <span class='op'>&gt;=</span> <span class='fl'>9</span> <span class='op'>&amp;</span> <span class='va'>GRP_BF</span> <span class='op'>~</span> <span class='va'>INFFOODNUM</span> <span class='op'>&gt;=</span> <span class='fl'>3</span>,
@@ -1992,7 +2051,7 @@ Did ${under_2yr_child_name} eat or drink:
 <p>Let’s compare the percentage of children who achieved <code>MMF</code> to the percentage who achieved <code>MDD</code> as shown above.</p>
 <div class="layout-chunk" data-layout="l-page">
 <div class="sourceCode">
-<pre><code><span class='va'>dat</span> <span class='op'>%&gt;%</span> 
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>dat</span> <span class='op'>%&gt;%</span> 
   <span class='fu'>group_by</span><span class='op'>(</span><span class='va'>KIDAGEMO_3</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
   <span class='fu'>summarise</span><span class='op'>(</span>MDD <span class='op'>=</span> <span class='fl'>100</span><span class='op'>*</span><span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span><span class='op'>(</span><span class='va'>MDD</span><span class='op'>)</span>, MMF <span class='op'>=</span> <span class='fl'>100</span><span class='op'>*</span><span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span><span class='op'>(</span><span class='va'>MMF</span>, na.rm <span class='op'>=</span> <span class='cn'>T</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
   <span class='fu'>pivot_longer</span><span class='op'>(</span><span class='op'>!</span><span class='va'>KIDAGEMO_3</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
@@ -2024,7 +2083,7 @@ Did ${under_2yr_child_name} eat or drink:
 <p>We’ve already defined all of the intermediate variables needed to calculate <code>MAD</code>, so we’ll simply combine them as appropriate for <strong>breastfed</strong> and <strong>non-breastfed</strong> children with one final <code>case_when</code> function:</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre><code><span class='va'>dat</span> <span class='op'>&lt;-</span> <span class='va'>dat</span> <span class='op'>%&gt;%</span> 
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>dat</span> <span class='op'>&lt;-</span> <span class='va'>dat</span> <span class='op'>%&gt;%</span> 
   <span class='fu'>mutate</span><span class='op'>(</span>MAD <span class='op'>=</span> <span class='fu'>case_when</span><span class='op'>(</span>
     <span class='va'>GRP_BF</span> <span class='op'>~</span> <span class='va'>MMF</span> <span class='op'>&amp;</span> <span class='va'>MDD</span>,
     <span class='op'>!</span><span class='va'>GRP_BF</span> <span class='op'>~</span> <span class='va'>MMF</span> <span class='op'>&amp;</span> <span class='va'>MDD</span> <span class='op'>&amp;</span> <span class='va'>MILKFEEDS</span> <span class='op'>&gt;=</span> <span class='fl'>2</span>
@@ -2035,7 +2094,7 @@ Did ${under_2yr_child_name} eat or drink:
 <p>To wrap up, we’ll add <code>MAD</code> to the chart we made comparing <code>MDD</code> and <code>MMF</code>.</p>
 <div class="layout-chunk" data-layout="l-page">
 <div class="sourceCode">
-<pre><code><span class='va'>dat</span> <span class='op'>%&gt;%</span> 
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>dat</span> <span class='op'>%&gt;%</span> 
   <span class='fu'>group_by</span><span class='op'>(</span><span class='va'>KIDAGEMO_3</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
   <span class='fu'>summarise</span><span class='op'>(</span>
     MDD <span class='op'>=</span> <span class='fl'>100</span><span class='op'>*</span><span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span><span class='op'>(</span><span class='va'>MDD</span><span class='op'>)</span>, 
