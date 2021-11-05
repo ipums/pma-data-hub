@@ -1,0 +1,534 @@
+---
+title: "Measuring agricultural conditions and their relationship with infant nutrition in Burkina Faso"
+description: |
+  We've learned how to build key indicators with spatially referenced nutrition data from PMA. Now let's see how researchers have used them.
+author:
+  - name: Matt Gunther
+    affiliation: IPUMS PMA Senior Data Analyst
+date: 2021-11-05
+bibliography: cites.bib
+nocite: |
+  @Pinchoff2021-eo,
+  @noauthor_2021-pl,
+categories:
+  - Nutrition
+  - Climate
+  - Data Analysis
+  - Mixed Effects 
+  - PMA Publications
+  - terra
+  - sf
+  - lme4
+  - gtsummary
+output:
+  distill::distill_article:
+    self_contained: false
+    toc: true
+    toc_depth: 3
+    toc_float: true
+---
+
+We're wrapping up [our series on PMA nutrition surveys](../../index.html#category:Nutrition) this week with an exciting new paper published in the journal [Environmental Research Communications](https://iopscience.iop.org/article/10.1088/2515-7620/ac07f5/meta). Authors [Jessie Pinchoff](https://www.popcouncil.org/research/expert/jessie-pinchoff), [William Turner](https://www.geog.ucsb.edu/people/students/william-turner), and [Kathryn Grace](https://www.kathryn-q-grace.com/) look at the relationship between **agricultural conditions and infant malnutrition in Burkina Faso**, so their work mobilizes many of the tools we've demonstrated in this series so far. If you've been reading along, you'll already know how to: 
+
+  * find harmonized [nutrition data for infants](../2021-09-01-nutrition-discovery/), 
+  * find and summarize [data collected from mothers](../2021-09-15-nutrition-linking/) of sampled infants, 
+  * [build key nutrition indicators](../2021-10-01-nutrition-indicators/), and  
+  * [explore climate data](../2021-10-15-nutrition-climate/) together with PMA nutrition surveys
+  
+In this post, we'll see how Pinchoff et al. put these pieces together to build a **multi-level mixed effects logistic regression model** for each of **three nutrition outcomes for infants** aged 6-23 months. Their results suggest that - in Burkina Faso, where many households rely on rainfed, subsistence agriculture - the quality of a particular growing season has a statistically significant impact on infant nutrition and growth.  
+
+As always in a [PMA Publications](../../index.html#category:PMA_Publications) post, we'll share R code and discuss decisions about measurement and analysis as we review the author's approach. Our hope is that you'll find something useful for your own project linking climate and nutrition data! For background information on the prevalence of rainfed food systems and infant malnutrition in Burkina Faso - or for a discussion of the implications of these findings for policy and further research - we encourage you to [check out the published paper](https://iopscience.iop.org/article/10.1088/2515-7620/ac07f5/meta).
+
+<aside>
+Big thanks to Jessie Pinchoff for sharing Stata source code for this paper! We've adapted it for R and used IPUMS PMA variables where available.
+</aside>
+
+# PMA Nutrition Data 
+
+The authors derive three **dependent variables** from the 2017 Burkina Faso nutrition sample. We've already demonstrated how to make two of these - Minimum Dietary Diversity `MDD` and Minimum Meal Frequency `MMF` - [in an earlier post](../2021-10-01-nutrition-indicators/). Both `MDD` and `MMF` are defined by World Health Organization (WHO) recommendations for Infant and Young Child Feeding (IYCF) practices necessary for healthy growth and development in children during the first two years of life. 
+
+<aside>
+Be sure to check out our post discussing [WHO guidelines for MDD and MMF](../2021-10-01-nutrition-indicators/) in much greater detail.
+</aside>
+
+The third **dependent variable** is an anthropometric measurement of each infant's physical development. IPUMS PMA nutrition surveys include [INFARMCIRCVAL](https://pma.ipums.org/pma-action/variables/INFARMCIRCVAL), a measure of the infant's mid-upper arm circumference (MUAC) taken by the interviewer on the day of the interview. According to [WHO guidelines](https://supply.unicef.org/s0145620.html), MUAC measurements below 11.5 centimeters indicate *acute* malnutrition in children aged 6-23 months, and measurements between 11.5 and 12.5 centimeters indicate *risk* of malnutrition. Pinchoff et al. point to [a range of studies](https://iopscience.iop.org/article/10.1088/2515-7620/ac07f5/meta#:~:text=Nutritional%20outcome%20measures,from%20programmatic%20intervention.) suggesting that these thresholds may be too low to properly identify malnourishment, and they note that PMA surveys were conducted largely in June or July - [early months of the Burkina Faso "hunger season"](https://iopscience.iop.org/article/10.1088/2515-7620/ac07f5/meta#:~:text=Lastly%2C%20we%20used,that%20require%20intervention.) before food shortages were likely to manifest in anthropometric measures. To address these issues, the authors build a binary threshold for MUAC measures below **13.5 centimeters** that we'll call `MUAC_LOW`. 
+
+We'll construct one model for each of these three outcomes with a range of **independent variables** recoded from IPUMS PMA variables and two external data sources (more on these in a moment). We'll be using harmonized IPUMS PMA data where possible, but we'll mention here that the authors used [source data](https://www.pmadata.org/technical-areas/nutrition) downloaded directly from PMA before harmonized data from IPUMS PMA became available; these differences will not change our main findings, but they did impact certain design choices. For example, the authors were not able to control for the [SEX](https://pma.ipums.org/pma-action/variables/SEX) of each infant, as this information was collected on the *household screening questionnaire* but not on the *child nutrition questionnaire*; IPUMS PMA has matched records from the two questionnaires together, so you might choose to include this information in your own work.
+
+Notably absent from IPUMS PMA data are 1) the infant's precise age in months, and 2) several variables related to perceived food insecurity in the infant's household. The authors obtained this information directly from PMA source data (although it may be available from IPUMS PMA soon). We've [previously shown](../2021-10-01-nutrition-indicators/#minimum-age-with-century-month-codes) how to use currently available IPUMS PMA data to accurately estimate each infant's age within one month, but we'll use the precise age of the infant on the day of the interview here. We've also pre-constructed a measure of household food insecurity `HHFOODINSEC` from source data: food insecurity is ranked "Severe" if 6 or more of the following statements were true, "Moderate" if 4-5 were true, and "Low/None" otherwise. 
+
+```{r, eval = TRUE, echo = FALSE, layout="l-body-outset", fig.width=12, fig.height=8}
+library(tidyverse)
+dat <- read_rds("data/pma_nutrition.rds.gz")
+source("hhfoodinsec.R")
+hhfoodplot
+
+dat <- dat %>% 
+  select(
+    EAID, URBAN, LIVZ_3, WRSI_17,
+    MOMAGE_4, MOMEDUC, MOMMUAC_3, 
+    HHKIDS_4, HHFOODINSEC, 
+    INFAGE_3, INFDIAR, 
+    MAD, MDD, MMF, MUAC_LOW
+  )
+```
+
+We've also recoded some existing IPUMS PMA variables beforehand, and we've located information about each child's mother (including her *own* MUAC measurements) using a procedure [described here](https://pma.ipums.org/pma/sample_notes.shtml#nut). We removed all cases from the file *except* for infants aged 6-23 months without missing responses, and then saved this "cleaned" dataset as an R data file. We'll use [read_rds](https://readr.tidyverse.org/reference/read_rds.html) to load it into R now:
+
+```{r, eval = FALSE}
+library(tidyverse)
+
+dat <- read_rds("data/dat_clean.rds")
+```
+
+We'll use [our favorite](https://ipums.github.io/pma-data-hub/posts/2021-07-01-covid-tables/) table-making package, [gtsummary](http://www.danieldsjoberg.com/gtsummary/index.html), to preview all of the PMA nutrition variables we've made. 
+
+```{r, results='asis', include = TRUE}
+library(gtsummary)
+
+dat %>% 
+  select(
+    INFAGE_3, INFDIAR, MOMAGE_4, MOMEDUC, MOMMUAC_3,
+    HHKIDS_4, HHFOODINSEC, MAD, MDD, MMF, MUAC_LOW
+  ) %>% 
+  tbl_summary() %>% 
+  modify_spanning_header(everything() ~ "# PMA Nutrition Variables") %>% 
+  modify_header(update = list(label ~ " ")) %>% 
+  italicize_labels() %>% 
+  as_gt() %>% 
+  gt::tab_options(table.width = gt::pct(75))
+```
+
+
+The authors derive two additional **independent variables** - including their key predictor of interest - from external datasets distributed by the [Famine Early Warning Systems Network (FEWSNET)](https://fews.net/). 
+
+# Livelihood Zones
+
+The first external data source concerns **livelihood zones** for the enumeration areas used to identify households in the PMA nutrition sample. Livelihood zones describe the main ways that workers in a particular area earn income and procure food, and they are used widely in climate-health research. You can download a shapefile from FEWSNET describing nine distinct livelihood zones for Burkina Faso [here](https://fews.net/west-africa/burkina-faso/livelihood-zone-map/november-2009). 
+
+We've downloaded the shapefile `BF_LHZ_2014` and saved it in the "data" folder of our working directory. Let's load it into R with the [sf package](https://r-spatial.github.io/sf/index.html) and call the resulting object `lhz`.
+
+```{r, results='hide'}
+library(sf)
+
+lhz <- st_read("data/BF_LHZ_2014") %>% 
+  st_transform(crs = 4326) %>%                 # Set to WGS 84
+  mutate(label = paste(LZCODE, LZNAMEEN))      # Label for our map below
+```
+
+We'll want to find a livelihood zone classification for each PMA enumeration area, so we'll also need to obtain their **displaced GPS coordinates** from PMA. In our [last post](../2021-10-15-nutrition-climate/#enumeration-area-buffers), we described steps for creating **buffer zones** containing the *actual* centroid location for each enumeration area, subject to certain rules: 
+
+  * urban centroids are displaced up to 2 kilometers in any direction
+  * 99% of rural centroids are displaced up to 5 kilometers in any direction
+  * 1% of rural centroids are displaced up to 10 kilometers in any direction
+  * displacement across administrative boundaries is not permitted  
+  
+We've downloaded 1) a CSV file containing the displaced GPS coordinates, and 2) a shapefile containing administrative boundaries for Burkina Faso. Both are saved in the "data" folder of our working directory. We'll load both into R and create `gps_buf` to represent the buffer zones for each enumeration area.
+
+<aside>
+Make sure to review our [last post](../2021-10-15-nutrition-climate/), where we describe these steps in detail.
+</aside>
+
+```{r, results='hide'}
+# Displaced gps coordinates 
+gps <- read_csv("data/gps_bf.csv") %>% 
+  select(EAID = EA_ID, GPSLONG, GPSLAT) %>% 
+  st_as_sf(coords = c("GPSLONG", "GPSLAT"), crs = 4326) %>% 
+  left_join(
+    by = "EAID",
+    dat %>% select(EAID, URBAN) %>% distinct()
+  )
+
+# Shapefile 
+shape <- st_read("data/shape_bf") %>% select(ADMIN_NAME)
+
+# Project `gps` and `shape` to meters 
+gps <- gps %>% st_transform(crs = 32630)
+shape <- shape %>% st_transform(crs = 32630)
+
+# Create buffers
+gps_buf <- gps %>% 
+  st_buffer(if_else(.$URBAN, 2000, 5000)) %>% 
+  st_intersection(shape) %>% 
+  st_filter(gps)
+
+# Revert to WGS84
+gps <- gps %>% st_transform(crs = 4326)
+shape <- shape %>% st_transform(crs = 4326)
+gps_buf <- gps_buf %>% st_transform(crs = 4326)
+```
+
+Now, let's plot the nine FEWNET livelihood zones in `lhz` with [ggspatial](https://paleolimbot.github.io/ggspatial).
+
+```{r, eval=FALSE}
+library(ggspatial)
+source("make_theme.R")
+
+ggplot() + 
+  layer_spatial(lhz, aes(fill = label)) + 
+  theme_pma(
+    title = "FEWSNET Livelihood Zones for Burkina Faso",
+    caption = paste0(
+      "https://fews.net/west-africa/burkina-faso/",
+      "livelihood-zone-map/november-2009"
+    )
+  ) + 
+  scale_fill_manual(
+    name = NULL,
+    values = c("#7B4D30", "#0E440F", "#29682C", "#7E9C32", "#587211",
+      "#D20501", "#B5D55A", "#4FA252", "#5C2D0F")
+  ) 
+```
+
+<aside>
+We've defined `theme_pma` in a [source](https://www.rdocumentation.org/packages/base/versions/3.6.2/topics/source) script called `make_theme.R`. If you're curious, you can find it on our GitHub page [here](https://github.com/ipums/pma-data-hub/tree/master/_posts/2021-11-01-nutrition-analysis/make_theme.R).
+</aside>
+
+```{r, echo=FALSE, layout="l-body-outset", fig.width=12, fig.height=8}
+library(ggspatial)
+source("make_theme.R")
+
+ggplot() + 
+  layer_spatial(lhz, aes(fill = label)) + 
+  theme_pma(
+    title = "FEWSNET Livelihood Zones for Burkina Faso",
+    caption = paste0(
+      "https://fews.net/west-africa/burkina-faso/",
+      "livelihood-zone-map/november-2009"
+    )
+  ) + 
+  scale_fill_manual(
+    name = NULL,
+    values = c("#7B4D30", "#0E440F", "#29682C", "#7E9C32", "#587211",
+      "#D20501", "#B5D55A", "#4FA252", "#5C2D0F")
+  ) 
+```
+
+To simplify things a bit, the authors collapse these nine zones into three major categories: urban (Ouaga), agricultural, and pastoral (or agropastoral). We'll do the same here, and then map the result. 
+
+```{r, layout="l-body-outset", fig.width=12, fig.height=8}
+lhz <- lhz %>% 
+  mutate(LIVZ_3 = case_when(
+    LZCODE == "BF06" ~ "Ouaga/Urban",
+    LZCODE %in% c("BF07", "BF08", "BF09") ~ "Pastoral",
+    T ~ "Agricultural"
+  ))
+
+ggplot() + 
+  layer_spatial(
+    lhz %>% count(LIVZ_3) %>% st_make_valid() , 
+    aes(fill = LIVZ_3)
+  ) + 
+  layer_spatial(gps_buf, color = "#00263A", alpha = 0) + 
+  theme_pma(
+    title = "Distribution of PMA Enumeration Areas within Major Livelihood Zones",
+    show_eas = TRUE
+  ) + 
+  scale_fill_manual(
+    name = NULL,
+    values = c( "#899DA4", "#C93311", "#DC863B")
+  ) 
+```
+
+We'll now assign each enumeration area one of those three categories in `dat`. In the rare case where a buffer overlaps with a boundary between livelihood zones, we'll use whichever livelihood zone contains the centroid. As we'll see, a majority of the sampled infants reside in "agricultural" areas (54%) or "pastoral" areas (30%). Only a small minority reside in the Ouaga "urban" area (16%). 
+
+```{r, eval = FALSE}
+dat <- lhz %>%
+  mutate(LIVZ_3 = case_when(
+    LZCODE == "BF06" ~ "Ouaga/Urban",
+    LZCODE %in% c("BF07", "BF08", "BF09") ~ "Pastoral",
+    T ~ "Agricultural"
+  )) %>%
+  st_intersection(gps_buf) %>%      # find the intersection with EA buffers
+  st_filter(gps) %>%                # keep only if it contains the centroid
+  tibble() %>%
+  select(EAID, LIVZ_3) %>%
+  right_join(dat, by = "EAID")
+```
+
+```{r}
+dat %>% 
+  select(LIVZ_3) %>% 
+  tbl_summary() %>% 
+  modify_spanning_header(
+    everything() ~ "# Recoded FEWSNET Livelihood Zones"
+  ) %>% 
+  modify_header(update = list(label ~ " ")) %>% 
+  italicize_labels() %>% 
+  as_gt() %>% 
+  gt::tab_options(table.width = gt::pct(75))
+```
+
+# WRSI 
+
+The final data source concerns the authors' main predictor of interest: **agricultural conditions** in the infant's enumeration area that may influence the abundance and variety of available food, or the livelihoods of families involved with agricultural work. 
+
+Here, the authors use a crop-specific [Water Requirement Satisfaction Index (WRSI)](https://earlywarning.usgs.gov/fews/product/128)  - also developed by FEWSNET - to model precipitation relative to other meteorological factors that drive evaporation and transpiration (e.g. solar radiation, air temperature, humidity, and wind). Rainfall, alone, can sometimes serve as a good proxy for agricultural conditions, *but not if the water evaporates before it becomes available for plants*. WRSI also models the growing season for a selected reference crop - in this case, millet - to test whether rainfall occurs during the most crucial stages of plant development.
+
+To see why all of this matters, let's take a look at a simple rainfall total for the 2017 growing season. Following the steps outlined in our [last post](..//2021-10-15-nutrition-climate/#chirps-data), we've download a dataset from the [Climate Hazards center InfraRed Precipitation with Station (CHIRPS)](https://data.chc.ucsb.edu/products/CHIRPS-2.0/) series spanning the years 1981 (the first year of data collection) through 2017. We calculated a simple [terra::sum](https://rspatial.github.io/terra/reference/summarize-generics.html) for each year's growing season (approximated as June 1 to Oct 1) and saved the result in a raster with one layer for each year's total seasonal accumulation (in millimeters).
+
+```{r}
+library(terra)
+
+yr_sums <- rast("data/chirps_sums.tif")
+
+yr_sums
+```
+
+Suppose we simply wanted to gauge whether 2017 was especially *wetter* or *drier* than average in a particular place. We could calculate a simple z-score and map the result: 
+
+```{r, layout="l-body-outset", fig.width=12, fig.height=8, preview = TRUE}
+z_scores <- (yr_sums$`2017` - mean(yr_sums)) / stdev(yr_sums)
+
+ggplot() + 
+  layer_spatial(mask(z_scores, vect(shape), touches = FALSE)) +
+  layer_spatial(lhz %>% count(LIVZ_3) %>% st_make_valid(), alpha = 0) +
+  layer_spatial(gps_buf, color = "#00263A", alpha = 0) +
+  theme_pma(
+    title = "2017 Rainfall Accumulation: June 1 - Oct 1",
+    subtitle = "Z-scores relative to mean seasonal accumuation 1981-2017",
+    caption = "https://www.chc.ucsb.edu/data/chirps",
+    show_eas = TRUE
+  ) + 
+  scale_fill_gradient2(
+    name = "Z-score",
+    limits = c(-2.3, 2.3),
+    low = "#FAEFD1", 
+    high = "#00263A", 
+    na.value = "transparent"
+  ) 
+```
+
+As you can see, there's a good deal of spatial variation in the Burkina Faso rainfall totals for 2017. In our map, the z-score "0" indicates a perfectly average year, whereas z-scores "1" and "-1" indicate rainfall totals exactly 1 standard deviation above or below average, respectively. Enumeration areas located in the northern and eastern regions experienced *more* rainfall than normal in 2017, while those in the south and west experienced *less*. 
+
+We'll assign one z-score to each enumeration area by taking a weighted average of the pixels that overlap with each buffer: the [extract](https://rspatial.github.io/terra/reference/extract.html) function will produce a "weight" equal to the proportion of each pixel included within the boundaries of a given buffer. Finally we'll match these z-scores to each of the infants in `dat`. 
+
+<aside>
+Check out [this post](../2021-10-15-nutrition-climate/#rainfall-within-enumeration-areas) explaining why we take a *weighted mean* of the pixels in each buffer.
+</aside>
+
+```{r}
+dat <- z_scores %>%
+  extract(gps_buf %>% vect(), weights = TRUE) %>%
+  tibble() %>%
+  right_join(gps_buf %>% rowid_to_column("ID"), by = "ID") %>%
+  group_by(EAID) %>%
+  summarise(CHIRPS_Z = weighted.mean(`2017`, weight)) %>%
+  full_join(dat, by = "EAID")
+```
+
+Now, let's compare these relative rainfall totals to WRSI scores obtained for each enumeration area. FEWSNET provides free software called [GeoWRSI](https://www.chc.ucsb.edu/tools/geowrsi) that you can use to specify a reference crop, source data, and other parameters used to calculate WRSI. The authors used CHIRPS data combined with [NOAA ESRL PSD Global Reference Evapotranspiration for the FEWS NET Science Community (RefET)](https://psl.noaa.gov/eddi/globalrefet/) to calculate WRSI scores for millet. They've shared the program output with us as `WRSI.dta`, so we'll simply attach the WRSI score for each EA to `dat`.
+
+```{r, eval = FALSE}
+dat <- haven::read_dta("data/WRSI.dta") %>%
+  select(EAID = EA_ID, WRSI_17 = eos_wrsi_anomaly_2017) %>%
+  right_join(dat, by = "EAID")
+```  
+
+Because CHIRPS precipitation totals were used to derive WRSI, you might expect to see a strong correlation between the two measures. We should see this if we create a scatterplot for each of the enumeration areas in `dat`:
+
+```{r}
+dat %>% 
+  ggplot(aes(x = CHIRPS_Z, y = WRSI_17)) + 
+  geom_point() + 
+  geom_abline() + 
+  theme_minimal() + 
+  xlim(-2, 2) + 
+  ylim(-20, 20)
+```
+
+In fact, the correlation between rainfall and WRSI is positive, but somewhat weak. Here, a *negative value* for WRSI indicates *poor growing conditions* for millet. There are a handful of enumeration areas where conditions were wetter than normal (`CHIRPS_Z` > 0), but overall conditions for growing millet were poor (`WRSI` < 0). This can happen if, for example, if conditions in 2017 were also *hotter than normal* (driving evaporation), or if rainfall occurred at the *wrong stage* of plant development. Overall, most enumeration areas were located in areas that experienced less rainfall than normal (`CHIRPS_Z` < 0), but only a few of these experienced exceptionally poor growing conditions for millet. 
+
+For these reasons, the authors use `WRSI` rather than the simpler CHIRPS z-scores we've derived. As we'll see, they find that - controlling for all of the other independent variables we've discussed so far - there is a statistically significant relationship between "good agricultural conditions" and positive nutritional outcomes for infants. 
+
+```{r}
+dat %>% 
+  select(WRSI_17, CHIRPS_Z) %>% 
+  tbl_summary(label = list(
+    WRSI_17 = "WRSI Anomaly",
+    CHIRPS_Z = "CHIRPS Z-score"
+  )) %>% 
+  modify_spanning_header(
+    everything() ~ "# 2017 Agricultural Conditions"
+  ) %>% 
+  modify_header(update = list(label ~ " ")) %>% 
+  italicize_labels() %>% 
+  as_gt() %>% 
+  gt::tab_options(table.width = gt::pct(75))
+```
+
+# Multi-level Mixed Effects Models
+
+If you're a regular reader of this blog, you might remember that we've previously shown how to model binary outcomes like [unmet need for family planning](../2021-04-01-et-internal-migration/) and [current contraceptive use](../2021-02-19-analyzing-the-individual-in-context/) with **cluster-robust standard error estimation** via the [survey package](http://r-survey.r-forge.r-project.org/survey/). When we do so, we address the likelihood that neighboring households - those in the same enumeration area - probably share many common features. While the point-estimate for each predictor is identical to the estimate you'd obtain from logistic regression, the estimated standard error for each predictor is typically larger. Practically speaking, we make it *harder for each predictor to pass the same test for statistical significance* (e.g. "p < .05") because we suspect that the clustered sample design produces artificial agreement between respondents. 
+
+Pinchoff et al. use a different approach to solve the same problem, except that their **multi-level mixed effects** model incorporates *variation within and between enumeration areas* into the estimate associated with each predictor. As a result, both the point-estimate *and* the standard error associated with each is different compared to what you'd obtain from logistic regression. 
+
+You might imagine this approach in contrast to a naive **fixed effects** model where we simply plugged in `EAID` as an independent variable. Because `EAID` is categorical, we'd effectively create one "dummy variable" for every enumeration area (categorical variables like `LIVZ_3` or `MOMEDUC` are handled this way). The estimates for all of our other independent variables would be "controlled for" variation between enumeration areas.
+
+When we treat enumeration areas as **random effects**, we explicitly incorporate this sort of variation into our model. Compared with the **fixed effects** approach - where each "dummy variable" is defined by infants from the *same* enumeration area - the **random effects** approach combines what we know about *one* enumeration area with information about *how it compares* with the others. The result is an improved estimation for every "dummy variable", because each incorporates information from the full sample. More importantly, this generally reduces the standard error for each predictor. Let's see how the authors implemented this approach to model `MUAC_LOW`, `MDD`, and `MFF`. 
+
+## Modeling MUAC 
+
+Most of the functions we use for multi-level modeling come from the [lme4](https://github.com/lme4/lme4) package. We'll need an analogue to the [glm](https://www.rdocumentation.org/packages/stats/versions/3.6.2/topics/glm) function that allows us to specify a "binomial" link function and a formula that specifies `EAID` as a random effect. 
+
+```{r}
+library(lme4)
+```
+
+Here, we use [glmer](https://www.rdocumentation.org/packages/lme4/versions/1.1-27.1/topics/glmer) to build three models: one that controls for `MDD`, one that controls for `MMF`, and one that controls for neither. The notation `(1|EAID)` signals that we'll be fitting *1 intercept* for each enumeration area (note, however, that these intercepts are not reported in the model output; instead, we'll see a *standard deviation* summarizing the dispersion between these intercepts). 
+
+```{r, warning=FALSE}
+MUAC1 <- glmer(
+  data = dat,
+  family = "binomial",
+  formula = MUAC_LOW ~ WRSI_17 + LIVZ_3 + MOMAGE_4 + MOMMUAC_3 + 
+    INFDIAR + MOMEDUC + HHKIDS_4 + INFAGE_3 + (1|EAID)
+)
+
+MUAC2 <- glmer(
+  data = dat,
+  family = "binomial",
+  formula = MUAC_LOW ~ WRSI_17 + MDD + LIVZ_3 + MOMAGE_4 + MOMMUAC_3 + 
+    INFDIAR + MOMEDUC + HHKIDS_4 + INFAGE_3 + (1|EAID)
+)
+
+MUAC3 <- glmer(
+  data = dat,
+  family = "binomial",
+  formula = MUAC_LOW ~ WRSI_17 + MMF + LIVZ_3 + MOMAGE_4 + MOMMUAC_3 + 
+    INFDIAR + MOMEDUC + HHKIDS_4 + INFAGE_3 + (1|EAID)
+)
+```
+
+The next step looks messy, but it's mostly just formatting the output to fit in a `gtsummary` table. Basically, we'll use [purrr::map](https://purrr.tidyverse.org/reference/map.html) to create one table for each model, and then store them in a list. Then we use [gtsummary::tbl_merge](http://www.danieldsjoberg.com/gtsummary/reference/tbl_merge.html) to merge them together. The rest is just creating labels, moving rows, and setting the overall look of the table on this page:
+
+```{r}
+list(MUAC1, MUAC2, MUAC3) %>% 
+  map(
+    ~.x %>%   
+      tbl_regression(
+        exp = TRUE, 
+        conf.int = TRUE, 
+        show_single_row = where(is.logical),
+        tidy_fun = broom.mixed::tidy, 
+        label = list(
+          `EAID.sd__(Intercept)` = "Random Effects: EAID (standard deviation)"
+        )
+      ) %>% 
+      add_significance_stars() 
+  ) %>% 
+  tbl_merge() %>%  
+  italicize_labels() %>% 
+  modify_header(update = list(label ~ " ")) %>% 
+  modify_spanning_header(update = list(
+    estimate_1 ~ "**Model 1**",
+    std.error_1 ~ "**Model 1**",
+    estimate_2 ~ "**Model 2**",
+    std.error_2 ~ "**Model 2**",
+    estimate_3 ~ "**Model 3**",
+    std.error_3 ~ "**Model 3**"
+  )) %>% 
+  modify_table_body(
+    ~.x %>% 
+      mutate(variable = variable %>% fct_relevel(c(
+        "WRSI_17", "MDD", "MMF", "LIVZ_3", "MOMAGE_4", "MOMMUAC_3",
+        "INFDIAR", "MOMEDUC", "HHKIDS_4", "INFAGE_3", "EAID.sd__(Intercept)"
+      ))) %>% 
+      arrange(variable)
+  ) %>% 
+  as_gt() %>% 
+  gt::tab_options(table.width = gt::pct(100)) %>% 
+  gt::tab_header(
+    gt::md("# Factors Associated with <br> MUAC <= 13.5 cm")
+  )
+```
+
+```{r, include=FALSE}
+# glm(MUAC_LOW ~ LIVZ_3 + MOMAGE_4 + MOMMUAC_3 + 
+#     INFDIAR + MOMEDUC + HHKIDS_4 + INFAGE_3 + MDD + 
+#     WRSI_17, data = dat, family = "binomial") %>% 
+#   broom::tidy(exp = T, conf.int = TRUE) %>% 
+#   mutate(sig = gtools::stars.pval(p.value))
+# 
+# dat %>% 
+#   srvyr::as_survey_design(id = EAID) %>% 
+#   survey::svyglm(MUAC_LOW ~ LIVZ_3 + MOMAGE_4 + MOMMUAC_3 + 
+#     INFDIAR + MOMEDUC + HHKIDS_4 + INFAGE_3 + MDD + 
+#     WRSI_17, design = ., family = "quasibinomial") %>% 
+#   broom::tidy(exp = T, conf.int = TRUE) %>% 
+#   mutate(sig = gtools::stars.pval(p.value))
+```
+
+Generally speaking, all three of these models suggest that improved agricultural conditions in the enumeration area (measured by WRSI) are associated with *lower odds* of infant malnourishment (measured by a MUAC 13.5 cm or lower). This effect is roughly the same whether we control for IYCF practices (`MDD` and `MMF`) or not. [The authors note](https://iopscience.iop.org/article/10.1088/2515-7620/ac07f5/meta#:~:text=for%20some%20children%20who%20are%20near%20the%20margin%20or%20threshold%20for%20intervention%2C%20seasonal%20variation%20in%20agricultural%20yield%20could%20therefore%20play%20an%20important%20role%20in%20shifting%20them%20from%20(or%20into)%20different%20risk%20categories) that "for some children who are near the margin or threshold for intervention, seasonal variation in agricultural yield could therefore play an important role in shifting them from (or into) different risk categories". 
+
+Controlling for WRSI, infants who consume a diverse diet (measured by `MDD`) appear significantly less likely to have MUAC measurements below 13.5 cm. However, meal frequency (measured by `MMF`) had no statistically significant effect. Other significant factors are related to the mother's nutritional status and her education level.  
+
+## Modeling MDD and MMF 
+
+We'll use the same appraoch to recreate the authors models for `MDD` and `MMF`:
+
+```{r, tab.cap = "test"}
+MDD <- glmer(
+  data = dat,
+  family = "binomial",
+  formula = MDD ~ WRSI_17 + LIVZ_3 + MOMAGE_4 + HHFOODINSEC + MOMEDUC + 
+    HHKIDS_4 + INFAGE_3 + (1|EAID)
+) 
+
+MMF <- glmer(
+  data = dat,
+  family = "binomial",
+  formula = MMF ~ WRSI_17 + LIVZ_3 + MOMAGE_4 + HHFOODINSEC + MOMEDUC + 
+    HHKIDS_4 + INFAGE_3 + (1|EAID)
+) 
+
+list(MMF, MDD) %>% 
+  map(
+    ~.x %>%   
+      tbl_regression(
+        exp = TRUE, 
+        conf.int = TRUE, 
+        show_single_row = where(is.logical),
+        tidy_fun = broom.mixed::tidy, 
+        label = list(
+          `EAID.sd__(Intercept)` = "Random Effects: EAID (standard deviation)"
+        )
+      ) %>% 
+      add_significance_stars()
+  ) %>% 
+  tbl_merge() %>%  
+  italicize_labels() %>% 
+  modify_header(update = list(label ~ " ")) %>% 
+  modify_spanning_header(update = list(
+    estimate_1 ~ "**Minimum Meal Frequency (MMF)**",
+    std.error_1 ~ "**Minimum Meal Frequency (MMF)**",
+    estimate_2 ~ "**Minimum Dietary Diversity (MDD)**",
+    std.error_2 ~ "**Minimum Dietary Diversity (MDD)**"
+  )) %>% 
+  modify_table_body(
+    ~.x %>% 
+      mutate(variable = variable %>% fct_relevel(c(
+        "WRSI_17", "LIVZ_3", "HHFOODINSEC", "MOMAGE_4", "MOMEDUC",
+        "HHKIDS_4", "INFAGE_3", "EAID.sd__(Intercept)"
+      ))) %>% 
+      arrange(variable)
+  ) %>% 
+  as_gt() %>% 
+  gt::tab_options(table.width = gt::pct(100)) %>% 
+  gt::tab_header(
+    gt::md("# Factors Associated with <br> Recommended IYCF Practices") 
+  )
+
+```
+
+Here, improved agricultural conditions in the enumeration area are again broadly associated with improved nutritional outcomes, but only `MDD` is shown to be *significantly* improved by higher WRSI scores. Infants whose mother perceived "severe" food insecurity in their household (answering 6 or more questions positively) were significantly less likely to achieve `MDD`, but the effect on infant `MMF` was ambiguous. 
+
+What do we make of the difference between dietary diversity and meal frequency? [The authors suggest](https://iopscience.iop.org/article/10.1088/2515-7620/ac07f5/meta#:~:text=%20this%20suggests%20that%20the%20types%20of%20foods%20available%20are%20perceived%2C%20by%20the%20respondent%2C%20as%20important%20to%20a%20child's%20nutrition%20%5B53%5D%20while%20practices%20around%20meal%20timing%2Foccurrence%20are%20not%20necessarily%20connected%20to%20an%20individual's%20perception%20of%20food%20insecurity.) that it might be easier for respondents to recall *types* of foods compared to the *frequency* of food consumption if, for example, mothers were not present for every meal (or if small meals are not recalled, if meal times are inconsistent, etc). Similarly, they may be more sensitive to changes in the composition of their family's diet, whereas meal timing / occurrence may be less connected with an individual's perception of food security.
+
+# Wrap-up
+
+The kinds of dietary recall questions you'll find in PMA nutrition surveys are common, but they're rarely accompanied by the kind of spatial data Pinchoff et al. bring to this analysis. If you're working on a research project that uses spatially referenced nutrition data - or if you're using remotely sensed climate data together with other global health surveys - we'd love to hear from you. As always, you can reach us in the comments below or [on Twitter](https://twitter.com/ipumsGH). 
+
+Coming up later this month: we'll be diving into the brand new SDP [client exit interview data](https://pma.ipums.org/pma-action/variables/group?unit_of_analysis=client) available from IPUMS PMA. As we'll see, there are plenty of exciting ways to explore spatial dynamics of service delivery, as well. 
+
+*Special thanks to [Greg Husak](https://www.chc.ucsb.edu/people/greg-husak) at the the Climate Hazards Center, and Jiao Yu at the University of Minnesota for excellent help with this post!*

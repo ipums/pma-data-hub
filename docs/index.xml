@@ -12,7 +12,25 @@
       <link>https://ipums.github.io/pma-data-hub/</link>
     </image>
     <generator>Distill</generator>
-    <lastBuildDate>Fri, 15 Oct 2021 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Fri, 05 Nov 2021 00:00:00 +0000</lastBuildDate>
+    <item>
+      <title>Measuring agricultural conditions and their relationship with infant nutrition in Burkina Faso</title>
+      <dc:creator>Matt Gunther</dc:creator>
+      <link>https://ipums.github.io/pma-data-hub/posts/2021-11-01-nutrition-analysis</link>
+      <description>We've learned how to build key indicators with spatially referenced nutrition data from PMA. Now let's see how researchers have used them.</description>
+      <category>Nutrition</category>
+      <category>Climate</category>
+      <category>Data Analysis</category>
+      <category>Mixed Effects</category>
+      <category>PMA Publications</category>
+      <category>terra</category>
+      <category>sf</category>
+      <category>lme4</category>
+      <category>gtsummary</category>
+      <guid>https://ipums.github.io/pma-data-hub/posts/2021-11-01-nutrition-analysis</guid>
+      <pubDate>Fri, 05 Nov 2021 00:00:00 +0000</pubDate>
+      <media:content url="https://ipums.github.io/pma-data-hub/posts/2021-11-01-nutrition-analysis/nutrition-analysis_files/figure-html5/unnamed-chunk-12-1.png" medium="image" type="image/png" width="2304" height="1536"/>
+    </item>
     <item>
       <title>How to use CHIRPS Climate Data with PMA Nutrition Surveys</title>
       <dc:creator>Matt Gunther</dc:creator>
@@ -28,7 +46,7 @@
       <category>ggspatial</category>
       <guid>https://ipums.github.io/pma-data-hub/posts/2021-10-15-nutrition-climate</guid>
       <pubDate>Fri, 15 Oct 2021 00:00:00 +0000</pubDate>
-      <media:content url="https://ipums.github.io/pma-data-hub/posts/2021-10-15-nutrition-climate/nutrition-climate_files/figure-html5/unnamed-chunk-42-1.png" medium="image" type="image/png" width="1920" height="1536"/>
+      <media:content url="https://ipums.github.io/pma-data-hub/posts/2021-10-15-nutrition-climate/nutrition-climate_files/figure-html5/unnamed-chunk-32-1.png" medium="image" type="image/png" width="1536" height="1536"/>
     </item>
     <item>
       <title>Infant and Young Child Feeding (IYCF) Indicators for PMA Nutrition Data</title>

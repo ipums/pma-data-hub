@@ -172,13 +172,7 @@ theme_pma_rainfall <- function(
       x = NULL,
       y = NULL
     ),
-    scale_fill_gradient2(
-      low = "#000000",  # white
-      high = "#00263A"  # IPUMS navy
-    ),
-    guides(
-      size = guide_legend(override.aes = list(alpha = 1))
-    ),
+    guides(size = guide_legend(override.aes = list(alpha = 1))),
     annotation_scale(aes(style = "ticks", location = "br")),
     if(show_legend){c(
       geom_point(
@@ -291,22 +285,16 @@ Now that we've identified the **buffer zone** for each cluster of sampled househ
 The complete CHIRPS precipitation data series can be downloaded directly from the [UCSB Climate Hazards Center](https://data.chc.ucsb.edu/products/CHIRPS-2.0/), but we imagine most users will want to select an area of interest through the CHIRPS API provider, [ClimateServ](https://climateserv.servirglobal.net/). If you're familiar with tools for downloading and saving **raster** files, you can submit a request to ClimateServ directly from R via the [chirps R package](https://docs.ropensci.org/chirps/index.html). Or, if you're more comfortable using a graphic user interface, you can simply navigate to the ClimateServ homepage in your browser:
 
 ```{r, fig.align='center', echo=FALSE}
-knitr::include_graphics("images/chirps1.png")
+knitr::include_graphics("images/climateserv1.png")
 ```
 
-We'll draw a polygon around Burkina Faso like this: 
+The ClimateServ website allows us to simply select the country boundaries for Burkina Faso. We'll select "download raw data" to download **daily rainfall totals** for a roughly 30 year period from June 1, 2017 (nutrition interviews were conducted between June and August). 
 
 ```{r, echo=FALSE}
-knitr::include_graphics("images/chirps2.png")
+knitr::include_graphics("images/climateserv2.png")
 ```
 
-And then we'll select daily precipitation data for **20 years** from January 1, 1997 to January 1, 2017. 
-
-```{r, echo=FALSE}
-knitr::include_graphics("images/chirps3.png")
-```
-
-You'll receive a compressed folder containing one "tif" image for each day in the 20 year timespan: that's 7305 files containing comprising potentially several gigabytes of raster data. We've previously shown how to use the [raster](https://rspatial.org/raster/index.html) package to handle this type of data, but we'll now introduce the [terra](https://rspatial.org/terra/index.html) package as a newer, faster alternative. 
+Once your request has been processed, you'll receive a compressed folder containing one "tif" image for each day in the 30 year timespan: that's 10,959 files containing comprising potentially several gigabytes of raster data. We've previously shown how to use the [raster](https://rspatial.org/raster/index.html) package to handle this type of data, but we'll now introduce the [terra](https://rspatial.org/terra/index.html) package as a newer, faster alternative. 
 
 ## Raster data with terra 
 
@@ -318,6 +306,11 @@ library(terra)
 
 The magic behind `terra` is that it *avoids reading every image into R at once*. Instead, it [reads metadata about each image](https://rspatial.github.io/terra/reference/rast.html) - information about its spatial extent, coordinate reference system, and pixel count. Let's take a look at the metadata for the image associated with a particularly rainy day in 1997:
 
+```{r}
+day1 <- rast("data/chirps_bf/19970301.tif")
+day1
+```
+
 <aside>
 ```{r, echo=F, out.width="95%"}
 htmltools::a(
@@ -328,19 +321,14 @@ htmltools::a(
 © ([GPLv3](https://www.gnu.org/licenses/gpl-3.0.en.html))
 </aside>
 
-```{r}
-day1 <- rast("data/chirps_bf/1997-3-1.tif")
-day1
-```
-
-As you can see, this image contains 132 rows and 176 columns of pixels. The value in each pixel represents the rainfall - in millimeters - for an area 0.05 degrees longitude by 0.05 degrees latitutde (shown in the "resolution" field). If you just want to preview the [values](https://rspatial.github.io/terra/reference/values.html) associated with each pixel, we recommend coercing the default `matrix` as a `data.frame` or `tibble`:
+As you can see, this image contains 115 rows and 159 columns of pixels. The value in each pixel represents the rainfall - in millimeters - for an area 0.05 degrees longitude by 0.05 degrees latitutde (shown in the "resolution" field). If you just want to preview the [values](https://rspatial.github.io/terra/reference/values.html) associated with each pixel, we recommend coercing the default `matrix` as a `tibble`:
 
 ```{r}
 day1_vals <- values(day1, dataframe = TRUE) %>% tibble()
 day1_vals
 ```
 
-The result is a single column with precipitation totals for 23,232 pixels. This is the CHIRPS data we've obtained for *a single day* in our 20-year timespan. Alone, it's not a lot of data:
+The result is a single column with precipitation totals for 18,285 pixels. This is the CHIRPS data we've obtained for *a single day* in our 30-year timespan. Alone, it's not a lot of data:
 
 ```{r}
 object.size(day1_vals) %>% format("Mb")
@@ -352,7 +340,7 @@ If you'd like, you can plot the rainfall pixels from March 1, 1997 with the same
 ggplot() +
   layer_spatial(
     day1,
-    alpha = if_else(values(day1) == 0, 0, 1) # makes 0 values transparent 
+    alpha = if_else(values(day1) == 0, 0, 1) # makes 0 values transparent
   ) +
   layer_spatial(shape, alpha = 0) +
   layer_spatial(gps,  alpha = 0) +
@@ -362,27 +350,31 @@ ggplot() +
       "National precipitation with displaced centroid locations for 2017 PMA",
       "Nutrition Survey enumeration areas"
     )
+  ) +    
+  scale_fill_gradient2(
+    low = "#000000",   # white
+    high = "#00263A"  # IPUMS navy
   )
 ```
 
 ## Raster layers 
 
-Now, imagine working with data for each of the 7,305 days in our data series. Whereas the total size of the datset from a single day was small - only about 0.2 megabytes - the amount of data required to represent 23,232 pixels from daily collection over a 20-year period could easily overwhelm the amount of memory available to R. 
-
-We'll take two steps to make this load more manageable. To start, we'll simply compile the metadata - not the *values* - for each image in a list. If you haven't done so via the API, this might be a good time to [crop](https://rspatial.github.io/terra/reference/crop.html) each image down to the smallest possible area necessary for your analysis. In our example below, we'll crop each file down to an area between 9.0 and 15.6 degrees latitude and between -6.0 and 2.8 degrees longitude. Meanwhile, we'll also load the metadata for each image into a list called `chirps` with [purrr::map](https://purrr.tidyverse.org/reference/map.html). 
+Now, imagine working with data for each of the 10,959 days in our data series. Whereas the total size of the dataset from a single day was small - only about 0.1 megabytes - the amount of data required to represent 18,285 pixels from daily collection over a 30-year period could easily overwhelm the amount of memory available to R. Instead, we'll only read metadata for each image into a large list with [purrr::map](https://purrr.tidyverse.org/reference/map.html):
 
 ```{r, eval=FALSE}
 chirps <- list.files("data/chirps", full.names = TRUE) %>%
-  map(~{
-    .x %>%
-      rast() %>%
-      crop(c(-6 , 2.8, 9 , 15.6), filename=.x, overwrite=TRUE)
-  })
+  map(~rast(.x))
 ```
 
 ```{r, include=FALSE}
-# Make a raster for each file
-chirps <- map(list.files("data/chirps_bf", full.names = T), ~rast(.x))
+# The folder `data_local` at project root is not on GitHub (see .gitignore)
+# This is because raster files take up too much space
+# Please add your own copy of this dataset to a `data_local` folder there
+chirps <- list.files(
+    "../../data_local/chirps/nutrition/bf", 
+    full.names = TRUE
+  ) %>% 
+  map(~rast(.x)) 
 ```
 
 We can now "stack" all of the list-items in `chirps` as "layers" in a single metadata object:
@@ -398,51 +390,42 @@ Notice that the amount of data actually loaded into R is only about one *kilobyt
 object.size(chirps) %>% format("Kb")
 ```
 
-The `terra` package contains several [summary methods](https://rspatial.github.io/terra/reference/summarize-generics.html) you can use to quickly explore summary statistics over all of the layers included in our 20-year timespan. For example, `terra::mean` computes the mean value for each pixel across every layer of `chirps`. This can be particularly helpful if you want to create a map showing the 20-year average rainfall for selected enumeration areas relative to neighboring areas:
+The `terra` package contains several [summary methods](https://rspatial.github.io/terra/reference/summarize-generics.html) you can use to quickly explore summary statistics over all of the layers included in our 30-year timespan. For example, `terra::mean` computes the mean value for each pixel across every layer of `chirps`. This can be particularly helpful if you want to create a map showing the 30-year average rainfall for selected enumeration areas relative to neighboring areas:
 
 ```{r, eval = FALSE}
-bf_means <- terra::mean(chirps)
+bf_means <- terra::mean(chirps) 
 ```
-
 
 ```{r, include = FALSE}
-bf_means <- c(
-  terra::mean(chirps[[1:1000]]),
-  terra::mean(chirps[[1001:2000]]),
-  terra::mean(chirps[[2001:3000]]),
-  terra::mean(chirps[[3001:4000]]),
-  terra::mean(chirps[[4001:5000]]),
-  terra::mean(chirps[[5001:6000]]),
-  terra::mean(chirps[[6000:7305]])
-)
-
-bf_means <- terra::mean(bf_means)
+bf_means <- rast("../2021-11-01-nutrition-analysis/data/chirps_means.tif")
+bf_means <- bf_means[[7:37]]
 ```
+
+When we build a map for `bf_means` we'll use [mask](https://rspatial.github.io/terra/reference/mask.html) simply to hide any pixels outside the boundaries of our `shape` file:
 
 ```{r, layout="l-body-outset", fig.width=10, fig.height=8}
 ggplot() +
-  layer_spatial(
-    bf_means,
-    alpha = if_else(values(bf_means) == 0, 0, 1) # makes 0 values transparent 
-  ) +
+  layer_spatial(mask(bf_means, vect(shape), touches = FALSE)) + 
   layer_spatial(shape, alpha = 0) +
   layer_spatial(gps,  alpha = 0) +
   theme_pma_rainfall(
-    title = "Burkina Faso 20-year Average Daily Rainfall",
+    title = "Burkina Faso 30-year Average Daily Rainfall",
     subtitle = paste(
       "National precipitation with displaced centroid locations for 2017 PMA",
       "Nutrition Survey enumeration areas"
     )
   ) +
-  scale_fill_continuous(low = "#FAEFD1", high = "#00263A") + 
+  scale_fill_continuous(
+    low = "#FAEFD1BB", high = "#00263ABB", na.value = "transparent"
+  ) + 
   labs(caption = paste(
     sep = "\n",
     "Climate Hazards Center InfraRed Precipitation with Station data (CHIRPS)",
-    "01-01-1997 to 01-01-2017"
+    "06-01-1987 to 06-01-2017"
   ))
 ```
 
-For most analytic purposes, though, you'll want to do more than simply *layer* summary data beneath a plot of the PMA enumeration areas. Instead, we'll want to [extract](https://rspatial.github.io/terra/reference/extract.html) the pixels associated with the area covered by the buffer zones we created above. 
+For most analytic purposes, you'll want to do more than simply *layer* summary data beneath a map of the PMA enumeration areas. Instead, we'll want to [extract](https://rspatial.github.io/terra/reference/extract.html) the pixels associated with the area covered by the buffer zones we created above. 
 
 # Rainfall within Enumeration Areas
 
@@ -461,7 +444,7 @@ ggplot() +
 
 In our single-day map above, we plotted national rainfall totals for March 1, 1997. We'll plot rainfall from this date again, but this time we'll use the `crop` function to focus only on pixels in the immediate vicinity of `EAID == 7003`.
 
-```{r, fig.width=8, fig.height=8}
+```{r, fig.width=8, fig.height=8, preview = TRUE}
 day1_7003 <- crop(
   day1, 
   gps %>% filter(EAID == 7003), 
@@ -496,46 +479,46 @@ day1_7003 <- extract(
 day1_7003 
 ```
 
-The result is a `data.frame` containing one row for each pixel that overlaps with our buffer (the top-right and bottom-right pixels are omitted). The column `1997-3-1` gives the rainfall for each pixel, and the column `weight` shows the proportion of each pixel that falls within the buffer. We can think of these `weight` values as probabilities representing the likelihood that each pixel contains the real centroid location for `EA == 7003`. Let's calculate a `weighted.mean` using the probabilities represented by `weight`:
+The result is a `data.frame` containing one row for each pixel that overlaps with our buffer (the top-right and bottom-right pixels are omitted). The column `19970301` gives the rainfall for each pixel, and the column `weight` shows the proportion of each pixel that falls within the buffer. We can think of these `weight` values as probabilities representing the likelihood that each pixel contains the real centroid location for `EA == 7003`. Let's calculate a `weighted.mean` using the probabilities represented by `weight`:
 
 ```{r}
 day1_7003 %>% 
   summarise(
     EAID = 7003,
-    wtd_mean = weighted.mean(`1997-3-1`, weight)
+    wtd_mean = weighted.mean(`19970301`, weight)
   )
 ```
 
-This represents the approximate *single-day rainfall total* for March 1, 1997 spatially averaged for all pixels overlapping with the buffer for `EA == 7003`. In order to produce the *20-year average daily rainfall* for this buffer, we'll simply repeat the same process for each day between January 1, 1997 and January 1, 2017 (the entire stack represented by `chirps`). We'll arrange the results in a `tibble`, and we'll replace the default `ID` column with the unique identifier for each `pixel` shown above.
+This represents the approximate *single-day rainfall total* for March 1, 1997 spatially averaged for all pixels overlapping with the buffer for `EA == 7003`. In order to produce the *30-year average daily rainfall* for this buffer, we'll simply repeat the same process for each day between June 1, 1987 and June 1, 2017 (the entire stack represented by `chirps`). We'll arrange the results in a `tibble`, and we'll replace the default `ID` column with the unique identifier for each `pixel` shown above.
 
 ```{r, eval=FALSE}
-chirps20_7003 <- extract(
+chirps30_7003 <- extract(
   chirps,
   gps %>% filter(EAID == 7003) %>% vect(),
   weights = TRUE
 )
 
-chirps20_7003 <- chirps20_7003 %>%
+chirps30_7003 <- chirps30_7003 %>%
   tibble() %>%
   dplyr::select(-ID) %>%
   rowid_to_column("pixel") %>%
   relocate(weight, .after = pixel)
 
-chirps20_7003
+chirps30_7003
 ```
 
 ```{r, echo=FALSE}
-chirps20_7003 <- read_rds("data/ea_one.rds") %>% rename(pixel = tile)
-chirps20_7003
+chirps30_7003 <- read_rds("data/ea_one.gz") 
+chirps30_7003
 ```
 
-The rainfall total for each day is stored in one of 7,305 columns to the right of `pixel` and `weight` (the dates are arranged in *alphabetical* order, so `1997-1-10` follows `1997-1-1`). We'll use `pivot_longer` to rearrange these data in rows, and then we'll calculate a simple `weighted.mean` to obtain the 20-year average daily rainfall. 
+The rainfall total for each day is stored in one of 10,959 columns to the right of `pixel` and `weight`. We'll use `pivot_longer` to rearrange these data in rows, and then we'll calculate a simple `weighted.mean` to obtain the 30-year average daily rainfall. 
 
 ```{r}
-chirps20_7003 <- chirps20_7003 %>% pivot_longer(-c(pixel, weight)) 
-chirps20_7003   
+chirps30_7003 <- chirps30_7003 %>% pivot_longer(-c(pixel, weight)) 
+chirps30_7003   
 
-chirps20_7003 %>% 
+chirps30_7003 %>% 
   summarise(
     EAID = 7003,
     MEAN_20YR = weighted.mean(value, weight)
@@ -545,57 +528,57 @@ chirps20_7003 %>%
 Now that we've developed a strategy for summarising all of the rainfall pixels for a *single* enumeration area, we'll see that it's easy to generalize our approach to *all* of the enumeration areas associated with the 2017 Burkina Faso sample. Although we'll save a great deal of time by focusing *only* on the CHIRPS pixels that fall within each of our 83 buffer zones, the `extract` procedure below will still require a few minutes of patience:
 
 ```{r, eval = FALSE}
-chirps20_all <- chirps %>%
+chirps30_all <- chirps %>%
   extract(gps %>% vect(), weights = TRUE) %>%
   as.data.frame() %>%
   tibble()
-chirps20_all
+chirps30_all
 ```
 
 ```{r, echo = FALSE}
-chirps20_all <- read_rds("data/ea_all.rds.gz")
-chirps20_all 
+chirps30_all <- read_rds("data/ea_all.gz")
+chirps30_all 
 ```
 
 The only difference here is that `ID` represents an index number for each of the 83 enumeration areas, and each enumeration area may include anywhere between 1 and 9 pixels. We haven't bothered assigning numbers to each pixel, but we'll need to find the correct `EAID` for each `ID`.
 
 ```{r}
-chirps20_all <- gps %>% 
+chirps30_all <- gps %>% 
   rowid_to_column("ID") %>% 
   tibble() %>% 
   dplyr::select(ID, EAID) %>% 
-  full_join(chirps20_all, by = "ID")
-chirps20_all
+  full_join(chirps30_all, by = "ID")
+chirps30_all
 ```
 
 Finally, we'll `pivot_longer` and calculate a separate `weighted.mean` for each `EAID`. The result can be merged directly to `gps` if we'd like to create a map:
 
-```{r, layout="l-body-outset", fig.width=10, fig.height=8, preview = TRUE}
-gps <- chirps20_all %>% 
+```{r, layout="l-body-outset", fig.width=10, fig.height=8}
+gps <- chirps30_all %>% 
   pivot_longer(-c(ID, EAID, weight)) %>% 
   group_by(EAID) %>% 
-  summarise(CHIRPS_20 = weighted.mean(value, weight)) %>% 
+  summarise(CHIRPS_30 = weighted.mean(value, weight)) %>% 
   full_join(gps, by = "EAID")
 
 ggplot() + 
   layer_spatial(shape, alpha = 0) + 
-  layer_spatial(gps, aes(fill = CHIRPS_20, stroke = 0), alpha = 1) + 
+  layer_spatial(gps, aes(fill = CHIRPS_30, stroke = 0)) + 
   theme_pma_rainfall(
-    title = "Burkina Faso 20-year Average Daily Rainfall", 
+    title = "Burkina Faso 30-year Average Daily Rainfall", 
     subtitle = "PMA 2017 Nutrition Survey enumeration area centroid locations"
   ) + 
   scale_fill_steps(low = "#FAEFD1", high = "#00263A") +
   labs(caption = paste(sep = "\n",
     "Climate Hazards Center InfraRed Precipitation with Station data (CHIRPS)",
-    "01-01-1997 to 01-01-2017"
+    "06-01-1987 to 06-01-2017"
   ))
 ```
 
-We can also attach these local rainfall totals to the records for individual women and children in the 2017 Burkina Faso nutrition dataset `dat`. At this point, the **simple features collection** class is no longer necessary; we can simply join `CHIRPS_20` directly to `dat`.  
+We can also attach these local rainfall totals to the records for individual women and children in the 2017 Burkina Faso nutrition dataset `dat`. At this point, the **simple features collection** class is no longer necessary; we can simply join `CHIRPS_30` directly to `dat`.  
 
 ```{r}
 gps %>% 
-  select(EAID, CHIRPS_20) %>% 
+  select(EAID, CHIRPS_30) %>% 
   full_join(dat, by = "EAID") 
 ```
 
