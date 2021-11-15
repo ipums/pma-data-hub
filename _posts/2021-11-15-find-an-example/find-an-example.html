@@ -1,0 +1,1706 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1"/>
+  <meta name="generator" content="distill" />
+
+  <style type="text/css">
+  /* Hide doc at startup (prevent jankiness while JS renders/transforms) */
+  body {
+    visibility: hidden;
+  }
+  </style>
+
+ <!--radix_placeholder_import_source-->
+ <!--/radix_placeholder_import_source-->
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css" data-origin="pandoc">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ad0000; } /* Alert */
+code span.an { color: #5e5e5e; } /* Annotation */
+code span.at { } /* Attribute */
+code span.bn { color: #ad0000; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007ba5; } /* ControlFlow */
+code span.ch { color: #20794d; } /* Char */
+code span.cn { color: #8f5902; } /* Constant */
+code span.co { color: #5e5e5e; } /* Comment */
+code span.cv { color: #5e5e5e; font-style: italic; } /* CommentVar */
+code span.do { color: #5e5e5e; font-style: italic; } /* Documentation */
+code span.dt { color: #ad0000; } /* DataType */
+code span.dv { color: #ad0000; } /* DecVal */
+code span.er { color: #ad0000; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #ad0000; } /* Float */
+code span.fu { color: #4758ab; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #5e5e5e; } /* Information */
+code span.kw { color: #007ba5; } /* Keyword */
+code span.op { color: #5e5e5e; } /* Operator */
+code span.ot { color: #007ba5; } /* Other */
+code span.pp { color: #ad0000; } /* Preprocessor */
+code span.sc { color: #5e5e5e; } /* SpecialChar */
+code span.ss { color: #20794d; } /* SpecialString */
+code span.st { color: #20794d; } /* String */
+code span.va { color: #111111; } /* Variable */
+code span.vs { color: #20794d; } /* VerbatimString */
+code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
+</style>
+
+
+  <!--radix_placeholder_meta_tags-->
+  <title>2021 Blog Round-Up</title>
+
+  <meta property="description" itemprop="description" content="Where to find example code for all of the key concepts we&#39;ve covered so far."/>
+
+
+  <!--  https://schema.org/Article -->
+  <meta property="article:published" itemprop="datePublished" content="2021-11-15"/>
+  <meta property="article:created" itemprop="dateCreated" content="2021-11-15"/>
+  <meta name="article:author" content="Matt Gunther"/>
+
+  <!--  https://developers.facebook.com/docs/sharing/webmasters#markup -->
+  <meta property="og:title" content="2021 Blog Round-Up"/>
+  <meta property="og:type" content="article"/>
+  <meta property="og:description" content="Where to find example code for all of the key concepts we&#39;ve covered so far."/>
+  <meta property="og:locale" content="en_US"/>
+
+  <!--  https://dev.twitter.com/cards/types/summary -->
+  <meta property="twitter:card" content="summary"/>
+  <meta property="twitter:title" content="2021 Blog Round-Up"/>
+  <meta property="twitter:description" content="Where to find example code for all of the key concepts we&#39;ve covered so far."/>
+
+  <!--/radix_placeholder_meta_tags-->
+  <!--radix_placeholder_rmarkdown_metadata-->
+
+  <script type="text/json" id="radix-rmarkdown-metadata">
+  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","author","categories","date","output","preview"]}},"value":[{"type":"character","attributes":{},"value":["2021 Blog Round-Up"]},{"type":"character","attributes":{},"value":["Where to find example code for all of the key concepts we've covered so far.\n"]},{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","affiliation"]}},"value":[{"type":"character","attributes":{},"value":["Matt Gunther"]},{"type":"character","attributes":{},"value":["IPUMS PMA Senior Data Analyst"]}]}]},{"type":"character","attributes":{},"value":["R tips","R packages"]},{"type":"character","attributes":{},"value":["2021-11-15"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["self_contained","toc","toc_depth","toc_float"]}},"value":[{"type":"logical","attributes":{},"value":[false]},{"type":"logical","attributes":{},"value":[true]},{"type":"integer","attributes":{},"value":[3]},{"type":"logical","attributes":{},"value":[true]}]}]},{"type":"character","attributes":{},"value":["../../images/logo-navy.png"]}]}
+  </script>
+  <!--/radix_placeholder_rmarkdown_metadata-->
+  
+  <script type="text/json" id="radix-resource-manifest">
+  {"type":"character","attributes":{},"value":["find-an-example_files/anchor-4.2.2/anchor.min.js","find-an-example_files/bowser-1.9.3/bowser.min.js","find-an-example_files/distill-2.2.21/template.v2.js","find-an-example_files/header-attrs-2.11/header-attrs.js","find-an-example_files/jquery-3.6.0/jquery-3.6.0.js","find-an-example_files/jquery-3.6.0/jquery-3.6.0.min.js","find-an-example_files/jquery-3.6.0/jquery-3.6.0.min.map","find-an-example_files/popper-2.6.0/popper.min.js","find-an-example_files/tippy-6.2.7/tippy-bundle.umd.min.js","find-an-example_files/tippy-6.2.7/tippy-light-border.css","find-an-example_files/tippy-6.2.7/tippy.css","find-an-example_files/tippy-6.2.7/tippy.umd.min.js","find-an-example_files/webcomponents-2.0.0/webcomponents.js","images/labels.png","images/map.png","images/model.png","images/plot.png","images/unit.png"]}
+  </script>
+  <!--radix_placeholder_navigation_in_header-->
+  <!--/radix_placeholder_navigation_in_header-->
+  <!--radix_placeholder_distill-->
+
+  <style type="text/css">
+
+  body {
+    background-color: white;
+  }
+
+  .pandoc-table {
+    width: 100%;
+  }
+
+  .pandoc-table>caption {
+    margin-bottom: 10px;
+  }
+
+  .pandoc-table th:not([align]) {
+    text-align: left;
+  }
+
+  .pagedtable-footer {
+    font-size: 15px;
+  }
+
+  d-byline .byline {
+    grid-template-columns: 2fr 2fr;
+  }
+
+  d-byline .byline h3 {
+    margin-block-start: 1.5em;
+  }
+
+  d-byline .byline .authors-affiliations h3 {
+    margin-block-start: 0.5em;
+  }
+
+  .authors-affiliations .orcid-id {
+    width: 16px;
+    height:16px;
+    margin-left: 4px;
+    margin-right: 4px;
+    vertical-align: middle;
+    padding-bottom: 2px;
+  }
+
+  d-title .dt-tags {
+    margin-top: 1em;
+    grid-column: text;
+  }
+
+  .dt-tags .dt-tag {
+    text-decoration: none;
+    display: inline-block;
+    color: rgba(0,0,0,0.6);
+    padding: 0em 0.4em;
+    margin-right: 0.5em;
+    margin-bottom: 0.4em;
+    font-size: 70%;
+    border: 1px solid rgba(0,0,0,0.2);
+    border-radius: 3px;
+    text-transform: uppercase;
+    font-weight: 500;
+  }
+
+  d-article table.gt_table td,
+  d-article table.gt_table th {
+    border-bottom: none;
+  }
+
+  .html-widget {
+    margin-bottom: 2.0em;
+  }
+
+  .l-screen-inset {
+    padding-right: 16px;
+  }
+
+  .l-screen .caption {
+    margin-left: 10px;
+  }
+
+  .shaded {
+    background: rgb(247, 247, 247);
+    padding-top: 20px;
+    padding-bottom: 20px;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  }
+
+  .shaded .html-widget {
+    margin-bottom: 0;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+  }
+
+  .shaded .shaded-content {
+    background: white;
+  }
+
+  .text-output {
+    margin-top: 0;
+    line-height: 1.5em;
+  }
+
+  .hidden {
+    display: none !important;
+  }
+
+  d-article {
+    padding-top: 2.5rem;
+    padding-bottom: 30px;
+  }
+
+  d-appendix {
+    padding-top: 30px;
+  }
+
+  d-article>p>img {
+    width: 100%;
+  }
+
+  d-article h2 {
+    margin: 1rem 0 1.5rem 0;
+  }
+
+  d-article h3 {
+    margin-top: 1.5rem;
+  }
+
+  d-article iframe {
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    margin-bottom: 2.0em;
+    width: 100%;
+  }
+
+  /* Tweak code blocks */
+
+  d-article div.sourceCode code,
+  d-article pre code {
+    font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+  }
+
+  d-article pre,
+  d-article div.sourceCode,
+  d-article div.sourceCode pre {
+    overflow: auto;
+  }
+
+  d-article div.sourceCode {
+    background-color: white;
+  }
+
+  d-article div.sourceCode pre {
+    padding-left: 10px;
+    font-size: 12px;
+    border-left: 2px solid rgba(0,0,0,0.1);
+  }
+
+  d-article pre {
+    font-size: 12px;
+    color: black;
+    background: none;
+    margin-top: 0;
+    text-align: left;
+    white-space: pre;
+    word-spacing: normal;
+    word-break: normal;
+    word-wrap: normal;
+    line-height: 1.5;
+
+    -moz-tab-size: 4;
+    -o-tab-size: 4;
+    tab-size: 4;
+
+    -webkit-hyphens: none;
+    -moz-hyphens: none;
+    -ms-hyphens: none;
+    hyphens: none;
+  }
+
+  d-article pre a {
+    border-bottom: none;
+  }
+
+  d-article pre a:hover {
+    border-bottom: none;
+    text-decoration: underline;
+  }
+
+  d-article details {
+    grid-column: text;
+    margin-bottom: 0.8em;
+  }
+
+  @media(min-width: 768px) {
+
+  d-article pre,
+  d-article div.sourceCode,
+  d-article div.sourceCode pre {
+    overflow: visible !important;
+  }
+
+  d-article div.sourceCode pre {
+    padding-left: 18px;
+    font-size: 14px;
+  }
+
+  d-article pre {
+    font-size: 14px;
+  }
+
+  }
+
+  figure img.external {
+    background: white;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    box-shadow: 0 1px 8px rgba(0, 0, 0, 0.1);
+    padding: 18px;
+    box-sizing: border-box;
+  }
+
+  /* CSS for d-contents */
+
+  .d-contents {
+    grid-column: text;
+    color: rgba(0,0,0,0.8);
+    font-size: 0.9em;
+    padding-bottom: 1em;
+    margin-bottom: 1em;
+    padding-bottom: 0.5em;
+    margin-bottom: 1em;
+    padding-left: 0.25em;
+    justify-self: start;
+  }
+
+  @media(min-width: 1000px) {
+    .d-contents.d-contents-float {
+      height: 0;
+      grid-column-start: 1;
+      grid-column-end: 4;
+      justify-self: center;
+      padding-right: 3em;
+      padding-left: 2em;
+    }
+  }
+
+  .d-contents nav h3 {
+    font-size: 18px;
+    margin-top: 0;
+    margin-bottom: 1em;
+  }
+
+  .d-contents li {
+    list-style-type: none
+  }
+
+  .d-contents nav > ul {
+    padding-left: 0;
+  }
+
+  .d-contents ul {
+    padding-left: 1em
+  }
+
+  .d-contents nav ul li {
+    margin-top: 0.6em;
+    margin-bottom: 0.2em;
+  }
+
+  .d-contents nav a {
+    font-size: 13px;
+    border-bottom: none;
+    text-decoration: none
+    color: rgba(0, 0, 0, 0.8);
+  }
+
+  .d-contents nav a:hover {
+    text-decoration: underline solid rgba(0, 0, 0, 0.6)
+  }
+
+  .d-contents nav > ul > li > a {
+    font-weight: 600;
+  }
+
+  .d-contents nav > ul > li > ul {
+    font-weight: inherit;
+  }
+
+  .d-contents nav > ul > li > ul > li {
+    margin-top: 0.2em;
+  }
+
+
+  .d-contents nav ul {
+    margin-top: 0;
+    margin-bottom: 0.25em;
+  }
+
+  .d-article-with-toc h2:nth-child(2) {
+    margin-top: 0;
+  }
+
+
+  /* Figure */
+
+  .figure {
+    position: relative;
+    margin-bottom: 2.5em;
+    margin-top: 1.5em;
+  }
+
+  .figure img {
+    width: 100%;
+  }
+
+  .figure .caption {
+    color: rgba(0, 0, 0, 0.6);
+    font-size: 12px;
+    line-height: 1.5em;
+  }
+
+  .figure img.external {
+    background: white;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    box-shadow: 0 1px 8px rgba(0, 0, 0, 0.1);
+    padding: 18px;
+    box-sizing: border-box;
+  }
+
+  .figure .caption a {
+    color: rgba(0, 0, 0, 0.6);
+  }
+
+  .figure .caption b,
+  .figure .caption strong, {
+    font-weight: 600;
+    color: rgba(0, 0, 0, 1.0);
+  }
+
+  /* Citations */
+
+  d-article .citation {
+    color: inherit;
+    cursor: inherit;
+  }
+
+  div.hanging-indent{
+    margin-left: 1em; text-indent: -1em;
+  }
+
+  /* Citation hover box */
+
+  .tippy-box[data-theme~=light-border] {
+    background-color: rgba(250, 250, 250, 0.95);
+  }
+
+  .tippy-content > p {
+    margin-bottom: 0;
+    padding: 2px;
+  }
+
+
+  /* Tweak 1000px media break to show more text */
+
+  @media(min-width: 1000px) {
+    .base-grid,
+    distill-header,
+    d-title,
+    d-abstract,
+    d-article,
+    d-appendix,
+    distill-appendix,
+    d-byline,
+    d-footnote-list,
+    d-citation-list,
+    distill-footer {
+      grid-template-columns: [screen-start] 1fr [page-start kicker-start] 80px [middle-start] 50px [text-start kicker-end] 65px 65px 65px 65px 65px 65px 65px 65px [text-end gutter-start] 65px [middle-end] 65px [page-end gutter-end] 1fr [screen-end];
+      grid-column-gap: 16px;
+    }
+
+    .grid {
+      grid-column-gap: 16px;
+    }
+
+    d-article {
+      font-size: 1.06rem;
+      line-height: 1.7em;
+    }
+    figure .caption, .figure .caption, figure figcaption {
+      font-size: 13px;
+    }
+  }
+
+  @media(min-width: 1180px) {
+    .base-grid,
+    distill-header,
+    d-title,
+    d-abstract,
+    d-article,
+    d-appendix,
+    distill-appendix,
+    d-byline,
+    d-footnote-list,
+    d-citation-list,
+    distill-footer {
+      grid-template-columns: [screen-start] 1fr [page-start kicker-start] 60px [middle-start] 60px [text-start kicker-end] 60px 60px 60px 60px 60px 60px 60px 60px [text-end gutter-start] 60px [middle-end] 60px [page-end gutter-end] 1fr [screen-end];
+      grid-column-gap: 32px;
+    }
+
+    .grid {
+      grid-column-gap: 32px;
+    }
+  }
+
+
+  /* Get the citation styles for the appendix (not auto-injected on render since
+     we do our own rendering of the citation appendix) */
+
+  d-appendix .citation-appendix,
+  .d-appendix .citation-appendix {
+    font-size: 11px;
+    line-height: 15px;
+    border-left: 1px solid rgba(0, 0, 0, 0.1);
+    padding-left: 18px;
+    border: 1px solid rgba(0,0,0,0.1);
+    background: rgba(0, 0, 0, 0.02);
+    padding: 10px 18px;
+    border-radius: 3px;
+    color: rgba(150, 150, 150, 1);
+    overflow: hidden;
+    margin-top: -12px;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+  }
+
+  /* Include appendix styles here so they can be overridden */
+
+  d-appendix {
+    contain: layout style;
+    font-size: 0.8em;
+    line-height: 1.7em;
+    margin-top: 60px;
+    margin-bottom: 0;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    color: rgba(0,0,0,0.5);
+    padding-top: 60px;
+    padding-bottom: 48px;
+  }
+
+  d-appendix h3 {
+    grid-column: page-start / text-start;
+    font-size: 15px;
+    font-weight: 500;
+    margin-top: 1em;
+    margin-bottom: 0;
+    color: rgba(0,0,0,0.65);
+  }
+
+  d-appendix h3 + * {
+    margin-top: 1em;
+  }
+
+  d-appendix ol {
+    padding: 0 0 0 15px;
+  }
+
+  @media (min-width: 768px) {
+    d-appendix ol {
+      padding: 0 0 0 30px;
+      margin-left: -30px;
+    }
+  }
+
+  d-appendix li {
+    margin-bottom: 1em;
+  }
+
+  d-appendix a {
+    color: rgba(0, 0, 0, 0.6);
+  }
+
+  d-appendix > * {
+    grid-column: text;
+  }
+
+  d-appendix > d-footnote-list,
+  d-appendix > d-citation-list,
+  d-appendix > distill-appendix {
+    grid-column: screen;
+  }
+
+  /* Include footnote styles here so they can be overridden */
+
+  d-footnote-list {
+    contain: layout style;
+  }
+
+  d-footnote-list > * {
+    grid-column: text;
+  }
+
+  d-footnote-list a.footnote-backlink {
+    color: rgba(0,0,0,0.3);
+    padding-left: 0.5em;
+  }
+
+
+
+  /* Anchor.js */
+
+  .anchorjs-link {
+    /*transition: all .25s linear; */
+    text-decoration: none;
+    border-bottom: none;
+  }
+  *:hover > .anchorjs-link {
+    margin-left: -1.125em !important;
+    text-decoration: none;
+    border-bottom: none;
+  }
+
+  /* Social footer */
+
+  .social_footer {
+    margin-top: 30px;
+    margin-bottom: 0;
+    color: rgba(0,0,0,0.67);
+  }
+
+  .disqus-comments {
+    margin-right: 30px;
+  }
+
+  .disqus-comment-count {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.4);
+    cursor: pointer;
+  }
+
+  #disqus_thread {
+    margin-top: 30px;
+  }
+
+  .article-sharing a {
+    border-bottom: none;
+    margin-right: 8px;
+  }
+
+  .article-sharing a:hover {
+    border-bottom: none;
+  }
+
+  .sidebar-section.subscribe {
+    font-size: 12px;
+    line-height: 1.6em;
+  }
+
+  .subscribe p {
+    margin-bottom: 0.5em;
+  }
+
+
+  .article-footer .subscribe {
+    font-size: 15px;
+    margin-top: 45px;
+  }
+
+
+  .sidebar-section.custom {
+    font-size: 12px;
+    line-height: 1.6em;
+  }
+
+  .custom p {
+    margin-bottom: 0.5em;
+  }
+
+  /* Styles for listing layout (hide title) */
+  .layout-listing d-title, .layout-listing .d-title {
+    display: none;
+  }
+
+  /* Styles for posts lists (not auto-injected) */
+
+
+  .posts-with-sidebar {
+    padding-left: 45px;
+    padding-right: 45px;
+  }
+
+  .posts-list .description h2,
+  .posts-list .description p {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", Arial, sans-serif;
+  }
+
+  .posts-list .description h2 {
+    font-weight: 700;
+    border-bottom: none;
+    padding-bottom: 0;
+  }
+
+  .posts-list h2.post-tag {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+    padding-bottom: 12px;
+  }
+  .posts-list {
+    margin-top: 60px;
+    margin-bottom: 24px;
+  }
+
+  .posts-list .post-preview {
+    text-decoration: none;
+    overflow: hidden;
+    display: block;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    padding: 24px 0;
+  }
+
+  .post-preview-last {
+    border-bottom: none !important;
+  }
+
+  .posts-list .posts-list-caption {
+    grid-column: screen;
+    font-weight: 400;
+  }
+
+  .posts-list .post-preview h2 {
+    margin: 0 0 6px 0;
+    line-height: 1.2em;
+    font-style: normal;
+    font-size: 24px;
+  }
+
+  .posts-list .post-preview p {
+    margin: 0 0 12px 0;
+    line-height: 1.4em;
+    font-size: 16px;
+  }
+
+  .posts-list .post-preview .thumbnail {
+    box-sizing: border-box;
+    margin-bottom: 24px;
+    position: relative;
+    max-width: 500px;
+  }
+  .posts-list .post-preview img {
+    width: 100%;
+    display: block;
+  }
+
+  .posts-list .metadata {
+    font-size: 12px;
+    line-height: 1.4em;
+    margin-bottom: 18px;
+  }
+
+  .posts-list .metadata > * {
+    display: inline-block;
+  }
+
+  .posts-list .metadata .publishedDate {
+    margin-right: 2em;
+  }
+
+  .posts-list .metadata .dt-authors {
+    display: block;
+    margin-top: 0.3em;
+    margin-right: 2em;
+  }
+
+  .posts-list .dt-tags {
+    display: block;
+    line-height: 1em;
+  }
+
+  .posts-list .dt-tags .dt-tag {
+    display: inline-block;
+    color: rgba(0,0,0,0.6);
+    padding: 0.3em 0.4em;
+    margin-right: 0.2em;
+    margin-bottom: 0.4em;
+    font-size: 60%;
+    border: 1px solid rgba(0,0,0,0.2);
+    border-radius: 3px;
+    text-transform: uppercase;
+    font-weight: 500;
+  }
+
+  .posts-list img {
+    opacity: 1;
+  }
+
+  .posts-list img[data-src] {
+    opacity: 0;
+  }
+
+  .posts-more {
+    clear: both;
+  }
+
+
+  .posts-sidebar {
+    font-size: 16px;
+  }
+
+  .posts-sidebar h3 {
+    font-size: 16px;
+    margin-top: 0;
+    margin-bottom: 0.5em;
+    font-weight: 400;
+    text-transform: uppercase;
+  }
+
+  .sidebar-section {
+    margin-bottom: 30px;
+  }
+
+  .categories ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .categories li {
+    color: rgba(0, 0, 0, 0.8);
+    margin-bottom: 0;
+  }
+
+  .categories li>a {
+    border-bottom: none;
+  }
+
+  .categories li>a:hover {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.4);
+  }
+
+  .categories .active {
+    font-weight: 600;
+  }
+
+  .categories .category-count {
+    color: rgba(0, 0, 0, 0.4);
+  }
+
+
+  @media(min-width: 768px) {
+    .posts-list .post-preview h2 {
+      font-size: 26px;
+    }
+    .posts-list .post-preview .thumbnail {
+      float: right;
+      width: 30%;
+      margin-bottom: 0;
+    }
+    .posts-list .post-preview .description {
+      float: left;
+      width: 45%;
+    }
+    .posts-list .post-preview .metadata {
+      float: left;
+      width: 20%;
+      margin-top: 8px;
+    }
+    .posts-list .post-preview p {
+      margin: 0 0 12px 0;
+      line-height: 1.5em;
+      font-size: 16px;
+    }
+    .posts-with-sidebar .posts-list {
+      float: left;
+      width: 75%;
+    }
+    .posts-with-sidebar .posts-sidebar {
+      float: right;
+      width: 20%;
+      margin-top: 60px;
+      padding-top: 24px;
+      padding-bottom: 24px;
+    }
+  }
+
+
+  /* Improve display for browsers without grid (IE/Edge <= 15) */
+
+  .downlevel {
+    line-height: 1.6em;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", Arial, sans-serif;
+    margin: 0;
+  }
+
+  .downlevel .d-title {
+    padding-top: 6rem;
+    padding-bottom: 1.5rem;
+  }
+
+  .downlevel .d-title h1 {
+    font-size: 50px;
+    font-weight: 700;
+    line-height: 1.1em;
+    margin: 0 0 0.5rem;
+  }
+
+  .downlevel .d-title p {
+    font-weight: 300;
+    font-size: 1.2rem;
+    line-height: 1.55em;
+    margin-top: 0;
+  }
+
+  .downlevel .d-byline {
+    padding-top: 0.8em;
+    padding-bottom: 0.8em;
+    font-size: 0.8rem;
+    line-height: 1.8em;
+  }
+
+  .downlevel .section-separator {
+    border: none;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+  }
+
+  .downlevel .d-article {
+    font-size: 1.06rem;
+    line-height: 1.7em;
+    padding-top: 1rem;
+    padding-bottom: 2rem;
+  }
+
+
+  .downlevel .d-appendix {
+    padding-left: 0;
+    padding-right: 0;
+    max-width: none;
+    font-size: 0.8em;
+    line-height: 1.7em;
+    margin-bottom: 0;
+    color: rgba(0,0,0,0.5);
+    padding-top: 40px;
+    padding-bottom: 48px;
+  }
+
+  .downlevel .footnotes ol {
+    padding-left: 13px;
+  }
+
+  .downlevel .base-grid,
+  .downlevel .distill-header,
+  .downlevel .d-title,
+  .downlevel .d-abstract,
+  .downlevel .d-article,
+  .downlevel .d-appendix,
+  .downlevel .distill-appendix,
+  .downlevel .d-byline,
+  .downlevel .d-footnote-list,
+  .downlevel .d-citation-list,
+  .downlevel .distill-footer,
+  .downlevel .appendix-bottom,
+  .downlevel .posts-container {
+    padding-left: 40px;
+    padding-right: 40px;
+  }
+
+  @media(min-width: 768px) {
+    .downlevel .base-grid,
+    .downlevel .distill-header,
+    .downlevel .d-title,
+    .downlevel .d-abstract,
+    .downlevel .d-article,
+    .downlevel .d-appendix,
+    .downlevel .distill-appendix,
+    .downlevel .d-byline,
+    .downlevel .d-footnote-list,
+    .downlevel .d-citation-list,
+    .downlevel .distill-footer,
+    .downlevel .appendix-bottom,
+    .downlevel .posts-container {
+    padding-left: 150px;
+    padding-right: 150px;
+    max-width: 900px;
+  }
+  }
+
+  .downlevel pre code {
+    display: block;
+    border-left: 2px solid rgba(0, 0, 0, .1);
+    padding: 0 0 0 20px;
+    font-size: 14px;
+  }
+
+  .downlevel code, .downlevel pre {
+    color: black;
+    background: none;
+    font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+    text-align: left;
+    white-space: pre;
+    word-spacing: normal;
+    word-break: normal;
+    word-wrap: normal;
+    line-height: 1.5;
+
+    -moz-tab-size: 4;
+    -o-tab-size: 4;
+    tab-size: 4;
+
+    -webkit-hyphens: none;
+    -moz-hyphens: none;
+    -ms-hyphens: none;
+    hyphens: none;
+  }
+
+  .downlevel .posts-list .post-preview {
+    color: inherit;
+  }
+
+
+
+  </style>
+
+  <script type="application/javascript">
+
+  function is_downlevel_browser() {
+    if (bowser.isUnsupportedBrowser({ msie: "12", msedge: "16"},
+                                   window.navigator.userAgent)) {
+      return true;
+    } else {
+      return window.load_distill_framework === undefined;
+    }
+  }
+
+  // show body when load is complete
+  function on_load_complete() {
+
+    // add anchors
+    if (window.anchors) {
+      window.anchors.options.placement = 'left';
+      window.anchors.add('d-article > h2, d-article > h3, d-article > h4, d-article > h5');
+    }
+
+
+    // set body to visible
+    document.body.style.visibility = 'visible';
+
+    // force redraw for leaflet widgets
+    if (window.HTMLWidgets) {
+      var maps = window.HTMLWidgets.findAll(".leaflet");
+      $.each(maps, function(i, el) {
+        var map = this.getMap();
+        map.invalidateSize();
+        map.eachLayer(function(layer) {
+          if (layer instanceof L.TileLayer)
+            layer.redraw();
+        });
+      });
+    }
+
+    // trigger 'shown' so htmlwidgets resize
+    $('d-article').trigger('shown');
+  }
+
+  function init_distill() {
+
+    init_common();
+
+    // create front matter
+    var front_matter = $('<d-front-matter></d-front-matter>');
+    $('#distill-front-matter').wrap(front_matter);
+
+    // create d-title
+    $('.d-title').changeElementType('d-title');
+
+    // create d-byline
+    var byline = $('<d-byline></d-byline>');
+    $('.d-byline').replaceWith(byline);
+
+    // create d-article
+    var article = $('<d-article></d-article>');
+    $('.d-article').wrap(article).children().unwrap();
+
+    // move posts container into article
+    $('.posts-container').appendTo($('d-article'));
+
+    // create d-appendix
+    $('.d-appendix').changeElementType('d-appendix');
+
+    // flag indicating that we have appendix items
+    var appendix = $('.appendix-bottom').children('h3').length > 0;
+
+    // replace footnotes with <d-footnote>
+    $('.footnote-ref').each(function(i, val) {
+      appendix = true;
+      var href = $(this).attr('href');
+      var id = href.replace('#', '');
+      var fn = $('#' + id);
+      var fn_p = $('#' + id + '>p');
+      fn_p.find('.footnote-back').remove();
+      var text = fn_p.html();
+      var dtfn = $('<d-footnote></d-footnote>');
+      dtfn.html(text);
+      $(this).replaceWith(dtfn);
+    });
+    // remove footnotes
+    $('.footnotes').remove();
+
+    // move refs into #references-listing
+    $('#references-listing').replaceWith($('#refs'));
+
+    $('h1.appendix, h2.appendix').each(function(i, val) {
+      $(this).changeElementType('h3');
+    });
+    $('h3.appendix').each(function(i, val) {
+      var id = $(this).attr('id');
+      $('.d-contents a[href="#' + id + '"]').parent().remove();
+      appendix = true;
+      $(this).nextUntil($('h1, h2, h3')).addBack().appendTo($('d-appendix'));
+    });
+
+    // show d-appendix if we have appendix content
+    $("d-appendix").css('display', appendix ? 'grid' : 'none');
+
+    // localize layout chunks to just output
+    $('.layout-chunk').each(function(i, val) {
+
+      // capture layout
+      var layout = $(this).attr('data-layout');
+
+      // apply layout to markdown level block elements
+      var elements = $(this).children().not('details, div.sourceCode, pre, script');
+      elements.each(function(i, el) {
+        var layout_div = $('<div class="' + layout + '"></div>');
+        if (layout_div.hasClass('shaded')) {
+          var shaded_content = $('<div class="shaded-content"></div>');
+          $(this).wrap(shaded_content);
+          $(this).parent().wrap(layout_div);
+        } else {
+          $(this).wrap(layout_div);
+        }
+      });
+
+
+      // unwrap the layout-chunk div
+      $(this).children().unwrap();
+    });
+
+    // remove code block used to force  highlighting css
+    $('.distill-force-highlighting-css').parent().remove();
+
+    // remove empty line numbers inserted by pandoc when using a
+    // custom syntax highlighting theme
+    $('code.sourceCode a:empty').remove();
+
+    // load distill framework
+    load_distill_framework();
+
+    // wait for window.distillRunlevel == 4 to do post processing
+    function distill_post_process() {
+
+      if (!window.distillRunlevel || window.distillRunlevel < 4)
+        return;
+
+      // hide author/affiliations entirely if we have no authors
+      var front_matter = JSON.parse($("#distill-front-matter").html());
+      var have_authors = front_matter.authors && front_matter.authors.length > 0;
+      if (!have_authors)
+        $('d-byline').addClass('hidden');
+
+      // article with toc class
+      $('.d-contents').parent().addClass('d-article-with-toc');
+
+      // strip links that point to #
+      $('.authors-affiliations').find('a[href="#"]').removeAttr('href');
+
+      // add orcid ids
+      $('.authors-affiliations').find('.author').each(function(i, el) {
+        var orcid_id = front_matter.authors[i].orcidID;
+        if (orcid_id) {
+          var a = $('<a></a>');
+          a.attr('href', 'https://orcid.org/' + orcid_id);
+          var img = $('<img></img>');
+          img.addClass('orcid-id');
+          img.attr('alt', 'ORCID ID');
+          img.attr('src','data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA2ZpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDo1N0NEMjA4MDI1MjA2ODExOTk0QzkzNTEzRjZEQTg1NyIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDozM0NDOEJGNEZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDozM0NDOEJGM0ZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ1M1IE1hY2ludG9zaCI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOkZDN0YxMTc0MDcyMDY4MTE5NUZFRDc5MUM2MUUwNEREIiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjU3Q0QyMDgwMjUyMDY4MTE5OTRDOTM1MTNGNkRBODU3Ii8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+84NovQAAAR1JREFUeNpiZEADy85ZJgCpeCB2QJM6AMQLo4yOL0AWZETSqACk1gOxAQN+cAGIA4EGPQBxmJA0nwdpjjQ8xqArmczw5tMHXAaALDgP1QMxAGqzAAPxQACqh4ER6uf5MBlkm0X4EGayMfMw/Pr7Bd2gRBZogMFBrv01hisv5jLsv9nLAPIOMnjy8RDDyYctyAbFM2EJbRQw+aAWw/LzVgx7b+cwCHKqMhjJFCBLOzAR6+lXX84xnHjYyqAo5IUizkRCwIENQQckGSDGY4TVgAPEaraQr2a4/24bSuoExcJCfAEJihXkWDj3ZAKy9EJGaEo8T0QSxkjSwORsCAuDQCD+QILmD1A9kECEZgxDaEZhICIzGcIyEyOl2RkgwAAhkmC+eAm0TAAAAABJRU5ErkJggg==');
+          a.append(img);
+          $(this).append(a);
+        }
+      });
+
+      // hide elements of author/affiliations grid that have no value
+      function hide_byline_column(caption) {
+        $('d-byline').find('h3:contains("' + caption + '")').parent().css('visibility', 'hidden');
+      }
+
+      // affiliations
+      var have_affiliations = false;
+      for (var i = 0; i<front_matter.authors.length; ++i) {
+        var author = front_matter.authors[i];
+        if (author.affiliation !== "&nbsp;") {
+          have_affiliations = true;
+          break;
+        }
+      }
+      if (!have_affiliations)
+        $('d-byline').find('h3:contains("Affiliations")').css('visibility', 'hidden');
+
+      // published date
+      if (!front_matter.publishedDate)
+        hide_byline_column("Published");
+
+      // document object identifier
+      var doi = $('d-byline').find('h3:contains("DOI")');
+      var doi_p = doi.next().empty();
+      if (!front_matter.doi) {
+        // if we have a citation and valid citationText then link to that
+        if ($('#citation').length > 0 && front_matter.citationText) {
+          doi.html('Citation');
+          $('<a href="#citation"></a>')
+            .text(front_matter.citationText)
+            .appendTo(doi_p);
+        } else {
+          hide_byline_column("DOI");
+        }
+      } else {
+        $('<a></a>')
+           .attr('href', "https://doi.org/" + front_matter.doi)
+           .html(front_matter.doi)
+           .appendTo(doi_p);
+      }
+
+       // change plural form of authors/affiliations
+      if (front_matter.authors.length === 1) {
+        var grid = $('.authors-affiliations');
+        grid.children('h3:contains("Authors")').text('Author');
+        grid.children('h3:contains("Affiliations")').text('Affiliation');
+      }
+
+      // remove d-appendix and d-footnote-list local styles
+      $('d-appendix > style:first-child').remove();
+      $('d-footnote-list > style:first-child').remove();
+
+      // move appendix-bottom entries to the bottom
+      $('.appendix-bottom').appendTo('d-appendix').children().unwrap();
+      $('.appendix-bottom').remove();
+
+      // hoverable references
+      $('span.citation[data-cites]').each(function() {
+        var refs = $(this).attr('data-cites').split(" ");
+        var refHtml = refs.map(function(ref) {
+          return "<p>" + $('#ref-' + ref).html() + "</p>";
+        }).join("\n");
+        window.tippy(this, {
+          allowHTML: true,
+          content: refHtml,
+          maxWidth: 500,
+          interactive: true,
+          interactiveBorder: 10,
+          theme: 'light-border',
+          placement: 'bottom-start'
+        });
+      });
+
+      // clear polling timer
+      clearInterval(tid);
+
+      // show body now that everything is ready
+      on_load_complete();
+    }
+
+    var tid = setInterval(distill_post_process, 50);
+    distill_post_process();
+
+  }
+
+  function init_downlevel() {
+
+    init_common();
+
+     // insert hr after d-title
+    $('.d-title').after($('<hr class="section-separator"/>'));
+
+    // check if we have authors
+    var front_matter = JSON.parse($("#distill-front-matter").html());
+    var have_authors = front_matter.authors && front_matter.authors.length > 0;
+
+    // manage byline/border
+    if (!have_authors)
+      $('.d-byline').remove();
+    $('.d-byline').after($('<hr class="section-separator"/>'));
+    $('.d-byline a').remove();
+
+    // remove toc
+    $('.d-contents').remove();
+
+    // move appendix elements
+    $('h1.appendix, h2.appendix').each(function(i, val) {
+      $(this).changeElementType('h3');
+    });
+    $('h3.appendix').each(function(i, val) {
+      $(this).nextUntil($('h1, h2, h3')).addBack().appendTo($('.d-appendix'));
+    });
+
+
+    // inject headers into references and footnotes
+    var refs_header = $('<h3></h3>');
+    refs_header.text('References');
+    $('#refs').prepend(refs_header);
+
+    var footnotes_header = $('<h3></h3');
+    footnotes_header.text('Footnotes');
+    $('.footnotes').children('hr').first().replaceWith(footnotes_header);
+
+    // move appendix-bottom entries to the bottom
+    $('.appendix-bottom').appendTo('.d-appendix').children().unwrap();
+    $('.appendix-bottom').remove();
+
+    // remove appendix if it's empty
+    if ($('.d-appendix').children().length === 0)
+      $('.d-appendix').remove();
+
+    // prepend separator above appendix
+    $('.d-appendix').before($('<hr class="section-separator" style="clear: both"/>'));
+
+    // trim code
+    $('pre>code').each(function(i, val) {
+      $(this).html($.trim($(this).html()));
+    });
+
+    // move posts-container right before article
+    $('.posts-container').insertBefore($('.d-article'));
+
+    $('body').addClass('downlevel');
+
+    on_load_complete();
+  }
+
+
+  function init_common() {
+
+    // jquery plugin to change element types
+    (function($) {
+      $.fn.changeElementType = function(newType) {
+        var attrs = {};
+
+        $.each(this[0].attributes, function(idx, attr) {
+          attrs[attr.nodeName] = attr.nodeValue;
+        });
+
+        this.replaceWith(function() {
+          return $("<" + newType + "/>", attrs).append($(this).contents());
+        });
+      };
+    })(jQuery);
+
+    // prevent underline for linked images
+    $('a > img').parent().css({'border-bottom' : 'none'});
+
+    // mark non-body figures created by knitr chunks as 100% width
+    $('.layout-chunk').each(function(i, val) {
+      var figures = $(this).find('img, .html-widget');
+      if ($(this).attr('data-layout') !== "l-body") {
+        figures.css('width', '100%');
+      } else {
+        figures.css('max-width', '100%');
+        figures.filter("[width]").each(function(i, val) {
+          var fig = $(this);
+          fig.css('width', fig.attr('width') + 'px');
+        });
+
+      }
+    });
+
+    // auto-append index.html to post-preview links in file: protocol
+    // and in rstudio ide preview
+    $('.post-preview').each(function(i, val) {
+      if (window.location.protocol === "file:")
+        $(this).attr('href', $(this).attr('href') + "index.html");
+    });
+
+    // get rid of index.html references in header
+    if (window.location.protocol !== "file:") {
+      $('.distill-site-header a[href]').each(function(i,val) {
+        $(this).attr('href', $(this).attr('href').replace("index.html", "./"));
+      });
+    }
+
+    // add class to pandoc style tables
+    $('tr.header').parent('thead').parent('table').addClass('pandoc-table');
+    $('.kable-table').children('table').addClass('pandoc-table');
+
+    // add figcaption style to table captions
+    $('caption').parent('table').addClass("figcaption");
+
+    // initialize posts list
+    if (window.init_posts_list)
+      window.init_posts_list();
+
+    // implmement disqus comment link
+    $('.disqus-comment-count').click(function() {
+      window.headroom_prevent_pin = true;
+      $('#disqus_thread').toggleClass('hidden');
+      if (!$('#disqus_thread').hasClass('hidden')) {
+        var offset = $(this).offset();
+        $(window).resize();
+        $('html, body').animate({
+          scrollTop: offset.top - 35
+        });
+      }
+    });
+  }
+
+  document.addEventListener('DOMContentLoaded', function() {
+    if (is_downlevel_browser())
+      init_downlevel();
+    else
+      window.addEventListener('WebComponentsReady', init_distill);
+  });
+
+  </script>
+
+  <!--/radix_placeholder_distill-->
+  <script src="find-an-example_files/header-attrs-2.11/header-attrs.js"></script>
+  <script src="find-an-example_files/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+  <script src="find-an-example_files/popper-2.6.0/popper.min.js"></script>
+  <link href="find-an-example_files/tippy-6.2.7/tippy.css" rel="stylesheet" />
+  <link href="find-an-example_files/tippy-6.2.7/tippy-light-border.css" rel="stylesheet" />
+  <script src="find-an-example_files/tippy-6.2.7/tippy.umd.min.js"></script>
+  <script src="find-an-example_files/anchor-4.2.2/anchor.min.js"></script>
+  <script src="find-an-example_files/bowser-1.9.3/bowser.min.js"></script>
+  <script src="find-an-example_files/webcomponents-2.0.0/webcomponents.js"></script>
+  <script src="find-an-example_files/distill-2.2.21/template.v2.js"></script>
+  <!--radix_placeholder_site_in_header-->
+  <!--/radix_placeholder_site_in_header-->
+
+
+</head>
+
+<body>
+
+<!--radix_placeholder_front_matter-->
+
+<script id="distill-front-matter" type="text/json">
+{"title":"2021 Blog Round-Up","description":"Where to find example code for all of the key concepts we've covered so far.","authors":[{"author":"Matt Gunther","authorURL":"#","affiliation":"IPUMS PMA Senior Data Analyst","affiliationURL":"#","orcidID":""}],"publishedDate":"2021-11-15T00:00:00.000-06:00","citationText":"Gunther, 2021"}
+</script>
+
+<!--/radix_placeholder_front_matter-->
+<!--radix_placeholder_navigation_before_body-->
+<!--/radix_placeholder_navigation_before_body-->
+<!--radix_placeholder_site_before_body-->
+<!--/radix_placeholder_site_before_body-->
+
+<div class="d-title">
+<h1>2021 Blog Round-Up</h1>
+<!--radix_placeholder_categories-->
+<div class="dt-tags">
+<div class="dt=tag">R tips</div>
+<div class="dt=tag">R packages</div>
+</div>
+<!--/radix_placeholder_categories-->
+<p><p>Where to find example code for all of the key concepts we’ve covered so far.</p></p>
+</div>
+
+<div class="d-byline">
+  Matt Gunther  (IPUMS PMA Senior Data Analyst)
+  
+<br/>2021-11-15
+</div>
+
+<div class="d-article">
+<div class="d-contents d-contents-float">
+<nav class="l-text toc figcaption" id="TOC">
+<h3>Contents</h3>
+<ul>
+<li><a href="#introduction-course">Introduction Course</a></li>
+<li><a href="#data-discovery">Data Discovery</a></li>
+<li><a href="#data-manipulation">Data Manipulation</a>
+<ul>
+<li><a href="#ipums-labelled-data">IPUMS labelled data</a></li>
+<li><a href="#iteration-with-columns">Iteration with columns</a></li>
+<li><a href="#iteration-with-rows">Iteration with rows</a></li>
+<li><a href="#joining-and-reshaping">Joining and Reshaping</a></li>
+<li><a href="#visualization">Visualization</a></li>
+<li><a href="#spatial-data">Spatial data</a></li>
+</ul></li>
+<li><a href="#data-analysis">Data Analysis</a></li>
+<li><a href="#plans-for-2022">Plans for 2022</a></li>
+</ul>
+</nav>
+</div>
+<p>We launched the <strong>IPUMS PMA Data Analysis Hub</strong> one year ago this week, and we’ve covered a <em>lot</em> since then! As we’re gearing up for new series exploring <a href="https://pma.ipums.org/pma/sample_notes.shtml#client">Client Exit Interviews</a> and longitudinal analysis with <a href="https://www.pmadata.org/data/survey-methodology">Round 2 Panel Data</a> in the coming months, we thought it might be a nice time to pause and take inventory of the important concepts we’ve covered in our first year.</p>
+<h1 id="introduction-course">Introduction Course</h1>
+<p>Looking for a place to start learning about IPUMS PMA data with coding examples in your preferred programming language? Check out our new <a href="../../introduction.html">online introduction course</a>! This course is free and open to all registered IPUMS PMA data users. You’ll learn all about PMA surveys, the IPUMS data extract system, and basic analysis tools for R or Stata.</p>
+<h1 id="data-discovery">Data Discovery</h1>
+<p>Our <a href="../../index.html#category:Data_Discovery">Data Discovery</a> posts are where you’ll find announcements about <a href="../../index.html#category:New_Data">new data releases</a> and deep-dives into available data for a featured topic. So far, we’ve explored:</p>
+<ul>
+<li><a href="../2021-01-26-sdp-data/">Service Delivery Point (SDP)</a> surveys</li>
+<li><a href="../2021-06-15-covid-discovery/">COVID-19</a> surveys</li>
+<li><a href="../2021-09-01-nutrition-discovery/">Nutrition</a> surveys for women and young children</li>
+<li><a href="../2021-04-15-migration-discovery/">Migration</a> history data</li>
+<li>External sources for <a href="../2021-10-15-nutrition-climate/">climate</a>, <a href="../2021-02-04-merging-external-spatial-data/#population-density-working-with-raster-data">population density</a>, and <a href="../2021-02-04-merging-external-spatial-data/#road-networks-working-with-vector-data">infrastructure</a> data that complement PMA surveys</li>
+</ul>
+<div class="layout-chunk" data-layout="l-body">
+<p><img src="images/unit.png" width="1034" /></p>
+</div>
+<aside>
+<strong>Data Discovery</strong> posts help you navigate the <a href="https://pma.ipums.org/">IPUMS PMA</a> website to find the most important variables related to a particular topic.
+</aside>
+<h1 id="data-manipulation">Data Manipulation</h1>
+<p>A <a href="../../index.html#category:Data_Manipulation">Data Manipulation</a> post typically showcases tips for recoding, reshaping, describing, or visualizing variables included in an IPUMS PMA data extract. Often, we’ll feature tools from one or two of <a href="../2020-12-10-get-r-and-packages/#r-packages">our favorite R packages</a>; while we always recommend visiting package documentation websites, our goal here is to show why these tools are important specifically for working with data from IPUMS PMA.</p>
+<h2 id="ipums-labelled-data">IPUMS labelled data</h2>
+<div>
+<p>Almost every post uses the <a href="http://tech.popdata.org/ipumsr/">ipumsr</a> package to import an IPUMS PMA data extract into R. Once loaded, you’ll find that many IPUMS PMA variables are <a href="http://tech.popdata.org/ipumsr/articles/value-labels.html">labelled</a>; the <code>ipumsr</code> package contains functions for exploring and manipulating those labels. We’ve shown how to:</p>
+<ul>
+<li><a href="../2020-12-10-get-ipums-pma-data/">load an IPUMS PMA data extract into R</a></li>
+<li><a href="https://ipums.github.io/pma-data-hub/posts/2021-01-28-across-sdp/#recoding-variables-with-ipumsr">recode or label NA values</a> for a particular variable</li>
+<li><a href="https://ipums.github.io/pma-data-hub/posts/2021-07-01-covid-tables/#display-value-labels">convert labelled variables into factors</a> for tables and figures</li>
+</ul>
+<div class="layout-chunk" data-layout="l-body">
+<p><img src="images/labels.png" width="898" /></p>
+</div>
+</div>
+<aside>
+<div class="layout-chunk" data-layout="l-body">
+<a href="http://tech.popdata.org/ipumsr/">
+<img src="../../images/hex/ipumsr.png"/>
+</a>
+</div>
+<p>© IPUMS (<a href="https://www.mozilla.org/en-US/MPL/2.0/">MPL 2.0</a>)</p>
+<p><br> <br></p>
+The <a href="http://tech.popdata.org/ipumsr/">ipumsr</a> package provides tools to access and manipulate <strong>labels</strong>.
+</aside>
+<h2 id="iteration-with-columns">Iteration with columns</h2>
+<p>When you want to apply changes to <em>several</em> IPUMS PMA variables, it’s usually most efficient to leverage the <a href="">across</a> function from <a href="">dplyr</a>. We use <code>across</code> all the time, but some of our best examples show how to:</p>
+<ul>
+<li><a href="../2021-08-01-covid-batches/index.html#using-dplyracross">use tidy selection</a> to identify variables by location or a naming pattern</li>
+<li><a href="..//2021-01-28-across-sdp/#introducing-dplyracross">recode or label NA values for several variables</a> with tools from <code>ipumsr</code></li>
+<li>check conditions for multiple variables with <a href="../2021-10-01-nutrition-indicators/#mdd-minimum-dietary-diversity">if_any and if_all</a></li>
+</ul>
+<h2 id="iteration-with-rows">Iteration with rows</h2>
+<div>
+<p>Many functions in R are <a href="https://adv-r.hadley.nz/perf-improve.html#vectorise">vectorized</a>: when you apply them to a column in your data frame, you typically get <strong>one result for each row</strong>.</p>
+<p><strong>Non-vectorized</strong> functions instead return <strong>one result summarizing the entire column</strong>. For instance, the function <a href="">mean</a> gives you one mean value derived from all rows in a given column. Tools from <code>dplyr</code> like <a href="https://dplyr.tidyverse.org/dev/articles/rowwise.html">rowwise</a> and <a href="https://dplyr.tidyverse.org/articles/grouping.html?q=group">group_by</a> allow us to apply non-vectorized functions to individual rows or groups of rows. We’ve used these functions to:</p>
+<ul>
+<li>summarize variables <a href="(../2021-01-28-summarize-by-easerved/#summarise-by-easerved-and-sample)">within groups</a></li>
+<li>summarize variables <a href="../2021-01-28-across-sdp/#summarize-variable-groups-by-facility">within the same row</a> with <a href="https://dplyr.tidyverse.org/reference/c_across.html">c_across</a></li>
+<li>iterate through groups with help from <a href="../2021-09-15-nutrition-linking/#identifying-the-current-group">cur_group</a></li>
+</ul>
+</div>
+<aside>
+<div class="layout-chunk" data-layout="l-body">
+<a href="https://dplyr.tidyverse.org/">
+<img src="../../images/hex/dplyr.png"/>
+</a>
+</div>
+© RStudio (<a href="https://creativecommons.org/publicdomain/zero/1.0/">CC0 1.0</a>)
+</aside>
+<h2 id="joining-and-reshaping">Joining and Reshaping</h2>
+<div>
+<p>All of the IPUMS PMA data extracts we’ve examined so far are <strong>rectangular</strong> in shape: each row represents one person or facility. Sometimes, it’s necessary to change this structure: we might want to spread multiple observations of the same individual into separate rows, or we might want to leverage <strong>hierarchical</strong> data to situate a person within some larger context (like a household, a region, or a country). With help from data-structuring packages like <a href="https://tidyr.tidyverse.org/">tidyr</a>, we’ve shown how to:</p>
+<ul>
+<li><a href="../2021-01-28-summarize-by-easerved/">merge summary SDP data</a> to records for individual women</li>
+<li><a href="https://ipums.github.io/pma-data-hub/posts/2021-08-15-covid-analysis/#change-in-purchasing-power">merge baseline and COVID-19 follow up surveys</a> for women in a panel study</li>
+<li>pivot event-history data from a <a href="../2021-04-15-migration-discovery/">wide to long format</a> and <a href="../2021-05-24-migration-data-analysis/#why-people-migrate">back again</a></li>
+<li>use <a href="../2021-09-15-nutrition-linking/#identifying-the-current-group">nested data structures</a> for individuals grouped by household</li>
+</ul>
+</div>
+<aside>
+<div class="layout-chunk" data-layout="l-body">
+<a href="https://tidyr.tidyverse.org">
+<img src="../../images/hex/tidyr.png"/>
+</a>
+</div>
+© RStudio (<a href="https://creativecommons.org/publicdomain/zero/1.0/">CC0 1.0</a>)
+</aside>
+<h2 id="visualization">Visualization</h2>
+<div>
+<p>Whenever we summarize variables or model output on this blog, we like to make figures with <a href="https://ggplot2.tidyverse.org/index.html">ggplot2</a> and tables with <a href="http://www.danieldsjoberg.com/gtsummary/index.html">gtsummary</a>. For maps, we’ve focused on <a href="https://paleolimbot.github.io/ggspatial/index.html">ggspatial</a> - an extension of <code>ggplot2</code> that supports raster data from both the <a href="https://rspatial.github.io/raster/index.html">raster</a> package and the <a href="https://rspatial.github.io/terra/index.html">terra</a> package. Topics include:</p>
+<ul>
+<li><a href="../2021-08-01-covid-batches/#plot-theme">designing a theme</a> for <code>ggplot2</code> (custom fonts, colors, and layout)<br />
+</li>
+<li><a href="../2021-07-15-covid-likert/#basic-bar-charts">basic bar charts</a></li>
+<li><a href="../2021-07-15-covid-likert/#position">grouped bar charts</a></li>
+<li><a href="../2021-07-15-covid-likert/#divergent-stacked-bar-chart">divergent stacked bar charts</a></li>
+<li><a href="../2021-07-15-covid-likert/#faceted-neutral-non-response">faceted bar charts</a></li>
+<li><a href="../2021-08-01-covid-batches/#lollipop-chart">lollipop charts</a></li>
+<li><a href="..//2021-08-01-covid-batches/#radar-chart">radar charts</a></li>
+<li><a href="../2021-05-24-migration-data-analysis/#visualizing-migration-alluvial-plots">alluvial charts</a></li>
+<li><a href="../2021-02-19-analyzing-the-individual-in-context/#regression-models">dot and whisker charts</a></li>
+<li><a href="../2021-07-15-covid-likert/#stat">error bars and text annotation</a></li>
+<li><a href="https://ipums.github.io/pma-data-hub/posts/2021-10-15-nutrition-climate/#simple-features-objects">maps</a> with <code>ggspatial</code></li>
+<li><a href="../2021-07-01-covid-tables/#descriptive-statistics-table">descriptive tables</a> and <a href="../2021-07-01-covid-tables/#model-summary-table">model summary tables</a> with <code>gtsummary</code></li>
+</ul>
+</div>
+<aside>
+<div class="layout-chunk" data-layout="l-body">
+<a href="https://ggplot2.tidyverse.org/index.html">
+<img src="../../images/hex/ggplot2.png"/>
+</a>
+</div>
+© RStudio (<a href="https://creativecommons.org/publicdomain/zero/1.0/">CC0 1.0</a>)
+</aside>
+<div class="layout-chunk" data-layout="l-body">
+<p><img src="images/plot.png" width="1249" /></p>
+</div>
+<aside>
+<strong>Data Manipulation</strong> posts include tips for data wrangling, exploration, and presentation.
+</aside>
+<h2 id="spatial-data">Spatial data</h2>
+<div>
+<p>Lastly, we’ve devoted several Data Manipulation posts to exploring external sources for spatial data. If you’re new to spatial data - or if you’re an ArcGIS user interested in learning more about R - we recommend checking out the free, open-source text <a href="https://geocompr.robinlovelace.net/">Geocomputation with R</a>. You’ll be introduced to both of the major packages we use on this blog: <a href="https://r-spatial.github.io/sf/index.html">sf</a> for vector data and <a href="https://rspatial.github.io/terra/index.html">terra</a> for raster data. We’re planning to cover <em>much more</em> spatial content in the coming months, but so far we’ve explained how to:</p>
+<ul>
+<li>find and use <a href="../2021-10-15-nutrition-climate/#setup">PMA GPS coordinates</a></li>
+<li>find and use <a href="../2021-10-15-nutrition-climate/#simple-features-objects">IPUMS PMA shapefiles</a></li>
+<li>create enumeration area <a href="../2021-10-15-nutrition-climate/#enumeration-area-buffers">buffer zones</a></li>
+<li>understand and manipulate <a href="../2021-02-04-merging-external-spatial-data/#population-density-working-with-raster-data">coordinate reference systems</a></li>
+<li>merge external <a href="../2021-02-04-merging-external-spatial-data/#road-networks-working-with-vector-data">vector data</a> with the <code>sf</code> package</li>
+<li>merge external raster data with both the <a href="../2021-02-04-merging-external-spatial-data/#population-density-working-with-raster-data">raster package</a> and the newer <a href="../2021-10-15-nutrition-climate/#raster-data-with-terra">terra package</a></li>
+</ul>
+</div>
+<aside>
+<div class="layout-chunk" data-layout="l-body">
+<a href="https://r-spatial.github.io/sf/index.html">
+<img src="../../images/hex/sf.png"/>
+</a>
+</div>
+<p>© Edzer Pebesma (<a href="http://www.gnu.org/licenses/old-licenses/gpl-2.0.html">GPLv2</a>)</p>
+<div class="layout-chunk" data-layout="l-body">
+<a href="https://rspatial.github.io/terra/index.html">
+<img src="../../images/hex/terra.png"/>
+</a>
+</div>
+© Robert J. Hijmans et al. (<a href="https://www.gnu.org/licenses/gpl-3.0.en.html">GPLv3</a>)
+</aside>
+<h1 id="data-analysis">Data Analysis</h1>
+<p>We like to end every series with a <a href="../../index.html#category:Data_Analysis">Data Analysis</a> post. Here, we use what we’ve learned in earlier posts to build a model and discuss important findings. Often, we’ll use this as an opportunity to showcase new and exciting <a href="../../index.html#category:PMA_Publications">published research</a> from authors working with PMA data. These posts discuss:</p>
+<div>
+<ul>
+<li><a href="../2021-02-19-analyzing-the-individual-in-context/#individual-factors-model-with-svyglm">design elements for the household and female surveys</a> like sample weights and information about cluster sampling</li>
+<li><a href="../2021-08-15-covid-analysis/index.html#sampling-weights">design elements for COVID-19 follow up surveys</a></li>
+<li><a href="../2021-02-19-analyzing-the-individual-in-context/#individual-factors-model-with-glm">ordinary least squares regression</a><br />
+</li>
+<li><a href="../2021-04-01-et-internal-migration/#regression-model">binary logistic regression</a></li>
+<li><a href="../2021-08-15-covid-analysis/#multinomial-modeling">multinomial models</a></li>
+<li><a href="../2021-11-01-nutrition-analysis/#multi-level-mixed-effects-models">multi-level mixed effect models</a></li>
+<li><a href="../2021-05-15-paa-2021/">survival analysis</a></li>
+<li><a href="../2021-02-19-analyzing-the-individual-in-context/#individual-factors-model-with-svyglm">cluster robust standard error estimation</a></li>
+<li><a href="../2021-04-01-et-internal-migration/#predicted-probabilities">bootstrapped standard error estimation</a></li>
+</ul>
+</div>
+<aside>
+<div class="layout-chunk" data-layout="l-body">
+<a href="http://gdfe.co/srvyr/index.html">
+<img src="../../images/hex/srvyr.png"/>
+</a>
+</div>
+© Greg Freedman Ellis et al. (<a href="https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html">GPL 2</a> | <a href="https://www.gnu.org/licenses/gpl-3.0.html">GPL 3</a>)
+</aside>
+<div class="layout-chunk" data-layout="l-body">
+<p><img src="images/model.png" width="823" /></p>
+</div>
+<aside>
+We walk through source code from recent publications with PMA data in a <strong>Data Analysis</strong> post.
+</aside>
+<h1 id="plans-for-2022">Plans for 2022</h1>
+<p>We’ve been trilled to connect with so many of you - more than 2,000 readers in over 100 countries - in our first year! Coming in the months ahead, we’ll continue providing bi-weekly blog posts covering the latest IPUMS PMA data releases as they become available. We’ve mentioned upcoming series planned for <strong>Client Exit Interviews</strong> and <strong>Round 2 Panel Data</strong>, and we’ll also return to the <strong>relationship between COVID-19 and family planning</strong> in new samples. We plan to continue emphasizing <strong>spatial analysis</strong> made possible with external data sources, and we’d love to expand our coverage of <strong>PMA publications</strong> in collaboration with researchers using IPUMS PMA data in their own work. We’re also planning a <strong>new course on longitudinal analysis</strong> using the first two rounds of PMA panel data; look for new announcements on this in the early spring. And, as always, we’ll continue exploring free and powerful <strong>tools for working with survey data in R</strong> that we hope will make IPUMS PMA accessible to more researchers than ever before.</p>
+<p><em>Special thanks to all of our outstanding partners at the <a href="https://www.gatesfoundation.org/">Bill &amp; Melinda Gates Foundation</a>, <a href="https://www.pmadata.org/">Johns Hopkins University</a>, and here at <a href="https://www.ipums.org/">IPUMS</a> for tremendous support as we launched this new project in 2021!</em></p>
+<p><em>This blog would not be possible without brilliant insight and ongoing encouragement from the whole team at IPUMS PMA: professors Kathryn Grace, Elizabeth Heger Boyle, and Nina Brooks; project director Devon Kristiansen; post-doctoral associates Maya Luetke and Jiao Yu; and graduate research assistants Shelby Rutzick, Saeun Park, and Tayler Nelson who contributed posts this year - thanks to each of you!</em></p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
+<!--radix_placeholder_article_footer-->
+<!--/radix_placeholder_article_footer-->
+</div>
+
+<div class="d-appendix">
+</div>
+
+
+<!--radix_placeholder_site_after_body-->
+<!--/radix_placeholder_site_after_body-->
+<!--radix_placeholder_appendices-->
+<div class="appendix-bottom"></div>
+<!--/radix_placeholder_appendices-->
+<!--radix_placeholder_navigation_after_body-->
+<!--/radix_placeholder_navigation_after_body-->
+
+</body>
+
+</html>

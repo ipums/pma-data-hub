@@ -56,7 +56,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 }
 code span.al { color: #ad0000; } /* Alert */
 code span.an { color: #5e5e5e; } /* Annotation */
-code span.at { color: #20794d; } /* Attribute */
+code span.at { } /* Attribute */
 code span.bn { color: #ad0000; } /* BaseN */
 code span.bu { } /* BuiltIn */
 code span.cf { color: #007ba5; } /* ControlFlow */
@@ -77,13 +77,14 @@ code span.kw { color: #007ba5; } /* Keyword */
 code span.op { color: #5e5e5e; } /* Operator */
 code span.ot { color: #007ba5; } /* Other */
 code span.pp { color: #ad0000; } /* Preprocessor */
-code span.sc { color: #20794d; } /* SpecialChar */
+code span.sc { color: #5e5e5e; } /* SpecialChar */
 code span.ss { color: #20794d; } /* SpecialString */
 code span.st { color: #20794d; } /* String */
 code span.va { color: #111111; } /* Variable */
 code span.vs { color: #20794d; } /* VerbatimString */
 code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 </style>
+
 
   <!--radix_placeholder_meta_tags-->
 <title>Data Analysis Hub: Multinomial Regression with Complex Survey Design</title>
@@ -2510,10 +2511,14 @@ d-appendix d-footnote-list a.footnote-backlink {
   color: var(--hover-color, white);
 }</style>
 <!--/radix_placeholder_distill-->
-  <script src="../../site_libs/header-attrs-2.9/header-attrs.js"></script>
+  <script src="../../site_libs/header-attrs-2.11/header-attrs.js"></script>
   <script src="../../site_libs/kePrint-0.0.1/kePrint.js"></script>
   <link href="../../site_libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
-  <script src="../../site_libs/jquery-1.11.3/jquery.min.js"></script>
+  <script src="../../site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+  <script src="../../site_libs/popper-2.6.0/popper.min.js"></script>
+  <link href="../../site_libs/tippy-6.2.7/tippy.css" rel="stylesheet" />
+  <link href="../../site_libs/tippy-6.2.7/tippy-light-border.css" rel="stylesheet" />
+  <script src="../../site_libs/tippy-6.2.7/tippy.umd.min.js"></script>
   <script src="../../site_libs/anchor-4.2.2/anchor.min.js"></script>
   <script src="../../site_libs/bowser-1.9.3/bowser.min.js"></script>
   <script src="../../site_libs/webcomponents-2.0.0/webcomponents.js"></script>
@@ -2571,6 +2576,7 @@ R Tips
 <div class="nav-dropdown-content">
 <a href="../../posts/2020-12-10-get-ipums-pma-data/index.html">Import IPUMS PMA Data into R</a>
 <a href="../../posts/2020-12-10-get-r-and-packages/index.html">R, RStudio, and R Packages</a>
+<a href="../../posts/2021-11-15-find-an-example/index.html">Find an Example</a>
 </div>
 </div>
 <div class="nav-dropdown">
@@ -2689,10 +2695,18 @@ If you’d like to explore an <strong>ordered logit model</strong> for these out
 </ul>
 <p>Data from the baseline surveys are located under the “Family Planning - Person” unit of analysis. <strong>Because data extracts can only contain samples with the same unit of analysis, you’ll need to create and download two separate extracts</strong>. Once you’ve downloaded an extract containing COVID-19 data, switch units of analysis by clicking the “CHANGE” link in the “Currently Browsing” window at the top of your screen:</p>
 <div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'>knitr</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/knitr/man/include_graphics.html'>include_graphics</a></span><span class='op'>(</span><span class='st'>"images/change.png"</span><span class='op'>)</span>
+</code></pre>
+</div>
 <p><img src="images/change.png" width="1082" /></p>
 </div>
 <p>Then, select the “Family Planning - Person” unit of analysis in this menu:</p>
 <div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'>knitr</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/knitr/man/include_graphics.html'>include_graphics</a></span><span class='op'>(</span><span class='st'>"images/bchoose.png"</span><span class='op'>)</span>
+</code></pre>
+</div>
 <p><img src="images/bchoose.png" width="1082" /></p>
 </div>
 <p>You’ll need to create an extract that contains these samples (again, Female Respondents only):</p>
@@ -2705,11 +2719,15 @@ If you’d like to explore an <strong>ordered logit model</strong> for these out
 </ul>
 <p>In the example workflow shown below, we’ve downloaded <em>both</em> extracts and saved them together in the “data” folder of our R working directory. We’ve also installed and loaded the following packages:</p>
 <div class="layout-chunk" data-layout="l-body">
-
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'>knitr</span><span class='fu'>::</span><span class='va'><a href='https://rdrr.io/pkg/knitr/man/opts_chunk.html'>opts_chunk</a></span><span class='op'>$</span><span class='fu'>set</span><span class='op'>(</span>echo <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/base/options.html'>options</a></span><span class='op'>(</span>tibble.print_min <span class='op'>=</span> <span class='fl'>30</span><span class='op'>)</span>
+</code></pre>
+</div>
 </div>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre><code><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://tidyverse.tidyverse.org'>tidyverse</a></span><span class='op'>)</span>   <span class='co'># 1.3.1</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://tidyverse.tidyverse.org'>tidyverse</a></span><span class='op'>)</span>   <span class='co'># 1.3.1</span>
 <span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://broom.tidymodels.org/'>broom</a></span><span class='op'>)</span>       <span class='co'># 0.7.6</span>
 <span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://www.ipums.org'>ipumsr</a></span><span class='op'>)</span>      <span class='co'># 0.4.5</span>
 <span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='http://gdfe.co/srvyr/'>srvyr</a></span><span class='op'>)</span>       <span class='co'># 1.0.1</span>
@@ -2723,7 +2741,7 @@ If you’d like to explore an <strong>ordered logit model</strong> for these out
 <p>Now, we’ll load both of our data extracts into R. We’ll create two separate dataframes named <code>covid</code> and <code>baseline</code> (we’ll also edit the variable <code>COUNTRY</code> in each extract for additional clarity):</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre><code><span class='va'>covid</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/ipumsr/man/read_ipums_micro.html'>read_ipums_micro</a></span><span class='op'>(</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>covid</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/ipumsr/man/read_ipums_micro.html'>read_ipums_micro</a></span><span class='op'>(</span>
   ddi <span class='op'>=</span> <span class='st'>"data/pma_00032.xml"</span>,
   data_file <span class='op'>=</span> <span class='st'>"data/pma_00032.dat.gz"</span>
 <span class='op'>)</span> <span class='op'>%&gt;%</span> 
@@ -2746,7 +2764,7 @@ If you’d like to explore an <strong>ordered logit model</strong> for these out
 <p>One last thing here: we’ll be making several graphs to help illustrate our workflow in this post. We’ll create a custom theme <code>theme_pma()</code> for those graphs so that the fonts, colors, and other design elements match the overall look of this blog.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre><code><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://github.com/yixuan/showtext'>showtext</a></span><span class='op'>)</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://github.com/yixuan/showtext'>showtext</a></span><span class='op'>)</span>
 <span class='fu'>font_add</span><span class='op'>(</span>
   family <span class='op'>=</span> <span class='st'>"cabrito"</span>, 
   regular <span class='op'>=</span> <span class='st'>"../../fonts/cabritosansnormregular-webfont.ttf"</span>
@@ -2819,7 +2837,7 @@ We discuss custom themes in detail <a href="../2021-08-01-covid-batches/#plot-th
 </ul>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre><code><span class='va'>samples_tbl</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='va'>baseline</span>, <span class='va'>covid</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>samples_tbl</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='va'>baseline</span>, <span class='va'>covid</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
   <span class='fu'>imap_dfr</span><span class='op'>(</span>
     <span class='op'>~</span><span class='va'>.x</span> <span class='op'>%&gt;%</span> 
       <span class='fu'><a href='http://gdfe.co/srvyr/reference/group_by.html'>group_by</a></span><span class='op'>(</span><span class='va'>COUNTRY</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
@@ -2841,7 +2859,7 @@ The variable <code>URBAN</code> is not available for the DRC sample, which repre
 </aside>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre><code><span class='va'>samples_tbl</span> <span class='op'>%&gt;%</span> <span class='fu'><a href='https://rdrr.io/pkg/kableExtra/man/kbl.html'>kbl</a></span><span class='op'>(</span>digits <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span> 
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>samples_tbl</span> <span class='op'>%&gt;%</span> <span class='fu'><a href='https://rdrr.io/pkg/kableExtra/man/kbl.html'>kbl</a></span><span class='op'>(</span>digits <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span> 
 </code></pre>
 </div>
 <table>
@@ -3065,7 +3083,7 @@ Read more about the construction of <code>CVQWEIGHT</code> <a href="https://pma.
 </aside>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre><code><span class='va'>populations_tbl</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='va'>baseline</span>, <span class='va'>covid</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>populations_tbl</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='va'>baseline</span>, <span class='va'>covid</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
   <span class='fu'>imap_dfr</span><span class='op'>(</span><span class='op'>~</span><span class='op'>{</span>
     <span class='kw'>if</span><span class='op'>(</span><span class='st'>"FQWEIGHT"</span> <span class='op'>%in%</span> <span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span><span class='op'>(</span><span class='va'>.x</span><span class='op'>)</span><span class='op'>)</span><span class='op'>{</span>
       <span class='va'>wt</span> <span class='op'>&lt;-</span> <span class='st'>"FQWEIGHT"</span>
@@ -3092,7 +3110,7 @@ Read more about the construction of <code>CVQWEIGHT</code> <a href="https://pma.
 </aside>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre><code><span class='va'>populations_tbl</span> <span class='op'>%&gt;%</span> <span class='fu'><a href='https://rdrr.io/pkg/kableExtra/man/kbl.html'>kbl</a></span><span class='op'>(</span>digits <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span> 
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>populations_tbl</span> <span class='op'>%&gt;%</span> <span class='fu'><a href='https://rdrr.io/pkg/kableExtra/man/kbl.html'>kbl</a></span><span class='op'>(</span>digits <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span> 
 </code></pre>
 </div>
 <table>
@@ -3285,7 +3303,7 @@ covid
 <p>Here, we’ve used <code>as_survey_design()</code> to specify the correct weight <code>wt</code> in each iteration of <code>imap_dfr()</code>. Then, we used <code>survey_mean()</code> to estimate the mean / proportion for each sample’s target population. Although you might observe some differences between the point estimates derived from <code>baseline</code> and <code>covid</code>, the <em>systematic</em> biases we identified in the samples are no longer present. This will be easier to see in a <a href="../2021-08-01-covid-batches/#lollipop-chart">faceted lollipop plot</a> where we chart both summary tables side-by-side.</p>
 <div class="layout-chunk" data-layout="l-page">
 <div class="sourceCode">
-<pre><code><span class='va'>populations_tbl</span> <span class='op'>%&gt;%</span>  
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>populations_tbl</span> <span class='op'>%&gt;%</span>  
   <span class='fu'><a href='http://gdfe.co/srvyr/reference/dplyr_single.html'>mutate</a></span><span class='op'>(</span>TBL <span class='op'>=</span> <span class='st'>"weighted"</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
   <span class='fu'><a href='https://rdrr.io/r/base/cbind.html'>rbind</a></span><span class='op'>(</span>
     <span class='va'>samples_tbl</span> <span class='op'>%&gt;%</span> <span class='fu'><a href='http://gdfe.co/srvyr/reference/dplyr_single.html'>select</a></span><span class='op'>(</span><span class='op'>-</span><span class='va'>RESPONDENTS</span><span class='op'>)</span> <span class='op'>%&gt;%</span> <span class='fu'><a href='http://gdfe.co/srvyr/reference/dplyr_single.html'>mutate</a></span><span class='op'>(</span>TBL <span class='op'>=</span> <span class='st'>"unweighted"</span><span class='op'>)</span>
@@ -3314,7 +3332,7 @@ covid
 <p>Finally, we’ll use the <code>suffix</code> argument to handle variables that appear in both extracts. For example, <code>AGE</code> from <code>covid</code> will be renamed <code>AGE_CV</code>, while <code>AGE</code> from <code>baseline</code> will be renamed <code>AGE_BASE</code>.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre><code><span class='va'>merged</span> <span class='op'>&lt;-</span> <span class='fu'>left_join</span><span class='op'>(</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>merged</span> <span class='op'>&lt;-</span> <span class='fu'>left_join</span><span class='op'>(</span>
   x <span class='op'>=</span> <span class='va'>covid</span>,
   y <span class='op'>=</span> <span class='va'>baseline</span>,
   by <span class='op'>=</span> <span class='st'>"FQINSTID"</span>,
@@ -3326,7 +3344,7 @@ covid
 <p>The variables we’ll use to construct our model’s dependent variable - <code>HHDECDAILY</code> and <code>CVBUYDECIDER</code> - will now appear together in the same row for each woman who participated in both surveys. For both variables, the universe is women who were currently married or living with male partner. Before we get started, let’s take a quick look at an <a href="../2021-05-24-migration-data-analysis/#visualizing-migration-alluvial-plots">alluvial plot</a> showing the general shifts from one variable to the other:</p>
 <div class="layout-chunk" data-layout="l-page">
 <div class="sourceCode">
-<pre><code><span class='va'>merged</span> <span class='op'>%&gt;%</span> 
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>merged</span> <span class='op'>%&gt;%</span> 
   <span class='fu'><a href='http://gdfe.co/srvyr/reference/dplyr_single.html'>select</a></span><span class='op'>(</span><span class='va'>FQINSTID</span>, <span class='va'>HHDECDAILY</span>, <span class='va'>CVBUYDECIDER</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
   <span class='fu'>pivot_longer</span><span class='op'>(</span><span class='op'>!</span><span class='va'>FQINSTID</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
   <span class='fu'><a href='http://gdfe.co/srvyr/reference/dplyr_single.html'>mutate</a></span><span class='op'>(</span>
@@ -3364,7 +3382,7 @@ covid
 <p>Finally, all other women will be said to have the “Same” level of purchasing power <em>unless</em> either variable contains “No response or missing” or “NIU (not in universe)”. In the latter case, we’ll use the value <code>NA</code>. This means we will be analyzing a sample of women who were married or living with a male partner both before and during COVID-19 restrictions.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre><code><span class='va'>merged</span> <span class='op'>&lt;-</span> <span class='va'>merged</span> <span class='op'>%&gt;%</span> 
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>merged</span> <span class='op'>&lt;-</span> <span class='va'>merged</span> <span class='op'>%&gt;%</span> 
    <span class='fu'><a href='http://gdfe.co/srvyr/reference/dplyr_single.html'>mutate</a></span><span class='op'>(</span>PURCHASE_PWR <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span><span class='op'>(</span>
      <span class='fu'>case_when</span><span class='op'>(</span>
        <span class='va'>HHDECDAILY</span> <span class='op'>==</span> <span class='fl'>1</span> <span class='op'>&amp;</span> <span class='va'>CVBUYDECIDER</span> <span class='op'>%in%</span> <span class='fl'>2</span><span class='op'>:</span><span class='fl'>4</span> <span class='op'>~</span> <span class='st'>"Less"</span>,
@@ -3386,7 +3404,7 @@ Keep in mind: only the Burkina Faso and Kenya samples are <strong>nationally rep
 </aside>
 <div class="layout-chunk" data-layout="l-page">
 <div class="sourceCode">
-<pre><code><span class='va'>merged</span> <span class='op'>%&gt;%</span> 
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>merged</span> <span class='op'>%&gt;%</span> 
   <span class='fu'><a href='http://gdfe.co/srvyr/reference/as_survey_design.html'>as_survey_design</a></span><span class='op'>(</span>
     weights <span class='op'>=</span> <span class='va'>CVQWEIGHT</span>,
     ids <span class='op'>=</span> <span class='va'>EAID_CV</span>
@@ -3424,7 +3442,7 @@ Keep in mind: only the Burkina Faso and Kenya samples are <strong>nationally rep
 </ul>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre><code><span class='va'>merged</span> <span class='op'>&lt;-</span> <span class='va'>merged</span> <span class='op'>%&gt;%</span> 
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>merged</span> <span class='op'>&lt;-</span> <span class='va'>merged</span> <span class='op'>%&gt;%</span> 
   <span class='fu'><a href='http://gdfe.co/srvyr/reference/dplyr_single.html'>mutate</a></span><span class='op'>(</span>
     RELIGION <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span><span class='op'>(</span>
       <span class='fu'>case_when</span><span class='op'>(</span>
@@ -3454,7 +3472,7 @@ See <a href="https://cran.r-project.org/web/packages/svyVGAM/svyVGAM.pdf">packag
 </aside>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre><code><span class='va'>pma_model</span> <span class='op'>&lt;-</span> <span class='va'>merged</span> <span class='op'>%&gt;%</span>  
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>pma_model</span> <span class='op'>&lt;-</span> <span class='va'>merged</span> <span class='op'>%&gt;%</span>  
   <span class='fu'><a href='http://gdfe.co/srvyr/reference/as_survey_design.html'>as_survey_design</a></span><span class='op'>(</span>
     weights <span class='op'>=</span> <span class='va'>CVQWEIGHT</span>,
     id <span class='op'>=</span> <span class='va'>EAID_CV</span>
@@ -3477,7 +3495,7 @@ See <a href="https://cran.r-project.org/web/packages/svyVGAM/svyVGAM.pdf">packag
 <p>One drawback here is that the output of a model created by <code>svyVGAM</code> (or by the <code>VGAM</code> package) cannot be handled by <a href="https://broom.tidymodels.org/">broom::tidy()</a>, which we normally use to clean and standardize model output. Fortunately, <code>broom</code> contains a non-exported function that’s capable of handling something similar: the model output created by <code>svyglm()</code> from the sibling <code>survey</code> package! You’ll find it in the <code>broom</code> namespace if you use <code>:::</code> like so:</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre><code><span class='fu'>broom</span><span class='fu'>:::</span><span class='va'><a href='https://broom.tidymodels.org/reference/tidy.svyglm.html'>tidy.svyglm</a></span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'>broom</span><span class='fu'>:::</span><span class='va'><a href='https://broom.tidymodels.org/reference/tidy.svyglm.html'>tidy.svyglm</a></span>
 </code></pre>
 </div>
 <pre><code>function (x, conf.int = FALSE, conf.level = 0.95, exponentiate = FALSE, 
@@ -3497,13 +3515,13 @@ See <a href="https://cran.r-project.org/web/packages/svyVGAM/svyVGAM.pdf">packag
     }
     ret
 }
-&lt;bytecode: 0x7fdb364ee358&gt;
+&lt;bytecode: 0x7feeb0bb15f8&gt;
 &lt;environment: namespace:broom&gt;</code></pre>
 </div>
 <p>We’ll modify this function a bit, <a href="https://www.tidymodels.org/learn/develop/broom/">creating our own tidy method</a> <code>tidy.svyVGAM()</code> (you may need to make modifications for general use):</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre><code><span class='va'>tidy.svyVGAM</span> <span class='op'>&lt;-</span> <span class='kw'>function</span><span class='op'>(</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>tidy.svyVGAM</span> <span class='op'>&lt;-</span> <span class='kw'>function</span><span class='op'>(</span>
   <span class='va'>x</span>, 
   <span class='va'>conf.int</span> <span class='op'>=</span> <span class='cn'>FALSE</span>, 
   <span class='va'>conf.level</span> <span class='op'>=</span> <span class='fl'>0.95</span>,
@@ -3536,13 +3554,13 @@ See <a href="https://cran.r-project.org/web/packages/svyVGAM/svyVGAM.pdf">packag
 <p>Now, let’s look at our model results. We’ll exponentiate our coefficients, add significance “stars”, and label each <code>y.level</code> manually to make this table easier to read:</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre><code><span class='va'>tidy_pma_model</span> <span class='op'>&lt;-</span> <span class='fu'>tidy.svyVGAM</span><span class='op'>(</span><span class='va'>pma_model</span>, exponentiate <span class='op'>=</span> <span class='cn'>TRUE</span>, conf.int <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>tidy_pma_model</span> <span class='op'>&lt;-</span> <span class='fu'>tidy.svyVGAM</span><span class='op'>(</span><span class='va'>pma_model</span>, exponentiate <span class='op'>=</span> <span class='cn'>TRUE</span>, conf.int <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
 </code></pre>
 </div>
 </div>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre><code><span class='va'>tidy_pma_model</span> <span class='op'>%&gt;%</span> 
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>tidy_pma_model</span> <span class='op'>%&gt;%</span> 
   <span class='fu'><a href='http://gdfe.co/srvyr/reference/dplyr_single.html'>select</a></span><span class='op'>(</span><span class='op'>-</span><span class='va'>y.level</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
   <span class='fu'><a href='http://gdfe.co/srvyr/reference/dplyr_single.html'>rename</a></span><span class='op'>(</span>PURCHASE_PWR <span class='op'>=</span> <span class='va'>term</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
   <span class='fu'><a href='http://gdfe.co/srvyr/reference/dplyr_single.html'>mutate</a></span><span class='op'>(</span>sig <span class='op'>=</span> <span class='fu'>case_when</span><span class='op'>(</span>
@@ -4208,7 +4226,7 @@ COUNTRY_BASENigeria (Lagos/Kano)
 <p>Once you’ve got the model output in a <code>tidy</code> format, you can also pass it to a <code>tidyverse</code> aligned graphing function, like the popular <a href="https://cran.r-project.org/web/packages/dotwhisker/vignettes/dotwhisker-vignette.html">dwplot</a> from <code>dotwhisker</code>:</p>
 <div class="layout-chunk" data-layout="l-page">
 <div class="sourceCode">
-<pre><code><span class='va'>tidy_pma_model</span> <span class='op'>%&gt;%</span> 
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>tidy_pma_model</span> <span class='op'>%&gt;%</span> 
   <span class='fu'><a href='http://gdfe.co/srvyr/reference/dplyr_single.html'>mutate</a></span><span class='op'>(</span>
     model <span class='op'>=</span> <span class='fu'>if_else</span><span class='op'>(</span>
       <span class='va'>y.level</span> <span class='op'>==</span> <span class='fl'>1</span>, 
@@ -4239,7 +4257,7 @@ COUNTRY_BASENigeria (Lagos/Kano)
     title <span class='op'>=</span> 
       <span class='st'>"Which factors impact women's purchasing power during COVID-19?"</span>, 
     subtitle <span class='op'>=</span> 
-      <span class='st'>'Odds ratios relative to gaining "More" (95% CI)'</span>,
+      <span class='st'>'Odds ratios relative to "no change" (95% CI)'</span>,
     legend.position <span class='op'>=</span> <span class='st'>"top"</span>
   <span class='op'>)</span> 
 </code></pre>

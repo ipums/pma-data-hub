@@ -23,6 +23,8 @@ navbar:
           href: posts/2020-12-10-get-ipums-pma-data/index.html
         - text: "R, RStudio, and R Packages" 
           href: posts/2020-12-10-get-r-and-packages/index.html
+        - text: "Find an Example"
+          href: posts/2021-11-15-find-an-example/index.html
     - text: "Community"
       menu: 
         - text: "Contributing guide"

@@ -572,7 +572,7 @@ tidy_pma_model %>%
     title = 
       "Which factors impact women's purchasing power during COVID-19?", 
     subtitle = 
-      'Odds ratios relative to gaining "More" (95% CI)',
+      'Odds ratios relative to "no change" (95% CI)',
     legend.position = "top"
   ) 
 ```
