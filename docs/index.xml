@@ -12,7 +12,20 @@
       <link>https://ipums.github.io/pma-data-hub/</link>
     </image>
     <generator>Distill</generator>
-    <lastBuildDate>Mon, 15 Nov 2021 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 01 Dec 2021 00:00:00 +0000</lastBuildDate>
+    <item>
+      <title>Introducing Client Exit Interviews</title>
+      <dc:creator>Matt Gunther</dc:creator>
+      <link>https://ipums.github.io/pma-data-hub/posts/2021-12-01-cei-discovery</link>
+      <description>Women receiving family planning services assess their care in a new data series from PMA.</description>
+      <category>R tips</category>
+      <category>R packages</category>
+      <category>Client Exit Interviews</category>
+      <category>Service Delivery Points</category>
+      <guid>https://ipums.github.io/pma-data-hub/posts/2021-12-01-cei-discovery</guid>
+      <pubDate>Wed, 01 Dec 2021 00:00:00 +0000</pubDate>
+      <media:content url="https://ipums.github.io/pma-data-hub/posts/2021-12-01-cei-discovery/../../images/new_data.png" medium="image" type="image/png" width="2555" height="1437"/>
+    </item>
     <item>
       <title>2021 Blog Round-Up</title>
       <dc:creator>Matt Gunther</dc:creator>

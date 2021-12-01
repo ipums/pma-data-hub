@@ -141,7 +141,7 @@ Whenever we summarize variables or model output on this blog, we like to make fi
   * [divergent stacked bar charts](../2021-07-15-covid-likert/#divergent-stacked-bar-chart)
   * [faceted bar charts](../2021-07-15-covid-likert/#faceted-neutral-non-response)
   * [lollipop charts](../2021-08-01-covid-batches/#lollipop-chart)
-  * [radar charts](..//2021-08-01-covid-batches/#radar-chart) 
+  * [radar charts](../2021-08-01-covid-batches/#radar-chart) 
   * [alluvial charts](../2021-05-24-migration-data-analysis/#visualizing-migration-alluvial-plots)
   * [dot and whisker charts](../2021-02-19-analyzing-the-individual-in-context/#regression-models)
   * [error bars and text annotation](../2021-07-15-covid-likert/#stat)
