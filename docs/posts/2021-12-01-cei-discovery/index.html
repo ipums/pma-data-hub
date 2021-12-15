@@ -124,7 +124,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   <!--radix_placeholder_rmarkdown_metadata-->
 
 <script type="text/json" id="radix-rmarkdown-metadata">
-{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","date","output","author","categories","preview","canonical_url"]}},"value":[{"type":"character","attributes":{},"value":["Introducing Client Exit Interviews"]},{"type":"character","attributes":{},"value":["Women receiving family planning services assess their care in a new data series from PMA."]},{"type":"character","attributes":{},"value":["2021-12-01"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["self_contained","toc","toc_depth","toc_float"]}},"value":[{"type":"logical","attributes":{},"value":[false]},{"type":"logical","attributes":{},"value":[true]},{"type":"integer","attributes":{},"value":[3]},{"type":"logical","attributes":{},"value":[true]}]}]},{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","affiliation"]}},"value":[{"type":"character","attributes":{},"value":["Matt Gunther"]},{"type":"character","attributes":{},"value":["IPUMS PMA Senior Data Analyst"]}]}]},{"type":"character","attributes":{},"value":["R tips","R packages","Client Exit Interviews","Service Delivery Points"]},{"type":"character","attributes":{},"value":["../../images/new_data.png"]},{"type":"character","attributes":{},"value":["https://ipums.github.io/pma-data-hub/posts/2021-12-01-cei-discovery/"]}]}
+{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","date","output","author","categories","preview","canonical_url"]}},"value":[{"type":"character","attributes":{},"value":["Introducing Client Exit Interviews"]},{"type":"character","attributes":{},"value":["Women receiving family planning services assess their care in a new data series from PMA."]},{"type":"character","attributes":{},"value":["2021-12-01"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["self_contained","toc","toc_depth","toc_float"]}},"value":[{"type":"logical","attributes":{},"value":[false]},{"type":"logical","attributes":{},"value":[true]},{"type":"integer","attributes":{},"value":[3]},{"type":"logical","attributes":{},"value":[true]}]}]},{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","affiliation"]}},"value":[{"type":"character","attributes":{},"value":["Matt Gunther"]},{"type":"character","attributes":{},"value":["IPUMS PMA Senior Data Analyst"]}]}]},{"type":"character","attributes":{},"value":["Data Discovery","New Data","Client Exit Interviews","Service Delivery Points"]},{"type":"character","attributes":{},"value":["../../images/new_data.png"]},{"type":"character","attributes":{},"value":["https://ipums.github.io/pma-data-hub/posts/2021-12-01-cei-discovery/"]}]}
 </script>
 <!--/radix_placeholder_rmarkdown_metadata-->
   
@@ -2611,8 +2611,8 @@ Community
 <h1>Introducing Client Exit Interviews</h1>
 <!--radix_placeholder_categories-->
 <div class="dt-tags">
-  <a href="../../index.html#category:R_tips" class="dt-tag">R tips</a>
-  <a href="../../index.html#category:R_packages" class="dt-tag">R packages</a>
+  <a href="../../index.html#category:Data_Discovery" class="dt-tag">Data Discovery</a>
+  <a href="../../index.html#category:New_Data" class="dt-tag">New Data</a>
   <a href="../../index.html#category:Client_Exit_Interviews" class="dt-tag">Client Exit Interviews</a>
   <a href="../../index.html#category:Service_Delivery_Points" class="dt-tag">Service Delivery Points</a>
 </div>
@@ -2701,7 +2701,7 @@ PMA allows respondents to skip questions if they are deemed irrelevant based on 
 <p>Variables that you’d expect to be <strong>binary</strong> - with response options for “yes” or “no” - will have additional <strong>top codes</strong> for the three types of missing responses we’ve discussed. For example <a href="https://pma.ipums.org/pma-action/variables/DISCFPTODAY">DISCFPTODAY</a> indicates whether the woman discussed family planning with her provider today:</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>dat</span> <span class='op'>%&gt;%</span> <span class='fu'>count</span><span class='op'>(</span><span class='va'>DISCFPTODAY</span><span class='op'>)</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>dat</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/count.html'>count</a></span><span class='op'>(</span><span class='va'>DISCFPTODAY</span><span class='op'>)</span>
 </code></pre>
 </div>
 <pre><code># A tibble: 5 × 2
@@ -2716,7 +2716,7 @@ PMA allows respondents to skip questions if they are deemed irrelevant based on 
 <p>Notice that the <strong>top codes</strong> for missing data are numeric: 95, 98, and 99. These codes will will be the same for all <strong>binary</strong> variables, but not necessarily for <strong>continuous</strong> variables or variables with many response categories. For example, look at <a href="https://pma.ipums.org/pma-action/variables/FPMETHGIVEN">FPMETHGIVEN</a>, which describes the method or prescription given to the woman by her provider during the visit:</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>dat</span> <span class='op'>%&gt;%</span> <span class='fu'>count</span><span class='op'>(</span><span class='va'>FPMETHGIVEN</span><span class='op'>)</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>dat</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/count.html'>count</a></span><span class='op'>(</span><span class='va'>FPMETHGIVEN</span><span class='op'>)</span>
 </code></pre>
 </div>
 <pre><code># A tibble: 22 × 2
@@ -2749,7 +2749,7 @@ PMA allows respondents to skip questions if they are deemed irrelevant based on 
 <p>You’ll find the value <code>NA</code> in some variables, but only if the associated question was excluded from one or more of the samples in your data extract. For instance, <a href="https://pma.ipums.org/pma-action/variables/GEOCD">GEOCD</a> indicates whether respondents to the DRC sample were interviewed in Kinshasa or Konga Central; it’s not included in the samples from other countries:</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>dat</span> <span class='op'>%&gt;%</span> <span class='fu'>count</span><span class='op'>(</span><span class='va'>COUNTRY</span>, <span class='va'>GEOCD</span><span class='op'>)</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>dat</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/count.html'>count</a></span><span class='op'>(</span><span class='va'>COUNTRY</span>, <span class='va'>GEOCD</span><span class='op'>)</span>
 </code></pre>
 </div>
 <pre><code># A tibble: 7 × 3
@@ -2766,9 +2766,9 @@ PMA allows respondents to skip questions if they are deemed irrelevant based on 
 <p>If you want to mark <strong>all top codes</strong> as <code>NA</code>, the easiest way to do so is to reference the <em>labels</em> rather than the numeric codes. We’ll provide them to the <code>ipumsr</code> function <a href="http://tech.popdata.org/ipumsr/reference/lbl_na_if.html">lbl_na_if</a> applied to all variables in our extract:</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>dat</span> <span class='op'>&lt;-</span> <span class='va'>dat</span> <span class='op'>%&gt;%</span> 
-  <span class='fu'>mutate</span><span class='op'>(</span><span class='fu'>across</span><span class='op'>(</span><span class='fu'><a href='https://tidyselect.r-lib.org/reference/everything.html'>everything</a></span><span class='op'>(</span><span class='op'>)</span>, <span class='op'>~</span><span class='fu'><a href='https://rdrr.io/pkg/ipumsr/man/lbl_na_if.html'>lbl_na_if</a></span><span class='op'>(</span><span class='va'>.x</span>,
-    <span class='op'>~</span><span class='va'>.lbl</span> <span class='op'>%in%</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>dat</span> <span class='op'>&lt;-</span> <span class='va'>dat</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/across.html'>across</a></span><span class='op'>(</span><span class='fu'><a href='https://tidyselect.r-lib.org/reference/everything.html'>everything</a></span><span class='op'>(</span><span class='op'>)</span>, <span class='op'>~</span><span class='fu'><a href='https://rdrr.io/pkg/ipumsr/man/lbl_na_if.html'>lbl_na_if</a></span><span class='op'>(</span><span class='va'>.x</span>,
+    <span class='op'>~</span><span class='va'>.lbl</span> <span class='op'><a href='https://rdrr.io/r/base/match.html'>%in%</a></span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span>
         <span class='st'>"Not interviewed (female questionnaire)"</span>,
         <span class='st'>"No response or missing"</span>,
         <span class='st'>"NIU (not in universe)"</span>
@@ -2783,7 +2783,7 @@ The value <code>NA</code> may be useful if, for example, you don’t want to cre
 <p>Now, missing responses for <code>DISCFPTODAY</code> and <code>FPMETHGIVEN</code> are simply <code>NA</code>.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>dat</span> <span class='op'>%&gt;%</span> <span class='fu'>count</span><span class='op'>(</span><span class='va'>DISCFPTODAY</span><span class='op'>)</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>dat</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/count.html'>count</a></span><span class='op'>(</span><span class='va'>DISCFPTODAY</span><span class='op'>)</span>
 </code></pre>
 </div>
 <pre><code># A tibble: 3 × 2
@@ -2793,7 +2793,7 @@ The value <code>NA</code> may be useful if, for example, you don’t want to cre
 2     1 [Yes]  5428
 3    NA        2845</code></pre>
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>dat</span> <span class='op'>%&gt;%</span> <span class='fu'>count</span><span class='op'>(</span><span class='va'>FPMETHGIVEN</span><span class='op'>)</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>dat</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/count.html'>count</a></span><span class='op'>(</span><span class='va'>FPMETHGIVEN</span><span class='op'>)</span>
 </code></pre>
 </div>
 <pre><code># A tibble: 20 × 2

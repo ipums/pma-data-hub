@@ -13,8 +13,8 @@ author:
   - name: Matt Gunther
     affiliation: IPUMS PMA Senior Data Analyst
 categories:
-  - R tips
-  - R packages
+  - Data Discovery
+  - New Data
   - Client Exit Interviews
   - Service Delivery Points
 preview: ../../images/new_data.png

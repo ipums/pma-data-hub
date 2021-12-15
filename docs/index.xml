@@ -12,14 +12,32 @@
       <link>https://ipums.github.io/pma-data-hub/</link>
     </image>
     <generator>Distill</generator>
-    <lastBuildDate>Wed, 01 Dec 2021 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 15 Dec 2021 00:00:00 +0000</lastBuildDate>
+    <item>
+      <title>How to integrate ACLED conflict data with PMA Client Exit Interview data</title>
+      <dc:creator>Maya Luetke</dc:creator>
+      <dc:creator>Matt Gunther</dc:creator>
+      <link>https://ipums.github.io/pma-data-hub/posts/2021-12-15-cei-conflict</link>
+      <description>Conflict data provides important context for access to family planning services.</description>
+      <category>Client Exit Interviews</category>
+      <category>Armed Conflict</category>
+      <category>ACLED</category>
+      <category>Mapping</category>
+      <category>Animation</category>
+      <category>sf</category>
+      <category>ggspatial</category>
+      <category>gganimate</category>
+      <guid>https://ipums.github.io/pma-data-hub/posts/2021-12-15-cei-conflict</guid>
+      <pubDate>Wed, 15 Dec 2021 00:00:00 +0000</pubDate>
+      <media:content url="https://ipums.github.io/pma-data-hub/posts/2021-12-15-cei-conflict/cei-conflict_files/figure-html5/unnamed-chunk-27-1.png" medium="image" type="image/png" width="2304" height="1536"/>
+    </item>
     <item>
       <title>Introducing Client Exit Interviews</title>
       <dc:creator>Matt Gunther</dc:creator>
       <link>https://ipums.github.io/pma-data-hub/posts/2021-12-01-cei-discovery</link>
       <description>Women receiving family planning services assess their care in a new data series from PMA.</description>
-      <category>R tips</category>
-      <category>R packages</category>
+      <category>Data Discovery</category>
+      <category>New Data</category>
       <category>Client Exit Interviews</category>
       <category>Service Delivery Points</category>
       <guid>https://ipums.github.io/pma-data-hub/posts/2021-12-01-cei-discovery</guid>
