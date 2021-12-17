@@ -166,15 +166,19 @@ After these steps, you can use the access key to request data through the ACLED'
 knitr::include_graphics("images/ACLED3.png")
 ```
 
-The ACLED dataset you'll receive is a simple CSV file:
+The ACLED dataset you'll receive is a simple CSV file with 31 columns: we'll select a handful that we'll need in our analysis.
 
 ```{r, layout="l-body-outset", fig.width=8, fig.height=8, preview = TRUE}
-conflict <- read_csv("data/2019-09-01-2020-08-31-Uganda.csv")
+conflict <- read_csv("data/2019-09-01-2020-08-31-Uganda.csv") %>% 
+  select(
+    event_id_cnty, event_type, sub_event_type, event_date, 
+    time_precision, latitude, longitude, admin2, geo_precision
+  )
 
 conflict
 ```
 
-You'll notice that there are 515 rows in our `conflict` dataset - each representing a specific event with a unique `data_id` number. The variables `event_type` and `sub_event_type` describe different types of recorded events. We'll use the [kableExtra](https://github.com/haozhu233/kableExtra) package to create an easy-to-read table showing the frequency of each event type.
+You'll notice that there are 515 rows in our `conflict` dataset - each representing a specific event with a unique `event_id_cnty` number. The variables `event_type` and `sub_event_type` describe different types of recorded events. We'll use the [kableExtra](https://github.com/haozhu233/kableExtra) package to create an easy-to-read table showing the frequency of each event type.
 
 ```{r}
 library(kableExtra)
@@ -194,7 +198,11 @@ htmltools::a(
 ```
 </aside>
 
-As you can see from the table above, there are a number of different types and subtypes of conflict events. For projects with a specific interest in a type of conflict, users can filter these data to only include one or a couple of types of data (e.g., Battles, Violence against civilians, etc.). For this particular analysis, we are including all conflict events.
+As you can see from the table above, there are a number of different types and subtypes of events in the ACLED dataset. In this analysis, we're interested in events that may cause transportation disruptions or otherwise impede access to health facilities, so we'll exclude events in the category `Strategic developments`. Events in the categories `Protests` and `Riots` are not necessarily "armed conflict", but we'll retain them in our analysis because of their potential to impede access to facilities. 
+
+```{r}
+conflict <- conflict %>% filter(event_type != "Strategic developments")
+```
 
 Each event is associated with a particular `event_date` and a set of `latitude` and `longitude` coordinates. These are subject to different degrees of precision represented in `time_precision` and `geo_precision`, respectively, on a scale ranging from 1 (most precise) to 3 (least precise). The specific meaning for each value is described in the [ACLED codebook](https://www.acleddata.com/wp-content/uploads/dlm_uploads/2017/10/ACLED_Codebook_2019FINAL_pbl.pdf), but we'll summarize here.
 
@@ -253,7 +261,7 @@ conflict %>%
   kbl()
 ```
 
-Because all but 13 events are geo-referenced to towns within the same district, we'll drop events where `geo-precision == 3` and aggregate the others by districts represented in the variable `admin2` (admin level 2).
+Because all but 12 events are geo-referenced to towns within the same district, we'll drop events where `geo-precision == 3` and aggregate the others by districts represented in the variable `admin2` (admin level 2).
 
 ```{r}
 conflict <- conflict %>% filter(geo_precision < 3)
@@ -316,19 +324,18 @@ gps
 
 Next, we'll want to think about the best way to visualize monthly changes in the amount of conflict in each district. Previously, we've shown how to create a [faceted plot](../2021-07-15-covid-likert/#faceted-neutral-non-response), where you might arrange maps for each month in a grid. This works well in some cases, but here - where we'll build one map for each of 12 months - this would easily overwhelm the available space on our page. Instead, we'll create an animated image - specifically, a **gif** - that cycles through each month in sequence. 
 
-To get started, we'll first need to count the monthly total number of events in each district. We'll do this simply by counting the number of distinct `data_id` codes for each district in each month. We'll call this summary table `conflict_summary`.  
+To get started, we'll first need to count the monthly total number of events in each district. We'll do this simply by counting the number of distinct `event_id_cnty` codes for each district in each month. We'll call this summary table `conflict_summary`.  
 
 ```{r}
 conflict_summary <- conflict %>% 
   group_by(admin2, event_date) %>% 
-  summarise(events = n_distinct(data_id), .groups = "keep") %>% 
+  summarise(events = n_distinct(event_id_cnty), .groups = "keep") %>% 
   ungroup() 
 
 conflict_summary
 ```
 
 Notice the first district, Abim, has recorded `events` in only 5 of the 12 months in our timeline; in each of the remaining 7 months, there were no reported events in the database. We'll want to fill these gaps with `0`, and the easiest way to do this is to [pivot_wider](https://tidyr.tidyverse.org/reference/pivot_wider.html), placing each of the 12 months into a separate column. Any district with *no recorded events* in a particular month will show `NA` in that column. 
-
 
 <aside>
 ```{r, echo = FALSE}
@@ -338,7 +345,6 @@ htmltools::a(
 )
 ```
 </aside>
-
 
 ```{r}
 conflict_summary <- conflict_summary %>% 
@@ -402,7 +408,7 @@ ggplot() +
     fill = guide_colorbar(title = element_blank())
   ) + 
   labs(
-    title = "Number of armed conflict events: August 2020", 
+    title = "Incidents of armed conflict and civil unrest: August 2020", 
     caption = "Data source: ACLED (https://acleddata.com/)"
   ) 
 ```
@@ -439,7 +445,7 @@ dynamic_map <- ggplot() +
     fill = guide_colorbar(title = element_blank())
   ) + 
   labs(
-    title = "Number of armed conflict events: {closest_state}", 
+    title = "Incidents of armed conflict and civil unrest: {closest_state}", 
     caption = "Data source: ACLED (https://acleddata.com/)"
   ) + 
   transition_states(event_date, transition_length = 0, state_length = 1)
