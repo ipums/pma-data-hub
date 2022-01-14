@@ -2688,7 +2688,7 @@ Community
 The <a href="http://tech.popdata.org/ipumsr/">ipumsr</a> package provides tools to access and manipulate <strong>labels</strong>.
 </aside>
 <h2 id="iteration-with-columns">Iteration with columns</h2>
-<p>When you want to apply changes to <em>several</em> IPUMS PMA variables, it’s usually most efficient to leverage the <a href="">across</a> function from <a href="">dplyr</a>. We use <code>across</code> all the time, but some of our best examples show how to:</p>
+<p>When you want to apply changes to <em>several</em> IPUMS PMA variables, it’s usually most efficient to leverage the <a href="https://dplyr.tidyverse.org/reference/across.html">across</a> function from [dplyr]((<a href="https://dplyr.tidyverse.org" class="uri">https://dplyr.tidyverse.org</a>). We use <code>across</code> all the time, but some of our best examples show how to:</p>
 <ul>
 <li><a href="../2021-08-01-covid-batches/index.html#using-dplyracross">use tidy selection</a> to identify variables by location or a naming pattern</li>
 <li><a href="..//2021-01-28-across-sdp/#introducing-dplyracross">recode or label NA values for several variables</a> with tools from <code>ipumsr</code></li>
@@ -2697,7 +2697,7 @@ The <a href="http://tech.popdata.org/ipumsr/">ipumsr</a> package provides tools 
 <h2 id="iteration-with-rows">Iteration with rows</h2>
 <div>
 <p>Many functions in R are <a href="https://adv-r.hadley.nz/perf-improve.html#vectorise">vectorized</a>: when you apply them to a column in your data frame, you typically get <strong>one result for each row</strong>.</p>
-<p><strong>Non-vectorized</strong> functions instead return <strong>one result summarizing the entire column</strong>. For instance, the function <a href="">mean</a> gives you one mean value derived from all rows in a given column. Tools from <code>dplyr</code> like <a href="https://dplyr.tidyverse.org/dev/articles/rowwise.html">rowwise</a> and <a href="https://dplyr.tidyverse.org/articles/grouping.html?q=group">group_by</a> allow us to apply non-vectorized functions to individual rows or groups of rows. We’ve used these functions to:</p>
+<p><strong>Non-vectorized</strong> functions instead return <strong>one result summarizing the entire column</strong>. For instance, the function <a href="https://www.rdocumentation.org/packages/base/versions/3.6.2/topics/mean">mean</a> gives you one mean value derived from all rows in a given column. Tools from <code>dplyr</code> like <a href="https://dplyr.tidyverse.org/dev/articles/rowwise.html">rowwise</a> and <a href="https://dplyr.tidyverse.org/articles/grouping.html?q=group">group_by</a> allow us to apply non-vectorized functions to individual rows or groups of rows. We’ve used these functions to:</p>
 <ul>
 <li>summarize variables <a href="(../2021-01-28-summarize-by-easerved/#summarise-by-easerved-and-sample)">within groups</a></li>
 <li>summarize variables <a href="../2021-01-28-across-sdp/#summarize-variable-groups-by-facility">within the same row</a> with <a href="https://dplyr.tidyverse.org/reference/c_across.html">c_across</a></li>

@@ -12,7 +12,22 @@
       <link>https://ipums.github.io/pma-data-hub/</link>
     </image>
     <generator>Distill</generator>
-    <lastBuildDate>Wed, 15 Dec 2021 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sat, 15 Jan 2022 00:00:00 +0000</lastBuildDate>
+    <item>
+      <title>Building many similar models: easy variable substitution with 'pack' and 'across'</title>
+      <dc:creator>Matt Gunther</dc:creator>
+      <link>https://ipums.github.io/pma-data-hub/posts/2022-01-15-cei-sdp</link>
+      <description>SDP surveys include data on the availability, cost, and demand for up to 13 family planning methods at each facility. Use one generic formula to explore independent models for client counseling on each method.</description>
+      <category>Client Exit Interviews</category>
+      <category>Service Delivery Points</category>
+      <category>Data Manipulation</category>
+      <category>across</category>
+      <category>pack</category>
+      <category>glm</category>
+      <guid>https://ipums.github.io/pma-data-hub/posts/2022-01-15-cei-sdp</guid>
+      <pubDate>Sat, 15 Jan 2022 00:00:00 +0000</pubDate>
+      <media:content url="https://ipums.github.io/pma-data-hub/posts/2022-01-15-cei-sdp/images/tbl_regression.png" medium="image" type="image/png" width="1528" height="1128"/>
+    </item>
     <item>
       <title>How to integrate ACLED conflict data with PMA Client Exit Interview data</title>
       <dc:creator>Maya Luetke</dc:creator>

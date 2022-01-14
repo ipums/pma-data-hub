@@ -1,0 +1,682 @@
+---
+title: "Building many similar models: easy variable substitution with 'pack' and 'across'"
+description: |
+  SDP surveys include data on the availability, cost, and demand for up to 13 family planning methods at each facility. Use one generic formula to explore independent models for client counseling on each method.
+author:
+  - name: Matt Gunther
+    affiliation: IPUMS PMA Senior Data Analyst
+date: 2022-01-15
+output:
+  distill::distill_article:
+    self_contained: false
+    toc: true
+    toc_depth: 3
+    toc_float: true
+categories:
+  - Client Exit Interviews
+  - Service Delivery Points
+  - Data Manipulation 
+  - across
+  - pack
+  - glm
+preview: images/tbl_regression.png
+---
+
+```{r postpath, eval=FALSE, echo=FALSE}
+library(here)
+postpath <- file.path(here(), "_posts/2022-01-15-cei-sdp")
+if(getwd() != postpath){setwd(postpath)}
+```
+
+If you've visited this blog before, you'll know that we're *huge* fans of the [across](https://dplyr.tidyverse.org/reference/across.html) function form [dplyr](https://dplyr.tidyverse.org) - that's because PMA surveys feature a lot of "select all that apply" style questions where each response option gets formatted as a separate binary variable in the [IPUMS PMA](https://pma.ipums.org/pma/) data extract system. Because we often work with several variables from the same original question, we usually want to apply the same transformations or summary procedures to a group of variables, and `across` gives us a powerful way to do that. 
+
+Sometimes, we might want to use `across` in the modeling phase of a particular research project. This happens whenever we want to run a batch of similar models with identical controls, but with different dependent variables or key independent variables of interest. Ideally, we'd like to build **one generic model formula**
+and use `across` to **substitute key variables** in each iteration. 
+
+Consider, for example, the kind of research question you might explore with the new PMA [Client Exit Interview (CEI)](https://pma.ipums.org/pma-action/variables/group?unit_of_analysis=client) survey from Kenya, where women were asked whether they [received counseling](https://pma.ipums.org/pma-action/source_documents/enum_form_ke2019a_ci_tag.xml#42) on several family planning methods immediately following a visit with their healthcare provider. The IPUMS PMA extract system contains one binary variable for each of these response options: 
+
+<aside>
+Check out our [CEI Data Discovery](../2021-12-01-cei-discovery) post for an overview of the topics included in the CEI survey.
+</aside>
+
+```
+LCL_201. Which methods were you counselled on during this visit today?
+Select all methods mentioned. Be sure to scroll to bottom to see all choices.
+You cannot select 'No response' with other options
+
+[] Female sterilization
+[] Male sterilization
+[] Implant
+[] IUD
+[] Injectables
+[] Pill
+[] Emergency contraception
+[] Male condom
+[] Female condom
+[] Diaphragm
+[] Foam/Jelly
+[] Standard days / cycle beads
+[] LAM
+[] Rhythm method
+[] Withdrawal
+[] None of the above
+[] No response
+```
+
+You could imagine a situation where a researcher might want to model the odds that a woman received counseling on *each one* of these methods in turn. You would probably want to control for a number of individual factors like the woman's [age](https://pma.ipums.org/pma-action/variables/AGE), whether she is [married or partnered](https://pma.ipums.org/pma-action/variables/MARSTAT), and her [birth history](https://pma.ipums.org/pma-action/variables/BIRTHEVENT). These variables would appear in the formula for every model. On the other hand, you might also want to substitute independent variables having to do with the availability, cost, or overall demand for a particular family planning method at the facility she visited. Is there some way we could iterate through *all* of the family planning methods in this list, substituting both dependent and independent variables relevant to a particular method? 
+
+In this post, we'll showcase an approach to this problem that combines `across` with [pack](https://tidyr.tidyverse.org/reference/pack.html), a little-known function from the [tidyr](https://tidyr.tidyverse.org) package that will help us **pre-select variables** that "go together" in each model. If you visit the documentation page for `pack`, you'll see that it's marked with a blue "maturing" [lifecycle tag](https://lifecycle.r-lib.org/articles/stages.html#maturing) - this generally means that a particular function is in a stable development stage, but that the package authors are still exploring how it might be used in practice. We think `pack` offers an excellent way to exploit [data masking](https://tidyeval.tidyverse.org/sec-why-how.html) in certain contexts without need for more advanced tidy-evaluation operators (see [rlang](https://rlang.r-lib.org/reference/topic-data-mask.html)). And, because [tidyr](https://tidyr.tidyverse.org) is part of the "tidyverse", you'll be able to load `pack` and `across` together in one step:
+
+<aside>
+```{r, echo=F}
+htmltools::a(
+  href = "https://tidyverse.tidyverse.org/",
+  htmltools::img(src = "../../images/hex/tidyverse.png")
+)
+```
+© RStudio ([CC0 1.0](https://creativecommons.org/publicdomain/zero/1.0/))
+</aside>
+
+```{r}
+library(tidyverse)
+```
+
+# Setup: join CEI and SDP data 
+
+Before we dive in, lets take a look at the complete list variables describing availability, cost, and demand for specific family planning methods at sampled facilities in the most recent round of PMA [Service Delivery Point (SDP)](../2021-01-26-sdp-data/) surveys. Keep in mind: women were interviewed for CEI surveys at a sampled SDP if that facility had an average daily client volume of at least three family planning clients per day. Any of these SDP variables could be predictors in a model for the likelihood that a client received counseling on a particular method: 
+
+```{r setup, include=FALSE}
+library(ipumsr)
+library(tidyverse)
+library(kableExtra)
+
+# Keep only Kenya
+cei <- read_rds("../../data_local/cei/cei.rds.gz") %>% filter(SAMPLE == 40411)
+sdp <- read_rds("../../data_local/sdp/sdp2019.rds") %>% filter(SAMPLE == 40410)
+
+# Drop any variables not available for Kenya
+cei <- cei %>% select(-where(~all(is.na(.x))))
+sdp <- sdp %>% select(-where(~all(is.na(.x))))
+
+# Drop non-respondents from CEI 
+cei <- cei %>% filter(FPINFOYN == 1 & RESULTCQ  == 1) 
+```
+
+```{r, echo = FALSE, layout="l-body-outset"}
+method_vars <- read_csv("data/method_vars.csv") 
+
+method_vars %>% 
+  mutate(across(
+    -Method, 
+    ~ifelse(.x == "--", "--", .x %>% cell_spec("html", link = paste0(
+        "https://pma.ipums.org/pma-action/variables/", .x
+    )))
+  )) %>% 
+  kbl("html", escape = FALSE) %>% 
+  kable_styling() %>% 
+  scroll_box(
+    width = "100%", 
+    box_css = "margin-bottom: 1em; border: 0px solid #ddd; padding: 5px;"
+  )
+```
+
+There are only 11 base questions associated with the variables in this table, but each question gets repeated once for up to 13 family planning methods included in the SDP survey. You'll notice that every variable from a particular question shares the same suffix; for example, every variable indicating whether the facility "provides" a method shares the suffix `PROV` (like `CONPROV`, `CYCBPROV`, `DIAPROV`, etc). 
+
+To start, we'll need to download a data extract containing these variables. In this example, we'll use an extract that includes only "Facility Respondents" from the **Kenya 2019** sample and save it into the "data" folder of our working directory. Load it into R with with [ipumsr](https://tech.popdata.org/ipumsr/) package like so: 
+
+<aside>
+2019-2020 SDP samples for Burkina Faso, DRC, and Nigeria are also currently available from [IPUMS PMA](https://pma.ipums.org/pma/). More CEI and SDP samples will be released in early 2022!
+</aside>
+
+```{r, eval=FALSE}
+library(ipumsr)
+
+sdp <- read_ipums_micro(
+  ddi = "data/pma_00001.xml",
+  data = "data/pma_00001.dat.gz"
+)
+```
+
+You'll then need to download a *second* data extract containing only "Female Respondents" to the 2019 CEI sample from Kenya. 
+
+```{r, eval=FALSE}
+cei <- read_ipums_micro(
+  ddi = "data/pma_00002.xml",
+  data = "data/pma_00002.dat.gz"
+)
+```
+
+**In order to link women from the CEI data extract to the correct facility in the SDP data extract, you'll need to join records by** [FACILITYID](https://pma.ipums.org/pma-action/variables/FACILITYID). Here, we will [left_join](https://dplyr.tidyverse.org/reference/mutate-joins.html) `cei` with `sdp`, which means 1) all of the rows in `cei` will be preserved, and 2) `sdp` variables for each facility will be copied once for every woman interviewed at that facility. We'll call the resulting data frame `dat`.
+
+```{r}
+dat <- left_join(
+  cei, 
+  sdp, 
+  by = "FACILITYID", 
+  suffix = c("_CEI", "_SDP")
+) 
+```
+
+<aside>
+The `suffix` argument is used to identify the source for any variables that were included in both surveys (e.g. `COUNTRY`, `EAID`, `FACILITYTYPEGEN`).
+</aside>
+
+We mentioned in our [CEI Data Discovery post](../2021-12-01-cei-discovery) that almost all of the questions on the CEI survey were given only to women who received family planning information or a family planning method during their visit to the facility. You'll find this information recorded in the variable [FPINFOYN](https://pma.ipums.org/pma-action/variables/FPINFOYN), so we'll drop any case where `FPINFOYN == 0`, indicating that the woman answered no further questions about family planning services.
+
+```{r}
+dat <- dat %>% filter(FPINFOYN == 1) 
+```
+
+# A conventional workflow
+
+To keep this example simple, let's focus our research question on variables related to the **availability of a method** at the facility where a CEI respondent was interviewed. Specifically, we want to know: *are women less likely to receive counseling on a given family planning method if that method is not reliably available from their provider?*
+
+Strictly speaking, you don't *need* to organize variables into packs to examine this problem. Doing so just makes it easier to manipulate and analyze all of the variables related to a particular family planning method. To see how, let's lay out a workflow for *just one* of the family planning methods: we'll pick IUDs to start. 
+
+The CEI variable [METHCOUNIUD](https://pma.ipums.org/pma-action/variables/METHCOUNIUD) will be our **dependent variable** in this example. It indicates whether the woman received any counseling about IUDs during her visit. 
+
+```{r}
+dat %>% count(METHCOUNIUD)
+```
+
+Our **key independent variable** should indicate whether the method is "reliably available" at the facility the woman visited. For this example, let's say that a method is "reliably available" if it was continuously in-stock for three months prior to the SDP interview. You might expect this information to appear in the SDP variable [IUDOUT3MO](https://pma.ipums.org/pma-action/variables/IUDOUT3MO), but look closely at the text from that variable's [universe tab](https://pma.ipums.org/pma-action/variables/IUDOUT3MO#universe_section): 
+
+```{r, echo = FALSE}
+htmltools::a(
+  href = "https://pma.ipums.org/pma-action/variables/IUDOUT3MO#universe_section",
+  htmltools::img(src = "images/iudout3mo.png")
+)
+```
+
+In other words, this question was skipped if 1) a facility that normally provides IUDs was out of stock on the day of the interview, or 2) a facility doesn't provide the method at all. These cases are marked `99` and labeled `NIU (not in universe)`:
+
+```{r}
+dat %>% count(IUDOUT3MO)
+```
+
+We can't distinguish facilities with temporary stockouts from those that never provide IUDs at all, so we'll want to combine the information in `IUDOUT3MO` with another variable. Here, we'll use [IUDOBS](https://pma.ipums.org/pma-action/variables/IUDOBS), which indicates whether the facility had IUDs in-stock on the day of the SDP interview (and whether that stock was observed directly by the interviewer). In this case, the [universe](https://pma.ipums.org/pma-action/variables/IUDOBS#universe_section) includes all facilities that normally provide IUDs. 
+
+```{r, echo = FALSE}
+htmltools::a(
+  href = "https://pma.ipums.org/pma-action/variables/IUDOBS#universe_section",
+  htmltools::img(src = "images/iudobs.png")
+)
+```
+
+```{r}
+dat %>% count(IUDOUT3MO, IUDOBS)
+```
+
+Only 190 of the 717 facilities that were `NIU (not in universe)` for `IUDOUT3MO` were excluded because of a current stockout. The remaining 527 facilities don't provide IUDs at all. 
+
+Suppose that you were going to combine these variables to build a [factor](https://r4ds.had.co.nz/factors.html) we'll call `IUDAVAIL` with 3 levels: facilities where IUDs are "reliably available", those with a "current or recent stockout", and those where IUDs are "not provided". Alone, this task is not too difficult with help from [case_when](https://dplyr.tidyverse.org/reference/case_when.html): 
+
+```{r}
+dat %>% 
+  mutate(IUDAVAIL = case_when(
+   IUDOBS == 99 ~ "not provided",
+   IUDOBS == 3 | IUDOUT3MO == 1 ~ "cur/rec stockout",
+   IUDOUT3MO == 0 ~ "reliably avail"
+  )) %>% 
+  count(IUDOBS, IUDOUT3MO, IUDAVAIL)
+```
+
+**But what should you do if you want to build a similar variable for each of the nine relevant family planning methods?** With the approach we've used so far, you'd need to write a separate `case_when` function for every family planning method. Each would look nearly identical to the last, except that you'd use the relevant `OBS` and `OUT3MO` variable for each method. Before we explore an approach with [pack](https://tidyr.tidyverse.org/reference/pack.html), take a look at the code we're hoping to avoid: 
+
+```{r}
+dat <- dat %>% 
+  mutate(
+    IUDAVAIL = case_when(
+      IUDOBS == 99 ~ "not provided",
+      IUDOBS == 3 | IUDOUT3MO == 1 ~ "cur/rec stockout",
+      IUDOUT3MO == 0 ~ "reliably avail"
+    ),
+    CONAVAIL = case_when(
+      CONOBS == 99 ~ "not provided",
+      CONOBS == 3 | CONOUT3MO == 1 ~ "cur/rec stockout",
+      CONOUT3MO == 0 ~ "reliably avail"
+    ),
+    BEADSAVAIL = case_when(
+      CYCBOBS == 99 ~ "not provided",
+      CYCBOBS == 3 | CYCBOUT3MO == 1 ~ "cur/rec stockout",
+      CYCBOUT3MO == 0 ~ "reliably avail"
+    ),
+    DIAAVAIL = case_when(
+      DIAOBS == 99 ~ "not provided",
+      DIAOBS == 3 | DIAOUT3MO == 1 ~ "cur/rec stockout",
+      DIAOUT3MO == 0 ~ "reliably avail"
+    ),
+    EMRGAVAIL = case_when(
+      EMRGOBS == 99 ~ "not provided",
+      EMRGOBS == 3 | EMRGOUT3MO == 1 ~ "cur/rec stockout",
+      EMRGOUT3MO == 0 ~ "reliably avail"
+    ),
+    FCAVAIL = case_when(
+      FCOBS == 99 ~ "not provided",
+      FCOBS == 3 | FCOUT3MO == 1 ~ "cur/rec stockout",
+      FCOUT3MO == 0 ~ "reliably avail"
+    ),
+    FJAVAIL = case_when(
+      FJOBS == 99 ~ "not provided",
+      FJOBS == 3 | FJOUT3MO == 1 ~ "cur/rec stockout",
+      FJOUT3MO == 0 ~ "reliably avail"
+    ),
+    IMPAVAIL = case_when(
+      IMPOBS == 99 ~ "not provided",
+      IMPOBS == 3 | IMPOUT3MO == 1 ~ "cur/rec stockout",
+      IMPOUT3MO == 0 ~ "reliably avail"
+    ),
+    PILLAVAIL = case_when(
+      PILLOBS == 99 ~ "not provided",
+      PILLOBS == 3 | PILLOUT3MO == 1 ~ "cur/rec stockout",
+      PILLOUT3MO == 0 ~ "reliably avail"
+    )
+  )
+```
+
+That's a lot of repeated effort, and a lot places where you might make a simple copy / paste error. And then, imagine repeating this entire process to include the SDP variables related to cost and demand for different methods - you'd have to do *another* set of nine `case_when` functions for every variable you wanted to create! 
+
+# Introducing `pack`
+
+The difference with [pack](https://tidyr.tidyverse.org/reference/pack.html) is that we'll pre-select all of the variables that we ultimately want to substitute into a method-specific model. In other words, we'll be manually identifying all of the **dependent** and **key independent** variables that "go together" in one step at the *beginning* of our workflow. 
+
+<aside>
+You can include a variable in more than one pack - this will create independent copies of the duplicated variable.
+</aside>
+
+```{r}
+dat_packed <- dat %>% 
+  pack(
+    BEADS = c(METHCOUNBEADS, CYCBOBS, CYCBOUT3MO),
+    CON = c(METHCOUNMC, CONOBS, CONOUT3MO),
+    DIA = c(METHCOUNDIA, DIAOBS, DIAOUT3MO),
+    EMRG = c(METHCOUNEC, EMRGOBS, DIAOUT3MO),
+    FC = c(METHCOUNFC, FCOBS, FCOUT3MO),
+    FOAM = c(METHCOUNFOAM, FJOBS, FJOUT3MO),
+    IMP = c(METHCOUNIMP, IMPOBS, IMPOUT3MO),
+    IUD = c(METHCOUNIUD, IUDOBS, IUDOUT3MO),
+    PILL = c(METHCOUNPILL, PILLOBS, PILLOUT3MO)
+  ) 
+```
+
+<aside>
+```{r, echo=F}
+htmltools::a(
+  href = "https://tidyr.tidyverse.org",
+  htmltools::img(src = "../../images/hex/tidyr.png")
+)
+```
+© RStudio ([CC0 1.0](https://creativecommons.org/publicdomain/zero/1.0/))
+</aside>
+
+When we do this, we create one tidy data frame - a [tibble](https://tibble.tidyverse.org/index.html) - for all of the variables dealing with a particular family planning method. Each one of these smaller data frames is "packed" into a single column in the larger **parent data frame** we've called `dat_packed`. This **parent** also contains all of the original `dat` variables that we didn't happen to include in a pack. 
+
+You can call any one of these smaller packs using the same `$` operator you'd use to call any other variable.   
+
+```{r}
+dat_packed$IUD
+```
+
+If you call one of these packs in the larger context of its **parent data frame**, you'll notice something strange about the output. Let's call the `IUD` pack together with `FACILITYID`:
+
+```{r}
+dat_packed %>% select(FACILITYID, IUD)
+```
+
+The tibble header tells us we've printed a tibble with 3,901 rows and 2 columns, but we actually see 4 columns - `FACILITYID` and each of the 3 variables in our `IUD` pack. Moreover, the pack name `IUD` appears as a prefix only on the first column `IUD$METHCOUNIUD`; the others use `$` as shorthand to show that they're members of the same pack.
+
+In practice, you'll rarely want to select individual packs by name - it's much more useful to [select](https://dplyr.tidyverse.org/reference/select.html) and then [mutate](https://dplyr.tidyverse.org/reference/mutate.html) or [summarize](https://dplyr.tidyverse.org/reference/summarise.html) all packs at once. You can do this by selecting all variables that are members of the [tibble](https://tibble.tidyverse.org/index.html) class with `where(is_tibble)`:
+
+```{r}
+dat_packed %>% select(where(is_tibble))
+```
+
+## Using `across` with packs
+
+Once you're able to create and [select](https://dplyr.tidyverse.org/reference/select.html) packs, the next step is to repeat the same changes or analytic functions within each pack using [across](https://dplyr.tidyverse.org/reference/across.html). First, we'll strip all references to each family planning method from the variable names in each pack with [rename](https://dplyr.tidyverse.org/reference/rename.html). You don't have to worry about creating duplicate names (e.g. nine variables named `OBS`) as long as they're organized in packs (`BEADS$OBS`, `DIA$OBS`, `EMRG$OBS`, etc). **In fact, this is exactly what we want!**
+
+```{r}
+dat_packed <- dat_packed %>% 
+  mutate(across(
+    where(is_tibble),
+    ~.x %>% 
+      rename(
+        COUNSEL = contains("METHCOUN"),
+        OBS = contains("OBS"),
+        OUT3MO = contains("OUT3MO")
+      )
+  ))
+
+# Within each pack, you'll now find 3 variables of the same name
+dat_packed %>% select(where(is_tibble))
+```
+
+<aside>
+```{r, echo=F}
+htmltools::a(
+  href = "https://dplyr.tidyverse.org/",
+  htmltools::img(src = "../../images/hex/dplyr.png")
+)
+```
+© RStudio ([CC0 1.0](https://creativecommons.org/publicdomain/zero/1.0/))
+</aside>
+
+This makes it easy to apply the same `case_when` function to each pack. 
+
+```{r}
+dat_packed <- dat_packed %>% 
+  mutate(across(
+    where(is_tibble),
+    ~.x %>% 
+      mutate(
+        AVAIL = fct_relevel(
+          case_when(
+            OBS == 99 ~ "not provided",
+            OBS == 3 | OUT3MO == 1 ~ "cur/rec stockout",
+            OUT3MO == 0 ~ "reliably avail" 
+          ),
+          "reliably avail" # set reference group
+        ) 
+      )
+  ))
+
+# One `AVAIL` variable was added to each pack
+dat_packed %>% select(where(is_tibble))
+```
+
+## Modeling with packs
+
+Here's the real payoff: once you've assigned the same name to all of the variables repeated across packs, it's particularly easy to build parallel model formulas without needing to reference each family planning method by name. 
+
+Let's now use the `AVAIL` variable for each method to predict the likelihood that a woman would have received counseling on that method in `COUNSEL`. In other words, we want to build nine logistic regression models using the appropriate pair of method-specific variables. 
+
+Before we get to the "packed" approach, again consider a conventional approach where you'd substitute the relevant variables for each family planning method by hand. *Have you ever written something that looks like this?*
+
+```{r, echo = FALSE}
+dat <- dat %>% mutate(across(starts_with("METHCOUN"), ~.x == 1))
+```
+
+```{r, warning=FALSE}
+dat %>% 
+  mutate(across(
+    ends_with("AVAIL") & where(is.character),
+    ~.x %>% fct_relevel("reliably avail") # set reference group
+  )) %>% 
+  summarise(
+    # We want to avoid writing a unique formula for each model if possible:
+    BEADS = glm(METHCOUNBEADS ~ BEADSAVAIL, "binomial", cur_data()) %>% 
+      broom::tidy(exp = TRUE) %>% 
+      list(),
+    CON = glm(METHCOUNMC ~ CONAVAIL, "binomial", cur_data()) %>% 
+      broom::tidy(exp = TRUE) %>% 
+      list(),
+    DIA = glm(METHCOUNDIA ~ DIAAVAIL, "binomial", cur_data()) %>% 
+      broom::tidy(exp = TRUE) %>% 
+      list(),
+    EMRG = glm(METHCOUNEC ~ EMRGAVAIL, "binomial", cur_data()) %>% 
+      broom::tidy(exp = TRUE) %>% 
+      list(),
+    FC = glm(METHCOUNFC ~ FCAVAIL, "binomial", cur_data()) %>% 
+      broom::tidy(exp = TRUE) %>% 
+      list(),
+    FOAM = glm(METHCOUNFOAM ~ FJAVAIL, "binomial", cur_data()) %>% 
+      broom::tidy(exp = TRUE) %>% 
+      list(),
+    IMP = glm(METHCOUNIMP ~ IMPAVAIL, "binomial", cur_data()) %>% 
+      broom::tidy(exp = TRUE) %>% 
+      list(),
+    IUD = glm(METHCOUNIUD ~ IUDAVAIL, "binomial", cur_data()) %>% 
+      broom::tidy(exp = TRUE) %>% 
+      list(),
+    PILL = glm(METHCOUNPILL ~ PILLAVAIL, "binomial", cur_data()) %>% 
+      broom::tidy(exp = TRUE) %>% 
+      list()
+  ) %>% 
+  pivot_longer(everything(), names_to = "COUNSELED") %>% 
+  unnest(value) %>% 
+  mutate(across(where(is.double), ~round(.x, 2)))
+```
+
+Again - there's nothing *wrong* this output. But, with the packed approach we'll be able to 1) easily substitute method-specific variables in each model without repeating ourselves, and 2) we can use pack names for each model in the `COUNSELED` column while removing extra text from the `term` column.  
+
+```{r}
+dat_packed %>%
+  summarise(across(
+    where(is_tibble),
+    ~glm(COUNSEL ~ AVAIL, "binomial", .x) %>%
+      broom::tidy(exp = TRUE) %>%
+      list()
+  )) %>%
+  pivot_longer(everything(), names_to = "COUNSELED") %>%
+  unnest(value) %>%
+  mutate(across(where(is.double), ~round(.x, 2))) %>%
+  mutate(term = term %>% str_remove("AVAIL"))
+```
+
+What happened here? In summary, we created one pack of variables for each family planning method. We then made *all variable names identical across packs* so that every pack contains a pair of variables called `COUNSEL` and `AVAIL`. Finally, we used `across` to iterate over every pack via `where(is_tibble)`: we applied the same general `glm` call to every pack, referenced in the context of a particular iteration with the pronoun `.x`.
+
+## The parent data frame
+
+Now suppose we wanted to introduce a common set of controls with each model. We mentioned at the beginning of this post that we might want to control for certain individual factors like like the woman's age ([AGE](https://pma.ipums.org/pma-action/variables/FACILITYID)), whether she is married or partnered ([MARSTAT](https://pma.ipums.org/pma-action/variables/MARSTAT), recoded here as `PARTNERED`), and her birth history ([BIRTHEVENT](https://pma.ipums.org/pma-action/variables/BIRTHEVENT)). 
+
+Remember that these variables were *not* included in the packed data frames we created above. Instead, they're located in a **parent data frame** together with all of our packs. When we iterate through each pack with `across`, R searches for variables called `COUNSEL` and `AVAIL` in one particular pack, [masking](https://tidyeval.tidyverse.org/sec-why-how.html) those in the other packs - this is what allows us to reuse the same variable names for each family planning method. Because each iteration focuses on the contents of one pack, you might expect to get an error if you reference variables *outside* of that pack. 
+
+Fortunately, this is not the case! You can simply add the variables `AGE`, `PARTNERED`, and `BIRTHEVENT` to the formula applied to each pack. R won't find those variables within the current pack, but it *will* find them in the **parent data frame** in which the pack is a member:
+
+```{r}
+dat_packed %>%
+  mutate(PARTNERED = MARSTAT %in% 21:22) %>%
+  summarise(across(
+    where(is_tibble),
+    # You can select variables both within and outside of each pack 
+    ~glm(COUNSEL ~ AVAIL + AGE + PARTNERED + BIRTHEVENT, "binomial", .x) %>%
+      broom::tidy(exp = TRUE) %>%
+      list()
+  )) %>%
+  pivot_longer(everything(), names_to = "COUNSELED") %>%
+  unnest(value) %>%
+  mutate(across(where(is.double), ~round(.x, 2))) %>%
+  mutate(term = term %>% str_remove("AVAIL") %>% str_remove("TRUE"))
+```
+
+## Unpacking 
+
+Occasionally, you may want to [unpack](https://tidyr.tidyverse.org/reference/pack.html) variables and return your data frame to its original shape. If you've duplicated variable names across packs as we've done above, you'll get an error if you `unpack` without specifying some way to maintain unique names in the reshaped data frame:
+
+```{r, error=TRUE}
+dat_packed %>% unpack(where(is_tibble))
+```
+
+In our case, we'll use the pack name as a prefix for each new variable name. We'll use `names_sep = "_"` to separate each prefix with an underscore: 
+
+```{r}
+dat_packed %>%
+  select(where(is_tibble)) %>%
+  unpack(where(is_tibble), names_sep = "_")
+```
+
+# Just the code, please 
+
+In case the benefits we gained with `pack` aren't quite clear, let's take a look at the complete workflow in one big code chunk. For comparison's sake, this is life *without* `pack`: 
+
+## Conventional workflow
+
+```{r, echo = FALSE}
+dat <- left_join(
+  cei, 
+  sdp, 
+  by = "FACILITYID", 
+  suffix = c("_CEI", "_SDP")
+) 
+```
+
+```{r, eval = FALSE}
+dat %>% 
+  mutate(
+    # The "availability" of every family planning method is coded separately 
+    IUDAVAIL = case_when(
+      IUDOBS == 99 ~ "not provided",
+      IUDOBS == 3 | IUDOUT3MO == 1 ~ "cur/rec stockout",
+      IUDOUT3MO == 0 ~ "reliably avail"
+    ),
+    CONAVAIL = case_when(
+      CONOBS == 99 ~ "not provided",
+      CONOBS == 3 | CONOUT3MO == 1 ~ "cur/rec stockout",
+      CONOUT3MO == 0 ~ "reliably avail"
+    ),
+    BEADSAVAIL = case_when(
+      CYCBOBS == 99 ~ "not provided",
+      CYCBOBS == 3 | CYCBOUT3MO == 1 ~ "cur/rec stockout",
+      CYCBOUT3MO == 0 ~ "reliably avail"
+    ),
+    DIAAVAIL = case_when(
+      DIAOBS == 99 ~ "not provided",
+      DIAOBS == 3 | DIAOUT3MO == 1 ~ "cur/rec stockout",
+      DIAOUT3MO == 0 ~ "reliably avail"
+    ),
+    EMRGAVAIL = case_when(
+      EMRGOBS == 99 ~ "not provided",
+      EMRGOBS == 3 | EMRGOUT3MO == 1 ~ "cur/rec stockout",
+      EMRGOUT3MO == 0 ~ "reliably avail"
+    ),
+    FCAVAIL = case_when(
+      FCOBS == 99 ~ "not provided",
+      FCOBS == 3 | FCOUT3MO == 1 ~ "cur/rec stockout",
+      FCOUT3MO == 0 ~ "reliably avail"
+    ),
+    FJAVAIL = case_when(
+      FJOBS == 99 ~ "not provided",
+      FJOBS == 3 | FJOUT3MO == 1 ~ "cur/rec stockout",
+      FJOUT3MO == 0 ~ "reliably avail"
+    ),
+    IMPAVAIL = case_when(
+      IMPOBS == 99 ~ "not provided",
+      IMPOBS == 3 | IMPOUT3MO == 1 ~ "cur/rec stockout",
+      IMPOUT3MO == 0 ~ "reliably avail"
+    ),
+    PILLAVAIL = case_when(
+      PILLOBS == 99 ~ "not provided",
+      PILLOBS == 3 | PILLOUT3MO == 1 ~ "cur/rec stockout",
+      PILLOUT3MO == 0 ~ "reliably avail"
+    ),
+    across(
+      ends_with("AVAIL") & where(is.character),
+      ~.x %>% fct_relevel("reliably avail") # set reference group
+    ),
+    PARTNERED = MARSTAT %in% 21:22
+  ) %>% 
+  # Variables for every family planning method are substituted manually 
+  summarise(
+    BEADS = glm(
+      METHCOUNBEADS ~ BEADSAVAIL + AGE + PARTNERED + BIRTHEVENT, 
+      "binomial", 
+      cur_data()) %>% 
+      broom::tidy(exp = TRUE) %>% 
+      list(),
+    CON = glm(
+      METHCOUNMC ~ CONAVAIL + AGE + PARTNERED + BIRTHEVENT, 
+      "binomial", 
+      cur_data()) %>% 
+      broom::tidy(exp = TRUE) %>% 
+      list(),
+    DIA = glm(
+      METHCOUNDIA ~ DIAAVAIL + AGE + PARTNERED + BIRTHEVENT, 
+      "binomial", 
+      cur_data()) %>% 
+      broom::tidy(exp = TRUE) %>% 
+      list(),
+    EMRG = glm(
+      METHCOUNEC ~ EMRGAVAIL + AGE + PARTNERED + BIRTHEVENT, 
+      "binomial", 
+      cur_data()) %>% 
+      broom::tidy(exp = TRUE) %>% 
+      list(),
+    FC = glm(
+      METHCOUNFC ~ FCAVAIL + AGE + PARTNERED + BIRTHEVENT, 
+      "binomial", 
+      cur_data()) %>% 
+      broom::tidy(exp = TRUE) %>% 
+      list(),
+    FOAM = glm(
+      METHCOUNFOAM ~ FJAVAIL + AGE + PARTNERED + BIRTHEVENT, 
+      "binomial", 
+      cur_data()) %>% 
+      broom::tidy(exp = TRUE) %>% 
+      list(),
+    IMP = glm(
+      METHCOUNIMP ~ IMPAVAIL + AGE + PARTNERED + BIRTHEVENT, 
+      "binomial", 
+      cur_data()) %>% 
+      broom::tidy(exp = TRUE) %>% 
+      list(),
+    IUD = glm(
+      METHCOUNIUD ~ IUDAVAIL + AGE + PARTNERED + BIRTHEVENT, 
+      "binomial", 
+      cur_data()) %>% 
+      broom::tidy(exp = TRUE) %>% 
+      list(),
+    PILL = glm(
+      METHCOUNPILL ~ PILLAVAIL + AGE + PARTNERED + BIRTHEVENT, 
+      "binomial", 
+      cur_data()) %>% 
+      broom::tidy(exp = TRUE) %>% 
+      list()
+  ) %>% 
+  pivot_longer(everything(), names_to = "COUNSELED") %>% 
+  unnest(value) %>% 
+  mutate(across(where(is.double), ~round(.x, 2)))
+```
+
+## Packed workflow
+
+With `pack` you only need to specify variables the "go together" *once at the beginning*. The results are identical, but compared to a conventional workflow, this saves you the trouble of manually substituting variables into code you'd otherwise need repeat. 
+
+```{r, eval = FALSE}
+dat %>% 
+  pack(
+    BEADS = c(METHCOUNBEADS, CYCBOBS, CYCBOUT3MO),
+    CON = c(METHCOUNMC, CONOBS, CONOUT3MO),
+    DIA = c(METHCOUNDIA, DIAOBS, DIAOUT3MO),
+    EMRG = c(METHCOUNEC, EMRGOBS, DIAOUT3MO),
+    FC = c(METHCOUNFC, FCOBS, FCOUT3MO),
+    FOAM = c(METHCOUNFOAM, FJOBS, FJOUT3MO),
+    IMP = c(METHCOUNIMP, IMPOBS, IMPOUT3MO),
+    IUD = c(METHCOUNIUD, IUDOBS, IUDOUT3MO),
+    PILL = c(METHCOUNPILL, PILLOBS, PILLOUT3MO)
+  ) %>% 
+  # The same generic "availability" coding is applied to every pack 
+  mutate(
+    across(
+      where(is_tibble),
+      ~.x %>% 
+        rename(
+          COUNSEL = contains("METHCOUN"),
+          OBS = contains("OBS"),
+          OUT3MO = contains("OUT3MO")
+        ) %>% 
+        mutate(AVAIL = fct_relevel(
+          case_when(
+            OBS == 99 ~ "not provided",
+            OBS == 3 | OUT3MO == 1 ~ "cur/rec stockout",
+            OUT3MO == 0 ~ "reliably avail" 
+          ),
+          "reliably avail" # set reference group
+        ) 
+        )
+    ),
+    PARTNERED = MARSTAT %in% 21:22
+  ) %>% 
+  # The same generic model formula is applied to every pack
+  summarise(across(
+    where(is_tibble),
+    ~glm(COUNSEL ~ AVAIL + AGE + PARTNERED + BIRTHEVENT, "binomial", .x) %>%
+      broom::tidy(exp = TRUE) %>%
+      list()
+  )) %>%
+  pivot_longer(everything(), names_to = "COUNSELED") %>%
+  unnest(value) %>%
+  mutate(across(where(is.double), ~round(.x, 2))) %>%
+  mutate(term = term %>% str_remove("AVAIL") %>% str_remove("TRUE"))
+```
+
+

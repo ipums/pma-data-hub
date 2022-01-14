@@ -1,0 +1,2840 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1"/>
+  <meta name="generator" content="distill" />
+
+  <style type="text/css">
+  /* Hide doc at startup (prevent jankiness while JS renders/transforms) */
+  body {
+    visibility: hidden;
+  }
+  </style>
+
+ <!--radix_placeholder_import_source-->
+ <!--/radix_placeholder_import_source-->
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css" data-origin="pandoc">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ad0000; } /* Alert */
+code span.an { color: #5e5e5e; } /* Annotation */
+code span.at { } /* Attribute */
+code span.bn { color: #ad0000; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007ba5; } /* ControlFlow */
+code span.ch { color: #20794d; } /* Char */
+code span.cn { color: #8f5902; } /* Constant */
+code span.co { color: #5e5e5e; } /* Comment */
+code span.cv { color: #5e5e5e; font-style: italic; } /* CommentVar */
+code span.do { color: #5e5e5e; font-style: italic; } /* Documentation */
+code span.dt { color: #ad0000; } /* DataType */
+code span.dv { color: #ad0000; } /* DecVal */
+code span.er { color: #ad0000; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #ad0000; } /* Float */
+code span.fu { color: #4758ab; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #5e5e5e; } /* Information */
+code span.kw { color: #007ba5; } /* Keyword */
+code span.op { color: #5e5e5e; } /* Operator */
+code span.ot { color: #007ba5; } /* Other */
+code span.pp { color: #ad0000; } /* Preprocessor */
+code span.sc { color: #5e5e5e; } /* SpecialChar */
+code span.ss { color: #20794d; } /* SpecialString */
+code span.st { color: #20794d; } /* String */
+code span.va { color: #111111; } /* Variable */
+code span.vs { color: #20794d; } /* VerbatimString */
+code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
+</style>
+
+
+  <!--radix_placeholder_meta_tags-->
+  <title>Building many similar models: easy variable substitution with 'pack' and 'across'</title>
+
+  <meta property="description" itemprop="description" content="SDP surveys include data on the availability, cost, and demand for up to 13 family planning methods at each facility. Use one generic formula to explore independent models for client counseling on each method."/>
+
+
+  <!--  https://schema.org/Article -->
+  <meta property="article:published" itemprop="datePublished" content="2022-01-15"/>
+  <meta property="article:created" itemprop="dateCreated" content="2022-01-15"/>
+  <meta name="article:author" content="Matt Gunther"/>
+
+  <!--  https://developers.facebook.com/docs/sharing/webmasters#markup -->
+  <meta property="og:title" content="Building many similar models: easy variable substitution with &#39;pack&#39; and &#39;across&#39;"/>
+  <meta property="og:type" content="article"/>
+  <meta property="og:description" content="SDP surveys include data on the availability, cost, and demand for up to 13 family planning methods at each facility. Use one generic formula to explore independent models for client counseling on each method."/>
+  <meta property="og:locale" content="en_US"/>
+
+  <!--  https://dev.twitter.com/cards/types/summary -->
+  <meta property="twitter:card" content="summary"/>
+  <meta property="twitter:title" content="Building many similar models: easy variable substitution with &#39;pack&#39; and &#39;across&#39;"/>
+  <meta property="twitter:description" content="SDP surveys include data on the availability, cost, and demand for up to 13 family planning methods at each facility. Use one generic formula to explore independent models for client counseling on each method."/>
+
+  <!--/radix_placeholder_meta_tags-->
+  <!--radix_placeholder_rmarkdown_metadata-->
+
+  <script type="text/json" id="radix-rmarkdown-metadata">
+  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","author","date","output","categories","preview"]}},"value":[{"type":"character","attributes":{},"value":["Building many similar models: easy variable substitution with 'pack' and 'across'"]},{"type":"character","attributes":{},"value":["SDP surveys include data on the availability, cost, and demand for up to 13 family planning methods at each facility. Use one generic formula to explore independent models for client counseling on each method.\n"]},{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","affiliation"]}},"value":[{"type":"character","attributes":{},"value":["Matt Gunther"]},{"type":"character","attributes":{},"value":["IPUMS PMA Senior Data Analyst"]}]}]},{"type":"character","attributes":{},"value":["2022-01-15"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["self_contained","toc","toc_depth","toc_float"]}},"value":[{"type":"logical","attributes":{},"value":[false]},{"type":"logical","attributes":{},"value":[true]},{"type":"integer","attributes":{},"value":[3]},{"type":"logical","attributes":{},"value":[true]}]}]},{"type":"character","attributes":{},"value":["Client Exit Interviews","Service Delivery Points","Data Manipulation","across","pack","glm"]},{"type":"character","attributes":{},"value":["images/tbl_regression.png"]}]}
+  </script>
+  <!--/radix_placeholder_rmarkdown_metadata-->
+  
+  <script type="text/json" id="radix-resource-manifest">
+  {"type":"character","attributes":{},"value":["cei-sdp_files/anchor-4.2.2/anchor.min.js","cei-sdp_files/bowser-1.9.3/bowser.min.js","cei-sdp_files/distill-2.2.21/template.v2.js","cei-sdp_files/figure-html5/unnamed-chunk-2-1.png","cei-sdp_files/figure-html5/unnamed-chunk-3-1.png","cei-sdp_files/figure-html5/unnamed-chunk-4-1.png","cei-sdp_files/figure-html5/unnamed-chunk-4-2.png","cei-sdp_files/figure-html5/unnamed-chunk-5-1.png","cei-sdp_files/figure-html5/unnamed-chunk-5-2.png","cei-sdp_files/figure-html5/unnamed-chunk-6-1.png","cei-sdp_files/figure-html5/unnamed-chunk-7-1.png","cei-sdp_files/header-attrs-2.11/header-attrs.js","cei-sdp_files/jquery-3.6.0/jquery-3.6.0.js","cei-sdp_files/jquery-3.6.0/jquery-3.6.0.min.js","cei-sdp_files/jquery-3.6.0/jquery-3.6.0.min.map","cei-sdp_files/kePrint-0.0.1/kePrint.js","cei-sdp_files/lightable-0.0.1/lightable.css","cei-sdp_files/popper-2.6.0/popper.min.js","cei-sdp_files/tippy-6.2.7/tippy-bundle.umd.min.js","cei-sdp_files/tippy-6.2.7/tippy-light-border.css","cei-sdp_files/tippy-6.2.7/tippy.css","cei-sdp_files/tippy-6.2.7/tippy.umd.min.js","cei-sdp_files/webcomponents-2.0.0/webcomponents.js","data/method_vars.csv","data/tbl_regression.rds","images/iudobs.png","images/iudout3mo.png","images/tbl_regression.png"]}
+  </script>
+  <!--radix_placeholder_navigation_in_header-->
+  <!--/radix_placeholder_navigation_in_header-->
+  <!--radix_placeholder_distill-->
+
+  <style type="text/css">
+
+  body {
+    background-color: white;
+  }
+
+  .pandoc-table {
+    width: 100%;
+  }
+
+  .pandoc-table>caption {
+    margin-bottom: 10px;
+  }
+
+  .pandoc-table th:not([align]) {
+    text-align: left;
+  }
+
+  .pagedtable-footer {
+    font-size: 15px;
+  }
+
+  d-byline .byline {
+    grid-template-columns: 2fr 2fr;
+  }
+
+  d-byline .byline h3 {
+    margin-block-start: 1.5em;
+  }
+
+  d-byline .byline .authors-affiliations h3 {
+    margin-block-start: 0.5em;
+  }
+
+  .authors-affiliations .orcid-id {
+    width: 16px;
+    height:16px;
+    margin-left: 4px;
+    margin-right: 4px;
+    vertical-align: middle;
+    padding-bottom: 2px;
+  }
+
+  d-title .dt-tags {
+    margin-top: 1em;
+    grid-column: text;
+  }
+
+  .dt-tags .dt-tag {
+    text-decoration: none;
+    display: inline-block;
+    color: rgba(0,0,0,0.6);
+    padding: 0em 0.4em;
+    margin-right: 0.5em;
+    margin-bottom: 0.4em;
+    font-size: 70%;
+    border: 1px solid rgba(0,0,0,0.2);
+    border-radius: 3px;
+    text-transform: uppercase;
+    font-weight: 500;
+  }
+
+  d-article table.gt_table td,
+  d-article table.gt_table th {
+    border-bottom: none;
+  }
+
+  .html-widget {
+    margin-bottom: 2.0em;
+  }
+
+  .l-screen-inset {
+    padding-right: 16px;
+  }
+
+  .l-screen .caption {
+    margin-left: 10px;
+  }
+
+  .shaded {
+    background: rgb(247, 247, 247);
+    padding-top: 20px;
+    padding-bottom: 20px;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  }
+
+  .shaded .html-widget {
+    margin-bottom: 0;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+  }
+
+  .shaded .shaded-content {
+    background: white;
+  }
+
+  .text-output {
+    margin-top: 0;
+    line-height: 1.5em;
+  }
+
+  .hidden {
+    display: none !important;
+  }
+
+  d-article {
+    padding-top: 2.5rem;
+    padding-bottom: 30px;
+  }
+
+  d-appendix {
+    padding-top: 30px;
+  }
+
+  d-article>p>img {
+    width: 100%;
+  }
+
+  d-article h2 {
+    margin: 1rem 0 1.5rem 0;
+  }
+
+  d-article h3 {
+    margin-top: 1.5rem;
+  }
+
+  d-article iframe {
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    margin-bottom: 2.0em;
+    width: 100%;
+  }
+
+  /* Tweak code blocks */
+
+  d-article div.sourceCode code,
+  d-article pre code {
+    font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+  }
+
+  d-article pre,
+  d-article div.sourceCode,
+  d-article div.sourceCode pre {
+    overflow: auto;
+  }
+
+  d-article div.sourceCode {
+    background-color: white;
+  }
+
+  d-article div.sourceCode pre {
+    padding-left: 10px;
+    font-size: 12px;
+    border-left: 2px solid rgba(0,0,0,0.1);
+  }
+
+  d-article pre {
+    font-size: 12px;
+    color: black;
+    background: none;
+    margin-top: 0;
+    text-align: left;
+    white-space: pre;
+    word-spacing: normal;
+    word-break: normal;
+    word-wrap: normal;
+    line-height: 1.5;
+
+    -moz-tab-size: 4;
+    -o-tab-size: 4;
+    tab-size: 4;
+
+    -webkit-hyphens: none;
+    -moz-hyphens: none;
+    -ms-hyphens: none;
+    hyphens: none;
+  }
+
+  d-article pre a {
+    border-bottom: none;
+  }
+
+  d-article pre a:hover {
+    border-bottom: none;
+    text-decoration: underline;
+  }
+
+  d-article details {
+    grid-column: text;
+    margin-bottom: 0.8em;
+  }
+
+  @media(min-width: 768px) {
+
+  d-article pre,
+  d-article div.sourceCode,
+  d-article div.sourceCode pre {
+    overflow: visible !important;
+  }
+
+  d-article div.sourceCode pre {
+    padding-left: 18px;
+    font-size: 14px;
+  }
+
+  d-article pre {
+    font-size: 14px;
+  }
+
+  }
+
+  figure img.external {
+    background: white;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    box-shadow: 0 1px 8px rgba(0, 0, 0, 0.1);
+    padding: 18px;
+    box-sizing: border-box;
+  }
+
+  /* CSS for d-contents */
+
+  .d-contents {
+    grid-column: text;
+    color: rgba(0,0,0,0.8);
+    font-size: 0.9em;
+    padding-bottom: 1em;
+    margin-bottom: 1em;
+    padding-bottom: 0.5em;
+    margin-bottom: 1em;
+    padding-left: 0.25em;
+    justify-self: start;
+  }
+
+  @media(min-width: 1000px) {
+    .d-contents.d-contents-float {
+      height: 0;
+      grid-column-start: 1;
+      grid-column-end: 4;
+      justify-self: center;
+      padding-right: 3em;
+      padding-left: 2em;
+    }
+  }
+
+  .d-contents nav h3 {
+    font-size: 18px;
+    margin-top: 0;
+    margin-bottom: 1em;
+  }
+
+  .d-contents li {
+    list-style-type: none
+  }
+
+  .d-contents nav > ul {
+    padding-left: 0;
+  }
+
+  .d-contents ul {
+    padding-left: 1em
+  }
+
+  .d-contents nav ul li {
+    margin-top: 0.6em;
+    margin-bottom: 0.2em;
+  }
+
+  .d-contents nav a {
+    font-size: 13px;
+    border-bottom: none;
+    text-decoration: none
+    color: rgba(0, 0, 0, 0.8);
+  }
+
+  .d-contents nav a:hover {
+    text-decoration: underline solid rgba(0, 0, 0, 0.6)
+  }
+
+  .d-contents nav > ul > li > a {
+    font-weight: 600;
+  }
+
+  .d-contents nav > ul > li > ul {
+    font-weight: inherit;
+  }
+
+  .d-contents nav > ul > li > ul > li {
+    margin-top: 0.2em;
+  }
+
+
+  .d-contents nav ul {
+    margin-top: 0;
+    margin-bottom: 0.25em;
+  }
+
+  .d-article-with-toc h2:nth-child(2) {
+    margin-top: 0;
+  }
+
+
+  /* Figure */
+
+  .figure {
+    position: relative;
+    margin-bottom: 2.5em;
+    margin-top: 1.5em;
+  }
+
+  .figure img {
+    width: 100%;
+  }
+
+  .figure .caption {
+    color: rgba(0, 0, 0, 0.6);
+    font-size: 12px;
+    line-height: 1.5em;
+  }
+
+  .figure img.external {
+    background: white;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    box-shadow: 0 1px 8px rgba(0, 0, 0, 0.1);
+    padding: 18px;
+    box-sizing: border-box;
+  }
+
+  .figure .caption a {
+    color: rgba(0, 0, 0, 0.6);
+  }
+
+  .figure .caption b,
+  .figure .caption strong, {
+    font-weight: 600;
+    color: rgba(0, 0, 0, 1.0);
+  }
+
+  /* Citations */
+
+  d-article .citation {
+    color: inherit;
+    cursor: inherit;
+  }
+
+  div.hanging-indent{
+    margin-left: 1em; text-indent: -1em;
+  }
+
+  /* Citation hover box */
+
+  .tippy-box[data-theme~=light-border] {
+    background-color: rgba(250, 250, 250, 0.95);
+  }
+
+  .tippy-content > p {
+    margin-bottom: 0;
+    padding: 2px;
+  }
+
+
+  /* Tweak 1000px media break to show more text */
+
+  @media(min-width: 1000px) {
+    .base-grid,
+    distill-header,
+    d-title,
+    d-abstract,
+    d-article,
+    d-appendix,
+    distill-appendix,
+    d-byline,
+    d-footnote-list,
+    d-citation-list,
+    distill-footer {
+      grid-template-columns: [screen-start] 1fr [page-start kicker-start] 80px [middle-start] 50px [text-start kicker-end] 65px 65px 65px 65px 65px 65px 65px 65px [text-end gutter-start] 65px [middle-end] 65px [page-end gutter-end] 1fr [screen-end];
+      grid-column-gap: 16px;
+    }
+
+    .grid {
+      grid-column-gap: 16px;
+    }
+
+    d-article {
+      font-size: 1.06rem;
+      line-height: 1.7em;
+    }
+    figure .caption, .figure .caption, figure figcaption {
+      font-size: 13px;
+    }
+  }
+
+  @media(min-width: 1180px) {
+    .base-grid,
+    distill-header,
+    d-title,
+    d-abstract,
+    d-article,
+    d-appendix,
+    distill-appendix,
+    d-byline,
+    d-footnote-list,
+    d-citation-list,
+    distill-footer {
+      grid-template-columns: [screen-start] 1fr [page-start kicker-start] 60px [middle-start] 60px [text-start kicker-end] 60px 60px 60px 60px 60px 60px 60px 60px [text-end gutter-start] 60px [middle-end] 60px [page-end gutter-end] 1fr [screen-end];
+      grid-column-gap: 32px;
+    }
+
+    .grid {
+      grid-column-gap: 32px;
+    }
+  }
+
+
+  /* Get the citation styles for the appendix (not auto-injected on render since
+     we do our own rendering of the citation appendix) */
+
+  d-appendix .citation-appendix,
+  .d-appendix .citation-appendix {
+    font-size: 11px;
+    line-height: 15px;
+    border-left: 1px solid rgba(0, 0, 0, 0.1);
+    padding-left: 18px;
+    border: 1px solid rgba(0,0,0,0.1);
+    background: rgba(0, 0, 0, 0.02);
+    padding: 10px 18px;
+    border-radius: 3px;
+    color: rgba(150, 150, 150, 1);
+    overflow: hidden;
+    margin-top: -12px;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+  }
+
+  /* Include appendix styles here so they can be overridden */
+
+  d-appendix {
+    contain: layout style;
+    font-size: 0.8em;
+    line-height: 1.7em;
+    margin-top: 60px;
+    margin-bottom: 0;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    color: rgba(0,0,0,0.5);
+    padding-top: 60px;
+    padding-bottom: 48px;
+  }
+
+  d-appendix h3 {
+    grid-column: page-start / text-start;
+    font-size: 15px;
+    font-weight: 500;
+    margin-top: 1em;
+    margin-bottom: 0;
+    color: rgba(0,0,0,0.65);
+  }
+
+  d-appendix h3 + * {
+    margin-top: 1em;
+  }
+
+  d-appendix ol {
+    padding: 0 0 0 15px;
+  }
+
+  @media (min-width: 768px) {
+    d-appendix ol {
+      padding: 0 0 0 30px;
+      margin-left: -30px;
+    }
+  }
+
+  d-appendix li {
+    margin-bottom: 1em;
+  }
+
+  d-appendix a {
+    color: rgba(0, 0, 0, 0.6);
+  }
+
+  d-appendix > * {
+    grid-column: text;
+  }
+
+  d-appendix > d-footnote-list,
+  d-appendix > d-citation-list,
+  d-appendix > distill-appendix {
+    grid-column: screen;
+  }
+
+  /* Include footnote styles here so they can be overridden */
+
+  d-footnote-list {
+    contain: layout style;
+  }
+
+  d-footnote-list > * {
+    grid-column: text;
+  }
+
+  d-footnote-list a.footnote-backlink {
+    color: rgba(0,0,0,0.3);
+    padding-left: 0.5em;
+  }
+
+
+
+  /* Anchor.js */
+
+  .anchorjs-link {
+    /*transition: all .25s linear; */
+    text-decoration: none;
+    border-bottom: none;
+  }
+  *:hover > .anchorjs-link {
+    margin-left: -1.125em !important;
+    text-decoration: none;
+    border-bottom: none;
+  }
+
+  /* Social footer */
+
+  .social_footer {
+    margin-top: 30px;
+    margin-bottom: 0;
+    color: rgba(0,0,0,0.67);
+  }
+
+  .disqus-comments {
+    margin-right: 30px;
+  }
+
+  .disqus-comment-count {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.4);
+    cursor: pointer;
+  }
+
+  #disqus_thread {
+    margin-top: 30px;
+  }
+
+  .article-sharing a {
+    border-bottom: none;
+    margin-right: 8px;
+  }
+
+  .article-sharing a:hover {
+    border-bottom: none;
+  }
+
+  .sidebar-section.subscribe {
+    font-size: 12px;
+    line-height: 1.6em;
+  }
+
+  .subscribe p {
+    margin-bottom: 0.5em;
+  }
+
+
+  .article-footer .subscribe {
+    font-size: 15px;
+    margin-top: 45px;
+  }
+
+
+  .sidebar-section.custom {
+    font-size: 12px;
+    line-height: 1.6em;
+  }
+
+  .custom p {
+    margin-bottom: 0.5em;
+  }
+
+  /* Styles for listing layout (hide title) */
+  .layout-listing d-title, .layout-listing .d-title {
+    display: none;
+  }
+
+  /* Styles for posts lists (not auto-injected) */
+
+
+  .posts-with-sidebar {
+    padding-left: 45px;
+    padding-right: 45px;
+  }
+
+  .posts-list .description h2,
+  .posts-list .description p {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", Arial, sans-serif;
+  }
+
+  .posts-list .description h2 {
+    font-weight: 700;
+    border-bottom: none;
+    padding-bottom: 0;
+  }
+
+  .posts-list h2.post-tag {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+    padding-bottom: 12px;
+  }
+  .posts-list {
+    margin-top: 60px;
+    margin-bottom: 24px;
+  }
+
+  .posts-list .post-preview {
+    text-decoration: none;
+    overflow: hidden;
+    display: block;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    padding: 24px 0;
+  }
+
+  .post-preview-last {
+    border-bottom: none !important;
+  }
+
+  .posts-list .posts-list-caption {
+    grid-column: screen;
+    font-weight: 400;
+  }
+
+  .posts-list .post-preview h2 {
+    margin: 0 0 6px 0;
+    line-height: 1.2em;
+    font-style: normal;
+    font-size: 24px;
+  }
+
+  .posts-list .post-preview p {
+    margin: 0 0 12px 0;
+    line-height: 1.4em;
+    font-size: 16px;
+  }
+
+  .posts-list .post-preview .thumbnail {
+    box-sizing: border-box;
+    margin-bottom: 24px;
+    position: relative;
+    max-width: 500px;
+  }
+  .posts-list .post-preview img {
+    width: 100%;
+    display: block;
+  }
+
+  .posts-list .metadata {
+    font-size: 12px;
+    line-height: 1.4em;
+    margin-bottom: 18px;
+  }
+
+  .posts-list .metadata > * {
+    display: inline-block;
+  }
+
+  .posts-list .metadata .publishedDate {
+    margin-right: 2em;
+  }
+
+  .posts-list .metadata .dt-authors {
+    display: block;
+    margin-top: 0.3em;
+    margin-right: 2em;
+  }
+
+  .posts-list .dt-tags {
+    display: block;
+    line-height: 1em;
+  }
+
+  .posts-list .dt-tags .dt-tag {
+    display: inline-block;
+    color: rgba(0,0,0,0.6);
+    padding: 0.3em 0.4em;
+    margin-right: 0.2em;
+    margin-bottom: 0.4em;
+    font-size: 60%;
+    border: 1px solid rgba(0,0,0,0.2);
+    border-radius: 3px;
+    text-transform: uppercase;
+    font-weight: 500;
+  }
+
+  .posts-list img {
+    opacity: 1;
+  }
+
+  .posts-list img[data-src] {
+    opacity: 0;
+  }
+
+  .posts-more {
+    clear: both;
+  }
+
+
+  .posts-sidebar {
+    font-size: 16px;
+  }
+
+  .posts-sidebar h3 {
+    font-size: 16px;
+    margin-top: 0;
+    margin-bottom: 0.5em;
+    font-weight: 400;
+    text-transform: uppercase;
+  }
+
+  .sidebar-section {
+    margin-bottom: 30px;
+  }
+
+  .categories ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .categories li {
+    color: rgba(0, 0, 0, 0.8);
+    margin-bottom: 0;
+  }
+
+  .categories li>a {
+    border-bottom: none;
+  }
+
+  .categories li>a:hover {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.4);
+  }
+
+  .categories .active {
+    font-weight: 600;
+  }
+
+  .categories .category-count {
+    color: rgba(0, 0, 0, 0.4);
+  }
+
+
+  @media(min-width: 768px) {
+    .posts-list .post-preview h2 {
+      font-size: 26px;
+    }
+    .posts-list .post-preview .thumbnail {
+      float: right;
+      width: 30%;
+      margin-bottom: 0;
+    }
+    .posts-list .post-preview .description {
+      float: left;
+      width: 45%;
+    }
+    .posts-list .post-preview .metadata {
+      float: left;
+      width: 20%;
+      margin-top: 8px;
+    }
+    .posts-list .post-preview p {
+      margin: 0 0 12px 0;
+      line-height: 1.5em;
+      font-size: 16px;
+    }
+    .posts-with-sidebar .posts-list {
+      float: left;
+      width: 75%;
+    }
+    .posts-with-sidebar .posts-sidebar {
+      float: right;
+      width: 20%;
+      margin-top: 60px;
+      padding-top: 24px;
+      padding-bottom: 24px;
+    }
+  }
+
+
+  /* Improve display for browsers without grid (IE/Edge <= 15) */
+
+  .downlevel {
+    line-height: 1.6em;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", Arial, sans-serif;
+    margin: 0;
+  }
+
+  .downlevel .d-title {
+    padding-top: 6rem;
+    padding-bottom: 1.5rem;
+  }
+
+  .downlevel .d-title h1 {
+    font-size: 50px;
+    font-weight: 700;
+    line-height: 1.1em;
+    margin: 0 0 0.5rem;
+  }
+
+  .downlevel .d-title p {
+    font-weight: 300;
+    font-size: 1.2rem;
+    line-height: 1.55em;
+    margin-top: 0;
+  }
+
+  .downlevel .d-byline {
+    padding-top: 0.8em;
+    padding-bottom: 0.8em;
+    font-size: 0.8rem;
+    line-height: 1.8em;
+  }
+
+  .downlevel .section-separator {
+    border: none;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+  }
+
+  .downlevel .d-article {
+    font-size: 1.06rem;
+    line-height: 1.7em;
+    padding-top: 1rem;
+    padding-bottom: 2rem;
+  }
+
+
+  .downlevel .d-appendix {
+    padding-left: 0;
+    padding-right: 0;
+    max-width: none;
+    font-size: 0.8em;
+    line-height: 1.7em;
+    margin-bottom: 0;
+    color: rgba(0,0,0,0.5);
+    padding-top: 40px;
+    padding-bottom: 48px;
+  }
+
+  .downlevel .footnotes ol {
+    padding-left: 13px;
+  }
+
+  .downlevel .base-grid,
+  .downlevel .distill-header,
+  .downlevel .d-title,
+  .downlevel .d-abstract,
+  .downlevel .d-article,
+  .downlevel .d-appendix,
+  .downlevel .distill-appendix,
+  .downlevel .d-byline,
+  .downlevel .d-footnote-list,
+  .downlevel .d-citation-list,
+  .downlevel .distill-footer,
+  .downlevel .appendix-bottom,
+  .downlevel .posts-container {
+    padding-left: 40px;
+    padding-right: 40px;
+  }
+
+  @media(min-width: 768px) {
+    .downlevel .base-grid,
+    .downlevel .distill-header,
+    .downlevel .d-title,
+    .downlevel .d-abstract,
+    .downlevel .d-article,
+    .downlevel .d-appendix,
+    .downlevel .distill-appendix,
+    .downlevel .d-byline,
+    .downlevel .d-footnote-list,
+    .downlevel .d-citation-list,
+    .downlevel .distill-footer,
+    .downlevel .appendix-bottom,
+    .downlevel .posts-container {
+    padding-left: 150px;
+    padding-right: 150px;
+    max-width: 900px;
+  }
+  }
+
+  .downlevel pre code {
+    display: block;
+    border-left: 2px solid rgba(0, 0, 0, .1);
+    padding: 0 0 0 20px;
+    font-size: 14px;
+  }
+
+  .downlevel code, .downlevel pre {
+    color: black;
+    background: none;
+    font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+    text-align: left;
+    white-space: pre;
+    word-spacing: normal;
+    word-break: normal;
+    word-wrap: normal;
+    line-height: 1.5;
+
+    -moz-tab-size: 4;
+    -o-tab-size: 4;
+    tab-size: 4;
+
+    -webkit-hyphens: none;
+    -moz-hyphens: none;
+    -ms-hyphens: none;
+    hyphens: none;
+  }
+
+  .downlevel .posts-list .post-preview {
+    color: inherit;
+  }
+
+
+
+  </style>
+
+  <script type="application/javascript">
+
+  function is_downlevel_browser() {
+    if (bowser.isUnsupportedBrowser({ msie: "12", msedge: "16"},
+                                   window.navigator.userAgent)) {
+      return true;
+    } else {
+      return window.load_distill_framework === undefined;
+    }
+  }
+
+  // show body when load is complete
+  function on_load_complete() {
+
+    // add anchors
+    if (window.anchors) {
+      window.anchors.options.placement = 'left';
+      window.anchors.add('d-article > h2, d-article > h3, d-article > h4, d-article > h5');
+    }
+
+
+    // set body to visible
+    document.body.style.visibility = 'visible';
+
+    // force redraw for leaflet widgets
+    if (window.HTMLWidgets) {
+      var maps = window.HTMLWidgets.findAll(".leaflet");
+      $.each(maps, function(i, el) {
+        var map = this.getMap();
+        map.invalidateSize();
+        map.eachLayer(function(layer) {
+          if (layer instanceof L.TileLayer)
+            layer.redraw();
+        });
+      });
+    }
+
+    // trigger 'shown' so htmlwidgets resize
+    $('d-article').trigger('shown');
+  }
+
+  function init_distill() {
+
+    init_common();
+
+    // create front matter
+    var front_matter = $('<d-front-matter></d-front-matter>');
+    $('#distill-front-matter').wrap(front_matter);
+
+    // create d-title
+    $('.d-title').changeElementType('d-title');
+
+    // create d-byline
+    var byline = $('<d-byline></d-byline>');
+    $('.d-byline').replaceWith(byline);
+
+    // create d-article
+    var article = $('<d-article></d-article>');
+    $('.d-article').wrap(article).children().unwrap();
+
+    // move posts container into article
+    $('.posts-container').appendTo($('d-article'));
+
+    // create d-appendix
+    $('.d-appendix').changeElementType('d-appendix');
+
+    // flag indicating that we have appendix items
+    var appendix = $('.appendix-bottom').children('h3').length > 0;
+
+    // replace footnotes with <d-footnote>
+    $('.footnote-ref').each(function(i, val) {
+      appendix = true;
+      var href = $(this).attr('href');
+      var id = href.replace('#', '');
+      var fn = $('#' + id);
+      var fn_p = $('#' + id + '>p');
+      fn_p.find('.footnote-back').remove();
+      var text = fn_p.html();
+      var dtfn = $('<d-footnote></d-footnote>');
+      dtfn.html(text);
+      $(this).replaceWith(dtfn);
+    });
+    // remove footnotes
+    $('.footnotes').remove();
+
+    // move refs into #references-listing
+    $('#references-listing').replaceWith($('#refs'));
+
+    $('h1.appendix, h2.appendix').each(function(i, val) {
+      $(this).changeElementType('h3');
+    });
+    $('h3.appendix').each(function(i, val) {
+      var id = $(this).attr('id');
+      $('.d-contents a[href="#' + id + '"]').parent().remove();
+      appendix = true;
+      $(this).nextUntil($('h1, h2, h3')).addBack().appendTo($('d-appendix'));
+    });
+
+    // show d-appendix if we have appendix content
+    $("d-appendix").css('display', appendix ? 'grid' : 'none');
+
+    // localize layout chunks to just output
+    $('.layout-chunk').each(function(i, val) {
+
+      // capture layout
+      var layout = $(this).attr('data-layout');
+
+      // apply layout to markdown level block elements
+      var elements = $(this).children().not('details, div.sourceCode, pre, script');
+      elements.each(function(i, el) {
+        var layout_div = $('<div class="' + layout + '"></div>');
+        if (layout_div.hasClass('shaded')) {
+          var shaded_content = $('<div class="shaded-content"></div>');
+          $(this).wrap(shaded_content);
+          $(this).parent().wrap(layout_div);
+        } else {
+          $(this).wrap(layout_div);
+        }
+      });
+
+
+      // unwrap the layout-chunk div
+      $(this).children().unwrap();
+    });
+
+    // remove code block used to force  highlighting css
+    $('.distill-force-highlighting-css').parent().remove();
+
+    // remove empty line numbers inserted by pandoc when using a
+    // custom syntax highlighting theme
+    $('code.sourceCode a:empty').remove();
+
+    // load distill framework
+    load_distill_framework();
+
+    // wait for window.distillRunlevel == 4 to do post processing
+    function distill_post_process() {
+
+      if (!window.distillRunlevel || window.distillRunlevel < 4)
+        return;
+
+      // hide author/affiliations entirely if we have no authors
+      var front_matter = JSON.parse($("#distill-front-matter").html());
+      var have_authors = front_matter.authors && front_matter.authors.length > 0;
+      if (!have_authors)
+        $('d-byline').addClass('hidden');
+
+      // article with toc class
+      $('.d-contents').parent().addClass('d-article-with-toc');
+
+      // strip links that point to #
+      $('.authors-affiliations').find('a[href="#"]').removeAttr('href');
+
+      // add orcid ids
+      $('.authors-affiliations').find('.author').each(function(i, el) {
+        var orcid_id = front_matter.authors[i].orcidID;
+        if (orcid_id) {
+          var a = $('<a></a>');
+          a.attr('href', 'https://orcid.org/' + orcid_id);
+          var img = $('<img></img>');
+          img.addClass('orcid-id');
+          img.attr('alt', 'ORCID ID');
+          img.attr('src','data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA2ZpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDo1N0NEMjA4MDI1MjA2ODExOTk0QzkzNTEzRjZEQTg1NyIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDozM0NDOEJGNEZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDozM0NDOEJGM0ZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ1M1IE1hY2ludG9zaCI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOkZDN0YxMTc0MDcyMDY4MTE5NUZFRDc5MUM2MUUwNEREIiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjU3Q0QyMDgwMjUyMDY4MTE5OTRDOTM1MTNGNkRBODU3Ii8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+84NovQAAAR1JREFUeNpiZEADy85ZJgCpeCB2QJM6AMQLo4yOL0AWZETSqACk1gOxAQN+cAGIA4EGPQBxmJA0nwdpjjQ8xqArmczw5tMHXAaALDgP1QMxAGqzAAPxQACqh4ER6uf5MBlkm0X4EGayMfMw/Pr7Bd2gRBZogMFBrv01hisv5jLsv9nLAPIOMnjy8RDDyYctyAbFM2EJbRQw+aAWw/LzVgx7b+cwCHKqMhjJFCBLOzAR6+lXX84xnHjYyqAo5IUizkRCwIENQQckGSDGY4TVgAPEaraQr2a4/24bSuoExcJCfAEJihXkWDj3ZAKy9EJGaEo8T0QSxkjSwORsCAuDQCD+QILmD1A9kECEZgxDaEZhICIzGcIyEyOl2RkgwAAhkmC+eAm0TAAAAABJRU5ErkJggg==');
+          a.append(img);
+          $(this).append(a);
+        }
+      });
+
+      // hide elements of author/affiliations grid that have no value
+      function hide_byline_column(caption) {
+        $('d-byline').find('h3:contains("' + caption + '")').parent().css('visibility', 'hidden');
+      }
+
+      // affiliations
+      var have_affiliations = false;
+      for (var i = 0; i<front_matter.authors.length; ++i) {
+        var author = front_matter.authors[i];
+        if (author.affiliation !== "&nbsp;") {
+          have_affiliations = true;
+          break;
+        }
+      }
+      if (!have_affiliations)
+        $('d-byline').find('h3:contains("Affiliations")').css('visibility', 'hidden');
+
+      // published date
+      if (!front_matter.publishedDate)
+        hide_byline_column("Published");
+
+      // document object identifier
+      var doi = $('d-byline').find('h3:contains("DOI")');
+      var doi_p = doi.next().empty();
+      if (!front_matter.doi) {
+        // if we have a citation and valid citationText then link to that
+        if ($('#citation').length > 0 && front_matter.citationText) {
+          doi.html('Citation');
+          $('<a href="#citation"></a>')
+            .text(front_matter.citationText)
+            .appendTo(doi_p);
+        } else {
+          hide_byline_column("DOI");
+        }
+      } else {
+        $('<a></a>')
+           .attr('href', "https://doi.org/" + front_matter.doi)
+           .html(front_matter.doi)
+           .appendTo(doi_p);
+      }
+
+       // change plural form of authors/affiliations
+      if (front_matter.authors.length === 1) {
+        var grid = $('.authors-affiliations');
+        grid.children('h3:contains("Authors")').text('Author');
+        grid.children('h3:contains("Affiliations")').text('Affiliation');
+      }
+
+      // remove d-appendix and d-footnote-list local styles
+      $('d-appendix > style:first-child').remove();
+      $('d-footnote-list > style:first-child').remove();
+
+      // move appendix-bottom entries to the bottom
+      $('.appendix-bottom').appendTo('d-appendix').children().unwrap();
+      $('.appendix-bottom').remove();
+
+      // hoverable references
+      $('span.citation[data-cites]').each(function() {
+        var refs = $(this).attr('data-cites').split(" ");
+        var refHtml = refs.map(function(ref) {
+          return "<p>" + $('#ref-' + ref).html() + "</p>";
+        }).join("\n");
+        window.tippy(this, {
+          allowHTML: true,
+          content: refHtml,
+          maxWidth: 500,
+          interactive: true,
+          interactiveBorder: 10,
+          theme: 'light-border',
+          placement: 'bottom-start'
+        });
+      });
+
+      // clear polling timer
+      clearInterval(tid);
+
+      // show body now that everything is ready
+      on_load_complete();
+    }
+
+    var tid = setInterval(distill_post_process, 50);
+    distill_post_process();
+
+  }
+
+  function init_downlevel() {
+
+    init_common();
+
+     // insert hr after d-title
+    $('.d-title').after($('<hr class="section-separator"/>'));
+
+    // check if we have authors
+    var front_matter = JSON.parse($("#distill-front-matter").html());
+    var have_authors = front_matter.authors && front_matter.authors.length > 0;
+
+    // manage byline/border
+    if (!have_authors)
+      $('.d-byline').remove();
+    $('.d-byline').after($('<hr class="section-separator"/>'));
+    $('.d-byline a').remove();
+
+    // remove toc
+    $('.d-contents').remove();
+
+    // move appendix elements
+    $('h1.appendix, h2.appendix').each(function(i, val) {
+      $(this).changeElementType('h3');
+    });
+    $('h3.appendix').each(function(i, val) {
+      $(this).nextUntil($('h1, h2, h3')).addBack().appendTo($('.d-appendix'));
+    });
+
+
+    // inject headers into references and footnotes
+    var refs_header = $('<h3></h3>');
+    refs_header.text('References');
+    $('#refs').prepend(refs_header);
+
+    var footnotes_header = $('<h3></h3');
+    footnotes_header.text('Footnotes');
+    $('.footnotes').children('hr').first().replaceWith(footnotes_header);
+
+    // move appendix-bottom entries to the bottom
+    $('.appendix-bottom').appendTo('.d-appendix').children().unwrap();
+    $('.appendix-bottom').remove();
+
+    // remove appendix if it's empty
+    if ($('.d-appendix').children().length === 0)
+      $('.d-appendix').remove();
+
+    // prepend separator above appendix
+    $('.d-appendix').before($('<hr class="section-separator" style="clear: both"/>'));
+
+    // trim code
+    $('pre>code').each(function(i, val) {
+      $(this).html($.trim($(this).html()));
+    });
+
+    // move posts-container right before article
+    $('.posts-container').insertBefore($('.d-article'));
+
+    $('body').addClass('downlevel');
+
+    on_load_complete();
+  }
+
+
+  function init_common() {
+
+    // jquery plugin to change element types
+    (function($) {
+      $.fn.changeElementType = function(newType) {
+        var attrs = {};
+
+        $.each(this[0].attributes, function(idx, attr) {
+          attrs[attr.nodeName] = attr.nodeValue;
+        });
+
+        this.replaceWith(function() {
+          return $("<" + newType + "/>", attrs).append($(this).contents());
+        });
+      };
+    })(jQuery);
+
+    // prevent underline for linked images
+    $('a > img').parent().css({'border-bottom' : 'none'});
+
+    // mark non-body figures created by knitr chunks as 100% width
+    $('.layout-chunk').each(function(i, val) {
+      var figures = $(this).find('img, .html-widget');
+      if ($(this).attr('data-layout') !== "l-body") {
+        figures.css('width', '100%');
+      } else {
+        figures.css('max-width', '100%');
+        figures.filter("[width]").each(function(i, val) {
+          var fig = $(this);
+          fig.css('width', fig.attr('width') + 'px');
+        });
+
+      }
+    });
+
+    // auto-append index.html to post-preview links in file: protocol
+    // and in rstudio ide preview
+    $('.post-preview').each(function(i, val) {
+      if (window.location.protocol === "file:")
+        $(this).attr('href', $(this).attr('href') + "index.html");
+    });
+
+    // get rid of index.html references in header
+    if (window.location.protocol !== "file:") {
+      $('.distill-site-header a[href]').each(function(i,val) {
+        $(this).attr('href', $(this).attr('href').replace("index.html", "./"));
+      });
+    }
+
+    // add class to pandoc style tables
+    $('tr.header').parent('thead').parent('table').addClass('pandoc-table');
+    $('.kable-table').children('table').addClass('pandoc-table');
+
+    // add figcaption style to table captions
+    $('caption').parent('table').addClass("figcaption");
+
+    // initialize posts list
+    if (window.init_posts_list)
+      window.init_posts_list();
+
+    // implmement disqus comment link
+    $('.disqus-comment-count').click(function() {
+      window.headroom_prevent_pin = true;
+      $('#disqus_thread').toggleClass('hidden');
+      if (!$('#disqus_thread').hasClass('hidden')) {
+        var offset = $(this).offset();
+        $(window).resize();
+        $('html, body').animate({
+          scrollTop: offset.top - 35
+        });
+      }
+    });
+  }
+
+  document.addEventListener('DOMContentLoaded', function() {
+    if (is_downlevel_browser())
+      init_downlevel();
+    else
+      window.addEventListener('WebComponentsReady', init_distill);
+  });
+
+  </script>
+
+  <!--/radix_placeholder_distill-->
+  <script src="cei-sdp_files/header-attrs-2.11/header-attrs.js"></script>
+  <script src="cei-sdp_files/kePrint-0.0.1/kePrint.js"></script>
+  <link href="cei-sdp_files/lightable-0.0.1/lightable.css" rel="stylesheet" />
+  <script src="cei-sdp_files/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+  <script src="cei-sdp_files/popper-2.6.0/popper.min.js"></script>
+  <link href="cei-sdp_files/tippy-6.2.7/tippy.css" rel="stylesheet" />
+  <link href="cei-sdp_files/tippy-6.2.7/tippy-light-border.css" rel="stylesheet" />
+  <script src="cei-sdp_files/tippy-6.2.7/tippy.umd.min.js"></script>
+  <script src="cei-sdp_files/anchor-4.2.2/anchor.min.js"></script>
+  <script src="cei-sdp_files/bowser-1.9.3/bowser.min.js"></script>
+  <script src="cei-sdp_files/webcomponents-2.0.0/webcomponents.js"></script>
+  <script src="cei-sdp_files/distill-2.2.21/template.v2.js"></script>
+  <!--radix_placeholder_site_in_header-->
+  <!--/radix_placeholder_site_in_header-->
+
+
+</head>
+
+<body>
+
+<!--radix_placeholder_front_matter-->
+
+<script id="distill-front-matter" type="text/json">
+{"title":"Building many similar models: easy variable substitution with 'pack' and 'across'","description":"SDP surveys include data on the availability, cost, and demand for up to 13 family planning methods at each facility. Use one generic formula to explore independent models for client counseling on each method.","authors":[{"author":"Matt Gunther","authorURL":"#","affiliation":"IPUMS PMA Senior Data Analyst","affiliationURL":"#","orcidID":""}],"publishedDate":"2022-01-15T00:00:00.000-06:00","citationText":"Gunther, 2022"}
+</script>
+
+<!--/radix_placeholder_front_matter-->
+<!--radix_placeholder_navigation_before_body-->
+<!--/radix_placeholder_navigation_before_body-->
+<!--radix_placeholder_site_before_body-->
+<!--/radix_placeholder_site_before_body-->
+
+<div class="d-title">
+<h1>Building many similar models: easy variable substitution with ‘pack’ and ‘across’</h1>
+<!--radix_placeholder_categories-->
+<div class="dt-tags">
+<div class="dt=tag">Client Exit Interviews</div>
+<div class="dt=tag">Service Delivery Points</div>
+<div class="dt=tag">Data Manipulation</div>
+<div class="dt=tag">across</div>
+<div class="dt=tag">pack</div>
+<div class="dt=tag">glm</div>
+</div>
+<!--/radix_placeholder_categories-->
+<p><p>SDP surveys include data on the availability, cost, and demand for up to 13 family planning methods at each facility. Use one generic formula to explore independent models for client counseling on each method.</p></p>
+</div>
+
+<div class="d-byline">
+  Matt Gunther  (IPUMS PMA Senior Data Analyst)
+  
+<br/>2022-01-15
+</div>
+
+<div class="d-article">
+<div class="d-contents d-contents-float">
+<nav class="l-text toc figcaption" id="TOC">
+<h3>Contents</h3>
+<ul>
+<li><a href="#setup-join-cei-and-sdp-data">Setup: join CEI and SDP data</a></li>
+<li><a href="#a-conventional-workflow">A conventional workflow</a></li>
+<li><a href="#introducing-pack">Introducing <code>pack</code></a>
+<ul>
+<li><a href="#using-across-with-packs">Using <code>across</code> with packs</a></li>
+<li><a href="#modeling-with-packs">Modeling with packs</a></li>
+<li><a href="#the-parent-data-frame">The parent data frame</a></li>
+<li><a href="#unpacking">Unpacking</a></li>
+</ul></li>
+<li><a href="#just-the-code-please">Just the code, please</a>
+<ul>
+<li><a href="#conventional-workflow">Conventional workflow</a></li>
+<li><a href="#packed-workflow">Packed workflow</a></li>
+</ul></li>
+</ul>
+</nav>
+</div>
+<div class="layout-chunk" data-layout="l-body">
+
+</div>
+<p>If you’ve visited this blog before, you’ll know that we’re <em>huge</em> fans of the <a href="https://dplyr.tidyverse.org/reference/across.html">across</a> function form <a href="https://dplyr.tidyverse.org">dplyr</a> - that’s because PMA surveys feature a lot of “select all that apply” style questions where each response option gets formatted as a separate binary variable in the <a href="https://pma.ipums.org/pma/">IPUMS PMA</a> data extract system. Because we often work with several variables from the same original question, we usually want to apply the same transformations or summary procedures to a group of variables, and <code>across</code> gives us a powerful way to do that.</p>
+<p>Sometimes, we might want to use <code>across</code> in the modeling phase of a particular research project. This happens whenever we want to run a batch of similar models with identical controls, but with different dependent variables or key independent variables of interest. Ideally, we’d like to build <strong>one generic model formula</strong> and use <code>across</code> to <strong>substitute key variables</strong> in each iteration.</p>
+<p>Consider, for example, the kind of research question you might explore with the new PMA <a href="https://pma.ipums.org/pma-action/variables/group?unit_of_analysis=client">Client Exit Interview (CEI)</a> survey from Kenya, where women were asked whether they <a href="https://pma.ipums.org/pma-action/source_documents/enum_form_ke2019a_ci_tag.xml#42">received counseling</a> on several family planning methods immediately following a visit with their healthcare provider. The IPUMS PMA extract system contains one binary variable for each of these response options:</p>
+<aside>
+Check out our <a href="../2021-12-01-cei-discovery">CEI Data Discovery</a> post for an overview of the topics included in the CEI survey.
+</aside>
+<pre><code>LCL_201. Which methods were you counselled on during this visit today?
+Select all methods mentioned. Be sure to scroll to bottom to see all choices.
+You cannot select &#39;No response&#39; with other options
+
+[] Female sterilization
+[] Male sterilization
+[] Implant
+[] IUD
+[] Injectables
+[] Pill
+[] Emergency contraception
+[] Male condom
+[] Female condom
+[] Diaphragm
+[] Foam/Jelly
+[] Standard days / cycle beads
+[] LAM
+[] Rhythm method
+[] Withdrawal
+[] None of the above
+[] No response</code></pre>
+<p>You could imagine a situation where a researcher might want to model the odds that a woman received counseling on <em>each one</em> of these methods in turn. You would probably want to control for a number of individual factors like the woman’s <a href="https://pma.ipums.org/pma-action/variables/AGE">age</a>, whether she is <a href="https://pma.ipums.org/pma-action/variables/MARSTAT">married or partnered</a>, and her <a href="https://pma.ipums.org/pma-action/variables/BIRTHEVENT">birth history</a>. These variables would appear in the formula for every model. On the other hand, you might also want to substitute independent variables having to do with the availability, cost, or overall demand for a particular family planning method at the facility she visited. Is there some way we could iterate through <em>all</em> of the family planning methods in this list, substituting both dependent and independent variables relevant to a particular method?</p>
+<p>In this post, we’ll showcase an approach to this problem that combines <code>across</code> with <a href="https://tidyr.tidyverse.org/reference/pack.html">pack</a>, a little-known function from the <a href="https://tidyr.tidyverse.org">tidyr</a> package that will help us <strong>pre-select variables</strong> that “go together” in each model. If you visit the documentation page for <code>pack</code>, you’ll see that it’s marked with a blue “maturing” <a href="https://lifecycle.r-lib.org/articles/stages.html#maturing">lifecycle tag</a> - this generally means that a particular function is in a stable development stage, but that the package authors are still exploring how it might be used in practice. We think <code>pack</code> offers an excellent way to exploit <a href="https://tidyeval.tidyverse.org/sec-why-how.html">data masking</a> in certain contexts without need for more advanced tidy-evaluation operators (see <a href="https://rlang.r-lib.org/reference/topic-data-mask.html">rlang</a>). And, because <a href="https://tidyr.tidyverse.org">tidyr</a> is part of the “tidyverse”, you’ll be able to load <code>pack</code> and <code>across</code> together in one step:</p>
+<aside>
+<div class="layout-chunk" data-layout="l-body">
+<a href="https://tidyverse.tidyverse.org/">
+<img src="../../images/hex/tidyverse.png"/>
+</a>
+</div>
+© RStudio (<a href="https://creativecommons.org/publicdomain/zero/1.0/">CC0 1.0</a>)
+</aside>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://tidyverse.tidyverse.org'>tidyverse</a></span><span class='op'>)</span>
+</code></pre>
+</div>
+</div>
+<h1 id="setup-join-cei-and-sdp-data">Setup: join CEI and SDP data</h1>
+<p>Before we dive in, lets take a look at the complete list variables describing availability, cost, and demand for specific family planning methods at sampled facilities in the most recent round of PMA <a href="../2021-01-26-sdp-data/">Service Delivery Point (SDP)</a> surveys. Keep in mind: women were interviewed for CEI surveys at a sampled SDP if that facility had an average daily client volume of at least three family planning clients per day. Any of these SDP variables could be predictors in a model for the likelihood that a client received counseling on a particular method:</p>
+<div class="layout-chunk" data-layout="l-body-outset">
+<div style="margin-bottom: 1em; border: 0px solid #ddd; padding: 5px;overflow-x: scroll; width:100%; ">
+<table class="table" style="margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+Method
+</th>
+<th style="text-align:left;">
+Provides
+</th>
+<th style="text-align:left;">
+Current stock
+</th>
+<th style="text-align:left;">
+Duration current stockout
+</th>
+<th style="text-align:left;">
+Recent Stockout (3 mo)
+</th>
+<th style="text-align:left;">
+Charges for
+</th>
+<th style="text-align:left;">
+Fee (local currency)
+</th>
+<th style="text-align:left;">
+Total client visits this month
+</th>
+<th style="text-align:left;">
+New client visits this month
+</th>
+<th style="text-align:left;">
+Units sold this month
+</th>
+<th style="text-align:left;">
+Expect next shipment (unit)
+</th>
+<th style="text-align:left;">
+Expect next shipment (value)
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Male condoms
+</td>
+<td style="text-align:left;">
+<a href="https://pma.ipums.org/pma-action/variables/CONPROV" style="     ">CONPROV</a>
+</td>
+<td style="text-align:left;">
+<a href="https://pma.ipums.org/pma-action/variables/CONOBS" style="     ">CONOBS</a>
+</td>
+<td style="text-align:left;">
+<a href="https://pma.ipums.org/pma-action/variables/CONOUTDAY" style="     ">CONOUTDAY</a>
+</td>
+<td style="text-align:left;">
+<a href="https://pma.ipums.org/pma-action/variables/CONOUT3MO" style="     ">CONOUT3MO</a>
+</td>
+<td style="text-align:left;">
+<a href="https://pma.ipums.org/pma-action/variables/CONCHARGE" style="     ">CONCHARGE</a>
+</td>
+<td style="text-align:left;">
+<a href="https://pma.ipums.org/pma-action/variables/CONFEE" style="     ">CONFEE</a>
+</td>
+<td style="text-align:left;">
+<a href="https://pma.ipums.org/pma-action/variables/CONVNUMMO" style="     ">CONVNUMMO</a>
+</td>
+<td style="text-align:left;">
+<a href="https://pma.ipums.org/pma-action/variables/CONNVNUMMO" style="     ">CONNVNUMMO</a>
+</td>
+<td style="text-align:left;">
+<a href="https://pma.ipums.org/pma-action/variables/CONSOLDMO" style="     ">CONSOLDMO</a>
+</td>
+<td style="text-align:left;">
+<a href="https://pma.ipums.org/pma-action/variables/MCUNIT" style="     ">MCUNIT</a>
+</td>
+<td style="text-align:left;">
+<a href="https://pma.ipums.org/pma-action/variables/MCVAL" style="     ">MCVAL</a>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Std. Days/Cycle beads
+</td>
+<td style="text-align:left;">
+<a href="https://pma.ipums.org/pma-action/variables/CYCBPROV" style="     ">CYCBPROV</a>
+</td>
+<td style="text-align:left;">
+<a href="https://pma.ipums.org/pma-action/variables/CYCBOBS" style="     ">CYCBOBS</a>
+</td>
+<td style="text-align:left;">
+<a href="https://pma.ipums.org/pma-action/variables/CYCBOUTDAY" style="     ">CYCBOUTDAY</a>
+</td>
+<td style="text-align:left;">
+<a href="https://pma.ipums.org/pma-action/variables/CYCBOUT3MO" style="     ">CYCBOUT3MO</a>
+</td>
+<td style="text-align:left;">
+<a href="https://pma.ipums.org/pma-action/variables/CYCBCHARGE" style="     ">CYCBCHARGE</a>
+</td>
+<td style="text-align:left;">
+<a href="https://pma.ipums.org/pma-action/variables/CYCBFEE" style="     ">CYCBFEE</a>
+</td>
+<td style="text-align:left;">
+<a href="https://pma.ipums.org/pma-action/variables/CYCBVNUMMO" style="     ">CYCBVNUMMO</a>
+</td>
+<td style="text-align:left;">
+<a href="https://pma.ipums.org/pma-action/variables/CYCBNVNUMMO" style="     ">CYCBNVNUMMO</a>
+</td>
+<td style="text-align:left;">
+<a href="https://pma.ipums.org/pma-action/variables/CYCBSOLDMO" style="     ">CYCBSOLDMO</a>
+</td>
+<td style="text-align:left;">
+<a href="https://pma.ipums.org/pma-action/variables/BEADSUNIT" style="     ">BEADSUNIT</a>
+</td>
+<td style="text-align:left;">
+<a href="https://pma.ipums.org/pma-action/variables/BEADSVAL" style="     ">BEADSVAL</a>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Diaphragm
+</td>
+<td style="text-align:left;">
+<a href="https://pma.ipums.org/pma-action/variables/DIAPROV" style="     ">DIAPROV</a>
+</td>
+<td style="text-align:left;">
+<a href="https://pma.ipums.org/pma-action/variables/DIAOBS" style="     ">DIAOBS</a>
+</td>
+<td style="text-align:left;">
+<a href="https://pma.ipums.org/pma-action/variables/DIAOUTDAY" style="     ">DIAOUTDAY</a>
+</td>
+<td style="text-align:left;">
+<a href="https://pma.ipums.org/pma-action/variables/DIAOUT3MO" style="     ">DIAOUT3MO</a>
+</td>
+<td style="text-align:left;">
+<a href="https://pma.ipums.org/pma-action/variables/DIACHARGE" style="     ">DIACHARGE</a>
+</td>
+<td style="text-align:left;">
+<a href="https://pma.ipums.org/pma-action/variables/DIAFEE" style="     ">DIAFEE</a>
+</td>
+<td style="text-align:left;">
+<a href="https://pma.ipums.org/pma-action/variables/DIAVNUMMO" style="     ">DIAVNUMMO</a>
+</td>
+<td style="text-align:left;">
+<a href="https://pma.ipums.org/pma-action/variables/DIANVNUMMO" style="     ">DIANVNUMMO</a>
+</td>
+<td style="text-align:left;">
+<a href="https://pma.ipums.org/pma-action/variables/DIASOLDMO" style="     ">DIASOLDMO</a>
+</td>
+<td style="text-align:left;">
+<a href="https://pma.ipums.org/pma-action/variables/DIAUNIT" style="     ">DIAUNIT</a>
+</td>
+<td style="text-align:left;">
+<a href="https://pma.ipums.org/pma-action/variables/DIAVAL" style="     ">DIAVAL</a>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Emergency contraception
+</td>
+<td style="text-align:left;">
+<a href="https://pma.ipums.org/pma-action/variables/EMRGPROV" style="     ">EMRGPROV</a>
+</td>
+<td style="text-align:left;">
+<a href="https://pma.ipums.org/pma-action/variables/EMRGOBS" style="     ">EMRGOBS</a>
+</td>
+<td style="text-align:left;">
+<a href="https://pma.ipums.org/pma-action/variables/EMRGOUTDAY" style="     ">EMRGOUTDAY</a>
+</td>
+<td style="text-align:left;">
+<a href="https://pma.ipums.org/pma-action/variables/EMRGOUT3MO" style="     ">EMRGOUT3MO</a>
+</td>
+<td style="text-align:left;">
+<a href="https://pma.ipums.org/pma-action/variables/EMRGCHARGE" style="     ">EMRGCHARGE</a>
+</td>
+<td style="text-align:left;">
+<a href="https://pma.ipums.org/pma-action/variables/EMRGFEE" style="     ">EMRGFEE</a>
+</td>
+<td style="text-align:left;">
+<a href="https://pma.ipums.org/pma-action/variables/EMRGVNUMMO" style="     ">EMRGVNUMMO</a>
+</td>
+<td style="text-align:left;">
+<a href="https://pma.ipums.org/pma-action/variables/EMRGNVNUMMO" style="     ">EMRGNVNUMMO</a>
+</td>
+<td style="text-align:left;">
+<a href="https://pma.ipums.org/pma-action/variables/EMRGSOLDMO" style="     ">EMRGSOLDMO</a>
+</td>
+<td style="text-align:left;">
+<a href="https://pma.ipums.org/pma-action/variables/ECUNIT" style="     ">ECUNIT</a>
+</td>
+<td style="text-align:left;">
+<a href="https://pma.ipums.org/pma-action/variables/ECVAL" style="     ">ECVAL</a>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Female condom
+</td>
+<td style="text-align:left;">
+<a href="https://pma.ipums.org/pma-action/variables/FCPROV" style="     ">FCPROV</a>
+</td>
+<td style="text-align:left;">
+<a href="https://pma.ipums.org/pma-action/variables/FCOBS" style="     ">FCOBS</a>
+</td>
+<td style="text-align:left;">
+<a href="https://pma.ipums.org/pma-action/variables/FCOUTDAY" style="     ">FCOUTDAY</a>
+</td>
+<td style="text-align:left;">
+<a href="https://pma.ipums.org/pma-action/variables/FCOUT3MO" style="     ">FCOUT3MO</a>
+</td>
+<td style="text-align:left;">
+<a href="https://pma.ipums.org/pma-action/variables/FCCHARGE" style="     ">FCCHARGE</a>
+</td>
+<td style="text-align:left;">
+<a href="https://pma.ipums.org/pma-action/variables/FCFEE" style="     ">FCFEE</a>
+</td>
+<td style="text-align:left;">
+<a href="https://pma.ipums.org/pma-action/variables/FCVNUMMO" style="     ">FCVNUMMO</a>
+</td>
+<td style="text-align:left;">
+<a href="https://pma.ipums.org/pma-action/variables/FCNNUMMO" style="     ">FCNNUMMO</a>
+</td>
+<td style="text-align:left;">
+<a href="https://pma.ipums.org/pma-action/variables/FCSOLDMO" style="     ">FCSOLDMO</a>
+</td>
+<td style="text-align:left;">
+<a href="https://pma.ipums.org/pma-action/variables/FCUNIT" style="     ">FCUNIT</a>
+</td>
+<td style="text-align:left;">
+<a href="https://pma.ipums.org/pma-action/variables/FCVAL" style="     ">FCVAL</a>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Foam/Jelly
+</td>
+<td style="text-align:left;">
+<a href="https://pma.ipums.org/pma-action/variables/FJPROV" style="     ">FJPROV</a>
+</td>
+<td style="text-align:left;">
+<a href="https://pma.ipums.org/pma-action/variables/FJOBS" style="     ">FJOBS</a>
+</td>
+<td style="text-align:left;">
+<a href="https://pma.ipums.org/pma-action/variables/FJOUTDAY" style="     ">FJOUTDAY</a>
+</td>
+<td style="text-align:left;">
+<a href="https://pma.ipums.org/pma-action/variables/FJOUT3MO" style="     ">FJOUT3MO</a>
+</td>
+<td style="text-align:left;">
+<a href="https://pma.ipums.org/pma-action/variables/FJCHARGE" style="     ">FJCHARGE</a>
+</td>
+<td style="text-align:left;">
+<a href="https://pma.ipums.org/pma-action/variables/FJFEE" style="     ">FJFEE</a>
+</td>
+<td style="text-align:left;">
+<a href="https://pma.ipums.org/pma-action/variables/FJVNUMMO" style="     ">FJVNUMMO</a>
+</td>
+<td style="text-align:left;">
+<a href="https://pma.ipums.org/pma-action/variables/FJNVNUMMO" style="     ">FJNVNUMMO</a>
+</td>
+<td style="text-align:left;">
+<a href="https://pma.ipums.org/pma-action/variables/FJSOLDMO" style="     ">FJSOLDMO</a>
+</td>
+<td style="text-align:left;">
+<a href="https://pma.ipums.org/pma-action/variables/FOAMUNIT" style="     ">FOAMUNIT</a>
+</td>
+<td style="text-align:left;">
+<a href="https://pma.ipums.org/pma-action/variables/FOAMVAL" style="     ">FOAMVAL</a>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Implant
+</td>
+<td style="text-align:left;">
+<a href="https://pma.ipums.org/pma-action/variables/IMPPROV" style="     ">IMPPROV</a>
+</td>
+<td style="text-align:left;">
+<a href="https://pma.ipums.org/pma-action/variables/IMPOBS" style="     ">IMPOBS</a>
+</td>
+<td style="text-align:left;">
+<a href="https://pma.ipums.org/pma-action/variables/IMPOUTDAY" style="     ">IMPOUTDAY</a>
+</td>
+<td style="text-align:left;">
+<a href="https://pma.ipums.org/pma-action/variables/IMPOUT3MO" style="     ">IMPOUT3MO</a>
+</td>
+<td style="text-align:left;">
+<a href="https://pma.ipums.org/pma-action/variables/IMPCHARGE" style="     ">IMPCHARGE</a>
+</td>
+<td style="text-align:left;">
+<a href="https://pma.ipums.org/pma-action/variables/IMPFEE" style="     ">IMPFEE</a>
+</td>
+<td style="text-align:left;">
+<a href="https://pma.ipums.org/pma-action/variables/IMPVNUMMO" style="     ">IMPVNUMMO</a>
+</td>
+<td style="text-align:left;">
+<a href="https://pma.ipums.org/pma-action/variables/IMPNVNUMMO" style="     ">IMPNVNUMMO</a>
+</td>
+<td style="text-align:left;">
+<a href="https://pma.ipums.org/pma-action/variables/IMPSOLDMO" style="     ">IMPSOLDMO</a>
+</td>
+<td style="text-align:left;">
+<a href="https://pma.ipums.org/pma-action/variables/IMPUNIT" style="     ">IMPUNIT</a>
+</td>
+<td style="text-align:left;">
+<a href="https://pma.ipums.org/pma-action/variables/IMPVAL" style="     ">IMPVAL</a>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+IUD
+</td>
+<td style="text-align:left;">
+<a href="https://pma.ipums.org/pma-action/variables/IUDPROV" style="     ">IUDPROV</a>
+</td>
+<td style="text-align:left;">
+<a href="https://pma.ipums.org/pma-action/variables/IUDOBS" style="     ">IUDOBS</a>
+</td>
+<td style="text-align:left;">
+<a href="https://pma.ipums.org/pma-action/variables/IUDOUTDAY" style="     ">IUDOUTDAY</a>
+</td>
+<td style="text-align:left;">
+<a href="https://pma.ipums.org/pma-action/variables/IUDOUT3MO" style="     ">IUDOUT3MO</a>
+</td>
+<td style="text-align:left;">
+<a href="https://pma.ipums.org/pma-action/variables/IUDCHARGE" style="     ">IUDCHARGE</a>
+</td>
+<td style="text-align:left;">
+<a href="https://pma.ipums.org/pma-action/variables/IUDFEE" style="     ">IUDFEE</a>
+</td>
+<td style="text-align:left;">
+<a href="https://pma.ipums.org/pma-action/variables/IUDVNUMMO" style="     ">IUDVNUMMO</a>
+</td>
+<td style="text-align:left;">
+<a href="https://pma.ipums.org/pma-action/variables/IUDNVNUMMO" style="     ">IUDNVNUMMO</a>
+</td>
+<td style="text-align:left;">
+<a href="https://pma.ipums.org/pma-action/variables/IUDSOLDMO" style="     ">IUDSOLDMO</a>
+</td>
+<td style="text-align:left;">
+<a href="https://pma.ipums.org/pma-action/variables/IUDUNIT" style="     ">IUDUNIT</a>
+</td>
+<td style="text-align:left;">
+<a href="https://pma.ipums.org/pma-action/variables/IUDVAL" style="     ">IUDVAL</a>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Pill
+</td>
+<td style="text-align:left;">
+<a href="https://pma.ipums.org/pma-action/variables/PILLPROV" style="     ">PILLPROV</a>
+</td>
+<td style="text-align:left;">
+<a href="https://pma.ipums.org/pma-action/variables/PILLOBS" style="     ">PILLOBS</a>
+</td>
+<td style="text-align:left;">
+<a href="https://pma.ipums.org/pma-action/variables/PILLOUTDAY" style="     ">PILLOUTDAY</a>
+</td>
+<td style="text-align:left;">
+<a href="https://pma.ipums.org/pma-action/variables/PILLOUT3MO" style="     ">PILLOUT3MO</a>
+</td>
+<td style="text-align:left;">
+<a href="https://pma.ipums.org/pma-action/variables/PILLCHARGE" style="     ">PILLCHARGE</a>
+</td>
+<td style="text-align:left;">
+<a href="https://pma.ipums.org/pma-action/variables/PILLFEE" style="     ">PILLFEE</a>
+</td>
+<td style="text-align:left;">
+<a href="https://pma.ipums.org/pma-action/variables/PILLVNUMMO" style="     ">PILLVNUMMO</a>
+</td>
+<td style="text-align:left;">
+<a href="https://pma.ipums.org/pma-action/variables/PILLNVNUMMO" style="     ">PILLNVNUMMO</a>
+</td>
+<td style="text-align:left;">
+<a href="https://pma.ipums.org/pma-action/variables/PILLSOLDMO" style="     ">PILLSOLDMO</a>
+</td>
+<td style="text-align:left;">
+<a href="https://pma.ipums.org/pma-action/variables/PILLSUNIT" style="     ">PILLSUNIT</a>
+</td>
+<td style="text-align:left;">
+<a href="https://pma.ipums.org/pma-action/variables/PILLSVAL" style="     ">PILLSVAL</a>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Injectables - Depo Provera
+</td>
+<td style="text-align:left;">
+<a href="https://pma.ipums.org/pma-action/variables/DEPOPROV" style="     ">DEPOPROV</a>
+</td>
+<td style="text-align:left;">
+<a href="https://pma.ipums.org/pma-action/variables/DEPOOBS" style="     ">DEPOOBS</a>
+</td>
+<td style="text-align:left;">
+<a href="https://pma.ipums.org/pma-action/variables/DEPOOUTDAY" style="     ">DEPOOUTDAY</a>
+</td>
+<td style="text-align:left;">
+<a href="https://pma.ipums.org/pma-action/variables/DEPOOUT3MO" style="     ">DEPOOUT3MO</a>
+</td>
+<td style="text-align:left;">
+<a href="https://pma.ipums.org/pma-action/variables/DEPOCHARGE" style="     ">DEPOCHARGE</a>
+</td>
+<td style="text-align:left;">
+<a href="https://pma.ipums.org/pma-action/variables/DEPOFEE" style="     ">DEPOFEE</a>
+</td>
+<td style="text-align:left;">
+<a href="https://pma.ipums.org/pma-action/variables/DEPOVNUMMO" style="     ">DEPOVNUMMO</a>
+</td>
+<td style="text-align:left;">
+<a href="https://pma.ipums.org/pma-action/variables/DEPONNUMMO" style="     ">DEPONNUMMO</a>
+</td>
+<td style="text-align:left;">
+<a href="https://pma.ipums.org/pma-action/variables/DEPOSOLDMO" style="     ">DEPOSOLDMO</a>
+</td>
+<td style="text-align:left;">
+<a href="https://pma.ipums.org/pma-action/variables/DEPOUNIT" style="     ">DEPOUNIT</a>
+</td>
+<td style="text-align:left;">
+<a href="https://pma.ipums.org/pma-action/variables/DEPOVAL" style="     ">DEPOVAL</a>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Injectables - Sayana Press
+</td>
+<td style="text-align:left;">
+<a href="https://pma.ipums.org/pma-action/variables/SAYPROV" style="     ">SAYPROV</a>
+</td>
+<td style="text-align:left;">
+<a href="https://pma.ipums.org/pma-action/variables/SAYOBS" style="     ">SAYOBS</a>
+</td>
+<td style="text-align:left;">
+<a href="https://pma.ipums.org/pma-action/variables/SAYOUTDAY" style="     ">SAYOUTDAY</a>
+</td>
+<td style="text-align:left;">
+<a href="https://pma.ipums.org/pma-action/variables/SAYOUT3MO" style="     ">SAYOUT3MO</a>
+</td>
+<td style="text-align:left;">
+<a href="https://pma.ipums.org/pma-action/variables/SAYCHARGE" style="     ">SAYCHARGE</a>
+</td>
+<td style="text-align:left;">
+<a href="https://pma.ipums.org/pma-action/variables/SAYFEE" style="     ">SAYFEE</a>
+</td>
+<td style="text-align:left;">
+<a href="https://pma.ipums.org/pma-action/variables/SAYVNUMMO" style="     ">SAYVNUMMO</a>
+</td>
+<td style="text-align:left;">
+<a href="https://pma.ipums.org/pma-action/variables/SAYNNUMMO" style="     ">SAYNNUMMO</a>
+</td>
+<td style="text-align:left;">
+<a href="https://pma.ipums.org/pma-action/variables/SAYSOLDMO" style="     ">SAYSOLDMO</a>
+</td>
+<td style="text-align:left;">
+<a href="https://pma.ipums.org/pma-action/variables/INJSPUNIT" style="     ">INJSPUNIT</a>
+</td>
+<td style="text-align:left;">
+<a href="https://pma.ipums.org/pma-action/variables/INJSPVAL" style="     ">INJSPVAL</a>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Female sterilization
+</td>
+<td style="text-align:left;">
+<a href="https://pma.ipums.org/pma-action/variables/FSTPROV" style="     ">FSTPROV</a>
+</td>
+<td style="text-align:left;">
+–
+</td>
+<td style="text-align:left;">
+–
+</td>
+<td style="text-align:left;">
+–
+</td>
+<td style="text-align:left;">
+<a href="https://pma.ipums.org/pma-action/variables/FSTCHARGE" style="     ">FSTCHARGE</a>
+</td>
+<td style="text-align:left;">
+<a href="https://pma.ipums.org/pma-action/variables/FSTFEE" style="     ">FSTFEE</a>
+</td>
+<td style="text-align:left;">
+<a href="https://pma.ipums.org/pma-action/variables/FSTVNUMMO" style="     ">FSTVNUMMO</a>
+</td>
+<td style="text-align:left;">
+–
+</td>
+<td style="text-align:left;">
+–
+</td>
+<td style="text-align:left;">
+–
+</td>
+<td style="text-align:left;">
+–
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Male sterilization
+</td>
+<td style="text-align:left;">
+<a href="https://pma.ipums.org/pma-action/variables/MSTPROV" style="     ">MSTPROV</a>
+</td>
+<td style="text-align:left;">
+–
+</td>
+<td style="text-align:left;">
+–
+</td>
+<td style="text-align:left;">
+–
+</td>
+<td style="text-align:left;">
+<a href="https://pma.ipums.org/pma-action/variables/MSTCHARGE" style="     ">MSTCHARGE</a>
+</td>
+<td style="text-align:left;">
+<a href="https://pma.ipums.org/pma-action/variables/MSTFEE" style="     ">MSTFEE</a>
+</td>
+<td style="text-align:left;">
+<a href="https://pma.ipums.org/pma-action/variables/MSTVNUMMO" style="     ">MSTVNUMMO</a>
+</td>
+<td style="text-align:left;">
+–
+</td>
+<td style="text-align:left;">
+–
+</td>
+<td style="text-align:left;">
+–
+</td>
+<td style="text-align:left;">
+–
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>There are only 11 base questions associated with the variables in this table, but each question gets repeated once for up to 13 family planning methods included in the SDP survey. You’ll notice that every variable from a particular question shares the same suffix; for example, every variable indicating whether the facility “provides” a method shares the suffix <code>PROV</code> (like <code>CONPROV</code>, <code>CYCBPROV</code>, <code>DIAPROV</code>, etc).</p>
+<p>To start, we’ll need to download a data extract containing these variables. In this example, we’ll use an extract that includes only “Facility Respondents” from the <strong>Kenya 2019</strong> sample and save it into the “data” folder of our working directory. Load it into R with with <a href="https://tech.popdata.org/ipumsr/">ipumsr</a> package like so:</p>
+<aside>
+2019-2020 SDP samples for Burkina Faso, DRC, and Nigeria are also currently available from <a href="https://pma.ipums.org/pma/">IPUMS PMA</a>. More CEI and SDP samples will be released in early 2022!
+</aside>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://www.ipums.org'>ipumsr</a></span><span class='op'>)</span>
+
+<span class='va'>sdp</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/ipumsr/man/read_ipums_micro.html'>read_ipums_micro</a></span><span class='op'>(</span>
+  ddi <span class='op'>=</span> <span class='st'>"data/pma_00001.xml"</span>,
+  data <span class='op'>=</span> <span class='st'>"data/pma_00001.dat.gz"</span>
+<span class='op'>)</span>
+</code></pre>
+</div>
+</div>
+<p>You’ll then need to download a <em>second</em> data extract containing only “Female Respondents” to the 2019 CEI sample from Kenya.</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>cei</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/ipumsr/man/read_ipums_micro.html'>read_ipums_micro</a></span><span class='op'>(</span>
+  ddi <span class='op'>=</span> <span class='st'>"data/pma_00002.xml"</span>,
+  data <span class='op'>=</span> <span class='st'>"data/pma_00002.dat.gz"</span>
+<span class='op'>)</span>
+</code></pre>
+</div>
+</div>
+<p><strong>In order to link women from the CEI data extract to the correct facility in the SDP data extract, you’ll need to join records by</strong> <a href="https://pma.ipums.org/pma-action/variables/FACILITYID">FACILITYID</a>. Here, we will <a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">left_join</a> <code>cei</code> with <code>sdp</code>, which means 1) all of the rows in <code>cei</code> will be preserved, and 2) <code>sdp</code> variables for each facility will be copied once for every woman interviewed at that facility. We’ll call the resulting data frame <code>dat</code>.</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>dat</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate-joins.html'>left_join</a></span><span class='op'>(</span>
+  <span class='va'>cei</span>, 
+  <span class='va'>sdp</span>, 
+  by <span class='op'>=</span> <span class='st'>"FACILITYID"</span>, 
+  suffix <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"_CEI"</span>, <span class='st'>"_SDP"</span><span class='op'>)</span>
+<span class='op'>)</span> 
+</code></pre>
+</div>
+</div>
+<aside>
+The <code>suffix</code> argument is used to identify the source for any variables that were included in both surveys (e.g. <code>COUNTRY</code>, <code>EAID</code>, <code>FACILITYTYPEGEN</code>).
+</aside>
+<p>We mentioned in our <a href="../2021-12-01-cei-discovery">CEI Data Discovery post</a> that almost all of the questions on the CEI survey were given only to women who received family planning information or a family planning method during their visit to the facility. You’ll find this information recorded in the variable <a href="https://pma.ipums.org/pma-action/variables/FPINFOYN">FPINFOYN</a>, so we’ll drop any case where <code>FPINFOYN == 0</code>, indicating that the woman answered no further questions about family planning services.</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>dat</span> <span class='op'>&lt;-</span> <span class='va'>dat</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>FPINFOYN</span> <span class='op'>==</span> <span class='fl'>1</span><span class='op'>)</span> 
+</code></pre>
+</div>
+</div>
+<h1 id="a-conventional-workflow">A conventional workflow</h1>
+<p>To keep this example simple, let’s focus our research question on variables related to the <strong>availability of a method</strong> at the facility where a CEI respondent was interviewed. Specifically, we want to know: <em>are women less likely to receive counseling on a given family planning method if that method is not reliably available from their provider?</em></p>
+<p>Strictly speaking, you don’t <em>need</em> to organize variables into packs to examine this problem. Doing so just makes it easier to manipulate and analyze all of the variables related to a particular family planning method. To see how, let’s lay out a workflow for <em>just one</em> of the family planning methods: we’ll pick IUDs to start.</p>
+<p>The CEI variable <a href="https://pma.ipums.org/pma-action/variables/METHCOUNIUD">METHCOUNIUD</a> will be our <strong>dependent variable</strong> in this example. It indicates whether the woman received any counseling about IUDs during her visit.</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>dat</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/count.html'>count</a></span><span class='op'>(</span><span class='va'>METHCOUNIUD</span><span class='op'>)</span>
+</code></pre>
+</div>
+<pre><code># A tibble: 2 × 2
+  METHCOUNIUD     n
+    &lt;int+lbl&gt; &lt;int&gt;
+1     0 [No]   2779
+2     1 [Yes]  1122</code></pre>
+</div>
+<p>Our <strong>key independent variable</strong> should indicate whether the method is “reliably available” at the facility the woman visited. For this example, let’s say that a method is “reliably available” if it was continuously in-stock for three months prior to the SDP interview. You might expect this information to appear in the SDP variable <a href="https://pma.ipums.org/pma-action/variables/IUDOUT3MO">IUDOUT3MO</a>, but look closely at the text from that variable’s <a href="https://pma.ipums.org/pma-action/variables/IUDOUT3MO#universe_section">universe tab</a>:</p>
+<div class="layout-chunk" data-layout="l-body">
+<a href="https://pma.ipums.org/pma-action/variables/IUDOUT3MO#universe_section">
+<img src="images/iudout3mo.png"/>
+</a>
+</div>
+<p>In other words, this question was skipped if 1) a facility that normally provides IUDs was out of stock on the day of the interview, or 2) a facility doesn’t provide the method at all. These cases are marked <code>99</code> and labeled <code>NIU (not in universe)</code>:</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>dat</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/count.html'>count</a></span><span class='op'>(</span><span class='va'>IUDOUT3MO</span><span class='op'>)</span>
+</code></pre>
+</div>
+<pre><code># A tibble: 3 × 2
+                   IUDOUT3MO     n
+                   &lt;int+lbl&gt; &lt;int&gt;
+1  0 [No]                     2980
+2  1 [Yes]                     204
+3 99 [NIU (not in universe)]   717</code></pre>
+</div>
+<p>We can’t distinguish facilities with temporary stockouts from those that never provide IUDs at all, so we’ll want to combine the information in <code>IUDOUT3MO</code> with another variable. Here, we’ll use <a href="https://pma.ipums.org/pma-action/variables/IUDOBS">IUDOBS</a>, which indicates whether the facility had IUDs in-stock on the day of the SDP interview (and whether that stock was observed directly by the interviewer). In this case, the <a href="https://pma.ipums.org/pma-action/variables/IUDOBS#universe_section">universe</a> includes all facilities that normally provide IUDs.</p>
+<div class="layout-chunk" data-layout="l-body">
+<a href="https://pma.ipums.org/pma-action/variables/IUDOBS#universe_section">
+<img src="images/iudobs.png"/>
+</a>
+</div>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>dat</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/count.html'>count</a></span><span class='op'>(</span><span class='va'>IUDOUT3MO</span>, <span class='va'>IUDOBS</span><span class='op'>)</span>
+</code></pre>
+</div>
+<pre><code># A tibble: 6 × 3
+                   IUDOUT3MO                         IUDOBS     n
+                   &lt;int+lbl&gt;                      &lt;int+lbl&gt; &lt;int&gt;
+1  0 [No]                     1 [In-stock and observed]      2725
+2  0 [No]                     2 [In-stock but not observed]   255
+3  1 [Yes]                    1 [In-stock and observed]       159
+4  1 [Yes]                    2 [In-stock but not observed]    45
+5 99 [NIU (not in universe)]  3 [Out of stock]                190
+6 99 [NIU (not in universe)] 99 [NIU (not in universe)]       527</code></pre>
+</div>
+<p>Only 190 of the 717 facilities that were <code>NIU (not in universe)</code> for <code>IUDOUT3MO</code> were excluded because of a current stockout. The remaining 527 facilities don’t provide IUDs at all.</p>
+<p>Suppose that you were going to combine these variables to build a <a href="https://r4ds.had.co.nz/factors.html">factor</a> we’ll call <code>IUDAVAIL</code> with 3 levels: facilities where IUDs are “reliably available”, those with a “current or recent stockout”, and those where IUDs are “not provided”. Alone, this task is not too difficult with help from <a href="https://dplyr.tidyverse.org/reference/case_when.html">case_when</a>:</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>dat</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span>IUDAVAIL <span class='op'>=</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/case_when.html'>case_when</a></span><span class='op'>(</span>
+   <span class='va'>IUDOBS</span> <span class='op'>==</span> <span class='fl'>99</span> <span class='op'>~</span> <span class='st'>"not provided"</span>,
+   <span class='va'>IUDOBS</span> <span class='op'>==</span> <span class='fl'>3</span> <span class='op'>|</span> <span class='va'>IUDOUT3MO</span> <span class='op'>==</span> <span class='fl'>1</span> <span class='op'>~</span> <span class='st'>"cur/rec stockout"</span>,
+   <span class='va'>IUDOUT3MO</span> <span class='op'>==</span> <span class='fl'>0</span> <span class='op'>~</span> <span class='st'>"reliably avail"</span>
+  <span class='op'>)</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/count.html'>count</a></span><span class='op'>(</span><span class='va'>IUDOBS</span>, <span class='va'>IUDOUT3MO</span>, <span class='va'>IUDAVAIL</span><span class='op'>)</span>
+</code></pre>
+</div>
+<pre><code># A tibble: 6 × 4
+                          IUDOBS          IUDOUT3MO IUDAVAIL         n
+                       &lt;int+lbl&gt;          &lt;int+lbl&gt; &lt;chr&gt;        &lt;int&gt;
+1  1 [In-stock and observed]      0 [No]            reliably av…  2725
+2  1 [In-stock and observed]      1 [Yes]           cur/rec sto…   159
+3  2 [In-stock but not observed]  0 [No]            reliably av…   255
+4  2 [In-stock but not observed]  1 [Yes]           cur/rec sto…    45
+5  3 [Out of stock]              99 [NIU (not in u… cur/rec sto…   190
+6 99 [NIU (not in universe)]     99 [NIU (not in u… not provided   527</code></pre>
+</div>
+<p><strong>But what should you do if you want to build a similar variable for each of the nine relevant family planning methods?</strong> With the approach we’ve used so far, you’d need to write a separate <code>case_when</code> function for every family planning method. Each would look nearly identical to the last, except that you’d use the relevant <code>OBS</code> and <code>OUT3MO</code> variable for each method. Before we explore an approach with <a href="https://tidyr.tidyverse.org/reference/pack.html">pack</a>, take a look at the code we’re hoping to avoid:</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>dat</span> <span class='op'>&lt;-</span> <span class='va'>dat</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span>
+    IUDAVAIL <span class='op'>=</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/case_when.html'>case_when</a></span><span class='op'>(</span>
+      <span class='va'>IUDOBS</span> <span class='op'>==</span> <span class='fl'>99</span> <span class='op'>~</span> <span class='st'>"not provided"</span>,
+      <span class='va'>IUDOBS</span> <span class='op'>==</span> <span class='fl'>3</span> <span class='op'>|</span> <span class='va'>IUDOUT3MO</span> <span class='op'>==</span> <span class='fl'>1</span> <span class='op'>~</span> <span class='st'>"cur/rec stockout"</span>,
+      <span class='va'>IUDOUT3MO</span> <span class='op'>==</span> <span class='fl'>0</span> <span class='op'>~</span> <span class='st'>"reliably avail"</span>
+    <span class='op'>)</span>,
+    CONAVAIL <span class='op'>=</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/case_when.html'>case_when</a></span><span class='op'>(</span>
+      <span class='va'>CONOBS</span> <span class='op'>==</span> <span class='fl'>99</span> <span class='op'>~</span> <span class='st'>"not provided"</span>,
+      <span class='va'>CONOBS</span> <span class='op'>==</span> <span class='fl'>3</span> <span class='op'>|</span> <span class='va'>CONOUT3MO</span> <span class='op'>==</span> <span class='fl'>1</span> <span class='op'>~</span> <span class='st'>"cur/rec stockout"</span>,
+      <span class='va'>CONOUT3MO</span> <span class='op'>==</span> <span class='fl'>0</span> <span class='op'>~</span> <span class='st'>"reliably avail"</span>
+    <span class='op'>)</span>,
+    BEADSAVAIL <span class='op'>=</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/case_when.html'>case_when</a></span><span class='op'>(</span>
+      <span class='va'>CYCBOBS</span> <span class='op'>==</span> <span class='fl'>99</span> <span class='op'>~</span> <span class='st'>"not provided"</span>,
+      <span class='va'>CYCBOBS</span> <span class='op'>==</span> <span class='fl'>3</span> <span class='op'>|</span> <span class='va'>CYCBOUT3MO</span> <span class='op'>==</span> <span class='fl'>1</span> <span class='op'>~</span> <span class='st'>"cur/rec stockout"</span>,
+      <span class='va'>CYCBOUT3MO</span> <span class='op'>==</span> <span class='fl'>0</span> <span class='op'>~</span> <span class='st'>"reliably avail"</span>
+    <span class='op'>)</span>,
+    DIAAVAIL <span class='op'>=</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/case_when.html'>case_when</a></span><span class='op'>(</span>
+      <span class='va'>DIAOBS</span> <span class='op'>==</span> <span class='fl'>99</span> <span class='op'>~</span> <span class='st'>"not provided"</span>,
+      <span class='va'>DIAOBS</span> <span class='op'>==</span> <span class='fl'>3</span> <span class='op'>|</span> <span class='va'>DIAOUT3MO</span> <span class='op'>==</span> <span class='fl'>1</span> <span class='op'>~</span> <span class='st'>"cur/rec stockout"</span>,
+      <span class='va'>DIAOUT3MO</span> <span class='op'>==</span> <span class='fl'>0</span> <span class='op'>~</span> <span class='st'>"reliably avail"</span>
+    <span class='op'>)</span>,
+    EMRGAVAIL <span class='op'>=</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/case_when.html'>case_when</a></span><span class='op'>(</span>
+      <span class='va'>EMRGOBS</span> <span class='op'>==</span> <span class='fl'>99</span> <span class='op'>~</span> <span class='st'>"not provided"</span>,
+      <span class='va'>EMRGOBS</span> <span class='op'>==</span> <span class='fl'>3</span> <span class='op'>|</span> <span class='va'>EMRGOUT3MO</span> <span class='op'>==</span> <span class='fl'>1</span> <span class='op'>~</span> <span class='st'>"cur/rec stockout"</span>,
+      <span class='va'>EMRGOUT3MO</span> <span class='op'>==</span> <span class='fl'>0</span> <span class='op'>~</span> <span class='st'>"reliably avail"</span>
+    <span class='op'>)</span>,
+    FCAVAIL <span class='op'>=</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/case_when.html'>case_when</a></span><span class='op'>(</span>
+      <span class='va'>FCOBS</span> <span class='op'>==</span> <span class='fl'>99</span> <span class='op'>~</span> <span class='st'>"not provided"</span>,
+      <span class='va'>FCOBS</span> <span class='op'>==</span> <span class='fl'>3</span> <span class='op'>|</span> <span class='va'>FCOUT3MO</span> <span class='op'>==</span> <span class='fl'>1</span> <span class='op'>~</span> <span class='st'>"cur/rec stockout"</span>,
+      <span class='va'>FCOUT3MO</span> <span class='op'>==</span> <span class='fl'>0</span> <span class='op'>~</span> <span class='st'>"reliably avail"</span>
+    <span class='op'>)</span>,
+    FJAVAIL <span class='op'>=</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/case_when.html'>case_when</a></span><span class='op'>(</span>
+      <span class='va'>FJOBS</span> <span class='op'>==</span> <span class='fl'>99</span> <span class='op'>~</span> <span class='st'>"not provided"</span>,
+      <span class='va'>FJOBS</span> <span class='op'>==</span> <span class='fl'>3</span> <span class='op'>|</span> <span class='va'>FJOUT3MO</span> <span class='op'>==</span> <span class='fl'>1</span> <span class='op'>~</span> <span class='st'>"cur/rec stockout"</span>,
+      <span class='va'>FJOUT3MO</span> <span class='op'>==</span> <span class='fl'>0</span> <span class='op'>~</span> <span class='st'>"reliably avail"</span>
+    <span class='op'>)</span>,
+    IMPAVAIL <span class='op'>=</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/case_when.html'>case_when</a></span><span class='op'>(</span>
+      <span class='va'>IMPOBS</span> <span class='op'>==</span> <span class='fl'>99</span> <span class='op'>~</span> <span class='st'>"not provided"</span>,
+      <span class='va'>IMPOBS</span> <span class='op'>==</span> <span class='fl'>3</span> <span class='op'>|</span> <span class='va'>IMPOUT3MO</span> <span class='op'>==</span> <span class='fl'>1</span> <span class='op'>~</span> <span class='st'>"cur/rec stockout"</span>,
+      <span class='va'>IMPOUT3MO</span> <span class='op'>==</span> <span class='fl'>0</span> <span class='op'>~</span> <span class='st'>"reliably avail"</span>
+    <span class='op'>)</span>,
+    PILLAVAIL <span class='op'>=</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/case_when.html'>case_when</a></span><span class='op'>(</span>
+      <span class='va'>PILLOBS</span> <span class='op'>==</span> <span class='fl'>99</span> <span class='op'>~</span> <span class='st'>"not provided"</span>,
+      <span class='va'>PILLOBS</span> <span class='op'>==</span> <span class='fl'>3</span> <span class='op'>|</span> <span class='va'>PILLOUT3MO</span> <span class='op'>==</span> <span class='fl'>1</span> <span class='op'>~</span> <span class='st'>"cur/rec stockout"</span>,
+      <span class='va'>PILLOUT3MO</span> <span class='op'>==</span> <span class='fl'>0</span> <span class='op'>~</span> <span class='st'>"reliably avail"</span>
+    <span class='op'>)</span>
+  <span class='op'>)</span>
+</code></pre>
+</div>
+</div>
+<p>That’s a lot of repeated effort, and a lot places where you might make a simple copy / paste error. And then, imagine repeating this entire process to include the SDP variables related to cost and demand for different methods - you’d have to do <em>another</em> set of nine <code>case_when</code> functions for every variable you wanted to create!</p>
+<h1 id="introducing-pack">Introducing <code>pack</code></h1>
+<p>The difference with <a href="https://tidyr.tidyverse.org/reference/pack.html">pack</a> is that we’ll pre-select all of the variables that we ultimately want to substitute into a method-specific model. In other words, we’ll be manually identifying all of the <strong>dependent</strong> and <strong>key independent</strong> variables that “go together” in one step at the <em>beginning</em> of our workflow.</p>
+<aside>
+You can include a variable in more than one pack - this will create independent copies of the duplicated variable.
+</aside>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>dat_packed</span> <span class='op'>&lt;-</span> <span class='va'>dat</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='https://tidyr.tidyverse.org/reference/pack.html'>pack</a></span><span class='op'>(</span>
+    BEADS <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='va'>METHCOUNBEADS</span>, <span class='va'>CYCBOBS</span>, <span class='va'>CYCBOUT3MO</span><span class='op'>)</span>,
+    CON <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='va'>METHCOUNMC</span>, <span class='va'>CONOBS</span>, <span class='va'>CONOUT3MO</span><span class='op'>)</span>,
+    DIA <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='va'>METHCOUNDIA</span>, <span class='va'>DIAOBS</span>, <span class='va'>DIAOUT3MO</span><span class='op'>)</span>,
+    EMRG <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='va'>METHCOUNEC</span>, <span class='va'>EMRGOBS</span>, <span class='va'>DIAOUT3MO</span><span class='op'>)</span>,
+    FC <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='va'>METHCOUNFC</span>, <span class='va'>FCOBS</span>, <span class='va'>FCOUT3MO</span><span class='op'>)</span>,
+    FOAM <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='va'>METHCOUNFOAM</span>, <span class='va'>FJOBS</span>, <span class='va'>FJOUT3MO</span><span class='op'>)</span>,
+    IMP <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='va'>METHCOUNIMP</span>, <span class='va'>IMPOBS</span>, <span class='va'>IMPOUT3MO</span><span class='op'>)</span>,
+    IUD <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='va'>METHCOUNIUD</span>, <span class='va'>IUDOBS</span>, <span class='va'>IUDOUT3MO</span><span class='op'>)</span>,
+    PILL <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='va'>METHCOUNPILL</span>, <span class='va'>PILLOBS</span>, <span class='va'>PILLOUT3MO</span><span class='op'>)</span>
+  <span class='op'>)</span> 
+</code></pre>
+</div>
+</div>
+<aside>
+<div class="layout-chunk" data-layout="l-body">
+<a href="https://tidyr.tidyverse.org">
+<img src="../../images/hex/tidyr.png"/>
+</a>
+</div>
+© RStudio (<a href="https://creativecommons.org/publicdomain/zero/1.0/">CC0 1.0</a>)
+</aside>
+<p>When we do this, we create one tidy data frame - a <a href="https://tibble.tidyverse.org/index.html">tibble</a> - for all of the variables dealing with a particular family planning method. Each one of these smaller data frames is “packed” into a single column in the larger <strong>parent data frame</strong> we’ve called <code>dat_packed</code>. This <strong>parent</strong> also contains all of the original <code>dat</code> variables that we didn’t happen to include in a pack.</p>
+<p>You can call any one of these smaller packs using the same <code>$</code> operator you’d use to call any other variable.</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>dat_packed</span><span class='op'>$</span><span class='va'>IUD</span>
+</code></pre>
+</div>
+<pre><code># A tibble: 3,901 × 3
+   METHCOUNIUD                    IUDOBS IUDOUT3MO
+     &lt;int+lbl&gt;                 &lt;int+lbl&gt; &lt;int+lbl&gt;
+ 1      0 [No] 1 [In-stock and observed]   0 [No] 
+ 2      0 [No] 1 [In-stock and observed]   0 [No] 
+ 3      0 [No] 1 [In-stock and observed]   1 [Yes]
+ 4      0 [No] 1 [In-stock and observed]   0 [No] 
+ 5      0 [No] 1 [In-stock and observed]   0 [No] 
+ 6      0 [No] 1 [In-stock and observed]   0 [No] 
+ 7      0 [No] 1 [In-stock and observed]   0 [No] 
+ 8      0 [No] 1 [In-stock and observed]   0 [No] 
+ 9      0 [No] 1 [In-stock and observed]   1 [Yes]
+10      0 [No] 1 [In-stock and observed]   1 [Yes]
+# … with 3,891 more rows</code></pre>
+</div>
+<p>If you call one of these packs in the larger context of its <strong>parent data frame</strong>, you’ll notice something strange about the output. Let’s call the <code>IUD</code> pack together with <code>FACILITYID</code>:</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>dat_packed</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/select.html'>select</a></span><span class='op'>(</span><span class='va'>FACILITYID</span>, <span class='va'>IUD</span><span class='op'>)</span>
+</code></pre>
+</div>
+<pre><code># A tibble: 3,901 × 2
+   FACILITYID IUD$METHCOUNIUD                   $IUDOBS $IUDOUT3MO
+    &lt;dbl+lbl&gt;       &lt;int+lbl&gt;                 &lt;int+lbl&gt;  &lt;int+lbl&gt;
+ 1  404111003          0 [No] 1 [In-stock and observed]    0 [No] 
+ 2  404111003          0 [No] 1 [In-stock and observed]    0 [No] 
+ 3  404111001          0 [No] 1 [In-stock and observed]    1 [Yes]
+ 4  404111003          0 [No] 1 [In-stock and observed]    0 [No] 
+ 5  404111003          0 [No] 1 [In-stock and observed]    0 [No] 
+ 6  404111003          0 [No] 1 [In-stock and observed]    0 [No] 
+ 7  404111003          0 [No] 1 [In-stock and observed]    0 [No] 
+ 8  404111003          0 [No] 1 [In-stock and observed]    0 [No] 
+ 9  404111001          0 [No] 1 [In-stock and observed]    1 [Yes]
+10  404111001          0 [No] 1 [In-stock and observed]    1 [Yes]
+# … with 3,891 more rows</code></pre>
+</div>
+<p>The tibble header tells us we’ve printed a tibble with 3,901 rows and 2 columns, but we actually see 4 columns - <code>FACILITYID</code> and each of the 3 variables in our <code>IUD</code> pack. Moreover, the pack name <code>IUD</code> appears as a prefix only on the first column <code>IUD$METHCOUNIUD</code>; the others use <code>$</code> as shorthand to show that they’re members of the same pack.</p>
+<p>In practice, you’ll rarely want to select individual packs by name - it’s much more useful to <a href="https://dplyr.tidyverse.org/reference/select.html">select</a> and then <a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a> or <a href="https://dplyr.tidyverse.org/reference/summarise.html">summarize</a> all packs at once. You can do this by selecting all variables that are members of the <a href="https://tibble.tidyverse.org/index.html">tibble</a> class with <code>where(is_tibble)</code>:</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>dat_packed</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/select.html'>select</a></span><span class='op'>(</span><span class='fu'>where</span><span class='op'>(</span><span class='va'>is_tibble</span><span class='op'>)</span><span class='op'>)</span>
+</code></pre>
+</div>
+<pre><code># A tibble: 3,901 × 9
+   BEADS$METHCOUNBEADS   $CYCBOBS  $CYCBOUT3MO CON$METHCOUNMC  $CONOBS
+             &lt;int+lbl&gt;  &lt;int+lbl&gt;    &lt;int+lbl&gt;      &lt;int+lbl&gt; &lt;int+lb&gt;
+ 1              0 [No] 99 [NIU (… 99 [NIU (no…         0 [No] 1 [In-s…
+ 2              0 [No] 99 [NIU (… 99 [NIU (no…         0 [No] 1 [In-s…
+ 3              0 [No] 99 [NIU (… 99 [NIU (no…         0 [No] 1 [In-s…
+ 4              0 [No] 99 [NIU (… 99 [NIU (no…         0 [No] 1 [In-s…
+ 5              0 [No] 99 [NIU (… 99 [NIU (no…         0 [No] 1 [In-s…
+ 6              0 [No] 99 [NIU (… 99 [NIU (no…         0 [No] 1 [In-s…
+ 7              0 [No] 99 [NIU (… 99 [NIU (no…         0 [No] 1 [In-s…
+ 8              0 [No] 99 [NIU (… 99 [NIU (no…         0 [No] 1 [In-s…
+ 9              0 [No] 99 [NIU (… 99 [NIU (no…         0 [No] 1 [In-s…
+10              0 [No] 99 [NIU (… 99 [NIU (no…         0 [No] 1 [In-s…
+# … with 3,891 more rows, and 7 more variables: DIA &lt;tibble[,3]&gt;,
+#   EMRG &lt;tibble[,3]&gt;, FC &lt;tibble[,3]&gt;, FOAM &lt;tibble[,3]&gt;,
+#   IMP &lt;tibble[,3]&gt;, IUD &lt;tibble[,3]&gt;, PILL &lt;tibble[,3]&gt;</code></pre>
+</div>
+<h2 id="using-across-with-packs">Using <code>across</code> with packs</h2>
+<p>Once you’re able to create and <a href="https://dplyr.tidyverse.org/reference/select.html">select</a> packs, the next step is to repeat the same changes or analytic functions within each pack using <a href="https://dplyr.tidyverse.org/reference/across.html">across</a>. First, we’ll strip all references to each family planning method from the variable names in each pack with <a href="https://dplyr.tidyverse.org/reference/rename.html">rename</a>. You don’t have to worry about creating duplicate names (e.g. nine variables named <code>OBS</code>) as long as they’re organized in packs (<code>BEADS$OBS</code>, <code>DIA$OBS</code>, <code>EMRG$OBS</code>, etc). <strong>In fact, this is exactly what we want!</strong></p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>dat_packed</span> <span class='op'>&lt;-</span> <span class='va'>dat_packed</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/across.html'>across</a></span><span class='op'>(</span>
+    <span class='fu'>where</span><span class='op'>(</span><span class='va'>is_tibble</span><span class='op'>)</span>,
+    <span class='op'>~</span><span class='va'>.x</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> 
+      <span class='fu'><a href='https://dplyr.tidyverse.org/reference/rename.html'>rename</a></span><span class='op'>(</span>
+        COUNSEL <span class='op'>=</span> <span class='fu'><a href='https://tidyselect.r-lib.org/reference/starts_with.html'>contains</a></span><span class='op'>(</span><span class='st'>"METHCOUN"</span><span class='op'>)</span>,
+        OBS <span class='op'>=</span> <span class='fu'><a href='https://tidyselect.r-lib.org/reference/starts_with.html'>contains</a></span><span class='op'>(</span><span class='st'>"OBS"</span><span class='op'>)</span>,
+        OUT3MO <span class='op'>=</span> <span class='fu'><a href='https://tidyselect.r-lib.org/reference/starts_with.html'>contains</a></span><span class='op'>(</span><span class='st'>"OUT3MO"</span><span class='op'>)</span>
+      <span class='op'>)</span>
+  <span class='op'>)</span><span class='op'>)</span>
+
+<span class='co'># Within each pack, you'll now find 3 variables of the same name</span>
+<span class='va'>dat_packed</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/select.html'>select</a></span><span class='op'>(</span><span class='fu'>where</span><span class='op'>(</span><span class='va'>is_tibble</span><span class='op'>)</span><span class='op'>)</span>
+</code></pre>
+</div>
+<pre><code># A tibble: 3,901 × 9
+   BEADS$COUNSEL        $OBS     $OUT3MO CON$COUNSEL      $OBS $OUT3MO
+       &lt;int+lbl&gt;   &lt;int+lbl&gt;   &lt;int+lbl&gt;   &lt;int+lbl&gt; &lt;int+lbl&gt; &lt;int+l&gt;
+ 1        0 [No] 99 [NIU (n… 99 [NIU (n…      0 [No] 1 [In-st…  0 [No]
+ 2        0 [No] 99 [NIU (n… 99 [NIU (n…      0 [No] 1 [In-st…  0 [No]
+ 3        0 [No] 99 [NIU (n… 99 [NIU (n…      0 [No] 1 [In-st…  0 [No]
+ 4        0 [No] 99 [NIU (n… 99 [NIU (n…      0 [No] 1 [In-st…  0 [No]
+ 5        0 [No] 99 [NIU (n… 99 [NIU (n…      0 [No] 1 [In-st…  0 [No]
+ 6        0 [No] 99 [NIU (n… 99 [NIU (n…      0 [No] 1 [In-st…  0 [No]
+ 7        0 [No] 99 [NIU (n… 99 [NIU (n…      0 [No] 1 [In-st…  0 [No]
+ 8        0 [No] 99 [NIU (n… 99 [NIU (n…      0 [No] 1 [In-st…  0 [No]
+ 9        0 [No] 99 [NIU (n… 99 [NIU (n…      0 [No] 1 [In-st…  0 [No]
+10        0 [No] 99 [NIU (n… 99 [NIU (n…      0 [No] 1 [In-st…  0 [No]
+# … with 3,891 more rows, and 7 more variables: DIA &lt;tibble[,3]&gt;,
+#   EMRG &lt;tibble[,3]&gt;, FC &lt;tibble[,3]&gt;, FOAM &lt;tibble[,3]&gt;,
+#   IMP &lt;tibble[,3]&gt;, IUD &lt;tibble[,3]&gt;, PILL &lt;tibble[,3]&gt;</code></pre>
+</div>
+<aside>
+<div class="layout-chunk" data-layout="l-body">
+<a href="https://dplyr.tidyverse.org/">
+<img src="../../images/hex/dplyr.png"/>
+</a>
+</div>
+© RStudio (<a href="https://creativecommons.org/publicdomain/zero/1.0/">CC0 1.0</a>)
+</aside>
+<p>This makes it easy to apply the same <code>case_when</code> function to each pack.</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>dat_packed</span> <span class='op'>&lt;-</span> <span class='va'>dat_packed</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/across.html'>across</a></span><span class='op'>(</span>
+    <span class='fu'>where</span><span class='op'>(</span><span class='va'>is_tibble</span><span class='op'>)</span>,
+    <span class='op'>~</span><span class='va'>.x</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> 
+      <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span>
+        AVAIL <span class='op'>=</span> <span class='fu'><a href='https://forcats.tidyverse.org/reference/fct_relevel.html'>fct_relevel</a></span><span class='op'>(</span>
+          <span class='fu'><a href='https://dplyr.tidyverse.org/reference/case_when.html'>case_when</a></span><span class='op'>(</span>
+            <span class='va'>OBS</span> <span class='op'>==</span> <span class='fl'>99</span> <span class='op'>~</span> <span class='st'>"not provided"</span>,
+            <span class='va'>OBS</span> <span class='op'>==</span> <span class='fl'>3</span> <span class='op'>|</span> <span class='va'>OUT3MO</span> <span class='op'>==</span> <span class='fl'>1</span> <span class='op'>~</span> <span class='st'>"cur/rec stockout"</span>,
+            <span class='va'>OUT3MO</span> <span class='op'>==</span> <span class='fl'>0</span> <span class='op'>~</span> <span class='st'>"reliably avail"</span> 
+          <span class='op'>)</span>,
+          <span class='st'>"reliably avail"</span> <span class='co'># set reference group</span>
+        <span class='op'>)</span> 
+      <span class='op'>)</span>
+  <span class='op'>)</span><span class='op'>)</span>
+
+<span class='co'># One `AVAIL` variable was added to each pack</span>
+<span class='va'>dat_packed</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/select.html'>select</a></span><span class='op'>(</span><span class='fu'>where</span><span class='op'>(</span><span class='va'>is_tibble</span><span class='op'>)</span><span class='op'>)</span>
+</code></pre>
+</div>
+<pre><code># A tibble: 3,901 × 9
+   BEADS$COUNSEL      $OBS  $OUT3MO $AVAIL CON$COUNSEL    $OBS $OUT3MO
+       &lt;int+lbl&gt; &lt;int+lbl&gt; &lt;int+lb&gt; &lt;fct&gt;    &lt;int+lbl&gt; &lt;int+l&gt; &lt;int+l&gt;
+ 1        0 [No] 99 [NIU … 99 [NIU… not p…      0 [No] 1 [In-…  0 [No]
+ 2        0 [No] 99 [NIU … 99 [NIU… not p…      0 [No] 1 [In-…  0 [No]
+ 3        0 [No] 99 [NIU … 99 [NIU… not p…      0 [No] 1 [In-…  0 [No]
+ 4        0 [No] 99 [NIU … 99 [NIU… not p…      0 [No] 1 [In-…  0 [No]
+ 5        0 [No] 99 [NIU … 99 [NIU… not p…      0 [No] 1 [In-…  0 [No]
+ 6        0 [No] 99 [NIU … 99 [NIU… not p…      0 [No] 1 [In-…  0 [No]
+ 7        0 [No] 99 [NIU … 99 [NIU… not p…      0 [No] 1 [In-…  0 [No]
+ 8        0 [No] 99 [NIU … 99 [NIU… not p…      0 [No] 1 [In-…  0 [No]
+ 9        0 [No] 99 [NIU … 99 [NIU… not p…      0 [No] 1 [In-…  0 [No]
+10        0 [No] 99 [NIU … 99 [NIU… not p…      0 [No] 1 [In-…  0 [No]
+# … with 3,891 more rows, and 7 more variables: DIA &lt;tibble[,4]&gt;,
+#   EMRG &lt;tibble[,4]&gt;, FC &lt;tibble[,4]&gt;, FOAM &lt;tibble[,4]&gt;,
+#   IMP &lt;tibble[,4]&gt;, IUD &lt;tibble[,4]&gt;, PILL &lt;tibble[,4]&gt;</code></pre>
+</div>
+<h2 id="modeling-with-packs">Modeling with packs</h2>
+<p>Here’s the real payoff: once you’ve assigned the same name to all of the variables repeated across packs, it’s particularly easy to build parallel model formulas without needing to reference each family planning method by name.</p>
+<p>Let’s now use the <code>AVAIL</code> variable for each method to predict the likelihood that a woman would have received counseling on that method in <code>COUNSEL</code>. In other words, we want to build nine logistic regression models using the appropriate pair of method-specific variables.</p>
+<p>Before we get to the “packed” approach, again consider a conventional approach where you’d substitute the relevant variables for each family planning method by hand. <em>Have you ever written something that looks like this?</em></p>
+<div class="layout-chunk" data-layout="l-body">
+
+</div>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>dat</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/across.html'>across</a></span><span class='op'>(</span>
+    <span class='fu'><a href='https://tidyselect.r-lib.org/reference/starts_with.html'>ends_with</a></span><span class='op'>(</span><span class='st'>"AVAIL"</span><span class='op'>)</span> <span class='op'>&amp;</span> <span class='fu'>where</span><span class='op'>(</span><span class='va'>is.character</span><span class='op'>)</span>,
+    <span class='op'>~</span><span class='va'>.x</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://forcats.tidyverse.org/reference/fct_relevel.html'>fct_relevel</a></span><span class='op'>(</span><span class='st'>"reliably avail"</span><span class='op'>)</span> <span class='co'># set reference group</span>
+  <span class='op'>)</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/summarise.html'>summarise</a></span><span class='op'>(</span>
+    <span class='co'># We want to avoid writing a unique formula for each model if possible:</span>
+    BEADS <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/glm.html'>glm</a></span><span class='op'>(</span><span class='va'>METHCOUNBEADS</span> <span class='op'>~</span> <span class='va'>BEADSAVAIL</span>, <span class='st'>"binomial"</span>, <span class='fu'><a href='https://dplyr.tidyverse.org/reference/context.html'>cur_data</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> 
+      <span class='fu'>broom</span><span class='fu'>::</span><span class='fu'><a href='https://generics.r-lib.org/reference/tidy.html'>tidy</a></span><span class='op'>(</span>exp <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> 
+      <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='op'>)</span>,
+    CON <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/glm.html'>glm</a></span><span class='op'>(</span><span class='va'>METHCOUNMC</span> <span class='op'>~</span> <span class='va'>CONAVAIL</span>, <span class='st'>"binomial"</span>, <span class='fu'><a href='https://dplyr.tidyverse.org/reference/context.html'>cur_data</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> 
+      <span class='fu'>broom</span><span class='fu'>::</span><span class='fu'><a href='https://generics.r-lib.org/reference/tidy.html'>tidy</a></span><span class='op'>(</span>exp <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> 
+      <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='op'>)</span>,
+    DIA <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/glm.html'>glm</a></span><span class='op'>(</span><span class='va'>METHCOUNDIA</span> <span class='op'>~</span> <span class='va'>DIAAVAIL</span>, <span class='st'>"binomial"</span>, <span class='fu'><a href='https://dplyr.tidyverse.org/reference/context.html'>cur_data</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> 
+      <span class='fu'>broom</span><span class='fu'>::</span><span class='fu'><a href='https://generics.r-lib.org/reference/tidy.html'>tidy</a></span><span class='op'>(</span>exp <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> 
+      <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='op'>)</span>,
+    EMRG <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/glm.html'>glm</a></span><span class='op'>(</span><span class='va'>METHCOUNEC</span> <span class='op'>~</span> <span class='va'>EMRGAVAIL</span>, <span class='st'>"binomial"</span>, <span class='fu'><a href='https://dplyr.tidyverse.org/reference/context.html'>cur_data</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> 
+      <span class='fu'>broom</span><span class='fu'>::</span><span class='fu'><a href='https://generics.r-lib.org/reference/tidy.html'>tidy</a></span><span class='op'>(</span>exp <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> 
+      <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='op'>)</span>,
+    FC <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/glm.html'>glm</a></span><span class='op'>(</span><span class='va'>METHCOUNFC</span> <span class='op'>~</span> <span class='va'>FCAVAIL</span>, <span class='st'>"binomial"</span>, <span class='fu'><a href='https://dplyr.tidyverse.org/reference/context.html'>cur_data</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> 
+      <span class='fu'>broom</span><span class='fu'>::</span><span class='fu'><a href='https://generics.r-lib.org/reference/tidy.html'>tidy</a></span><span class='op'>(</span>exp <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> 
+      <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='op'>)</span>,
+    FOAM <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/glm.html'>glm</a></span><span class='op'>(</span><span class='va'>METHCOUNFOAM</span> <span class='op'>~</span> <span class='va'>FJAVAIL</span>, <span class='st'>"binomial"</span>, <span class='fu'><a href='https://dplyr.tidyverse.org/reference/context.html'>cur_data</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> 
+      <span class='fu'>broom</span><span class='fu'>::</span><span class='fu'><a href='https://generics.r-lib.org/reference/tidy.html'>tidy</a></span><span class='op'>(</span>exp <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> 
+      <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='op'>)</span>,
+    IMP <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/glm.html'>glm</a></span><span class='op'>(</span><span class='va'>METHCOUNIMP</span> <span class='op'>~</span> <span class='va'>IMPAVAIL</span>, <span class='st'>"binomial"</span>, <span class='fu'><a href='https://dplyr.tidyverse.org/reference/context.html'>cur_data</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> 
+      <span class='fu'>broom</span><span class='fu'>::</span><span class='fu'><a href='https://generics.r-lib.org/reference/tidy.html'>tidy</a></span><span class='op'>(</span>exp <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> 
+      <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='op'>)</span>,
+    IUD <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/glm.html'>glm</a></span><span class='op'>(</span><span class='va'>METHCOUNIUD</span> <span class='op'>~</span> <span class='va'>IUDAVAIL</span>, <span class='st'>"binomial"</span>, <span class='fu'><a href='https://dplyr.tidyverse.org/reference/context.html'>cur_data</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> 
+      <span class='fu'>broom</span><span class='fu'>::</span><span class='fu'><a href='https://generics.r-lib.org/reference/tidy.html'>tidy</a></span><span class='op'>(</span>exp <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> 
+      <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='op'>)</span>,
+    PILL <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/glm.html'>glm</a></span><span class='op'>(</span><span class='va'>METHCOUNPILL</span> <span class='op'>~</span> <span class='va'>PILLAVAIL</span>, <span class='st'>"binomial"</span>, <span class='fu'><a href='https://dplyr.tidyverse.org/reference/context.html'>cur_data</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> 
+      <span class='fu'>broom</span><span class='fu'>::</span><span class='fu'><a href='https://generics.r-lib.org/reference/tidy.html'>tidy</a></span><span class='op'>(</span>exp <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> 
+      <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='op'>)</span>
+  <span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='https://tidyr.tidyverse.org/reference/pivot_longer.html'>pivot_longer</a></span><span class='op'>(</span><span class='fu'><a href='https://tidyselect.r-lib.org/reference/everything.html'>everything</a></span><span class='op'>(</span><span class='op'>)</span>, names_to <span class='op'>=</span> <span class='st'>"COUNSELED"</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='https://tidyr.tidyverse.org/reference/nest.html'>unnest</a></span><span class='op'>(</span><span class='va'>value</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/across.html'>across</a></span><span class='op'>(</span><span class='fu'>where</span><span class='op'>(</span><span class='va'>is.double</span><span class='op'>)</span>, <span class='op'>~</span><span class='fu'><a href='https://rdrr.io/r/base/Round.html'>round</a></span><span class='op'>(</span><span class='va'>.x</span>, <span class='fl'>2</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
+</code></pre>
+</div>
+<pre><code># A tibble: 26 × 6
+   COUNSELED term                 estimate std.error statistic p.value
+   &lt;chr&gt;     &lt;chr&gt;                   &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt;
+ 1 BEADS     (Intercept)           1   e-2      0.23    -19.0     0   
+ 2 BEADS     BEADSAVAILcur/rec …   2.14e+0      0.42      1.8     0.07
+ 3 BEADS     BEADSAVAILnot prov…   2.16e+0      0.26      2.97    0   
+ 4 CON       (Intercept)           2.1 e-1      0.05    -34.3     0   
+ 5 CON       CONAVAILcur/rec st…   1.25e+0      0.12      1.85    0.06
+ 6 CON       CONAVAILnot provid…   0          280.       -0.05    0.96
+ 7 DIA       (Intercept)           0          822.       -0.02    0.98
+ 8 DIA       DIAAVAILcur/rec st…   1   e+0   1615.        0       1   
+ 9 DIA       DIAAVAILnot provid…   1.72e+6    822.        0.02    0.99
+10 EMRG      (Intercept)           6   e-2      0.09    -29.3     0   
+# … with 16 more rows</code></pre>
+</div>
+<p>Again - there’s nothing <em>wrong</em> this output. But, with the packed approach we’ll be able to 1) easily substitute method-specific variables in each model without repeating ourselves, and 2) we can use pack names for each model in the <code>COUNSELED</code> column while removing extra text from the <code>term</code> column.</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>dat_packed</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span>
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/summarise.html'>summarise</a></span><span class='op'>(</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/across.html'>across</a></span><span class='op'>(</span>
+    <span class='fu'>where</span><span class='op'>(</span><span class='va'>is_tibble</span><span class='op'>)</span>,
+    <span class='op'>~</span><span class='fu'><a href='https://rdrr.io/r/stats/glm.html'>glm</a></span><span class='op'>(</span><span class='va'>COUNSEL</span> <span class='op'>~</span> <span class='va'>AVAIL</span>, <span class='st'>"binomial"</span>, <span class='va'>.x</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span>
+      <span class='fu'>broom</span><span class='fu'>::</span><span class='fu'><a href='https://generics.r-lib.org/reference/tidy.html'>tidy</a></span><span class='op'>(</span>exp <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span>
+      <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='op'>)</span>
+  <span class='op'>)</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span>
+  <span class='fu'><a href='https://tidyr.tidyverse.org/reference/pivot_longer.html'>pivot_longer</a></span><span class='op'>(</span><span class='fu'><a href='https://tidyselect.r-lib.org/reference/everything.html'>everything</a></span><span class='op'>(</span><span class='op'>)</span>, names_to <span class='op'>=</span> <span class='st'>"COUNSELED"</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span>
+  <span class='fu'><a href='https://tidyr.tidyverse.org/reference/nest.html'>unnest</a></span><span class='op'>(</span><span class='va'>value</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span>
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/across.html'>across</a></span><span class='op'>(</span><span class='fu'>where</span><span class='op'>(</span><span class='va'>is.double</span><span class='op'>)</span>, <span class='op'>~</span><span class='fu'><a href='https://rdrr.io/r/base/Round.html'>round</a></span><span class='op'>(</span><span class='va'>.x</span>, <span class='fl'>2</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span>
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span>term <span class='op'>=</span> <span class='va'>term</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://stringr.tidyverse.org/reference/str_remove.html'>str_remove</a></span><span class='op'>(</span><span class='st'>"AVAIL"</span><span class='op'>)</span><span class='op'>)</span>
+</code></pre>
+</div>
+<pre><code># A tibble: 26 × 6
+   COUNSELED term               estimate std.error statistic p.value
+   &lt;chr&gt;     &lt;chr&gt;                 &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt;
+ 1 BEADS     (Intercept)            0.01      0.23    -19.0     0   
+ 2 BEADS     cur/rec stockout       2.14      0.42      1.8     0.07
+ 3 BEADS     not provided           2.16      0.26      2.97    0   
+ 4 CON       (Intercept)            0.21      0.05    -34.3     0   
+ 5 CON       cur/rec stockout       1.25      0.12      1.85    0.06
+ 6 CON       not provided           0       280.       -0.05    0.96
+ 7 DIA       (Intercept)            0       822.       -0.02    0.98
+ 8 DIA       cur/rec stockout       1      1615.        0       1   
+ 9 DIA       not provided     1722429.      822.        0.02    0.99
+10 EMRG      (Intercept)            0.13      0.48     -4.26    0   
+# … with 16 more rows</code></pre>
+</div>
+<p>What happened here? In summary, we created one pack of variables for each family planning method. We then made <em>all variable names identical across packs</em> so that every pack contains a pair of variables called <code>COUNSEL</code> and <code>AVAIL</code>. Finally, we used <code>across</code> to iterate over every pack via <code>where(is_tibble)</code>: we applied the same general <code>glm</code> call to every pack, referenced in the context of a particular iteration with the pronoun <code>.x</code>.</p>
+<h2 id="the-parent-data-frame">The parent data frame</h2>
+<p>Now suppose we wanted to introduce a common set of controls with each model. We mentioned at the beginning of this post that we might want to control for certain individual factors like like the woman’s age (<a href="https://pma.ipums.org/pma-action/variables/FACILITYID">AGE</a>), whether she is married or partnered (<a href="https://pma.ipums.org/pma-action/variables/MARSTAT">MARSTAT</a>, recoded here as <code>PARTNERED</code>), and her birth history (<a href="https://pma.ipums.org/pma-action/variables/BIRTHEVENT">BIRTHEVENT</a>).</p>
+<p>Remember that these variables were <em>not</em> included in the packed data frames we created above. Instead, they’re located in a <strong>parent data frame</strong> together with all of our packs. When we iterate through each pack with <code>across</code>, R searches for variables called <code>COUNSEL</code> and <code>AVAIL</code> in one particular pack, <a href="https://tidyeval.tidyverse.org/sec-why-how.html">masking</a> those in the other packs - this is what allows us to reuse the same variable names for each family planning method. Because each iteration focuses on the contents of one pack, you might expect to get an error if you reference variables <em>outside</em> of that pack.</p>
+<p>Fortunately, this is not the case! You can simply add the variables <code>AGE</code>, <code>PARTNERED</code>, and <code>BIRTHEVENT</code> to the formula applied to each pack. R won’t find those variables within the current pack, but it <em>will</em> find them in the <strong>parent data frame</strong> in which the pack is a member:</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>dat_packed</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span>
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span>PARTNERED <span class='op'>=</span> <span class='va'>MARSTAT</span> <span class='op'><a href='https://rdrr.io/r/base/match.html'>%in%</a></span> <span class='fl'>21</span><span class='op'>:</span><span class='fl'>22</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span>
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/summarise.html'>summarise</a></span><span class='op'>(</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/across.html'>across</a></span><span class='op'>(</span>
+    <span class='fu'>where</span><span class='op'>(</span><span class='va'>is_tibble</span><span class='op'>)</span>,
+    <span class='co'># You can select variables both within and outside of each pack </span>
+    <span class='op'>~</span><span class='fu'><a href='https://rdrr.io/r/stats/glm.html'>glm</a></span><span class='op'>(</span><span class='va'>COUNSEL</span> <span class='op'>~</span> <span class='va'>AVAIL</span> <span class='op'>+</span> <span class='va'>AGE</span> <span class='op'>+</span> <span class='va'>PARTNERED</span> <span class='op'>+</span> <span class='va'>BIRTHEVENT</span>, <span class='st'>"binomial"</span>, <span class='va'>.x</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span>
+      <span class='fu'>broom</span><span class='fu'>::</span><span class='fu'><a href='https://generics.r-lib.org/reference/tidy.html'>tidy</a></span><span class='op'>(</span>exp <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span>
+      <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='op'>)</span>
+  <span class='op'>)</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span>
+  <span class='fu'><a href='https://tidyr.tidyverse.org/reference/pivot_longer.html'>pivot_longer</a></span><span class='op'>(</span><span class='fu'><a href='https://tidyselect.r-lib.org/reference/everything.html'>everything</a></span><span class='op'>(</span><span class='op'>)</span>, names_to <span class='op'>=</span> <span class='st'>"COUNSELED"</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span>
+  <span class='fu'><a href='https://tidyr.tidyverse.org/reference/nest.html'>unnest</a></span><span class='op'>(</span><span class='va'>value</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span>
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/across.html'>across</a></span><span class='op'>(</span><span class='fu'>where</span><span class='op'>(</span><span class='va'>is.double</span><span class='op'>)</span>, <span class='op'>~</span><span class='fu'><a href='https://rdrr.io/r/base/Round.html'>round</a></span><span class='op'>(</span><span class='va'>.x</span>, <span class='fl'>2</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span>
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span>term <span class='op'>=</span> <span class='va'>term</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://stringr.tidyverse.org/reference/str_remove.html'>str_remove</a></span><span class='op'>(</span><span class='st'>"AVAIL"</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://stringr.tidyverse.org/reference/str_remove.html'>str_remove</a></span><span class='op'>(</span><span class='st'>"TRUE"</span><span class='op'>)</span><span class='op'>)</span>
+</code></pre>
+</div>
+<pre><code># A tibble: 53 × 6
+   COUNSELED term             estimate std.error statistic p.value
+   &lt;chr&gt;     &lt;chr&gt;               &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt;
+ 1 BEADS     (Intercept)          0.02      0.56     -7.5     0   
+ 2 BEADS     cur/rec stockout     2.17      0.42      1.82    0.07
+ 3 BEADS     not provided         2.22      0.26      3.07    0   
+ 4 BEADS     AGE                  1.01      0.02      0.32    0.75
+ 5 BEADS     PARTNERED            1.34      0.31      0.93    0.35
+ 6 BEADS     BIRTHEVENT           0.8       0.09     -2.51    0.01
+ 7 CON       (Intercept)          0.4       0.2      -4.7     0   
+ 8 CON       cur/rec stockout     1.25      0.12      1.85    0.06
+ 9 CON       not provided         0       279.       -0.05    0.96
+10 CON       AGE                  0.99      0.01     -1.48    0.14
+# … with 43 more rows</code></pre>
+</div>
+<h2 id="unpacking">Unpacking</h2>
+<p>Occasionally, you may want to <a href="https://tidyr.tidyverse.org/reference/pack.html">unpack</a> variables and return your data frame to its original shape. If you’ve duplicated variable names across packs as we’ve done above, you’ll get an error if you <code>unpack</code> without specifying some way to maintain unique names in the reshaped data frame:</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>dat_packed</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://tidyr.tidyverse.org/reference/pack.html'>unpack</a></span><span class='op'>(</span><span class='fu'>where</span><span class='op'>(</span><span class='va'>is_tibble</span><span class='op'>)</span><span class='op'>)</span>
+</code></pre>
+</div>
+<pre><code>Error: Names must be unique.
+x These names are duplicated:
+  * &quot;COUNSEL&quot; at locations 411, 415, 419, 423, 427, etc.
+  * &quot;OBS&quot; at locations 412, 416, 420, 424, 428, etc.
+  * &quot;OUT3MO&quot; at locations 413, 417, 421, 425, 429, etc.
+  * &quot;AVAIL&quot; at locations 414, 418, 422, 426, 430, etc.
+ℹ Use argument `names_repair` to specify repair strategy.</code></pre>
+</div>
+<p>In our case, we’ll use the pack name as a prefix for each new variable name. We’ll use <code>names_sep = "_"</code> to separate each prefix with an underscore:</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>dat_packed</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span>
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/select.html'>select</a></span><span class='op'>(</span><span class='fu'>where</span><span class='op'>(</span><span class='va'>is_tibble</span><span class='op'>)</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span>
+  <span class='fu'><a href='https://tidyr.tidyverse.org/reference/pack.html'>unpack</a></span><span class='op'>(</span><span class='fu'>where</span><span class='op'>(</span><span class='va'>is_tibble</span><span class='op'>)</span>, names_sep <span class='op'>=</span> <span class='st'>"_"</span><span class='op'>)</span>
+</code></pre>
+</div>
+<pre><code># A tibble: 3,901 × 36
+   BEADS_COUNSEL     BEADS_OBS    BEADS_OUT3MO BEADS_AVAIL CON_COUNSEL
+       &lt;int+lbl&gt;     &lt;int+lbl&gt;       &lt;int+lbl&gt; &lt;fct&gt;         &lt;int+lbl&gt;
+ 1        0 [No] 99 [NIU (not… 99 [NIU (not i… not provid…      0 [No]
+ 2        0 [No] 99 [NIU (not… 99 [NIU (not i… not provid…      0 [No]
+ 3        0 [No] 99 [NIU (not… 99 [NIU (not i… not provid…      0 [No]
+ 4        0 [No] 99 [NIU (not… 99 [NIU (not i… not provid…      0 [No]
+ 5        0 [No] 99 [NIU (not… 99 [NIU (not i… not provid…      0 [No]
+ 6        0 [No] 99 [NIU (not… 99 [NIU (not i… not provid…      0 [No]
+ 7        0 [No] 99 [NIU (not… 99 [NIU (not i… not provid…      0 [No]
+ 8        0 [No] 99 [NIU (not… 99 [NIU (not i… not provid…      0 [No]
+ 9        0 [No] 99 [NIU (not… 99 [NIU (not i… not provid…      0 [No]
+10        0 [No] 99 [NIU (not… 99 [NIU (not i… not provid…      0 [No]
+# … with 3,891 more rows, and 31 more variables: CON_OBS &lt;int+lbl&gt;,
+#   CON_OUT3MO &lt;int+lbl&gt;, CON_AVAIL &lt;fct&gt;, DIA_COUNSEL &lt;int+lbl&gt;,
+#   DIA_OBS &lt;int+lbl&gt;, DIA_OUT3MO &lt;int+lbl&gt;, DIA_AVAIL &lt;fct&gt;,
+#   EMRG_COUNSEL &lt;int+lbl&gt;, EMRG_OBS &lt;int+lbl&gt;,
+#   EMRG_OUT3MO &lt;int+lbl&gt;, EMRG_AVAIL &lt;fct&gt;, FC_COUNSEL &lt;int+lbl&gt;,
+#   FC_OBS &lt;int+lbl&gt;, FC_OUT3MO &lt;int+lbl&gt;, FC_AVAIL &lt;fct&gt;,
+#   FOAM_COUNSEL &lt;int+lbl&gt;, FOAM_OBS &lt;int+lbl&gt;, …</code></pre>
+</div>
+<h1 id="just-the-code-please">Just the code, please</h1>
+<p>In case the benefits we gained with <code>pack</code> aren’t quite clear, let’s take a look at the complete workflow in one big code chunk. For comparison’s sake, this is life <em>without</em> <code>pack</code>:</p>
+<h2 id="conventional-workflow">Conventional workflow</h2>
+<div class="layout-chunk" data-layout="l-body">
+
+</div>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>dat</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span>
+    <span class='co'># The "availability" of every family planning method is coded separately </span>
+    IUDAVAIL <span class='op'>=</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/case_when.html'>case_when</a></span><span class='op'>(</span>
+      <span class='va'>IUDOBS</span> <span class='op'>==</span> <span class='fl'>99</span> <span class='op'>~</span> <span class='st'>"not provided"</span>,
+      <span class='va'>IUDOBS</span> <span class='op'>==</span> <span class='fl'>3</span> <span class='op'>|</span> <span class='va'>IUDOUT3MO</span> <span class='op'>==</span> <span class='fl'>1</span> <span class='op'>~</span> <span class='st'>"cur/rec stockout"</span>,
+      <span class='va'>IUDOUT3MO</span> <span class='op'>==</span> <span class='fl'>0</span> <span class='op'>~</span> <span class='st'>"reliably avail"</span>
+    <span class='op'>)</span>,
+    CONAVAIL <span class='op'>=</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/case_when.html'>case_when</a></span><span class='op'>(</span>
+      <span class='va'>CONOBS</span> <span class='op'>==</span> <span class='fl'>99</span> <span class='op'>~</span> <span class='st'>"not provided"</span>,
+      <span class='va'>CONOBS</span> <span class='op'>==</span> <span class='fl'>3</span> <span class='op'>|</span> <span class='va'>CONOUT3MO</span> <span class='op'>==</span> <span class='fl'>1</span> <span class='op'>~</span> <span class='st'>"cur/rec stockout"</span>,
+      <span class='va'>CONOUT3MO</span> <span class='op'>==</span> <span class='fl'>0</span> <span class='op'>~</span> <span class='st'>"reliably avail"</span>
+    <span class='op'>)</span>,
+    BEADSAVAIL <span class='op'>=</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/case_when.html'>case_when</a></span><span class='op'>(</span>
+      <span class='va'>CYCBOBS</span> <span class='op'>==</span> <span class='fl'>99</span> <span class='op'>~</span> <span class='st'>"not provided"</span>,
+      <span class='va'>CYCBOBS</span> <span class='op'>==</span> <span class='fl'>3</span> <span class='op'>|</span> <span class='va'>CYCBOUT3MO</span> <span class='op'>==</span> <span class='fl'>1</span> <span class='op'>~</span> <span class='st'>"cur/rec stockout"</span>,
+      <span class='va'>CYCBOUT3MO</span> <span class='op'>==</span> <span class='fl'>0</span> <span class='op'>~</span> <span class='st'>"reliably avail"</span>
+    <span class='op'>)</span>,
+    DIAAVAIL <span class='op'>=</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/case_when.html'>case_when</a></span><span class='op'>(</span>
+      <span class='va'>DIAOBS</span> <span class='op'>==</span> <span class='fl'>99</span> <span class='op'>~</span> <span class='st'>"not provided"</span>,
+      <span class='va'>DIAOBS</span> <span class='op'>==</span> <span class='fl'>3</span> <span class='op'>|</span> <span class='va'>DIAOUT3MO</span> <span class='op'>==</span> <span class='fl'>1</span> <span class='op'>~</span> <span class='st'>"cur/rec stockout"</span>,
+      <span class='va'>DIAOUT3MO</span> <span class='op'>==</span> <span class='fl'>0</span> <span class='op'>~</span> <span class='st'>"reliably avail"</span>
+    <span class='op'>)</span>,
+    EMRGAVAIL <span class='op'>=</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/case_when.html'>case_when</a></span><span class='op'>(</span>
+      <span class='va'>EMRGOBS</span> <span class='op'>==</span> <span class='fl'>99</span> <span class='op'>~</span> <span class='st'>"not provided"</span>,
+      <span class='va'>EMRGOBS</span> <span class='op'>==</span> <span class='fl'>3</span> <span class='op'>|</span> <span class='va'>EMRGOUT3MO</span> <span class='op'>==</span> <span class='fl'>1</span> <span class='op'>~</span> <span class='st'>"cur/rec stockout"</span>,
+      <span class='va'>EMRGOUT3MO</span> <span class='op'>==</span> <span class='fl'>0</span> <span class='op'>~</span> <span class='st'>"reliably avail"</span>
+    <span class='op'>)</span>,
+    FCAVAIL <span class='op'>=</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/case_when.html'>case_when</a></span><span class='op'>(</span>
+      <span class='va'>FCOBS</span> <span class='op'>==</span> <span class='fl'>99</span> <span class='op'>~</span> <span class='st'>"not provided"</span>,
+      <span class='va'>FCOBS</span> <span class='op'>==</span> <span class='fl'>3</span> <span class='op'>|</span> <span class='va'>FCOUT3MO</span> <span class='op'>==</span> <span class='fl'>1</span> <span class='op'>~</span> <span class='st'>"cur/rec stockout"</span>,
+      <span class='va'>FCOUT3MO</span> <span class='op'>==</span> <span class='fl'>0</span> <span class='op'>~</span> <span class='st'>"reliably avail"</span>
+    <span class='op'>)</span>,
+    FJAVAIL <span class='op'>=</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/case_when.html'>case_when</a></span><span class='op'>(</span>
+      <span class='va'>FJOBS</span> <span class='op'>==</span> <span class='fl'>99</span> <span class='op'>~</span> <span class='st'>"not provided"</span>,
+      <span class='va'>FJOBS</span> <span class='op'>==</span> <span class='fl'>3</span> <span class='op'>|</span> <span class='va'>FJOUT3MO</span> <span class='op'>==</span> <span class='fl'>1</span> <span class='op'>~</span> <span class='st'>"cur/rec stockout"</span>,
+      <span class='va'>FJOUT3MO</span> <span class='op'>==</span> <span class='fl'>0</span> <span class='op'>~</span> <span class='st'>"reliably avail"</span>
+    <span class='op'>)</span>,
+    IMPAVAIL <span class='op'>=</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/case_when.html'>case_when</a></span><span class='op'>(</span>
+      <span class='va'>IMPOBS</span> <span class='op'>==</span> <span class='fl'>99</span> <span class='op'>~</span> <span class='st'>"not provided"</span>,
+      <span class='va'>IMPOBS</span> <span class='op'>==</span> <span class='fl'>3</span> <span class='op'>|</span> <span class='va'>IMPOUT3MO</span> <span class='op'>==</span> <span class='fl'>1</span> <span class='op'>~</span> <span class='st'>"cur/rec stockout"</span>,
+      <span class='va'>IMPOUT3MO</span> <span class='op'>==</span> <span class='fl'>0</span> <span class='op'>~</span> <span class='st'>"reliably avail"</span>
+    <span class='op'>)</span>,
+    PILLAVAIL <span class='op'>=</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/case_when.html'>case_when</a></span><span class='op'>(</span>
+      <span class='va'>PILLOBS</span> <span class='op'>==</span> <span class='fl'>99</span> <span class='op'>~</span> <span class='st'>"not provided"</span>,
+      <span class='va'>PILLOBS</span> <span class='op'>==</span> <span class='fl'>3</span> <span class='op'>|</span> <span class='va'>PILLOUT3MO</span> <span class='op'>==</span> <span class='fl'>1</span> <span class='op'>~</span> <span class='st'>"cur/rec stockout"</span>,
+      <span class='va'>PILLOUT3MO</span> <span class='op'>==</span> <span class='fl'>0</span> <span class='op'>~</span> <span class='st'>"reliably avail"</span>
+    <span class='op'>)</span>,
+    <span class='fu'><a href='https://dplyr.tidyverse.org/reference/across.html'>across</a></span><span class='op'>(</span>
+      <span class='fu'><a href='https://tidyselect.r-lib.org/reference/starts_with.html'>ends_with</a></span><span class='op'>(</span><span class='st'>"AVAIL"</span><span class='op'>)</span> <span class='op'>&amp;</span> <span class='fu'>where</span><span class='op'>(</span><span class='va'>is.character</span><span class='op'>)</span>,
+      <span class='op'>~</span><span class='va'>.x</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://forcats.tidyverse.org/reference/fct_relevel.html'>fct_relevel</a></span><span class='op'>(</span><span class='st'>"reliably avail"</span><span class='op'>)</span> <span class='co'># set reference group</span>
+    <span class='op'>)</span>,
+    PARTNERED <span class='op'>=</span> <span class='va'>MARSTAT</span> <span class='op'><a href='https://rdrr.io/r/base/match.html'>%in%</a></span> <span class='fl'>21</span><span class='op'>:</span><span class='fl'>22</span>
+  <span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='co'># Variables for every family planning method are substituted manually </span>
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/summarise.html'>summarise</a></span><span class='op'>(</span>
+    BEADS <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/glm.html'>glm</a></span><span class='op'>(</span>
+      <span class='va'>METHCOUNBEADS</span> <span class='op'>~</span> <span class='va'>BEADSAVAIL</span> <span class='op'>+</span> <span class='va'>AGE</span> <span class='op'>+</span> <span class='va'>PARTNERED</span> <span class='op'>+</span> <span class='va'>BIRTHEVENT</span>, 
+      <span class='st'>"binomial"</span>, 
+      <span class='fu'><a href='https://dplyr.tidyverse.org/reference/context.html'>cur_data</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> 
+      <span class='fu'>broom</span><span class='fu'>::</span><span class='fu'><a href='https://generics.r-lib.org/reference/tidy.html'>tidy</a></span><span class='op'>(</span>exp <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> 
+      <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='op'>)</span>,
+    CON <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/glm.html'>glm</a></span><span class='op'>(</span>
+      <span class='va'>METHCOUNMC</span> <span class='op'>~</span> <span class='va'>CONAVAIL</span> <span class='op'>+</span> <span class='va'>AGE</span> <span class='op'>+</span> <span class='va'>PARTNERED</span> <span class='op'>+</span> <span class='va'>BIRTHEVENT</span>, 
+      <span class='st'>"binomial"</span>, 
+      <span class='fu'><a href='https://dplyr.tidyverse.org/reference/context.html'>cur_data</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> 
+      <span class='fu'>broom</span><span class='fu'>::</span><span class='fu'><a href='https://generics.r-lib.org/reference/tidy.html'>tidy</a></span><span class='op'>(</span>exp <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> 
+      <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='op'>)</span>,
+    DIA <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/glm.html'>glm</a></span><span class='op'>(</span>
+      <span class='va'>METHCOUNDIA</span> <span class='op'>~</span> <span class='va'>DIAAVAIL</span> <span class='op'>+</span> <span class='va'>AGE</span> <span class='op'>+</span> <span class='va'>PARTNERED</span> <span class='op'>+</span> <span class='va'>BIRTHEVENT</span>, 
+      <span class='st'>"binomial"</span>, 
+      <span class='fu'><a href='https://dplyr.tidyverse.org/reference/context.html'>cur_data</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> 
+      <span class='fu'>broom</span><span class='fu'>::</span><span class='fu'><a href='https://generics.r-lib.org/reference/tidy.html'>tidy</a></span><span class='op'>(</span>exp <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> 
+      <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='op'>)</span>,
+    EMRG <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/glm.html'>glm</a></span><span class='op'>(</span>
+      <span class='va'>METHCOUNEC</span> <span class='op'>~</span> <span class='va'>EMRGAVAIL</span> <span class='op'>+</span> <span class='va'>AGE</span> <span class='op'>+</span> <span class='va'>PARTNERED</span> <span class='op'>+</span> <span class='va'>BIRTHEVENT</span>, 
+      <span class='st'>"binomial"</span>, 
+      <span class='fu'><a href='https://dplyr.tidyverse.org/reference/context.html'>cur_data</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> 
+      <span class='fu'>broom</span><span class='fu'>::</span><span class='fu'><a href='https://generics.r-lib.org/reference/tidy.html'>tidy</a></span><span class='op'>(</span>exp <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> 
+      <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='op'>)</span>,
+    FC <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/glm.html'>glm</a></span><span class='op'>(</span>
+      <span class='va'>METHCOUNFC</span> <span class='op'>~</span> <span class='va'>FCAVAIL</span> <span class='op'>+</span> <span class='va'>AGE</span> <span class='op'>+</span> <span class='va'>PARTNERED</span> <span class='op'>+</span> <span class='va'>BIRTHEVENT</span>, 
+      <span class='st'>"binomial"</span>, 
+      <span class='fu'><a href='https://dplyr.tidyverse.org/reference/context.html'>cur_data</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> 
+      <span class='fu'>broom</span><span class='fu'>::</span><span class='fu'><a href='https://generics.r-lib.org/reference/tidy.html'>tidy</a></span><span class='op'>(</span>exp <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> 
+      <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='op'>)</span>,
+    FOAM <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/glm.html'>glm</a></span><span class='op'>(</span>
+      <span class='va'>METHCOUNFOAM</span> <span class='op'>~</span> <span class='va'>FJAVAIL</span> <span class='op'>+</span> <span class='va'>AGE</span> <span class='op'>+</span> <span class='va'>PARTNERED</span> <span class='op'>+</span> <span class='va'>BIRTHEVENT</span>, 
+      <span class='st'>"binomial"</span>, 
+      <span class='fu'><a href='https://dplyr.tidyverse.org/reference/context.html'>cur_data</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> 
+      <span class='fu'>broom</span><span class='fu'>::</span><span class='fu'><a href='https://generics.r-lib.org/reference/tidy.html'>tidy</a></span><span class='op'>(</span>exp <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> 
+      <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='op'>)</span>,
+    IMP <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/glm.html'>glm</a></span><span class='op'>(</span>
+      <span class='va'>METHCOUNIMP</span> <span class='op'>~</span> <span class='va'>IMPAVAIL</span> <span class='op'>+</span> <span class='va'>AGE</span> <span class='op'>+</span> <span class='va'>PARTNERED</span> <span class='op'>+</span> <span class='va'>BIRTHEVENT</span>, 
+      <span class='st'>"binomial"</span>, 
+      <span class='fu'><a href='https://dplyr.tidyverse.org/reference/context.html'>cur_data</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> 
+      <span class='fu'>broom</span><span class='fu'>::</span><span class='fu'><a href='https://generics.r-lib.org/reference/tidy.html'>tidy</a></span><span class='op'>(</span>exp <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> 
+      <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='op'>)</span>,
+    IUD <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/glm.html'>glm</a></span><span class='op'>(</span>
+      <span class='va'>METHCOUNIUD</span> <span class='op'>~</span> <span class='va'>IUDAVAIL</span> <span class='op'>+</span> <span class='va'>AGE</span> <span class='op'>+</span> <span class='va'>PARTNERED</span> <span class='op'>+</span> <span class='va'>BIRTHEVENT</span>, 
+      <span class='st'>"binomial"</span>, 
+      <span class='fu'><a href='https://dplyr.tidyverse.org/reference/context.html'>cur_data</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> 
+      <span class='fu'>broom</span><span class='fu'>::</span><span class='fu'><a href='https://generics.r-lib.org/reference/tidy.html'>tidy</a></span><span class='op'>(</span>exp <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> 
+      <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='op'>)</span>,
+    PILL <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/glm.html'>glm</a></span><span class='op'>(</span>
+      <span class='va'>METHCOUNPILL</span> <span class='op'>~</span> <span class='va'>PILLAVAIL</span> <span class='op'>+</span> <span class='va'>AGE</span> <span class='op'>+</span> <span class='va'>PARTNERED</span> <span class='op'>+</span> <span class='va'>BIRTHEVENT</span>, 
+      <span class='st'>"binomial"</span>, 
+      <span class='fu'><a href='https://dplyr.tidyverse.org/reference/context.html'>cur_data</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> 
+      <span class='fu'>broom</span><span class='fu'>::</span><span class='fu'><a href='https://generics.r-lib.org/reference/tidy.html'>tidy</a></span><span class='op'>(</span>exp <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> 
+      <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='op'>)</span>
+  <span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='https://tidyr.tidyverse.org/reference/pivot_longer.html'>pivot_longer</a></span><span class='op'>(</span><span class='fu'><a href='https://tidyselect.r-lib.org/reference/everything.html'>everything</a></span><span class='op'>(</span><span class='op'>)</span>, names_to <span class='op'>=</span> <span class='st'>"COUNSELED"</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='https://tidyr.tidyverse.org/reference/nest.html'>unnest</a></span><span class='op'>(</span><span class='va'>value</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/across.html'>across</a></span><span class='op'>(</span><span class='fu'>where</span><span class='op'>(</span><span class='va'>is.double</span><span class='op'>)</span>, <span class='op'>~</span><span class='fu'><a href='https://rdrr.io/r/base/Round.html'>round</a></span><span class='op'>(</span><span class='va'>.x</span>, <span class='fl'>2</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
+</code></pre>
+</div>
+</div>
+<h2 id="packed-workflow">Packed workflow</h2>
+<p>With <code>pack</code> you only need to specify variables the “go together” <em>once at the beginning</em>. The results are identical, but compared to a conventional workflow, this saves you the trouble of manually substituting variables into code you’d otherwise need repeat.</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>dat</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='https://tidyr.tidyverse.org/reference/pack.html'>pack</a></span><span class='op'>(</span>
+    BEADS <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='va'>METHCOUNBEADS</span>, <span class='va'>CYCBOBS</span>, <span class='va'>CYCBOUT3MO</span><span class='op'>)</span>,
+    CON <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='va'>METHCOUNMC</span>, <span class='va'>CONOBS</span>, <span class='va'>CONOUT3MO</span><span class='op'>)</span>,
+    DIA <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='va'>METHCOUNDIA</span>, <span class='va'>DIAOBS</span>, <span class='va'>DIAOUT3MO</span><span class='op'>)</span>,
+    EMRG <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='va'>METHCOUNEC</span>, <span class='va'>EMRGOBS</span>, <span class='va'>DIAOUT3MO</span><span class='op'>)</span>,
+    FC <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='va'>METHCOUNFC</span>, <span class='va'>FCOBS</span>, <span class='va'>FCOUT3MO</span><span class='op'>)</span>,
+    FOAM <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='va'>METHCOUNFOAM</span>, <span class='va'>FJOBS</span>, <span class='va'>FJOUT3MO</span><span class='op'>)</span>,
+    IMP <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='va'>METHCOUNIMP</span>, <span class='va'>IMPOBS</span>, <span class='va'>IMPOUT3MO</span><span class='op'>)</span>,
+    IUD <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='va'>METHCOUNIUD</span>, <span class='va'>IUDOBS</span>, <span class='va'>IUDOUT3MO</span><span class='op'>)</span>,
+    PILL <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='va'>METHCOUNPILL</span>, <span class='va'>PILLOBS</span>, <span class='va'>PILLOUT3MO</span><span class='op'>)</span>
+  <span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='co'># The same generic "availability" coding is applied to every pack </span>
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span>
+    <span class='fu'><a href='https://dplyr.tidyverse.org/reference/across.html'>across</a></span><span class='op'>(</span>
+      <span class='fu'>where</span><span class='op'>(</span><span class='va'>is_tibble</span><span class='op'>)</span>,
+      <span class='op'>~</span><span class='va'>.x</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> 
+        <span class='fu'><a href='https://dplyr.tidyverse.org/reference/rename.html'>rename</a></span><span class='op'>(</span>
+          COUNSEL <span class='op'>=</span> <span class='fu'><a href='https://tidyselect.r-lib.org/reference/starts_with.html'>contains</a></span><span class='op'>(</span><span class='st'>"METHCOUN"</span><span class='op'>)</span>,
+          OBS <span class='op'>=</span> <span class='fu'><a href='https://tidyselect.r-lib.org/reference/starts_with.html'>contains</a></span><span class='op'>(</span><span class='st'>"OBS"</span><span class='op'>)</span>,
+          OUT3MO <span class='op'>=</span> <span class='fu'><a href='https://tidyselect.r-lib.org/reference/starts_with.html'>contains</a></span><span class='op'>(</span><span class='st'>"OUT3MO"</span><span class='op'>)</span>
+        <span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> 
+        <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span>AVAIL <span class='op'>=</span> <span class='fu'><a href='https://forcats.tidyverse.org/reference/fct_relevel.html'>fct_relevel</a></span><span class='op'>(</span>
+          <span class='fu'><a href='https://dplyr.tidyverse.org/reference/case_when.html'>case_when</a></span><span class='op'>(</span>
+            <span class='va'>OBS</span> <span class='op'>==</span> <span class='fl'>99</span> <span class='op'>~</span> <span class='st'>"not provided"</span>,
+            <span class='va'>OBS</span> <span class='op'>==</span> <span class='fl'>3</span> <span class='op'>|</span> <span class='va'>OUT3MO</span> <span class='op'>==</span> <span class='fl'>1</span> <span class='op'>~</span> <span class='st'>"cur/rec stockout"</span>,
+            <span class='va'>OUT3MO</span> <span class='op'>==</span> <span class='fl'>0</span> <span class='op'>~</span> <span class='st'>"reliably avail"</span> 
+          <span class='op'>)</span>,
+          <span class='st'>"reliably avail"</span> <span class='co'># set reference group</span>
+        <span class='op'>)</span> 
+        <span class='op'>)</span>
+    <span class='op'>)</span>,
+    PARTNERED <span class='op'>=</span> <span class='va'>MARSTAT</span> <span class='op'><a href='https://rdrr.io/r/base/match.html'>%in%</a></span> <span class='fl'>21</span><span class='op'>:</span><span class='fl'>22</span>
+  <span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='co'># The same generic model formula is applied to every pack</span>
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/summarise.html'>summarise</a></span><span class='op'>(</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/across.html'>across</a></span><span class='op'>(</span>
+    <span class='fu'>where</span><span class='op'>(</span><span class='va'>is_tibble</span><span class='op'>)</span>,
+    <span class='op'>~</span><span class='fu'><a href='https://rdrr.io/r/stats/glm.html'>glm</a></span><span class='op'>(</span><span class='va'>COUNSEL</span> <span class='op'>~</span> <span class='va'>AVAIL</span> <span class='op'>+</span> <span class='va'>AGE</span> <span class='op'>+</span> <span class='va'>PARTNERED</span> <span class='op'>+</span> <span class='va'>BIRTHEVENT</span>, <span class='st'>"binomial"</span>, <span class='va'>.x</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span>
+      <span class='fu'>broom</span><span class='fu'>::</span><span class='fu'><a href='https://generics.r-lib.org/reference/tidy.html'>tidy</a></span><span class='op'>(</span>exp <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span>
+      <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='op'>)</span>
+  <span class='op'>)</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span>
+  <span class='fu'><a href='https://tidyr.tidyverse.org/reference/pivot_longer.html'>pivot_longer</a></span><span class='op'>(</span><span class='fu'><a href='https://tidyselect.r-lib.org/reference/everything.html'>everything</a></span><span class='op'>(</span><span class='op'>)</span>, names_to <span class='op'>=</span> <span class='st'>"COUNSELED"</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span>
+  <span class='fu'><a href='https://tidyr.tidyverse.org/reference/nest.html'>unnest</a></span><span class='op'>(</span><span class='va'>value</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span>
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/across.html'>across</a></span><span class='op'>(</span><span class='fu'>where</span><span class='op'>(</span><span class='va'>is.double</span><span class='op'>)</span>, <span class='op'>~</span><span class='fu'><a href='https://rdrr.io/r/base/Round.html'>round</a></span><span class='op'>(</span><span class='va'>.x</span>, <span class='fl'>2</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span>
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span>term <span class='op'>=</span> <span class='va'>term</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://stringr.tidyverse.org/reference/str_remove.html'>str_remove</a></span><span class='op'>(</span><span class='st'>"AVAIL"</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://stringr.tidyverse.org/reference/str_remove.html'>str_remove</a></span><span class='op'>(</span><span class='st'>"TRUE"</span><span class='op'>)</span><span class='op'>)</span>
+</code></pre>
+</div>
+</div>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
+<!--radix_placeholder_article_footer-->
+<!--/radix_placeholder_article_footer-->
+</div>
+
+<div class="d-appendix">
+</div>
+
+
+<!--radix_placeholder_site_after_body-->
+<!--/radix_placeholder_site_after_body-->
+<!--radix_placeholder_appendices-->
+<div class="appendix-bottom"></div>
+<!--/radix_placeholder_appendices-->
+<!--radix_placeholder_navigation_after_body-->
+<!--/radix_placeholder_navigation_after_body-->
+
+</body>
+
+</html>
