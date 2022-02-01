@@ -81,7 +81,7 @@ The [ipumsr](http://tech.popdata.org/ipumsr/) package provides tools to access a
 
 ## Iteration with columns
 
-When you want to apply changes to *several* IPUMS PMA variables, it's usually most efficient to leverage the [across](https://dplyr.tidyverse.org/reference/across.html) function from [dplyr]((https://dplyr.tidyverse.org). We use `across` all the time, but some of our best examples show how to:
+When you want to apply changes to *several* IPUMS PMA variables, it's usually most efficient to leverage the [across]() function from [dplyr](). We use `across` all the time, but some of our best examples show how to:
 
   * [use tidy selection](../2021-08-01-covid-batches/index.html#using-dplyracross) to identify variables by location or a naming pattern
   * [recode or label NA values for several variables](..//2021-01-28-across-sdp/#introducing-dplyracross) with tools from `ipumsr`
@@ -92,7 +92,7 @@ When you want to apply changes to *several* IPUMS PMA variables, it's usually mo
 <div> 
 Many functions in R are [vectorized](https://adv-r.hadley.nz/perf-improve.html#vectorise): when you apply them to a column in your data frame, you typically get **one result for each row**. 
 
-**Non-vectorized** functions instead return **one result summarizing the entire column**. For instance, the function [mean](https://www.rdocumentation.org/packages/base/versions/3.6.2/topics/mean) gives you one mean value derived from all rows in a given column. Tools from `dplyr` like [rowwise](https://dplyr.tidyverse.org/dev/articles/rowwise.html) and [group_by](https://dplyr.tidyverse.org/articles/grouping.html?q=group) allow us to apply non-vectorized functions to individual rows or groups of rows. We've used these functions to: 
+**Non-vectorized** functions instead return **one result summarizing the entire column**. For instance, the function [mean]() gives you one mean value derived from all rows in a given column. Tools from `dplyr` like [rowwise](https://dplyr.tidyverse.org/dev/articles/rowwise.html) and [group_by](https://dplyr.tidyverse.org/articles/grouping.html?q=group) allow us to apply non-vectorized functions to individual rows or groups of rows. We've used these functions to: 
 
   * summarize variables [within groups]((../2021-01-28-summarize-by-easerved/#summarise-by-easerved-and-sample))
   * summarize variables [within the same row](../2021-01-28-across-sdp/#summarize-variable-groups-by-facility) with  [c_across](https://dplyr.tidyverse.org/reference/c_across.html)

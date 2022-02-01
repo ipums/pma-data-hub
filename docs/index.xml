@@ -12,7 +12,21 @@
       <link>https://ipums.github.io/pma-data-hub/</link>
     </image>
     <generator>Distill</generator>
-    <lastBuildDate>Sat, 15 Jan 2022 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 01 Feb 2022 00:00:00 +0000</lastBuildDate>
+    <item>
+      <title>Comparing client experiences with family planning service providers</title>
+      <dc:creator>Matt Gunther</dc:creator>
+      <link>https://ipums.github.io/pma-data-hub/posts/2022-02-01-cei-fp</link>
+      <description>Service quality questions are included in both Client Exit Interview and Family Planning surveys from PMA. We show how to match similar questions across surveys and compare the results with faceted graphics.</description>
+      <category>Client Exit Interviews</category>
+      <category>Data Analysis</category>
+      <category>Bar Charts</category>
+      <category>srvyr</category>
+      <category>ggplot2</category>
+      <guid>https://ipums.github.io/pma-data-hub/posts/2022-02-01-cei-fp</guid>
+      <pubDate>Tue, 01 Feb 2022 00:00:00 +0000</pubDate>
+      <media:content url="https://ipums.github.io/pma-data-hub/posts/2022-02-01-cei-fp/cei-fp_files/figure-html5/unnamed-chunk-35-1.png" medium="image" type="image/png" width="2304" height="1536"/>
+    </item>
     <item>
       <title>Building many similar models: easy variable substitution with 'pack' and 'across'</title>
       <dc:creator>Matt Gunther</dc:creator>
