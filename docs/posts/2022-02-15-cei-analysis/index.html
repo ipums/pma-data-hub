@@ -1,0 +1,4436 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1"/>
+  <meta name="generator" content="distill" />
+
+  <style type="text/css">
+  /* Hide doc at startup (prevent jankiness while JS renders/transforms) */
+  body {
+    visibility: hidden;
+  }
+  </style>
+
+ <!--radix_placeholder_import_source-->
+ <!--/radix_placeholder_import_source-->
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css" data-origin="pandoc">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ad0000; } /* Alert */
+code span.an { color: #5e5e5e; } /* Annotation */
+code span.at { } /* Attribute */
+code span.bn { color: #ad0000; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007ba5; } /* ControlFlow */
+code span.ch { color: #20794d; } /* Char */
+code span.cn { color: #8f5902; } /* Constant */
+code span.co { color: #5e5e5e; } /* Comment */
+code span.cv { color: #5e5e5e; font-style: italic; } /* CommentVar */
+code span.do { color: #5e5e5e; font-style: italic; } /* Documentation */
+code span.dt { color: #ad0000; } /* DataType */
+code span.dv { color: #ad0000; } /* DecVal */
+code span.er { color: #ad0000; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #ad0000; } /* Float */
+code span.fu { color: #4758ab; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #5e5e5e; } /* Information */
+code span.kw { color: #007ba5; } /* Keyword */
+code span.op { color: #5e5e5e; } /* Operator */
+code span.ot { color: #007ba5; } /* Other */
+code span.pp { color: #ad0000; } /* Preprocessor */
+code span.sc { color: #5e5e5e; } /* SpecialChar */
+code span.ss { color: #20794d; } /* SpecialString */
+code span.st { color: #20794d; } /* String */
+code span.va { color: #111111; } /* Variable */
+code span.vs { color: #20794d; } /* VerbatimString */
+code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
+</style>
+
+<style>
+  div.csl-bib-body { }
+  div.csl-entry {
+    clear: both;
+    }
+  .hanging div.csl-entry {
+    margin-left:2em;
+    text-indent:-2em;
+  }
+  div.csl-left-margin {
+    min-width:2em;
+    float:left;
+  }
+  div.csl-right-inline {
+    margin-left:2em;
+    padding-left:1em;
+  }
+  div.csl-indent {
+    margin-left: 2em;
+  }
+</style>
+
+  <!--radix_placeholder_meta_tags-->
+<title>Data Analysis Hub: Modeling client satistifaction with both individual and facility characteristics</title>
+
+<meta property="description" itemprop="description" content="We use multilevel models to examine factors related to women&#39;s satisfaction with family planning care received from the service delivery facilities in Kenya."/>
+
+<link rel="canonical" href="https://ipums.github.io/pma-data-hub/posts/2022-02-15-cei-analysis/"/>
+<link rel="icon" type="image/png" href="../../images/favicon/favicon-32x32.png"/>
+
+<!--  https://schema.org/Article -->
+<meta property="article:published" itemprop="datePublished" content="2022-02-15"/>
+<meta property="article:created" itemprop="dateCreated" content="2022-02-15"/>
+<meta name="article:author" content="Jiao Yu"/>
+<meta name="article:author" content="Matt Gunther"/>
+
+<!--  https://developers.facebook.com/docs/sharing/webmasters#markup -->
+<meta property="og:title" content="Data Analysis Hub: Modeling client satistifaction with both individual and facility characteristics"/>
+<meta property="og:type" content="article"/>
+<meta property="og:description" content="We use multilevel models to examine factors related to women&#39;s satisfaction with family planning care received from the service delivery facilities in Kenya."/>
+<meta property="og:url" content="https://ipums.github.io/pma-data-hub/posts/2022-02-15-cei-analysis/"/>
+<meta property="og:image" content="https://ipums.github.io/pma-data-hub/posts/2022-02-15-cei-analysis/cei-analysis_files/figure-html5/unnamed-chunk-25-1.png"/>
+<meta property="og:image:width" content="2304"/>
+<meta property="og:image:height" content="960"/>
+<meta property="og:locale" content="en_US"/>
+<meta property="og:site_name" content="Data Analysis Hub"/>
+
+<!--  https://dev.twitter.com/cards/types/summary -->
+<meta property="twitter:card" content="summary_large_image"/>
+<meta property="twitter:title" content="Data Analysis Hub: Modeling client satistifaction with both individual and facility characteristics"/>
+<meta property="twitter:description" content="We use multilevel models to examine factors related to women&#39;s satisfaction with family planning care received from the service delivery facilities in Kenya."/>
+<meta property="twitter:url" content="https://ipums.github.io/pma-data-hub/posts/2022-02-15-cei-analysis/"/>
+<meta property="twitter:image" content="https://ipums.github.io/pma-data-hub/posts/2022-02-15-cei-analysis/cei-analysis_files/figure-html5/unnamed-chunk-25-1.png"/>
+<meta property="twitter:image:width" content="2304"/>
+<meta property="twitter:image:height" content="960"/>
+<meta property="twitter:site" content="@ipumsGH"/>
+
+<!--/radix_placeholder_meta_tags-->
+  
+  <meta name="citation_reference" content="citation_title=Statistical Rethinking: A Bayesian Course with Examples in R and STAN;citation_publication_date=2020;citation_publisher=Chapman; Hall/CRC;citation_author=Richard McElreath"/>
+  <meta name="citation_reference" content="citation_title=Data Analysis Using Regression and Multilevel/Hierarchical Models;citation_publication_date=2006;citation_publisher=Cambridge University Press;citation_author=Andrew Gelman;citation_author=Jennifer Hill"/>
+  <!--radix_placeholder_rmarkdown_metadata-->
+
+<script type="text/json" id="radix-rmarkdown-metadata">
+{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","author","date","categories","output","editor_options","bibliography","canonical_url"]}},"value":[{"type":"character","attributes":{},"value":["Modeling client satistifaction with both individual and facility characteristics"]},{"type":"character","attributes":{},"value":["We use multilevel models to examine factors related to women's satisfaction with family planning care received from the service delivery facilities in Kenya."]},{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","url","affiliation"]}},"value":[{"type":"character","attributes":{},"value":["Jiao Yu"]},{"type":"character","attributes":{},"value":["https://www.researchgate.net/profile/Jiao-Yu-6"]},{"type":"character","attributes":{},"value":["IPUMS PMA Postdoc"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","affiliation"]}},"value":[{"type":"character","attributes":{},"value":["Matt Gunther"]},{"type":"character","attributes":{},"value":["IPUMS PMA Senior Data Analyst"]}]}]},{"type":"character","attributes":{},"value":["2022-02-15"]},{"type":"character","attributes":{},"value":["Client Exit Interviews","Data Analysis","lme4","Multilevel model"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["self_contained","toc","toc_depth","toc_float"]}},"value":[{"type":"logical","attributes":{},"value":[false]},{"type":"logical","attributes":{},"value":[true]},{"type":"integer","attributes":{},"value":[3]},{"type":"logical","attributes":{},"value":[true]}]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["chunk_output_type"]}},"value":[{"type":"character","attributes":{},"value":["console"]}]},{"type":"character","attributes":{},"value":["analysis.bib"]},{"type":"character","attributes":{},"value":["https://ipums.github.io/pma-data-hub/posts/2022-02-15-cei-analysis/"]}]}
+</script>
+<!--/radix_placeholder_rmarkdown_metadata-->
+  
+  <script type="text/json" id="radix-resource-manifest">
+  {"type":"character","attributes":{},"value":["analysis.bib","cei-analysis_files/anchor-4.2.2/anchor.min.js","cei-analysis_files/bowser-1.9.3/bowser.min.js","cei-analysis_files/crosstalk-1.0.0/css/crosstalk.css","cei-analysis_files/crosstalk-1.0.0/js/crosstalk.js","cei-analysis_files/crosstalk-1.0.0/js/crosstalk.js.map","cei-analysis_files/crosstalk-1.0.0/js/crosstalk.min.js","cei-analysis_files/crosstalk-1.0.0/js/crosstalk.min.js.map","cei-analysis_files/crosstalk-1.1.1/css/crosstalk.css","cei-analysis_files/crosstalk-1.1.1/js/crosstalk.js","cei-analysis_files/crosstalk-1.1.1/js/crosstalk.js.map","cei-analysis_files/crosstalk-1.1.1/js/crosstalk.min.js","cei-analysis_files/crosstalk-1.1.1/js/crosstalk.min.js.map","cei-analysis_files/d3-bundle-5.16.0/d3-bundle.min.js","cei-analysis_files/d3-lasso-0.0.5/d3-lasso.min.js","cei-analysis_files/distill-2.2.21/template.v2.js","cei-analysis_files/figure-html5/unnamed-chunk-13-1.png","cei-analysis_files/figure-html5/unnamed-chunk-24-1.png","cei-analysis_files/figure-html5/unnamed-chunk-25-1.png","cei-analysis_files/figure-html5/unnamed-chunk-26-1.png","cei-analysis_files/figure-html5/unnamed-chunk-27-1.png","cei-analysis_files/figure-html5/unnamed-chunk-28-1.png","cei-analysis_files/ggiraphjs-0.4.1/ggiraphjs.min.css","cei-analysis_files/ggiraphjs-0.4.1/ggiraphjs.min.js","cei-analysis_files/ggiraphjs-0.4.2/ggiraphjs.min.css","cei-analysis_files/ggiraphjs-0.4.2/ggiraphjs.min.js","cei-analysis_files/girafe-binding-0.7.10/girafe.js","cei-analysis_files/girafe-binding-0.8.1/girafe.js","cei-analysis_files/header-attrs-2.11/header-attrs.js","cei-analysis_files/htmlwidgets-1.5.4/htmlwidgets.js","cei-analysis_files/jquery-3.5.1/AUTHORS.txt","cei-analysis_files/jquery-3.5.1/jquery-1.12.4.js","cei-analysis_files/jquery-3.5.1/jquery-1.12.4.min.js","cei-analysis_files/jquery-3.5.1/jquery-1.12.4.min.map","cei-analysis_files/jquery-3.5.1/jquery-2.2.4.js","cei-analysis_files/jquery-3.5.1/jquery-2.2.4.min.js","cei-analysis_files/jquery-3.5.1/jquery-2.2.4.min.map","cei-analysis_files/jquery-3.5.1/jquery-3.5.1.js","cei-analysis_files/jquery-3.5.1/jquery-3.5.1.min.js","cei-analysis_files/jquery-3.5.1/jquery-3.5.1.min.map","cei-analysis_files/jquery-3.5.1/LICENSE.txt","cei-analysis_files/jquery-3.6.0/jquery-3.6.0.js","cei-analysis_files/jquery-3.6.0/jquery-3.6.0.min.js","cei-analysis_files/jquery-3.6.0/jquery-3.6.0.min.map","cei-analysis_files/plotly-binding-4.10.0/plotly.js","cei-analysis_files/plotly-binding-4.9.2/plotly.js","cei-analysis_files/plotly-htmlwidgets-css-1.52.2/plotly-htmlwidgets.css","cei-analysis_files/plotly-htmlwidgets-css-2.5.1/plotly-htmlwidgets.css","cei-analysis_files/plotly-main-1.52.2/plotly-latest.min.js","cei-analysis_files/plotly-main-2.5.1/plotly-latest.min.js","cei-analysis_files/popper-2.6.0/popper.min.js","cei-analysis_files/save-svg-as-png-1.4.17/save-svg-as-png.min.js","cei-analysis_files/tippy-6.2.7/tippy-bundle.umd.min.js","cei-analysis_files/tippy-6.2.7/tippy-light-border.css","cei-analysis_files/tippy-6.2.7/tippy.css","cei-analysis_files/tippy-6.2.7/tippy.umd.min.js","cei-analysis_files/typedarray-0.1/typedarray.min.js","cei-analysis_files/webcomponents-2.0.0/webcomponents.js","data/pma_00001.dat.gz","data/pma_00001.xml","data/pma_0002.dat.gz","data/pma_0002.xml","images/plot1.png","images/plot2.png"]}
+  </script>
+  <!--radix_placeholder_navigation_in_header-->
+<meta name="distill:offset" content="../.."/>
+
+<script type="application/javascript">
+
+  window.headroom_prevent_pin = false;
+
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+
+    // initialize headroom for banner
+    var header = $('header').get(0);
+    var headerHeight = header.offsetHeight;
+    var headroom = new Headroom(header, {
+      tolerance: 5,
+      onPin : function() {
+        if (window.headroom_prevent_pin) {
+          window.headroom_prevent_pin = false;
+          headroom.unpin();
+        }
+      }
+    });
+    headroom.init();
+    if(window.location.hash)
+      headroom.unpin();
+    $(header).addClass('headroom--transition');
+
+    // offset scroll location for banner on hash change
+    // (see: https://github.com/WickyNilliams/headroom.js/issues/38)
+    window.addEventListener("hashchange", function(event) {
+      window.scrollTo(0, window.pageYOffset - (headerHeight + 25));
+    });
+
+    // responsive menu
+    $('.distill-site-header').each(function(i, val) {
+      var topnav = $(this);
+      var toggle = topnav.find('.nav-toggle');
+      toggle.on('click', function() {
+        topnav.toggleClass('responsive');
+      });
+    });
+
+    // nav dropdowns
+    $('.nav-dropbtn').click(function(e) {
+      $(this).next('.nav-dropdown-content').toggleClass('nav-dropdown-active');
+      $(this).parent().siblings('.nav-dropdown')
+         .children('.nav-dropdown-content').removeClass('nav-dropdown-active');
+    });
+    $("body").click(function(e){
+      $('.nav-dropdown-content').removeClass('nav-dropdown-active');
+    });
+    $(".nav-dropdown").click(function(e){
+      e.stopPropagation();
+    });
+  });
+</script>
+
+<style type="text/css">
+
+/* Theme (user-documented overrideables for nav appearance) */
+
+.distill-site-nav {
+  color: rgba(255, 255, 255, 0.8);
+  background-color: #0F2E3D;
+  font-size: 15px;
+  font-weight: 300;
+}
+
+.distill-site-nav a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.distill-site-nav a:hover {
+  color: white;
+}
+
+@media print {
+  .distill-site-nav {
+    display: none;
+  }
+}
+
+.distill-site-header {
+
+}
+
+.distill-site-footer {
+
+}
+
+
+/* Site Header */
+
+.distill-site-header {
+  width: 100%;
+  box-sizing: border-box;
+  z-index: 3;
+}
+
+.distill-site-header .nav-left {
+  display: inline-block;
+  margin-left: 8px;
+}
+
+@media screen and (max-width: 768px) {
+  .distill-site-header .nav-left {
+    margin-left: 0;
+  }
+}
+
+
+.distill-site-header .nav-right {
+  float: right;
+  margin-right: 8px;
+}
+
+.distill-site-header a,
+.distill-site-header .title {
+  display: inline-block;
+  text-align: center;
+  padding: 14px 10px 14px 10px;
+}
+
+.distill-site-header .title {
+  font-size: 18px;
+  min-width: 150px;
+}
+
+.distill-site-header .logo {
+  padding: 0;
+}
+
+.distill-site-header .logo img {
+  display: none;
+  max-height: 20px;
+  width: auto;
+  margin-bottom: -4px;
+}
+
+.distill-site-header .nav-image img {
+  max-height: 18px;
+  width: auto;
+  display: inline-block;
+  margin-bottom: -3px;
+}
+
+
+
+@media screen and (min-width: 1000px) {
+  .distill-site-header .logo img {
+    display: inline-block;
+  }
+  .distill-site-header .nav-left {
+    margin-left: 20px;
+  }
+  .distill-site-header .nav-right {
+    margin-right: 20px;
+  }
+  .distill-site-header .title {
+    padding-left: 12px;
+  }
+}
+
+
+.distill-site-header .nav-toggle {
+  display: none;
+}
+
+.nav-dropdown {
+  display: inline-block;
+  position: relative;
+}
+
+.nav-dropdown .nav-dropbtn {
+  border: none;
+  outline: none;
+  color: rgba(255, 255, 255, 0.8);
+  padding: 16px 10px;
+  background-color: transparent;
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: inherit;
+  margin: 0;
+  margin-top: 1px;
+  z-index: 2;
+}
+
+.nav-dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: white;
+  min-width: 200px;
+  border: 1px solid rgba(0,0,0,0.15);
+  border-radius: 4px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.1);
+  z-index: 1;
+  margin-top: 2px;
+  white-space: nowrap;
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+.nav-dropdown-content hr {
+  margin-top: 4px;
+  margin-bottom: 4px;
+  border: none;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.nav-dropdown-active {
+  display: block;
+}
+
+.nav-dropdown-content a, .nav-dropdown-content .nav-dropdown-header {
+  color: black;
+  padding: 6px 24px;
+  text-decoration: none;
+  display: block;
+  text-align: left;
+}
+
+.nav-dropdown-content .nav-dropdown-header {
+  display: block;
+  padding: 5px 24px;
+  padding-bottom: 0;
+  text-transform: uppercase;
+  font-size: 14px;
+  color: #999999;
+  white-space: nowrap;
+}
+
+.nav-dropdown:hover .nav-dropbtn {
+  color: white;
+}
+
+.nav-dropdown-content a:hover {
+  background-color: #ddd;
+  color: black;
+}
+
+.nav-right .nav-dropdown-content {
+  margin-left: -45%;
+  right: 0;
+}
+
+@media screen and (max-width: 768px) {
+  .distill-site-header a, .distill-site-header .nav-dropdown  {display: none;}
+  .distill-site-header a.nav-toggle {
+    float: right;
+    display: block;
+  }
+  .distill-site-header .title {
+    margin-left: 0;
+  }
+  .distill-site-header .nav-right {
+    margin-right: 0;
+  }
+  .distill-site-header {
+    overflow: hidden;
+  }
+  .nav-right .nav-dropdown-content {
+    margin-left: 0;
+  }
+}
+
+
+@media screen and (max-width: 768px) {
+  .distill-site-header.responsive {position: relative; min-height: 500px; }
+  .distill-site-header.responsive a.nav-toggle {
+    position: absolute;
+    right: 0;
+    top: 0;
+  }
+  .distill-site-header.responsive a,
+  .distill-site-header.responsive .nav-dropdown {
+    display: block;
+    text-align: left;
+  }
+  .distill-site-header.responsive .nav-left,
+  .distill-site-header.responsive .nav-right {
+    width: 100%;
+  }
+  .distill-site-header.responsive .nav-dropdown {float: none;}
+  .distill-site-header.responsive .nav-dropdown-content {position: relative;}
+  .distill-site-header.responsive .nav-dropdown .nav-dropbtn {
+    display: block;
+    width: 100%;
+    text-align: left;
+  }
+}
+
+/* Site Footer */
+
+.distill-site-footer {
+  width: 100%;
+  overflow: hidden;
+  box-sizing: border-box;
+  z-index: 3;
+  margin-top: 30px;
+  padding-top: 30px;
+  padding-bottom: 30px;
+  text-align: center;
+}
+
+/* Headroom */
+
+d-title {
+  padding-top: 6rem;
+}
+
+@media print {
+  d-title {
+    padding-top: 4rem;
+  }
+}
+
+.headroom {
+  z-index: 1000;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+}
+
+.headroom--transition {
+  transition: all .4s ease-in-out;
+}
+
+.headroom--unpinned {
+  top: -100px;
+}
+
+.headroom--pinned {
+  top: 0;
+}
+
+/* adjust viewport for navbar height */
+/* helps vertically center bootstrap (non-distill) content */
+.min-vh-100 {
+  min-height: calc(100vh - 100px) !important;
+}
+
+</style>
+
+<script src="../../site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<link href="../../site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet"/>
+<link href="../../site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet"/>
+<script src="../../site_libs/headroom-0.9.4/headroom.min.js"></script>
+<script src="../../site_libs/autocomplete-0.37.1/autocomplete.min.js"></script>
+<script src="../../site_libs/fuse-6.4.1/fuse.min.js"></script>
+
+<script type="application/javascript">
+
+function getMeta(metaName) {
+  var metas = document.getElementsByTagName('meta');
+  for (let i = 0; i < metas.length; i++) {
+    if (metas[i].getAttribute('name') === metaName) {
+      return metas[i].getAttribute('content');
+    }
+  }
+  return '';
+}
+
+function offsetURL(url) {
+  var offset = getMeta('distill:offset');
+  return offset ? offset + '/' + url : url;
+}
+
+function createFuseIndex() {
+
+  // create fuse index
+  var options = {
+    keys: [
+      { name: 'title', weight: 20 },
+      { name: 'categories', weight: 15 },
+      { name: 'description', weight: 10 },
+      { name: 'contents', weight: 5 },
+    ],
+    ignoreLocation: true,
+    threshold: 0
+  };
+  var fuse = new window.Fuse([], options);
+
+  // fetch the main search.json
+  return fetch(offsetURL('search.json'))
+    .then(function(response) {
+      if (response.status == 200) {
+        return response.json().then(function(json) {
+          // index main articles
+          json.articles.forEach(function(article) {
+            fuse.add(article);
+          });
+          // download collections and index their articles
+          return Promise.all(json.collections.map(function(collection) {
+            return fetch(offsetURL(collection)).then(function(response) {
+              if (response.status === 200) {
+                return response.json().then(function(articles) {
+                  articles.forEach(function(article) {
+                    fuse.add(article);
+                  });
+                })
+              } else {
+                return Promise.reject(
+                  new Error('Unexpected status from search index request: ' +
+                            response.status)
+                );
+              }
+            });
+          })).then(function() {
+            return fuse;
+          });
+        });
+
+      } else {
+        return Promise.reject(
+          new Error('Unexpected status from search index request: ' +
+                      response.status)
+        );
+      }
+    });
+}
+
+window.document.addEventListener("DOMContentLoaded", function (event) {
+
+  // get search element (bail if we don't have one)
+  var searchEl = window.document.getElementById('distill-search');
+  if (!searchEl)
+    return;
+
+  createFuseIndex()
+    .then(function(fuse) {
+
+      // make search box visible
+      searchEl.classList.remove('hidden');
+
+      // initialize autocomplete
+      var options = {
+        autoselect: true,
+        hint: false,
+        minLength: 2,
+      };
+      window.autocomplete(searchEl, options, [{
+        source: function(query, callback) {
+          const searchOptions = {
+            isCaseSensitive: false,
+            shouldSort: true,
+            minMatchCharLength: 2,
+            limit: 10,
+          };
+          var results = fuse.search(query, searchOptions);
+          callback(results
+            .map(function(result) { return result.item; })
+          );
+        },
+        templates: {
+          suggestion: function(suggestion) {
+            var img = suggestion.preview && Object.keys(suggestion.preview).length > 0
+              ? `<img src="${offsetURL(suggestion.preview)}"</img>`
+              : '';
+            var html = `
+              <div class="search-item">
+                <h3>${suggestion.title}</h3>
+                <div class="search-item-description">
+                  ${suggestion.description || ''}
+                </div>
+                <div class="search-item-preview">
+                  ${img}
+                </div>
+              </div>
+            `;
+            return html;
+          }
+        }
+      }]).on('autocomplete:selected', function(event, suggestion) {
+        window.location.href = offsetURL(suggestion.path);
+      });
+      // remove inline display style on autocompleter (we want to
+      // manage responsive display via css)
+      $('.algolia-autocomplete').css("display", "");
+    })
+    .catch(function(error) {
+      console.log(error);
+    });
+
+});
+
+</script>
+
+<style type="text/css">
+
+.nav-search {
+  font-size: x-small;
+}
+
+/* Algolioa Autocomplete */
+
+.algolia-autocomplete {
+  display: inline-block;
+  margin-left: 10px;
+  vertical-align: sub;
+  background-color: white;
+  color: black;
+  padding: 6px;
+  padding-top: 8px;
+  padding-bottom: 0;
+  border-radius: 6px;
+  border: 1px #0F2E3D solid;
+  width: 180px;
+}
+
+
+@media screen and (max-width: 768px) {
+  .distill-site-nav .algolia-autocomplete {
+    display: none;
+    visibility: hidden;
+  }
+  .distill-site-nav.responsive .algolia-autocomplete {
+    display: inline-block;
+    visibility: visible;
+  }
+  .distill-site-nav.responsive .algolia-autocomplete .aa-dropdown-menu {
+    margin-left: 0;
+    width: 400px;
+    max-height: 400px;
+  }
+}
+
+.algolia-autocomplete .aa-input, .algolia-autocomplete .aa-hint {
+  width: 90%;
+  outline: none;
+  border: none;
+}
+
+.algolia-autocomplete .aa-hint {
+  color: #999;
+}
+.algolia-autocomplete .aa-dropdown-menu {
+  width: 550px;
+  max-height: 70vh;
+  overflow-x: visible;
+  overflow-y: scroll;
+  padding: 5px;
+  margin-top: 3px;
+  margin-left: -150px;
+  background-color: #fff;
+  border-radius: 5px;
+  border: 1px solid #999;
+  border-top: none;
+}
+
+.algolia-autocomplete .aa-dropdown-menu .aa-suggestion {
+  cursor: pointer;
+  padding: 5px 4px;
+  border-bottom: 1px solid #eee;
+}
+
+.algolia-autocomplete .aa-dropdown-menu .aa-suggestion:last-of-type {
+  border-bottom: none;
+  margin-bottom: 2px;
+}
+
+.algolia-autocomplete .aa-dropdown-menu .aa-suggestion .search-item {
+  overflow: hidden;
+  font-size: 0.8em;
+  line-height: 1.4em;
+}
+
+.algolia-autocomplete .aa-dropdown-menu .aa-suggestion .search-item h3 {
+  font-size: 1rem;
+  margin-block-start: 0;
+  margin-block-end: 5px;
+}
+
+.algolia-autocomplete .aa-dropdown-menu .aa-suggestion .search-item-description {
+  display: inline-block;
+  overflow: hidden;
+  height: 2.8em;
+  width: 80%;
+  margin-right: 4%;
+}
+
+.algolia-autocomplete .aa-dropdown-menu .aa-suggestion .search-item-preview {
+  display: inline-block;
+  width: 15%;
+}
+
+.algolia-autocomplete .aa-dropdown-menu .aa-suggestion .search-item-preview img {
+  height: 3em;
+  width: auto;
+  display: none;
+}
+
+.algolia-autocomplete .aa-dropdown-menu .aa-suggestion .search-item-preview img[src] {
+  display: initial;
+}
+
+.algolia-autocomplete .aa-dropdown-menu .aa-suggestion.aa-cursor {
+  background-color: #eee;
+}
+.algolia-autocomplete .aa-dropdown-menu .aa-suggestion em {
+  font-weight: bold;
+  font-style: normal;
+}
+
+</style>
+
+
+<!--/radix_placeholder_navigation_in_header-->
+  <!--radix_placeholder_distill-->
+
+<style type="text/css">
+
+body {
+  background-color: white;
+}
+
+.pandoc-table {
+  width: 100%;
+}
+
+.pandoc-table>caption {
+  margin-bottom: 10px;
+}
+
+.pandoc-table th:not([align]) {
+  text-align: left;
+}
+
+.pagedtable-footer {
+  font-size: 15px;
+}
+
+d-byline .byline {
+  grid-template-columns: 2fr 2fr;
+}
+
+d-byline .byline h3 {
+  margin-block-start: 1.5em;
+}
+
+d-byline .byline .authors-affiliations h3 {
+  margin-block-start: 0.5em;
+}
+
+.authors-affiliations .orcid-id {
+  width: 16px;
+  height:16px;
+  margin-left: 4px;
+  margin-right: 4px;
+  vertical-align: middle;
+  padding-bottom: 2px;
+}
+
+d-title .dt-tags {
+  margin-top: 1em;
+  grid-column: text;
+}
+
+.dt-tags .dt-tag {
+  text-decoration: none;
+  display: inline-block;
+  color: rgba(0,0,0,0.6);
+  padding: 0em 0.4em;
+  margin-right: 0.5em;
+  margin-bottom: 0.4em;
+  font-size: 70%;
+  border: 1px solid rgba(0,0,0,0.2);
+  border-radius: 3px;
+  text-transform: uppercase;
+  font-weight: 500;
+}
+
+d-article table.gt_table td,
+d-article table.gt_table th {
+  border-bottom: none;
+}
+
+.html-widget {
+  margin-bottom: 2.0em;
+}
+
+.l-screen-inset {
+  padding-right: 16px;
+}
+
+.l-screen .caption {
+  margin-left: 10px;
+}
+
+.shaded {
+  background: rgb(247, 247, 247);
+  padding-top: 20px;
+  padding-bottom: 20px;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.shaded .html-widget {
+  margin-bottom: 0;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.shaded .shaded-content {
+  background: white;
+}
+
+.text-output {
+  margin-top: 0;
+  line-height: 1.5em;
+}
+
+.hidden {
+  display: none !important;
+}
+
+d-article {
+  padding-top: 2.5rem;
+  padding-bottom: 30px;
+}
+
+d-appendix {
+  padding-top: 30px;
+}
+
+d-article>p>img {
+  width: 100%;
+}
+
+d-article h2 {
+  margin: 1rem 0 1.5rem 0;
+}
+
+d-article h3 {
+  margin-top: 1.5rem;
+}
+
+d-article iframe {
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  margin-bottom: 2.0em;
+  width: 100%;
+}
+
+/* Tweak code blocks */
+
+d-article div.sourceCode code,
+d-article pre code {
+  font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+}
+
+d-article pre,
+d-article div.sourceCode,
+d-article div.sourceCode pre {
+  overflow: auto;
+}
+
+d-article div.sourceCode {
+  background-color: white;
+}
+
+d-article div.sourceCode pre {
+  padding-left: 10px;
+  font-size: 12px;
+  border-left: 2px solid rgba(0,0,0,0.1);
+}
+
+d-article pre {
+  font-size: 12px;
+  color: black;
+  background: none;
+  margin-top: 0;
+  text-align: left;
+  white-space: pre;
+  word-spacing: normal;
+  word-break: normal;
+  word-wrap: normal;
+  line-height: 1.5;
+
+  -moz-tab-size: 4;
+  -o-tab-size: 4;
+  tab-size: 4;
+
+  -webkit-hyphens: none;
+  -moz-hyphens: none;
+  -ms-hyphens: none;
+  hyphens: none;
+}
+
+d-article pre a {
+  border-bottom: none;
+}
+
+d-article pre a:hover {
+  border-bottom: none;
+  text-decoration: underline;
+}
+
+d-article details {
+  grid-column: text;
+  margin-bottom: 0.8em;
+}
+
+@media(min-width: 768px) {
+
+d-article pre,
+d-article div.sourceCode,
+d-article div.sourceCode pre {
+  overflow: visible !important;
+}
+
+d-article div.sourceCode pre {
+  padding-left: 18px;
+  font-size: 14px;
+}
+
+d-article pre {
+  font-size: 14px;
+}
+
+}
+
+figure img.external {
+  background: white;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  box-shadow: 0 1px 8px rgba(0, 0, 0, 0.1);
+  padding: 18px;
+  box-sizing: border-box;
+}
+
+/* CSS for d-contents */
+
+.d-contents {
+  grid-column: text;
+  color: rgba(0,0,0,0.8);
+  font-size: 0.9em;
+  padding-bottom: 1em;
+  margin-bottom: 1em;
+  padding-bottom: 0.5em;
+  margin-bottom: 1em;
+  padding-left: 0.25em;
+  justify-self: start;
+}
+
+@media(min-width: 1000px) {
+  .d-contents.d-contents-float {
+    height: 0;
+    grid-column-start: 1;
+    grid-column-end: 4;
+    justify-self: center;
+    padding-right: 3em;
+    padding-left: 2em;
+  }
+}
+
+.d-contents nav h3 {
+  font-size: 18px;
+  margin-top: 0;
+  margin-bottom: 1em;
+}
+
+.d-contents li {
+  list-style-type: none
+}
+
+.d-contents nav > ul {
+  padding-left: 0;
+}
+
+.d-contents ul {
+  padding-left: 1em
+}
+
+.d-contents nav ul li {
+  margin-top: 0.6em;
+  margin-bottom: 0.2em;
+}
+
+.d-contents nav a {
+  font-size: 13px;
+  border-bottom: none;
+  text-decoration: none
+  color: rgba(0, 0, 0, 0.8);
+}
+
+.d-contents nav a:hover {
+  text-decoration: underline solid rgba(0, 0, 0, 0.6)
+}
+
+.d-contents nav > ul > li > a {
+  font-weight: 600;
+}
+
+.d-contents nav > ul > li > ul {
+  font-weight: inherit;
+}
+
+.d-contents nav > ul > li > ul > li {
+  margin-top: 0.2em;
+}
+
+
+.d-contents nav ul {
+  margin-top: 0;
+  margin-bottom: 0.25em;
+}
+
+.d-article-with-toc h2:nth-child(2) {
+  margin-top: 0;
+}
+
+
+/* Figure */
+
+.figure {
+  position: relative;
+  margin-bottom: 2.5em;
+  margin-top: 1.5em;
+}
+
+.figure img {
+  width: 100%;
+}
+
+.figure .caption {
+  color: rgba(0, 0, 0, 0.6);
+  font-size: 12px;
+  line-height: 1.5em;
+}
+
+.figure img.external {
+  background: white;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  box-shadow: 0 1px 8px rgba(0, 0, 0, 0.1);
+  padding: 18px;
+  box-sizing: border-box;
+}
+
+.figure .caption a {
+  color: rgba(0, 0, 0, 0.6);
+}
+
+.figure .caption b,
+.figure .caption strong, {
+  font-weight: 600;
+  color: rgba(0, 0, 0, 1.0);
+}
+
+/* Citations */
+
+d-article .citation {
+  color: inherit;
+  cursor: inherit;
+}
+
+div.hanging-indent{
+  margin-left: 1em; text-indent: -1em;
+}
+
+/* Citation hover box */
+
+.tippy-box[data-theme~=light-border] {
+  background-color: rgba(250, 250, 250, 0.95);
+}
+
+.tippy-content > p {
+  margin-bottom: 0;
+  padding: 2px;
+}
+
+
+/* Tweak 1000px media break to show more text */
+
+@media(min-width: 1000px) {
+  .base-grid,
+  distill-header,
+  d-title,
+  d-abstract,
+  d-article,
+  d-appendix,
+  distill-appendix,
+  d-byline,
+  d-footnote-list,
+  d-citation-list,
+  distill-footer {
+    grid-template-columns: [screen-start] 1fr [page-start kicker-start] 80px [middle-start] 50px [text-start kicker-end] 65px 65px 65px 65px 65px 65px 65px 65px [text-end gutter-start] 65px [middle-end] 65px [page-end gutter-end] 1fr [screen-end];
+    grid-column-gap: 16px;
+  }
+
+  .grid {
+    grid-column-gap: 16px;
+  }
+
+  d-article {
+    font-size: 1.06rem;
+    line-height: 1.7em;
+  }
+  figure .caption, .figure .caption, figure figcaption {
+    font-size: 13px;
+  }
+}
+
+@media(min-width: 1180px) {
+  .base-grid,
+  distill-header,
+  d-title,
+  d-abstract,
+  d-article,
+  d-appendix,
+  distill-appendix,
+  d-byline,
+  d-footnote-list,
+  d-citation-list,
+  distill-footer {
+    grid-template-columns: [screen-start] 1fr [page-start kicker-start] 60px [middle-start] 60px [text-start kicker-end] 60px 60px 60px 60px 60px 60px 60px 60px [text-end gutter-start] 60px [middle-end] 60px [page-end gutter-end] 1fr [screen-end];
+    grid-column-gap: 32px;
+  }
+
+  .grid {
+    grid-column-gap: 32px;
+  }
+}
+
+
+/* Get the citation styles for the appendix (not auto-injected on render since
+   we do our own rendering of the citation appendix) */
+
+d-appendix .citation-appendix,
+.d-appendix .citation-appendix {
+  font-size: 11px;
+  line-height: 15px;
+  border-left: 1px solid rgba(0, 0, 0, 0.1);
+  padding-left: 18px;
+  border: 1px solid rgba(0,0,0,0.1);
+  background: rgba(0, 0, 0, 0.02);
+  padding: 10px 18px;
+  border-radius: 3px;
+  color: rgba(150, 150, 150, 1);
+  overflow: hidden;
+  margin-top: -12px;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+
+/* Include appendix styles here so they can be overridden */
+
+d-appendix {
+  contain: layout style;
+  font-size: 0.8em;
+  line-height: 1.7em;
+  margin-top: 60px;
+  margin-bottom: 0;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+  color: rgba(0,0,0,0.5);
+  padding-top: 60px;
+  padding-bottom: 48px;
+}
+
+d-appendix h3 {
+  grid-column: page-start / text-start;
+  font-size: 15px;
+  font-weight: 500;
+  margin-top: 1em;
+  margin-bottom: 0;
+  color: rgba(0,0,0,0.65);
+}
+
+d-appendix h3 + * {
+  margin-top: 1em;
+}
+
+d-appendix ol {
+  padding: 0 0 0 15px;
+}
+
+@media (min-width: 768px) {
+  d-appendix ol {
+    padding: 0 0 0 30px;
+    margin-left: -30px;
+  }
+}
+
+d-appendix li {
+  margin-bottom: 1em;
+}
+
+d-appendix a {
+  color: rgba(0, 0, 0, 0.6);
+}
+
+d-appendix > * {
+  grid-column: text;
+}
+
+d-appendix > d-footnote-list,
+d-appendix > d-citation-list,
+d-appendix > distill-appendix {
+  grid-column: screen;
+}
+
+/* Include footnote styles here so they can be overridden */
+
+d-footnote-list {
+  contain: layout style;
+}
+
+d-footnote-list > * {
+  grid-column: text;
+}
+
+d-footnote-list a.footnote-backlink {
+  color: rgba(0,0,0,0.3);
+  padding-left: 0.5em;
+}
+
+
+
+/* Anchor.js */
+
+.anchorjs-link {
+  /*transition: all .25s linear; */
+  text-decoration: none;
+  border-bottom: none;
+}
+*:hover > .anchorjs-link {
+  margin-left: -1.125em !important;
+  text-decoration: none;
+  border-bottom: none;
+}
+
+/* Social footer */
+
+.social_footer {
+  margin-top: 30px;
+  margin-bottom: 0;
+  color: rgba(0,0,0,0.67);
+}
+
+.disqus-comments {
+  margin-right: 30px;
+}
+
+.disqus-comment-count {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.4);
+  cursor: pointer;
+}
+
+#disqus_thread {
+  margin-top: 30px;
+}
+
+.article-sharing a {
+  border-bottom: none;
+  margin-right: 8px;
+}
+
+.article-sharing a:hover {
+  border-bottom: none;
+}
+
+.sidebar-section.subscribe {
+  font-size: 12px;
+  line-height: 1.6em;
+}
+
+.subscribe p {
+  margin-bottom: 0.5em;
+}
+
+
+.article-footer .subscribe {
+  font-size: 15px;
+  margin-top: 45px;
+}
+
+
+.sidebar-section.custom {
+  font-size: 12px;
+  line-height: 1.6em;
+}
+
+.custom p {
+  margin-bottom: 0.5em;
+}
+
+/* Styles for listing layout (hide title) */
+.layout-listing d-title, .layout-listing .d-title {
+  display: none;
+}
+
+/* Styles for posts lists (not auto-injected) */
+
+
+.posts-with-sidebar {
+  padding-left: 45px;
+  padding-right: 45px;
+}
+
+.posts-list .description h2,
+.posts-list .description p {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", Arial, sans-serif;
+}
+
+.posts-list .description h2 {
+  font-weight: 700;
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.posts-list h2.post-tag {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+  padding-bottom: 12px;
+}
+.posts-list {
+  margin-top: 60px;
+  margin-bottom: 24px;
+}
+
+.posts-list .post-preview {
+  text-decoration: none;
+  overflow: hidden;
+  display: block;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  padding: 24px 0;
+}
+
+.post-preview-last {
+  border-bottom: none !important;
+}
+
+.posts-list .posts-list-caption {
+  grid-column: screen;
+  font-weight: 400;
+}
+
+.posts-list .post-preview h2 {
+  margin: 0 0 6px 0;
+  line-height: 1.2em;
+  font-style: normal;
+  font-size: 24px;
+}
+
+.posts-list .post-preview p {
+  margin: 0 0 12px 0;
+  line-height: 1.4em;
+  font-size: 16px;
+}
+
+.posts-list .post-preview .thumbnail {
+  box-sizing: border-box;
+  margin-bottom: 24px;
+  position: relative;
+  max-width: 500px;
+}
+.posts-list .post-preview img {
+  width: 100%;
+  display: block;
+}
+
+.posts-list .metadata {
+  font-size: 12px;
+  line-height: 1.4em;
+  margin-bottom: 18px;
+}
+
+.posts-list .metadata > * {
+  display: inline-block;
+}
+
+.posts-list .metadata .publishedDate {
+  margin-right: 2em;
+}
+
+.posts-list .metadata .dt-authors {
+  display: block;
+  margin-top: 0.3em;
+  margin-right: 2em;
+}
+
+.posts-list .dt-tags {
+  display: block;
+  line-height: 1em;
+}
+
+.posts-list .dt-tags .dt-tag {
+  display: inline-block;
+  color: rgba(0,0,0,0.6);
+  padding: 0.3em 0.4em;
+  margin-right: 0.2em;
+  margin-bottom: 0.4em;
+  font-size: 60%;
+  border: 1px solid rgba(0,0,0,0.2);
+  border-radius: 3px;
+  text-transform: uppercase;
+  font-weight: 500;
+}
+
+.posts-list img {
+  opacity: 1;
+}
+
+.posts-list img[data-src] {
+  opacity: 0;
+}
+
+.posts-more {
+  clear: both;
+}
+
+
+.posts-sidebar {
+  font-size: 16px;
+}
+
+.posts-sidebar h3 {
+  font-size: 16px;
+  margin-top: 0;
+  margin-bottom: 0.5em;
+  font-weight: 400;
+  text-transform: uppercase;
+}
+
+.sidebar-section {
+  margin-bottom: 30px;
+}
+
+.categories ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+.categories li {
+  color: rgba(0, 0, 0, 0.8);
+  margin-bottom: 0;
+}
+
+.categories li>a {
+  border-bottom: none;
+}
+
+.categories li>a:hover {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.4);
+}
+
+.categories .active {
+  font-weight: 600;
+}
+
+.categories .category-count {
+  color: rgba(0, 0, 0, 0.4);
+}
+
+
+@media(min-width: 768px) {
+  .posts-list .post-preview h2 {
+    font-size: 26px;
+  }
+  .posts-list .post-preview .thumbnail {
+    float: right;
+    width: 30%;
+    margin-bottom: 0;
+  }
+  .posts-list .post-preview .description {
+    float: left;
+    width: 45%;
+  }
+  .posts-list .post-preview .metadata {
+    float: left;
+    width: 20%;
+    margin-top: 8px;
+  }
+  .posts-list .post-preview p {
+    margin: 0 0 12px 0;
+    line-height: 1.5em;
+    font-size: 16px;
+  }
+  .posts-with-sidebar .posts-list {
+    float: left;
+    width: 75%;
+  }
+  .posts-with-sidebar .posts-sidebar {
+    float: right;
+    width: 20%;
+    margin-top: 60px;
+    padding-top: 24px;
+    padding-bottom: 24px;
+  }
+}
+
+
+/* Improve display for browsers without grid (IE/Edge <= 15) */
+
+.downlevel {
+  line-height: 1.6em;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", Arial, sans-serif;
+  margin: 0;
+}
+
+.downlevel .d-title {
+  padding-top: 6rem;
+  padding-bottom: 1.5rem;
+}
+
+.downlevel .d-title h1 {
+  font-size: 50px;
+  font-weight: 700;
+  line-height: 1.1em;
+  margin: 0 0 0.5rem;
+}
+
+.downlevel .d-title p {
+  font-weight: 300;
+  font-size: 1.2rem;
+  line-height: 1.55em;
+  margin-top: 0;
+}
+
+.downlevel .d-byline {
+  padding-top: 0.8em;
+  padding-bottom: 0.8em;
+  font-size: 0.8rem;
+  line-height: 1.8em;
+}
+
+.downlevel .section-separator {
+  border: none;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.downlevel .d-article {
+  font-size: 1.06rem;
+  line-height: 1.7em;
+  padding-top: 1rem;
+  padding-bottom: 2rem;
+}
+
+
+.downlevel .d-appendix {
+  padding-left: 0;
+  padding-right: 0;
+  max-width: none;
+  font-size: 0.8em;
+  line-height: 1.7em;
+  margin-bottom: 0;
+  color: rgba(0,0,0,0.5);
+  padding-top: 40px;
+  padding-bottom: 48px;
+}
+
+.downlevel .footnotes ol {
+  padding-left: 13px;
+}
+
+.downlevel .base-grid,
+.downlevel .distill-header,
+.downlevel .d-title,
+.downlevel .d-abstract,
+.downlevel .d-article,
+.downlevel .d-appendix,
+.downlevel .distill-appendix,
+.downlevel .d-byline,
+.downlevel .d-footnote-list,
+.downlevel .d-citation-list,
+.downlevel .distill-footer,
+.downlevel .appendix-bottom,
+.downlevel .posts-container {
+  padding-left: 40px;
+  padding-right: 40px;
+}
+
+@media(min-width: 768px) {
+  .downlevel .base-grid,
+  .downlevel .distill-header,
+  .downlevel .d-title,
+  .downlevel .d-abstract,
+  .downlevel .d-article,
+  .downlevel .d-appendix,
+  .downlevel .distill-appendix,
+  .downlevel .d-byline,
+  .downlevel .d-footnote-list,
+  .downlevel .d-citation-list,
+  .downlevel .distill-footer,
+  .downlevel .appendix-bottom,
+  .downlevel .posts-container {
+  padding-left: 150px;
+  padding-right: 150px;
+  max-width: 900px;
+}
+}
+
+.downlevel pre code {
+  display: block;
+  border-left: 2px solid rgba(0, 0, 0, .1);
+  padding: 0 0 0 20px;
+  font-size: 14px;
+}
+
+.downlevel code, .downlevel pre {
+  color: black;
+  background: none;
+  font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+  text-align: left;
+  white-space: pre;
+  word-spacing: normal;
+  word-break: normal;
+  word-wrap: normal;
+  line-height: 1.5;
+
+  -moz-tab-size: 4;
+  -o-tab-size: 4;
+  tab-size: 4;
+
+  -webkit-hyphens: none;
+  -moz-hyphens: none;
+  -ms-hyphens: none;
+  hyphens: none;
+}
+
+.downlevel .posts-list .post-preview {
+  color: inherit;
+}
+
+
+
+</style>
+
+<script type="application/javascript">
+
+function is_downlevel_browser() {
+  if (bowser.isUnsupportedBrowser({ msie: "12", msedge: "16"},
+                                 window.navigator.userAgent)) {
+    return true;
+  } else {
+    return window.load_distill_framework === undefined;
+  }
+}
+
+// show body when load is complete
+function on_load_complete() {
+
+  // add anchors
+  if (window.anchors) {
+    window.anchors.options.placement = 'left';
+    window.anchors.add('d-article > h2, d-article > h3, d-article > h4, d-article > h5');
+  }
+
+
+  // set body to visible
+  document.body.style.visibility = 'visible';
+
+  // force redraw for leaflet widgets
+  if (window.HTMLWidgets) {
+    var maps = window.HTMLWidgets.findAll(".leaflet");
+    $.each(maps, function(i, el) {
+      var map = this.getMap();
+      map.invalidateSize();
+      map.eachLayer(function(layer) {
+        if (layer instanceof L.TileLayer)
+          layer.redraw();
+      });
+    });
+  }
+
+  // trigger 'shown' so htmlwidgets resize
+  $('d-article').trigger('shown');
+}
+
+function init_distill() {
+
+  init_common();
+
+  // create front matter
+  var front_matter = $('<d-front-matter></d-front-matter>');
+  $('#distill-front-matter').wrap(front_matter);
+
+  // create d-title
+  $('.d-title').changeElementType('d-title');
+
+  // create d-byline
+  var byline = $('<d-byline></d-byline>');
+  $('.d-byline').replaceWith(byline);
+
+  // create d-article
+  var article = $('<d-article></d-article>');
+  $('.d-article').wrap(article).children().unwrap();
+
+  // move posts container into article
+  $('.posts-container').appendTo($('d-article'));
+
+  // create d-appendix
+  $('.d-appendix').changeElementType('d-appendix');
+
+  // flag indicating that we have appendix items
+  var appendix = $('.appendix-bottom').children('h3').length > 0;
+
+  // replace footnotes with <d-footnote>
+  $('.footnote-ref').each(function(i, val) {
+    appendix = true;
+    var href = $(this).attr('href');
+    var id = href.replace('#', '');
+    var fn = $('#' + id);
+    var fn_p = $('#' + id + '>p');
+    fn_p.find('.footnote-back').remove();
+    var text = fn_p.html();
+    var dtfn = $('<d-footnote></d-footnote>');
+    dtfn.html(text);
+    $(this).replaceWith(dtfn);
+  });
+  // remove footnotes
+  $('.footnotes').remove();
+
+  // move refs into #references-listing
+  $('#references-listing').replaceWith($('#refs'));
+
+  $('h1.appendix, h2.appendix').each(function(i, val) {
+    $(this).changeElementType('h3');
+  });
+  $('h3.appendix').each(function(i, val) {
+    var id = $(this).attr('id');
+    $('.d-contents a[href="#' + id + '"]').parent().remove();
+    appendix = true;
+    $(this).nextUntil($('h1, h2, h3')).addBack().appendTo($('d-appendix'));
+  });
+
+  // show d-appendix if we have appendix content
+  $("d-appendix").css('display', appendix ? 'grid' : 'none');
+
+  // localize layout chunks to just output
+  $('.layout-chunk').each(function(i, val) {
+
+    // capture layout
+    var layout = $(this).attr('data-layout');
+
+    // apply layout to markdown level block elements
+    var elements = $(this).children().not('details, div.sourceCode, pre, script');
+    elements.each(function(i, el) {
+      var layout_div = $('<div class="' + layout + '"></div>');
+      if (layout_div.hasClass('shaded')) {
+        var shaded_content = $('<div class="shaded-content"></div>');
+        $(this).wrap(shaded_content);
+        $(this).parent().wrap(layout_div);
+      } else {
+        $(this).wrap(layout_div);
+      }
+    });
+
+
+    // unwrap the layout-chunk div
+    $(this).children().unwrap();
+  });
+
+  // remove code block used to force  highlighting css
+  $('.distill-force-highlighting-css').parent().remove();
+
+  // remove empty line numbers inserted by pandoc when using a
+  // custom syntax highlighting theme
+  $('code.sourceCode a:empty').remove();
+
+  // load distill framework
+  load_distill_framework();
+
+  // wait for window.distillRunlevel == 4 to do post processing
+  function distill_post_process() {
+
+    if (!window.distillRunlevel || window.distillRunlevel < 4)
+      return;
+
+    // hide author/affiliations entirely if we have no authors
+    var front_matter = JSON.parse($("#distill-front-matter").html());
+    var have_authors = front_matter.authors && front_matter.authors.length > 0;
+    if (!have_authors)
+      $('d-byline').addClass('hidden');
+
+    // article with toc class
+    $('.d-contents').parent().addClass('d-article-with-toc');
+
+    // strip links that point to #
+    $('.authors-affiliations').find('a[href="#"]').removeAttr('href');
+
+    // add orcid ids
+    $('.authors-affiliations').find('.author').each(function(i, el) {
+      var orcid_id = front_matter.authors[i].orcidID;
+      if (orcid_id) {
+        var a = $('<a></a>');
+        a.attr('href', 'https://orcid.org/' + orcid_id);
+        var img = $('<img></img>');
+        img.addClass('orcid-id');
+        img.attr('alt', 'ORCID ID');
+        img.attr('src','data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA2ZpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDo1N0NEMjA4MDI1MjA2ODExOTk0QzkzNTEzRjZEQTg1NyIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDozM0NDOEJGNEZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDozM0NDOEJGM0ZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ1M1IE1hY2ludG9zaCI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOkZDN0YxMTc0MDcyMDY4MTE5NUZFRDc5MUM2MUUwNEREIiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjU3Q0QyMDgwMjUyMDY4MTE5OTRDOTM1MTNGNkRBODU3Ii8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+84NovQAAAR1JREFUeNpiZEADy85ZJgCpeCB2QJM6AMQLo4yOL0AWZETSqACk1gOxAQN+cAGIA4EGPQBxmJA0nwdpjjQ8xqArmczw5tMHXAaALDgP1QMxAGqzAAPxQACqh4ER6uf5MBlkm0X4EGayMfMw/Pr7Bd2gRBZogMFBrv01hisv5jLsv9nLAPIOMnjy8RDDyYctyAbFM2EJbRQw+aAWw/LzVgx7b+cwCHKqMhjJFCBLOzAR6+lXX84xnHjYyqAo5IUizkRCwIENQQckGSDGY4TVgAPEaraQr2a4/24bSuoExcJCfAEJihXkWDj3ZAKy9EJGaEo8T0QSxkjSwORsCAuDQCD+QILmD1A9kECEZgxDaEZhICIzGcIyEyOl2RkgwAAhkmC+eAm0TAAAAABJRU5ErkJggg==');
+        a.append(img);
+        $(this).append(a);
+      }
+    });
+
+    // hide elements of author/affiliations grid that have no value
+    function hide_byline_column(caption) {
+      $('d-byline').find('h3:contains("' + caption + '")').parent().css('visibility', 'hidden');
+    }
+
+    // affiliations
+    var have_affiliations = false;
+    for (var i = 0; i<front_matter.authors.length; ++i) {
+      var author = front_matter.authors[i];
+      if (author.affiliation !== "&nbsp;") {
+        have_affiliations = true;
+        break;
+      }
+    }
+    if (!have_affiliations)
+      $('d-byline').find('h3:contains("Affiliations")').css('visibility', 'hidden');
+
+    // published date
+    if (!front_matter.publishedDate)
+      hide_byline_column("Published");
+
+    // document object identifier
+    var doi = $('d-byline').find('h3:contains("DOI")');
+    var doi_p = doi.next().empty();
+    if (!front_matter.doi) {
+      // if we have a citation and valid citationText then link to that
+      if ($('#citation').length > 0 && front_matter.citationText) {
+        doi.html('Citation');
+        $('<a href="#citation"></a>')
+          .text(front_matter.citationText)
+          .appendTo(doi_p);
+      } else {
+        hide_byline_column("DOI");
+      }
+    } else {
+      $('<a></a>')
+         .attr('href', "https://doi.org/" + front_matter.doi)
+         .html(front_matter.doi)
+         .appendTo(doi_p);
+    }
+
+     // change plural form of authors/affiliations
+    if (front_matter.authors.length === 1) {
+      var grid = $('.authors-affiliations');
+      grid.children('h3:contains("Authors")').text('Author');
+      grid.children('h3:contains("Affiliations")').text('Affiliation');
+    }
+
+    // remove d-appendix and d-footnote-list local styles
+    $('d-appendix > style:first-child').remove();
+    $('d-footnote-list > style:first-child').remove();
+
+    // move appendix-bottom entries to the bottom
+    $('.appendix-bottom').appendTo('d-appendix').children().unwrap();
+    $('.appendix-bottom').remove();
+
+    // hoverable references
+    $('span.citation[data-cites]').each(function() {
+      var refs = $(this).attr('data-cites').split(" ");
+      var refHtml = refs.map(function(ref) {
+        return "<p>" + $('#ref-' + ref).html() + "</p>";
+      }).join("\n");
+      window.tippy(this, {
+        allowHTML: true,
+        content: refHtml,
+        maxWidth: 500,
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'light-border',
+        placement: 'bottom-start'
+      });
+    });
+
+    // clear polling timer
+    clearInterval(tid);
+
+    // show body now that everything is ready
+    on_load_complete();
+  }
+
+  var tid = setInterval(distill_post_process, 50);
+  distill_post_process();
+
+}
+
+function init_downlevel() {
+
+  init_common();
+
+   // insert hr after d-title
+  $('.d-title').after($('<hr class="section-separator"/>'));
+
+  // check if we have authors
+  var front_matter = JSON.parse($("#distill-front-matter").html());
+  var have_authors = front_matter.authors && front_matter.authors.length > 0;
+
+  // manage byline/border
+  if (!have_authors)
+    $('.d-byline').remove();
+  $('.d-byline').after($('<hr class="section-separator"/>'));
+  $('.d-byline a').remove();
+
+  // remove toc
+  $('.d-contents').remove();
+
+  // move appendix elements
+  $('h1.appendix, h2.appendix').each(function(i, val) {
+    $(this).changeElementType('h3');
+  });
+  $('h3.appendix').each(function(i, val) {
+    $(this).nextUntil($('h1, h2, h3')).addBack().appendTo($('.d-appendix'));
+  });
+
+
+  // inject headers into references and footnotes
+  var refs_header = $('<h3></h3>');
+  refs_header.text('References');
+  $('#refs').prepend(refs_header);
+
+  var footnotes_header = $('<h3></h3');
+  footnotes_header.text('Footnotes');
+  $('.footnotes').children('hr').first().replaceWith(footnotes_header);
+
+  // move appendix-bottom entries to the bottom
+  $('.appendix-bottom').appendTo('.d-appendix').children().unwrap();
+  $('.appendix-bottom').remove();
+
+  // remove appendix if it's empty
+  if ($('.d-appendix').children().length === 0)
+    $('.d-appendix').remove();
+
+  // prepend separator above appendix
+  $('.d-appendix').before($('<hr class="section-separator" style="clear: both"/>'));
+
+  // trim code
+  $('pre>code').each(function(i, val) {
+    $(this).html($.trim($(this).html()));
+  });
+
+  // move posts-container right before article
+  $('.posts-container').insertBefore($('.d-article'));
+
+  $('body').addClass('downlevel');
+
+  on_load_complete();
+}
+
+
+function init_common() {
+
+  // jquery plugin to change element types
+  (function($) {
+    $.fn.changeElementType = function(newType) {
+      var attrs = {};
+
+      $.each(this[0].attributes, function(idx, attr) {
+        attrs[attr.nodeName] = attr.nodeValue;
+      });
+
+      this.replaceWith(function() {
+        return $("<" + newType + "/>", attrs).append($(this).contents());
+      });
+    };
+  })(jQuery);
+
+  // prevent underline for linked images
+  $('a > img').parent().css({'border-bottom' : 'none'});
+
+  // mark non-body figures created by knitr chunks as 100% width
+  $('.layout-chunk').each(function(i, val) {
+    var figures = $(this).find('img, .html-widget');
+    if ($(this).attr('data-layout') !== "l-body") {
+      figures.css('width', '100%');
+    } else {
+      figures.css('max-width', '100%');
+      figures.filter("[width]").each(function(i, val) {
+        var fig = $(this);
+        fig.css('width', fig.attr('width') + 'px');
+      });
+
+    }
+  });
+
+  // auto-append index.html to post-preview links in file: protocol
+  // and in rstudio ide preview
+  $('.post-preview').each(function(i, val) {
+    if (window.location.protocol === "file:")
+      $(this).attr('href', $(this).attr('href') + "index.html");
+  });
+
+  // get rid of index.html references in header
+  if (window.location.protocol !== "file:") {
+    $('.distill-site-header a[href]').each(function(i,val) {
+      $(this).attr('href', $(this).attr('href').replace("index.html", "./"));
+    });
+  }
+
+  // add class to pandoc style tables
+  $('tr.header').parent('thead').parent('table').addClass('pandoc-table');
+  $('.kable-table').children('table').addClass('pandoc-table');
+
+  // add figcaption style to table captions
+  $('caption').parent('table').addClass("figcaption");
+
+  // initialize posts list
+  if (window.init_posts_list)
+    window.init_posts_list();
+
+  // implmement disqus comment link
+  $('.disqus-comment-count').click(function() {
+    window.headroom_prevent_pin = true;
+    $('#disqus_thread').toggleClass('hidden');
+    if (!$('#disqus_thread').hasClass('hidden')) {
+      var offset = $(this).offset();
+      $(window).resize();
+      $('html, body').animate({
+        scrollTop: offset.top - 35
+      });
+    }
+  });
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+  if (is_downlevel_browser())
+    init_downlevel();
+  else
+    window.addEventListener('WebComponentsReady', init_distill);
+});
+
+</script>
+
+<style type="text/css">
+/* base variables */
+
+/* Edit the CSS properties in this file to create a custom
+   Distill theme. Only edit values in the right column
+   for each row; values shown are the CSS defaults.
+   To return any property to the default,
+   you may set its value to: unset
+   All rows must end with a semi-colon.                      */
+
+/* Optional: embed custom fonts here with `@import`          */
+/* This must remain at the top of this file.                 */
+
+
+
+html {
+  /*-- Main font sizes --*/
+  --title-size:      50px;
+  --body-size:       1.06rem;
+  --code-size:       14px;
+  --aside-size:      12px;
+  --fig-cap-size:    13px;
+  /*-- Main font colors --*/
+  --title-color:     #000000;
+  --header-color:    rgba(0, 0, 0, 0.8);
+  --body-color:      rgba(0, 0, 0, 0.8);
+  --aside-color:     rgba(0, 0, 0, 0.6);
+  --fig-cap-color:   rgba(0, 0, 0, 0.6);
+  /*-- Specify custom fonts ~~~ must be imported above   --*/
+  --heading-font:    sans-serif;
+  --mono-font:       monospace;
+  --body-font:       sans-serif;
+  --navbar-font:     sans-serif;  /* websites + blogs only */
+}
+
+/*-- ARTICLE METADATA --*/
+d-byline {
+  --heading-size:    0.6rem;
+  --heading-color:   rgba(0, 0, 0, 0.5);
+  --body-size:       0.8rem;
+  --body-color:      rgba(0, 0, 0, 0.8);
+}
+
+/*-- ARTICLE TABLE OF CONTENTS --*/
+.d-contents {
+  --heading-size:    18px;
+  --contents-size:   13px;
+}
+
+/*-- ARTICLE APPENDIX --*/
+d-appendix {
+  --heading-size:    15px;
+  --heading-color:   rgba(0, 0, 0, 0.65);
+  --text-size:       0.8em;
+  --text-color:      rgba(0, 0, 0, 0.5);
+}
+
+/*-- WEBSITE HEADER + FOOTER --*/
+/* These properties only apply to Distill sites and blogs  */
+
+.distill-site-header {
+  --title-size:       18px;
+  --text-color:       rgba(255, 255, 255, 0.8);
+  --text-size:        15px;
+  --hover-color:      white;
+  --bkgd-color:       #0F2E3D;
+}
+
+.distill-site-footer {
+  --text-color:       rgba(255, 255, 255, 0.8);
+  --text-size:        15px;
+  --hover-color:      white;
+  --bkgd-color:       #0F2E3D;
+}
+
+/*-- Additional custom styles --*/
+/* Add any additional CSS rules below                      */
+</style>
+<style type="text/css">
+/* base variables */
+
+/* Edit the CSS properties in this file to create a custom
+   Distill theme. Only edit values in the right column
+   for each row; values shown are the CSS defaults.
+   To return any property to the default,
+   you may set its value to: unset
+   All rows must end with a semi-colon.                      */
+
+/* Optional: embed custom fonts here with `@import`          */
+/* This must remain at the top of this file.                 */
+
+@import url('https://assets.ipums.org/_css/font-faces.css');
+
+html {
+  /*-- Main font sizes --*/
+  --title-size:      50px;
+  --body-size:       1.06rem;
+  --code-size:       14px;
+  --aside-size:      12px;
+  --fig-cap-size:    13px;
+  /*-- Main font colors --*/
+  --title-color:     #00263A;
+  --header-color:    #00263A;
+  --body-color:      #00263A;
+  --aside-color:     rgba(0, 0, 0, 0.6);
+  --fig-cap-color:   rgba(0, 0, 0, 0.6);
+  /*-- Specify custom fonts ~~~ must be imported above   --*/
+  --heading-font:    cabrito_sans_norm_regular;
+  --mono-font:       Menlo, Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+  --body-font:       cabrito_sans_norm_regular;
+  --navbar-font:     cabrito_sans_norm_regular;  /* websites + blogs only */
+}
+
+/*-- ARTICLE METADATA --*/
+d-byline {
+  --heading-size:    0.6rem;
+  --heading-color:   rgba(0, 0, 0, 0.5);
+  --body-size:       0.8rem;
+  --body-color:      rgba(0, 0, 0, 0.8);
+}
+
+/*-- ARTICLE TABLE OF CONTENTS --*/
+.d-contents {
+  --heading-size:    18px;
+  --contents-size:   13px;
+}
+
+/*-- ARTICLE APPENDIX --*/
+d-appendix {
+  --heading-size:    15px;
+  --heading-color:   rgba(0, 0, 0, 0.65);
+  --text-size:       0.8em;
+  --text-color:      rgba(0, 0, 0, 0.5);
+}
+
+/*-- WEBSITE HEADER + FOOTER --*/
+/* These properties only apply to Distill sites and blogs  */
+
+.distill-site-header {
+  --title-size:       18px;
+  --text-color:       rgba(255, 255, 255, 0.8);
+  --text-size:        15px;
+  --hover-color:      white;
+  --bkgd-color:       #00263A;
+}
+
+.distill-site-footer {
+  --text-color:       rgba(255, 255, 255, 0.8);
+  --text-size:        15px;
+  --hover-color:      white;
+  --bkgd-color:       #00263A;
+}
+
+/*-- Additional custom styles --*/
+/* Add any additional CSS rules below                      */
+
+h1{
+  font-family: 'cabrito_sans_norm_regular';
+  text-transform: uppercase;
+  color: #00263A;
+}
+
+d-title h1{
+  font-weight: 500;
+}
+
+d-article h1{
+  font-size: 36px;
+  line-height: 1.1em;
+  font-weight: 100;
+}
+
+d-article h2{
+    font-size: 30px;
+    font-family: "cabrito_sans_cond_demi";
+    text-transform: uppercase;
+    color: #00263A;
+    font-weight: 100;
+}
+
+d-article h3{
+  font-size: 26px;
+  font-family: 'cabrito_sans_cond_demi';
+  color: #00263A;
+  margin-top: 1.5rem;
+  margin-bottom: 1em;
+  font-weight: 100;
+}
+
+d-article h4{
+  font-size: 24px;
+  font-family: 'cabrito_sans_norm_regular';
+  color: #00263A;
+  text-transform: unset;
+  margin-top: 1.5rem;
+  margin-bottom: 1em;
+  font-weight: 100;
+}
+
+d-article h5{
+  font-size: 24px;
+  font-family: 'cabrito_sans_cond_demi';
+  color: #00263A;
+  margin-top: 1.5rem;
+  margin-bottom: 1em;
+  font-weight: 100;
+}
+
+d-article li {
+    margin-bottom: 0;
+    margin-left: 1rem;
+    padding-left: 0;
+    color: #00263A;
+}
+
+d-article table {
+    color: #00263A;
+}
+.d-contents nav > ul > li > a {
+    font-weight: 100;
+}
+
+body{
+  font-family: 'cabrito_subset';
+}
+
+b, strong {
+  font-family: "cabrito_sans_cond_demi";
+  font-weight: 100;
+}
+
+p>a {
+    color: #98579B
+}
+
+li>a {
+    color: #98579B;
+}
+
+.btn {
+    font-family: "cabrito_subset";
+    font-size: 16px;
+    background-color: #F0E6F0;
+    margin-bottom: 20px;
+    border-width: 1px;
+    padding-top: 6px;
+    padding-bottom: 6px;
+    cursor: pointer;
+}
+
+.distill-site-header .title {
+    text-transform: uppercase;
+    line-height: 38px;
+    vertical-align: middle;
+}
+
+.distill-site-header .logo img{
+  max-height: 50px; /* Makes logo bigger, default was 20px */
+  vertical-align: middle;
+  margin-bottom: 0;
+}
+
+.distill-site-header .nav-right {
+    float: right;
+    line-height: 38px;
+    vertical-align: middle;
+}
+
+.distill-site-header .nav-left {
+    display: inline-block;
+    line-height: 38px;
+    vertical-align: middle;
+}
+
+.algolia-autocomplete {
+  line-height: 25px;
+}
+
+d-article iframe {
+    border: 0;
+    margin-bottom: 0;
+    width: 100%;
+}
+
+d-article aside a {
+  color: #98579B;
+}
+
+@media(max-width: 767px){
+  aside{
+    width: 50%;
+    position: relative;
+    left: 25%;
+    padding-bottom: 20px;
+  }
+}
+
+code {
+  font-family: Menlo, Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+}</style>
+<style type="text/css">
+/* base style */
+
+/* FONT FAMILIES */
+
+:root {
+  --heading-default: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", Arial, sans-serif;
+  --mono-default: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+  --body-default: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", Arial, sans-serif;
+}
+
+body,
+.posts-list .post-preview p,
+.posts-list .description p {
+  font-family: var(--body-font), var(--body-default);
+}
+
+h1, h2, h3, h4, h5, h6,
+.posts-list .post-preview h2,
+.posts-list .description h2 {
+  font-family: var(--heading-font), var(--heading-default);
+}
+
+d-article div.sourceCode code,
+d-article pre code {
+  font-family: var(--mono-font), var(--mono-default);
+}
+
+
+/*-- TITLE --*/
+d-title h1,
+.posts-list > h1 {
+  color: var(--title-color, black);
+}
+
+d-title h1 {
+  font-size: var(--title-size, 50px);
+}
+
+/*-- HEADERS --*/
+d-article h1,
+d-article h2,
+d-article h3,
+d-article h4,
+d-article h5,
+d-article h6 {
+  color: var(--header-color, rgba(0, 0, 0, 0.8));
+}
+
+/*-- BODY --*/
+d-article > p,  /* only text inside of <p> tags */
+d-article > ul, /* lists */
+d-article > ol {
+  color: var(--body-color, rgba(0, 0, 0, 0.8));
+  font-size: var(--body-size, 1.06rem);
+}
+
+
+/*-- CODE --*/
+d-article div.sourceCode code,
+d-article pre code {
+  font-size: var(--code-size, 14px);
+}
+
+/*-- ASIDE --*/
+d-article aside {
+  font-size: var(--aside-size, 12px);
+  color: var(--aside-color, rgba(0, 0, 0, 0.6));
+}
+
+/*-- FIGURE CAPTIONS --*/
+figure .caption,
+figure figcaption,
+.figure .caption {
+  font-size: var(--fig-cap-size, 13px);
+  color: var(--fig-cap-color, rgba(0, 0, 0, 0.6));
+}
+
+/*-- METADATA --*/
+d-byline h3 {
+  font-size: var(--heading-size, 0.6rem);
+  color: var(--heading-color, rgba(0, 0, 0, 0.5));
+}
+
+d-byline {
+  font-size: var(--body-size, 0.8rem);
+  color: var(--body-color, rgba(0, 0, 0, 0.8));
+}
+
+d-byline a,
+d-article d-byline a {
+  color: var(--body-color, rgba(0, 0, 0, 0.8));
+}
+
+/*-- TABLE OF CONTENTS --*/
+.d-contents nav h3 {
+  font-size: var(--heading-size, 18px);
+}
+
+.d-contents nav a {
+  font-size: var(--contents-size, 13px);
+}
+
+/*-- APPENDIX --*/
+d-appendix h3 {
+  font-size: var(--heading-size, 15px);
+  color: var(--heading-color, rgba(0, 0, 0, 0.65));
+}
+
+d-appendix {
+  font-size: var(--text-size, 0.8em);
+  color: var(--text-color, rgba(0, 0, 0, 0.5));
+}
+
+d-appendix d-footnote-list a.footnote-backlink {
+  color: var(--text-color, rgba(0, 0, 0, 0.5));
+}
+
+/*-- WEBSITE HEADER + FOOTER --*/
+.distill-site-header .title {
+  font-size: var(--title-size, 18px);
+  font-family: var(--navbar-font), var(--heading-default);
+}
+
+.distill-site-header a,
+.nav-dropdown .nav-dropbtn {
+  font-family: var(--navbar-font), var(--heading-default);
+}
+
+.nav-dropdown .nav-dropbtn {
+  color: var(--text-color, rgba(255, 255, 255, 0.8));
+  font-size: var(--text-size, 15px);
+}
+
+.distill-site-header a:hover,
+.nav-dropdown:hover .nav-dropbtn {
+  color: var(--hover-color, white);
+}
+
+.distill-site-header {
+  font-size: var(--text-size, 15px);
+  color: var(--text-color, rgba(255, 255, 255, 0.8));
+  background-color: var(--bkgd-color, #0F2E3D);
+}
+
+.distill-site-footer {
+  font-size: var(--text-size, 15px);
+  color: var(--text-color, rgba(255, 255, 255, 0.8));
+  background-color: var(--bkgd-color, #0F2E3D);
+}
+
+.distill-site-footer a:hover {
+  color: var(--hover-color, white);
+}</style>
+<!--/radix_placeholder_distill-->
+  <script src="../../site_libs/header-attrs-2.11/header-attrs.js"></script>
+  <script src="../../site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+  <script src="../../site_libs/popper-2.6.0/popper.min.js"></script>
+  <link href="../../site_libs/tippy-6.2.7/tippy.css" rel="stylesheet" />
+  <link href="../../site_libs/tippy-6.2.7/tippy-light-border.css" rel="stylesheet" />
+  <script src="../../site_libs/tippy-6.2.7/tippy.umd.min.js"></script>
+  <script src="../../site_libs/anchor-4.2.2/anchor.min.js"></script>
+  <script src="../../site_libs/bowser-1.9.3/bowser.min.js"></script>
+  <script src="../../site_libs/webcomponents-2.0.0/webcomponents.js"></script>
+  <script src="../../site_libs/distill-2.2.21/template.v2.js"></script>
+  <!--radix_placeholder_site_in_header-->
+<script type="text/javascript" cookie-consent="tracking" async src="https://www.googletagmanager.com/gtag/js?id=UA-191039907-2"></script>
+<script type="text/javascript" cookie-consent="tracking">
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'UA-191039907-2');
+</script>
+<!--/radix_placeholder_site_in_header-->
+
+
+</head>
+
+<body>
+
+<!--radix_placeholder_front_matter-->
+
+<script id="distill-front-matter" type="text/json">
+{"title":"Modeling client satistifaction with both individual and facility characteristics","description":"We use multilevel models to examine factors related to women's satisfaction with family planning care received from the service delivery facilities in Kenya.","authors":[{"author":"Jiao Yu","authorURL":"https://www.researchgate.net/profile/Jiao-Yu-6","affiliation":"IPUMS PMA Postdoc","affiliationURL":"#","orcidID":""},{"author":"Matt Gunther","authorURL":"#","affiliation":"IPUMS PMA Senior Data Analyst","affiliationURL":"#","orcidID":""}],"publishedDate":"2022-02-15T00:00:00.000-06:00","citationText":"Yu & Gunther, 2022"}
+</script>
+
+<!--/radix_placeholder_front_matter-->
+<!--radix_placeholder_navigation_before_body-->
+<header class="header header--fixed" role="banner">
+<nav class="distill-site-nav distill-site-header">
+<div class="nav-left">
+<a class="logo" href="https://pma.ipums.org/pma/">
+<img src="../../images/logo-white.png" alt="Logo"/>
+</a>
+<a href="../../index.html" class="title">Data Analysis Hub</a>
+<input id="distill-search" class="nav-search hidden" type="text" placeholder="Search..."/>
+</div>
+<div class="nav-right">
+<a href="../../index.html">Posts</a>
+<div class="nav-dropdown">
+<button class="nav-dropbtn">
+Courses
+ 
+<span class="down-arrow">&#x25BE;</span>
+</button>
+<div class="nav-dropdown-content">
+<a href="../../introduction.html">Introduction to IPUMS PMA Data Analysis</a>
+</div>
+</div>
+<div class="nav-dropdown">
+<button class="nav-dropbtn">
+R Tips
+ 
+<span class="down-arrow">&#x25BE;</span>
+</button>
+<div class="nav-dropdown-content">
+<a href="../../posts/2020-12-10-get-ipums-pma-data/index.html">Import IPUMS PMA Data into R</a>
+<a href="../../posts/2020-12-10-get-r-and-packages/index.html">R, RStudio, and R Packages</a>
+<a href="../../posts/2021-11-15-find-an-example/index.html">Find an Example</a>
+</div>
+</div>
+<div class="nav-dropdown">
+<button class="nav-dropbtn">
+Community
+ 
+<span class="down-arrow">&#x25BE;</span>
+</button>
+<div class="nav-dropdown-content">
+<a href="../../CONTRIBUTING.html">Contributing guide</a>
+<a href="../../CODE_OF_CONDUCT.html">Code of conduct</a>
+<a href="../../LICENSE.html">License</a>
+<a href="https://github.com/ipums/pma-data-hub/">GitHub</a>
+</div>
+</div>
+<a href="../../about.html">About</a>
+<a href="../../index.xml">
+<i class="fa fa-rss" aria-hidden="true"></i>
+</a>
+<a href="https://twitter.com/ipumsGH">
+<i class="fab fa-twitter" aria-hidden="true"></i>
+</a>
+<a href="https://github.com/ipums/pma-data-hub" aria-label="Link to source">
+<i class="fab fa-github" aria-hidden="true"></i>
+</a>
+<a href="javascript:void(0);" class="nav-toggle">&#9776;</a>
+</div>
+</nav>
+</header>
+<!--/radix_placeholder_navigation_before_body-->
+<!--radix_placeholder_site_before_body-->
+<!--/radix_placeholder_site_before_body-->
+
+<div class="d-title">
+<h1>Modeling client satistifaction with both individual and facility characteristics</h1>
+<!--radix_placeholder_categories-->
+<div class="dt-tags">
+  <a href="../../index.html#category:Client_Exit_Interviews" class="dt-tag">Client Exit Interviews</a>
+  <a href="../../index.html#category:Data_Analysis" class="dt-tag">Data Analysis</a>
+  <a href="../../index.html#category:lme4" class="dt-tag">lme4</a>
+  <a href="../../index.html#category:Multilevel_model" class="dt-tag">Multilevel model</a>
+</div>
+<!--/radix_placeholder_categories-->
+<p><p>We use multilevel models to examine factors related to women’s satisfaction with family planning care received from the service delivery facilities in Kenya.</p></p>
+</div>
+
+<div class="d-byline">
+  Jiao Yu <a href="https://www.researchgate.net/profile/Jiao-Yu-6" class="uri">https://www.researchgate.net/profile/Jiao-Yu-6</a> (IPUMS PMA Postdoc)
+  
+,   Matt Gunther  (IPUMS PMA Senior Data Analyst)
+  
+<br/>2022-02-15
+</div>
+
+<div class="d-article">
+<div class="d-contents d-contents-float">
+<nav class="l-text toc figcaption" id="TOC">
+<h3>Contents</h3>
+<ul>
+<li><a href="#why-multilevel">Why “Multilevel?”</a>
+<ul>
+<li><a href="#theory">Theory</a></li>
+<li><a href="#statistical-rationale">Statistical rationale</a></li>
+</ul></li>
+<li><a href="#how-it-works">How it works</a>
+<ul>
+<li><a href="#fixed-effects">Fixed effects</a></li>
+<li><a href="#variance-decomposition">Variance decomposition</a></li>
+<li><a href="#random-intercept-model">Random intercept model</a></li>
+</ul></li>
+<li><a href="#setup">Setup</a></li>
+<li><a href="#variable-recoding">Variable recoding</a></li>
+<li><a href="#summary-table">Summary table</a></li>
+<li><a href="#models">Models</a>
+<ul>
+<li><a href="#visualization">Visualization</a></li>
+</ul></li>
+</ul>
+</nav>
+</div>
+<p>Throughout this series, we’ve been looking at PMA <a href="../../index.html#category:Client_Exit_Interviews">Client Exit Interview (CEI)</a> surveys as a resource for understanding women’s assessments of care received from providers of family planning services. In a previous <a href="../2022-02-01-cei-fp/#method-information">post</a>, we explained how family planning researchers aggregate multiple dimensions of client assessment together in <a href="https://www.data4impactproject.org/prh/family-planning/">key indicators</a> like the <a href="https://knowledgesuccess.org/2019/11/19/what-is-the-method-information-index-mii/">Method Information Index Plus</a>. We’ve also shown how to incorporate CEI data together with data collected about each facilty in PMA <a href="../../index.html#category:Service_Delivery_Points">Service Delivery Point (SDP)</a> surveys.</p>
+<p>Here, we’ll wrap up this series with an example analysis that uses both cllient <em>and</em> facility data together while addressing the hierarchical structure of CEI sample design. Specifically, we’ll examine <em>factors related to client satisfaction for women who received a family planning method or prescription from their provider</em>. Our hypothesis is that the determinants of client satisfaction are multidimensional, including both individual client characteristics and certain features specific to each facility (like the range of family planning methods available).</p>
+<p>As we explore this question, we’ll be building on the data cleaning steps outlined in our <a href="../2022-02-01-cei-fp/#method-information">last post</a> so that we can focus our attention on analytic design. As we’ll see, <strong>ordinary least squares</strong> regression may not be a good match for CEI data, which come from a convenience sample of female clients visiting a non-representative sample of facilities. Instead, we’ll model unobserved differneces between facilities as <strong>random effects</strong> in a <strong>mulitlevel model</strong>.</p>
+<h1 id="why-multilevel">Why “Multilevel?”</h1>
+<p>In general, we use multilevel models when data have a nested or clustered structure - meaning that smaller levels of analysis (family planning clients) are contained within larger grouping units (facilities). Readers might recall that we’ve briefly covered multilevel modeling before, where we modeled similarities between PMA <a href="../2021-11-01-nutrition-analysis/index.html#multi-level-mixed-effects-models">households within sample clusters</a> as <strong>random effects</strong>. In general, multilevel models are often appropriate when data are collected in a spatial, temporal, or otherwise grouped structure. You may wonder <em>why should we care about data structure</em>? The short answer is that we should select an optimal statistical model based on the data we intend to analyze. But there are more factors to consider.</p>
+<h2 id="theory">Theory</h2>
+<p>In most social science research, model selection should be theory-driven. The best model choice is one that has a sound theoretical rationale. When thinking about social phenomena, we often ignore how social context plays a role in an individual’s life. By looking at data collected from individuals, we are focusing on the micro-level effects of specific characteristics on outcomes of interest, but these micro-level effects may vary across larger social contexts at the macro-level<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>.</p>
+<p>A frequently cited example is from education research examining children’s academic achievement. Any given child’s performance in school may primarily depend on their parents’ education and socioeconomic background. But teacher characteristics and the abilities of other children in their classroom are also likely to influence the child’s performance. Because of these classroom effects, we would expect that a child’s test score is the result of both their individual characteristics and the features of their classroom, which are shared amongst their classmates. In a study where multpile students from the same classroom are sampled, we would need a statistical approach that explicitly address both individual and classroom effects.</p>
+<h2 id="statistical-rationale">Statistical rationale</h2>
+<p>More importantly, the reason we choose <strong>multilevel models</strong> over <strong>ordinary least squares (OLS)</strong> is that failing to recognize a multilevel data structure may violate key assumptions in the OLS approach. One of these assumptions is the <em>independence of observations</em>. This assumption posits that observations in a regression should be independent of one another.</p>
+<p>When individuals are sampled within groups, individuals from the same group may be more alike than individuals selected from different groups. This is especially true in cases where physical proximity is a strong predictor of group membership: we’ve shown in a previous <a href="../2021-12-15-cei-conflict">post</a> that sampled women in CEI surveys mainly visit facilities that are close to their homes, and that civic unrest may disrupt transportation and access to those facilities. As a result, similarities between clients sampled at the same facility may be attributed to more than the facility itself - it could be that those women face similar access issues, live in similar neighborhoods, or share similar personal and occupational characteristics that we can’t observe directly. If we ignore the spatial organization of our data, we risk <em>underestimating the standard errors</em> of our model <span class="citation" data-cites="gelman2006">(<a href="#ref-gelman2006" role="doc-biblioref">Gelman and Hill 2006</a>)</span>.</p>
+<p>Fortunately, <strong>multilevel modeling</strong> gives us a way to simultaneously analyze data collected about both individual clients and the facilities where they were interviewed. In general, this approach enables us to link individuals to their social contexts and estimate the extent of group effects on individual outcomes. Moreover, it handles differences in number of women sampled at each facility - an important feature given that CEI data only include family planning clients who happened to visit each facility during a two day observation period <span class="citation" data-cites="mcelreath2020">(<a href="#ref-mcelreath2020" role="doc-biblioref">McElreath 2020</a>)</span>.</p>
+<aside>
+Multilevel models go by many different names. The most common synonyms for multilevel models are hierarchical linear models, mixed effects models, and random effects models. People may use them all interchangeably.
+</aside>
+<h1 id="how-it-works">How it works</h1>
+<p>Before we dive in, let’s revisit the simpler OLS appraoch, where all clients would be modeled with a single linear function. Consider a model where we estimate <em>only the intercept</em>:</p>
+<p><span class="math display">\[
+y_i = \beta_0 + e_i 
+\]</span> Here, <span class="math inline">\(y_i\)</span> represents an outcome: in our case, this will be a particular client’s satisfaction with family planning services after receiving a family planning method or prescription. <span class="math inline">\(\beta_0\)</span> is the regression intercept - it is the mean satisfaction score for all clients in the sample of all facilities. <span class="math inline">\(e_i\)</span> is the “error” term - also called the “residual” - and it measures the difference between an individual’s <em>actual</em> satisfaction score and the score <em>predicted</em> for them by our model. Let’s take a look at a hypothetical sample.</p>
+<div class="layout-chunk" data-layout="l-body">
+<p><img src="images/plot1.png" width="784" style="display: block; margin: auto;" /></p>
+</div>
+<p>This plot demonstrates an OLS regression line for client satisfaction with no predictors. The horizontal line corresponds to the overall mean satisfaction, which is also the intercept <span class="math inline">\(\beta_0\)</span>=4.5. The distance from Ann’s score to the mean is the level-1 (individual level) residual <span class="math inline">\(e_i\)</span>=3.5. Ann’s evaluation of services can be calculated as the sum of two parts: the overall mean and her residual, i.e. 4.5+3.5=8.</p>
+<p>As we have mentioned, the OLS regression model only captures average relationships in the data and it can not address variations in the relationship between variables across units or groups. The average score of satisfaction across all facilities is 4.5, whereas the effect that any particular facility has on the client satisfaction is unknown. It is possible that Facility A’s rating is way better than the rating of other facilities, but that pattern would be totally ignored under the OLS framework. Fortunately, we have other options.</p>
+<h2 id="fixed-effects">Fixed effects</h2>
+<p>Instead of employing a simple OLS regression, we could address differences between facilities via a <strong>fixed effects</strong> approach, where we create dummy variables for each facility identified by <a href="https://pma.ipums.org/pma-action/variables/FACILITYID">FACILITYID</a> within the same OLS framework. Suppose we have 200 facilities in our sample. We choose one facility as the reference and include indicators for the remaining 199 facilities as dummy variables. This approach is advantageous if you intend to compare service qualities across different facilities. Yet, the limitation is obvious: when the number of facilities is is too large compared to the number of clients, we experience a high risk of overfitting our model to the particular facilities we happend to sample. Another drawback in this approach is that it does not allow models to include facility-level explanatory variables - like the number of family planning methods available - since facility-level variables will have the same value for each dummy variable.</p>
+<h2 id="variance-decomposition">Variance decomposition</h2>
+<p>Now, let’s move on to the multilevel model. Again, we consider an intercept-only model. We will rewrite our model as:</p>
+<p><span class="math display">\[
+y_{ij} = \beta_0 + u_j+e_{ij} 
+\]</span> Compare this to the OLS regression equation. First, we include a subscript <span class="math inline">\(j\)</span> to represent the facility identification. Now <span class="math inline">\(y_{ij}\)</span> represents the satisfaction score of woman <span class="math inline">\(i\)</span> who receives services from facility <span class="math inline">\(j\)</span>. Second, a new term <span class="math inline">\(u_j\)</span> is included in the model, which represents the difference between a facility’s mean score and the overall mean. <span class="math inline">\(\beta_0\)</span> is again the average satisfaction and <span class="math inline">\(e_{ij}\)</span> is individual <span class="math inline">\(i\)</span>’s deviation to the mean satisfaction score of her facility.</p>
+<p>Let’s turn to our hypothetical data. We found Ann receives family planning services from Facility A and her rating of services is based on her experiences at that facility. Of course, our sample includes several women that also visited Facility A: we’ll use the color red to mark these women on our plot. We can easily calculate the mean satisfaction score for Facility A by averaging the values of the red points. This facility mean is represented by a horizontal red line. Now, the distance of Ann’s score to the overall mean score is decomposed into two parts (or in statistical terms, two variance components): one is the distance from the facility mean to the overall mean. This corresponds to <span class="math inline">\(u_j\)</span>. The other is the distance from her score to the facility’s mean score, <span class="math inline">\(e_{ij}\)</span>. To calculate Ann’s satisfaction, we sum up the overall mean (intercept), the group level deviation, and the individual residual, 4.5+2.5+1=8. Technically, We can repeat this process to find out all facility means, the group-level residuals (<span class="math inline">\(u_{j, \ where \ j=1, 2…n}\)</span>), and individual-level residuals (<span class="math inline">\(e_{ij,\ where \ i=1, 2…k, \ j=1, 2… n}\)</span>).</p>
+<div class="layout-chunk" data-layout="l-body">
+<p><img src="images/plot2.png" width="778" style="display: block; margin: auto;" /></p>
+</div>
+<p>If there are 200 facilities in our sample, we can draw 200 regression lines for each of the facilities. Unlike the fixed overall mean <span class="math inline">\(\beta_0\)</span>, these group-level means (group-level intercepts) vary across facilities. That is to say, each facility has its own intercept and the distance from the intercepts to the overall mean is represented by <span class="math inline">\(u_j\)</span>. Statistically, to gauge these variations, we’ve assumed that group-level residuals follow a normal distribution in order to estimate their variance after fitting the model. Intuitively, the estimated variance of <span class="math inline">\(u_j\)</span> indicates the extent to which the group-level intercept, on average, varies by facilities/groups/units. Similarly, the estimated variance <span class="math inline">\(e_{ij}\)</span> represents the variance of individual scores around their affiliated group-level average (the group-level intercept).</p>
+<aside>
+The term fixed effects are not used in a consistent way. Fixed effects can be defined as varying coefficients that are not themselves modeled, such as dummy variables. It also refers to the coefficients that do not vary by group, just as the overall mean score in our example. See <a href="http://www.stat.columbia.edu/~gelman/arm/">Gelman and Hill (2006)</a> for a discussion.
+</aside>
+<p>The varying coefficients in a multilevel model are called <strong>random effects</strong>. The term <strong>fixed effects</strong> refers to coefficients that do not vary by group. In our case, the fixed effect is the estimated coefficient of the overall mean satisfaction score (<span class="math inline">\(\beta_0\)</span>). The random effects are the coefficients of group-level residuals (<span class="math inline">\(u_j\)</span>) and individual-level residuals (<span class="math inline">\(e_{ij}\)</span>).</p>
+<h2 id="random-intercept-model">Random intercept model</h2>
+<p>A basic multilevel model is a random intercept model. Random intercept models estimate unique lines for each group, where each line is parallel to the overall average line (just as we have shown in our intercept-only model above). Facility A’s regression line is parallel to the horizontal line of the mean satisfaction scores. The regression line for Facility B will be parallel to the line of the overall mean as well. When adding an explanatory variable to the model, we would be able to estimate the slope of the explanatory variable <span class="math inline">\(\beta_1\)</span>. The parallel property remains the same, even as we add multiple dimensions to our model from multiple facility-level and client-level variables. The reason we call this a <strong>random intercept model</strong> is because the regression lines for any two facilities will always be parallel: the difference between facilities is captured by a unique intercept term.</p>
+<aside>
+It’s worth noting that the terminology in statistical literature is confusing and inconsistent in terms of random intercept. Sometimes <span class="math inline">\(\beta_0+u_j\)</span> is called the random intercept while other people regard <span class="math inline">\(u_i\)</span> as the random intercept.
+</aside>
+<p>As we’ll see, multilevel model interpretation will be familiar to those who are already familiar with ordinary least squares. <span class="math inline">\(\beta_0\)</span> is the average of the outcome when all <span class="math inline">\(x\)</span> variables are equal to zero. <span class="math inline">\(\beta_1\)</span> is the increase in the outcome for one unit increase in <span class="math inline">\(x\)</span>. The main differnece is that we’ll also need to interpret a random effects term: this will be the estimated variance (or standard deviation) of <span class="math inline">\(u_j\)</span> and <span class="math inline">\(e_{ij}\)</span>. These represent the unexplained dispersion of client satistifaction scores at the facility level and at the individual level, respectively.</p>
+<aside>
+The random <em>intercept</em> model assumes that the strength of the relationship between <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span> is the same across groups. Other multilevel models - like the random <em>slope</em> model - are preferred when the effect of <span class="math inline">\(x\)</span> on <span class="math inline">\(y\)</span> varies by group.
+</aside>
+<h1 id="setup">Setup</h1>
+<p>Let’s now turn to a specific example using CEI and SDP data from the 2019 sample from Kenya. To keep setup simple, we’ll restrict our analysis to a number of variables we’ve covered in <a href="../../index.html#category:Client_Exit_Interviews">previous posts</a> in this series - there’s a lot more that you might include in your own analysis! Specifically, we’ll need these variables from the 2019 Kenya CEI survey:</p>
+<ul>
+<li>Three measures of client satisfaction that we’ll index as our <strong>dependent variable</strong>
+<ul>
+<li><a href="https://pma.ipums.org/pma-action/variables/FPGETDESIREDTODAY">FPGETDESIREDTODAY</a>: obtained her preferred family planning method</li>
+<li><a href="https://pma.ipums.org/pma-action/variables/RETURNFAC">RETURNFAC</a>: would return to the same provider again</li>
+<li><a href="https://pma.ipums.org/pma-action/variables/REFERFAC">REFERFAC</a>: would recommend the provider to a friend or relative</li>
+</ul></li>
+<li>Demographic variables for each client
+<ul>
+<li><a href="https://pma.ipums.org/pma-action/variables/AGE">AGE</a>: age in years</li>
+<li><a href="https://pma.ipums.org/pma-action/variables/MARSTAT">MARSTAT</a>: marital status</li>
+<li><a href="https://pma.ipums.org/pma-action/variables/EDUCATTGEN">EDUCATTGEN</a>: education (4 categories)</li>
+<li><a href="https://pma.ipums.org/pma-action/variables/BIRTHEVENT">BIRTHEVENT</a>: number of birth events</li>
+</ul></li>
+<li>Variables describing the quality of information provided about the method each client received, which we’ll <a href="../2022-02-01-cei-fp/#method-information">again</a> index as <strong>Method Information Index Plus (MII+)</strong>. They ask the client to recall whether their provider mentioned:
+<ul>
+<li><a href="https://pma.ipums.org/pma-action/variables/DISCOTHFP">DISCOTHFP</a>: other family planning methods they might use</li>
+<li><a href="https://pma.ipums.org/pma-action/variables/TELLSIDEEFF">TELLSIDEEFF</a>: side effects or problems they might have with the method</li>
+<li><a href="https://pma.ipums.org/pma-action/variables/TELLSEPROB">TELLSEPROB</a>: what to do about those side effects or problems</li>
+<li><a href="https://pma.ipums.org/pma-action/variables/TELLSWITCH">TELLSWITCH</a>: that they could switch methods in the future</li>
+</ul></li>
+</ul>
+<p>Additionally, we’ll merge several facility variables from the 2019 Kenya SDP survey. For the sake of simplicity, we’ll consider variables indicating whether a facility <strong>provides</strong> a specific family planning method (variables with names ending with <code>PROV</code>, e.g. <a href="https://pma.ipums.org/pma-action/variables/IUDPROV">IUDPROV</a>). See <a href="../2021-01-28-across-sdp/#summarize-variable-groups-by-facility">this post</a> for tips when working with several method-specific variables generated from the same multiple response question. We’ll simply count the total number of methods provided at each facility.</p>
+<p>You’ll need to <a href="../2022-02-01-cei-fp/index.html">create separate data extracts for the CEI and SDP surveys</a>. Once you’ve downloaded them, load each into R along with the <a href="https://tidyverse.tidyverse.org/">tidyverse</a> and <a href="https://tech.popdata.org/ipumsr">ipumsr</a> packages as follows:</p>
+<div class="layout-chunk" data-layout="l-body">
+
+</div>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://www.ipums.org'>ipumsr</a></span><span class='op'>)</span>
+<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://tidyverse.tidyverse.org'>tidyverse</a></span><span class='op'>)</span>
+
+<span class='va'>cei</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/ipumsr/man/read_ipums_micro.html'>read_ipums_micro</a></span><span class='op'>(</span>
+  ddi <span class='op'>=</span> <span class='st'>"data/pma_00001.xml"</span>,
+  data <span class='op'>=</span> <span class='st'>"data/pma_00001.dat.gz"</span>
+<span class='op'>)</span> 
+
+<span class='va'>sdp</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/ipumsr/man/read_ipums_micro.html'>read_ipums_micro</a></span><span class='op'>(</span>
+  ddi <span class='op'>=</span> <span class='st'>"data/pma_0002.xml"</span>,
+  data <span class='op'>=</span> <span class='st'>"data/pma_0002.dat.gz"</span>
+<span class='op'>)</span>
+</code></pre>
+</div>
+</div>
+<div class="layout-chunk" data-layout="l-body">
+
+</div>
+<p><a href="../2021-12-01-cei-discovery/index.html#missing-data">As we’ve discussed</a>, it’s often useful to filter CEI data using <a href="https://pma.ipums.org/pma-action/variables/FPINFOYN">FPINFOYN</a>: clients who received neither family planning information nor a method were not given further questions, so they’ll appear as <code>NIU (not in universe)</code> in most variables. Dropping these cases will eliminate most of the values we’d otherwise label <code>NA</code> below.</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>cei</span> <span class='op'>&lt;-</span> <span class='va'>cei</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>FPINFOYN</span> <span class='op'>==</span> <span class='fl'>1</span><span class='op'>)</span>
+</code></pre>
+</div>
+</div>
+<p>Next, we’ll link women from the <code>cei</code> data extract together with data from the corresponding facility in the <code>sdp</code> data extract. We’ll use <a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">left_join</a>, thereby preserving all rows in <code>cei</code> while duplicating rows from <code>sdp</code> to match every woman sampled at a particular facility (this also drops any facility where no client exit interviews were conducted).</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>dat</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate-joins.html'>left_join</a></span><span class='op'>(</span>
+  <span class='va'>cei</span>, 
+  <span class='va'>sdp</span>, 
+  by <span class='op'>=</span> <span class='st'>"FACILITYID"</span>, 
+  suffix <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"_CEI"</span>, <span class='st'>"_SDP"</span><span class='op'>)</span>
+<span class='op'>)</span> 
+</code></pre>
+</div>
+</div>
+<h1 id="variable-recoding">Variable recoding</h1>
+<p>The service quality measure MII+ discussed in our <a href="../2022-02-01-cei-fp/index.html#method-information">previous post</a> describes the depth of information given by a provider to a woman who <em>received a family planning method or prescription</em> during her visit. If a woman did <em>not</em> receive a method or prescription - or if she did not respond to one of the component questions of MII+ - we’ll want to exclude her from our analysis. Similarly, we’ll drop cases where <code>FPGETDESIREDTODAY</code> shows that the woman obtained no method because she was only seeking follow-up care. Finally, we’ll exclude any woman who declined to answer or responded “don’t know” to any of our key questions of interest.</p>
+<p>We’ll mark all of these cases <code>NA</code> so that they’ll be dropped automatically from our analysis.</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>dat</span> <span class='op'>&lt;-</span> <span class='va'>dat</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/select.html'>select</a></span><span class='op'>(</span>
+    <span class='va'>FACILITYID</span>, <span class='va'>AGE</span>, <span class='va'>BIRTHEVENT</span>,
+    <span class='va'>REFERFAC</span>, <span class='va'>RETURNFAC</span>, 
+    <span class='va'>FPGETDESIREDTODAY</span>, 
+    <span class='va'>TELLSWITCH</span>, <span class='va'>DISCOTHFP</span>, <span class='va'>TELLSIDEEFF</span>, <span class='va'>TELLSEPROB</span>, 
+    <span class='va'>EDUCATTGEN</span>, <span class='va'>MARSTAT</span>,
+    <span class='fu'><a href='https://tidyselect.r-lib.org/reference/starts_with.html'>ends_with</a></span><span class='op'>(</span><span class='st'>"PROV"</span><span class='op'>)</span>
+  <span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/across.html'>across</a></span><span class='op'>(</span>
+    <span class='fu'><a href='https://tidyselect.r-lib.org/reference/everything.html'>everything</a></span><span class='op'>(</span><span class='op'>)</span>, 
+    <span class='op'>~</span><span class='va'>.x</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> 
+      <span class='fu'><a href='https://rdrr.io/pkg/ipumsr/man/lbl_na_if.html'>lbl_na_if</a></span><span class='op'>(</span><span class='op'>~</span><span class='va'>.lbl</span> <span class='op'><a href='https://rdrr.io/r/base/match.html'>%in%</a></span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span>
+        <span class='st'>"Don't know"</span>, 
+        <span class='st'>"No response or missing"</span>,
+        <span class='st'>"NIU (not in universe)"</span>,
+        <span class='st'>"Neither, did not obtain"</span>
+      <span class='op'>)</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> 
+      <span class='fu'><a href='https://haven.tidyverse.org/reference/zap_labels.html'>zap_labels</a></span><span class='op'>(</span><span class='op'>)</span>
+  <span class='op'>)</span><span class='op'>)</span> 
+</code></pre>
+</div>
+</div>
+<p>Next, we’ll recode every binary variable as a <strong>logical</strong> taking the value <code>TRUE</code> for affirmative responses, and <code>FALSE</code> for negative responses (all other values are coded <code>NA</code>). As in our <a href="../2022-02-01-cei-fp/index.html">last post</a>, this will include binary recodings for <a href="https://pma.ipums.org/pma-action/variables/EDUCATTGEN">EDUCATTGEN</a> and <a href="https://pma.ipums.org/pma-action/variables/MARSTAT">MARSTAT</a> as <code>EDUCAT2</code> (more than primary/middle school education) and <code>MARSTAT2</code> (either married or living with a partner).</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>dat</span> <span class='op'>&lt;-</span> <span class='va'>dat</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span>
+    EDUCAT2 <span class='op'>=</span> <span class='va'>EDUCATTGEN</span> <span class='op'>&gt;</span> <span class='fl'>2</span>,
+    MARSTAT2 <span class='op'>=</span> <span class='va'>MARSTAT</span> <span class='op'>==</span> <span class='fl'>21</span> <span class='op'>|</span> <span class='va'>MARSTAT</span> <span class='op'>==</span> <span class='fl'>22</span>,
+    <span class='fu'><a href='https://dplyr.tidyverse.org/reference/across.html'>across</a></span><span class='op'>(</span><span class='op'>-</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='va'>FACILITYID</span>, <span class='va'>AGE</span>, <span class='va'>BIRTHEVENT</span><span class='op'>)</span>, <span class='va'>as.logical</span><span class='op'>)</span>
+  <span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/select.html'>select</a></span><span class='op'>(</span><span class='op'>-</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='va'>EDUCATTGEN</span>, <span class='va'>MARSTAT</span><span class='op'>)</span><span class='op'>)</span>
+</code></pre>
+</div>
+</div>
+<p>Lastly, we’ll create three aggregate measures to summarise most of the <strong>logical</strong> variables we’ve just created.</p>
+<ol type="1">
+<li><code>SATIS</code>, our dependent variable, will be the sum of <code>TRUE</code> values in <code>FPGETDESIREDTODAY</code>, <code>RETURNFAC</code>, and <code>REFERFAC</code></li>
+<li><code>NUM_METHODS_PROV</code> will count the number of methods provided at each client’s facility (variables ending with <code>PROV</code>)</li>
+<li><code>MIIplus</code> will be <code>TRUE</code> if all four components of <strong>MII+</strong> are <code>TRUE</code></li>
+</ol>
+<p>We’ll use <code>transmute</code> here to build all three while <em>dropping</em> each of their component variables. We also preserve <code>FACILITYID</code>, <code>AGE</code>, <code>BIRTHEVENT</code>, <code>EDUCAT2</code>, and <code>MARSTAT2</code> by including them as-is. Finally, we’ll use <code>drop_na</code> to drop any cases with <code>NA</code> values in any of our variables of interest.</p>
+<div class="layout-chunk" data-layout="l-body">
+
+</div>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>dat</span> <span class='op'>&lt;-</span> <span class='va'>dat</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span>
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/rowwise.html'>rowwise</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>transmute</a></span><span class='op'>(</span>
+    <span class='va'>FACILITYID</span>, <span class='va'>AGE</span>, <span class='va'>BIRTHEVENT</span>, <span class='va'>EDUCAT2</span>, <span class='va'>MARSTAT2</span>,
+    SATIS <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span><span class='op'>(</span><span class='va'>REFERFAC</span>, <span class='va'>RETURNFAC</span>, <span class='va'>FPGETDESIREDTODAY</span>, na.rm <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>,
+    NUM_METHODS_PROV <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span><span class='op'>(</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/c_across.html'>c_across</a></span><span class='op'>(</span><span class='fu'><a href='https://tidyselect.r-lib.org/reference/starts_with.html'>ends_with</a></span><span class='op'>(</span><span class='st'>"PROV"</span><span class='op'>)</span><span class='op'>)</span>, na.rm <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>,
+    MIIplus <span class='op'>=</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/across.html'>if_all</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='va'>TELLSWITCH</span>, <span class='va'>DISCOTHFP</span>, <span class='va'>TELLSEPROB</span>, <span class='va'>TELLSIDEEFF</span><span class='op'>)</span><span class='op'>)</span>
+  <span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>ungroup</a></span><span class='op'>(</span><span class='op'>)</span>
+</code></pre>
+</div>
+</div>
+<p>As a last step, we’ll create new <strong>variable labels</strong> for each measure that we’ll use in all figures that follow.</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>dat</span> <span class='op'>&lt;-</span> <span class='va'>dat</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'>labelled</span><span class='fu'>::</span><span class='fu'><a href='http://larmarange.github.io/labelled/reference/var_label.html'>set_variable_labels</a></span><span class='op'>(</span>
+    SATIS <span class='op'>=</span> <span class='st'>"Client satisfaction index"</span>,
+    MIIplus <span class='op'>=</span> <span class='st'>"Method Information Index PLUS (MII+)"</span>,
+    NUM_METHODS_PROV <span class='op'>=</span> <span class='st'>"Number of methods provided by facility"</span>,
+    BIRTHEVENT <span class='op'>=</span> <span class='st'>"Birth count"</span>,
+    EDUCAT2 <span class='op'>=</span> <span class='st'>"Education: more than primary/middle school"</span>,
+    MARSTAT2 <span class='op'>=</span> <span class='st'>"Married or living with partner"</span>,
+    AGE <span class='op'>=</span> <span class='st'>"Age"</span>
+  <span class='op'>)</span>
+</code></pre>
+</div>
+</div>
+<h1 id="summary-table">Summary table</h1>
+<p>Now that we’ve finished data cleaning, let’s take a look at the distribution of these variables in a <a href="https://www.danieldsjoberg.com/gtsummary/">gtsummary</a> table. When creating the table, we’ll specify a specific summary statistic for <code>FACILITYID</code> so that the total number of sampled facilities is shown via <code>n_distinct</code>; we’ll use the default summary statistics for all other variables.</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://github.com/ddsjoberg/gtsummary'>gtsummary</a></span><span class='op'>)</span>
+
+<span class='va'>dat</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='https://www.danieldsjoberg.com/gtsummary/reference/tbl_summary.html'>tbl_summary</a></span><span class='op'>(</span>
+    digits <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='fu'><a href='https://tidyselect.r-lib.org/reference/everything.html'>everything</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>~</span> <span class='fl'>0</span><span class='op'>)</span>,       
+    missing <span class='op'>=</span> <span class='st'>"no"</span>,
+    statistic <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='va'>FACILITYID</span> <span class='op'>~</span> <span class='st'>"{n_distinct}"</span><span class='op'>)</span>,
+    label <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='va'>FACILITYID</span> <span class='op'>~</span> <span class='st'>"Number of sampled facilities"</span><span class='op'>)</span>
+  <span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='https://www.danieldsjoberg.com/gtsummary/reference/modify_table_body.html'>modify_table_body</a></span><span class='op'>(</span>
+    <span class='op'>~</span><span class='va'>.x</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> 
+      <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span>variable <span class='op'>=</span> <span class='va'>variable</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://forcats.tidyverse.org/reference/fct_relevel.html'>fct_relevel</a></span><span class='op'>(</span>
+        <span class='st'>"AGE"</span>, <span class='st'>"BIRTHEVENT"</span>, <span class='st'>"EDUCAT2"</span>, <span class='st'>"MARSTAT2"</span>, <span class='st'>"MIIplus"</span>, <span class='st'>"FACILITYID"</span>, 
+        <span class='st'>"NUM_METHODS_PROV"</span>, <span class='st'>"SATIS"</span>
+      <span class='op'>)</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> 
+      <span class='fu'><a href='https://dplyr.tidyverse.org/reference/arrange.html'>arrange</a></span><span class='op'>(</span><span class='va'>variable</span><span class='op'>)</span>
+  <span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='https://www.danieldsjoberg.com/gtsummary/reference/modify.html'>modify_spanning_header</a></span><span class='op'>(</span><span class='fu'><a href='https://tidyselect.r-lib.org/reference/everything.html'>everything</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>~</span> <span class='st'>"# Descriptive Statistics"</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='https://www.danieldsjoberg.com/gtsummary/reference/modify.html'>modify_header</a></span><span class='op'>(</span>update <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='va'>label</span> <span class='op'>~</span> <span class='st'>" "</span><span class='op'>)</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='https://www.danieldsjoberg.com/gtsummary/reference/bold_italicize_labels_levels.html'>italicize_labels</a></span><span class='op'>(</span><span class='op'>)</span> 
+</code></pre>
+</div>
+<div id="qvbpmhmryk" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>html {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
+}
+
+#qvbpmhmryk .gt_table {
+  display: table;
+  border-collapse: collapse;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#qvbpmhmryk .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#qvbpmhmryk .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#qvbpmhmryk .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 0;
+  padding-bottom: 6px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#qvbpmhmryk .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#qvbpmhmryk .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#qvbpmhmryk .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#qvbpmhmryk .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#qvbpmhmryk .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#qvbpmhmryk .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#qvbpmhmryk .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#qvbpmhmryk .gt_group_heading {
+  padding: 8px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#qvbpmhmryk .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#qvbpmhmryk .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#qvbpmhmryk .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#qvbpmhmryk .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#qvbpmhmryk .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 12px;
+}
+
+#qvbpmhmryk .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#qvbpmhmryk .gt_first_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+}
+
+#qvbpmhmryk .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#qvbpmhmryk .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#qvbpmhmryk .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#qvbpmhmryk .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#qvbpmhmryk .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#qvbpmhmryk .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding: 4px;
+}
+
+#qvbpmhmryk .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#qvbpmhmryk .gt_sourcenote {
+  font-size: 90%;
+  padding: 4px;
+}
+
+#qvbpmhmryk .gt_left {
+  text-align: left;
+}
+
+#qvbpmhmryk .gt_center {
+  text-align: center;
+}
+
+#qvbpmhmryk .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#qvbpmhmryk .gt_font_normal {
+  font-weight: normal;
+}
+
+#qvbpmhmryk .gt_font_bold {
+  font-weight: bold;
+}
+
+#qvbpmhmryk .gt_font_italic {
+  font-style: italic;
+}
+
+#qvbpmhmryk .gt_super {
+  font-size: 65%;
+}
+
+#qvbpmhmryk .gt_footnote_marks {
+  font-style: italic;
+  font-weight: normal;
+  font-size: 65%;
+}
+</style>
+<table class="gt_table">
+  
+  <thead class="gt_col_headings">
+    <tr>
+      <th class="gt_center gt_columns_top_border gt_column_spanner_outer" rowspan="1" colspan="2">
+        <span class="gt_column_spanner"><h1>Descriptive Statistics</h1>
+</span>
+      </th>
+    </tr>
+    <tr>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1"></th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1"><strong>N = 3,749</strong><sup class="gt_footnote_marks">1</sup></th>
+    </tr>
+  </thead>
+  <tbody class="gt_table_body">
+    <tr><td class="gt_row gt_left" style="font-style: italic;">Age</td>
+<td class="gt_row gt_center">27 (23, 32)</td></tr>
+    <tr><td class="gt_row gt_left" style="font-style: italic;">Birth count</td>
+<td class="gt_row gt_center">2 (1, 4)</td></tr>
+    <tr><td class="gt_row gt_left" style="font-style: italic;">Education: more than primary/middle school</td>
+<td class="gt_row gt_center">2,053 (55%)</td></tr>
+    <tr><td class="gt_row gt_left" style="font-style: italic;">Married or living with partner</td>
+<td class="gt_row gt_center">3,176 (85%)</td></tr>
+    <tr><td class="gt_row gt_left" style="font-style: italic;">Method Information Index PLUS (MII+)</td>
+<td class="gt_row gt_center">2,127 (57%)</td></tr>
+    <tr><td class="gt_row gt_left" style="font-style: italic;">Number of sampled facilities</td>
+<td class="gt_row gt_center">438</td></tr>
+    <tr><td class="gt_row gt_left" style="font-style: italic;">Number of methods provided by facility</td>
+<td class="gt_row gt_center">7 (6, 8)</td></tr>
+    <tr><td class="gt_row gt_left" style="font-style: italic;">Client satisfaction index</td>
+<td class="gt_row gt_center"></td></tr>
+    <tr><td class="gt_row gt_left" style="text-align: left; text-indent: 10px;">0</td>
+<td class="gt_row gt_center">3 (0%)</td></tr>
+    <tr><td class="gt_row gt_left" style="text-align: left; text-indent: 10px;">1</td>
+<td class="gt_row gt_center">21 (1%)</td></tr>
+    <tr><td class="gt_row gt_left" style="text-align: left; text-indent: 10px;">2</td>
+<td class="gt_row gt_center">338 (9%)</td></tr>
+    <tr><td class="gt_row gt_left" style="text-align: left; text-indent: 10px;">3</td>
+<td class="gt_row gt_center">3,387 (90%)</td></tr>
+  </tbody>
+  
+  <tfoot>
+    <tr class="gt_footnotes">
+      <td colspan="2">
+        <p class="gt_footnote">
+          <sup class="gt_footnote_marks">
+            <em>1</em>
+          </sup>
+           
+          n_distinct; Median (IQR); n (%)
+          <br />
+        </p>
+      </td>
+    </tr>
+  </tfoot>
+</table>
+</div>
+</div>
+<p>At the bottom of this table, we display the frequency and percentage of scores on our dependent variable, <code>SATIS</code>. As you can see, a strong majority (90%) of sampled clients provided affirmative responses for all three component survey questions captured by this “client satisfaction index.” Among the remaining cases, only about 1% provided affirmative responses to fewer than two questions.</p>
+<p>Our <strong>integer</strong> independent variables are summarised by median (and IQR), while our <strong>logical</strong> (binary) independent variables are summarised by frequency (and percent). Notably: only a slim majority of clients receiving a family planning method met the criteria for <code>MII+</code> (57%). Meanwhile, we see that 50% of sampled facilities provide between 6 and 8 different family planning methods (among 13 methods listed on the SDP questionnaire). Our final sample includes 3,749 clients sampled at 438 facilities.</p>
+<h1 id="models">Models</h1>
+<p>Multilevel models can easily be estimated in R using the package <a href="https://github.com/lme4/lme4">lme4</a>. Because the <code>lme4</code> package does not include <em>p</em> values by default, we also load the <a href="https://github.com/runehaubo/lmerTestR">lmerTest</a> to generate significance levels for each of our coefficients. Finally, we’ll need <a href="https://github.com/bbolker/broom.mixed">broom.mixed</a> to import <code>tidy</code> methods used to display model output.</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://github.com/lme4/lme4/'>lme4</a></span><span class='op'>)</span>
+<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://github.com/runehaubo/lmerTestR'>lmerTest</a></span><span class='op'>)</span>
+<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://github.com/bbolker/broom.mixed'>broom.mixed</a></span><span class='op'>)</span>
+</code></pre>
+</div>
+</div>
+<p>As you can see in the code chunk below, the code for a multilevel model is similar to an OLS model. The only difference is an additional group component or facility effect. The <code>(1 | FACILITYID)</code> is included at the end of the model, which means that we allow the intercept, represented by 1, to vary by facilities. Let’s first estimate an intercept-only model without including any explanatory variables; we’ll call this model <code>m1</code>, and we’ll display the results in a <code>gtsummary</code> table.</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='co'># Model</span>
+<span class='va'>m1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/lme4/man/lmer.html'>lmer</a></span><span class='op'>(</span><span class='va'>SATIS</span> <span class='op'>~</span> <span class='fl'>1</span> <span class='op'>+</span> <span class='op'>(</span><span class='fl'>1</span> <span class='op'>|</span> <span class='va'>FACILITYID</span><span class='op'>)</span>, data <span class='op'>=</span> <span class='va'>dat</span><span class='op'>)</span> 
+
+<span class='co'># Table </span>
+<span class='va'>m1</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'>gtsummary</span><span class='fu'>::</span><span class='fu'><a href='https://www.danieldsjoberg.com/gtsummary/reference/tbl_regression.html'>tbl_regression</a></span><span class='op'>(</span>
+    conf.int <span class='op'>=</span> <span class='cn'>TRUE</span>, 
+    intercept <span class='op'>=</span> <span class='cn'>TRUE</span>,
+    tidy_fun <span class='op'>=</span> <span class='fu'>broom.mixed</span><span class='fu'>::</span><span class='va'><a href='https://generics.r-lib.org/reference/tidy.html'>tidy</a></span>,
+    label <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>
+      `(Intercept)` <span class='op'>=</span> <span class='st'>"Intercept"</span>,
+      `FACILITYID.sd__(Intercept)` <span class='op'>=</span> <span class='st'>"Random Effects: facility (SD)"</span>,
+      `Residual.sd__Observation` <span class='op'>=</span> <span class='st'>"Random Effects: client residual (SD)"</span>
+    <span class='op'>)</span>
+  <span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='https://www.danieldsjoberg.com/gtsummary/reference/modify.html'>modify_spanning_header</a></span><span class='op'>(</span><span class='fu'><a href='https://tidyselect.r-lib.org/reference/everything.html'>everything</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>~</span> <span class='st'>"# Model 1: Intercept-only Model"</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='https://www.danieldsjoberg.com/gtsummary/reference/modify.html'>modify_header</a></span><span class='op'>(</span>update <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='va'>label</span> <span class='op'>~</span> <span class='st'>" "</span><span class='op'>)</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='https://www.danieldsjoberg.com/gtsummary/reference/add_significance_stars.html'>add_significance_stars</a></span><span class='op'>(</span><span class='op'>)</span>
+</code></pre>
+</div>
+<div id="svencceiek" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>html {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
+}
+
+#svencceiek .gt_table {
+  display: table;
+  border-collapse: collapse;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#svencceiek .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#svencceiek .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#svencceiek .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 0;
+  padding-bottom: 6px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#svencceiek .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#svencceiek .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#svencceiek .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#svencceiek .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#svencceiek .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#svencceiek .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#svencceiek .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#svencceiek .gt_group_heading {
+  padding: 8px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#svencceiek .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#svencceiek .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#svencceiek .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#svencceiek .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#svencceiek .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 12px;
+}
+
+#svencceiek .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#svencceiek .gt_first_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+}
+
+#svencceiek .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#svencceiek .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#svencceiek .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#svencceiek .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#svencceiek .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#svencceiek .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding: 4px;
+}
+
+#svencceiek .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#svencceiek .gt_sourcenote {
+  font-size: 90%;
+  padding: 4px;
+}
+
+#svencceiek .gt_left {
+  text-align: left;
+}
+
+#svencceiek .gt_center {
+  text-align: center;
+}
+
+#svencceiek .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#svencceiek .gt_font_normal {
+  font-weight: normal;
+}
+
+#svencceiek .gt_font_bold {
+  font-weight: bold;
+}
+
+#svencceiek .gt_font_italic {
+  font-style: italic;
+}
+
+#svencceiek .gt_super {
+  font-size: 65%;
+}
+
+#svencceiek .gt_footnote_marks {
+  font-style: italic;
+  font-weight: normal;
+  font-size: 65%;
+}
+</style>
+<table class="gt_table">
+  
+  <thead class="gt_col_headings">
+    <tr>
+      <th class="gt_center gt_columns_top_border gt_column_spanner_outer" rowspan="1" colspan="3">
+        <span class="gt_column_spanner"><h1>Model 1: Intercept-only Model</h1>
+</span>
+      </th>
+    </tr>
+    <tr>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1"></th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1"><strong>Beta</strong><sup class="gt_footnote_marks">1</sup></th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1"><strong>SE</strong><sup class="gt_footnote_marks">2</sup></th>
+    </tr>
+  </thead>
+  <tbody class="gt_table_body">
+    <tr><td class="gt_row gt_left">Intercept</td>
+<td class="gt_row gt_center">2.9***</td>
+<td class="gt_row gt_center">0.009</td></tr>
+    <tr><td class="gt_row gt_left">Random Effects: facility (SD)</td>
+<td class="gt_row gt_center">0.14</td>
+<td class="gt_row gt_center"></td></tr>
+    <tr><td class="gt_row gt_left">Random Effects: client residual (SD)</td>
+<td class="gt_row gt_center">0.30</td>
+<td class="gt_row gt_center"></td></tr>
+  </tbody>
+  
+  <tfoot>
+    <tr class="gt_footnotes">
+      <td colspan="3">
+        <p class="gt_footnote">
+          <sup class="gt_footnote_marks">
+            <em>1</em>
+          </sup>
+           
+          *p&lt;0.05; **p&lt;0.01; ***p&lt;0.001
+          <br />
+        </p>
+        <p class="gt_footnote">
+          <sup class="gt_footnote_marks">
+            <em>2</em>
+          </sup>
+           
+          SE = Standard Error
+          <br />
+        </p>
+      </td>
+    </tr>
+  </tfoot>
+</table>
+</div>
+</div>
+<p>Notice that there are three estimated terms here (we’ve customized their labels to make the output easier to read). The overall <code>Intercept</code> is listed first: it stands for average satisfaction score for all women in the sample. It represents the mean satisfaction score in the complete Kenya 2019 sample (if you recall the plot, the intercept corresponds to the horizontal line <span class="math inline">\(\beta_0\)</span>):</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>dat</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/summarise.html'>summarise</a></span><span class='op'>(</span>mean_SATIS <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span><span class='op'>(</span><span class='va'>SATIS</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://rdrr.io/r/base/Round.html'>round</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>)</span><span class='op'>)</span>
+</code></pre>
+</div>
+<pre><code># A tibble: 1 × 1
+  mean_SATIS
+       &lt;dbl&gt;
+1        2.9</code></pre>
+</div>
+<p>There are also two terms for this model’s <strong>random effects</strong>. The first shows the estimated standard deviation of facility intercepts. If needed, you can find the intercepts generated for each sampled facility with the <code>coef</code> function like so:</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>m1_coef</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/coef.html'>coef</a></span><span class='op'>(</span><span class='va'>m1</span><span class='op'>)</span><span class='op'>$</span><span class='va'>FACILITYID</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='https://tibble.tidyverse.org/reference/rownames.html'>rownames_to_column</a></span><span class='op'>(</span><span class='st'>"FACILITYID"</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></span><span class='op'>(</span><span class='op'>)</span> 
+
+<span class='va'>m1_coef</span>
+</code></pre>
+</div>
+<pre><code># A tibble: 438 × 2
+   FACILITYID `(Intercept)`
+   &lt;chr&gt;              &lt;dbl&gt;
+ 1 404111001           2.85
+ 2 404111003           2.82
+ 3 404111004           2.96
+ 4 404111005           2.95
+ 5 404111006           2.96
+ 6 404111007           2.98
+ 7 404111011           2.72
+ 8 404111012           2.96
+ 9 404111013           2.78
+10 404111015           2.90
+# … with 428 more rows</code></pre>
+</div>
+<p>The final term is the estimated standard deviation for individual clients (<code>SD</code><span class="math inline">\(e_{ij}\)</span>). Predicted values for clients can be obtained with the <code>predict</code> function and attached to <code>dat</code> for comparison with each individual’s actual <code>SATIS</code> score:</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/stats/predict.html'>predict</a></span><span class='op'>(</span><span class='va'>m1</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/bind.html'>bind_cols</a></span><span class='op'>(</span><span class='va'>dat</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/select.html'>select</a></span><span class='op'>(</span><span class='va'>SATIS</span>, PREDICTED <span class='op'>=</span> <span class='st'>"."</span><span class='op'>)</span>
+</code></pre>
+</div>
+<pre><code># A tibble: 3,749 × 2
+   SATIS PREDICTED
+   &lt;dbl&gt;     &lt;dbl&gt;
+ 1     2      2.82
+ 2     3      2.82
+ 3     3      2.82
+ 4     3      2.82
+ 5     3      2.82
+ 6     3      2.82
+ 7     3      2.85
+ 8     3      2.85
+ 9     2      2.82
+10     3      2.82
+# … with 3,739 more rows</code></pre>
+</div>
+<p>Next, we’ll include all of our explanatory variables in a second model and save the model estimates to <code>m2</code></p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>m2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/lme4/man/lmer.html'>lmer</a></span><span class='op'>(</span>
+  <span class='va'>SATIS</span> <span class='op'>~</span> <span class='va'>MIIplus</span> <span class='op'>+</span> <span class='va'>NUM_METHODS_PROV</span> <span class='op'>+</span> <span class='va'>AGE</span> <span class='op'>+</span>
+    <span class='va'>BIRTHEVENT</span> <span class='op'>+</span> <span class='va'>EDUCAT2</span> <span class='op'>+</span> <span class='va'>MARSTAT2</span> <span class='op'>+</span> <span class='op'>(</span><span class='fl'>1</span> <span class='op'>|</span> <span class='va'>FACILITYID</span><span class='op'>)</span>, 
+  data <span class='op'>=</span> <span class='va'>dat</span>
+<span class='op'>)</span> 
+
+<span class='va'>m2</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'>gtsummary</span><span class='fu'>::</span><span class='fu'><a href='https://www.danieldsjoberg.com/gtsummary/reference/tbl_regression.html'>tbl_regression</a></span><span class='op'>(</span>
+    conf.int <span class='op'>=</span> <span class='cn'>TRUE</span>, 
+    show_single_row <span class='op'>=</span> <span class='fu'>where</span><span class='op'>(</span><span class='va'>is.logical</span><span class='op'>)</span>,
+    tidy_fun <span class='op'>=</span> <span class='fu'>broom.mixed</span><span class='fu'>::</span><span class='va'><a href='https://generics.r-lib.org/reference/tidy.html'>tidy</a></span>,
+    label <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>
+      `FACILITYID.sd__(Intercept)` <span class='op'>=</span> <span class='st'>"Random Effects: facility (SD)"</span>,
+      `Residual.sd__Observation` <span class='op'>=</span> <span class='st'>"Random Effects: client residual (SD)"</span>
+    <span class='op'>)</span>
+  <span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='https://www.danieldsjoberg.com/gtsummary/reference/modify.html'>modify_spanning_header</a></span><span class='op'>(</span><span class='fu'><a href='https://tidyselect.r-lib.org/reference/everything.html'>everything</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>~</span> <span class='st'>"# Model 2: Mixed Effects Model"</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='https://www.danieldsjoberg.com/gtsummary/reference/modify.html'>modify_header</a></span><span class='op'>(</span>update <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='va'>label</span> <span class='op'>~</span> <span class='st'>" "</span><span class='op'>)</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='https://www.danieldsjoberg.com/gtsummary/reference/add_significance_stars.html'>add_significance_stars</a></span><span class='op'>(</span><span class='op'>)</span>
+</code></pre>
+</div>
+<div id="phjedztlro" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>html {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
+}
+
+#phjedztlro .gt_table {
+  display: table;
+  border-collapse: collapse;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#phjedztlro .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#phjedztlro .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#phjedztlro .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 0;
+  padding-bottom: 6px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#phjedztlro .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#phjedztlro .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#phjedztlro .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#phjedztlro .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#phjedztlro .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#phjedztlro .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#phjedztlro .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#phjedztlro .gt_group_heading {
+  padding: 8px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#phjedztlro .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#phjedztlro .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#phjedztlro .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#phjedztlro .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#phjedztlro .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 12px;
+}
+
+#phjedztlro .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#phjedztlro .gt_first_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+}
+
+#phjedztlro .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#phjedztlro .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#phjedztlro .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#phjedztlro .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#phjedztlro .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#phjedztlro .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding: 4px;
+}
+
+#phjedztlro .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#phjedztlro .gt_sourcenote {
+  font-size: 90%;
+  padding: 4px;
+}
+
+#phjedztlro .gt_left {
+  text-align: left;
+}
+
+#phjedztlro .gt_center {
+  text-align: center;
+}
+
+#phjedztlro .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#phjedztlro .gt_font_normal {
+  font-weight: normal;
+}
+
+#phjedztlro .gt_font_bold {
+  font-weight: bold;
+}
+
+#phjedztlro .gt_font_italic {
+  font-style: italic;
+}
+
+#phjedztlro .gt_super {
+  font-size: 65%;
+}
+
+#phjedztlro .gt_footnote_marks {
+  font-style: italic;
+  font-weight: normal;
+  font-size: 65%;
+}
+</style>
+<table class="gt_table">
+  
+  <thead class="gt_col_headings">
+    <tr>
+      <th class="gt_center gt_columns_top_border gt_column_spanner_outer" rowspan="1" colspan="3">
+        <span class="gt_column_spanner"><h1>Model 2: Mixed Effects Model</h1>
+</span>
+      </th>
+    </tr>
+    <tr>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1"></th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1"><strong>Beta</strong><sup class="gt_footnote_marks">1</sup></th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1"><strong>SE</strong><sup class="gt_footnote_marks">2</sup></th>
+    </tr>
+  </thead>
+  <tbody class="gt_table_body">
+    <tr><td class="gt_row gt_left">Method Information Index PLUS (MII+)</td>
+<td class="gt_row gt_center">0.05***</td>
+<td class="gt_row gt_center">0.012</td></tr>
+    <tr><td class="gt_row gt_left">Number of methods provided by facility</td>
+<td class="gt_row gt_center">0.00</td>
+<td class="gt_row gt_center">0.006</td></tr>
+    <tr><td class="gt_row gt_left">Age</td>
+<td class="gt_row gt_center">0.00</td>
+<td class="gt_row gt_center">0.001</td></tr>
+    <tr><td class="gt_row gt_left">Birth count</td>
+<td class="gt_row gt_center">0.00</td>
+<td class="gt_row gt_center">0.004</td></tr>
+    <tr><td class="gt_row gt_left">Education: more than primary/middle school</td>
+<td class="gt_row gt_center">-0.02</td>
+<td class="gt_row gt_center">0.012</td></tr>
+    <tr><td class="gt_row gt_left">Married or living with partner</td>
+<td class="gt_row gt_center">0.02</td>
+<td class="gt_row gt_center">0.015</td></tr>
+    <tr><td class="gt_row gt_left">Random Effects: facility (SD)</td>
+<td class="gt_row gt_center">0.13</td>
+<td class="gt_row gt_center"></td></tr>
+    <tr><td class="gt_row gt_left">Random Effects: client residual (SD)</td>
+<td class="gt_row gt_center">0.30</td>
+<td class="gt_row gt_center"></td></tr>
+  </tbody>
+  
+  <tfoot>
+    <tr class="gt_footnotes">
+      <td colspan="3">
+        <p class="gt_footnote">
+          <sup class="gt_footnote_marks">
+            <em>1</em>
+          </sup>
+           
+          *p&lt;0.05; **p&lt;0.01; ***p&lt;0.001
+          <br />
+        </p>
+        <p class="gt_footnote">
+          <sup class="gt_footnote_marks">
+            <em>2</em>
+          </sup>
+           
+          SE = Standard Error
+          <br />
+        </p>
+      </td>
+    </tr>
+  </tfoot>
+</table>
+</div>
+</div>
+<p>The predicted standard deviation for both <strong>random effects</strong> is nearly unchanged, but the model now includes coefficient estimates for each explanatory variable - our <strong>fixed effects</strong>. The interpretation for fixed effects is similar to the interpretation for the results of an OLS model; for example, clients who meet the criteria for <em>MII+</em> are estimated to score 0.05 points higher on our satisfaction index compared to those who do not (although this effect is quite small, it is significant at <code>p &lt; 0.001</code>). None of the other effects are statistically significant.</p>
+<p>Suppose you wanted to review the estimated slopes for each facility with <code>coef</code> as we did above. The key difference between <strong>random effects</strong> and <strong>fixed effects</strong> is that the estimated slope for every <strong>fixed effect</strong> is <em>the same for every facility</em>; only the <strong>random effects</strong> will vary.</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>m2_coef</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/coef.html'>coef</a></span><span class='op'>(</span><span class='va'>m2</span><span class='op'>)</span><span class='op'>$</span><span class='va'>FACILITYID</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='https://tibble.tidyverse.org/reference/rownames.html'>rownames_to_column</a></span><span class='op'>(</span><span class='st'>"FACILITYID"</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></span><span class='op'>(</span><span class='op'>)</span>
+
+<span class='va'>m2_coef</span>
+</code></pre>
+</div>
+<pre><code># A tibble: 438 × 8
+   FACILITYID `(Intercept)` MIIplusTRUE NUM_METHODS_PROV     AGE
+   &lt;chr&gt;              &lt;dbl&gt;       &lt;dbl&gt;            &lt;dbl&gt;   &lt;dbl&gt;
+ 1 404111001           2.75      0.0478          0.00463 0.00105
+ 2 404111003           2.71      0.0478          0.00463 0.00105
+ 3 404111004           2.87      0.0478          0.00463 0.00105
+ 4 404111005           2.86      0.0478          0.00463 0.00105
+ 5 404111006           2.86      0.0478          0.00463 0.00105
+ 6 404111007           2.87      0.0478          0.00463 0.00105
+ 7 404111011           2.65      0.0478          0.00463 0.00105
+ 8 404111012           2.89      0.0478          0.00463 0.00105
+ 9 404111013           2.72      0.0478          0.00463 0.00105
+10 404111015           2.81      0.0478          0.00463 0.00105
+# … with 428 more rows, and 3 more variables: BIRTHEVENT &lt;dbl&gt;,
+#   EDUCAT2TRUE &lt;dbl&gt;, MARSTAT2TRUE &lt;dbl&gt;</code></pre>
+</div>
+<h2 id="visualization">Visualization</h2>
+<p>In <a href="../2021-07-15-covid-likert/#faceted-neutral-non-response">previous posts</a>, we’ve explored <strong>faceted graphics</strong> as a way to compare descriptive statistics across samples or countries - in fact, they’re also a handy way to visualize mixed effect models.</p>
+<p>Consider, for example, a simple version of our model with only one fixed effect: we’ll use <code>AGE</code> here.</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>m3</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/lme4/man/lmer.html'>lmer</a></span><span class='op'>(</span><span class='va'>SATIS</span> <span class='op'>~</span> <span class='va'>AGE</span> <span class='op'>+</span> <span class='op'>(</span><span class='fl'>1</span> <span class='op'>|</span> <span class='va'>FACILITYID</span><span class='op'>)</span>, data <span class='op'>=</span> <span class='va'>dat</span><span class='op'>)</span>
+</code></pre>
+</div>
+</div>
+<p>In a faceted display, we could compare the different regression models produced by facility-specific random effects: let’s look at the facilities with the 3 <em>highest</em> and 3 <em>lowest</em> intercept terms.</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>m3_coefs</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/coef.html'>coef</a></span><span class='op'>(</span><span class='va'>m3</span><span class='op'>)</span><span class='op'>$</span><span class='va'>FACILITYID</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='https://tibble.tidyverse.org/reference/rownames.html'>rownames_to_column</a></span><span class='op'>(</span><span class='st'>"FACILITYID"</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></span><span class='op'>(</span><span class='op'>)</span> 
+
+<span class='va'>m3_coefs</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/bind.html'>bind_rows</a></span><span class='op'>(</span>
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/slice.html'>slice_max</a></span><span class='op'>(</span><span class='va'>m3_coefs</span>, <span class='va'>`(Intercept)`</span>, n <span class='op'>=</span> <span class='fl'>3</span><span class='op'>)</span>,
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/slice.html'>slice_min</a></span><span class='op'>(</span><span class='va'>m3_coefs</span>, <span class='va'>`(Intercept)`</span>, n <span class='op'>=</span> <span class='fl'>3</span><span class='op'>)</span>
+<span class='op'>)</span>
+
+<span class='va'>m3_coefs</span> 
+</code></pre>
+</div>
+<pre><code># A tibble: 6 × 3
+  FACILITYID `(Intercept)`     AGE
+  &lt;chr&gt;              &lt;dbl&gt;   &lt;dbl&gt;
+1 404171022           2.95 0.00118
+2 404111027           2.95 0.00118
+3 404191017           2.95 0.00118
+4 404131020           2.22 0.00118
+5 404131059           2.31 0.00118
+6 404131010           2.38 0.00118</code></pre>
+</div>
+<p>First, let’s plot the <code>AGE</code> and <code>SATIS</code> reported for each client in these facilities. We’ll <code>filter</code> our data to include only women who visited one of the facilities in <code>m3_coefs</code>, and we’ll arrange <code>FACILITYID</code> as a factor with levels sorted from the lowest to highest mean satisfaction score.</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>dat_m3</span> <span class='op'>&lt;-</span> <span class='va'>dat</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span>
+  <span class='fu'><a href='https://rdrr.io/r/stats/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>FACILITYID</span> <span class='op'><a href='https://rdrr.io/r/base/match.html'>%in%</a></span> <span class='va'>m3_coefs</span><span class='op'>$</span><span class='va'>FACILITYID</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span><span class='op'>(</span><span class='va'>FACILITYID</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span>FACSAT <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span><span class='op'>(</span><span class='va'>SATIS</span><span class='op'>)</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>ungroup</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span>FACILITYID <span class='op'>=</span> <span class='va'>FACILITYID</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='va'>as_factor</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://forcats.tidyverse.org/reference/fct_reorder.html'>fct_reorder</a></span><span class='op'>(</span><span class='va'>FACSAT</span><span class='op'>)</span><span class='op'>)</span>
+</code></pre>
+</div>
+</div>
+<p>Next, we’ll plot actual <code>AGE</code> and <code>SATIS</code> for each client. We’ll use <code>FACILITYID</code> to place responses from clients at the lowest ranking facilities in the top row, whereas clients at the highest ranking facilities will be in the bottom row. Notice that the mode in the top row is 2, while facilities in the bottom row unanimously received perfect 3 rankings.</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='co'># graphics theme</span>
+<span class='kw'><a href='https://rdrr.io/r/base/source.html'>source</a></span><span class='op'>(</span><span class='st'>"theme_pma.R"</span><span class='op'>)</span>
+
+<span class='va'>plot_m3</span> <span class='op'>&lt;-</span> <span class='va'>dat_m3</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>AGE</span>, y <span class='op'>=</span> <span class='va'>SATIS</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span> 
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span> 
+  <span class='fu'>theme_pma</span><span class='op'>(</span>
+    <span class='st'>"Client Satisfaction by Age and Facility"</span>,
+    <span class='st'>"The three lowest and highest rated facilities in Kenya 2019 are shown"</span>
+  <span class='op'>)</span> <span class='op'>+</span> 
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/labs.html'>labs</a></span><span class='op'>(</span>
+    x <span class='op'>=</span> <span class='st'>"Age"</span>,
+    y <span class='op'>=</span> <span class='st'>"Satisfaction Score"</span>
+  <span class='op'>)</span> <span class='op'>+</span> 
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/facet_wrap.html'>facet_wrap</a></span><span class='op'>(</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/vars.html'>vars</a></span><span class='op'>(</span><span class='va'>FACILITYID</span><span class='op'>)</span>, dir <span class='op'>=</span> <span class='st'>"h"</span>, ncol <span class='op'>=</span> <span class='fl'>3</span><span class='op'>)</span>
+</code></pre>
+</div>
+</div>
+<aside>
+The function <code>theme_pma</code> is defined in sourced script you’ll find in <a href="https://github.com/ipums/pma-data-hub/tree/master/_posts/2022-02-15-cei-analysis">the folder for this post on GitHub</a>. Learn more about custom <code>ggplot2</code> themes <a href="https://ggplot2.tidyverse.org/articles/ggplot2-in-packages.html?q=theme%20replace#creating-a-new-theme-1">here</a>.
+</aside>
+<div class="layout-chunk" data-layout="l-body-outset">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>plot_m3</span>
+</code></pre>
+</div>
+<p><img src="cei-analysis_files/figure-html5/unnamed-chunk-24-1.png" width="1152" /></p>
+</div>
+<p>Finally, we’ll plot the predicted linear model with unique intercepts for each facility.</p>
+<div class="layout-chunk" data-layout="l-body-outset">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>m3_coefs</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/rename.html'>rename</a></span><span class='op'>(</span>INT <span class='op'>=</span> <span class='va'>`(Intercept)`</span>, SLOPE <span class='op'>=</span> <span class='va'>AGE</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate-joins.html'>left_join</a></span><span class='op'>(</span><span class='va'>dat_m3</span>, by <span class='op'>=</span> <span class='st'>"FACILITYID"</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span><span class='op'>(</span><span class='va'>FACILITYID</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span>FACSAT <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span><span class='op'>(</span><span class='va'>SATIS</span><span class='op'>)</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>ungroup</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span>FACILITYID <span class='op'>=</span> <span class='va'>FACILITYID</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='va'>as_factor</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://forcats.tidyverse.org/reference/fct_reorder.html'>fct_reorder</a></span><span class='op'>(</span><span class='va'>FACSAT</span><span class='op'>)</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>AGE</span>, y <span class='op'>=</span> <span class='va'>SATIS</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span> 
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span> 
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_abline.html'>geom_abline</a></span><span class='op'>(</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>intercept <span class='op'>=</span> <span class='va'>INT</span>, slope <span class='op'>=</span> <span class='va'>SLOPE</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'>theme_pma</span><span class='op'>(</span>
+    <span class='st'>"Client Satisfaction by Age with Facility Random Effects"</span>,
+    <span class='st'>"The three lowest and highest rated facilities in Kenya 2019 are shown"</span>
+  <span class='op'>)</span> <span class='op'>+</span> 
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/labs.html'>labs</a></span><span class='op'>(</span>
+    x <span class='op'>=</span> <span class='st'>"Age"</span>,
+    y <span class='op'>=</span> <span class='st'>"Satisfaction Score"</span>
+  <span class='op'>)</span> <span class='op'>+</span> 
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/facet_wrap.html'>facet_wrap</a></span><span class='op'>(</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/vars.html'>vars</a></span><span class='op'>(</span><span class='va'>FACILITYID</span><span class='op'>)</span>, dir <span class='op'>=</span> <span class='st'>"h"</span>, ncol <span class='op'>=</span> <span class='fl'>3</span><span class='op'>)</span> 
+</code></pre>
+</div>
+<p><img src="cei-analysis_files/figure-html5/unnamed-chunk-25-1.png" width="1152" data-distill-preview=1 /></p>
+</div>
+<p>Here, we can see the idea of “random intercepts” more clearly. While the slope of all 6 lines is identical (and very nearly zero), each facility has a unique intercept on the y-axis. This reflects the higher client satisfaction in the bottom three facilities compared to those in the top row. Taken together, the effect of age client satisfaction with family planning services is trivial, although the significance is borderline. Results from model <code>m2</code> indicate a more prominent effect of <code>MIIplus</code> on client satisfaction (this suggests that facility features matter!)</p>
+<p>This post is also an introduction to the motivation, application, and interpretation of basic multilevel models. We’ve focused on the random intercept model, which is applied to achieve better estimates of baseline differences when we intend to analyze hierarchical data. It is advantageous compared to regular OLS regression because it simultaneously models group-level variation and individual-level differences. For PMA Client Exit Interview data - where clients are sampled at facilities participating on a contemporaneous Serivice Delivery Point survey - multilevel models are a great way to incorporate both facility and client characteristics into your analysis.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
+<div id="refs" class="references csl-bib-body hanging-indent" role="doc-bibliography">
+<div id="ref-gelman2006" class="csl-entry" role="doc-biblioentry">
+Gelman, Andrew, and Jennifer Hill. 2006. <em>Data <span>Analysis</span> <span>Using</span> <span>Regression</span> and <span>Multilevel</span>/<span>Hierarchical</span> <span>Models</span></em>. 1st edition. Cambridge ; New York: Cambridge University Press.
+</div>
+<div id="ref-mcelreath2020" class="csl-entry" role="doc-biblioentry">
+McElreath, Richard. 2020. <em>Statistical <span>Rethinking</span>: <span>A</span> <span>Bayesian</span> <span>Course</span> with <span>Examples</span> in <span>R</span> and <span>STAN</span></em>. 2nd edition. Boca Raton: Chapman; Hall/CRC.
+</div>
+</div>
+<section class="footnotes" role="doc-endnotes">
+<hr />
+<ol>
+<li id="fn1" role="doc-endnote"><p>We recommend readers to check out Karen Robson and David Pevalin (2016) book, <em>Multilevel modeling in plain language</em> for a thorough discussion of the theoretical rationale of multilevel modeling<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section>
+<!--radix_placeholder_article_footer-->
+<div class="article-footer">
+  <p class="social_footer">
+    <span class="disqus-comments">
+      <i class="fas fa-comments"></i>
+      &nbsp;
+      <span class="disqus-comment-count" data-disqus-identifier="posts/2022-02-15-cei-analysis/">Comment on this article</span>
+    </span>
+    <span class="article-sharing">
+      Share: &nbsp;
+      <a href="https://twitter.com/share?text=Modeling%20client%20satistifaction%20with%20both%20individual%20and%20facility%20characteristics&amp;url=https%3A%2F%2Fipums.github.io%2Fpma-data-hub%2Fposts%2F2022-02-15-cei-analysis%2F">
+        <i class="fab fa-twitter"></i>
+      </a>
+      <a href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https%3A%2F%2Fipums.github.io%2Fpma-data-hub%2Fposts%2F2022-02-15-cei-analysis%2F&amp;title=Modeling%20client%20satistifaction%20with%20both%20individual%20and%20facility%20characteristics">
+        <i class="fab fa-linkedin"></i>
+      </a>
+    </span>
+  </p>
+  <script id="dsq-count-scr" src="https://pma-data-hub.disqus.com/count.js" async></script>
+  <div id="disqus_thread" class="hidden"></div>
+  <script type="text/javascript" cookie-consent="functionality">
+var disqus_config = function () {
+  this.page.url = 'https://ipums.github.io/pma-data-hub/posts/2022-02-15-cei-analysis/';
+  this.page.identifier = 'posts/2022-02-15-cei-analysis/';
+};
+(function() {
+  var d = document, s = d.createElement('script');
+  s.src = 'https://pma-data-hub.disqus.com/embed.js';
+  s.setAttribute('data-timestamp', +new Date());
+  (d.head || d.body).appendChild(s);
+})();
+</script>
+</div>
+<!--/radix_placeholder_article_footer-->
+</div>
+
+<div class="d-appendix">
+</div>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+<!--radix_placeholder_site_after_body-->
+<!--/radix_placeholder_site_after_body-->
+<!--radix_placeholder_appendices-->
+<div class="appendix-bottom">
+  <h3 id="references">References</h3>
+  <div id="references-listing"></div>
+  <h3 id="updates-and-corrections">Corrections</h3>
+  <p>If you see mistakes or want to suggest changes, please <a href="https://github.com/ipums/pma-data-hub/issues/new">create an issue</a> on the source repository.</p>
+</div>
+<!--/radix_placeholder_appendices-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/REC-html40/loose.dtd">
+<!--radix_placeholder_navigation_after_body--><html><body>
+<div class="distill-site-nav distill-site-footer">
+<p>Developed by <a href="https://www.ipums.org">IPUMS</a> at the University of Minnesota</p>
+<p>Licensed under the <a href="https://www.mozilla.org/en-US/MPL/2.0/">Mozilla Public License Version 2.0</a></p>
+<p>Site built with <a href="https://rstudio.github.io/distill/">Distill for R Markdown</a></p>
+</div>
+<!--/radix_placeholder_navigation_after_body-->
+</body></html>
+
+
+</body>
+
+</html>

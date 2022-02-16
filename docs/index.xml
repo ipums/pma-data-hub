@@ -12,7 +12,21 @@
       <link>https://ipums.github.io/pma-data-hub/</link>
     </image>
     <generator>Distill</generator>
-    <lastBuildDate>Tue, 01 Feb 2022 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 15 Feb 2022 00:00:00 +0000</lastBuildDate>
+    <item>
+      <title>Modeling client satistifaction with both individual and facility characteristics</title>
+      <dc:creator>Jiao Yu</dc:creator>
+      <dc:creator>Matt Gunther</dc:creator>
+      <link>https://ipums.github.io/pma-data-hub/posts/2022-02-15-cei-analysis</link>
+      <description>We use multilevel models to examine factors related to women's satisfaction with family planning care received from the service delivery facilities in Kenya.</description>
+      <category>Client Exit Interviews</category>
+      <category>Data Analysis</category>
+      <category>lme4</category>
+      <category>Multilevel model</category>
+      <guid>https://ipums.github.io/pma-data-hub/posts/2022-02-15-cei-analysis</guid>
+      <pubDate>Tue, 15 Feb 2022 00:00:00 +0000</pubDate>
+      <media:content url="https://ipums.github.io/pma-data-hub/posts/2022-02-15-cei-analysis/cei-analysis_files/figure-html5/unnamed-chunk-25-1.png" medium="image" type="image/png" width="2304" height="960"/>
+    </item>
     <item>
       <title>Comparing client experiences with family planning service providers</title>
       <dc:creator>Matt Gunther</dc:creator>
