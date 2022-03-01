@@ -56,7 +56,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 }
 code span.al { color: #ad0000; } /* Alert */
 code span.an { color: #5e5e5e; } /* Annotation */
-code span.at { color: #20794d; } /* Attribute */
+code span.at { } /* Attribute */
 code span.bn { color: #ad0000; } /* BaseN */
 code span.bu { } /* BuiltIn */
 code span.cf { color: #007ba5; } /* ControlFlow */
@@ -77,13 +77,14 @@ code span.kw { color: #007ba5; } /* Keyword */
 code span.op { color: #5e5e5e; } /* Operator */
 code span.ot { color: #007ba5; } /* Other */
 code span.pp { color: #ad0000; } /* Preprocessor */
-code span.sc { color: #20794d; } /* SpecialChar */
+code span.sc { color: #5e5e5e; } /* SpecialChar */
 code span.ss { color: #20794d; } /* SpecialString */
 code span.st { color: #20794d; } /* String */
 code span.va { color: #111111; } /* Variable */
 code span.vs { color: #20794d; } /* VerbatimString */
 code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 </style>
+
 
   <!--radix_placeholder_meta_tags-->
   <title>Making Tables with PMA COVID-19 Data</title>
@@ -112,12 +113,12 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   <!--radix_placeholder_rmarkdown_metadata-->
 
   <script type="text/json" id="radix-rmarkdown-metadata">
-  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","date","author","categories","output","preview"]}},"value":[{"type":"character","attributes":{},"value":["Making Tables with PMA COVID-19 Data"]},{"type":"character","attributes":{},"value":["Showcasing the gtsummary package for sample descriptive statistics, weighted population estimates, and model summary output. \n"]},{"type":"character","attributes":{},"value":["07-01-2021"]},{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","url","affiliation"]}},"value":[{"type":"character","attributes":{},"value":["Shelby Rutzick"]},{"type":"character","attributes":{},"value":["https://www.linkedin.com/in/shelby-rutzick/"]},{"type":"character","attributes":{},"value":["IPUMS PMA Graduate Research Assistant"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","affiliation"]}},"value":[{"type":"character","attributes":{},"value":["Matt Gunther"]},{"type":"character","attributes":{},"value":["IPUMS PMA Senior Data Analyst"]}]}]},{"type":"character","attributes":{},"value":["COVID-19","gtsummary","srvyr","purrr","Descriptive Analysis","Data Manipulation"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["self_contained","toc","toc_depth","toc_float"]}},"value":[{"type":"logical","attributes":{},"value":[false]},{"type":"logical","attributes":{},"value":[true]},{"type":"integer","attributes":{},"value":[3]},{"type":"logical","attributes":{},"value":[true]}]}]},{"type":"character","attributes":{},"value":["images/gtsummary_wide.png"]}]}
+  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","date","author","categories","output","preview"]}},"value":[{"type":"character","attributes":{},"value":["Making Tables with PMA COVID-19 Data"]},{"type":"character","attributes":{},"value":["Showcasing the gtsummary package for sample descriptive statistics, weighted population estimates, and model summary output. \n"]},{"type":"character","attributes":{},"value":["07-01-2021"]},{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","url","affiliation"]}},"value":[{"type":"character","attributes":{},"value":["Shelby Rutzick"]},{"type":"character","attributes":{},"value":["https://www.linkedin.com/in/shelby-rutzick/"]},{"type":"character","attributes":{},"value":["IPUMS PMA Graduate Research Assistant"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","affiliation"]}},"value":[{"type":"character","attributes":{},"value":["Matt Gunther"]},{"type":"character","attributes":{},"value":["IPUMS PMA Senior Data Analyst"]}]}]},{"type":"character","attributes":{},"value":["COVID-19","gtsummary","srvyr","purrr","Descriptive Analysis","Data Manipulation","Weights"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["self_contained","toc","toc_depth","toc_float"]}},"value":[{"type":"logical","attributes":{},"value":[false]},{"type":"logical","attributes":{},"value":[true]},{"type":"integer","attributes":{},"value":[3]},{"type":"logical","attributes":{},"value":[true]}]}]},{"type":"character","attributes":{},"value":["images/gtsummary_wide.png"]}]}
   </script>
   <!--/radix_placeholder_rmarkdown_metadata-->
   
   <script type="text/json" id="radix-resource-manifest">
-  {"type":"character","attributes":{},"value":["covid-tables_files/anchor-4.2.2/anchor.min.js","covid-tables_files/bowser-1.9.3/bowser.min.js","covid-tables_files/distill-2.2.21/template.v2.js","covid-tables_files/header-attrs-2.7/header-attrs.js","covid-tables_files/header-attrs-2.9/header-attrs.js","covid-tables_files/jquery-1.11.3/jquery.min.js","covid-tables_files/webcomponents-2.0.0/webcomponents.js","data/pma_00032.dat.gz","data/pma_00032.xml","data/pma_00033.dat.gz","data/pma_00033.xml","data/pma_00035.dat.gz","data/pma_00035.xml","data/pma_00036.dat.gz","data/pma_00036.xml","images/gtsummary_wide.png","images/table1.png","images/table2.png"]}
+  {"type":"character","attributes":{},"value":["covid-tables_files/anchor-4.2.2/anchor.min.js","covid-tables_files/bowser-1.9.3/bowser.min.js","covid-tables_files/distill-2.2.21/template.v2.js","covid-tables_files/header-attrs-2.11/header-attrs.js","covid-tables_files/header-attrs-2.7/header-attrs.js","covid-tables_files/header-attrs-2.9/header-attrs.js","covid-tables_files/jquery-1.11.3/jquery.min.js","covid-tables_files/jquery-3.6.0/jquery-3.6.0.js","covid-tables_files/jquery-3.6.0/jquery-3.6.0.min.js","covid-tables_files/jquery-3.6.0/jquery-3.6.0.min.map","covid-tables_files/popper-2.6.0/popper.min.js","covid-tables_files/tippy-6.2.7/tippy-bundle.umd.min.js","covid-tables_files/tippy-6.2.7/tippy-light-border.css","covid-tables_files/tippy-6.2.7/tippy.css","covid-tables_files/tippy-6.2.7/tippy.umd.min.js","covid-tables_files/webcomponents-2.0.0/webcomponents.js","data/pma_00032.dat.gz","data/pma_00032.xml","data/pma_00033.dat.gz","data/pma_00033.xml","data/pma_00035.dat.gz","data/pma_00035.xml","data/pma_00036.dat.gz","data/pma_00036.xml","images/gtsummary_wide.png","images/table1.png","images/table2.png"]}
   </script>
   <!--radix_placeholder_navigation_in_header-->
   <!--/radix_placeholder_navigation_in_header-->
@@ -309,6 +310,11 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
     text-decoration: underline;
   }
 
+  d-article details {
+    grid-column: text;
+    margin-bottom: 0.8em;
+  }
+
   @media(min-width: 768px) {
 
   d-article pre,
@@ -463,6 +469,17 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 
   div.hanging-indent{
     margin-left: 1em; text-indent: -1em;
+  }
+
+  /* Citation hover box */
+
+  .tippy-box[data-theme~=light-border] {
+    background-color: rgba(250, 250, 250, 0.95);
+  }
+
+  .tippy-content > p {
+    margin-bottom: 0;
+    padding: 2px;
   }
 
 
@@ -1130,7 +1147,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
       var layout = $(this).attr('data-layout');
 
       // apply layout to markdown level block elements
-      var elements = $(this).children().not('div.sourceCode, pre, script');
+      var elements = $(this).children().not('details, div.sourceCode, pre, script');
       elements.each(function(i, el) {
         var layout_div = $('<div class="' + layout + '"></div>');
         if (layout_div.hasClass('shaded')) {
@@ -1245,6 +1262,23 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
       // move appendix-bottom entries to the bottom
       $('.appendix-bottom').appendTo('d-appendix').children().unwrap();
       $('.appendix-bottom').remove();
+
+      // hoverable references
+      $('span.citation[data-cites]').each(function() {
+        var refs = $(this).attr('data-cites').split(" ");
+        var refHtml = refs.map(function(ref) {
+          return "<p>" + $('#ref-' + ref).html() + "</p>";
+        }).join("\n");
+        window.tippy(this, {
+          allowHTML: true,
+          content: refHtml,
+          maxWidth: 500,
+          interactive: true,
+          interactiveBorder: 10,
+          theme: 'light-border',
+          placement: 'bottom-start'
+        });
+      });
 
       // clear polling timer
       clearInterval(tid);
@@ -1405,8 +1439,12 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   </script>
 
   <!--/radix_placeholder_distill-->
-  <script src="covid-tables_files/header-attrs-2.9/header-attrs.js"></script>
-  <script src="covid-tables_files/jquery-1.11.3/jquery.min.js"></script>
+  <script src="covid-tables_files/header-attrs-2.11/header-attrs.js"></script>
+  <script src="covid-tables_files/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+  <script src="covid-tables_files/popper-2.6.0/popper.min.js"></script>
+  <link href="covid-tables_files/tippy-6.2.7/tippy.css" rel="stylesheet" />
+  <link href="covid-tables_files/tippy-6.2.7/tippy-light-border.css" rel="stylesheet" />
+  <script src="covid-tables_files/tippy-6.2.7/tippy.umd.min.js"></script>
   <script src="covid-tables_files/anchor-4.2.2/anchor.min.js"></script>
   <script src="covid-tables_files/bowser-1.9.3/bowser.min.js"></script>
   <script src="covid-tables_files/webcomponents-2.0.0/webcomponents.js"></script>
@@ -1422,7 +1460,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <!--radix_placeholder_front_matter-->
 
 <script id="distill-front-matter" type="text/json">
-{"title":"Making Tables with PMA COVID-19 Data","description":"Showcasing the gtsummary package for sample descriptive statistics, weighted population estimates, and model summary output.","authors":[{"author":"Shelby Rutzick","authorURL":"https://www.linkedin.com/in/shelby-rutzick/","affiliation":"IPUMS PMA Graduate Research Assistant","affiliationURL":"#","orcidID":""},{"author":"Matt Gunther","authorURL":"#","affiliation":"IPUMS PMA Senior Data Analyst","affiliationURL":"#","orcidID":""}],"publishedDate":"2021-07-01T00:00:00.000+00:00","citationText":"Rutzick & Gunther, 2021"}
+{"title":"Making Tables with PMA COVID-19 Data","description":"Showcasing the gtsummary package for sample descriptive statistics, weighted population estimates, and model summary output.","authors":[{"author":"Shelby Rutzick","authorURL":"https://www.linkedin.com/in/shelby-rutzick/","affiliation":"IPUMS PMA Graduate Research Assistant","affiliationURL":"#","orcidID":""},{"author":"Matt Gunther","authorURL":"#","affiliation":"IPUMS PMA Senior Data Analyst","affiliationURL":"#","orcidID":""}],"publishedDate":"2021-07-01T00:00:00.000-05:00","citationText":"Rutzick & Gunther, 2021"}
 </script>
 
 <!--/radix_placeholder_front_matter-->
@@ -1441,6 +1479,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <div class="dt=tag">purrr</div>
 <div class="dt=tag">Descriptive Analysis</div>
 <div class="dt=tag">Data Manipulation</div>
+<div class="dt=tag">Weights</div>
 </div>
 <!--/radix_placeholder_categories-->
 <p><p>Showcasing the gtsummary package for sample descriptive statistics, weighted population estimates, and model summary output.</p></p>
@@ -1467,7 +1506,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <li><a href="#change-default-statistics">Change default statistics</a></li>
 <li><a href="#customize-headers-footnotes">Customize headers &amp; footnotes</a></li>
 </ul></li>
-<li><a href="#survey-weights">Survey Weights</a></li>
+<li><a href="#sampling-weights">Sampling Weights</a></li>
 <li><a href="#model-summary-table">Model Summary Table</a>
 <ul>
 <li><a href="#results-from-one-model">Results from one model</a></li>
@@ -1521,7 +1560,7 @@ If <code>gtsummary</code> doesn’t fit your needs, we also recommend <a href="h
 <p>When you’ve finished downloading your data extract and installing all of these packages, load the packages and use <code>read_ipums_micro()</code> to load the data extract into R (make sure to change the file paths to match your own extract):</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre><code><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://www.ipums.org'>ipumsr</a></span><span class='op'>)</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://www.ipums.org'>ipumsr</a></span><span class='op'>)</span>
 <span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://tidyverse.tidyverse.org'>tidyverse</a></span><span class='op'>)</span>
 <span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='http://r-survey.r-forge.r-project.org/survey/'>survey</a></span><span class='op'>)</span>
 <span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='http://gdfe.co/srvyr/'>srvyr</a></span><span class='op'>)</span>
@@ -1540,10 +1579,10 @@ If <code>gtsummary</code> doesn’t fit your needs, we also recommend <a href="h
 <p>As a reminder: women who were interviewed for the PMA COVID-19 survey are participants in a ongoing panel study focused on core PMA topics in reproductive health. The baseline survey for this panel study was conducted just a few months prior to the COVID-19 survey (between November 2019 and February 2020), but data from the baseline survey are <em>not included</em> in the COVID-19 dataset you’ll download here. <em>We will show how to locate and merge data from the baseline survey in an upcoming post in this series.</em> The COVID-19 survey data are structured like all of the other cross-sectional survey datasets available from IPUMS PMA: each woman’s responses are stored in a single row.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre><code><span class='va'>covid</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>covid</span>
 </code></pre>
 </div>
-<pre><code># A tibble: 12,184 x 12
+<pre><code># A tibble: 12,184 × 12
           SAMPLE  COUNTRY  YEAR ROUND   EAID CONSENTFQ CVQWEIGHT   AGE
        &lt;int+lbl&gt; &lt;int+lb&gt; &lt;int&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;int+lbl&gt;     &lt;dbl&gt; &lt;int&gt;
  1 85411 [Burki… 1 [Burk…  2020     1 8.54e8   1 [Yes]     2.13     35
@@ -1567,17 +1606,17 @@ Every COVID-19 data extract will contain 7 <strong>preselected</strong> variable
 <p>Because <code>gtsummary</code> is designed with <code>tidyverse</code> users in-mind, you can pipe functions like <code>dplyr::select</code> directly into the function <a href="http://www.danieldsjoberg.com/gtsummary/dev/articles/tbl_summary.html">tbl_summary</a>, which will then identify the object class for each variable and calculate default summary statistics accordingly. To demonstrate, we’ll <code>select</code> a few demographic variables, then break them down by <code>COUNTRY</code> in a basic call to <code>tbl_summary()</code>:</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre><code><span class='va'>covid</span> <span class='op'>%&gt;%</span> 
-  <span class='fu'><a href='http://gdfe.co/srvyr/reference/dplyr_single.html'>select</a></span><span class='op'>(</span><span class='va'>AGE</span>, <span class='va'>MARSTAT</span>, <span class='va'>EDUCATTGEN</span>, <span class='va'>URBAN</span>, <span class='va'>COUNTRY</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
-  <span class='fu'><a href='http://www.danieldsjoberg.com/gtsummary//reference/tbl_summary.html'>tbl_summary</a></span><span class='op'>(</span>by <span class='op'>=</span> <span class='va'>COUNTRY</span><span class='op'>)</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>covid</span> <span class='op'><a href='http://gdfe.co/srvyr/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='http://gdfe.co/srvyr/reference/dplyr_single.html'>select</a></span><span class='op'>(</span><span class='va'>AGE</span>, <span class='va'>MARSTAT</span>, <span class='va'>EDUCATTGEN</span>, <span class='va'>URBAN</span>, <span class='va'>COUNTRY</span><span class='op'>)</span> <span class='op'><a href='http://gdfe.co/srvyr/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='https://www.danieldsjoberg.com/gtsummary/reference/tbl_summary.html'>tbl_summary</a></span><span class='op'>(</span>by <span class='op'>=</span> <span class='va'>COUNTRY</span><span class='op'>)</span>
 </code></pre>
 </div>
-<div id="dsrccgmvvf" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<div id="qlmvwaeeyb" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
 
-#dsrccgmvvf .gt_table {
+#qlmvwaeeyb .gt_table {
   display: table;
   border-collapse: collapse;
   margin-left: auto;
@@ -1602,7 +1641,7 @@ Every COVID-19 data extract will contain 7 <strong>preselected</strong> variable
   border-left-color: #D3D3D3;
 }
 
-#dsrccgmvvf .gt_heading {
+#qlmvwaeeyb .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -1614,7 +1653,7 @@ Every COVID-19 data extract will contain 7 <strong>preselected</strong> variable
   border-right-color: #D3D3D3;
 }
 
-#dsrccgmvvf .gt_title {
+#qlmvwaeeyb .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -1624,23 +1663,23 @@ Every COVID-19 data extract will contain 7 <strong>preselected</strong> variable
   border-bottom-width: 0;
 }
 
-#dsrccgmvvf .gt_subtitle {
+#qlmvwaeeyb .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
   padding-top: 0;
-  padding-bottom: 4px;
+  padding-bottom: 6px;
   border-top-color: #FFFFFF;
   border-top-width: 0;
 }
 
-#dsrccgmvvf .gt_bottom_border {
+#qlmvwaeeyb .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#dsrccgmvvf .gt_col_headings {
+#qlmvwaeeyb .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1655,7 +1694,7 @@ Every COVID-19 data extract will contain 7 <strong>preselected</strong> variable
   border-right-color: #D3D3D3;
 }
 
-#dsrccgmvvf .gt_col_heading {
+#qlmvwaeeyb .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1675,7 +1714,7 @@ Every COVID-19 data extract will contain 7 <strong>preselected</strong> variable
   overflow-x: hidden;
 }
 
-#dsrccgmvvf .gt_column_spanner_outer {
+#qlmvwaeeyb .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1687,27 +1726,27 @@ Every COVID-19 data extract will contain 7 <strong>preselected</strong> variable
   padding-right: 4px;
 }
 
-#dsrccgmvvf .gt_column_spanner_outer:first-child {
+#qlmvwaeeyb .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#dsrccgmvvf .gt_column_spanner_outer:last-child {
+#qlmvwaeeyb .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#dsrccgmvvf .gt_column_spanner {
+#qlmvwaeeyb .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
   vertical-align: bottom;
   padding-top: 5px;
-  padding-bottom: 6px;
+  padding-bottom: 5px;
   overflow-x: hidden;
   display: inline-block;
   width: 100%;
 }
 
-#dsrccgmvvf .gt_group_heading {
+#qlmvwaeeyb .gt_group_heading {
   padding: 8px;
   color: #333333;
   background-color: #FFFFFF;
@@ -1729,7 +1768,7 @@ Every COVID-19 data extract will contain 7 <strong>preselected</strong> variable
   vertical-align: middle;
 }
 
-#dsrccgmvvf .gt_empty_group_heading {
+#qlmvwaeeyb .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -1744,15 +1783,15 @@ Every COVID-19 data extract will contain 7 <strong>preselected</strong> variable
   vertical-align: middle;
 }
 
-#dsrccgmvvf .gt_from_md > :first-child {
+#qlmvwaeeyb .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#dsrccgmvvf .gt_from_md > :last-child {
+#qlmvwaeeyb .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#dsrccgmvvf .gt_row {
+#qlmvwaeeyb .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1771,7 +1810,7 @@ Every COVID-19 data extract will contain 7 <strong>preselected</strong> variable
   overflow-x: hidden;
 }
 
-#dsrccgmvvf .gt_stub {
+#qlmvwaeeyb .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1783,7 +1822,7 @@ Every COVID-19 data extract will contain 7 <strong>preselected</strong> variable
   padding-left: 12px;
 }
 
-#dsrccgmvvf .gt_summary_row {
+#qlmvwaeeyb .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1793,7 +1832,7 @@ Every COVID-19 data extract will contain 7 <strong>preselected</strong> variable
   padding-right: 5px;
 }
 
-#dsrccgmvvf .gt_first_summary_row {
+#qlmvwaeeyb .gt_first_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1803,7 +1842,7 @@ Every COVID-19 data extract will contain 7 <strong>preselected</strong> variable
   border-top-color: #D3D3D3;
 }
 
-#dsrccgmvvf .gt_grand_summary_row {
+#qlmvwaeeyb .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1813,7 +1852,7 @@ Every COVID-19 data extract will contain 7 <strong>preselected</strong> variable
   padding-right: 5px;
 }
 
-#dsrccgmvvf .gt_first_grand_summary_row {
+#qlmvwaeeyb .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1823,11 +1862,11 @@ Every COVID-19 data extract will contain 7 <strong>preselected</strong> variable
   border-top-color: #D3D3D3;
 }
 
-#dsrccgmvvf .gt_striped {
+#qlmvwaeeyb .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#dsrccgmvvf .gt_table_body {
+#qlmvwaeeyb .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1836,7 +1875,7 @@ Every COVID-19 data extract will contain 7 <strong>preselected</strong> variable
   border-bottom-color: #D3D3D3;
 }
 
-#dsrccgmvvf .gt_footnotes {
+#qlmvwaeeyb .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1850,13 +1889,13 @@ Every COVID-19 data extract will contain 7 <strong>preselected</strong> variable
   border-right-color: #D3D3D3;
 }
 
-#dsrccgmvvf .gt_footnote {
+#qlmvwaeeyb .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding: 4px;
 }
 
-#dsrccgmvvf .gt_sourcenotes {
+#qlmvwaeeyb .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1870,41 +1909,41 @@ Every COVID-19 data extract will contain 7 <strong>preselected</strong> variable
   border-right-color: #D3D3D3;
 }
 
-#dsrccgmvvf .gt_sourcenote {
+#qlmvwaeeyb .gt_sourcenote {
   font-size: 90%;
   padding: 4px;
 }
 
-#dsrccgmvvf .gt_left {
+#qlmvwaeeyb .gt_left {
   text-align: left;
 }
 
-#dsrccgmvvf .gt_center {
+#qlmvwaeeyb .gt_center {
   text-align: center;
 }
 
-#dsrccgmvvf .gt_right {
+#qlmvwaeeyb .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#dsrccgmvvf .gt_font_normal {
+#qlmvwaeeyb .gt_font_normal {
   font-weight: normal;
 }
 
-#dsrccgmvvf .gt_font_bold {
+#qlmvwaeeyb .gt_font_bold {
   font-weight: bold;
 }
 
-#dsrccgmvvf .gt_font_italic {
+#qlmvwaeeyb .gt_font_italic {
   font-style: italic;
 }
 
-#dsrccgmvvf .gt_super {
+#qlmvwaeeyb .gt_super {
   font-size: 65%;
 }
 
-#dsrccgmvvf .gt_footnote_marks {
+#qlmvwaeeyb .gt_footnote_marks {
   font-style: italic;
   font-weight: normal;
   font-size: 65%;
@@ -2039,10 +2078,10 @@ consequences or result in error.
 <p>This is a very helpful starting point, but it’s certainly not a finished product yet. The biggest issue is related to the alert message shown above: as we’ve discussed <a href="../2021-01-28-across-sdp/#recoding-variables-with-ipumsr">in previous posts</a>, the categorical variables you’ll find in IPUMS data extracts are usually imported as <code>haven_labelled</code> objects, rather than the more common <code>factor</code> class of objects. In practice, this means that every response option from the questionnaire has both a <strong>value</strong> and a <strong>label</strong>:</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre><code><span class='va'>covid</span> <span class='op'>%&gt;%</span> <span class='fu'>count</span><span class='op'>(</span><span class='va'>MARSTAT</span><span class='op'>)</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>covid</span> <span class='op'><a href='http://gdfe.co/srvyr/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/count.html'>count</a></span><span class='op'>(</span><span class='va'>MARSTAT</span><span class='op'>)</span>
 </code></pre>
 </div>
-<pre><code># A tibble: 6 x 2
+<pre><code># A tibble: 6 × 2
                              MARSTAT     n
                            &lt;int+lbl&gt; &lt;int&gt;
 1 10 [Never married]                  3041
@@ -2068,11 +2107,11 @@ You can access value labels with the <code>ipumsr</code> function <a href="http:
 </ol>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre><code><span class='va'>covid</span> <span class='op'>&lt;-</span> <span class='va'>covid</span> <span class='op'>%&gt;%</span> 
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>covid</span> <span class='op'>&lt;-</span> <span class='va'>covid</span> <span class='op'><a href='http://gdfe.co/srvyr/reference/pipe.html'>%&gt;%</a></span> 
   <span class='fu'><a href='http://gdfe.co/srvyr/reference/dplyr_single.html'>mutate</a></span><span class='op'>(</span>
     <span class='fu'><a href='https://dplyr.tidyverse.org/reference/across.html'>across</a></span><span class='op'>(</span><span class='fu'><a href='https://tidyselect.r-lib.org/reference/everything.html'>everything</a></span><span class='op'>(</span><span class='op'>)</span>, <span class='op'>~</span><span class='fu'><a href='https://rdrr.io/pkg/ipumsr/man/lbl_na_if.html'>lbl_na_if</a></span><span class='op'>(</span>
       <span class='va'>.x</span>,
-      <span class='op'>~</span><span class='va'>.lbl</span> <span class='op'>%in%</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span>
+      <span class='op'>~</span><span class='va'>.lbl</span> <span class='op'><a href='https://rdrr.io/r/base/match.html'>%in%</a></span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span>
         <span class='st'>"Logical edit - missing"</span>,
         <span class='st'>"Not interviewed (female questionnaire)"</span>,
         <span class='st'>"Not interviewed (household questionnaire)"</span>,
@@ -2082,7 +2121,7 @@ You can access value labels with the <code>ipumsr</code> function <a href="http:
       <span class='op'>)</span>
     <span class='op'>)</span><span class='op'>)</span>,
     <span class='fu'><a href='https://dplyr.tidyverse.org/reference/across.html'>across</a></span><span class='op'>(</span><span class='va'>AGE</span>, <span class='va'>zap_labels</span><span class='op'>)</span>,
-    <span class='fu'><a href='https://dplyr.tidyverse.org/reference/across.html'>across</a></span><span class='op'>(</span><span class='fu'>where</span><span class='op'>(</span><span class='va'>is.labelled</span><span class='op'>)</span>, <span class='op'>~</span><span class='fu'><a href='https://forcats.tidyverse.org/reference/as_factor.html'>as_factor</a></span><span class='op'>(</span><span class='va'>.x</span><span class='op'>)</span> <span class='op'>%&gt;%</span> <span class='va'>fct_drop</span><span class='op'>)</span>
+    <span class='fu'><a href='https://dplyr.tidyverse.org/reference/across.html'>across</a></span><span class='op'>(</span><span class='fu'>where</span><span class='op'>(</span><span class='va'>is.labelled</span><span class='op'>)</span>, <span class='op'>~</span><span class='fu'><a href='https://forcats.tidyverse.org/reference/as_factor.html'>as_factor</a></span><span class='op'>(</span><span class='va'>.x</span><span class='op'>)</span> <span class='op'><a href='http://gdfe.co/srvyr/reference/pipe.html'>%&gt;%</a></span> <span class='va'>fct_drop</span><span class='op'>)</span>
   <span class='op'>)</span>
 </code></pre>
 </div>
@@ -2093,17 +2132,17 @@ You can access value labels with the <code>ipumsr</code> function <a href="http:
 <p>Coercing categorical variables as factors will greatly improve the readability of our table. Because we’ve introduced <code>NA</code> values, we’ll add the argument <code>missing = "no"</code> to exclude them from our table:</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre><code><span class='va'>covid</span> <span class='op'>%&gt;%</span> 
-  <span class='fu'><a href='http://gdfe.co/srvyr/reference/dplyr_single.html'>select</a></span><span class='op'>(</span><span class='va'>AGE</span>, <span class='va'>MARSTAT</span>, <span class='va'>EDUCATTGEN</span>, <span class='va'>URBAN</span>, <span class='va'>COUNTRY</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
-  <span class='fu'><a href='http://www.danieldsjoberg.com/gtsummary//reference/tbl_summary.html'>tbl_summary</a></span><span class='op'>(</span>by <span class='op'>=</span> <span class='va'>COUNTRY</span>, missing <span class='op'>=</span> <span class='st'>"no"</span><span class='op'>)</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>covid</span> <span class='op'><a href='http://gdfe.co/srvyr/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='http://gdfe.co/srvyr/reference/dplyr_single.html'>select</a></span><span class='op'>(</span><span class='va'>AGE</span>, <span class='va'>MARSTAT</span>, <span class='va'>EDUCATTGEN</span>, <span class='va'>URBAN</span>, <span class='va'>COUNTRY</span><span class='op'>)</span> <span class='op'><a href='http://gdfe.co/srvyr/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='https://www.danieldsjoberg.com/gtsummary/reference/tbl_summary.html'>tbl_summary</a></span><span class='op'>(</span>by <span class='op'>=</span> <span class='va'>COUNTRY</span>, missing <span class='op'>=</span> <span class='st'>"no"</span><span class='op'>)</span>
 </code></pre>
 </div>
-<div id="xzjnyzpawq" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<div id="vxcernnnrs" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
 
-#xzjnyzpawq .gt_table {
+#vxcernnnrs .gt_table {
   display: table;
   border-collapse: collapse;
   margin-left: auto;
@@ -2128,7 +2167,7 @@ You can access value labels with the <code>ipumsr</code> function <a href="http:
   border-left-color: #D3D3D3;
 }
 
-#xzjnyzpawq .gt_heading {
+#vxcernnnrs .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -2140,7 +2179,7 @@ You can access value labels with the <code>ipumsr</code> function <a href="http:
   border-right-color: #D3D3D3;
 }
 
-#xzjnyzpawq .gt_title {
+#vxcernnnrs .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -2150,23 +2189,23 @@ You can access value labels with the <code>ipumsr</code> function <a href="http:
   border-bottom-width: 0;
 }
 
-#xzjnyzpawq .gt_subtitle {
+#vxcernnnrs .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
   padding-top: 0;
-  padding-bottom: 4px;
+  padding-bottom: 6px;
   border-top-color: #FFFFFF;
   border-top-width: 0;
 }
 
-#xzjnyzpawq .gt_bottom_border {
+#vxcernnnrs .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#xzjnyzpawq .gt_col_headings {
+#vxcernnnrs .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -2181,7 +2220,7 @@ You can access value labels with the <code>ipumsr</code> function <a href="http:
   border-right-color: #D3D3D3;
 }
 
-#xzjnyzpawq .gt_col_heading {
+#vxcernnnrs .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2201,7 +2240,7 @@ You can access value labels with the <code>ipumsr</code> function <a href="http:
   overflow-x: hidden;
 }
 
-#xzjnyzpawq .gt_column_spanner_outer {
+#vxcernnnrs .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2213,27 +2252,27 @@ You can access value labels with the <code>ipumsr</code> function <a href="http:
   padding-right: 4px;
 }
 
-#xzjnyzpawq .gt_column_spanner_outer:first-child {
+#vxcernnnrs .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#xzjnyzpawq .gt_column_spanner_outer:last-child {
+#vxcernnnrs .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#xzjnyzpawq .gt_column_spanner {
+#vxcernnnrs .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
   vertical-align: bottom;
   padding-top: 5px;
-  padding-bottom: 6px;
+  padding-bottom: 5px;
   overflow-x: hidden;
   display: inline-block;
   width: 100%;
 }
 
-#xzjnyzpawq .gt_group_heading {
+#vxcernnnrs .gt_group_heading {
   padding: 8px;
   color: #333333;
   background-color: #FFFFFF;
@@ -2255,7 +2294,7 @@ You can access value labels with the <code>ipumsr</code> function <a href="http:
   vertical-align: middle;
 }
 
-#xzjnyzpawq .gt_empty_group_heading {
+#vxcernnnrs .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -2270,15 +2309,15 @@ You can access value labels with the <code>ipumsr</code> function <a href="http:
   vertical-align: middle;
 }
 
-#xzjnyzpawq .gt_from_md > :first-child {
+#vxcernnnrs .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#xzjnyzpawq .gt_from_md > :last-child {
+#vxcernnnrs .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#xzjnyzpawq .gt_row {
+#vxcernnnrs .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2297,7 +2336,7 @@ You can access value labels with the <code>ipumsr</code> function <a href="http:
   overflow-x: hidden;
 }
 
-#xzjnyzpawq .gt_stub {
+#vxcernnnrs .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2309,7 +2348,7 @@ You can access value labels with the <code>ipumsr</code> function <a href="http:
   padding-left: 12px;
 }
 
-#xzjnyzpawq .gt_summary_row {
+#vxcernnnrs .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -2319,7 +2358,7 @@ You can access value labels with the <code>ipumsr</code> function <a href="http:
   padding-right: 5px;
 }
 
-#xzjnyzpawq .gt_first_summary_row {
+#vxcernnnrs .gt_first_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2329,7 +2368,7 @@ You can access value labels with the <code>ipumsr</code> function <a href="http:
   border-top-color: #D3D3D3;
 }
 
-#xzjnyzpawq .gt_grand_summary_row {
+#vxcernnnrs .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -2339,7 +2378,7 @@ You can access value labels with the <code>ipumsr</code> function <a href="http:
   padding-right: 5px;
 }
 
-#xzjnyzpawq .gt_first_grand_summary_row {
+#vxcernnnrs .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2349,11 +2388,11 @@ You can access value labels with the <code>ipumsr</code> function <a href="http:
   border-top-color: #D3D3D3;
 }
 
-#xzjnyzpawq .gt_striped {
+#vxcernnnrs .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#xzjnyzpawq .gt_table_body {
+#vxcernnnrs .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -2362,7 +2401,7 @@ You can access value labels with the <code>ipumsr</code> function <a href="http:
   border-bottom-color: #D3D3D3;
 }
 
-#xzjnyzpawq .gt_footnotes {
+#vxcernnnrs .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -2376,13 +2415,13 @@ You can access value labels with the <code>ipumsr</code> function <a href="http:
   border-right-color: #D3D3D3;
 }
 
-#xzjnyzpawq .gt_footnote {
+#vxcernnnrs .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding: 4px;
 }
 
-#xzjnyzpawq .gt_sourcenotes {
+#vxcernnnrs .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -2396,41 +2435,41 @@ You can access value labels with the <code>ipumsr</code> function <a href="http:
   border-right-color: #D3D3D3;
 }
 
-#xzjnyzpawq .gt_sourcenote {
+#vxcernnnrs .gt_sourcenote {
   font-size: 90%;
   padding: 4px;
 }
 
-#xzjnyzpawq .gt_left {
+#vxcernnnrs .gt_left {
   text-align: left;
 }
 
-#xzjnyzpawq .gt_center {
+#vxcernnnrs .gt_center {
   text-align: center;
 }
 
-#xzjnyzpawq .gt_right {
+#vxcernnnrs .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#xzjnyzpawq .gt_font_normal {
+#vxcernnnrs .gt_font_normal {
   font-weight: normal;
 }
 
-#xzjnyzpawq .gt_font_bold {
+#vxcernnnrs .gt_font_bold {
   font-weight: bold;
 }
 
-#xzjnyzpawq .gt_font_italic {
+#vxcernnnrs .gt_font_italic {
   font-style: italic;
 }
 
-#xzjnyzpawq .gt_super {
+#vxcernnnrs .gt_super {
   font-size: 65%;
 }
 
-#xzjnyzpawq .gt_footnote_marks {
+#vxcernnnrs .gt_footnote_marks {
   font-style: italic;
   font-weight: normal;
   font-size: 65%;
@@ -2552,9 +2591,9 @@ You can access variable labels with the <code>ipumsr</code> function <a href="ht
 <p>There are a few supporting functions that allow you to stylize these labels. We’ll use <code>italicize_labels()</code> to print our new labels in italics.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre><code><span class='va'>covid</span> <span class='op'>%&gt;%</span> 
-  <span class='fu'><a href='http://gdfe.co/srvyr/reference/dplyr_single.html'>select</a></span><span class='op'>(</span><span class='va'>AGE</span>, <span class='va'>MARSTAT</span>, <span class='va'>EDUCATTGEN</span>, <span class='va'>URBAN</span>, <span class='va'>COUNTRY</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
-  <span class='fu'><a href='http://www.danieldsjoberg.com/gtsummary//reference/tbl_summary.html'>tbl_summary</a></span><span class='op'>(</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>covid</span> <span class='op'><a href='http://gdfe.co/srvyr/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='http://gdfe.co/srvyr/reference/dplyr_single.html'>select</a></span><span class='op'>(</span><span class='va'>AGE</span>, <span class='va'>MARSTAT</span>, <span class='va'>EDUCATTGEN</span>, <span class='va'>URBAN</span>, <span class='va'>COUNTRY</span><span class='op'>)</span> <span class='op'><a href='http://gdfe.co/srvyr/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='https://www.danieldsjoberg.com/gtsummary/reference/tbl_summary.html'>tbl_summary</a></span><span class='op'>(</span>
     by <span class='op'>=</span> <span class='va'>COUNTRY</span>,
     missing <span class='op'>=</span> <span class='st'>"no"</span>,
     label <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>
@@ -2563,16 +2602,16 @@ You can access variable labels with the <code>ipumsr</code> function <a href="ht
       <span class='va'>EDUCATTGEN</span> <span class='op'>~</span> <span class='st'>"Education"</span>,
       <span class='va'>URBAN</span> <span class='op'>~</span> <span class='st'>"Urban vs Rural"</span>
     <span class='op'>)</span>
-  <span class='op'>)</span> <span class='op'>%&gt;%</span> 
-  <span class='fu'><a href='http://www.danieldsjoberg.com/gtsummary//reference/bold_italicize_labels_levels.html'>italicize_labels</a></span><span class='op'>(</span><span class='op'>)</span> 
+  <span class='op'>)</span> <span class='op'><a href='http://gdfe.co/srvyr/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='https://www.danieldsjoberg.com/gtsummary/reference/bold_italicize_labels_levels.html'>italicize_labels</a></span><span class='op'>(</span><span class='op'>)</span> 
 </code></pre>
 </div>
-<div id="jlzrstwmkm" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<div id="cynjrjqene" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
 
-#jlzrstwmkm .gt_table {
+#cynjrjqene .gt_table {
   display: table;
   border-collapse: collapse;
   margin-left: auto;
@@ -2597,7 +2636,7 @@ You can access variable labels with the <code>ipumsr</code> function <a href="ht
   border-left-color: #D3D3D3;
 }
 
-#jlzrstwmkm .gt_heading {
+#cynjrjqene .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -2609,7 +2648,7 @@ You can access variable labels with the <code>ipumsr</code> function <a href="ht
   border-right-color: #D3D3D3;
 }
 
-#jlzrstwmkm .gt_title {
+#cynjrjqene .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -2619,23 +2658,23 @@ You can access variable labels with the <code>ipumsr</code> function <a href="ht
   border-bottom-width: 0;
 }
 
-#jlzrstwmkm .gt_subtitle {
+#cynjrjqene .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
   padding-top: 0;
-  padding-bottom: 4px;
+  padding-bottom: 6px;
   border-top-color: #FFFFFF;
   border-top-width: 0;
 }
 
-#jlzrstwmkm .gt_bottom_border {
+#cynjrjqene .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#jlzrstwmkm .gt_col_headings {
+#cynjrjqene .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -2650,7 +2689,7 @@ You can access variable labels with the <code>ipumsr</code> function <a href="ht
   border-right-color: #D3D3D3;
 }
 
-#jlzrstwmkm .gt_col_heading {
+#cynjrjqene .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2670,7 +2709,7 @@ You can access variable labels with the <code>ipumsr</code> function <a href="ht
   overflow-x: hidden;
 }
 
-#jlzrstwmkm .gt_column_spanner_outer {
+#cynjrjqene .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2682,27 +2721,27 @@ You can access variable labels with the <code>ipumsr</code> function <a href="ht
   padding-right: 4px;
 }
 
-#jlzrstwmkm .gt_column_spanner_outer:first-child {
+#cynjrjqene .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#jlzrstwmkm .gt_column_spanner_outer:last-child {
+#cynjrjqene .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#jlzrstwmkm .gt_column_spanner {
+#cynjrjqene .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
   vertical-align: bottom;
   padding-top: 5px;
-  padding-bottom: 6px;
+  padding-bottom: 5px;
   overflow-x: hidden;
   display: inline-block;
   width: 100%;
 }
 
-#jlzrstwmkm .gt_group_heading {
+#cynjrjqene .gt_group_heading {
   padding: 8px;
   color: #333333;
   background-color: #FFFFFF;
@@ -2724,7 +2763,7 @@ You can access variable labels with the <code>ipumsr</code> function <a href="ht
   vertical-align: middle;
 }
 
-#jlzrstwmkm .gt_empty_group_heading {
+#cynjrjqene .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -2739,15 +2778,15 @@ You can access variable labels with the <code>ipumsr</code> function <a href="ht
   vertical-align: middle;
 }
 
-#jlzrstwmkm .gt_from_md > :first-child {
+#cynjrjqene .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#jlzrstwmkm .gt_from_md > :last-child {
+#cynjrjqene .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#jlzrstwmkm .gt_row {
+#cynjrjqene .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2766,7 +2805,7 @@ You can access variable labels with the <code>ipumsr</code> function <a href="ht
   overflow-x: hidden;
 }
 
-#jlzrstwmkm .gt_stub {
+#cynjrjqene .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2778,7 +2817,7 @@ You can access variable labels with the <code>ipumsr</code> function <a href="ht
   padding-left: 12px;
 }
 
-#jlzrstwmkm .gt_summary_row {
+#cynjrjqene .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -2788,7 +2827,7 @@ You can access variable labels with the <code>ipumsr</code> function <a href="ht
   padding-right: 5px;
 }
 
-#jlzrstwmkm .gt_first_summary_row {
+#cynjrjqene .gt_first_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2798,7 +2837,7 @@ You can access variable labels with the <code>ipumsr</code> function <a href="ht
   border-top-color: #D3D3D3;
 }
 
-#jlzrstwmkm .gt_grand_summary_row {
+#cynjrjqene .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -2808,7 +2847,7 @@ You can access variable labels with the <code>ipumsr</code> function <a href="ht
   padding-right: 5px;
 }
 
-#jlzrstwmkm .gt_first_grand_summary_row {
+#cynjrjqene .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2818,11 +2857,11 @@ You can access variable labels with the <code>ipumsr</code> function <a href="ht
   border-top-color: #D3D3D3;
 }
 
-#jlzrstwmkm .gt_striped {
+#cynjrjqene .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#jlzrstwmkm .gt_table_body {
+#cynjrjqene .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -2831,7 +2870,7 @@ You can access variable labels with the <code>ipumsr</code> function <a href="ht
   border-bottom-color: #D3D3D3;
 }
 
-#jlzrstwmkm .gt_footnotes {
+#cynjrjqene .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -2845,13 +2884,13 @@ You can access variable labels with the <code>ipumsr</code> function <a href="ht
   border-right-color: #D3D3D3;
 }
 
-#jlzrstwmkm .gt_footnote {
+#cynjrjqene .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding: 4px;
 }
 
-#jlzrstwmkm .gt_sourcenotes {
+#cynjrjqene .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -2865,41 +2904,41 @@ You can access variable labels with the <code>ipumsr</code> function <a href="ht
   border-right-color: #D3D3D3;
 }
 
-#jlzrstwmkm .gt_sourcenote {
+#cynjrjqene .gt_sourcenote {
   font-size: 90%;
   padding: 4px;
 }
 
-#jlzrstwmkm .gt_left {
+#cynjrjqene .gt_left {
   text-align: left;
 }
 
-#jlzrstwmkm .gt_center {
+#cynjrjqene .gt_center {
   text-align: center;
 }
 
-#jlzrstwmkm .gt_right {
+#cynjrjqene .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#jlzrstwmkm .gt_font_normal {
+#cynjrjqene .gt_font_normal {
   font-weight: normal;
 }
 
-#jlzrstwmkm .gt_font_bold {
+#cynjrjqene .gt_font_bold {
   font-weight: bold;
 }
 
-#jlzrstwmkm .gt_font_italic {
+#cynjrjqene .gt_font_italic {
   font-style: italic;
 }
 
-#jlzrstwmkm .gt_super {
+#cynjrjqene .gt_super {
   font-size: 65%;
 }
 
-#jlzrstwmkm .gt_footnote_marks {
+#cynjrjqene .gt_footnote_marks {
   font-style: italic;
   font-weight: normal;
   font-size: 65%;
@@ -3019,9 +3058,9 @@ You can access variable labels with the <code>ipumsr</code> function <a href="ht
 <p>You may also decide to feature <em>information about which statistics were calculated</em> more prominently alongside the variable labels, rather than in the footer. Simply pipe your table to the function <code>add_stat_label()</code> as shown below:</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre><code><span class='va'>covid</span> <span class='op'>%&gt;%</span> 
-  <span class='fu'><a href='http://gdfe.co/srvyr/reference/dplyr_single.html'>select</a></span><span class='op'>(</span><span class='va'>AGE</span>, <span class='va'>MARSTAT</span>, <span class='va'>EDUCATTGEN</span>, <span class='va'>URBAN</span>, <span class='va'>COUNTRY</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
-  <span class='fu'><a href='http://www.danieldsjoberg.com/gtsummary//reference/tbl_summary.html'>tbl_summary</a></span><span class='op'>(</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>covid</span> <span class='op'><a href='http://gdfe.co/srvyr/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='http://gdfe.co/srvyr/reference/dplyr_single.html'>select</a></span><span class='op'>(</span><span class='va'>AGE</span>, <span class='va'>MARSTAT</span>, <span class='va'>EDUCATTGEN</span>, <span class='va'>URBAN</span>, <span class='va'>COUNTRY</span><span class='op'>)</span> <span class='op'><a href='http://gdfe.co/srvyr/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='https://www.danieldsjoberg.com/gtsummary/reference/tbl_summary.html'>tbl_summary</a></span><span class='op'>(</span>
     by <span class='op'>=</span> <span class='va'>COUNTRY</span>,
     missing <span class='op'>=</span> <span class='st'>"no"</span>,
     label <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>
@@ -3032,19 +3071,19 @@ You can access variable labels with the <code>ipumsr</code> function <a href="ht
     <span class='op'>)</span>,
     stat <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>
       <span class='va'>AGE</span> <span class='op'>~</span> <span class='st'>"{mean} ({sd})"</span>,
-      <span class='fu'><a href='http://www.danieldsjoberg.com/gtsummary//reference/select_helpers.html'>all_categorical</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>~</span><span class='st'>"{p}"</span>
+      <span class='fu'><a href='https://www.danieldsjoberg.com/gtsummary/reference/select_helpers.html'>all_categorical</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>~</span><span class='st'>"{p}"</span>
     <span class='op'>)</span>
-  <span class='op'>)</span><span class='op'>%&gt;%</span> 
-  <span class='fu'><a href='http://www.danieldsjoberg.com/gtsummary//reference/bold_italicize_labels_levels.html'>italicize_labels</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
-  <span class='fu'><a href='http://www.danieldsjoberg.com/gtsummary//reference/add_stat_label.html'>add_stat_label</a></span><span class='op'>(</span><span class='op'>)</span>
+  <span class='op'>)</span><span class='op'><a href='http://gdfe.co/srvyr/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='https://www.danieldsjoberg.com/gtsummary/reference/bold_italicize_labels_levels.html'>italicize_labels</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'><a href='http://gdfe.co/srvyr/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='https://www.danieldsjoberg.com/gtsummary/reference/add_stat_label.html'>add_stat_label</a></span><span class='op'>(</span><span class='op'>)</span>
 </code></pre>
 </div>
-<div id="eqvdsbjivr" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<div id="gvcufofynu" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
 
-#eqvdsbjivr .gt_table {
+#gvcufofynu .gt_table {
   display: table;
   border-collapse: collapse;
   margin-left: auto;
@@ -3069,7 +3108,7 @@ You can access variable labels with the <code>ipumsr</code> function <a href="ht
   border-left-color: #D3D3D3;
 }
 
-#eqvdsbjivr .gt_heading {
+#gvcufofynu .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -3081,7 +3120,7 @@ You can access variable labels with the <code>ipumsr</code> function <a href="ht
   border-right-color: #D3D3D3;
 }
 
-#eqvdsbjivr .gt_title {
+#gvcufofynu .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -3091,23 +3130,23 @@ You can access variable labels with the <code>ipumsr</code> function <a href="ht
   border-bottom-width: 0;
 }
 
-#eqvdsbjivr .gt_subtitle {
+#gvcufofynu .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
   padding-top: 0;
-  padding-bottom: 4px;
+  padding-bottom: 6px;
   border-top-color: #FFFFFF;
   border-top-width: 0;
 }
 
-#eqvdsbjivr .gt_bottom_border {
+#gvcufofynu .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#eqvdsbjivr .gt_col_headings {
+#gvcufofynu .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -3122,7 +3161,7 @@ You can access variable labels with the <code>ipumsr</code> function <a href="ht
   border-right-color: #D3D3D3;
 }
 
-#eqvdsbjivr .gt_col_heading {
+#gvcufofynu .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -3142,7 +3181,7 @@ You can access variable labels with the <code>ipumsr</code> function <a href="ht
   overflow-x: hidden;
 }
 
-#eqvdsbjivr .gt_column_spanner_outer {
+#gvcufofynu .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -3154,27 +3193,27 @@ You can access variable labels with the <code>ipumsr</code> function <a href="ht
   padding-right: 4px;
 }
 
-#eqvdsbjivr .gt_column_spanner_outer:first-child {
+#gvcufofynu .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#eqvdsbjivr .gt_column_spanner_outer:last-child {
+#gvcufofynu .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#eqvdsbjivr .gt_column_spanner {
+#gvcufofynu .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
   vertical-align: bottom;
   padding-top: 5px;
-  padding-bottom: 6px;
+  padding-bottom: 5px;
   overflow-x: hidden;
   display: inline-block;
   width: 100%;
 }
 
-#eqvdsbjivr .gt_group_heading {
+#gvcufofynu .gt_group_heading {
   padding: 8px;
   color: #333333;
   background-color: #FFFFFF;
@@ -3196,7 +3235,7 @@ You can access variable labels with the <code>ipumsr</code> function <a href="ht
   vertical-align: middle;
 }
 
-#eqvdsbjivr .gt_empty_group_heading {
+#gvcufofynu .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -3211,15 +3250,15 @@ You can access variable labels with the <code>ipumsr</code> function <a href="ht
   vertical-align: middle;
 }
 
-#eqvdsbjivr .gt_from_md > :first-child {
+#gvcufofynu .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#eqvdsbjivr .gt_from_md > :last-child {
+#gvcufofynu .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#eqvdsbjivr .gt_row {
+#gvcufofynu .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -3238,7 +3277,7 @@ You can access variable labels with the <code>ipumsr</code> function <a href="ht
   overflow-x: hidden;
 }
 
-#eqvdsbjivr .gt_stub {
+#gvcufofynu .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -3250,7 +3289,7 @@ You can access variable labels with the <code>ipumsr</code> function <a href="ht
   padding-left: 12px;
 }
 
-#eqvdsbjivr .gt_summary_row {
+#gvcufofynu .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -3260,7 +3299,7 @@ You can access variable labels with the <code>ipumsr</code> function <a href="ht
   padding-right: 5px;
 }
 
-#eqvdsbjivr .gt_first_summary_row {
+#gvcufofynu .gt_first_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -3270,7 +3309,7 @@ You can access variable labels with the <code>ipumsr</code> function <a href="ht
   border-top-color: #D3D3D3;
 }
 
-#eqvdsbjivr .gt_grand_summary_row {
+#gvcufofynu .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -3280,7 +3319,7 @@ You can access variable labels with the <code>ipumsr</code> function <a href="ht
   padding-right: 5px;
 }
 
-#eqvdsbjivr .gt_first_grand_summary_row {
+#gvcufofynu .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -3290,11 +3329,11 @@ You can access variable labels with the <code>ipumsr</code> function <a href="ht
   border-top-color: #D3D3D3;
 }
 
-#eqvdsbjivr .gt_striped {
+#gvcufofynu .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#eqvdsbjivr .gt_table_body {
+#gvcufofynu .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -3303,7 +3342,7 @@ You can access variable labels with the <code>ipumsr</code> function <a href="ht
   border-bottom-color: #D3D3D3;
 }
 
-#eqvdsbjivr .gt_footnotes {
+#gvcufofynu .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -3317,13 +3356,13 @@ You can access variable labels with the <code>ipumsr</code> function <a href="ht
   border-right-color: #D3D3D3;
 }
 
-#eqvdsbjivr .gt_footnote {
+#gvcufofynu .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding: 4px;
 }
 
-#eqvdsbjivr .gt_sourcenotes {
+#gvcufofynu .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -3337,41 +3376,41 @@ You can access variable labels with the <code>ipumsr</code> function <a href="ht
   border-right-color: #D3D3D3;
 }
 
-#eqvdsbjivr .gt_sourcenote {
+#gvcufofynu .gt_sourcenote {
   font-size: 90%;
   padding: 4px;
 }
 
-#eqvdsbjivr .gt_left {
+#gvcufofynu .gt_left {
   text-align: left;
 }
 
-#eqvdsbjivr .gt_center {
+#gvcufofynu .gt_center {
   text-align: center;
 }
 
-#eqvdsbjivr .gt_right {
+#gvcufofynu .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#eqvdsbjivr .gt_font_normal {
+#gvcufofynu .gt_font_normal {
   font-weight: normal;
 }
 
-#eqvdsbjivr .gt_font_bold {
+#gvcufofynu .gt_font_bold {
   font-weight: bold;
 }
 
-#eqvdsbjivr .gt_font_italic {
+#gvcufofynu .gt_font_italic {
   font-style: italic;
 }
 
-#eqvdsbjivr .gt_super {
+#gvcufofynu .gt_super {
   font-size: 65%;
 }
 
-#eqvdsbjivr .gt_footnote_marks {
+#gvcufofynu .gt_footnote_marks {
   font-style: italic;
   font-weight: normal;
   font-size: 65%;
@@ -3477,14 +3516,14 @@ More information about functions for table statistics can be found <a href="http
 <p>Table headers and footnotes can be customized with the functions <code>modify_header()</code> and <code>modify_footnote()</code>. We’ll remove the frequencies from our header, use the abbreviated label <code>DR Congo</code>, and remove the label <code>Characteristic</code> from the first column. Lastly, we’ll add a title to our table with <code>modify_spanning_header()</code>.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre><code><span class='va'>covid</span> <span class='op'>%&gt;%</span> 
-  <span class='fu'><a href='http://gdfe.co/srvyr/reference/dplyr_single.html'>select</a></span><span class='op'>(</span><span class='va'>AGE</span>, <span class='va'>MARSTAT</span>, <span class='va'>EDUCATTGEN</span>, <span class='va'>URBAN</span>, <span class='va'>COUNTRY</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
-  <span class='fu'><a href='http://www.danieldsjoberg.com/gtsummary//reference/tbl_summary.html'>tbl_summary</a></span><span class='op'>(</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>covid</span> <span class='op'><a href='http://gdfe.co/srvyr/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='http://gdfe.co/srvyr/reference/dplyr_single.html'>select</a></span><span class='op'>(</span><span class='va'>AGE</span>, <span class='va'>MARSTAT</span>, <span class='va'>EDUCATTGEN</span>, <span class='va'>URBAN</span>, <span class='va'>COUNTRY</span><span class='op'>)</span> <span class='op'><a href='http://gdfe.co/srvyr/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='https://www.danieldsjoberg.com/gtsummary/reference/tbl_summary.html'>tbl_summary</a></span><span class='op'>(</span>
     by <span class='op'>=</span> <span class='va'>COUNTRY</span>,
     missing <span class='op'>=</span> <span class='st'>"no"</span>,
     stat <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>
       <span class='va'>AGE</span> <span class='op'>~</span> <span class='st'>"{mean} ({sd})"</span>,
-      <span class='fu'><a href='http://www.danieldsjoberg.com/gtsummary//reference/select_helpers.html'>all_categorical</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>~</span><span class='st'>"{p}"</span>
+      <span class='fu'><a href='https://www.danieldsjoberg.com/gtsummary/reference/select_helpers.html'>all_categorical</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>~</span><span class='st'>"{p}"</span>
     <span class='op'>)</span>,
     label <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>
       <span class='va'>AGE</span> <span class='op'>~</span> <span class='st'>"Age"</span>,
@@ -3492,27 +3531,27 @@ More information about functions for table statistics can be found <a href="http
       <span class='va'>EDUCATTGEN</span> <span class='op'>~</span> <span class='st'>"Education"</span>,
       <span class='va'>URBAN</span> <span class='op'>~</span> <span class='st'>"Urban vs Rural"</span>
     <span class='op'>)</span>
-  <span class='op'>)</span> <span class='op'>%&gt;%</span> 
-  <span class='fu'><a href='http://www.danieldsjoberg.com/gtsummary//reference/add_stat_label.html'>add_stat_label</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
-  <span class='fu'><a href='http://www.danieldsjoberg.com/gtsummary//reference/bold_italicize_labels_levels.html'>italicize_labels</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
-  <span class='fu'><a href='http://www.danieldsjoberg.com/gtsummary//reference/modify.html'>modify_header</a></span><span class='op'>(</span>update <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>
+  <span class='op'>)</span> <span class='op'><a href='http://gdfe.co/srvyr/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='https://www.danieldsjoberg.com/gtsummary/reference/add_stat_label.html'>add_stat_label</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'><a href='http://gdfe.co/srvyr/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='https://www.danieldsjoberg.com/gtsummary/reference/bold_italicize_labels_levels.html'>italicize_labels</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'><a href='http://gdfe.co/srvyr/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='https://www.danieldsjoberg.com/gtsummary/reference/modify.html'>modify_header</a></span><span class='op'>(</span>update <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>
       <span class='va'>label</span> <span class='op'>~</span> <span class='st'>" "</span>,
       <span class='va'>stat_1</span> <span class='op'>~</span> <span class='st'>"**Burkina Faso**"</span>,
       <span class='va'>stat_2</span> <span class='op'>~</span> <span class='st'>"**DR Congo &lt;br&gt; (Kinshasa)**"</span>,
       <span class='va'>stat_3</span> <span class='op'>~</span> <span class='st'>"**Kenya**"</span>,
       <span class='va'>stat_4</span> <span class='op'>~</span> <span class='st'>"**Nigeria &lt;br&gt; (Lagos &amp; Kano)**"</span>
-  <span class='op'>)</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
-  <span class='fu'><a href='http://www.danieldsjoberg.com/gtsummary//reference/modify.html'>modify_spanning_header</a></span><span class='op'>(</span>
+  <span class='op'>)</span><span class='op'>)</span> <span class='op'><a href='http://gdfe.co/srvyr/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='https://www.danieldsjoberg.com/gtsummary/reference/modify.html'>modify_spanning_header</a></span><span class='op'>(</span>
     <span class='fu'><a href='https://tidyselect.r-lib.org/reference/everything.html'>everything</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>~</span> <span class='st'>"## Sample Demographics"</span>
   <span class='op'>)</span> 
 </code></pre>
 </div>
-<div id="ngdrevjbzf" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<div id="ilcogfgoye" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
 
-#ngdrevjbzf .gt_table {
+#ilcogfgoye .gt_table {
   display: table;
   border-collapse: collapse;
   margin-left: auto;
@@ -3537,7 +3576,7 @@ More information about functions for table statistics can be found <a href="http
   border-left-color: #D3D3D3;
 }
 
-#ngdrevjbzf .gt_heading {
+#ilcogfgoye .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -3549,7 +3588,7 @@ More information about functions for table statistics can be found <a href="http
   border-right-color: #D3D3D3;
 }
 
-#ngdrevjbzf .gt_title {
+#ilcogfgoye .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -3559,23 +3598,23 @@ More information about functions for table statistics can be found <a href="http
   border-bottom-width: 0;
 }
 
-#ngdrevjbzf .gt_subtitle {
+#ilcogfgoye .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
   padding-top: 0;
-  padding-bottom: 4px;
+  padding-bottom: 6px;
   border-top-color: #FFFFFF;
   border-top-width: 0;
 }
 
-#ngdrevjbzf .gt_bottom_border {
+#ilcogfgoye .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#ngdrevjbzf .gt_col_headings {
+#ilcogfgoye .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -3590,7 +3629,7 @@ More information about functions for table statistics can be found <a href="http
   border-right-color: #D3D3D3;
 }
 
-#ngdrevjbzf .gt_col_heading {
+#ilcogfgoye .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -3610,7 +3649,7 @@ More information about functions for table statistics can be found <a href="http
   overflow-x: hidden;
 }
 
-#ngdrevjbzf .gt_column_spanner_outer {
+#ilcogfgoye .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -3622,27 +3661,27 @@ More information about functions for table statistics can be found <a href="http
   padding-right: 4px;
 }
 
-#ngdrevjbzf .gt_column_spanner_outer:first-child {
+#ilcogfgoye .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#ngdrevjbzf .gt_column_spanner_outer:last-child {
+#ilcogfgoye .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#ngdrevjbzf .gt_column_spanner {
+#ilcogfgoye .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
   vertical-align: bottom;
   padding-top: 5px;
-  padding-bottom: 6px;
+  padding-bottom: 5px;
   overflow-x: hidden;
   display: inline-block;
   width: 100%;
 }
 
-#ngdrevjbzf .gt_group_heading {
+#ilcogfgoye .gt_group_heading {
   padding: 8px;
   color: #333333;
   background-color: #FFFFFF;
@@ -3664,7 +3703,7 @@ More information about functions for table statistics can be found <a href="http
   vertical-align: middle;
 }
 
-#ngdrevjbzf .gt_empty_group_heading {
+#ilcogfgoye .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -3679,15 +3718,15 @@ More information about functions for table statistics can be found <a href="http
   vertical-align: middle;
 }
 
-#ngdrevjbzf .gt_from_md > :first-child {
+#ilcogfgoye .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#ngdrevjbzf .gt_from_md > :last-child {
+#ilcogfgoye .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#ngdrevjbzf .gt_row {
+#ilcogfgoye .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -3706,7 +3745,7 @@ More information about functions for table statistics can be found <a href="http
   overflow-x: hidden;
 }
 
-#ngdrevjbzf .gt_stub {
+#ilcogfgoye .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -3718,7 +3757,7 @@ More information about functions for table statistics can be found <a href="http
   padding-left: 12px;
 }
 
-#ngdrevjbzf .gt_summary_row {
+#ilcogfgoye .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -3728,7 +3767,7 @@ More information about functions for table statistics can be found <a href="http
   padding-right: 5px;
 }
 
-#ngdrevjbzf .gt_first_summary_row {
+#ilcogfgoye .gt_first_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -3738,7 +3777,7 @@ More information about functions for table statistics can be found <a href="http
   border-top-color: #D3D3D3;
 }
 
-#ngdrevjbzf .gt_grand_summary_row {
+#ilcogfgoye .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -3748,7 +3787,7 @@ More information about functions for table statistics can be found <a href="http
   padding-right: 5px;
 }
 
-#ngdrevjbzf .gt_first_grand_summary_row {
+#ilcogfgoye .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -3758,11 +3797,11 @@ More information about functions for table statistics can be found <a href="http
   border-top-color: #D3D3D3;
 }
 
-#ngdrevjbzf .gt_striped {
+#ilcogfgoye .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#ngdrevjbzf .gt_table_body {
+#ilcogfgoye .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -3771,7 +3810,7 @@ More information about functions for table statistics can be found <a href="http
   border-bottom-color: #D3D3D3;
 }
 
-#ngdrevjbzf .gt_footnotes {
+#ilcogfgoye .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -3785,13 +3824,13 @@ More information about functions for table statistics can be found <a href="http
   border-right-color: #D3D3D3;
 }
 
-#ngdrevjbzf .gt_footnote {
+#ilcogfgoye .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding: 4px;
 }
 
-#ngdrevjbzf .gt_sourcenotes {
+#ilcogfgoye .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -3805,41 +3844,41 @@ More information about functions for table statistics can be found <a href="http
   border-right-color: #D3D3D3;
 }
 
-#ngdrevjbzf .gt_sourcenote {
+#ilcogfgoye .gt_sourcenote {
   font-size: 90%;
   padding: 4px;
 }
 
-#ngdrevjbzf .gt_left {
+#ilcogfgoye .gt_left {
   text-align: left;
 }
 
-#ngdrevjbzf .gt_center {
+#ilcogfgoye .gt_center {
   text-align: center;
 }
 
-#ngdrevjbzf .gt_right {
+#ilcogfgoye .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#ngdrevjbzf .gt_font_normal {
+#ilcogfgoye .gt_font_normal {
   font-weight: normal;
 }
 
-#ngdrevjbzf .gt_font_bold {
+#ilcogfgoye .gt_font_bold {
   font-weight: bold;
 }
 
-#ngdrevjbzf .gt_font_italic {
+#ilcogfgoye .gt_font_italic {
   font-style: italic;
 }
 
-#ngdrevjbzf .gt_super {
+#ilcogfgoye .gt_super {
   font-size: 65%;
 }
 
-#ngdrevjbzf .gt_footnote_marks {
+#ilcogfgoye .gt_footnote_marks {
   font-style: italic;
   font-weight: normal;
   font-size: 65%;
@@ -3949,7 +3988,7 @@ More information about functions for table statistics can be found <a href="http
 <p>Headers can span individuals columns (as shown in <code>modify_header()</code>), groups of columns, or <code>everything()</code> (as shown in <code>modify_spanning_header()</code>).</p>
 <strong>Tip:</strong> if you simply want to move the sample size from the header into its own row (rather than delete it, as we’ve done here), you could create a new <code>factor</code> variable <code>N</code> where every person gets the value <code>1</code> in the step after our <code>select()</code> function.
 </aside>
-<h1 id="survey-weights">Survey Weights</h1>
+<h1 id="sampling-weights">Sampling Weights</h1>
 <p>We mentioned <a href="../2021-06-15-covid-discovery/#sample-design">in our last post</a> that the PMA COVID-19 survey comes with a new weighting variable, <a href="https://pma.ipums.org/pma-action/variables/CVQWEIGHT#codes_section">CVQWEIGHT</a>, which is analogous to the variable <a href="https://pma.ipums.org/pma-action/variables/FQWEIGHT">FQWEIGHT</a> found in other Household and Female samples. <code>CVQWEIGHT</code> can be used to estimate all of the statistics shown in our table for the broader population represented by each sample (note that two of the samples are not nationally representative):</p>
 <aside>
 You’ll find more detail about the construction of PMA COVID-19 survey weights <a href="https://pma.ipums.org/pma/resources/documentation/COVID_Survey_Weight_Construction_Memo.pdf">here</a>.
@@ -3965,12 +4004,12 @@ You’ll find more detail about the construction of PMA COVID-19 survey weights 
 <p>For example, a tidy workflow calculating the mean <code>AGE</code> of women in each of the four <strong>samples</strong> might look like this:</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre><code><span class='va'>covid</span> <span class='op'>%&gt;%</span> 
-  <span class='fu'><a href='http://gdfe.co/srvyr/reference/group_by.html'>group_by</a></span><span class='op'>(</span><span class='va'>COUNTRY</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>covid</span> <span class='op'><a href='http://gdfe.co/srvyr/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='http://gdfe.co/srvyr/reference/group_by.html'>group_by</a></span><span class='op'>(</span><span class='va'>COUNTRY</span><span class='op'>)</span> <span class='op'><a href='http://gdfe.co/srvyr/reference/pipe.html'>%&gt;%</a></span> 
   <span class='fu'><a href='http://gdfe.co/srvyr/reference/summarise.html'>summarise</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span><span class='op'>(</span><span class='va'>AGE</span><span class='op'>)</span><span class='op'>)</span>
 </code></pre>
 </div>
-<pre><code># A tibble: 4 x 2
+<pre><code># A tibble: 4 × 2
   COUNTRY                    `mean(AGE)`
   &lt;fct&gt;                            &lt;dbl&gt;
 1 Burkina Faso                      29.7
@@ -3981,13 +4020,13 @@ You’ll find more detail about the construction of PMA COVID-19 survey weights 
 <p>You can use <code>CVQWEIGHT</code> to estimate the mean <code>AGE</code> of reproductive age women in each of the four target <strong>populations</strong> like this:</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre><code><span class='va'>covid</span> <span class='op'>%&gt;%</span> 
-  <span class='fu'><a href='http://gdfe.co/srvyr/reference/as_survey_design.html'>as_survey_design</a></span><span class='op'>(</span>weight <span class='op'>=</span> <span class='va'>CVQWEIGHT</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
-  <span class='fu'><a href='http://gdfe.co/srvyr/reference/group_by.html'>group_by</a></span><span class='op'>(</span><span class='va'>COUNTRY</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>covid</span> <span class='op'><a href='http://gdfe.co/srvyr/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='http://gdfe.co/srvyr/reference/as_survey_design.html'>as_survey_design</a></span><span class='op'>(</span>weight <span class='op'>=</span> <span class='va'>CVQWEIGHT</span><span class='op'>)</span> <span class='op'><a href='http://gdfe.co/srvyr/reference/pipe.html'>%&gt;%</a></span>
+  <span class='fu'><a href='http://gdfe.co/srvyr/reference/group_by.html'>group_by</a></span><span class='op'>(</span><span class='va'>COUNTRY</span><span class='op'>)</span> <span class='op'><a href='http://gdfe.co/srvyr/reference/pipe.html'>%&gt;%</a></span> 
   <span class='fu'><a href='http://gdfe.co/srvyr/reference/summarise.html'>summarise</a></span><span class='op'>(</span><span class='fu'><a href='http://gdfe.co/srvyr/reference/survey_mean.html'>survey_mean</a></span><span class='op'>(</span><span class='va'>AGE</span><span class='op'>)</span><span class='op'>)</span>
 </code></pre>
 </div>
-<pre><code># A tibble: 4 x 3
+<pre><code># A tibble: 4 × 3
   COUNTRY                     coef `_se`
   &lt;fct&gt;                      &lt;dbl&gt; &lt;dbl&gt;
 1 Burkina Faso                27.9 0.370
@@ -4001,15 +4040,15 @@ Notice that all four samples skew a bit older compared to their target populatio
 <p>Happily, <code>gtsummary</code> can read survey information from the function <code>as_survey_design()</code>. This saves us the trouble of calculating weighted statistics for each of the variables in our table; instead, we can create weighted statistics for our table with just one line of code if we swap <code>tbl_summary</code> for its companion function, <code>tbl_svysummary()</code>:</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre><code><span class='va'>covid</span> <span class='op'>%&gt;%</span> 
-  <span class='fu'><a href='http://gdfe.co/srvyr/reference/as_survey_design.html'>as_survey_design</a></span><span class='op'>(</span>weight <span class='op'>=</span> <span class='va'>CVQWEIGHT</span><span class='op'>)</span> <span class='op'>%&gt;%</span> <span class='co'># CVQWEIGHT goes here</span>
-  <span class='fu'><a href='http://gdfe.co/srvyr/reference/dplyr_single.html'>select</a></span><span class='op'>(</span><span class='va'>AGE</span>, <span class='va'>MARSTAT</span>, <span class='va'>EDUCATTGEN</span>, <span class='va'>URBAN</span>, <span class='va'>COUNTRY</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
-  <span class='fu'><a href='http://www.danieldsjoberg.com/gtsummary//reference/tbl_svysummary.html'>tbl_svysummary</a></span><span class='op'>(</span> <span class='co'># use tbl_svysummary() in place of tbl_summary()</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>covid</span> <span class='op'><a href='http://gdfe.co/srvyr/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='http://gdfe.co/srvyr/reference/as_survey_design.html'>as_survey_design</a></span><span class='op'>(</span>weight <span class='op'>=</span> <span class='va'>CVQWEIGHT</span><span class='op'>)</span> <span class='op'><a href='http://gdfe.co/srvyr/reference/pipe.html'>%&gt;%</a></span> <span class='co'># CVQWEIGHT goes here</span>
+  <span class='fu'><a href='http://gdfe.co/srvyr/reference/dplyr_single.html'>select</a></span><span class='op'>(</span><span class='va'>AGE</span>, <span class='va'>MARSTAT</span>, <span class='va'>EDUCATTGEN</span>, <span class='va'>URBAN</span>, <span class='va'>COUNTRY</span><span class='op'>)</span> <span class='op'><a href='http://gdfe.co/srvyr/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='https://www.danieldsjoberg.com/gtsummary/reference/tbl_svysummary.html'>tbl_svysummary</a></span><span class='op'>(</span> <span class='co'># use tbl_svysummary() in place of tbl_summary()</span>
     by <span class='op'>=</span> <span class='va'>COUNTRY</span>,
     missing <span class='op'>=</span> <span class='st'>"no"</span>,
     stat <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>
       <span class='va'>AGE</span> <span class='op'>~</span> <span class='st'>"{mean} ({sd})"</span>,
-      <span class='fu'><a href='http://www.danieldsjoberg.com/gtsummary//reference/select_helpers.html'>all_categorical</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>~</span><span class='st'>"{p}"</span>
+      <span class='fu'><a href='https://www.danieldsjoberg.com/gtsummary/reference/select_helpers.html'>all_categorical</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>~</span><span class='st'>"{p}"</span>
     <span class='op'>)</span>,
     label <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>
       <span class='va'>AGE</span> <span class='op'>~</span> <span class='st'>"Age"</span>,
@@ -4017,27 +4056,27 @@ Notice that all four samples skew a bit older compared to their target populatio
       <span class='va'>EDUCATTGEN</span> <span class='op'>~</span> <span class='st'>"Education"</span>,
       <span class='va'>URBAN</span> <span class='op'>~</span> <span class='st'>"Urban vs Rural"</span>
     <span class='op'>)</span>
-  <span class='op'>)</span> <span class='op'>%&gt;%</span> 
-  <span class='fu'><a href='http://www.danieldsjoberg.com/gtsummary//reference/bold_italicize_labels_levels.html'>italicize_labels</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
-  <span class='fu'><a href='http://www.danieldsjoberg.com/gtsummary//reference/add_stat_label.html'>add_stat_label</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
-  <span class='fu'><a href='http://www.danieldsjoberg.com/gtsummary//reference/modify.html'>modify_header</a></span><span class='op'>(</span>update <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>
+  <span class='op'>)</span> <span class='op'><a href='http://gdfe.co/srvyr/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='https://www.danieldsjoberg.com/gtsummary/reference/bold_italicize_labels_levels.html'>italicize_labels</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'><a href='http://gdfe.co/srvyr/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='https://www.danieldsjoberg.com/gtsummary/reference/add_stat_label.html'>add_stat_label</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'><a href='http://gdfe.co/srvyr/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='https://www.danieldsjoberg.com/gtsummary/reference/modify.html'>modify_header</a></span><span class='op'>(</span>update <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>
       <span class='va'>label</span> <span class='op'>~</span> <span class='st'>" "</span>,
       <span class='va'>stat_1</span> <span class='op'>~</span> <span class='st'>"**Burkina Faso**"</span>,
       <span class='va'>stat_2</span> <span class='op'>~</span> <span class='st'>"**DR Congo &lt;br&gt; (Kinshasa)**"</span>,
       <span class='va'>stat_3</span> <span class='op'>~</span> <span class='st'>"**Kenya**"</span>,
       <span class='va'>stat_4</span> <span class='op'>~</span> <span class='st'>"**Nigeria &lt;br&gt; (Lagos &amp; Kano)**"</span>
-  <span class='op'>)</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
-  <span class='fu'><a href='http://www.danieldsjoberg.com/gtsummary//reference/modify.html'>modify_spanning_header</a></span><span class='op'>(</span>
+  <span class='op'>)</span><span class='op'>)</span> <span class='op'><a href='http://gdfe.co/srvyr/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='https://www.danieldsjoberg.com/gtsummary/reference/modify.html'>modify_spanning_header</a></span><span class='op'>(</span>
     <span class='fu'><a href='https://tidyselect.r-lib.org/reference/everything.html'>everything</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>~</span> <span class='st'>"## Weighted Population Estimates"</span>
   <span class='op'>)</span>
 </code></pre>
 </div>
-<div id="szjdcizczs" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<div id="osozhlsqbx" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
 
-#szjdcizczs .gt_table {
+#osozhlsqbx .gt_table {
   display: table;
   border-collapse: collapse;
   margin-left: auto;
@@ -4062,7 +4101,7 @@ Notice that all four samples skew a bit older compared to their target populatio
   border-left-color: #D3D3D3;
 }
 
-#szjdcizczs .gt_heading {
+#osozhlsqbx .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -4074,7 +4113,7 @@ Notice that all four samples skew a bit older compared to their target populatio
   border-right-color: #D3D3D3;
 }
 
-#szjdcizczs .gt_title {
+#osozhlsqbx .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -4084,23 +4123,23 @@ Notice that all four samples skew a bit older compared to their target populatio
   border-bottom-width: 0;
 }
 
-#szjdcizczs .gt_subtitle {
+#osozhlsqbx .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
   padding-top: 0;
-  padding-bottom: 4px;
+  padding-bottom: 6px;
   border-top-color: #FFFFFF;
   border-top-width: 0;
 }
 
-#szjdcizczs .gt_bottom_border {
+#osozhlsqbx .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#szjdcizczs .gt_col_headings {
+#osozhlsqbx .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -4115,7 +4154,7 @@ Notice that all four samples skew a bit older compared to their target populatio
   border-right-color: #D3D3D3;
 }
 
-#szjdcizczs .gt_col_heading {
+#osozhlsqbx .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -4135,7 +4174,7 @@ Notice that all four samples skew a bit older compared to their target populatio
   overflow-x: hidden;
 }
 
-#szjdcizczs .gt_column_spanner_outer {
+#osozhlsqbx .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -4147,27 +4186,27 @@ Notice that all four samples skew a bit older compared to their target populatio
   padding-right: 4px;
 }
 
-#szjdcizczs .gt_column_spanner_outer:first-child {
+#osozhlsqbx .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#szjdcizczs .gt_column_spanner_outer:last-child {
+#osozhlsqbx .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#szjdcizczs .gt_column_spanner {
+#osozhlsqbx .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
   vertical-align: bottom;
   padding-top: 5px;
-  padding-bottom: 6px;
+  padding-bottom: 5px;
   overflow-x: hidden;
   display: inline-block;
   width: 100%;
 }
 
-#szjdcizczs .gt_group_heading {
+#osozhlsqbx .gt_group_heading {
   padding: 8px;
   color: #333333;
   background-color: #FFFFFF;
@@ -4189,7 +4228,7 @@ Notice that all four samples skew a bit older compared to their target populatio
   vertical-align: middle;
 }
 
-#szjdcizczs .gt_empty_group_heading {
+#osozhlsqbx .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -4204,15 +4243,15 @@ Notice that all four samples skew a bit older compared to their target populatio
   vertical-align: middle;
 }
 
-#szjdcizczs .gt_from_md > :first-child {
+#osozhlsqbx .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#szjdcizczs .gt_from_md > :last-child {
+#osozhlsqbx .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#szjdcizczs .gt_row {
+#osozhlsqbx .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -4231,7 +4270,7 @@ Notice that all four samples skew a bit older compared to their target populatio
   overflow-x: hidden;
 }
 
-#szjdcizczs .gt_stub {
+#osozhlsqbx .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -4243,7 +4282,7 @@ Notice that all four samples skew a bit older compared to their target populatio
   padding-left: 12px;
 }
 
-#szjdcizczs .gt_summary_row {
+#osozhlsqbx .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -4253,7 +4292,7 @@ Notice that all four samples skew a bit older compared to their target populatio
   padding-right: 5px;
 }
 
-#szjdcizczs .gt_first_summary_row {
+#osozhlsqbx .gt_first_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -4263,7 +4302,7 @@ Notice that all four samples skew a bit older compared to their target populatio
   border-top-color: #D3D3D3;
 }
 
-#szjdcizczs .gt_grand_summary_row {
+#osozhlsqbx .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -4273,7 +4312,7 @@ Notice that all four samples skew a bit older compared to their target populatio
   padding-right: 5px;
 }
 
-#szjdcizczs .gt_first_grand_summary_row {
+#osozhlsqbx .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -4283,11 +4322,11 @@ Notice that all four samples skew a bit older compared to their target populatio
   border-top-color: #D3D3D3;
 }
 
-#szjdcizczs .gt_striped {
+#osozhlsqbx .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#szjdcizczs .gt_table_body {
+#osozhlsqbx .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -4296,7 +4335,7 @@ Notice that all four samples skew a bit older compared to their target populatio
   border-bottom-color: #D3D3D3;
 }
 
-#szjdcizczs .gt_footnotes {
+#osozhlsqbx .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -4310,13 +4349,13 @@ Notice that all four samples skew a bit older compared to their target populatio
   border-right-color: #D3D3D3;
 }
 
-#szjdcizczs .gt_footnote {
+#osozhlsqbx .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding: 4px;
 }
 
-#szjdcizczs .gt_sourcenotes {
+#osozhlsqbx .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -4330,41 +4369,41 @@ Notice that all four samples skew a bit older compared to their target populatio
   border-right-color: #D3D3D3;
 }
 
-#szjdcizczs .gt_sourcenote {
+#osozhlsqbx .gt_sourcenote {
   font-size: 90%;
   padding: 4px;
 }
 
-#szjdcizczs .gt_left {
+#osozhlsqbx .gt_left {
   text-align: left;
 }
 
-#szjdcizczs .gt_center {
+#osozhlsqbx .gt_center {
   text-align: center;
 }
 
-#szjdcizczs .gt_right {
+#osozhlsqbx .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#szjdcizczs .gt_font_normal {
+#osozhlsqbx .gt_font_normal {
   font-weight: normal;
 }
 
-#szjdcizczs .gt_font_bold {
+#osozhlsqbx .gt_font_bold {
   font-weight: bold;
 }
 
-#szjdcizczs .gt_font_italic {
+#osozhlsqbx .gt_font_italic {
   font-style: italic;
 }
 
-#szjdcizczs .gt_super {
+#osozhlsqbx .gt_super {
   font-size: 65%;
 }
 
-#szjdcizczs .gt_footnote_marks {
+#osozhlsqbx .gt_footnote_marks {
   font-style: italic;
   font-weight: normal;
   font-size: 65%;
@@ -4483,10 +4522,10 @@ Notice that all four samples skew a bit older compared to their target populatio
 <p>First, we’ll recode <code>HLTHCAREDIFFFEAR</code> into a binary indicator that’s suitable for use in a logistic regression model. We can collapse responses “No” and “None of the above”, since the latter indicates that the woman experienced no difficulties accessing healthcare at all.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre><code><span class='va'>covid</span> <span class='op'>%&gt;%</span> <span class='fu'>count</span><span class='op'>(</span><span class='va'>HLTHCAREDIFFFEAR</span><span class='op'>)</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>covid</span> <span class='op'><a href='http://gdfe.co/srvyr/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/count.html'>count</a></span><span class='op'>(</span><span class='va'>HLTHCAREDIFFFEAR</span><span class='op'>)</span>
 </code></pre>
 </div>
-<pre><code># A tibble: 4 x 2
+<pre><code># A tibble: 4 × 2
   HLTHCAREDIFFFEAR      n
   &lt;fct&gt;             &lt;int&gt;
 1 No                 1101
@@ -4494,16 +4533,16 @@ Notice that all four samples skew a bit older compared to their target populatio
 3 None of the above  7114
 4 &lt;NA&gt;                 88</code></pre>
 <div class="sourceCode">
-<pre><code><span class='va'>covid</span> <span class='op'>&lt;-</span> <span class='va'>covid</span> <span class='op'>%&gt;%</span> 
-  <span class='fu'><a href='http://gdfe.co/srvyr/reference/dplyr_single.html'>mutate</a></span><span class='op'>(</span>HLTHCAREDIFFFEAR <span class='op'>=</span> <span class='fu'>fct_collapse</span><span class='op'>(</span><span class='va'>HLTHCAREDIFFFEAR</span>, No <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>covid</span> <span class='op'>&lt;-</span> <span class='va'>covid</span> <span class='op'><a href='http://gdfe.co/srvyr/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='http://gdfe.co/srvyr/reference/dplyr_single.html'>mutate</a></span><span class='op'>(</span>HLTHCAREDIFFFEAR <span class='op'>=</span> <span class='fu'><a href='https://forcats.tidyverse.org/reference/fct_collapse.html'>fct_collapse</a></span><span class='op'>(</span><span class='va'>HLTHCAREDIFFFEAR</span>, No <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span>
     <span class='st'>"No"</span>, 
     <span class='st'>"None of the above"</span>
   <span class='op'>)</span><span class='op'>)</span><span class='op'>)</span> 
 
-<span class='va'>covid</span> <span class='op'>%&gt;%</span> <span class='fu'>count</span><span class='op'>(</span><span class='va'>HLTHCAREDIFFFEAR</span><span class='op'>)</span>
+<span class='va'>covid</span> <span class='op'><a href='http://gdfe.co/srvyr/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/count.html'>count</a></span><span class='op'>(</span><span class='va'>HLTHCAREDIFFFEAR</span><span class='op'>)</span>
 </code></pre>
 </div>
-<pre><code># A tibble: 3 x 2
+<pre><code># A tibble: 3 × 2
   HLTHCAREDIFFFEAR     n
   &lt;fct&gt;            &lt;int&gt;
 1 No                8215
@@ -4514,9 +4553,9 @@ Notice that all four samples skew a bit older compared to their target populatio
 <p>Because IPUMS PMA samples are collected with geographic clusters - represented by <code>EAID</code> - we generally recommend specifying both a sample weight <em>and</em> a cluster identification with <code>as_survey_design()</code>. We’ll need to use a function that can build a general linear model using that survey design information, so we’ll use <code>survey::svyglm()</code>, rather than the base R function <code>glm</code> that might be more familiar. The output of a call to <code>svyglm()</code> is not formatted as a publication-ready table. Let’s see what happens when we build a model for our <strong>Burkina Faso</strong> sample:</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre><code><span class='va'>covid</span> <span class='op'>%&gt;%</span> 
-  <span class='fu'><a href='http://gdfe.co/srvyr/reference/dplyr_single.html'>filter</a></span><span class='op'>(</span><span class='va'>COUNTRY</span> <span class='op'>==</span> <span class='st'>"Burkina Faso"</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
-  <span class='fu'><a href='http://gdfe.co/srvyr/reference/as_survey_design.html'>as_survey_design</a></span><span class='op'>(</span>weight <span class='op'>=</span> <span class='va'>CVQWEIGHT</span>, id <span class='op'>=</span> <span class='va'>EAID</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>covid</span> <span class='op'><a href='http://gdfe.co/srvyr/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='http://gdfe.co/srvyr/reference/dplyr_single.html'>filter</a></span><span class='op'>(</span><span class='va'>COUNTRY</span> <span class='op'>==</span> <span class='st'>"Burkina Faso"</span><span class='op'>)</span> <span class='op'><a href='http://gdfe.co/srvyr/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='http://gdfe.co/srvyr/reference/as_survey_design.html'>as_survey_design</a></span><span class='op'>(</span>weight <span class='op'>=</span> <span class='va'>CVQWEIGHT</span>, id <span class='op'>=</span> <span class='va'>EAID</span><span class='op'>)</span> <span class='op'><a href='http://gdfe.co/srvyr/reference/pipe.html'>%&gt;%</a></span> 
   <span class='fu'>survey</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/survey/man/svyglm.html'>svyglm</a></span><span class='op'>(</span>
     formula <span class='op'>=</span> <span class='va'>HLTHCAREDIFFFEAR</span> <span class='op'>~</span> <span class='va'>AGE</span> <span class='op'>+</span> <span class='va'>MARSTAT</span> <span class='op'>+</span> <span class='va'>EDUCATTGEN</span>, 
     family <span class='op'>=</span> <span class='st'>"quasibinomial"</span>
@@ -4564,14 +4603,14 @@ Because our use of weights results in non-integer outcomes, we’ll also need to
 <p>The function <code>gtsummary::tbl_regression()</code> will tidy this output into a much more reader-friendly format. We’ll assign labels to each of our variables using the same <code>label</code> argument we saw before, and we’ll also choose to exponentiate our regression coefficients so that the results will reflect odds ratios:</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre><code><span class='va'>covid</span> <span class='op'>%&gt;%</span> 
-  <span class='fu'><a href='http://gdfe.co/srvyr/reference/dplyr_single.html'>filter</a></span><span class='op'>(</span><span class='va'>COUNTRY</span> <span class='op'>==</span> <span class='st'>"Burkina Faso"</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
-  <span class='fu'><a href='http://gdfe.co/srvyr/reference/as_survey_design.html'>as_survey_design</a></span><span class='op'>(</span>weight <span class='op'>=</span> <span class='va'>CVQWEIGHT</span>, id <span class='op'>=</span> <span class='va'>EAID</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>covid</span> <span class='op'><a href='http://gdfe.co/srvyr/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='http://gdfe.co/srvyr/reference/dplyr_single.html'>filter</a></span><span class='op'>(</span><span class='va'>COUNTRY</span> <span class='op'>==</span> <span class='st'>"Burkina Faso"</span><span class='op'>)</span> <span class='op'><a href='http://gdfe.co/srvyr/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='http://gdfe.co/srvyr/reference/as_survey_design.html'>as_survey_design</a></span><span class='op'>(</span>weight <span class='op'>=</span> <span class='va'>CVQWEIGHT</span>, id <span class='op'>=</span> <span class='va'>EAID</span><span class='op'>)</span> <span class='op'><a href='http://gdfe.co/srvyr/reference/pipe.html'>%&gt;%</a></span> 
   <span class='fu'>survey</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/survey/man/svyglm.html'>svyglm</a></span><span class='op'>(</span>
     formula <span class='op'>=</span> <span class='va'>HLTHCAREDIFFFEAR</span> <span class='op'>~</span> <span class='va'>AGE</span> <span class='op'>+</span> <span class='va'>MARSTAT</span> <span class='op'>+</span> <span class='va'>EDUCATTGEN</span>, 
     family <span class='op'>=</span> <span class='st'>"quasibinomial"</span>
-  <span class='op'>)</span> <span class='op'>%&gt;%</span> 
-  <span class='fu'><a href='http://www.danieldsjoberg.com/gtsummary//reference/tbl_regression.html'>tbl_regression</a></span><span class='op'>(</span>
+  <span class='op'>)</span> <span class='op'><a href='http://gdfe.co/srvyr/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='https://www.danieldsjoberg.com/gtsummary/reference/tbl_regression.html'>tbl_regression</a></span><span class='op'>(</span>
     exponentiate <span class='op'>=</span> <span class='cn'>TRUE</span>,
     label <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>
       <span class='va'>AGE</span> <span class='op'>~</span> <span class='st'>"Age"</span>,
@@ -4581,12 +4620,12 @@ Because our use of weights results in non-integer outcomes, we’ll also need to
   <span class='op'>)</span> 
 </code></pre>
 </div>
-<div id="vajexzdwpf" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<div id="dnbdwemtzu" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
 
-#vajexzdwpf .gt_table {
+#dnbdwemtzu .gt_table {
   display: table;
   border-collapse: collapse;
   margin-left: auto;
@@ -4611,7 +4650,7 @@ Because our use of weights results in non-integer outcomes, we’ll also need to
   border-left-color: #D3D3D3;
 }
 
-#vajexzdwpf .gt_heading {
+#dnbdwemtzu .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -4623,7 +4662,7 @@ Because our use of weights results in non-integer outcomes, we’ll also need to
   border-right-color: #D3D3D3;
 }
 
-#vajexzdwpf .gt_title {
+#dnbdwemtzu .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -4633,23 +4672,23 @@ Because our use of weights results in non-integer outcomes, we’ll also need to
   border-bottom-width: 0;
 }
 
-#vajexzdwpf .gt_subtitle {
+#dnbdwemtzu .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
   padding-top: 0;
-  padding-bottom: 4px;
+  padding-bottom: 6px;
   border-top-color: #FFFFFF;
   border-top-width: 0;
 }
 
-#vajexzdwpf .gt_bottom_border {
+#dnbdwemtzu .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#vajexzdwpf .gt_col_headings {
+#dnbdwemtzu .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -4664,7 +4703,7 @@ Because our use of weights results in non-integer outcomes, we’ll also need to
   border-right-color: #D3D3D3;
 }
 
-#vajexzdwpf .gt_col_heading {
+#dnbdwemtzu .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -4684,7 +4723,7 @@ Because our use of weights results in non-integer outcomes, we’ll also need to
   overflow-x: hidden;
 }
 
-#vajexzdwpf .gt_column_spanner_outer {
+#dnbdwemtzu .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -4696,27 +4735,27 @@ Because our use of weights results in non-integer outcomes, we’ll also need to
   padding-right: 4px;
 }
 
-#vajexzdwpf .gt_column_spanner_outer:first-child {
+#dnbdwemtzu .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#vajexzdwpf .gt_column_spanner_outer:last-child {
+#dnbdwemtzu .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#vajexzdwpf .gt_column_spanner {
+#dnbdwemtzu .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
   vertical-align: bottom;
   padding-top: 5px;
-  padding-bottom: 6px;
+  padding-bottom: 5px;
   overflow-x: hidden;
   display: inline-block;
   width: 100%;
 }
 
-#vajexzdwpf .gt_group_heading {
+#dnbdwemtzu .gt_group_heading {
   padding: 8px;
   color: #333333;
   background-color: #FFFFFF;
@@ -4738,7 +4777,7 @@ Because our use of weights results in non-integer outcomes, we’ll also need to
   vertical-align: middle;
 }
 
-#vajexzdwpf .gt_empty_group_heading {
+#dnbdwemtzu .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -4753,15 +4792,15 @@ Because our use of weights results in non-integer outcomes, we’ll also need to
   vertical-align: middle;
 }
 
-#vajexzdwpf .gt_from_md > :first-child {
+#dnbdwemtzu .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#vajexzdwpf .gt_from_md > :last-child {
+#dnbdwemtzu .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#vajexzdwpf .gt_row {
+#dnbdwemtzu .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -4780,7 +4819,7 @@ Because our use of weights results in non-integer outcomes, we’ll also need to
   overflow-x: hidden;
 }
 
-#vajexzdwpf .gt_stub {
+#dnbdwemtzu .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -4792,7 +4831,7 @@ Because our use of weights results in non-integer outcomes, we’ll also need to
   padding-left: 12px;
 }
 
-#vajexzdwpf .gt_summary_row {
+#dnbdwemtzu .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -4802,7 +4841,7 @@ Because our use of weights results in non-integer outcomes, we’ll also need to
   padding-right: 5px;
 }
 
-#vajexzdwpf .gt_first_summary_row {
+#dnbdwemtzu .gt_first_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -4812,7 +4851,7 @@ Because our use of weights results in non-integer outcomes, we’ll also need to
   border-top-color: #D3D3D3;
 }
 
-#vajexzdwpf .gt_grand_summary_row {
+#dnbdwemtzu .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -4822,7 +4861,7 @@ Because our use of weights results in non-integer outcomes, we’ll also need to
   padding-right: 5px;
 }
 
-#vajexzdwpf .gt_first_grand_summary_row {
+#dnbdwemtzu .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -4832,11 +4871,11 @@ Because our use of weights results in non-integer outcomes, we’ll also need to
   border-top-color: #D3D3D3;
 }
 
-#vajexzdwpf .gt_striped {
+#dnbdwemtzu .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#vajexzdwpf .gt_table_body {
+#dnbdwemtzu .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -4845,7 +4884,7 @@ Because our use of weights results in non-integer outcomes, we’ll also need to
   border-bottom-color: #D3D3D3;
 }
 
-#vajexzdwpf .gt_footnotes {
+#dnbdwemtzu .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -4859,13 +4898,13 @@ Because our use of weights results in non-integer outcomes, we’ll also need to
   border-right-color: #D3D3D3;
 }
 
-#vajexzdwpf .gt_footnote {
+#dnbdwemtzu .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding: 4px;
 }
 
-#vajexzdwpf .gt_sourcenotes {
+#dnbdwemtzu .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -4879,41 +4918,41 @@ Because our use of weights results in non-integer outcomes, we’ll also need to
   border-right-color: #D3D3D3;
 }
 
-#vajexzdwpf .gt_sourcenote {
+#dnbdwemtzu .gt_sourcenote {
   font-size: 90%;
   padding: 4px;
 }
 
-#vajexzdwpf .gt_left {
+#dnbdwemtzu .gt_left {
   text-align: left;
 }
 
-#vajexzdwpf .gt_center {
+#dnbdwemtzu .gt_center {
   text-align: center;
 }
 
-#vajexzdwpf .gt_right {
+#dnbdwemtzu .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#vajexzdwpf .gt_font_normal {
+#dnbdwemtzu .gt_font_normal {
   font-weight: normal;
 }
 
-#vajexzdwpf .gt_font_bold {
+#dnbdwemtzu .gt_font_bold {
   font-weight: bold;
 }
 
-#vajexzdwpf .gt_font_italic {
+#dnbdwemtzu .gt_font_italic {
   font-style: italic;
 }
 
-#vajexzdwpf .gt_super {
+#dnbdwemtzu .gt_super {
   font-size: 65%;
 }
 
-#vajexzdwpf .gt_footnote_marks {
+#dnbdwemtzu .gt_footnote_marks {
   font-style: italic;
   font-weight: normal;
   font-size: 65%;
@@ -4944,19 +4983,19 @@ Because our use of weights results in non-integer outcomes, we’ll also need to
 <td class="gt_row gt_center"></td></tr>
     <tr><td class="gt_row gt_left" style="text-align: left; text-indent: 10px;">Currently married</td>
 <td class="gt_row gt_center">1.78</td>
-<td class="gt_row gt_center">1.02, 3.11</td>
+<td class="gt_row gt_center">1.02, 3.13</td>
 <td class="gt_row gt_center">0.043</td></tr>
     <tr><td class="gt_row gt_left" style="text-align: left; text-indent: 10px;">Currently living with partner</td>
 <td class="gt_row gt_center">0.72</td>
-<td class="gt_row gt_center">0.26, 2.04</td>
+<td class="gt_row gt_center">0.25, 2.06</td>
 <td class="gt_row gt_center">0.5</td></tr>
     <tr><td class="gt_row gt_left" style="text-align: left; text-indent: 10px;">Divorced or separated</td>
 <td class="gt_row gt_center">1.48</td>
-<td class="gt_row gt_center">0.69, 3.16</td>
+<td class="gt_row gt_center">0.69, 3.18</td>
 <td class="gt_row gt_center">0.3</td></tr>
     <tr><td class="gt_row gt_left" style="text-align: left; text-indent: 10px;">Widow or widower</td>
 <td class="gt_row gt_center">1.18</td>
-<td class="gt_row gt_center">0.41, 3.39</td>
+<td class="gt_row gt_center">0.41, 3.42</td>
 <td class="gt_row gt_center">0.8</td></tr>
     <tr><td class="gt_row gt_left">Education</td>
 <td class="gt_row gt_center"></td>
@@ -4968,15 +5007,15 @@ Because our use of weights results in non-integer outcomes, we’ll also need to
 <td class="gt_row gt_center"></td></tr>
     <tr><td class="gt_row gt_left" style="text-align: left; text-indent: 10px;">Primary/Middle school</td>
 <td class="gt_row gt_center">0.92</td>
-<td class="gt_row gt_center">0.61, 1.40</td>
+<td class="gt_row gt_center">0.61, 1.41</td>
 <td class="gt_row gt_center">0.7</td></tr>
     <tr><td class="gt_row gt_left" style="text-align: left; text-indent: 10px;">Secondary/post-primary</td>
 <td class="gt_row gt_center">0.71</td>
-<td class="gt_row gt_center">0.45, 1.12</td>
+<td class="gt_row gt_center">0.44, 1.12</td>
 <td class="gt_row gt_center">0.14</td></tr>
     <tr><td class="gt_row gt_left" style="text-align: left; text-indent: 10px;">Tertiary/post-secondary</td>
 <td class="gt_row gt_center">1.15</td>
-<td class="gt_row gt_center">0.66, 2.01</td>
+<td class="gt_row gt_center">0.66, 2.02</td>
 <td class="gt_row gt_center">0.6</td></tr>
   </tbody>
   
@@ -5000,39 +5039,39 @@ Because our use of weights results in non-integer outcomes, we’ll also need to
 <p>We can also add conventional “stars” representing the significance of each coefficient with the <code>add_significance_stars()</code> function. Here, we could choose to display cluster-robust standard error estimates, but we’ll display 95% confidence intervals instead. We’ll also customize the header and add a title, using the same <code>modify</code> functions shown above.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre><code><span class='va'>covid</span> <span class='op'>%&gt;%</span> 
-  <span class='fu'><a href='http://gdfe.co/srvyr/reference/dplyr_single.html'>filter</a></span><span class='op'>(</span><span class='va'>COUNTRY</span> <span class='op'>==</span> <span class='st'>"Burkina Faso"</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
-  <span class='fu'><a href='http://gdfe.co/srvyr/reference/as_survey_design.html'>as_survey_design</a></span><span class='op'>(</span>weight <span class='op'>=</span> <span class='va'>CVQWEIGHT</span>, id <span class='op'>=</span> <span class='va'>EAID</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>covid</span> <span class='op'><a href='http://gdfe.co/srvyr/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='http://gdfe.co/srvyr/reference/dplyr_single.html'>filter</a></span><span class='op'>(</span><span class='va'>COUNTRY</span> <span class='op'>==</span> <span class='st'>"Burkina Faso"</span><span class='op'>)</span> <span class='op'><a href='http://gdfe.co/srvyr/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='http://gdfe.co/srvyr/reference/as_survey_design.html'>as_survey_design</a></span><span class='op'>(</span>weight <span class='op'>=</span> <span class='va'>CVQWEIGHT</span>, id <span class='op'>=</span> <span class='va'>EAID</span><span class='op'>)</span> <span class='op'><a href='http://gdfe.co/srvyr/reference/pipe.html'>%&gt;%</a></span> 
   <span class='fu'>survey</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/survey/man/svyglm.html'>svyglm</a></span><span class='op'>(</span>
     formula <span class='op'>=</span> <span class='va'>HLTHCAREDIFFFEAR</span> <span class='op'>~</span> <span class='va'>AGE</span> <span class='op'>+</span> <span class='va'>MARSTAT</span> <span class='op'>+</span> <span class='va'>EDUCATTGEN</span>, 
     family <span class='op'>=</span> <span class='st'>"quasibinomial"</span>
-  <span class='op'>)</span> <span class='op'>%&gt;%</span> 
-  <span class='fu'><a href='http://www.danieldsjoberg.com/gtsummary//reference/tbl_regression.html'>tbl_regression</a></span><span class='op'>(</span>
+  <span class='op'>)</span> <span class='op'><a href='http://gdfe.co/srvyr/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='https://www.danieldsjoberg.com/gtsummary/reference/tbl_regression.html'>tbl_regression</a></span><span class='op'>(</span>
     exp <span class='op'>=</span> <span class='cn'>TRUE</span>,
     label <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>
       <span class='va'>AGE</span> <span class='op'>~</span> <span class='st'>"Age"</span>,
       <span class='va'>MARSTAT</span> <span class='op'>~</span> <span class='st'>"Marital status"</span>,
       <span class='va'>EDUCATTGEN</span> <span class='op'>~</span> <span class='st'>"Education"</span>   
     <span class='op'>)</span>
-  <span class='op'>)</span> <span class='op'>%&gt;%</span>
-  <span class='fu'><a href='http://www.danieldsjoberg.com/gtsummary//reference/modify.html'>modify_footnote</a></span><span class='op'>(</span><span class='fu'><a href='https://tidyselect.r-lib.org/reference/everything.html'>everything</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>~</span> <span class='cn'>NA</span>, abbreviation <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
-  <span class='fu'><a href='http://www.danieldsjoberg.com/gtsummary//reference/add_significance_stars.html'>add_significance_stars</a></span><span class='op'>(</span>hide_se <span class='op'>=</span> <span class='cn'>TRUE</span>, hide_ci <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
-  <span class='fu'><a href='http://www.danieldsjoberg.com/gtsummary//reference/modify.html'>modify_header</a></span><span class='op'>(</span>update <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>
+  <span class='op'>)</span> <span class='op'><a href='http://gdfe.co/srvyr/reference/pipe.html'>%&gt;%</a></span>
+  <span class='fu'><a href='https://www.danieldsjoberg.com/gtsummary/reference/modify.html'>modify_footnote</a></span><span class='op'>(</span><span class='fu'><a href='https://tidyselect.r-lib.org/reference/everything.html'>everything</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>~</span> <span class='cn'>NA</span>, abbreviation <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span> <span class='op'><a href='http://gdfe.co/srvyr/reference/pipe.html'>%&gt;%</a></span>
+  <span class='fu'><a href='https://www.danieldsjoberg.com/gtsummary/reference/add_significance_stars.html'>add_significance_stars</a></span><span class='op'>(</span>hide_se <span class='op'>=</span> <span class='cn'>TRUE</span>, hide_ci <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'><a href='http://gdfe.co/srvyr/reference/pipe.html'>%&gt;%</a></span>
+  <span class='fu'><a href='https://www.danieldsjoberg.com/gtsummary/reference/modify.html'>modify_header</a></span><span class='op'>(</span>update <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>
     <span class='va'>label</span> <span class='op'>~</span> <span class='st'>" "</span> ,
     <span class='va'>estimate</span> <span class='op'>~</span> <span class='st'>'**Burkina Faso**'</span>,
     <span class='va'>ci</span> <span class='op'>~</span> <span class='st'>"95% CI"</span>
-  <span class='op'>)</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
-  <span class='fu'><a href='http://www.danieldsjoberg.com/gtsummary//reference/modify.html'>modify_spanning_header</a></span><span class='op'>(</span>
+  <span class='op'>)</span><span class='op'>)</span> <span class='op'><a href='http://gdfe.co/srvyr/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='https://www.danieldsjoberg.com/gtsummary/reference/modify.html'>modify_spanning_header</a></span><span class='op'>(</span>
     <span class='fu'><a href='https://tidyselect.r-lib.org/reference/everything.html'>everything</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>~</span> <span class='st'>"## Odds Ratios obtained from Logistic Regression"</span>
   <span class='op'>)</span> 
 </code></pre>
 </div>
-<div id="sxpcxfeabb" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<div id="nedhihofxa" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
 
-#sxpcxfeabb .gt_table {
+#nedhihofxa .gt_table {
   display: table;
   border-collapse: collapse;
   margin-left: auto;
@@ -5057,7 +5096,7 @@ Because our use of weights results in non-integer outcomes, we’ll also need to
   border-left-color: #D3D3D3;
 }
 
-#sxpcxfeabb .gt_heading {
+#nedhihofxa .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -5069,7 +5108,7 @@ Because our use of weights results in non-integer outcomes, we’ll also need to
   border-right-color: #D3D3D3;
 }
 
-#sxpcxfeabb .gt_title {
+#nedhihofxa .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -5079,23 +5118,23 @@ Because our use of weights results in non-integer outcomes, we’ll also need to
   border-bottom-width: 0;
 }
 
-#sxpcxfeabb .gt_subtitle {
+#nedhihofxa .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
   padding-top: 0;
-  padding-bottom: 4px;
+  padding-bottom: 6px;
   border-top-color: #FFFFFF;
   border-top-width: 0;
 }
 
-#sxpcxfeabb .gt_bottom_border {
+#nedhihofxa .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#sxpcxfeabb .gt_col_headings {
+#nedhihofxa .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -5110,7 +5149,7 @@ Because our use of weights results in non-integer outcomes, we’ll also need to
   border-right-color: #D3D3D3;
 }
 
-#sxpcxfeabb .gt_col_heading {
+#nedhihofxa .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -5130,7 +5169,7 @@ Because our use of weights results in non-integer outcomes, we’ll also need to
   overflow-x: hidden;
 }
 
-#sxpcxfeabb .gt_column_spanner_outer {
+#nedhihofxa .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -5142,27 +5181,27 @@ Because our use of weights results in non-integer outcomes, we’ll also need to
   padding-right: 4px;
 }
 
-#sxpcxfeabb .gt_column_spanner_outer:first-child {
+#nedhihofxa .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#sxpcxfeabb .gt_column_spanner_outer:last-child {
+#nedhihofxa .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#sxpcxfeabb .gt_column_spanner {
+#nedhihofxa .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
   vertical-align: bottom;
   padding-top: 5px;
-  padding-bottom: 6px;
+  padding-bottom: 5px;
   overflow-x: hidden;
   display: inline-block;
   width: 100%;
 }
 
-#sxpcxfeabb .gt_group_heading {
+#nedhihofxa .gt_group_heading {
   padding: 8px;
   color: #333333;
   background-color: #FFFFFF;
@@ -5184,7 +5223,7 @@ Because our use of weights results in non-integer outcomes, we’ll also need to
   vertical-align: middle;
 }
 
-#sxpcxfeabb .gt_empty_group_heading {
+#nedhihofxa .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -5199,15 +5238,15 @@ Because our use of weights results in non-integer outcomes, we’ll also need to
   vertical-align: middle;
 }
 
-#sxpcxfeabb .gt_from_md > :first-child {
+#nedhihofxa .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#sxpcxfeabb .gt_from_md > :last-child {
+#nedhihofxa .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#sxpcxfeabb .gt_row {
+#nedhihofxa .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -5226,7 +5265,7 @@ Because our use of weights results in non-integer outcomes, we’ll also need to
   overflow-x: hidden;
 }
 
-#sxpcxfeabb .gt_stub {
+#nedhihofxa .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -5238,7 +5277,7 @@ Because our use of weights results in non-integer outcomes, we’ll also need to
   padding-left: 12px;
 }
 
-#sxpcxfeabb .gt_summary_row {
+#nedhihofxa .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -5248,7 +5287,7 @@ Because our use of weights results in non-integer outcomes, we’ll also need to
   padding-right: 5px;
 }
 
-#sxpcxfeabb .gt_first_summary_row {
+#nedhihofxa .gt_first_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -5258,7 +5297,7 @@ Because our use of weights results in non-integer outcomes, we’ll also need to
   border-top-color: #D3D3D3;
 }
 
-#sxpcxfeabb .gt_grand_summary_row {
+#nedhihofxa .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -5268,7 +5307,7 @@ Because our use of weights results in non-integer outcomes, we’ll also need to
   padding-right: 5px;
 }
 
-#sxpcxfeabb .gt_first_grand_summary_row {
+#nedhihofxa .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -5278,11 +5317,11 @@ Because our use of weights results in non-integer outcomes, we’ll also need to
   border-top-color: #D3D3D3;
 }
 
-#sxpcxfeabb .gt_striped {
+#nedhihofxa .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#sxpcxfeabb .gt_table_body {
+#nedhihofxa .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -5291,7 +5330,7 @@ Because our use of weights results in non-integer outcomes, we’ll also need to
   border-bottom-color: #D3D3D3;
 }
 
-#sxpcxfeabb .gt_footnotes {
+#nedhihofxa .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -5305,13 +5344,13 @@ Because our use of weights results in non-integer outcomes, we’ll also need to
   border-right-color: #D3D3D3;
 }
 
-#sxpcxfeabb .gt_footnote {
+#nedhihofxa .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding: 4px;
 }
 
-#sxpcxfeabb .gt_sourcenotes {
+#nedhihofxa .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -5325,41 +5364,41 @@ Because our use of weights results in non-integer outcomes, we’ll also need to
   border-right-color: #D3D3D3;
 }
 
-#sxpcxfeabb .gt_sourcenote {
+#nedhihofxa .gt_sourcenote {
   font-size: 90%;
   padding: 4px;
 }
 
-#sxpcxfeabb .gt_left {
+#nedhihofxa .gt_left {
   text-align: left;
 }
 
-#sxpcxfeabb .gt_center {
+#nedhihofxa .gt_center {
   text-align: center;
 }
 
-#sxpcxfeabb .gt_right {
+#nedhihofxa .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#sxpcxfeabb .gt_font_normal {
+#nedhihofxa .gt_font_normal {
   font-weight: normal;
 }
 
-#sxpcxfeabb .gt_font_bold {
+#nedhihofxa .gt_font_bold {
   font-weight: bold;
 }
 
-#sxpcxfeabb .gt_font_italic {
+#nedhihofxa .gt_font_italic {
   font-style: italic;
 }
 
-#sxpcxfeabb .gt_super {
+#nedhihofxa .gt_super {
   font-size: 65%;
 }
 
-#sxpcxfeabb .gt_footnote_marks {
+#nedhihofxa .gt_footnote_marks {
   font-style: italic;
   font-weight: normal;
   font-size: 65%;
@@ -5392,16 +5431,16 @@ Because our use of weights results in non-integer outcomes, we’ll also need to
 <td class="gt_row gt_center">—</td></tr>
     <tr><td class="gt_row gt_left" style="text-align: left; text-indent: 10px;">Currently married</td>
 <td class="gt_row gt_center">1.78*</td>
-<td class="gt_row gt_center">1.02, 3.11</td></tr>
+<td class="gt_row gt_center">1.02, 3.13</td></tr>
     <tr><td class="gt_row gt_left" style="text-align: left; text-indent: 10px;">Currently living with partner</td>
 <td class="gt_row gt_center">0.72</td>
-<td class="gt_row gt_center">0.26, 2.04</td></tr>
+<td class="gt_row gt_center">0.25, 2.06</td></tr>
     <tr><td class="gt_row gt_left" style="text-align: left; text-indent: 10px;">Divorced or separated</td>
 <td class="gt_row gt_center">1.48</td>
-<td class="gt_row gt_center">0.69, 3.16</td></tr>
+<td class="gt_row gt_center">0.69, 3.18</td></tr>
     <tr><td class="gt_row gt_left" style="text-align: left; text-indent: 10px;">Widow or widower</td>
 <td class="gt_row gt_center">1.18</td>
-<td class="gt_row gt_center">0.41, 3.39</td></tr>
+<td class="gt_row gt_center">0.41, 3.42</td></tr>
     <tr><td class="gt_row gt_left">Education</td>
 <td class="gt_row gt_center"></td>
 <td class="gt_row gt_center"></td></tr>
@@ -5410,13 +5449,13 @@ Because our use of weights results in non-integer outcomes, we’ll also need to
 <td class="gt_row gt_center">—</td></tr>
     <tr><td class="gt_row gt_left" style="text-align: left; text-indent: 10px;">Primary/Middle school</td>
 <td class="gt_row gt_center">0.92</td>
-<td class="gt_row gt_center">0.61, 1.40</td></tr>
+<td class="gt_row gt_center">0.61, 1.41</td></tr>
     <tr><td class="gt_row gt_left" style="text-align: left; text-indent: 10px;">Secondary/post-primary</td>
 <td class="gt_row gt_center">0.71</td>
-<td class="gt_row gt_center">0.45, 1.12</td></tr>
+<td class="gt_row gt_center">0.44, 1.12</td></tr>
     <tr><td class="gt_row gt_left" style="text-align: left; text-indent: 10px;">Tertiary/post-secondary</td>
 <td class="gt_row gt_center">1.15</td>
-<td class="gt_row gt_center">0.66, 2.01</td></tr>
+<td class="gt_row gt_center">0.66, 2.02</td></tr>
   </tbody>
   
   <tfoot>
@@ -5441,37 +5480,37 @@ Because our use of weights results in non-integer outcomes, we’ll also need to
 <p>If you repeat the same code shown above for <em>each</em> of the four samples, you’ll obtain four separate tables. We recommend using <code>purrr::map()</code> to store these tables in a list, which you can then pass to <code>gtsummary::tbl_merge()</code>. Here, we <code>map</code> over each of the factor levels in <code>COUNTRY</code>, using <code>tbl_regression()</code> to build a regression table for each. We pipe a list of four tables to <code>tbl_merge()</code>, and then add a header and title.</p>
 <div class="layout-chunk" data-layout="l-body-outset">
 <div class="sourceCode">
-<pre><code><span class='fu'><a href='https://rdrr.io/r/base/levels.html'>levels</a></span><span class='op'>(</span><span class='va'>covid</span><span class='op'>$</span><span class='va'>COUNTRY</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
-  <span class='fu'>map</span><span class='op'>(</span><span class='op'>~</span><span class='op'>{</span>
-    <span class='va'>covid</span> <span class='op'>%&gt;%</span> 
-      <span class='fu'><a href='http://gdfe.co/srvyr/reference/as_survey_design.html'>as_survey_design</a></span><span class='op'>(</span>weight <span class='op'>=</span> <span class='va'>CVQWEIGHT</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
-      <span class='fu'><a href='http://gdfe.co/srvyr/reference/dplyr_single.html'>filter</a></span><span class='op'>(</span><span class='va'>COUNTRY</span> <span class='op'>==</span> <span class='va'>.x</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/base/levels.html'>levels</a></span><span class='op'>(</span><span class='va'>covid</span><span class='op'>$</span><span class='va'>COUNTRY</span><span class='op'>)</span> <span class='op'><a href='http://gdfe.co/srvyr/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='https://purrr.tidyverse.org/reference/map.html'>map</a></span><span class='op'>(</span><span class='op'>~</span><span class='op'>{</span>
+    <span class='va'>covid</span> <span class='op'><a href='http://gdfe.co/srvyr/reference/pipe.html'>%&gt;%</a></span> 
+      <span class='fu'><a href='http://gdfe.co/srvyr/reference/as_survey_design.html'>as_survey_design</a></span><span class='op'>(</span>weight <span class='op'>=</span> <span class='va'>CVQWEIGHT</span><span class='op'>)</span> <span class='op'><a href='http://gdfe.co/srvyr/reference/pipe.html'>%&gt;%</a></span> 
+      <span class='fu'><a href='http://gdfe.co/srvyr/reference/dplyr_single.html'>filter</a></span><span class='op'>(</span><span class='va'>COUNTRY</span> <span class='op'>==</span> <span class='va'>.x</span><span class='op'>)</span> <span class='op'><a href='http://gdfe.co/srvyr/reference/pipe.html'>%&gt;%</a></span> 
       <span class='fu'>survey</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/survey/man/svyglm.html'>svyglm</a></span><span class='op'>(</span>
         formula <span class='op'>=</span> <span class='va'>HLTHCAREDIFFFEAR</span> <span class='op'>~</span> <span class='va'>AGE</span> <span class='op'>+</span> <span class='va'>MARSTAT</span> <span class='op'>+</span> <span class='va'>EDUCATTGEN</span>, 
         family <span class='op'>=</span> <span class='st'>"quasibinomial"</span>
-      <span class='op'>)</span> <span class='op'>%&gt;%</span> 
-      <span class='fu'><a href='http://www.danieldsjoberg.com/gtsummary//reference/tbl_regression.html'>tbl_regression</a></span><span class='op'>(</span>
+      <span class='op'>)</span> <span class='op'><a href='http://gdfe.co/srvyr/reference/pipe.html'>%&gt;%</a></span> 
+      <span class='fu'><a href='https://www.danieldsjoberg.com/gtsummary/reference/tbl_regression.html'>tbl_regression</a></span><span class='op'>(</span>
         exp <span class='op'>=</span> <span class='cn'>TRUE</span>,
         label <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>
           <span class='va'>AGE</span> <span class='op'>~</span> <span class='st'>"Age"</span>,
           <span class='va'>MARSTAT</span> <span class='op'>~</span> <span class='st'>"Marital status"</span>,
           <span class='va'>EDUCATTGEN</span> <span class='op'>~</span> <span class='st'>"Education"</span>   
         <span class='op'>)</span>
-      <span class='op'>)</span> <span class='op'>%&gt;%</span> 
-      <span class='fu'><a href='http://www.danieldsjoberg.com/gtsummary//reference/bold_italicize_labels_levels.html'>italicize_labels</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
-      <span class='fu'><a href='http://www.danieldsjoberg.com/gtsummary//reference/modify.html'>modify_footnote</a></span><span class='op'>(</span><span class='fu'><a href='https://tidyselect.r-lib.org/reference/everything.html'>everything</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>~</span> <span class='cn'>NA</span>, abbreviation <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
-      <span class='fu'><a href='http://www.danieldsjoberg.com/gtsummary//reference/add_significance_stars.html'>add_significance_stars</a></span><span class='op'>(</span>hide_se <span class='op'>=</span> <span class='cn'>T</span>, hide_ci <span class='op'>=</span> <span class='cn'>F</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
-      <span class='fu'><a href='http://www.danieldsjoberg.com/gtsummary//reference/modify.html'>modify_header</a></span><span class='op'>(</span>update <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='va'>ci</span> <span class='op'>~</span> <span class='st'>"95% CI"</span><span class='op'>)</span><span class='op'>)</span>
-  <span class='op'>}</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
-  <span class='fu'><a href='http://www.danieldsjoberg.com/gtsummary//reference/tbl_merge.html'>tbl_merge</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
-  <span class='fu'><a href='http://www.danieldsjoberg.com/gtsummary//reference/modify.html'>modify_header</a></span><span class='op'>(</span>update <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>
+      <span class='op'>)</span> <span class='op'><a href='http://gdfe.co/srvyr/reference/pipe.html'>%&gt;%</a></span> 
+      <span class='fu'><a href='https://www.danieldsjoberg.com/gtsummary/reference/bold_italicize_labels_levels.html'>italicize_labels</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'><a href='http://gdfe.co/srvyr/reference/pipe.html'>%&gt;%</a></span> 
+      <span class='fu'><a href='https://www.danieldsjoberg.com/gtsummary/reference/modify.html'>modify_footnote</a></span><span class='op'>(</span><span class='fu'><a href='https://tidyselect.r-lib.org/reference/everything.html'>everything</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>~</span> <span class='cn'>NA</span>, abbreviation <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span> <span class='op'><a href='http://gdfe.co/srvyr/reference/pipe.html'>%&gt;%</a></span>
+      <span class='fu'><a href='https://www.danieldsjoberg.com/gtsummary/reference/add_significance_stars.html'>add_significance_stars</a></span><span class='op'>(</span>hide_se <span class='op'>=</span> <span class='cn'>T</span>, hide_ci <span class='op'>=</span> <span class='cn'>F</span><span class='op'>)</span> <span class='op'><a href='http://gdfe.co/srvyr/reference/pipe.html'>%&gt;%</a></span> 
+      <span class='fu'><a href='https://www.danieldsjoberg.com/gtsummary/reference/modify.html'>modify_header</a></span><span class='op'>(</span>update <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='va'>ci</span> <span class='op'>~</span> <span class='st'>"95% CI"</span><span class='op'>)</span><span class='op'>)</span>
+  <span class='op'>}</span><span class='op'>)</span> <span class='op'><a href='http://gdfe.co/srvyr/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='https://www.danieldsjoberg.com/gtsummary/reference/tbl_merge.html'>tbl_merge</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'><a href='http://gdfe.co/srvyr/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='https://www.danieldsjoberg.com/gtsummary/reference/modify.html'>modify_header</a></span><span class='op'>(</span>update <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>
     <span class='va'>label</span> <span class='op'>~</span> <span class='st'>" "</span> ,
     <span class='va'>estimate_1</span> <span class='op'>~</span> <span class='st'>'**Burkina Faso**'</span>,
     <span class='va'>estimate_2</span> <span class='op'>~</span> <span class='st'>'**DR Congo &lt;br&gt; (Kinshasa)**'</span>,
     <span class='va'>estimate_3</span> <span class='op'>~</span> <span class='st'>'**Kenya**'</span>,
     <span class='va'>estimate_4</span> <span class='op'>~</span> <span class='st'>'**Nigeria &lt;br&gt; (Lagos &amp; Kano)**'</span>
-  <span class='op'>)</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
-  <span class='fu'><a href='http://www.danieldsjoberg.com/gtsummary//reference/modify.html'>modify_spanning_header</a></span><span class='op'>(</span>
+  <span class='op'>)</span><span class='op'>)</span> <span class='op'><a href='http://gdfe.co/srvyr/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='https://www.danieldsjoberg.com/gtsummary/reference/modify.html'>modify_spanning_header</a></span><span class='op'>(</span>
     <span class='fu'><a href='https://tidyselect.r-lib.org/reference/everything.html'>everything</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>~</span> <span class='st'>"## Odds Ratios obtained from Logistic Regression"</span>
   <span class='op'>)</span> 
 </code></pre>
@@ -5487,12 +5526,12 @@ Because our use of weights results in non-integer outcomes, we’ll also need to
 <a href="https://purrr.tidyverse.org/reference/index.html">purrr</a> is included with <code>library(tidyverse)</code>.
 </aside>
 <div class="layout-chunk" data-layout="l-body-outset">
-<div id="klfevxmdhs" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<div id="gnnppnomqq" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
 
-#klfevxmdhs .gt_table {
+#gnnppnomqq .gt_table {
   display: table;
   border-collapse: collapse;
   margin-left: auto;
@@ -5517,7 +5556,7 @@ Because our use of weights results in non-integer outcomes, we’ll also need to
   border-left-color: #D3D3D3;
 }
 
-#klfevxmdhs .gt_heading {
+#gnnppnomqq .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -5529,7 +5568,7 @@ Because our use of weights results in non-integer outcomes, we’ll also need to
   border-right-color: #D3D3D3;
 }
 
-#klfevxmdhs .gt_title {
+#gnnppnomqq .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -5539,23 +5578,23 @@ Because our use of weights results in non-integer outcomes, we’ll also need to
   border-bottom-width: 0;
 }
 
-#klfevxmdhs .gt_subtitle {
+#gnnppnomqq .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
   padding-top: 0;
-  padding-bottom: 4px;
+  padding-bottom: 6px;
   border-top-color: #FFFFFF;
   border-top-width: 0;
 }
 
-#klfevxmdhs .gt_bottom_border {
+#gnnppnomqq .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#klfevxmdhs .gt_col_headings {
+#gnnppnomqq .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -5570,7 +5609,7 @@ Because our use of weights results in non-integer outcomes, we’ll also need to
   border-right-color: #D3D3D3;
 }
 
-#klfevxmdhs .gt_col_heading {
+#gnnppnomqq .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -5590,7 +5629,7 @@ Because our use of weights results in non-integer outcomes, we’ll also need to
   overflow-x: hidden;
 }
 
-#klfevxmdhs .gt_column_spanner_outer {
+#gnnppnomqq .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -5602,27 +5641,27 @@ Because our use of weights results in non-integer outcomes, we’ll also need to
   padding-right: 4px;
 }
 
-#klfevxmdhs .gt_column_spanner_outer:first-child {
+#gnnppnomqq .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#klfevxmdhs .gt_column_spanner_outer:last-child {
+#gnnppnomqq .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#klfevxmdhs .gt_column_spanner {
+#gnnppnomqq .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
   vertical-align: bottom;
   padding-top: 5px;
-  padding-bottom: 6px;
+  padding-bottom: 5px;
   overflow-x: hidden;
   display: inline-block;
   width: 100%;
 }
 
-#klfevxmdhs .gt_group_heading {
+#gnnppnomqq .gt_group_heading {
   padding: 8px;
   color: #333333;
   background-color: #FFFFFF;
@@ -5644,7 +5683,7 @@ Because our use of weights results in non-integer outcomes, we’ll also need to
   vertical-align: middle;
 }
 
-#klfevxmdhs .gt_empty_group_heading {
+#gnnppnomqq .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -5659,15 +5698,15 @@ Because our use of weights results in non-integer outcomes, we’ll also need to
   vertical-align: middle;
 }
 
-#klfevxmdhs .gt_from_md > :first-child {
+#gnnppnomqq .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#klfevxmdhs .gt_from_md > :last-child {
+#gnnppnomqq .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#klfevxmdhs .gt_row {
+#gnnppnomqq .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -5686,7 +5725,7 @@ Because our use of weights results in non-integer outcomes, we’ll also need to
   overflow-x: hidden;
 }
 
-#klfevxmdhs .gt_stub {
+#gnnppnomqq .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -5698,7 +5737,7 @@ Because our use of weights results in non-integer outcomes, we’ll also need to
   padding-left: 12px;
 }
 
-#klfevxmdhs .gt_summary_row {
+#gnnppnomqq .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -5708,7 +5747,7 @@ Because our use of weights results in non-integer outcomes, we’ll also need to
   padding-right: 5px;
 }
 
-#klfevxmdhs .gt_first_summary_row {
+#gnnppnomqq .gt_first_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -5718,7 +5757,7 @@ Because our use of weights results in non-integer outcomes, we’ll also need to
   border-top-color: #D3D3D3;
 }
 
-#klfevxmdhs .gt_grand_summary_row {
+#gnnppnomqq .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -5728,7 +5767,7 @@ Because our use of weights results in non-integer outcomes, we’ll also need to
   padding-right: 5px;
 }
 
-#klfevxmdhs .gt_first_grand_summary_row {
+#gnnppnomqq .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -5738,11 +5777,11 @@ Because our use of weights results in non-integer outcomes, we’ll also need to
   border-top-color: #D3D3D3;
 }
 
-#klfevxmdhs .gt_striped {
+#gnnppnomqq .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#klfevxmdhs .gt_table_body {
+#gnnppnomqq .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -5751,7 +5790,7 @@ Because our use of weights results in non-integer outcomes, we’ll also need to
   border-bottom-color: #D3D3D3;
 }
 
-#klfevxmdhs .gt_footnotes {
+#gnnppnomqq .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -5765,13 +5804,13 @@ Because our use of weights results in non-integer outcomes, we’ll also need to
   border-right-color: #D3D3D3;
 }
 
-#klfevxmdhs .gt_footnote {
+#gnnppnomqq .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding: 4px;
 }
 
-#klfevxmdhs .gt_sourcenotes {
+#gnnppnomqq .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -5785,41 +5824,41 @@ Because our use of weights results in non-integer outcomes, we’ll also need to
   border-right-color: #D3D3D3;
 }
 
-#klfevxmdhs .gt_sourcenote {
+#gnnppnomqq .gt_sourcenote {
   font-size: 90%;
   padding: 4px;
 }
 
-#klfevxmdhs .gt_left {
+#gnnppnomqq .gt_left {
   text-align: left;
 }
 
-#klfevxmdhs .gt_center {
+#gnnppnomqq .gt_center {
   text-align: center;
 }
 
-#klfevxmdhs .gt_right {
+#gnnppnomqq .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#klfevxmdhs .gt_font_normal {
+#gnnppnomqq .gt_font_normal {
   font-weight: normal;
 }
 
-#klfevxmdhs .gt_font_bold {
+#gnnppnomqq .gt_font_bold {
   font-weight: bold;
 }
 
-#klfevxmdhs .gt_font_italic {
+#gnnppnomqq .gt_font_italic {
   font-style: italic;
 }
 
-#klfevxmdhs .gt_super {
+#gnnppnomqq .gt_super {
   font-size: 65%;
 }
 
-#klfevxmdhs .gt_footnote_marks {
+#gnnppnomqq .gt_footnote_marks {
   font-style: italic;
   font-weight: normal;
   font-size: 65%;
@@ -5891,12 +5930,12 @@ Because our use of weights results in non-integer outcomes, we’ll also need to
 <td class="gt_row gt_center">0.81</td>
 <td class="gt_row gt_center">0.59, 1.11</td>
 <td class="gt_row gt_center">2.81</td>
-<td class="gt_row gt_center">0.94, 8.39</td></tr>
+<td class="gt_row gt_center">0.94, 8.40</td></tr>
     <tr><td class="gt_row gt_left" style="text-align: left; text-indent: 10px;">Divorced or separated</td>
 <td class="gt_row gt_center">1.48</td>
 <td class="gt_row gt_center">0.50, 4.35</td>
 <td class="gt_row gt_center">1.94</td>
-<td class="gt_row gt_center">0.95, 3.97</td>
+<td class="gt_row gt_center">0.95, 3.98</td>
 <td class="gt_row gt_center">1.26</td>
 <td class="gt_row gt_center">0.92, 1.73</td>
 <td class="gt_row gt_center">1.10</td>
@@ -5905,7 +5944,7 @@ Because our use of weights results in non-integer outcomes, we’ll also need to
 <td class="gt_row gt_center">1.18</td>
 <td class="gt_row gt_center">0.38, 3.62</td>
 <td class="gt_row gt_center">0.70</td>
-<td class="gt_row gt_center">0.08, 6.09</td>
+<td class="gt_row gt_center">0.08, 6.11</td>
 <td class="gt_row gt_center">1.09</td>
 <td class="gt_row gt_center">0.72, 1.65</td>
 <td class="gt_row gt_center">0.39</td>
@@ -5932,7 +5971,7 @@ Because our use of weights results in non-integer outcomes, we’ll also need to
 <td class="gt_row gt_center">0.92</td>
 <td class="gt_row gt_center">0.58, 1.47</td>
 <td class="gt_row gt_center">0.39</td>
-<td class="gt_row gt_center">0.02, 6.04</td>
+<td class="gt_row gt_center">0.02, 6.06</td>
 <td class="gt_row gt_center">1.50</td>
 <td class="gt_row gt_center">0.95, 2.38</td>
 <td class="gt_row gt_center">0.85</td>
@@ -5941,7 +5980,7 @@ Because our use of weights results in non-integer outcomes, we’ll also need to
 <td class="gt_row gt_center">0.71</td>
 <td class="gt_row gt_center">0.43, 1.16</td>
 <td class="gt_row gt_center">0.99</td>
-<td class="gt_row gt_center">0.10, 9.65</td>
+<td class="gt_row gt_center">0.10, 9.67</td>
 <td class="gt_row gt_center">1.31</td>
 <td class="gt_row gt_center">0.82, 2.09</td>
 <td class="gt_row gt_center">0.80</td>
@@ -5979,10 +6018,10 @@ Because our use of weights results in non-integer outcomes, we’ll also need to
 <p>For Word documents, try piping your table to the function <code>gtsummary::as_flex_table()</code> like this, and then copy / paste the result directly into Word. (You may need to install the package <code>flextable</code> first).</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre><code><span class='va'>covid</span> <span class='op'>%&gt;%</span> 
-  <span class='fu'><a href='http://gdfe.co/srvyr/reference/dplyr_single.html'>select</a></span><span class='op'>(</span><span class='va'>AGE</span>, <span class='va'>MARSTAT</span>, <span class='va'>EDUCATTGEN</span>, <span class='va'>URBAN</span>, <span class='va'>COUNTRY</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
-  <span class='fu'><a href='http://www.danieldsjoberg.com/gtsummary//reference/tbl_summary.html'>tbl_summary</a></span><span class='op'>(</span>by <span class='op'>=</span> <span class='va'>COUNTRY</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
-  <span class='fu'><a href='http://www.danieldsjoberg.com/gtsummary//reference/as_flex_table.html'>as_flex_table</a></span><span class='op'>(</span><span class='op'>)</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>covid</span> <span class='op'><a href='http://gdfe.co/srvyr/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='http://gdfe.co/srvyr/reference/dplyr_single.html'>select</a></span><span class='op'>(</span><span class='va'>AGE</span>, <span class='va'>MARSTAT</span>, <span class='va'>EDUCATTGEN</span>, <span class='va'>URBAN</span>, <span class='va'>COUNTRY</span><span class='op'>)</span> <span class='op'><a href='http://gdfe.co/srvyr/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='https://www.danieldsjoberg.com/gtsummary/reference/tbl_summary.html'>tbl_summary</a></span><span class='op'>(</span>by <span class='op'>=</span> <span class='va'>COUNTRY</span><span class='op'>)</span> <span class='op'><a href='http://gdfe.co/srvyr/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='https://www.danieldsjoberg.com/gtsummary/reference/as_flex_table.html'>as_flex_table</a></span><span class='op'>(</span><span class='op'>)</span>
 </code></pre>
 </div>
 </div>
@@ -5992,10 +6031,10 @@ Because our use of weights results in non-integer outcomes, we’ll also need to
 <p>Several printers work well for PDF output, including the very popular <code>kable_extra</code>. If you’re making a PDF with RMarkdown, for example, you could pipe your table into <code>gtsummary::as_kable_extra()</code>. (You may need to install the package <code>kable_extra</code> first).</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre><code><span class='va'>covid</span> <span class='op'>%&gt;%</span> 
-  <span class='fu'><a href='http://gdfe.co/srvyr/reference/dplyr_single.html'>select</a></span><span class='op'>(</span><span class='va'>AGE</span>, <span class='va'>MARSTAT</span>, <span class='va'>EDUCATTGEN</span>, <span class='va'>URBAN</span>, <span class='va'>COUNTRY</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
-  <span class='fu'><a href='http://www.danieldsjoberg.com/gtsummary//reference/tbl_summary.html'>tbl_summary</a></span><span class='op'>(</span>by <span class='op'>=</span> <span class='va'>COUNTRY</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
-  <span class='fu'><a href='http://www.danieldsjoberg.com/gtsummary//reference/as_kable_extra.html'>as_kable_extra</a></span><span class='op'>(</span><span class='op'>)</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>covid</span> <span class='op'><a href='http://gdfe.co/srvyr/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='http://gdfe.co/srvyr/reference/dplyr_single.html'>select</a></span><span class='op'>(</span><span class='va'>AGE</span>, <span class='va'>MARSTAT</span>, <span class='va'>EDUCATTGEN</span>, <span class='va'>URBAN</span>, <span class='va'>COUNTRY</span><span class='op'>)</span> <span class='op'><a href='http://gdfe.co/srvyr/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='https://www.danieldsjoberg.com/gtsummary/reference/tbl_summary.html'>tbl_summary</a></span><span class='op'>(</span>by <span class='op'>=</span> <span class='va'>COUNTRY</span><span class='op'>)</span> <span class='op'><a href='http://gdfe.co/srvyr/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='https://www.danieldsjoberg.com/gtsummary/reference/as_kable_extra.html'>as_kable_extra</a></span><span class='op'>(</span><span class='op'>)</span>
 </code></pre>
 </div>
 </div>

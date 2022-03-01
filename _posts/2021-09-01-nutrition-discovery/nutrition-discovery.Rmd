@@ -287,6 +287,7 @@ By design, SDP samples represent the service environment experienced by women an
 
 For example, let's take a look at a few of the facilities surveyed in Kenya 2017:
 
+<div style="width:100%">
 ```{r, layout="l-page"}
 sdp <- sdp %>% 
   filter(EASERVED1 == 4092, YEAR == 2017) %>% 
@@ -309,6 +310,7 @@ sdp %>%
     box_css = "margin-bottom: 1em; border: 0px solid #ddd; padding: 5px;"
   )
 ```
+</div>
 
 All three of these facilities provide services to the enumeration area 4092, but only one - the private-sector pharmacy - is actually *located* there (see [EAID](https://pma.ipums.org/pma-action/variables/EAID)). The two public-sector hospitals serve multiple enumeration areas shown in variables sharing the stem `EASERVED` (some public-sector facilities serve up to 18 different enumeration areas listed in variables [EASERVED1](https://pma.ipums.org/pma-action/variables/EASERVED1) to [EASERVED18](https://pma.ipums.org/pma-action/variables/EASERVED18)).
 

@@ -56,7 +56,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 }
 code span.al { color: #ad0000; } /* Alert */
 code span.an { color: #5e5e5e; } /* Annotation */
-code span.at { color: #20794d; } /* Attribute */
+code span.at { } /* Attribute */
 code span.bn { color: #ad0000; } /* BaseN */
 code span.bu { } /* BuiltIn */
 code span.cf { color: #007ba5; } /* ControlFlow */
@@ -77,13 +77,14 @@ code span.kw { color: #007ba5; } /* Keyword */
 code span.op { color: #5e5e5e; } /* Operator */
 code span.ot { color: #007ba5; } /* Other */
 code span.pp { color: #ad0000; } /* Preprocessor */
-code span.sc { color: #20794d; } /* SpecialChar */
+code span.sc { color: #5e5e5e; } /* SpecialChar */
 code span.ss { color: #20794d; } /* SpecialString */
 code span.st { color: #20794d; } /* String */
 code span.va { color: #111111; } /* Variable */
 code span.vs { color: #20794d; } /* VerbatimString */
 code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 </style>
+
 
   <!--radix_placeholder_meta_tags-->
 <title>Data Analysis Hub: Introducing PMA Nutrition Data</title>
@@ -2509,10 +2510,14 @@ d-appendix d-footnote-list a.footnote-backlink {
   color: var(--hover-color, white);
 }</style>
 <!--/radix_placeholder_distill-->
-  <script src="../../site_libs/header-attrs-2.9/header-attrs.js"></script>
+  <script src="../../site_libs/header-attrs-2.11/header-attrs.js"></script>
   <script src="../../site_libs/kePrint-0.0.1/kePrint.js"></script>
   <link href="../../site_libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
-  <script src="../../site_libs/jquery-1.11.3/jquery.min.js"></script>
+  <script src="../../site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+  <script src="../../site_libs/popper-2.6.0/popper.min.js"></script>
+  <link href="../../site_libs/tippy-6.2.7/tippy.css" rel="stylesheet" />
+  <link href="../../site_libs/tippy-6.2.7/tippy-light-border.css" rel="stylesheet" />
+  <script src="../../site_libs/tippy-6.2.7/tippy.umd.min.js"></script>
   <script src="../../site_libs/anchor-4.2.2/anchor.min.js"></script>
   <script src="../../site_libs/bowser-1.9.3/bowser.min.js"></script>
   <script src="../../site_libs/webcomponents-2.0.0/webcomponents.js"></script>
@@ -2668,7 +2673,7 @@ Anyone can browse IPUMS PMA documentation, but you’ll need to <a href="https:/
 <p>Throughout this series, we’ll use tools from <a href="http://tech.popdata.org/ipumsr/">ipumsr</a> and the <a href="https://tidyverse.tidyverse.org/">tidyverse</a> to work with IPUMS PMA nutrition data in R. Once you’ve downloaded extracts from one or both units of analysis, you can load them into R as follows (changing the file paths as needed):</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre><code><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://tidyverse.tidyverse.org'>tidyverse</a></span><span class='op'>)</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://tidyverse.tidyverse.org'>tidyverse</a></span><span class='op'>)</span>
 <span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://www.ipums.org'>ipumsr</a></span><span class='op'>)</span>
 
 <span class='co'># we'll call data from the SDP unit of analysis `sdp`</span>
@@ -3236,6 +3241,7 @@ NIU (not in universe)
 </ul>
 <p>By design, SDP samples represent the service environment experienced by women and children in a corresponding household sample (SDP samples are <em>not</em> nationally representative). We anticipate that most users will want to aggregate data collected from several facilities serving the same enumeration area.</p>
 <p>For example, let’s take a look at a few of the facilities surveyed in Kenya 2017:</p>
+<div style="width:100%">
 <div class="layout-chunk" data-layout="l-page">
 <div style="margin-bottom: 1em; border: 0px solid #ddd; padding: 5px;overflow-x: scroll; width:100%; ">
 <table class="table" style="margin-left: auto; margin-right: auto;">
@@ -3350,6 +3356,7 @@ No
 </table>
 </div>
 </div>
+</div>
 <p>All three of these facilities provide services to the enumeration area 4092, but only one - the private-sector pharmacy - is actually <em>located</em> there (see <a href="https://pma.ipums.org/pma-action/variables/EAID">EAID</a>). The two public-sector hospitals serve multiple enumeration areas shown in variables sharing the stem <code>EASERVED</code> (some public-sector facilities serve up to 18 different enumeration areas listed in variables <a href="https://pma.ipums.org/pma-action/variables/EASERVED1">EASERVED1</a> to <a href="https://pma.ipums.org/pma-action/variables/EASERVED18">EASERVED18</a>).</p>
 <aside>
 <p>Private facilities will only list one <code>EASERVED</code> - it will always match the facility’s <code>EAID</code>.</p>
@@ -3358,8 +3365,8 @@ Public facilities may serve multiple <code>EASERVED</code>, usually including th
 <p>The last variable <a href="https://pma.ipums.org/pma-action/variables/NUTFAC">NUTFAC</a> reports whether each SDP is a “nutritional facility”, defined as a facility that “supervises, supports, or supplies community nutrition services provided either by paid staff or community health volunteers (CHVs)”. A simple way to integrate SDP data with household data from the same country-year might be to <em>count</em> the number of “nutritional facilities” serving each enumeration area. We recommend using <code>pivot_longer()</code> to create one row for each <code>EASERVED</code> in every facility’s catchment list:</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre><code><span class='va'>sdp</span> <span class='op'>&lt;-</span> <span class='va'>sdp</span> <span class='op'>%&gt;%</span> 
-  <span class='fu'>pivot_longer</span><span class='op'>(</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>sdp</span> <span class='op'>&lt;-</span> <span class='va'>sdp</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='https://tidyr.tidyverse.org/reference/pivot_longer.html'>pivot_longer</a></span><span class='op'>(</span>
     <span class='fu'><a href='https://tidyselect.r-lib.org/reference/starts_with.html'>starts_with</a></span><span class='op'>(</span><span class='st'>"EASERVED"</span><span class='op'>)</span>,
     values_to <span class='op'>=</span> <span class='st'>"EASERVED"</span>,
     names_to <span class='op'>=</span> <span class='cn'>NULL</span>
@@ -3583,15 +3590,15 @@ NIU (not in universe)
 <p>Each of the three facilities in our example serves up to three enumeration areas shown in <code>EASERVED</code>; if a facility serves fewer than three, the remaining values are <code>NIU (not in universe)</code>. We’re now able to count the number of “nutritional facilities” serving each enumeration area, and we can easily attach those counts to a household sample from the same year. Let’s join a count of the “nutritional facilities” <code>N_NUTFAC</code> with a count of sampled household members <code>N_PERSONID</code> living in each service area represented by our three example facilities.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre><code><span class='va'>merged</span> <span class='op'>&lt;-</span> <span class='va'>sdp</span> <span class='op'>%&gt;%</span> 
-  <span class='fu'><a href='https://rdrr.io/r/stats/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>EASERVED</span> <span class='op'>!=</span> <span class='st'>"NIU (not in universe)"</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
-  <span class='fu'>group_by</span><span class='op'>(</span><span class='va'>EASERVED</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
-  <span class='fu'>summarise</span><span class='op'>(</span>N_NUTFAC <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span><span class='op'>(</span><span class='va'>NUTFAC</span> <span class='op'>==</span> <span class='st'>"Yes"</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
-  <span class='fu'>left_join</span><span class='op'>(</span><span class='va'>hh</span> <span class='op'>%&gt;%</span> <span class='fu'>rename</span><span class='op'>(</span>EASERVED <span class='op'>=</span> <span class='va'>EAID</span><span class='op'>)</span>, by <span class='op'>=</span> <span class='st'>"EASERVED"</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
-  <span class='fu'>group_by</span><span class='op'>(</span><span class='va'>EASERVED</span>, <span class='va'>N_NUTFAC</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
-  <span class='fu'>summarise</span><span class='op'>(</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>merged</span> <span class='op'>&lt;-</span> <span class='va'>sdp</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>EASERVED</span> <span class='op'>!=</span> <span class='st'>"NIU (not in universe)"</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span><span class='op'>(</span><span class='va'>EASERVED</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/summarise.html'>summarise</a></span><span class='op'>(</span>N_NUTFAC <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span><span class='op'>(</span><span class='va'>NUTFAC</span> <span class='op'>==</span> <span class='st'>"Yes"</span><span class='op'>)</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span>
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate-joins.html'>left_join</a></span><span class='op'>(</span><span class='va'>hh</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/rename.html'>rename</a></span><span class='op'>(</span>EASERVED <span class='op'>=</span> <span class='va'>EAID</span><span class='op'>)</span>, by <span class='op'>=</span> <span class='st'>"EASERVED"</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span><span class='op'>(</span><span class='va'>EASERVED</span>, <span class='va'>N_NUTFAC</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/summarise.html'>summarise</a></span><span class='op'>(</span>
     .groups <span class='op'>=</span> <span class='st'>"keep"</span>,
-    N_PERSONID <span class='op'>=</span> <span class='fu'>n_distinct</span><span class='op'>(</span><span class='va'>PERSONID</span><span class='op'>)</span>
+    N_PERSONID <span class='op'>=</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/n_distinct.html'>n_distinct</a></span><span class='op'>(</span><span class='va'>PERSONID</span><span class='op'>)</span>
   <span class='op'>)</span>
 </code></pre>
 </div>

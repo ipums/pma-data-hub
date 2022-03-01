@@ -14,6 +14,7 @@ categories:
   - Data Analysis
   - svyVGAM
   - Multinomial Logit
+  - Weights
 output:
   distill::distill_article:
     self_contained: false

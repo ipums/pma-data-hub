@@ -16,6 +16,7 @@ categories:
   - purrr
   - Descriptive Analysis
   - Data Manipulation 
+  - Weights
 output:
   distill::distill_article:
     self_contained: false
@@ -311,7 +312,7 @@ Headers can span individuals columns (as shown in `modify_header()`), groups of 
 **Tip:** if you simply want to move the sample size from the header into its own row (rather than delete it, as we've done here), you could create a new `factor` variable `N` where every person gets the value `1` in the step after our `select()` function.
 </aside>
 
-# Survey Weights 
+# Sampling Weights 
 
 We mentioned [in our last post](../2021-06-15-covid-discovery/#sample-design) that the PMA COVID-19 survey comes with a new weighting variable, [CVQWEIGHT](https://pma.ipums.org/pma-action/variables/CVQWEIGHT#codes_section), which is analogous to the variable [FQWEIGHT](https://pma.ipums.org/pma-action/variables/FQWEIGHT) found in other Household and Female samples. `CVQWEIGHT` can be used to estimate all of the statistics shown in our table for the broader population represented by each sample (note that two of the samples are not nationally representative):
 

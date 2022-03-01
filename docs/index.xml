@@ -12,7 +12,23 @@
       <link>https://ipums.github.io/pma-data-hub/</link>
     </image>
     <generator>Distill</generator>
-    <lastBuildDate>Tue, 15 Feb 2022 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 01 Mar 2022 00:00:00 +0000</lastBuildDate>
+    <item>
+      <title>Family Planning Panel Data Now Available from IPUMS PMA</title>
+      <dc:creator>Matt Gunther</dc:creator>
+      <dc:creator>Devon Kristiansen</dc:creator>
+      <link>https://ipums.github.io/pma-data-hub/posts/2022-03-01-phase2-discovery</link>
+      <description>This month's data release includes Phase 2 panel data from 6 samples, plus Phase 1 panel data from 3 new countries.</description>
+      <category>Panel Data</category>
+      <category>Data Discovery</category>
+      <category>New Data</category>
+      <category>Family Planning</category>
+      <category>Weights</category>
+      <category>Cluster Sampling</category>
+      <guid>https://ipums.github.io/pma-data-hub/posts/2022-03-01-phase2-discovery</guid>
+      <pubDate>Tue, 01 Mar 2022 00:00:00 +0000</pubDate>
+      <media:content url="https://ipums.github.io/pma-data-hub/posts/2022-03-01-phase2-discovery/../../images/new_data.png" medium="image" type="image/png" width="2555" height="1437"/>
+    </item>
     <item>
       <title>Modeling client satistifaction with both individual and facility characteristics</title>
       <dc:creator>Jiao Yu</dc:creator>
@@ -184,6 +200,7 @@
       <category>Data Analysis</category>
       <category>svyVGAM</category>
       <category>Multinomial Logit</category>
+      <category>Weights</category>
       <guid>https://ipums.github.io/pma-data-hub/posts/2021-08-15-covid-analysis</guid>
       <pubDate>Sun, 15 Aug 2021 00:00:00 +0000</pubDate>
       <media:content url="https://ipums.github.io/pma-data-hub/posts/2021-08-15-covid-analysis/images/alluvial.png" medium="image" type="image/png" width="1422" height="714"/>
@@ -239,6 +256,7 @@
       <category>purrr</category>
       <category>Descriptive Analysis</category>
       <category>Data Manipulation</category>
+      <category>Weights</category>
       <guid>https://ipums.github.io/pma-data-hub/posts/2021-07-01-covid-tables</guid>
       <pubDate>Thu, 01 Jul 2021 00:00:00 +0000</pubDate>
       <media:content url="https://ipums.github.io/pma-data-hub/posts/2021-07-01-covid-tables/images/gtsummary_wide.png" medium="image" type="image/png" width="483" height="230"/>
