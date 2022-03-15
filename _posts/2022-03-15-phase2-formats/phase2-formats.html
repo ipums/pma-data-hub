@@ -1,0 +1,1964 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1"/>
+  <meta name="generator" content="distill" />
+
+  <style type="text/css">
+  /* Hide doc at startup (prevent jankiness while JS renders/transforms) */
+  body {
+    visibility: hidden;
+  }
+  </style>
+
+ <!--radix_placeholder_import_source-->
+ <!--/radix_placeholder_import_source-->
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css" data-origin="pandoc">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ad0000; } /* Alert */
+code span.an { color: #5e5e5e; } /* Annotation */
+code span.at { } /* Attribute */
+code span.bn { color: #ad0000; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007ba5; } /* ControlFlow */
+code span.ch { color: #20794d; } /* Char */
+code span.cn { color: #8f5902; } /* Constant */
+code span.co { color: #5e5e5e; } /* Comment */
+code span.cv { color: #5e5e5e; font-style: italic; } /* CommentVar */
+code span.do { color: #5e5e5e; font-style: italic; } /* Documentation */
+code span.dt { color: #ad0000; } /* DataType */
+code span.dv { color: #ad0000; } /* DecVal */
+code span.er { color: #ad0000; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #ad0000; } /* Float */
+code span.fu { color: #4758ab; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #5e5e5e; } /* Information */
+code span.kw { color: #007ba5; } /* Keyword */
+code span.op { color: #5e5e5e; } /* Operator */
+code span.ot { color: #007ba5; } /* Other */
+code span.pp { color: #ad0000; } /* Preprocessor */
+code span.sc { color: #5e5e5e; } /* SpecialChar */
+code span.ss { color: #20794d; } /* SpecialString */
+code span.st { color: #20794d; } /* String */
+code span.va { color: #111111; } /* Variable */
+code span.vs { color: #20794d; } /* VerbatimString */
+code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
+</style>
+
+
+  <!--radix_placeholder_meta_tags-->
+  <title>Longitudinal Data Extracts</title>
+
+  <meta property="description" itemprop="description" content="Getting started with new &quot;long&quot; and &quot;wide&quot; data formats in R."/>
+
+
+  <!--  https://schema.org/Article -->
+  <meta property="article:published" itemprop="datePublished" content="2022-03-15"/>
+  <meta property="article:created" itemprop="dateCreated" content="2022-03-15"/>
+  <meta name="article:author" content="Matt Gunther"/>
+  <meta name="article:author" content="Devon Kristiansen"/>
+
+  <!--  https://developers.facebook.com/docs/sharing/webmasters#markup -->
+  <meta property="og:title" content="Longitudinal Data Extracts"/>
+  <meta property="og:type" content="article"/>
+  <meta property="og:description" content="Getting started with new &quot;long&quot; and &quot;wide&quot; data formats in R."/>
+  <meta property="og:locale" content="en_US"/>
+
+  <!--  https://dev.twitter.com/cards/types/summary -->
+  <meta property="twitter:card" content="summary"/>
+  <meta property="twitter:title" content="Longitudinal Data Extracts"/>
+  <meta property="twitter:description" content="Getting started with new &quot;long&quot; and &quot;wide&quot; data formats in R."/>
+
+  <!--/radix_placeholder_meta_tags-->
+  <!--radix_placeholder_rmarkdown_metadata-->
+
+  <script type="text/json" id="radix-rmarkdown-metadata">
+  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","author","categories","date","output","preview"]}},"value":[{"type":"character","attributes":{},"value":["Longitudinal Data Extracts"]},{"type":"character","attributes":{},"value":["Getting started with new \"long\" and \"wide\" data formats in R.\n"]},{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","affiliation"]}},"value":[{"type":"character","attributes":{},"value":["Matt Gunther"]},{"type":"character","attributes":{},"value":["IPUMS PMA Senior Data Analyst"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","affiliation","url"]}},"value":[{"type":"character","attributes":{},"value":["Devon Kristiansen"]},{"type":"character","attributes":{},"value":["IPUMS PMA Project Manager"]},{"type":"character","attributes":{},"value":["https://www.linkedin.com/in/devonkristiansen"]}]}]},{"type":"character","attributes":{},"value":["Panel Data","Data Discovery","Family Planning","Importing Data","ipumsr"]},{"type":"character","attributes":{},"value":["2022-03-15"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["self_contained","toc","toc_depth","toc_float"]}},"value":[{"type":"logical","attributes":{},"value":[false]},{"type":"logical","attributes":{},"value":[true]},{"type":"integer","attributes":{},"value":[3]},{"type":"logical","attributes":{},"value":[true]}]}]},{"type":"character","attributes":{},"value":["images/video.png"]}]}
+  </script>
+  <!--/radix_placeholder_rmarkdown_metadata-->
+  
+  <script type="text/json" id="radix-resource-manifest">
+  {"type":"character","attributes":{},"value":["data/pma_00084.dat.gz","data/pma_00084.xml","data/pma_00086.dat.gz","data/pma_00086.xml","data/pma_00095.dat.gz","data/pma_00095.xml","data/pma_00096.dat.gz","data/pma_00096.xml","data/pma_00097.dat.gz","data/pma_00097.xml","data/pma_00098.dat.gz","data/pma_00098.xml","images/avail.png","images/buttons.png","images/cart.png","images/cases.png","images/checkout1.png","images/checkout2.png","images/codes-all.png","images/codes-fr.png","images/comp.png","images/covidconcern.png","images/cross-sectional.png","images/dat.png","images/desc.png","images/dialogue.png","images/download.png","images/long.png","images/question.png","images/select-data.png","images/select-samples.png","images/table.png","images/topics.png","images/unit.png","images/universe.png","images/video.png","images/wide.png","phase2-formats_files/anchor-4.2.2/anchor.min.js","phase2-formats_files/bowser-1.9.3/bowser.min.js","phase2-formats_files/distill-2.2.21/template.v2.js","phase2-formats_files/header-attrs-2.11/header-attrs.js","phase2-formats_files/jquery-3.6.0/jquery-3.6.0.js","phase2-formats_files/jquery-3.6.0/jquery-3.6.0.min.js","phase2-formats_files/jquery-3.6.0/jquery-3.6.0.min.map","phase2-formats_files/popper-2.6.0/popper.min.js","phase2-formats_files/tippy-6.2.7/tippy-bundle.umd.min.js","phase2-formats_files/tippy-6.2.7/tippy-light-border.css","phase2-formats_files/tippy-6.2.7/tippy.css","phase2-formats_files/tippy-6.2.7/tippy.umd.min.js","phase2-formats_files/webcomponents-2.0.0/webcomponents.js"]}
+  </script>
+  <!--radix_placeholder_navigation_in_header-->
+  <!--/radix_placeholder_navigation_in_header-->
+  <!--radix_placeholder_distill-->
+
+  <style type="text/css">
+
+  body {
+    background-color: white;
+  }
+
+  .pandoc-table {
+    width: 100%;
+  }
+
+  .pandoc-table>caption {
+    margin-bottom: 10px;
+  }
+
+  .pandoc-table th:not([align]) {
+    text-align: left;
+  }
+
+  .pagedtable-footer {
+    font-size: 15px;
+  }
+
+  d-byline .byline {
+    grid-template-columns: 2fr 2fr;
+  }
+
+  d-byline .byline h3 {
+    margin-block-start: 1.5em;
+  }
+
+  d-byline .byline .authors-affiliations h3 {
+    margin-block-start: 0.5em;
+  }
+
+  .authors-affiliations .orcid-id {
+    width: 16px;
+    height:16px;
+    margin-left: 4px;
+    margin-right: 4px;
+    vertical-align: middle;
+    padding-bottom: 2px;
+  }
+
+  d-title .dt-tags {
+    margin-top: 1em;
+    grid-column: text;
+  }
+
+  .dt-tags .dt-tag {
+    text-decoration: none;
+    display: inline-block;
+    color: rgba(0,0,0,0.6);
+    padding: 0em 0.4em;
+    margin-right: 0.5em;
+    margin-bottom: 0.4em;
+    font-size: 70%;
+    border: 1px solid rgba(0,0,0,0.2);
+    border-radius: 3px;
+    text-transform: uppercase;
+    font-weight: 500;
+  }
+
+  d-article table.gt_table td,
+  d-article table.gt_table th {
+    border-bottom: none;
+  }
+
+  .html-widget {
+    margin-bottom: 2.0em;
+  }
+
+  .l-screen-inset {
+    padding-right: 16px;
+  }
+
+  .l-screen .caption {
+    margin-left: 10px;
+  }
+
+  .shaded {
+    background: rgb(247, 247, 247);
+    padding-top: 20px;
+    padding-bottom: 20px;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  }
+
+  .shaded .html-widget {
+    margin-bottom: 0;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+  }
+
+  .shaded .shaded-content {
+    background: white;
+  }
+
+  .text-output {
+    margin-top: 0;
+    line-height: 1.5em;
+  }
+
+  .hidden {
+    display: none !important;
+  }
+
+  d-article {
+    padding-top: 2.5rem;
+    padding-bottom: 30px;
+  }
+
+  d-appendix {
+    padding-top: 30px;
+  }
+
+  d-article>p>img {
+    width: 100%;
+  }
+
+  d-article h2 {
+    margin: 1rem 0 1.5rem 0;
+  }
+
+  d-article h3 {
+    margin-top: 1.5rem;
+  }
+
+  d-article iframe {
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    margin-bottom: 2.0em;
+    width: 100%;
+  }
+
+  /* Tweak code blocks */
+
+  d-article div.sourceCode code,
+  d-article pre code {
+    font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+  }
+
+  d-article pre,
+  d-article div.sourceCode,
+  d-article div.sourceCode pre {
+    overflow: auto;
+  }
+
+  d-article div.sourceCode {
+    background-color: white;
+  }
+
+  d-article div.sourceCode pre {
+    padding-left: 10px;
+    font-size: 12px;
+    border-left: 2px solid rgba(0,0,0,0.1);
+  }
+
+  d-article pre {
+    font-size: 12px;
+    color: black;
+    background: none;
+    margin-top: 0;
+    text-align: left;
+    white-space: pre;
+    word-spacing: normal;
+    word-break: normal;
+    word-wrap: normal;
+    line-height: 1.5;
+
+    -moz-tab-size: 4;
+    -o-tab-size: 4;
+    tab-size: 4;
+
+    -webkit-hyphens: none;
+    -moz-hyphens: none;
+    -ms-hyphens: none;
+    hyphens: none;
+  }
+
+  d-article pre a {
+    border-bottom: none;
+  }
+
+  d-article pre a:hover {
+    border-bottom: none;
+    text-decoration: underline;
+  }
+
+  d-article details {
+    grid-column: text;
+    margin-bottom: 0.8em;
+  }
+
+  @media(min-width: 768px) {
+
+  d-article pre,
+  d-article div.sourceCode,
+  d-article div.sourceCode pre {
+    overflow: visible !important;
+  }
+
+  d-article div.sourceCode pre {
+    padding-left: 18px;
+    font-size: 14px;
+  }
+
+  d-article pre {
+    font-size: 14px;
+  }
+
+  }
+
+  figure img.external {
+    background: white;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    box-shadow: 0 1px 8px rgba(0, 0, 0, 0.1);
+    padding: 18px;
+    box-sizing: border-box;
+  }
+
+  /* CSS for d-contents */
+
+  .d-contents {
+    grid-column: text;
+    color: rgba(0,0,0,0.8);
+    font-size: 0.9em;
+    padding-bottom: 1em;
+    margin-bottom: 1em;
+    padding-bottom: 0.5em;
+    margin-bottom: 1em;
+    padding-left: 0.25em;
+    justify-self: start;
+  }
+
+  @media(min-width: 1000px) {
+    .d-contents.d-contents-float {
+      height: 0;
+      grid-column-start: 1;
+      grid-column-end: 4;
+      justify-self: center;
+      padding-right: 3em;
+      padding-left: 2em;
+    }
+  }
+
+  .d-contents nav h3 {
+    font-size: 18px;
+    margin-top: 0;
+    margin-bottom: 1em;
+  }
+
+  .d-contents li {
+    list-style-type: none
+  }
+
+  .d-contents nav > ul {
+    padding-left: 0;
+  }
+
+  .d-contents ul {
+    padding-left: 1em
+  }
+
+  .d-contents nav ul li {
+    margin-top: 0.6em;
+    margin-bottom: 0.2em;
+  }
+
+  .d-contents nav a {
+    font-size: 13px;
+    border-bottom: none;
+    text-decoration: none
+    color: rgba(0, 0, 0, 0.8);
+  }
+
+  .d-contents nav a:hover {
+    text-decoration: underline solid rgba(0, 0, 0, 0.6)
+  }
+
+  .d-contents nav > ul > li > a {
+    font-weight: 600;
+  }
+
+  .d-contents nav > ul > li > ul {
+    font-weight: inherit;
+  }
+
+  .d-contents nav > ul > li > ul > li {
+    margin-top: 0.2em;
+  }
+
+
+  .d-contents nav ul {
+    margin-top: 0;
+    margin-bottom: 0.25em;
+  }
+
+  .d-article-with-toc h2:nth-child(2) {
+    margin-top: 0;
+  }
+
+
+  /* Figure */
+
+  .figure {
+    position: relative;
+    margin-bottom: 2.5em;
+    margin-top: 1.5em;
+  }
+
+  .figure img {
+    width: 100%;
+  }
+
+  .figure .caption {
+    color: rgba(0, 0, 0, 0.6);
+    font-size: 12px;
+    line-height: 1.5em;
+  }
+
+  .figure img.external {
+    background: white;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    box-shadow: 0 1px 8px rgba(0, 0, 0, 0.1);
+    padding: 18px;
+    box-sizing: border-box;
+  }
+
+  .figure .caption a {
+    color: rgba(0, 0, 0, 0.6);
+  }
+
+  .figure .caption b,
+  .figure .caption strong, {
+    font-weight: 600;
+    color: rgba(0, 0, 0, 1.0);
+  }
+
+  /* Citations */
+
+  d-article .citation {
+    color: inherit;
+    cursor: inherit;
+  }
+
+  div.hanging-indent{
+    margin-left: 1em; text-indent: -1em;
+  }
+
+  /* Citation hover box */
+
+  .tippy-box[data-theme~=light-border] {
+    background-color: rgba(250, 250, 250, 0.95);
+  }
+
+  .tippy-content > p {
+    margin-bottom: 0;
+    padding: 2px;
+  }
+
+
+  /* Tweak 1000px media break to show more text */
+
+  @media(min-width: 1000px) {
+    .base-grid,
+    distill-header,
+    d-title,
+    d-abstract,
+    d-article,
+    d-appendix,
+    distill-appendix,
+    d-byline,
+    d-footnote-list,
+    d-citation-list,
+    distill-footer {
+      grid-template-columns: [screen-start] 1fr [page-start kicker-start] 80px [middle-start] 50px [text-start kicker-end] 65px 65px 65px 65px 65px 65px 65px 65px [text-end gutter-start] 65px [middle-end] 65px [page-end gutter-end] 1fr [screen-end];
+      grid-column-gap: 16px;
+    }
+
+    .grid {
+      grid-column-gap: 16px;
+    }
+
+    d-article {
+      font-size: 1.06rem;
+      line-height: 1.7em;
+    }
+    figure .caption, .figure .caption, figure figcaption {
+      font-size: 13px;
+    }
+  }
+
+  @media(min-width: 1180px) {
+    .base-grid,
+    distill-header,
+    d-title,
+    d-abstract,
+    d-article,
+    d-appendix,
+    distill-appendix,
+    d-byline,
+    d-footnote-list,
+    d-citation-list,
+    distill-footer {
+      grid-template-columns: [screen-start] 1fr [page-start kicker-start] 60px [middle-start] 60px [text-start kicker-end] 60px 60px 60px 60px 60px 60px 60px 60px [text-end gutter-start] 60px [middle-end] 60px [page-end gutter-end] 1fr [screen-end];
+      grid-column-gap: 32px;
+    }
+
+    .grid {
+      grid-column-gap: 32px;
+    }
+  }
+
+
+  /* Get the citation styles for the appendix (not auto-injected on render since
+     we do our own rendering of the citation appendix) */
+
+  d-appendix .citation-appendix,
+  .d-appendix .citation-appendix {
+    font-size: 11px;
+    line-height: 15px;
+    border-left: 1px solid rgba(0, 0, 0, 0.1);
+    padding-left: 18px;
+    border: 1px solid rgba(0,0,0,0.1);
+    background: rgba(0, 0, 0, 0.02);
+    padding: 10px 18px;
+    border-radius: 3px;
+    color: rgba(150, 150, 150, 1);
+    overflow: hidden;
+    margin-top: -12px;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+  }
+
+  /* Include appendix styles here so they can be overridden */
+
+  d-appendix {
+    contain: layout style;
+    font-size: 0.8em;
+    line-height: 1.7em;
+    margin-top: 60px;
+    margin-bottom: 0;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    color: rgba(0,0,0,0.5);
+    padding-top: 60px;
+    padding-bottom: 48px;
+  }
+
+  d-appendix h3 {
+    grid-column: page-start / text-start;
+    font-size: 15px;
+    font-weight: 500;
+    margin-top: 1em;
+    margin-bottom: 0;
+    color: rgba(0,0,0,0.65);
+  }
+
+  d-appendix h3 + * {
+    margin-top: 1em;
+  }
+
+  d-appendix ol {
+    padding: 0 0 0 15px;
+  }
+
+  @media (min-width: 768px) {
+    d-appendix ol {
+      padding: 0 0 0 30px;
+      margin-left: -30px;
+    }
+  }
+
+  d-appendix li {
+    margin-bottom: 1em;
+  }
+
+  d-appendix a {
+    color: rgba(0, 0, 0, 0.6);
+  }
+
+  d-appendix > * {
+    grid-column: text;
+  }
+
+  d-appendix > d-footnote-list,
+  d-appendix > d-citation-list,
+  d-appendix > distill-appendix {
+    grid-column: screen;
+  }
+
+  /* Include footnote styles here so they can be overridden */
+
+  d-footnote-list {
+    contain: layout style;
+  }
+
+  d-footnote-list > * {
+    grid-column: text;
+  }
+
+  d-footnote-list a.footnote-backlink {
+    color: rgba(0,0,0,0.3);
+    padding-left: 0.5em;
+  }
+
+
+
+  /* Anchor.js */
+
+  .anchorjs-link {
+    /*transition: all .25s linear; */
+    text-decoration: none;
+    border-bottom: none;
+  }
+  *:hover > .anchorjs-link {
+    margin-left: -1.125em !important;
+    text-decoration: none;
+    border-bottom: none;
+  }
+
+  /* Social footer */
+
+  .social_footer {
+    margin-top: 30px;
+    margin-bottom: 0;
+    color: rgba(0,0,0,0.67);
+  }
+
+  .disqus-comments {
+    margin-right: 30px;
+  }
+
+  .disqus-comment-count {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.4);
+    cursor: pointer;
+  }
+
+  #disqus_thread {
+    margin-top: 30px;
+  }
+
+  .article-sharing a {
+    border-bottom: none;
+    margin-right: 8px;
+  }
+
+  .article-sharing a:hover {
+    border-bottom: none;
+  }
+
+  .sidebar-section.subscribe {
+    font-size: 12px;
+    line-height: 1.6em;
+  }
+
+  .subscribe p {
+    margin-bottom: 0.5em;
+  }
+
+
+  .article-footer .subscribe {
+    font-size: 15px;
+    margin-top: 45px;
+  }
+
+
+  .sidebar-section.custom {
+    font-size: 12px;
+    line-height: 1.6em;
+  }
+
+  .custom p {
+    margin-bottom: 0.5em;
+  }
+
+  /* Styles for listing layout (hide title) */
+  .layout-listing d-title, .layout-listing .d-title {
+    display: none;
+  }
+
+  /* Styles for posts lists (not auto-injected) */
+
+
+  .posts-with-sidebar {
+    padding-left: 45px;
+    padding-right: 45px;
+  }
+
+  .posts-list .description h2,
+  .posts-list .description p {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", Arial, sans-serif;
+  }
+
+  .posts-list .description h2 {
+    font-weight: 700;
+    border-bottom: none;
+    padding-bottom: 0;
+  }
+
+  .posts-list h2.post-tag {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+    padding-bottom: 12px;
+  }
+  .posts-list {
+    margin-top: 60px;
+    margin-bottom: 24px;
+  }
+
+  .posts-list .post-preview {
+    text-decoration: none;
+    overflow: hidden;
+    display: block;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    padding: 24px 0;
+  }
+
+  .post-preview-last {
+    border-bottom: none !important;
+  }
+
+  .posts-list .posts-list-caption {
+    grid-column: screen;
+    font-weight: 400;
+  }
+
+  .posts-list .post-preview h2 {
+    margin: 0 0 6px 0;
+    line-height: 1.2em;
+    font-style: normal;
+    font-size: 24px;
+  }
+
+  .posts-list .post-preview p {
+    margin: 0 0 12px 0;
+    line-height: 1.4em;
+    font-size: 16px;
+  }
+
+  .posts-list .post-preview .thumbnail {
+    box-sizing: border-box;
+    margin-bottom: 24px;
+    position: relative;
+    max-width: 500px;
+  }
+  .posts-list .post-preview img {
+    width: 100%;
+    display: block;
+  }
+
+  .posts-list .metadata {
+    font-size: 12px;
+    line-height: 1.4em;
+    margin-bottom: 18px;
+  }
+
+  .posts-list .metadata > * {
+    display: inline-block;
+  }
+
+  .posts-list .metadata .publishedDate {
+    margin-right: 2em;
+  }
+
+  .posts-list .metadata .dt-authors {
+    display: block;
+    margin-top: 0.3em;
+    margin-right: 2em;
+  }
+
+  .posts-list .dt-tags {
+    display: block;
+    line-height: 1em;
+  }
+
+  .posts-list .dt-tags .dt-tag {
+    display: inline-block;
+    color: rgba(0,0,0,0.6);
+    padding: 0.3em 0.4em;
+    margin-right: 0.2em;
+    margin-bottom: 0.4em;
+    font-size: 60%;
+    border: 1px solid rgba(0,0,0,0.2);
+    border-radius: 3px;
+    text-transform: uppercase;
+    font-weight: 500;
+  }
+
+  .posts-list img {
+    opacity: 1;
+  }
+
+  .posts-list img[data-src] {
+    opacity: 0;
+  }
+
+  .posts-more {
+    clear: both;
+  }
+
+
+  .posts-sidebar {
+    font-size: 16px;
+  }
+
+  .posts-sidebar h3 {
+    font-size: 16px;
+    margin-top: 0;
+    margin-bottom: 0.5em;
+    font-weight: 400;
+    text-transform: uppercase;
+  }
+
+  .sidebar-section {
+    margin-bottom: 30px;
+  }
+
+  .categories ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .categories li {
+    color: rgba(0, 0, 0, 0.8);
+    margin-bottom: 0;
+  }
+
+  .categories li>a {
+    border-bottom: none;
+  }
+
+  .categories li>a:hover {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.4);
+  }
+
+  .categories .active {
+    font-weight: 600;
+  }
+
+  .categories .category-count {
+    color: rgba(0, 0, 0, 0.4);
+  }
+
+
+  @media(min-width: 768px) {
+    .posts-list .post-preview h2 {
+      font-size: 26px;
+    }
+    .posts-list .post-preview .thumbnail {
+      float: right;
+      width: 30%;
+      margin-bottom: 0;
+    }
+    .posts-list .post-preview .description {
+      float: left;
+      width: 45%;
+    }
+    .posts-list .post-preview .metadata {
+      float: left;
+      width: 20%;
+      margin-top: 8px;
+    }
+    .posts-list .post-preview p {
+      margin: 0 0 12px 0;
+      line-height: 1.5em;
+      font-size: 16px;
+    }
+    .posts-with-sidebar .posts-list {
+      float: left;
+      width: 75%;
+    }
+    .posts-with-sidebar .posts-sidebar {
+      float: right;
+      width: 20%;
+      margin-top: 60px;
+      padding-top: 24px;
+      padding-bottom: 24px;
+    }
+  }
+
+
+  /* Improve display for browsers without grid (IE/Edge <= 15) */
+
+  .downlevel {
+    line-height: 1.6em;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", Arial, sans-serif;
+    margin: 0;
+  }
+
+  .downlevel .d-title {
+    padding-top: 6rem;
+    padding-bottom: 1.5rem;
+  }
+
+  .downlevel .d-title h1 {
+    font-size: 50px;
+    font-weight: 700;
+    line-height: 1.1em;
+    margin: 0 0 0.5rem;
+  }
+
+  .downlevel .d-title p {
+    font-weight: 300;
+    font-size: 1.2rem;
+    line-height: 1.55em;
+    margin-top: 0;
+  }
+
+  .downlevel .d-byline {
+    padding-top: 0.8em;
+    padding-bottom: 0.8em;
+    font-size: 0.8rem;
+    line-height: 1.8em;
+  }
+
+  .downlevel .section-separator {
+    border: none;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+  }
+
+  .downlevel .d-article {
+    font-size: 1.06rem;
+    line-height: 1.7em;
+    padding-top: 1rem;
+    padding-bottom: 2rem;
+  }
+
+
+  .downlevel .d-appendix {
+    padding-left: 0;
+    padding-right: 0;
+    max-width: none;
+    font-size: 0.8em;
+    line-height: 1.7em;
+    margin-bottom: 0;
+    color: rgba(0,0,0,0.5);
+    padding-top: 40px;
+    padding-bottom: 48px;
+  }
+
+  .downlevel .footnotes ol {
+    padding-left: 13px;
+  }
+
+  .downlevel .base-grid,
+  .downlevel .distill-header,
+  .downlevel .d-title,
+  .downlevel .d-abstract,
+  .downlevel .d-article,
+  .downlevel .d-appendix,
+  .downlevel .distill-appendix,
+  .downlevel .d-byline,
+  .downlevel .d-footnote-list,
+  .downlevel .d-citation-list,
+  .downlevel .distill-footer,
+  .downlevel .appendix-bottom,
+  .downlevel .posts-container {
+    padding-left: 40px;
+    padding-right: 40px;
+  }
+
+  @media(min-width: 768px) {
+    .downlevel .base-grid,
+    .downlevel .distill-header,
+    .downlevel .d-title,
+    .downlevel .d-abstract,
+    .downlevel .d-article,
+    .downlevel .d-appendix,
+    .downlevel .distill-appendix,
+    .downlevel .d-byline,
+    .downlevel .d-footnote-list,
+    .downlevel .d-citation-list,
+    .downlevel .distill-footer,
+    .downlevel .appendix-bottom,
+    .downlevel .posts-container {
+    padding-left: 150px;
+    padding-right: 150px;
+    max-width: 900px;
+  }
+  }
+
+  .downlevel pre code {
+    display: block;
+    border-left: 2px solid rgba(0, 0, 0, .1);
+    padding: 0 0 0 20px;
+    font-size: 14px;
+  }
+
+  .downlevel code, .downlevel pre {
+    color: black;
+    background: none;
+    font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+    text-align: left;
+    white-space: pre;
+    word-spacing: normal;
+    word-break: normal;
+    word-wrap: normal;
+    line-height: 1.5;
+
+    -moz-tab-size: 4;
+    -o-tab-size: 4;
+    tab-size: 4;
+
+    -webkit-hyphens: none;
+    -moz-hyphens: none;
+    -ms-hyphens: none;
+    hyphens: none;
+  }
+
+  .downlevel .posts-list .post-preview {
+    color: inherit;
+  }
+
+
+
+  </style>
+
+  <script type="application/javascript">
+
+  function is_downlevel_browser() {
+    if (bowser.isUnsupportedBrowser({ msie: "12", msedge: "16"},
+                                   window.navigator.userAgent)) {
+      return true;
+    } else {
+      return window.load_distill_framework === undefined;
+    }
+  }
+
+  // show body when load is complete
+  function on_load_complete() {
+
+    // add anchors
+    if (window.anchors) {
+      window.anchors.options.placement = 'left';
+      window.anchors.add('d-article > h2, d-article > h3, d-article > h4, d-article > h5');
+    }
+
+
+    // set body to visible
+    document.body.style.visibility = 'visible';
+
+    // force redraw for leaflet widgets
+    if (window.HTMLWidgets) {
+      var maps = window.HTMLWidgets.findAll(".leaflet");
+      $.each(maps, function(i, el) {
+        var map = this.getMap();
+        map.invalidateSize();
+        map.eachLayer(function(layer) {
+          if (layer instanceof L.TileLayer)
+            layer.redraw();
+        });
+      });
+    }
+
+    // trigger 'shown' so htmlwidgets resize
+    $('d-article').trigger('shown');
+  }
+
+  function init_distill() {
+
+    init_common();
+
+    // create front matter
+    var front_matter = $('<d-front-matter></d-front-matter>');
+    $('#distill-front-matter').wrap(front_matter);
+
+    // create d-title
+    $('.d-title').changeElementType('d-title');
+
+    // create d-byline
+    var byline = $('<d-byline></d-byline>');
+    $('.d-byline').replaceWith(byline);
+
+    // create d-article
+    var article = $('<d-article></d-article>');
+    $('.d-article').wrap(article).children().unwrap();
+
+    // move posts container into article
+    $('.posts-container').appendTo($('d-article'));
+
+    // create d-appendix
+    $('.d-appendix').changeElementType('d-appendix');
+
+    // flag indicating that we have appendix items
+    var appendix = $('.appendix-bottom').children('h3').length > 0;
+
+    // replace footnotes with <d-footnote>
+    $('.footnote-ref').each(function(i, val) {
+      appendix = true;
+      var href = $(this).attr('href');
+      var id = href.replace('#', '');
+      var fn = $('#' + id);
+      var fn_p = $('#' + id + '>p');
+      fn_p.find('.footnote-back').remove();
+      var text = fn_p.html();
+      var dtfn = $('<d-footnote></d-footnote>');
+      dtfn.html(text);
+      $(this).replaceWith(dtfn);
+    });
+    // remove footnotes
+    $('.footnotes').remove();
+
+    // move refs into #references-listing
+    $('#references-listing').replaceWith($('#refs'));
+
+    $('h1.appendix, h2.appendix').each(function(i, val) {
+      $(this).changeElementType('h3');
+    });
+    $('h3.appendix').each(function(i, val) {
+      var id = $(this).attr('id');
+      $('.d-contents a[href="#' + id + '"]').parent().remove();
+      appendix = true;
+      $(this).nextUntil($('h1, h2, h3')).addBack().appendTo($('d-appendix'));
+    });
+
+    // show d-appendix if we have appendix content
+    $("d-appendix").css('display', appendix ? 'grid' : 'none');
+
+    // localize layout chunks to just output
+    $('.layout-chunk').each(function(i, val) {
+
+      // capture layout
+      var layout = $(this).attr('data-layout');
+
+      // apply layout to markdown level block elements
+      var elements = $(this).children().not('details, div.sourceCode, pre, script');
+      elements.each(function(i, el) {
+        var layout_div = $('<div class="' + layout + '"></div>');
+        if (layout_div.hasClass('shaded')) {
+          var shaded_content = $('<div class="shaded-content"></div>');
+          $(this).wrap(shaded_content);
+          $(this).parent().wrap(layout_div);
+        } else {
+          $(this).wrap(layout_div);
+        }
+      });
+
+
+      // unwrap the layout-chunk div
+      $(this).children().unwrap();
+    });
+
+    // remove code block used to force  highlighting css
+    $('.distill-force-highlighting-css').parent().remove();
+
+    // remove empty line numbers inserted by pandoc when using a
+    // custom syntax highlighting theme
+    $('code.sourceCode a:empty').remove();
+
+    // load distill framework
+    load_distill_framework();
+
+    // wait for window.distillRunlevel == 4 to do post processing
+    function distill_post_process() {
+
+      if (!window.distillRunlevel || window.distillRunlevel < 4)
+        return;
+
+      // hide author/affiliations entirely if we have no authors
+      var front_matter = JSON.parse($("#distill-front-matter").html());
+      var have_authors = front_matter.authors && front_matter.authors.length > 0;
+      if (!have_authors)
+        $('d-byline').addClass('hidden');
+
+      // article with toc class
+      $('.d-contents').parent().addClass('d-article-with-toc');
+
+      // strip links that point to #
+      $('.authors-affiliations').find('a[href="#"]').removeAttr('href');
+
+      // add orcid ids
+      $('.authors-affiliations').find('.author').each(function(i, el) {
+        var orcid_id = front_matter.authors[i].orcidID;
+        if (orcid_id) {
+          var a = $('<a></a>');
+          a.attr('href', 'https://orcid.org/' + orcid_id);
+          var img = $('<img></img>');
+          img.addClass('orcid-id');
+          img.attr('alt', 'ORCID ID');
+          img.attr('src','data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA2ZpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDo1N0NEMjA4MDI1MjA2ODExOTk0QzkzNTEzRjZEQTg1NyIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDozM0NDOEJGNEZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDozM0NDOEJGM0ZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ1M1IE1hY2ludG9zaCI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOkZDN0YxMTc0MDcyMDY4MTE5NUZFRDc5MUM2MUUwNEREIiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjU3Q0QyMDgwMjUyMDY4MTE5OTRDOTM1MTNGNkRBODU3Ii8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+84NovQAAAR1JREFUeNpiZEADy85ZJgCpeCB2QJM6AMQLo4yOL0AWZETSqACk1gOxAQN+cAGIA4EGPQBxmJA0nwdpjjQ8xqArmczw5tMHXAaALDgP1QMxAGqzAAPxQACqh4ER6uf5MBlkm0X4EGayMfMw/Pr7Bd2gRBZogMFBrv01hisv5jLsv9nLAPIOMnjy8RDDyYctyAbFM2EJbRQw+aAWw/LzVgx7b+cwCHKqMhjJFCBLOzAR6+lXX84xnHjYyqAo5IUizkRCwIENQQckGSDGY4TVgAPEaraQr2a4/24bSuoExcJCfAEJihXkWDj3ZAKy9EJGaEo8T0QSxkjSwORsCAuDQCD+QILmD1A9kECEZgxDaEZhICIzGcIyEyOl2RkgwAAhkmC+eAm0TAAAAABJRU5ErkJggg==');
+          a.append(img);
+          $(this).append(a);
+        }
+      });
+
+      // hide elements of author/affiliations grid that have no value
+      function hide_byline_column(caption) {
+        $('d-byline').find('h3:contains("' + caption + '")').parent().css('visibility', 'hidden');
+      }
+
+      // affiliations
+      var have_affiliations = false;
+      for (var i = 0; i<front_matter.authors.length; ++i) {
+        var author = front_matter.authors[i];
+        if (author.affiliation !== "&nbsp;") {
+          have_affiliations = true;
+          break;
+        }
+      }
+      if (!have_affiliations)
+        $('d-byline').find('h3:contains("Affiliations")').css('visibility', 'hidden');
+
+      // published date
+      if (!front_matter.publishedDate)
+        hide_byline_column("Published");
+
+      // document object identifier
+      var doi = $('d-byline').find('h3:contains("DOI")');
+      var doi_p = doi.next().empty();
+      if (!front_matter.doi) {
+        // if we have a citation and valid citationText then link to that
+        if ($('#citation').length > 0 && front_matter.citationText) {
+          doi.html('Citation');
+          $('<a href="#citation"></a>')
+            .text(front_matter.citationText)
+            .appendTo(doi_p);
+        } else {
+          hide_byline_column("DOI");
+        }
+      } else {
+        $('<a></a>')
+           .attr('href', "https://doi.org/" + front_matter.doi)
+           .html(front_matter.doi)
+           .appendTo(doi_p);
+      }
+
+       // change plural form of authors/affiliations
+      if (front_matter.authors.length === 1) {
+        var grid = $('.authors-affiliations');
+        grid.children('h3:contains("Authors")').text('Author');
+        grid.children('h3:contains("Affiliations")').text('Affiliation');
+      }
+
+      // remove d-appendix and d-footnote-list local styles
+      $('d-appendix > style:first-child').remove();
+      $('d-footnote-list > style:first-child').remove();
+
+      // move appendix-bottom entries to the bottom
+      $('.appendix-bottom').appendTo('d-appendix').children().unwrap();
+      $('.appendix-bottom').remove();
+
+      // hoverable references
+      $('span.citation[data-cites]').each(function() {
+        var refs = $(this).attr('data-cites').split(" ");
+        var refHtml = refs.map(function(ref) {
+          return "<p>" + $('#ref-' + ref).html() + "</p>";
+        }).join("\n");
+        window.tippy(this, {
+          allowHTML: true,
+          content: refHtml,
+          maxWidth: 500,
+          interactive: true,
+          interactiveBorder: 10,
+          theme: 'light-border',
+          placement: 'bottom-start'
+        });
+      });
+
+      // clear polling timer
+      clearInterval(tid);
+
+      // show body now that everything is ready
+      on_load_complete();
+    }
+
+    var tid = setInterval(distill_post_process, 50);
+    distill_post_process();
+
+  }
+
+  function init_downlevel() {
+
+    init_common();
+
+     // insert hr after d-title
+    $('.d-title').after($('<hr class="section-separator"/>'));
+
+    // check if we have authors
+    var front_matter = JSON.parse($("#distill-front-matter").html());
+    var have_authors = front_matter.authors && front_matter.authors.length > 0;
+
+    // manage byline/border
+    if (!have_authors)
+      $('.d-byline').remove();
+    $('.d-byline').after($('<hr class="section-separator"/>'));
+    $('.d-byline a').remove();
+
+    // remove toc
+    $('.d-contents').remove();
+
+    // move appendix elements
+    $('h1.appendix, h2.appendix').each(function(i, val) {
+      $(this).changeElementType('h3');
+    });
+    $('h3.appendix').each(function(i, val) {
+      $(this).nextUntil($('h1, h2, h3')).addBack().appendTo($('.d-appendix'));
+    });
+
+
+    // inject headers into references and footnotes
+    var refs_header = $('<h3></h3>');
+    refs_header.text('References');
+    $('#refs').prepend(refs_header);
+
+    var footnotes_header = $('<h3></h3');
+    footnotes_header.text('Footnotes');
+    $('.footnotes').children('hr').first().replaceWith(footnotes_header);
+
+    // move appendix-bottom entries to the bottom
+    $('.appendix-bottom').appendTo('.d-appendix').children().unwrap();
+    $('.appendix-bottom').remove();
+
+    // remove appendix if it's empty
+    if ($('.d-appendix').children().length === 0)
+      $('.d-appendix').remove();
+
+    // prepend separator above appendix
+    $('.d-appendix').before($('<hr class="section-separator" style="clear: both"/>'));
+
+    // trim code
+    $('pre>code').each(function(i, val) {
+      $(this).html($.trim($(this).html()));
+    });
+
+    // move posts-container right before article
+    $('.posts-container').insertBefore($('.d-article'));
+
+    $('body').addClass('downlevel');
+
+    on_load_complete();
+  }
+
+
+  function init_common() {
+
+    // jquery plugin to change element types
+    (function($) {
+      $.fn.changeElementType = function(newType) {
+        var attrs = {};
+
+        $.each(this[0].attributes, function(idx, attr) {
+          attrs[attr.nodeName] = attr.nodeValue;
+        });
+
+        this.replaceWith(function() {
+          return $("<" + newType + "/>", attrs).append($(this).contents());
+        });
+      };
+    })(jQuery);
+
+    // prevent underline for linked images
+    $('a > img').parent().css({'border-bottom' : 'none'});
+
+    // mark non-body figures created by knitr chunks as 100% width
+    $('.layout-chunk').each(function(i, val) {
+      var figures = $(this).find('img, .html-widget');
+      if ($(this).attr('data-layout') !== "l-body") {
+        figures.css('width', '100%');
+      } else {
+        figures.css('max-width', '100%');
+        figures.filter("[width]").each(function(i, val) {
+          var fig = $(this);
+          fig.css('width', fig.attr('width') + 'px');
+        });
+
+      }
+    });
+
+    // auto-append index.html to post-preview links in file: protocol
+    // and in rstudio ide preview
+    $('.post-preview').each(function(i, val) {
+      if (window.location.protocol === "file:")
+        $(this).attr('href', $(this).attr('href') + "index.html");
+    });
+
+    // get rid of index.html references in header
+    if (window.location.protocol !== "file:") {
+      $('.distill-site-header a[href]').each(function(i,val) {
+        $(this).attr('href', $(this).attr('href').replace("index.html", "./"));
+      });
+    }
+
+    // add class to pandoc style tables
+    $('tr.header').parent('thead').parent('table').addClass('pandoc-table');
+    $('.kable-table').children('table').addClass('pandoc-table');
+
+    // add figcaption style to table captions
+    $('caption').parent('table').addClass("figcaption");
+
+    // initialize posts list
+    if (window.init_posts_list)
+      window.init_posts_list();
+
+    // implmement disqus comment link
+    $('.disqus-comment-count').click(function() {
+      window.headroom_prevent_pin = true;
+      $('#disqus_thread').toggleClass('hidden');
+      if (!$('#disqus_thread').hasClass('hidden')) {
+        var offset = $(this).offset();
+        $(window).resize();
+        $('html, body').animate({
+          scrollTop: offset.top - 35
+        });
+      }
+    });
+  }
+
+  document.addEventListener('DOMContentLoaded', function() {
+    if (is_downlevel_browser())
+      init_downlevel();
+    else
+      window.addEventListener('WebComponentsReady', init_distill);
+  });
+
+  </script>
+
+  <!--/radix_placeholder_distill-->
+  <script src="phase2-formats_files/header-attrs-2.11/header-attrs.js"></script>
+  <script src="phase2-formats_files/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+  <script src="phase2-formats_files/popper-2.6.0/popper.min.js"></script>
+  <link href="phase2-formats_files/tippy-6.2.7/tippy.css" rel="stylesheet" />
+  <link href="phase2-formats_files/tippy-6.2.7/tippy-light-border.css" rel="stylesheet" />
+  <script src="phase2-formats_files/tippy-6.2.7/tippy.umd.min.js"></script>
+  <script src="phase2-formats_files/anchor-4.2.2/anchor.min.js"></script>
+  <script src="phase2-formats_files/bowser-1.9.3/bowser.min.js"></script>
+  <script src="phase2-formats_files/webcomponents-2.0.0/webcomponents.js"></script>
+  <script src="phase2-formats_files/distill-2.2.21/template.v2.js"></script>
+  <!--radix_placeholder_site_in_header-->
+  <!--/radix_placeholder_site_in_header-->
+
+
+</head>
+
+<body>
+
+<!--radix_placeholder_front_matter-->
+
+<script id="distill-front-matter" type="text/json">
+{"title":"Longitudinal Data Extracts","description":"Getting started with new \"long\" and \"wide\" data formats in R.","authors":[{"author":"Matt Gunther","authorURL":"#","affiliation":"IPUMS PMA Senior Data Analyst","affiliationURL":"#","orcidID":""},{"author":"Devon Kristiansen","authorURL":"https://www.linkedin.com/in/devonkristiansen","affiliation":"IPUMS PMA Project Manager","affiliationURL":"#","orcidID":""}],"publishedDate":"2022-03-15T00:00:00.000-05:00","citationText":"Gunther & Kristiansen, 2022"}
+</script>
+
+<!--/radix_placeholder_front_matter-->
+<!--radix_placeholder_navigation_before_body-->
+<!--/radix_placeholder_navigation_before_body-->
+<!--radix_placeholder_site_before_body-->
+<!--/radix_placeholder_site_before_body-->
+
+<div class="d-title">
+<h1>Longitudinal Data Extracts</h1>
+<!--radix_placeholder_categories-->
+<div class="dt-tags">
+<div class="dt=tag">Panel Data</div>
+<div class="dt=tag">Data Discovery</div>
+<div class="dt=tag">Family Planning</div>
+<div class="dt=tag">Importing Data</div>
+<div class="dt=tag">ipumsr</div>
+</div>
+<!--/radix_placeholder_categories-->
+<p><p>Getting started with new “long” and “wide” data formats in R.</p></p>
+</div>
+
+<div class="d-byline">
+  Matt Gunther  (IPUMS PMA Senior Data Analyst)
+  
+,   Devon Kristiansen <a href="https://www.linkedin.com/in/devonkristiansen" class="uri">https://www.linkedin.com/in/devonkristiansen</a> (IPUMS PMA Project Manager)
+  
+<br/>2022-03-15
+</div>
+
+<div class="d-article">
+<div class="d-contents d-contents-float">
+<nav class="l-text toc figcaption" id="TOC">
+<h3>Contents</h3>
+<ul>
+<li><a href="#getting-started">Getting Started</a></li>
+<li><a href="#sample-selection">Sample Selection</a></li>
+<li><a href="#variable-selection">Variable Selection</a></li>
+<li><a href="#loading-an-extract-into-r">Loading an Extract into R</a></li>
+<li><a href="#long-data-structure">Long Data Structure</a></li>
+<li><a href="#wide-data-structure">Wide Data Structure</a></li>
+<li><a href="#which-format-is-best-for-me">Which format is best for me?</a></li>
+</ul>
+</nav>
+</div>
+<div class="layout-chunk" data-layout="l-body">
+
+</div>
+<p>When we introduced new <a href="../2022-03-01-phase2-discovery/">harmonized panel data from PMA</a> in our last post, we mentioned that we’ve made big changes to the <a href="https://pma.ipums.org/pma/">IPUMS PMA website</a> making it easy to compare women’s responses across each phase of data collection. This includes a new option allowing users to choose whether to organize panel data in either <strong>long</strong> or <strong>wide</strong> format. In this post, we’ll practice building a data extract in both formats and discuss the advantages of each.</p>
+<aside>
+<strong>New users:</strong> make sure you <a href="https://pma.ipums.org/pma/register.shtml">register</a> for a <strong>free</strong> IPUMS account! See our <a href="https://pma.ipums.org/pma/userguide.shtml">user guide</a> for details.
+</aside>
+<iframe width="640" height="360" src="https://www.youtube.com/embed/VwjYHDvpHk0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="margin-top: 20px; margin-bottom: 20px;">
+</iframe>
+<h1 id="getting-started">Getting Started</h1>
+<p>PMA panel data represent women aged 15-49 from <a href="../2022-03-01-phase2-discovery/#sampling">sampled households</a> in eight participating countries. IPUMS PMA makes it possible to combine data from multiple samples from the same unit of analysis: you’ll need to select the <strong>Family Planning</strong> topic under the <strong>Person</strong> unit of analysis to begin browsing available samples and variables.</p>
+<div class="layout-chunk" data-layout="l-body">
+<p><img src="images/select-data.png" width="1026" /></p>
+</div>
+<div>
+<div class="layout-chunk" data-layout="l-body">
+<p><img src="images/unit.png" width="1026" /></p>
+</div>
+</div>
+<aside>
+Check out our previous series on the <a href="../../#category:Nutrition">Nutrition</a>, <a href="../../#category:Client_Exit_Interviews">Client Exit Interview</a>, <a href="../../#category:COVID-19">COVID-19</a>, and <a href="../../#category:Service_Delivery_Points">Service Delivery Point</a> surveys you’ll also find in the <strong>unit of analysis</strong> menu.
+</aside>
+<h1 id="sample-selection">Sample Selection</h1>
+<p>Once you’ve selected the <strong>Family Planning</strong> option, you’ll next need to choose between cross-sectional or longitudinal samples. Cross-sectional samples are selected by default; these are nationally or sub-nationally representative samples collected each year dating backward as far as 2013.</p>
+<div class="layout-chunk" data-layout="l-body">
+<p><img src="images/cross-sectional.png" width="1026" /></p>
+</div>
+<aside>
+Annual cross-sectional samples are also available for each of the countries participating in the new PMA panel study. See our <a href="../2022-03-01-phase2-discovery/">last post</a> for details.
+</aside>
+<p>Longitudinal samples are only available from 2019 onward, and they include all of the available phases for each sampled country (sub-nationally representative samples for DRC and Nigeria are listed separately). You’ll only find longitudinal samples for countries where Phase 2 data has been made available; Phase 1 data for Cote d’Ivoire, India, and Uganda can currently be found under the Cross-sectional sample menu (Phase 2 data will be released soon!).</p>
+<p>Clicking the Longitudinal button reveals options for either <strong>long</strong> or <strong>wide</strong> format. You’ll find the same samples available in either case:</p>
+<div class="layout-chunk" data-layout="l-body">
+<p><img src="images/long.png" width="711" /><img src="images/wide.png" width="711" /></p>
+</div>
+<p><strong>Important:</strong> if you decide to change formats after selecting variables, your Data Cart will be emptied and you’ll need to begin again from scratch.</p>
+<div class="layout-chunk" data-layout="l-body">
+<p><img src="images/dialogue.png" width="1033" /></p>
+</div>
+<p>After you’ve selected one of the available longitudinal formats, choose one or more samples listed below. There are also several Sample Members options listed:</p>
+<ul>
+<li><strong>Female Respondents</strong> only includes women who completed <em>all or part</em> of a Female Questionnaire. <strong>This option selects all members of the panel study.</strong> In addition, it includes women who only participated in only one phase - we will demonstrate how to identify and drop these cases below.<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a><br />
+</li>
+<li><strong>Female Respondents and Household Members</strong> adds records for all other members of a Female Respondent’s household. These household members did not complete the Female Questionnaire, but were listed on the household roster provided by the respondent to a Household Questionnaire. Basic <a href="https://internal.pma.ipums.org/pma-action/variables/group?id=hh_roster">demographic</a> variables are available for each household member, as are common <a href="https://internal.pma.ipums.org/pma-action/variables/group?id=hh_wealth">wealth</a>, <a href="https://internal.pma.ipums.org/pma-action/variables/group?id=water_watersource">water</a>, <a href="https://internal.pma.ipums.org/pma-action/variables/group?id=water_wash">sanitation</a>, and other variables shared for all members of the same household.<br />
+</li>
+<li><strong>Female Respondents and Female Non-respondents</strong> includes all women who were eligible to participate in a Female Questionnaire. Eligible women are those age 15-49 who were listed on the roster collected in a Household Questionnaire. If an eligible woman declined the Female Questionnaire or was not available, variables associated with that questionnaire will be coded “Not interviewed (female questionnaire)”.</li>
+<li><strong>All Cases</strong> includes all members listed on the household roster from a Household Questionnaire. If the Household Questionnaire was declined or if no respondent was available, any panel member appearing in other phases of the study will be coded “Not interviewed (household questionnaire)” for variables associated with the missing Household Questionnaire.</li>
+</ul>
+<aside>
+<p><a href="https://pma.ipums.org/pma-action/variables/PANELWOMAN#codes_section">PANELWOMAN</a> indicates whether an individual is a member of the panel study.</p>
+<p><a href="https://pma.ipums.org/pma-action/variables/RESULTFQ#codes_section">RESULTFQ</a> indicates whether an individual completed the Female Questionnaire.</p>
+<p><a href="https://pma.ipums.org/pma-action/variables/RESIDENT#codes_section">RESIDENT</a> indicates whether an individual is included in the <em>de facto</em> population.</p>
+<p><a href="https://pma.ipums.org/pma-action/variables/ELIGIBLE#codes_section">ELIGIBLE</a> indicates whether an individual was eligible for the female questionnaire.</p>
+<a href="https://pma.ipums.org/pma-action/variables/RESULTHQ#codes_section">RESULTHQ</a> indicates whether a member of the individual’s household completed the Household Questionnaire.
+</aside>
+<div class="layout-chunk" data-layout="l-body">
+<p><img src="images/cases.png" width="1038" /></p>
+</div>
+<p>After you’ve selected samples and sample members for your extract, click the “Submit Sample Selections” button to return to the main data browsing menu.</p>
+<h1 id="variable-selection">Variable Selection</h1>
+<p>You can browse IPUMS PMA variables by topic or alphabetically by name, or you can <a href="https://pma.ipums.org/pma-action/variables/search">search</a> for a particular term in a variable name, label, value labels, or description.</p>
+<div class="layout-chunk" data-layout="l-body">
+<p><img src="images/topics.png" width="1032" /></p>
+</div>
+<p>In this example, we’ll select the <a href="https://pma.ipums.org/pma-action/variables/group?id=fem_fpst">Discontinuation of Family Planning</a> topic. The availability of each associated variable is shown in a table containing all of the samples we’ve selected.</p>
+<ul>
+<li><code>X</code> indicates that the variable is available for <em>all phases</em></li>
+<li><code>/</code> indicates that the variable is available for <em>one phase</em></li>
+<li><code>-</code> indicates that the variable is not available for <em>any phase</em></li>
+</ul>
+<p>You can click the <code>+</code> button to add a variable to your cart, or click a variable name to learn more.</p>
+<div class="layout-chunk" data-layout="l-body">
+<p><img src="images/table.png" width="1150" /></p>
+</div>
+<p>Let’s take a look at the variable <a href="https://pma.ipums.org/pma-action/variables/PREGNANT#codes_section">PREGNANT</a>. You’ll find the variable name and label shown at the top of the page. Below, you’ll see several tabs beginning with the <a href="https://pma.ipums.org/pma-action/variables/PREGNANT#codes_section">CODES</a> tab. For discrete variables, this tab shows all of the available codes and value labels associated with each response. You’ll also see the same <code>X</code>, <code>/</code>, and <code>-</code> symbols in a table indicating the availability of each response in each sample.</p>
+<div class="layout-chunk" data-layout="l-body">
+<p><img src="images/codes-fr.png" width="1106" /></p>
+</div>
+<aside>
+“Case-count view” is not available for longitudinal samples, where each sample includes data from multiple phases. For cross-sectional samples, this option shows the frequency of each response.
+</aside>
+<p>Above, there are no responses for “Not interviewed (female questionnaire)” and “Not interviewed (household questionnaire)”; this is because only samples members included in a “Female Respondents” extract are displayed by default. If we instead choose “All Cases”, this variable will include those response options because we’ll include every person listed on the household roster (even if the Household or Female Questionnaire was not completed).</p>
+<div class="layout-chunk" data-layout="l-body">
+<p><img src="images/codes-all.png" width="1150" /></p>
+</div>
+<p>The symbol <code>/</code> again indicates that a particular response is available for some - but not all - phases of the study. For <code>PREGNANCY</code> it indicates that one of the options was either unavailable or was not selected by any sample respondents in a particular phase. If a variable was not included in all phases of the study, all response options will be marked with this symbol. For example, consider the variable <a href="https://pma.ipums.org/pma-action/variables/COVIDCONCERN#codes_section">COVIDCONCERN</a>, indicating the respondent’s level of concern about becoming infected with COVID-19.</p>
+<div class="layout-chunk" data-layout="l-body">
+<p><img src="images/covidconcern.png" width="1150" /></p>
+</div>
+<p>Because Phase 1 questionnaires were administered prior to the emergence of COVID-19, this variable only appeared on Phase 2 questionnaires. The symbol <code>/</code> indicates limited availability across phases.</p>
+<p>You’ll find a detailed description for each variable on the <a href="https://pma.ipums.org/pma-action/variables/PREGNANT#description_section">DESCRIPTION</a> tab. This tab also indicates whether a particular question appeared on the Household or Female Questionnaire.</p>
+<div class="layout-chunk" data-layout="l-body">
+<p><img src="images/desc.png" width="1129" /></p>
+</div>
+<p>The <a href="https://pma.ipums.org/pma-action/variables/PREGNANT#comparability_section">COMPARABILITY</a> tab describes important differences between samples. Additionally, it may contain information about similar variables appearing in <a href="https://dhsprogram.com/">DHS</a> samples provided by <a href="https://www.idhsdata.org/idhs/">IPUMS DHS</a>.</p>
+<div class="layout-chunk" data-layout="l-body">
+<p><img src="images/comp.png" width="1130" /></p>
+</div>
+<p>The <a href="https://pma.ipums.org/pma-action/variables/PREGNANT#universe_section">UNIVERSE</a> tab describes selection criteria for this question. In this case, there are some differences between samples:</p>
+<ul>
+<li>In DRC samples, all women aged 15-49 received this question.</li>
+<li>For all other samples, the question was skipped if any such woman previously indicated that she was menopausal or had a hysterectomy.</li>
+</ul>
+<div class="layout-chunk" data-layout="l-body">
+<p><img src="images/universe.png" width="1156" /></p>
+</div>
+<p>The <a href="https://pma.ipums.org/pma-action/variables/PREGNANT#availability_section">AVAILABILITY</a> tab shows all other samples (including cross-sectional samples) where this variable is available.</p>
+<div class="layout-chunk" data-layout="l-body">
+<p><img src="images/avail.png" width="1154" /></p>
+</div>
+<p>Finally, you’ll find the full text of each question on the <a href="https://pma.ipums.org/pma-action/variables/PREGNANT#questionnaire_text_section">QUESTIONNAIRE TEXT</a> tab. Each phase of the survey is shown separately, and you may click the “view entire document: text” link to view the complete questionnaire for a particular sample in any given phase.</p>
+<div class="layout-chunk" data-layout="l-body">
+<p><img src="images/question.png" width="1150" /></p>
+</div>
+<p>Use the buttons at the top of this page to add the variable to your Data Cart, or to “VIEW CART” and begin checkout.</p>
+<div class="layout-chunk" data-layout="l-body">
+<p><img src="images/buttons.png" style="margin-top: 20px; margin-bottom: 25px; max-width: 100%; width: 1033px;"/></p>
+</div>
+<h1 id="loading-an-extract-into-r">Loading an Extract into R</h1>
+<p>Your Data Cart shows all of the variables you’ve selected, plus several “preselected” variables that will be automatically included in your extract. Click the “CREATE DATA EXTRACT” button to prepare your download.</p>
+<div class="layout-chunk" data-layout="l-body">
+<p><img src="images/cart.png" width="1033" /></p>
+</div>
+<p>Before you submit an extract request, you’ll have the opportunity to choose a “Data Format”. <strong>R users should selected Fixed-width text (.dat)</strong> - you’ll notice that data formatted for Stata, SPSS, and SAS are also available. CSV files are provided, but not recommended. (If you wish to change Sample Members, you may do so again here.)</p>
+<div class="layout-chunk" data-layout="l-body">
+<p><img src="images/checkout1.png" width="1033" /></p>
+</div>
+<div class="layout-chunk" data-layout="l-body">
+<p><img src="images/dat.png" width="1192" /></p>
+</div>
+<p>Click “APPLY SELECTIONS” to return to the previous screen. There, you may add a description and then proceed to the download page.</p>
+<div class="layout-chunk" data-layout="l-body">
+<p><img src="images/checkout2.png" width="1033" /></p>
+</div>
+<p>After a few moments, you’ll receive an email indicating that your extract has been created. You’ll need to obtain two files from the download page:</p>
+<ul>
+<li>Click the green “Download DAT” button to download the data file. You’ll receive a file with a number like “pma_00001.dat.gz”.<br />
+</li>
+<li>Right click on “DDI” and click “Save link as”. You’ll receive a corresponding XML file like “pma_00001.xml”.</li>
+</ul>
+<div class="layout-chunk" data-layout="l-body">
+<p><img src="images/download.png" style="margin-top: 20px; margin-bottom: 25px;"/></p>
+</div>
+<div>
+<p>Place both files in a folder that R can use as its <a href="https://r4ds.had.co.nz/workflow-projects.html?q=working%20directory#where-does-your-analysis-live">working directory</a>. We <strong>strongly recommend</strong> using <a href="https://r4ds.had.co.nz/workflow-projects.html?q=working%20directory#rstudio-projects">RStudio projects</a> to manage all of the files and analysis scripts used for a particular research project. We’ll place our files in a subfolder called “data” within our own RStudio project folder.</p>
+<p>The <a href="https://tech.popdata.org/ipumsr/">ipumsr</a> package offers the easiest way to import an IPUMS PMA extract into R. You can install it from <a href="https://cloud.r-project.org/web/packages/ipumsr/index.html">CRAN</a> like so:</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/utils/install.packages.html'>install.packages</a></span><span class='op'>(</span><span class='st'>"ipumsr"</span><span class='op'>)</span>
+</code></pre>
+</div>
+</div>
+<p>After installation, you’ll be able to load <code>ipumsr</code> and use the function <code>read_ipums_micro</code> to import your data extract. We’ll now demonstrate loading both a <strong>long</strong> and a <strong>wide</strong> extract, and we’ll take a brief look at the structure of each.</p>
+</div>
+<aside>
+<div class="layout-chunk" data-layout="l-body">
+<div>
+<a href="https://tech.popdata.org/ipumsr/">
+<img src="../../images/hex/ipumsr.png"/>
+</a>
+© IPUMS (MPL-2.0)
+</div>
+</div>
+</aside>
+<div>
+<p>To do so, we’ll use functions from the <a href="https://tidyverse.tidyverse.org/">tidyverse</a> family of R packages. You can install all of the tidyverse packages in a single step:</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/utils/install.packages.html'>install.packages</a></span><span class='op'>(</span><span class='st'>"tidyverse"</span><span class='op'>)</span>
+</code></pre>
+</div>
+</div>
+<p>Once per session, you’ll need to load the <a href="https://tech.popdata.org/ipumsr/">ipumsr</a> and <a href="https://tidyverse.tidyverse.org/">tidyverse</a> packages into R.</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://www.ipums.org'>ipumsr</a></span><span class='op'>)</span>
+<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://tidyverse.tidyverse.org'>tidyverse</a></span><span class='op'>)</span>
+</code></pre>
+</div>
+</div>
+</div>
+<aside>
+<div class="layout-chunk" data-layout="l-body">
+<div>
+<a href="https://tidyverse.tidyverse.org/index.html">
+<img src="../../images/hex/tidyverse.png"/>
+</a>
+© RStudio, Inc. (MIT)
+</div>
+</div>
+</aside>
+<div class="layout-chunk" data-layout="l-body">
+
+</div>
+<h1 id="long-data-structure">Long Data Structure</h1>
+<p>We’ve downloaded a <strong>long</strong> data extract (Female Respondents only) and saved it in a folder called “data” in our working directory. We’ll now load it into R as an object called <code>long</code>.</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>long</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/ipumsr/man/read_ipums_micro.html'>read_ipums_micro</a></span><span class='op'>(</span>
+  ddi <span class='op'>=</span> <span class='st'>"data/pma_00095.xml"</span>,
+  data <span class='op'>=</span> <span class='st'>"data/pma_00095.dat.gz"</span>
+<span class='op'>)</span>
+</code></pre>
+</div>
+</div>
+<p>In a <strong>long</strong> extract, data from each phase will be organized in <em>separate rows</em>. Here, responses from three panel members are shown:</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>long</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>FQINSTID</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://stringr.tidyverse.org/reference/str_starts.html'>str_starts</a></span><span class='op'>(</span><span class='st'>"011"</span><span class='op'>)</span> <span class='op'>|</span> <span class='va'>FQINSTID</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://stringr.tidyverse.org/reference/str_starts.html'>str_starts</a></span><span class='op'>(</span><span class='st'>"015"</span><span class='op'>)</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/arrange.html'>arrange</a></span><span class='op'>(</span><span class='va'>FQINSTID</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/select.html'>select</a></span><span class='op'>(</span><span class='va'>FQINSTID</span>, <span class='va'>PHASE</span>, <span class='va'>AGE</span>, <span class='va'>PANELWOMAN</span><span class='op'>)</span>
+</code></pre>
+</div>
+<pre><code># A tibble: 6 × 4
+  FQINSTID                                PHASE       AGE PANELWOMAN
+  &lt;chr&gt;                               &lt;int+lbl&gt; &lt;int+lbl&gt;  &lt;int+lbl&gt;
+1 011W5S0HN91I4H4I3T9JCMBHB 1 [Baseline]               29   NA      
+2 011W5S0HN91I4H4I3T9JCMBHB 2 [First follow up]        30    1 [Yes]
+3 015NP6FJTIA98FYCBBBS1FOF7 1 [Baseline]               47   NA      
+4 015NP6FJTIA98FYCBBBS1FOF7 2 [First follow up]        48    1 [Yes]
+5 015WYNNO2WXHH6JA4HA9PL1MR 1 [Baseline]               20   NA      
+6 015WYNNO2WXHH6JA4HA9PL1MR 2 [First follow up]        21    1 [Yes]</code></pre>
+</div>
+<p>Each panel member receives a unique ID shown in <a href="https://pma.ipums.org/pma-action/variables/FQINSTID#codes_section">FQINSTID</a>. The variable <a href="https://pma.ipums.org/pma-action/variables/PHASE#codes_section">PHASE</a> shows that each woman’s responses to the Phase 1 Female Questionnaire appears in the first row, while her Phase 2 responses appear in the second. <a href="https://pma.ipums.org/pma-action/variables/AGE#codes_section">AGE</a> shows each woman’s age when she completed the Female Questionnaire for each phase.</p>
+<p><a href="https://pma.ipums.org/pma-action/variables/PANELWOMAN#codes_section">PANELWOMAN</a> indicates whether the woman completed all or part of the Female Questionnaire in a <em>prior</em> phase, and that she’d agreed to continue participating in the panel study at that time. The value <code>NA</code> appears in the rows for Phase 1, as <code>PANELWOMAN</code> was not included in Phase 1 surveys.</p>
+<p>We mentioned above that you’ll also include responses from some non-panel members when you request an extract with Female Respondents. These include women who did not complete all or part the Female Questionnaire in a prior phase, as indicated by <a href="https://pma.ipums.org/pma-action/variables/PANELWOMAN#codes_section">PANELWOMAN</a>. These women are not assigned a value for <a href="https://pma.ipums.org/pma-action/variables/FQINSTID#codes_section">FQINSTID</a> - instead, you’ll find an empty string:</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>long</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/count.html'>count</a></span><span class='op'>(</span><span class='va'>PHASE</span>, <span class='va'>PANELWOMAN</span>, <span class='va'>FQINSTID</span> <span class='op'>==</span> <span class='st'>""</span><span class='op'>)</span>
+</code></pre>
+</div>
+<pre><code># A tibble: 3 × 4
+                PHASE PANELWOMAN `FQINSTID == &quot;&quot;`     n
+            &lt;int+lbl&gt;  &lt;int+lbl&gt; &lt;lgl&gt;            &lt;int&gt;
+1 1 [Baseline]          NA       FALSE            23591
+2 2 [First follow up]    0 [No]  TRUE              6586
+3 2 [First follow up]    1 [Yes] FALSE            18194</code></pre>
+</div>
+<p>For most longitudinal analysis applications, you’ll need to drop non-panel members together with any women who did not fully complete the Phase 2 Female Questionnaire. We’ll demonstrate using <a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a> to ensure that there is one row for every <a href="https://pma.ipums.org/pma-action/variables/FQINSTID#codes_section">FQINSTID</a> where <code>PHASE == 1</code> and another row where <code>PHASE == 2 &amp; RESULTFQ == 1</code>.</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>long</span> <span class='op'>&lt;-</span> <span class='va'>long</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span><span class='op'>(</span><span class='va'>FQINSTID</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/any.html'>any</a></span><span class='op'>(</span><span class='va'>PHASE</span> <span class='op'>==</span> <span class='fl'>1</span><span class='op'>)</span> <span class='op'>&amp;</span> <span class='fu'><a href='https://rdrr.io/r/base/any.html'>any</a></span><span class='op'>(</span><span class='va'>PHASE</span> <span class='op'>==</span> <span class='fl'>2</span> <span class='op'>&amp;</span> <span class='va'>RESULTFQ</span> <span class='op'>==</span> <span class='fl'>1</span><span class='op'>)</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>ungroup</a></span><span class='op'>(</span><span class='op'>)</span> 
+</code></pre>
+</div>
+</div>
+<p>The <a href="../2022-03-01-phase2-discovery/index.html#inclusion-criteria-for-analysis">PMA Longitudinal Briefs</a> published for each sample also include only members of the <em>de facto</em> population. These are women who slept in the household during the night prior to the interview for each Household Questionnaire, such that <a href="https://pma.ipums.org/pma-action/variables/RESIDENT#codes_section">RESIDENT</a> takes the value <code>11</code> or <code>22</code>. We’ll use <a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a> again to include only <em>de facto</em> women from both phases.</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>long</span> <span class='op'>&lt;-</span> <span class='va'>long</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span><span class='op'>(</span><span class='va'>FQINSTID</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/all.html'>all</a></span><span class='op'>(</span><span class='va'>RESIDENT</span> <span class='op'><a href='https://rdrr.io/r/base/match.html'>%in%</a></span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>11</span>, <span class='fl'>22</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>ungroup</a></span><span class='op'>(</span><span class='op'>)</span> 
+</code></pre>
+</div>
+</div>
+<p>Following these steps, you can check the size of each analytic sample like so:</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>long</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/count.html'>count</a></span><span class='op'>(</span><span class='va'>COUNTRY</span>, <span class='va'>GEOCD</span>, <span class='va'>GEONG</span>, <span class='va'>PHASE</span><span class='op'>)</span>
+</code></pre>
+</div>
+<pre><code># A tibble: 12 × 5
+                          COUNTRY       GEOCD    GEONG     PHASE     n
+                        &lt;int+lbl&gt;   &lt;int+lbl&gt; &lt;int+lb&gt; &lt;int+lbl&gt; &lt;int&gt;
+ 1 1 [Burkina Faso]               NA          NA       1 [Basel…  5212
+ 2 1 [Burkina Faso]               NA          NA       2 [First…  5212
+ 3 2 [Congo, Democratic Republic]  1 [Kinsha… NA       1 [Basel…  1973
+ 4 2 [Congo, Democratic Republic]  1 [Kinsha… NA       2 [First…  1973
+ 5 2 [Congo, Democratic Republic]  2 [Kongo … NA       1 [Basel…  1514
+ 6 2 [Congo, Democratic Republic]  2 [Kongo … NA       2 [First…  1514
+ 7 7 [Kenya]                      NA          NA       1 [Basel…  6939
+ 8 7 [Kenya]                      NA          NA       2 [First…  6939
+ 9 9 [Nigeria]                    NA           2 [Lag… 1 [Basel…  1089
+10 9 [Nigeria]                    NA           2 [Lag… 2 [First…  1089
+11 9 [Nigeria]                    NA           4 [Kan… 1 [Basel…   998
+12 9 [Nigeria]                    NA           4 [Kan… 2 [First…   998</code></pre>
+</div>
+<aside>
+Reminder: samples for DRC and Nigeria are sub-nationally representative, so we’ll show separate frequencies for each <a href="https://pma.ipums.org/pma-action/variables/GEOCD#codes_section">GEOCD</a> and <a href="https://pma.ipums.org/pma-action/variables/GEONG#codes_section">GEONG</a>.
+</aside>
+<h1 id="wide-data-structure">Wide Data Structure</h1>
+<p>We’ve also downloaded a <strong>wide</strong> data extract (Female Respondents only) and saved it in the “data” folder in our working directory. We’ll also load this extract into R as an object named <code>wide</code>.</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>wide</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/ipumsr/man/read_ipums_micro.html'>read_ipums_micro</a></span><span class='op'>(</span>
+  ddi <span class='op'>=</span> <span class='st'>"data/pma_00084.xml"</span>,
+  data <span class='op'>=</span> <span class='st'>"data/pma_00084.dat.gz"</span>
+<span class='op'>)</span>
+</code></pre>
+</div>
+</div>
+<p>In a <strong>wide</strong> extract, all of the responses from one woman appear in the <em>same row</em>. The IPUMS extract system appends a numeric suffix to each variable name corresponding with the phase from which it was drawn. Consider our three example panel members again:</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>wide</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>FQINSTID</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://stringr.tidyverse.org/reference/str_starts.html'>str_starts</a></span><span class='op'>(</span><span class='st'>"011"</span><span class='op'>)</span> <span class='op'>|</span> <span class='va'>FQINSTID</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://stringr.tidyverse.org/reference/str_starts.html'>str_starts</a></span><span class='op'>(</span><span class='st'>"015"</span><span class='op'>)</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/select.html'>select</a></span><span class='op'>(</span><span class='va'>FQINSTID</span>, <span class='va'>AGE_1</span>, <span class='va'>AGE_2</span>, <span class='va'>PANELWOMAN_1</span>, <span class='va'>PANELWOMAN_2</span><span class='op'>)</span>
+</code></pre>
+</div>
+<pre><code># A tibble: 3 × 5
+  FQINSTID                      AGE_1  AGE_2 PANELWOMAN_1 PANELWOMAN_2
+  &lt;chr&gt;                     &lt;int+lbl&gt; &lt;int+&gt;    &lt;int+lbl&gt;    &lt;int+lbl&gt;
+1 011W5S0HN91I4H4I3T9JCMBHB        29     30           NA      1 [Yes]
+2 015NP6FJTIA98FYCBBBS1FOF7        47     48           NA      1 [Yes]
+3 015WYNNO2WXHH6JA4HA9PL1MR        20     21           NA      1 [Yes]</code></pre>
+</div>
+<p>Each panel member has one unique ID shown in <a href="https://pma.ipums.org/pma-action/variables/FQINSTID#codes_section">FQINSTID</a>. However, <a href="https://pma.ipums.org/pma-action/variables/AGE#codes_section">AGE</a> is parsed into two columns: <code>AGE_1</code> shows each woman’s age at Phase 1, and <code>AGE_2</code> shows her age at Phase 2.</p>
+<p>As we’ve discussed, <a href="https://pma.ipums.org/pma-action/variables/PANELWOMAN#codes_section">PANELWOMAN</a> is not available for Phase 1, as it indicates whether the woman completed all or part of the Female Questionnaire in a <em>prior</em> phase. For this reason, all values in <code>PANELWOMAN_1</code> are <code>NA</code>. Most variables are copied once for each phase, even if they - like <code>PANELWOMAN_1</code> - are not available for all phases.</p>
+<p>You might expect the total length of a <strong>wide</strong> extract to be half the length of a corresponding <strong>long</strong> extract. This is not the case! A <strong>wide</strong> extract includes one row for each woman who completed all or part of the Female Questionnaire <em>for any phase</em> - you’ll find placeholder columns for phases where the interview was not conducted.</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>wide</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>FQINSTID</span> <span class='op'>==</span> <span class='st'>"0C8VQU6B03BXLAVVZ8SB90EKQ"</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/select.html'>select</a></span><span class='op'>(</span><span class='va'>RESULTFQ_1</span>, <span class='va'>AGE_1</span>, <span class='va'>RESULTFQ_2</span>, <span class='va'>AGE_2</span><span class='op'>)</span>
+</code></pre>
+</div>
+<pre><code># A tibble: 1 × 4
+     RESULTFQ_1     AGE_1      RESULTFQ_2                        AGE_2
+      &lt;int+lbl&gt; &lt;int+lbl&gt;       &lt;int+lbl&gt;                    &lt;int+lbl&gt;
+1 1 [Completed]        31 2 [Not at home] 95 [Not interviewed (female…</code></pre>
+</div>
+<p>In a <strong>long</strong> extract, rows for the missing phase are dropped. In this example, the woman was “not at home” for the Phase 2 Female Questionnaire. When we select a <strong>long</strong> extract containing only Female Respondents, her Phase 2 row is excluded automatically (it will be included if you request an extract containing Female Respondents and Female Non-respondents).</p>
+<div class="layout-chunk" data-layout="l-body">
+
+</div>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>long</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>FQINSTID</span> <span class='op'>==</span> <span class='st'>"0C8VQU6B03BXLAVVZ8SB90EKQ"</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/select.html'>select</a></span><span class='op'>(</span><span class='va'>PHASE</span>, <span class='va'>RESULTFQ</span>, <span class='va'>AGE</span><span class='op'>)</span>
+</code></pre>
+</div>
+<pre><code># A tibble: 1 × 3
+         PHASE      RESULTFQ       AGE
+     &lt;int+lbl&gt;     &lt;int+lbl&gt; &lt;int+lbl&gt;
+1 1 [Baseline] 1 [Completed]        31</code></pre>
+</div>
+<p>Again: for most longitudinal analysis applications, you’ll need to remove cases where women were not interviewed for Phase 1 or where the Phase 2 Female Questionnaire was not completed:</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>wide</span> <span class='op'>&lt;-</span> <span class='va'>wide</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>RESULTFQ_2</span> <span class='op'>==</span> <span class='fl'>1</span> <span class='op'>&amp;</span> <span class='op'>!</span><span class='fu'><a href='https://rdrr.io/r/base/NA.html'>is.na</a></span><span class='op'>(</span><span class='va'>RESULTFQ_1</span><span class='op'>)</span><span class='op'>)</span> 
+</code></pre>
+</div>
+</div>
+<p>The <em>de facto</em> population appearing in <a href="../2022-03-01-phase2-discovery/index.html#inclusion-criteria-for-analysis">PMA Longitudinal Briefs</a> is defined in <strong>wide</strong> extracts by cases where the values <code>11</code> or <code>12</code> appear in <em>both</em> <code>RESIDENT_1</code> and <code>RESIDENT_2</code>:</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>wide</span> <span class='op'>&lt;-</span> <span class='va'>wide</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>RESIDENT_1</span> <span class='op'><a href='https://rdrr.io/r/base/match.html'>%in%</a></span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>11</span>, <span class='fl'>22</span><span class='op'>)</span> <span class='op'>&amp;</span> <span class='va'>RESIDENT_2</span> <span class='op'><a href='https://rdrr.io/r/base/match.html'>%in%</a></span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>11</span>, <span class='fl'>22</span><span class='op'>)</span><span class='op'>)</span>
+</code></pre>
+</div>
+</div>
+<p>Following these steps, each analytic sample contains the same number of cases shown in the final <strong>long</strong> format extract above.</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>wide</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span>
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span><span class='op'>(</span><span class='va'>COUNTRY</span>, <span class='va'>GEOCD</span>, <span class='va'>GEONG</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span>
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/count.html'>count</a></span><span class='op'>(</span><span class='op'>)</span>
+</code></pre>
+</div>
+<pre><code># A tibble: 6 × 4
+# Groups:   COUNTRY, GEOCD, GEONG [6]
+                         COUNTRY              GEOCD      GEONG     n
+                       &lt;int+lbl&gt;          &lt;int+lbl&gt;  &lt;int+lbl&gt; &lt;int&gt;
+1 1 [Burkina Faso]               NA                 NA          5212
+2 2 [Congo, Democratic Republic]  1 [Kinshasa]      NA          1973
+3 2 [Congo, Democratic Republic]  2 [Kongo Central] NA          1514
+4 7 [Kenya]                      NA                 NA          6939
+5 9 [Nigeria]                    NA                  2 [Lagos]  1089
+6 9 [Nigeria]                    NA                  4 [Kano]    998</code></pre>
+</div>
+<h1 id="which-format-is-best-for-me">Which format is best for me?</h1>
+<p>The choice between <strong>long</strong> and <strong>wide</strong> formats ultimately depends on your research objectives.</p>
+<p>Many data manipulation tasks, for example, are faster and easier to perform in the <strong>wide</strong> format. In the example above, we needed to identify women who completed a Female Questionnaire and were members of the <em>de facto</em> population in both phases. In the <strong>long</strong> format, we first had to group the data by <code>FQINSTID</code> with <a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a>, thereby ensuring that a Phase 1 and Phase 2 check could be performed for each woman. In preparing for this post, this approach took about 36.5 seconds. By comparison, the same task was achieved without <a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a> in <strong>wide</strong> format in just 0.16 seconds. If your workflow requires multiple comparisons between phases, the <strong>wide</strong> format may be the best choice!</p>
+<p>On the other hand, many of the longitudinal modeling packages available for R require data to be in a <strong>long</strong> format - this includes both the <a href="https://cran.r-project.org/web/packages/survival/index.html">survival</a> package for Cox regression and the <a href="https://github.com/lme4/lme4">lme4</a> package for multilevel models. Users who prefer the <strong>wide</strong> format for data cleaning and exploration can manually switch to <strong>long</strong> format with help from <a href="https://tidyr.tidyverse.org/reference/pivot_longer.html">pivot_longer</a>, for example:</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>wide</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/select.html'>select</a></span><span class='op'>(</span><span class='va'>FQINSTID</span>, <span class='va'>AGE_1</span>, <span class='va'>PREGNANT_1</span>, <span class='va'>AGE_2</span>, <span class='va'>PREGNANT_2</span><span class='op'>)</span>
+</code></pre>
+</div>
+<pre><code># A tibble: 17,725 × 5
+   FQINSTID                        AGE_1 PREGNANT_1   AGE_2 PREGNANT_2
+   &lt;chr&gt;                         &lt;int+l&gt;  &lt;int+lbl&gt; &lt;int+l&gt;  &lt;int+lbl&gt;
+ 1 uuid:0005f6d7-b7cd-46f6-8a6f…      30    0 [No]       31     0 [No]
+ 2 uuid:0006cb76-09d1-4f2a-a92d…      34    1 [Yes]      34     0 [No]
+ 3 uuid:00204481-5cae-4188-abb3…      17    0 [No]       18     0 [No]
+ 4 uuid:002398f4-8f2d-4095-8019…      29    0 [No]       29     0 [No]
+ 5 uuid:00407300-c1e6-4e24-ab8d…      25    0 [No]       25     0 [No]
+ 6 uuid:00413ed1-d176-44fb-a232…      32    0 [No]       32     0 [No]
+ 7 uuid:0048a052-66ff-4ed5-9fa9…      38    0 [No]       39     0 [No]
+ 8 uuid:004d80f0-90c6-4b77-bb4d…      38    0 [No]       38     0 [No]
+ 9 uuid:00504cf5-870c-4a02-aad7…      33    0 [No]       34     0 [No]
+10 uuid:00534792-fb84-47b4-8606…      24    0 [No]       25     0 [No]
+# … with 17,715 more rows</code></pre>
+</div>
+<p>With <a href="https://tidyr.tidyverse.org/reference/pivot_longer.html">pivot_longer</a>, you can strip the suffix <code>1</code> or <code>2</code> from each variable, placing the result in a new column called <code>PHASE</code>. Then, we’ll pivot each woman’s age and pregnancy status from 2 <strong>wide</strong> columns into a single <strong>long</strong> one.</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>wide</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/select.html'>select</a></span><span class='op'>(</span><span class='va'>FQINSTID</span>, <span class='va'>AGE_1</span>, <span class='va'>PREGNANT_1</span>, <span class='va'>AGE_2</span>, <span class='va'>PREGNANT_2</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='https://tidyr.tidyverse.org/reference/pivot_longer.html'>pivot_longer</a></span><span class='op'>(</span>
+    <span class='op'>!</span><span class='va'>FQINSTID</span>, 
+    names_pattern <span class='op'>=</span> <span class='st'>"(.*)_([1-2])"</span>,
+    names_to <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>".value"</span>, <span class='st'>"PHASE"</span><span class='op'>)</span>
+  <span class='op'>)</span>
+</code></pre>
+</div>
+<pre><code># A tibble: 35,450 × 4
+   FQINSTID                                  PHASE       AGE  PREGNANT
+   &lt;chr&gt;                                     &lt;chr&gt; &lt;int+lbl&gt; &lt;int+lbl&gt;
+ 1 uuid:0005f6d7-b7cd-46f6-8a6f-5f051b6ab4a2 1            30   0 [No] 
+ 2 uuid:0005f6d7-b7cd-46f6-8a6f-5f051b6ab4a2 2            31   0 [No] 
+ 3 uuid:0006cb76-09d1-4f2a-a92d-c12fcaf194b5 1            34   1 [Yes]
+ 4 uuid:0006cb76-09d1-4f2a-a92d-c12fcaf194b5 2            34   0 [No] 
+ 5 uuid:00204481-5cae-4188-abb3-0367d0ed9c14 1            17   0 [No] 
+ 6 uuid:00204481-5cae-4188-abb3-0367d0ed9c14 2            18   0 [No] 
+ 7 uuid:002398f4-8f2d-4095-8019-c306d39cf2b9 1            29   0 [No] 
+ 8 uuid:002398f4-8f2d-4095-8019-c306d39cf2b9 2            29   0 [No] 
+ 9 uuid:00407300-c1e6-4e24-ab8d-8af5e1ca85a6 1            25   0 [No] 
+10 uuid:00407300-c1e6-4e24-ab8d-8af5e1ca85a6 2            25   0 [No] 
+# … with 35,440 more rows</code></pre>
+</div>
+<aside>
+For more examples using <a href="https://tidyr.tidyverse.org/reference/pivot_longer.html">pivot_longer</a>, check out our posts on <a href="../2021-05-15-paa-2021/">contraceptive calendar</a> and <a href="../2021-04-15-migration-discovery/">migration</a> data!
+</aside>
+<p>Manipulating patterns in variable names with <a href="https://tidyr.tidyverse.org/reference/pivot_longer.html">pivot_longer</a> takes practice, and we imagine many users will find it easier to simply work with data in the <strong>long</strong> format from the beginning.</p>
+<p>Fortunately, the updated IPUMS PMA extract system makes it easy to select the samples, sample members, and variables that matter to your particular research question. New choices for <strong>long</strong> and <strong>wide</strong> data formats save an additional data cleaning step, allowing you to jump into longitudinal analysis as quickly as possible.</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
+<section class="footnotes" role="doc-endnotes">
+<hr />
+<ol>
+<li id="fn1" role="doc-endnote"><p>Women who completed all or part of the Female Questionnaire in <em>more than one phase</em> of the study are considered <strong>panel members</strong>. Women who completed it only at Phase 1 are included in a longitudinal extract, but they are not <strong>panel members</strong>. Likewise, women who completed it for the first time at Phase 2 are included, but are not <strong>panel members</strong> if they 1) will reach age 50 before Phase 3, or 2) declined the invitation to participate again in Phase 3.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section>
+<!--radix_placeholder_article_footer-->
+<!--/radix_placeholder_article_footer-->
+</div>
+
+<div class="d-appendix">
+</div>
+
+
+<!--radix_placeholder_site_after_body-->
+<!--/radix_placeholder_site_after_body-->
+<!--radix_placeholder_appendices-->
+<div class="appendix-bottom"></div>
+<!--/radix_placeholder_appendices-->
+<!--radix_placeholder_navigation_after_body-->
+<!--/radix_placeholder_navigation_after_body-->
+
+</body>
+
+</html>
