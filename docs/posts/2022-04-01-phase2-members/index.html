@@ -2617,7 +2617,9 @@ Community
   <a href="../../index.html#category:Family_Planning" class="dt-tag">Family Planning</a>
 </div>
 <!--/radix_placeholder_categories-->
-<p><p>Your guide to inclusion criteria, loss to follow-up, and key technical variables for Family Planning panel data from IPUMS PMA.</p></p>
+<p><p>Your guide to inclusion criteria, loss to follow-up, and key
+technical variables for Family Planning panel data from IPUMS
+PMA.</p></p>
 </div>
 
 <div class="d-byline">
@@ -2640,31 +2642,80 @@ Community
 </ul></li>
 <li><a href="#phase-2">Phase 2</a>
 <ul>
-<li><a href="#household-questionnaire-1">Household Questionnaire</a></li>
+<li><a href="#household-questionnaire-1">Household
+Questionnaire</a></li>
 <li><a href="#female-questionnaire-1">Female Questionnaire</a></li>
 </ul></li>
 <li><a href="#summary">Summary</a></li>
 </ul>
 </nav>
 </div>
-<p>When we introduced new <a href="../../index.html#category:Panel_Data">Family Planning Panel Data</a> from PMA last month, we mentioned that PMA uses a <strong>multi-stage cluster sample design</strong> for each phase of the panel study. This means you’ll find data from a Household Questionnaire administered once each year, and you’ll find data from a subsequent Female Questionnaire collected shortly afterward. Three years - or phases - of data will be collected in total.</p>
-<p>Because data are collected through two questionnaires administered in three phases, there are several places where incomplete or missing data may indicate <strong>loss to follow-up</strong> - dropped cases from the original panel design. At the same time, PMA uses an <strong>open panel</strong> design, whereby women who move into the study area or reach participation age after Phase 1 are permitted to join the panel at any subsequent phase.</p>
-<p>In this post, we’ll cover these issues in detail. To illustrate, we’ll be using a <strong>wide format</strong> data extract from <a href="https://pma.ipums.org/pma/">IPUMS PMA</a> that includes “All cases” from both currently available phases. In other words, we’ll include every member of the household roster collected in the Household Questionnaire at the start of each phase (even if no Female Questionnaire was completed by that person).</p>
+<p>When we introduced new <a
+href="../../index.html#category:Panel_Data">Family Planning Panel
+Data</a> from PMA last month, we mentioned that PMA uses a
+<strong>multi-stage cluster sample design</strong> for each phase of the
+panel study. This means you’ll find data from a Household Questionnaire
+administered once each year, and you’ll find data from a subsequent
+Female Questionnaire collected shortly afterward. Three years - or
+phases - of data will be collected in total.</p>
+<p>Because data are collected through two questionnaires administered in
+three phases, there are several places where incomplete or missing data
+may indicate <strong>loss to follow-up</strong> - dropped cases from the
+original panel design. At the same time, PMA uses an <strong>open
+panel</strong> design, whereby women who move into the study area or
+reach participation age after Phase 1 are permitted to join the panel at
+any subsequent phase.</p>
+<p>In this post, we’ll cover these issues in detail. To illustrate,
+we’ll be using a <strong>wide format</strong> data extract from <a
+href="https://pma.ipums.org/pma/">IPUMS PMA</a> that includes “All
+cases” from both currently available phases. In other words, we’ll
+include every member of the household roster collected in the Household
+Questionnaire at the start of each phase (even if no Female
+Questionnaire was completed by that person).</p>
 <aside>
-Check out our <a href="../2022-03-15-phase2-formats/">last post</a> for information on advantages of <strong>wide</strong> vs. <strong>long</strong> data extracts, and for details on case selection.
+Check out our <a href="../2022-03-15-phase2-formats/">last post</a> for
+information on advantages of <strong>wide</strong>
+vs. <strong>long</strong> data extracts, and for details on case
+selection.
 </aside>
-<p>To make our explanation easier to follow, we’ll make use of a data visualization tool known in clinical research settings as a <a href="http://www.consort-statement.org/consort-statement/flow-diagram">CONSORT diagram</a>.</p>
+<p>To make our explanation easier to follow, we’ll make use of a data
+visualization tool known in clinical research settings as a <a
+href="http://www.consort-statement.org/consort-statement/flow-diagram">CONSORT
+diagram</a>.</p>
 <h1 id="consort-diagram">CONSORT Diagram</h1>
-<p>A CONSORT diagram is a flowchart showing enrollment and attrition points, most typically in longitudinal studies. PMA publishes a CONSORT diagram together with the User Notes for each longitudinal sample. We’ll consider the 6 samples for which harmonized Phase 1 and Phase 2 data are currently available:</p>
+<p>A CONSORT diagram is a flowchart showing enrollment and attrition
+points, most typically in longitudinal studies. PMA publishes a CONSORT
+diagram together with the User Notes for each longitudinal sample. We’ll
+consider the 6 samples for which harmonized Phase 1 and Phase 2 data are
+currently available:</p>
 <ul>
-<li><a href="https://pma.ipums.org/pma/resources/longitudinal_flowcharts/Burkina_Faso_panel_phase2.pdf">Burkina Faso</a></li>
-<li><a href="https://pma.ipums.org/pma/resources/longitudinal_flowcharts/Kinshasa_panel_phase2.pdf">DRC - Kinshasa</a></li>
-<li><a href="https://pma.ipums.org/pma/resources/longitudinal_flowcharts/Kongo_Central_panel_phase2.pdf">DRC - Kongo Central</a></li>
-<li><a href="https://pma.ipums.org/pma/resources/longitudinal_flowcharts/Kenya_panel_phase2.pdf">Kenya</a></li>
-<li><a href="https://pma.ipums.org/pma/resources/longitudinal_flowcharts/Lagos_panel_phase2.pdf">Nigeria - Lagos</a></li>
-<li><a href="https://pma.ipums.org/pma/resources/longitudinal_flowcharts/Kano_panel_phase2.pdf">Nigeria - Kano</a></li>
+<li><a
+href="https://pma.ipums.org/pma/resources/longitudinal_flowcharts/Burkina_Faso_panel_phase2.pdf">Burkina
+Faso</a></li>
+<li><a
+href="https://pma.ipums.org/pma/resources/longitudinal_flowcharts/Kinshasa_panel_phase2.pdf">DRC
+- Kinshasa</a></li>
+<li><a
+href="https://pma.ipums.org/pma/resources/longitudinal_flowcharts/Kongo_Central_panel_phase2.pdf">DRC
+- Kongo Central</a></li>
+<li><a
+href="https://pma.ipums.org/pma/resources/longitudinal_flowcharts/Kenya_panel_phase2.pdf">Kenya</a></li>
+<li><a
+href="https://pma.ipums.org/pma/resources/longitudinal_flowcharts/Lagos_panel_phase2.pdf">Nigeria
+- Lagos</a></li>
+<li><a
+href="https://pma.ipums.org/pma/resources/longitudinal_flowcharts/Kano_panel_phase2.pdf">Nigeria
+- Kano</a></li>
 </ul>
-<p>We’ve constructed a multi-sample CONSORT diagram for this post using the <a href="https://ggplot2.tidyverse.org/index.html">ggplot2</a> package for R, but we’ll omit the code here so that we’ll be able focus on sample design (rather than finicky graphics issues). If you’re interested, check out the RMarkdown script for this post over at our <a href="https://github.com/ipums/pma-data-hub/tree/master/_posts/2022-04-01-phase2-members">GitHub repository</a> - we’ll cover the technical details in a future post! For now, let’s preview the complete multi-sample diagram before we break down what happens at each point in the study:</p>
+<p>We’ve constructed a multi-sample CONSORT diagram for this post using
+the <a href="https://ggplot2.tidyverse.org/index.html">ggplot2</a>
+package for R, but we’ll omit the code here so that we’ll be able focus
+on sample design (rather than finicky graphics issues). If you’re
+interested, check out the RMarkdown script for this post over at our <a
+href="https://github.com/ipums/pma-data-hub/tree/master/_posts/2022-04-01-phase2-members">GitHub
+repository</a> - we’ll cover the technical details in a future post! For
+now, let’s preview the complete multi-sample diagram before we break
+down what happens at each point in the study:</p>
 <div class="layout-chunk" data-layout="l-body">
 
 </div>
@@ -2672,17 +2723,33 @@ Check out our <a href="../2022-03-15-phase2-formats/">last post</a> for informat
 <p><img src="phase2-members_files/figure-html5/unnamed-chunk-2-1.png" width="1536" data-distill-preview=1 /></p>
 </div>
 <h1 id="setup">Setup</h1>
-<p>To get started, we’ll need to request a <strong>wide</strong> longitudinal extract from the <a href="https://pma.ipums.org/pma/">IPUMS PMA data website</a>. As shown above, we’ll select all 6 of the available samples, and choose “All Cases (Respondents and Non-respondents to Household and Female Questionnaires)”. Notice that <em>both phases</em> are included with each sample when you request a longitudinal extract.</p>
+<p>To get started, we’ll need to request a <strong>wide</strong>
+longitudinal extract from the <a href="https://pma.ipums.org/pma/">IPUMS
+PMA data website</a>. As shown above, we’ll select all 6 of the
+available samples, and choose “All Cases (Respondents and
+Non-respondents to Household and Female Questionnaires)”. Notice that
+<em>both phases</em> are included with each sample when you request a
+longitudinal extract.</p>
 <div class="layout-chunk" data-layout="l-body">
 <p><img src="images/select-samples.png" width="1081" /></p>
 </div>
-<p>Variables describing sample composition are located under the “Technical” topics heading. Our extract will contain all of the variables in the “Technical Variables” and “Longitudinal Panel” subheadings shown:</p>
+<p>Variables describing sample composition are located under the
+“Technical” topics heading. Our extract will contain all of the
+variables in the “Technical Variables” and “Longitudinal Panel”
+subheadings shown:</p>
 <div class="layout-chunk" data-layout="l-body">
 <p><img src="images/technical.png" width="1046" /></p>
 </div>
-<p>Once you’ve finished selecting variables and downloaded an extract, you’ll receive two files: an <code>.xml</code> DDI codebook, and a <code>.dat.gz</code> data file. We’ve saved both of these files in a folder called “data” in our R Working Directory, so we’ll load them into R together with the <a href="https://tidyverse.tidyverse.org/">tidyverse</a> and <a href="https://tech.popdata.org/ipumsr/">ipumsr</a> packages.</p>
+<p>Once you’ve finished selecting variables and downloaded an extract,
+you’ll receive two files: an <code>.xml</code> DDI codebook, and a
+<code>.dat.gz</code> data file. We’ve saved both of these files in a
+folder called “data” in our R Working Directory, so we’ll load them into
+R together with the <a
+href="https://tidyverse.tidyverse.org/">tidyverse</a> and <a
+href="https://tech.popdata.org/ipumsr/">ipumsr</a> packages.</p>
 <aside>
-Need help downloading an IPUMS PMA data extract? Check out our <a href="../2022-03-15-phase2-formats/">full walkthrough</a>.
+Need help downloading an IPUMS PMA data extract? Check out our <a
+href="../2022-03-15-phase2-formats/">full walkthrough</a>.
 </aside>
 <div class="layout-chunk" data-layout="l-screen">
 <div class="sourceCode">
@@ -2696,7 +2763,12 @@ Need help downloading an IPUMS PMA data extract? Check out our <a href="../2022-
 </code></pre>
 </div>
 </div>
-<p>When you first load your <strong>wide</strong> data extract into R, you’ll notice that most variable names are duplicated: the same variable will appear once with the suffix “1” for Phase 1 variables, and again with the suffix “2” for Phase 2 variables. For example, you’ll find two copies of <a href="https://pma.ipums.org/pma-action/variables/SAMPLE#codes_section">SAMPLE</a>:</p>
+<p>When you first load your <strong>wide</strong> data extract into R,
+you’ll notice that most variable names are duplicated: the same variable
+will appear once with the suffix “1” for Phase 1 variables, and again
+with the suffix “2” for Phase 2 variables. For example, you’ll find two
+copies of <a
+href="https://pma.ipums.org/pma-action/variables/SAMPLE#codes_section">SAMPLE</a>:</p>
 <div class="layout-chunk" data-layout="l-screen">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='va'>dat</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/count.html'>count</a></span><span class='op'>(</span><span class='va'>SAMPLE_1</span><span class='op'>)</span>
@@ -2723,8 +2795,22 @@ Need help downloading an IPUMS PMA data extract? Check out our <a href="../2022-
 4 85412 [Burkina Faso 2021 Phase 2]                              33931
 5    NA                                                          83678</code></pre>
 </div>
-<p>IPUMS PMA combines sub-nationally representative samples for DRC (Kinshasa and Kongo Central) and Nigeria (Kano and Lagos) with one <a href="https://pma.ipums.org/pma-action/variables/SAMPLE#codes_section">SAMPLE</a> code each. Here, we’ll separate those samples and abbreviate country names to ensure that everything fits nicely in our graphics output. We’ll also use the same recoded variable for Phase 1 and Phase 2 samples together. Let’s call this variable <code>pop</code> (for “population of study”).</p>
-<p>We’ll combine the <a href="https://pma.ipums.org/pma-action/variables/COUNTRY#codes_section">COUNTRY</a> name for each sample together with the DRC and Nigeria regions shown in <a href="https://pma.ipums.org/pma-action/variables/GEOCD#codes_section">GEOCD</a> and <a href="https://pma.ipums.org/pma-action/variables/GEONG#codes_section">GEONG</a>, respectively.</p>
+<p>IPUMS PMA combines sub-nationally representative samples for DRC
+(Kinshasa and Kongo Central) and Nigeria (Kano and Lagos) with one <a
+href="https://pma.ipums.org/pma-action/variables/SAMPLE#codes_section">SAMPLE</a>
+code each. Here, we’ll separate those samples and abbreviate country
+names to ensure that everything fits nicely in our graphics output.
+We’ll also use the same recoded variable for Phase 1 and Phase 2 samples
+together. Let’s call this variable <code>pop</code> (for “population of
+study”).</p>
+<p>We’ll combine the <a
+href="https://pma.ipums.org/pma-action/variables/COUNTRY#codes_section">COUNTRY</a>
+name for each sample together with the DRC and Nigeria regions shown in
+<a
+href="https://pma.ipums.org/pma-action/variables/GEOCD#codes_section">GEOCD</a>
+and <a
+href="https://pma.ipums.org/pma-action/variables/GEONG#codes_section">GEONG</a>,
+respectively.</p>
 <div class="layout-chunk" data-layout="l-screen">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='co'># Preview country and region names </span>
@@ -2770,12 +2856,57 @@ Need help downloading an IPUMS PMA data extract? Check out our <a href="../2022-
 6 Nigeria - Lagos     11936</code></pre>
 </div>
 <h1 id="phase-1">Phase 1</h1>
-<p>Phase 1 marks the beginning of the PMA panel study (baseline). As we’ve mentioned, it consists of two separate questionnaires administered in stages: first, resident enumerators visited 35 household dwellings selected at random within each sample cluster, or <a href="../2022-03-01-phase2-discovery/#sampling">enumeration area</a>. If a qualifying respondent was available, they were invited to complete a <a href="https://pma.ipums.org/pma/resources/questionnaires/hhf/PMA-Household-Questionnaire-English-2019.10.09.pdf">Household Questionnaire</a><a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> including a census of all household members and visitors who stayed there during the night before the interview. If this census included any women aged 15-49, the enumerator would later return to the household and invite each eligible woman to complete a <a href="https://pma.ipums.org/pma/resources/questionnaires/hhf/PMA-Female-Questionnaire-English-2019.10.09.pdf">Female Questionnaire</a><a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a> and participate in the three-year panel study.</p>
-<p>We’ll take a look at the inclusion criteria and missing data codes for each questionnaire, in turn.</p>
+<p>Phase 1 marks the beginning of the PMA panel study (baseline). As
+we’ve mentioned, it consists of two separate questionnaires administered
+in stages: first, resident enumerators visited 35 household dwellings
+selected at random within each sample cluster, or <a
+href="../2022-03-01-phase2-discovery/#sampling">enumeration area</a>. If
+a qualifying respondent was available, they were invited to complete a
+<a
+href="https://pma.ipums.org/pma/resources/questionnaires/hhf/PMA-Household-Questionnaire-English-2019.10.09.pdf">Household
+Questionnaire</a><a href="#fn1" class="footnote-ref" id="fnref1"
+role="doc-noteref"><sup>1</sup></a> including a census of all household
+members and visitors who stayed there during the night before the
+interview. If this census included any women aged 15-49, the enumerator
+would later return to the household and invite each eligible woman to
+complete a <a
+href="https://pma.ipums.org/pma/resources/questionnaires/hhf/PMA-Female-Questionnaire-English-2019.10.09.pdf">Female
+Questionnaire</a><a href="#fn2" class="footnote-ref" id="fnref2"
+role="doc-noteref"><sup>2</sup></a> and participate in the three-year
+panel study.</p>
+<p>We’ll take a look at the inclusion criteria and missing data codes
+for each questionnaire, in turn.</p>
 <h2 id="household-questionnaire">Household Questionnaire</h2>
-<p>In our <strong>wide</strong> data extract, each <a href="https://pma.ipums.org/pma-action/variables/PANELWOMAN#codes_section">PANELWOMAN</a> is a woman who completed all or part of the Phase 1 Female Questionnaire and agreed to participate in the longitudinal panel study: as a result, you’ll find all of her Phase 1 responses and her Phase 2 responses together in <em>a single row</em>.</p>
-<p>This is <em>not</em> the case for household members who are not, themselves, participants in the panel study. These household members are represented by <em>one row per phase</em>. For example, if a young child was listed on the Phase 1 Household Questionnaire, you’ll find details about their age in <a href="https://pma.ipums.org/pma-action/variables/AGEHQ">AGEHQ_1</a>, their sex in <a href="https://pma.ipums.org/pma-action/variables/SEX">SEX_1</a>, and their relationship to the head of household in <a href="https://pma.ipums.org/pma-action/variables/RELATE">RELATE_1</a>. If you look in the same row for corresponding Phase 2 variables (<a href="https://pma.ipums.org/pma-action/variables/AGEHQ">AGEHQ_2</a>, <a href="https://pma.ipums.org/pma-action/variables/SEX">SEX_2</a>, and <a href="https://pma.ipums.org/pma-action/variables/RELATE">RELATE_2</a>), you’ll find <code>NA</code> values even if the child still lived in the household at Phase 2: their Phase 2 data may be located in another row (with <code>NA</code> values listed for Phase 1), or it may not exist if the child was not listed on the Phase 2 household roster. It is not possible to link Phase 1 and Phase 2 responses for household members who were not participants in the panel study.</p>
-<p>This explains why, for example, you’ll see a large number of <code>NA</code> values in <a href="https://pma.ipums.org/pma-action/variables/RESULTHQ">RESULTHQ_1</a>, which gives the result of the Phase 1 Household Questionnaire.</p>
+<p>In our <strong>wide</strong> data extract, each <a
+href="https://pma.ipums.org/pma-action/variables/PANELWOMAN#codes_section">PANELWOMAN</a>
+is a woman who completed all or part of the Phase 1 Female Questionnaire
+and agreed to participate in the longitudinal panel study: as a result,
+you’ll find all of her Phase 1 responses and her Phase 2 responses
+together in <em>a single row</em>.</p>
+<p>This is <em>not</em> the case for household members who are not,
+themselves, participants in the panel study. These household members are
+represented by <em>one row per phase</em>. For example, if a young child
+was listed on the Phase 1 Household Questionnaire, you’ll find details
+about their age in <a
+href="https://pma.ipums.org/pma-action/variables/AGEHQ">AGEHQ_1</a>,
+their sex in <a
+href="https://pma.ipums.org/pma-action/variables/SEX">SEX_1</a>, and
+their relationship to the head of household in <a
+href="https://pma.ipums.org/pma-action/variables/RELATE">RELATE_1</a>.
+If you look in the same row for corresponding Phase 2 variables (<a
+href="https://pma.ipums.org/pma-action/variables/AGEHQ">AGEHQ_2</a>, <a
+href="https://pma.ipums.org/pma-action/variables/SEX">SEX_2</a>, and <a
+href="https://pma.ipums.org/pma-action/variables/RELATE">RELATE_2</a>),
+you’ll find <code>NA</code> values even if the child still lived in the
+household at Phase 2: their Phase 2 data may be located in another row
+(with <code>NA</code> values listed for Phase 1), or it may not exist if
+the child was not listed on the Phase 2 household roster. It is not
+possible to link Phase 1 and Phase 2 responses for household members who
+were not participants in the panel study.</p>
+<p>This explains why, for example, you’ll see a large number of
+<code>NA</code> values in <a
+href="https://pma.ipums.org/pma-action/variables/RESULTHQ">RESULTHQ_1</a>,
+which gives the result of the Phase 1 Household Questionnaire.</p>
 <div class="layout-chunk" data-layout="l-screen">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='va'>dat</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/count.html'>count</a></span><span class='op'>(</span><span class='va'>RESULTHQ_1</span><span class='op'>)</span>
@@ -2795,16 +2926,52 @@ Need help downloading an IPUMS PMA data extract? Check out our <a href="../2022-
  9  9 [Absent extended period]      296
 10 NA                             98687</code></pre>
 </div>
-<p>Close to half of the values in <a href="https://pma.ipums.org/pma-action/variables/RESULTHQ">RESULTHQ_1</a> are <code>NA</code>: these are household members for whom no linked Phase 2 data exists.</p>
-<p>What about the other values in <a href="https://pma.ipums.org/pma-action/variables/RESULTHQ">RESULTHQ_1</a>? You’ll notice a range of outcomes including:</p>
+<p>Close to half of the values in <a
+href="https://pma.ipums.org/pma-action/variables/RESULTHQ">RESULTHQ_1</a>
+are <code>NA</code>: these are household members for whom no linked
+Phase 2 data exists.</p>
+<p>What about the other values in <a
+href="https://pma.ipums.org/pma-action/variables/RESULTHQ">RESULTHQ_1</a>?
+You’ll notice a range of outcomes including:</p>
 <ul>
 <li><code>1</code> - Completed</li>
 <li><code>5</code> - Partly completed</li>
-<li>several other codes giving the reason why no household interview occurred</li>
+<li>several other codes giving the reason why no household interview
+occurred</li>
 </ul>
-<p>If no household interview occurred, PMA creates one row to represent the household in <a href="https://pma.ipums.org/pma-action/variables/RESULTHQ">RESULTHQ_1</a>. Otherwise, if the household roster was completed during the interview, PMA creates one row for each person on the roster.</p>
-<p>In order to determine the proportion of households that completed all or part of the Household Questionnaire - or any other <strong>household-level statistics</strong> - you must count only one row per household. Each Phase 1 household receives a unique identifier in <a href="https://pma.ipums.org/pma-action/variables/HHID">HHID_1</a> - this value is an empty string <code>""</code> for household members included only in Phase 2. All Phase 1 households have a unique <a href="https://pma.ipums.org/pma-action/variables/HHID">HHID_1</a>, regardless of the outcome recorded in <a href="https://pma.ipums.org/pma-action/variables/RESULTHQ">RESULTHQ_1</a>.</p>
-<p>Therefore, you can use <a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a> to find the <a href="https://pma.ipums.org/pma-action/variables/RESULTHQ">RESULTHQ_1</a> outcome for each household via <a href="https://pma.ipums.org/pma-action/variables/HHID">HHID_1</a>. To obtain the proportion of Phase 1 households that completed all or part of the questionnaire, we’ll first use <a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a> to drop Phase 2 households with the value <code>""</code>. Then, we’ll use <a href="https://dplyr.tidyverse.org/reference/slice.html">slice</a> to include only the first row in each household. Finally, we’ll count the number of fully (code 1) or partly (code 5) completed questionnaires in <a href="https://pma.ipums.org/pma-action/variables/RESULTHQ">RESULTHQ_1</a> - the base R function <a href="https://www.rdocumentation.org/packages/base/versions/3.6.2/topics/prop.table">prop.table</a> derives proportions for these counts.</p>
+<p>If no household interview occurred, PMA creates one row to represent
+the household in <a
+href="https://pma.ipums.org/pma-action/variables/RESULTHQ">RESULTHQ_1</a>.
+Otherwise, if the household roster was completed during the interview,
+PMA creates one row for each person on the roster.</p>
+<p>In order to determine the proportion of households that completed all
+or part of the Household Questionnaire - or any other
+<strong>household-level statistics</strong> - you must count only one
+row per household. Each Phase 1 household receives a unique identifier
+in <a href="https://pma.ipums.org/pma-action/variables/HHID">HHID_1</a>
+- this value is an empty string <code>""</code> for household members
+included only in Phase 2. All Phase 1 households have a unique <a
+href="https://pma.ipums.org/pma-action/variables/HHID">HHID_1</a>,
+regardless of the outcome recorded in <a
+href="https://pma.ipums.org/pma-action/variables/RESULTHQ">RESULTHQ_1</a>.</p>
+<p>Therefore, you can use <a
+href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a>
+to find the <a
+href="https://pma.ipums.org/pma-action/variables/RESULTHQ">RESULTHQ_1</a>
+outcome for each household via <a
+href="https://pma.ipums.org/pma-action/variables/HHID">HHID_1</a>. To
+obtain the proportion of Phase 1 households that completed all or part
+of the questionnaire, we’ll first use <a
+href="https://dplyr.tidyverse.org/reference/filter.html">filter</a> to
+drop Phase 2 households with the value <code>""</code>. Then, we’ll use
+<a href="https://dplyr.tidyverse.org/reference/slice.html">slice</a> to
+include only the first row in each household. Finally, we’ll count the
+number of fully (code 1) or partly (code 5) completed questionnaires in
+<a
+href="https://pma.ipums.org/pma-action/variables/RESULTHQ">RESULTHQ_1</a>
+- the base R function <a
+href="https://www.rdocumentation.org/packages/base/versions/3.6.2/topics/prop.table">prop.table</a>
+derives proportions for these counts.</p>
 <div class="layout-chunk" data-layout="l-screen">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='va'>dat</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> 
@@ -2823,9 +2990,13 @@ Need help downloading an IPUMS PMA data extract? Check out our <a href="../2022-
 2 TRUE                      22494 0.964 </code></pre>
 </div>
 <aside>
-Across samples, 96.4% of households completed all or part of the Phase 1 Household Questionnaire.
+Across samples, 96.4% of households completed all or part of the Phase 1
+Household Questionnaire.
 </aside>
-<p>Conversely, it is often useful to exclude non-interviewed households when calculating <strong>person-level statistics</strong>. In the first row of our CONSORT diagram above, we drop these households before we count the total number of sampled Phase 1 household members.</p>
+<p>Conversely, it is often useful to exclude non-interviewed households
+when calculating <strong>person-level statistics</strong>. In the first
+row of our CONSORT diagram above, we drop these households before we
+count the total number of sampled Phase 1 household members.</p>
 <div class="layout-chunk" data-layout="l-screen">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='va'>dat</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span>
@@ -2847,7 +3018,15 @@ Across samples, 96.4% of households completed all or part of the Phase 1 Househo
 <p><img src="phase2-members_files/figure-html5/unnamed-chunk-11-1.png" width="1536" /></p>
 </div>
 <h2 id="female-questionnaire">Female Questionnaire</h2>
-<p>IPUMS PMA uses a <strong>topcode</strong> labeled “Not interviewed (household questionnaire)” for variables related to questions that were only relevant if the Household Questionnaire was fully or partly completed. This includes <a href="https://pma.ipums.org/pma-action/variables/ELIGIBLE">ELIGIBLE_1</a>, which indicates whether a particular household member was a woman aged 15-49 at Phase 1, and therefore eligible for the Phase 1 Female Questionnaire. If the household was not interviewed, eligibility for the Female Questionnaire could not be determined.</p>
+<p>IPUMS PMA uses a <strong>non-response code</strong> labeled “Not
+interviewed (household questionnaire)” for variables related to
+questions that were only relevant if the Household Questionnaire was
+fully or partly completed. This includes <a
+href="https://pma.ipums.org/pma-action/variables/ELIGIBLE">ELIGIBLE_1</a>,
+which indicates whether a particular household member was a woman aged
+15-49 at Phase 1, and therefore eligible for the Phase 1 Female
+Questionnaire. If the household was not interviewed, eligibility for the
+Female Questionnaire could not be determined.</p>
 <div class="layout-chunk" data-layout="l-screen">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='va'>dat</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/count.html'>count</a></span><span class='op'>(</span><span class='va'>RESULTHQ_1</span>, <span class='va'>ELIGIBLE_1</span><span class='op'>)</span>
@@ -2869,7 +3048,11 @@ Across samples, 96.4% of households completed all or part of the Phase 1 Househo
 11  9 [Absent extended period]   96 [Not interviewed (household questionnaire)]   296
 12 NA                            NA                                             98687</code></pre>
 </div>
-<p><a href="https://pma.ipums.org/pma-action/variables/RESULTLFQ">RESULTLFQ_1</a> shows the result of the Female Questionnaire for eligible women. The <strong>topcode</strong> “NIU (not in universe)” is used for household members who were not eligible.</p>
+<p><a
+href="https://pma.ipums.org/pma-action/variables/RESULTLFQ">RESULTLFQ_1</a>
+shows the result of the Female Questionnaire for eligible women. The
+<strong>non-response code</strong> “NIU (not in universe)” is used for
+household members who were not eligible.</p>
 <div class="layout-chunk" data-layout="l-screen">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='va'>dat</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/count.html'>count</a></span><span class='op'>(</span><span class='va'>RESULTFQ_1</span><span class='op'>)</span>
@@ -2890,7 +3073,8 @@ Across samples, 96.4% of households completed all or part of the Phase 1 Househo
 8 99 [NIU (not in universe)]                     79124
 9 NA                                             98687</code></pre>
 </div>
-<p>You can calculate the proportion of eligible women who completed the Phase 1 Female Questionnaire like so:</p>
+<p>You can calculate the proportion of eligible women who completed the
+Phase 1 Female Questionnaire like so:</p>
 <div class="layout-chunk" data-layout="l-screen">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='va'>dat</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> 
@@ -2906,13 +3090,18 @@ Across samples, 96.4% of households completed all or part of the Phase 1 Househo
 2 TRUE                      23591 0.969 </code></pre>
 </div>
 <aside>
-Across samples, 96.9% of eligible women completed the Phase 1 Female Questionnaire.
+Across samples, 96.9% of eligible women completed the Phase 1 Female
+Questionnaire.
 </aside>
-<p>Our CONSORT diagram shows the total number of women who were eligible to participate in the panel study at Phase 1, after excluding women who:</p>
+<p>Our CONSORT diagram shows the total number of women who were eligible
+to participate in the panel study at Phase 1, after excluding women
+who:</p>
 <ul>
-<li>were members of a household where no Phase 1 Household Questionnaire was administered</li>
+<li>were members of a household where no Phase 1 Household Questionnaire
+was administered</li>
 <li>were not eligible (aged 15-49)</li>
-<li>did not complete at least part of the Phase 1 Female Questionnaire</li>
+<li>did not complete at least part of the Phase 1 Female
+Questionnaire</li>
 </ul>
 <div class="layout-chunk" data-layout="l-screen">
 <div class="sourceCode">
@@ -2932,13 +3121,28 @@ Across samples, 96.9% of eligible women completed the Phase 1 Female Questionnai
 6 Nigeria - Lagos      1507</code></pre>
 </div>
 <aside>
-If you select a data extract with “Female Respondents” rather than “All cases”, you will receive only records for women who completed all or part of the Female Questionnaire in at least one phase. See our <a href="../2022-03-15-phase2-formats/">last post</a> for details.
+If you select a data extract with “Female Respondents” rather than “All
+cases”, you will receive only records for women who completed all or
+part of the Female Questionnaire in at least one phase. See our <a
+href="../2022-03-15-phase2-formats/">last post</a> for details.
 </aside>
 <div class="layout-chunk" data-layout="l-page">
 <p><img src="phase2-members_files/figure-html5/unnamed-chunk-17-1.png" width="1536" /></p>
 </div>
-<p>Enumerators invited these women to participate in Phase 2 of the panel study one year later. Only women who agreed to participate at that time are considered panel members at Phase 2, as shown in <a href="https://pma.ipums.org/pma-action/variables/PANELWOMAN">PANELWOMAN_2</a>.<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a></p>
-<p>Their responses to the panel invitation are recorded in <a href="https://pma.ipums.org/pma-action/variables/SURVEYWILLING">SURVEYWILLING_1</a>. IPUMS PMA uses the <strong>topcode</strong> “Not interviewed (female questionnaire)” to indicate women who were eligible, but not interviewed for the Female Questionnaire as shown in <a href="https://pma.ipums.org/pma-action/variables/RESULTLFQ">RESULTLFQ_1</a>. Additionally, “No response or missing” is used for women who did not respond to the panel invitation.</p>
+<p>Enumerators invited these women to participate in Phase 2 of the
+panel study one year later. Only women who agreed to participate at that
+time are considered panel members at Phase 2, as shown in <a
+href="https://pma.ipums.org/pma-action/variables/PANELWOMAN">PANELWOMAN_2</a>.<a
+href="#fn3" class="footnote-ref" id="fnref3"
+role="doc-noteref"><sup>3</sup></a></p>
+<p>Their responses to the panel invitation are recorded in <a
+href="https://pma.ipums.org/pma-action/variables/SURVEYWILLING">SURVEYWILLING_1</a>.
+IPUMS PMA uses the <strong>non-response code</strong> “Not interviewed
+(female questionnaire)” to indicate women who were eligible, but not
+interviewed for the Female Questionnaire as shown in <a
+href="https://pma.ipums.org/pma-action/variables/RESULTLFQ">RESULTLFQ_1</a>.
+Additionally, “No response or missing” is used for women who did not
+respond to the panel invitation.</p>
 <div class="layout-chunk" data-layout="l-screen">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='va'>dat</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/count.html'>count</a></span><span class='op'>(</span><span class='va'>SURVEYWILLING_1</span><span class='op'>)</span>
@@ -2955,7 +3159,9 @@ If you select a data extract with “Female Respondents” rather than “All ca
 6 99 [NIU (not in universe)]                     79124
 7 NA                                             98687</code></pre>
 </div>
-<p>You should include “No response or missing” cases when calculating the proportion of Phase 1 female respondents who agreed to participate in the panel follow-up:</p>
+<p>You should include “No response or missing” cases when calculating
+the proportion of Phase 1 female respondents who agreed to participate
+in the panel follow-up:</p>
 <div class="layout-chunk" data-layout="l-screen">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='va'>dat</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> 
@@ -2972,16 +3178,31 @@ If you select a data extract with “Female Respondents” rather than “All ca
 3 98 [No response or missing]    53 0.00225</code></pre>
 </div>
 <aside>
-Across samples, 95.4% of women who completed the Phase 1 Female Questionnaire agreed to participate in panel follow-ups one year later.
+Across samples, 95.4% of women who completed the Phase 1 Female
+Questionnaire agreed to participate in panel follow-ups one year later.
 </aside>
 <div class="layout-chunk" data-layout="l-page">
 <p><img src="phase2-members_files/figure-html5/unnamed-chunk-20-1.png" width="1536" data-distill-preview=1 /></p>
 </div>
 <h1 id="phase-2">Phase 2</h1>
-<p>Both questionnaires were administered again in Phase 2, approximately one year later. Resident enumerators visited the same dwellings where Phase 1 interviews occurred; if the woman’s household had moved elsewhere within the study area,<a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a> enumerators used local contacts to find its new location. If found, they administered a Household Questionnaire including an updated household roster.</p>
-<p>As we’ve mentioned, any woman aged 15-49 listed on the Phase 2 household roster was eligible to complete a Phase 2 Female Questionnaire. However, only women who completed all or part of a Phase 1 Female Questionnaire are considered members of the panel in <a href="https://pma.ipums.org/pma-action/variables/PANELWOMAN">PANELWOMAN_2</a>.</p>
+<p>Both questionnaires were administered again in Phase 2, approximately
+one year later. Resident enumerators visited the same dwellings where
+Phase 1 interviews occurred; if the woman’s household had moved
+elsewhere within the study area,<a href="#fn4" class="footnote-ref"
+id="fnref4" role="doc-noteref"><sup>4</sup></a> enumerators used local
+contacts to find its new location. If found, they administered a
+Household Questionnaire including an updated household roster.</p>
+<p>As we’ve mentioned, any woman aged 15-49 listed on the Phase 2
+household roster was eligible to complete a Phase 2 Female
+Questionnaire. However, only women who completed all or part of a Phase
+1 Female Questionnaire are considered members of the panel in <a
+href="https://pma.ipums.org/pma-action/variables/PANELWOMAN">PANELWOMAN_2</a>.</p>
 <h2 id="household-questionnaire-1">Household Questionnaire</h2>
-<p>Several variables are available to describe the <a href="https://pma.ipums.org/pma-action/variables/group?id=tech_panel">status of households</a> surveyed at Phase 2. As with Phase 1, <a href="https://pma.ipums.org/pma-action/variables/RESULTHQ">RESULTHQ_2</a> describes the result of the Phase 2 Household Questionnaire.</p>
+<p>Several variables are available to describe the <a
+href="https://pma.ipums.org/pma-action/variables/group?id=tech_panel">status
+of households</a> surveyed at Phase 2. As with Phase 1, <a
+href="https://pma.ipums.org/pma-action/variables/RESULTHQ">RESULTHQ_2</a>
+describes the result of the Phase 2 Household Questionnaire.</p>
 <div class="layout-chunk" data-layout="l-screen">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='va'>dat</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/count.html'>count</a></span><span class='op'>(</span><span class='va'>RESULTHQ_2</span><span class='op'>)</span>
@@ -3001,7 +3222,11 @@ Across samples, 95.4% of women who completed the Phase 1 Female Questionnaire ag
  9  9 [Absent extended period]      313
 10 NA                             83678</code></pre>
 </div>
-<p><a href="https://pma.ipums.org/pma-action/variables/SAMEDWELLING">SAMEDWELLING_2</a> indicates whether the Household Questionnaire was administered at the same physical dwelling from Phase 1, or whether the enumerator located the woman’s household in a new dwelling.</p>
+<p><a
+href="https://pma.ipums.org/pma-action/variables/SAMEDWELLING">SAMEDWELLING_2</a>
+indicates whether the Household Questionnaire was administered at the
+same physical dwelling from Phase 1, or whether the enumerator located
+the woman’s household in a new dwelling.</p>
 <div class="layout-chunk" data-layout="l-screen">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='va'>dat</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/count.html'>count</a></span><span class='op'>(</span><span class='va'>SAMEDWELLING_2</span><span class='op'>)</span>
@@ -3017,7 +3242,14 @@ Across samples, 95.4% of women who completed the Phase 1 Female Questionnaire ag
 5 99 [NIU (not in universe)]                       1057
 6 NA                                              83678</code></pre>
 </div>
-<p>Each Phase 2 sample may also include new households that were not included in Phase 1, as indicated by <a href="https://pma.ipums.org/pma-action/variables/HHTYPE">HHTYPE_2</a>: these are replacement households drawn for enumeration areas where more than 10% of Phase 1 households were no longer present. They account for all of the <strong>topcodes</strong> shown in <a href="https://pma.ipums.org/pma-action/variables/SAMEDWELLING">SAMEDWELLING_2</a>, as no prior dwelling was sampled.</p>
+<p>Each Phase 2 sample may also include new households that were not
+included in Phase 1, as indicated by <a
+href="https://pma.ipums.org/pma-action/variables/HHTYPE">HHTYPE_2</a>:
+these are replacement households drawn for enumeration areas where more
+than 10% of Phase 1 households were no longer present. They account for
+all of the <strong>non-response code</strong> shown in <a
+href="https://pma.ipums.org/pma-action/variables/SAMEDWELLING">SAMEDWELLING_2</a>,
+as no prior dwelling was sampled.</p>
 <div class="layout-chunk" data-layout="l-screen">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='va'>dat</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/count.html'>count</a></span><span class='op'>(</span><span class='va'>SAMEDWELLING_2</span>, <span class='va'>HHTYPE_2</span><span class='op'>)</span>
@@ -3033,7 +3265,13 @@ Across samples, 95.4% of women who completed the Phase 1 Female Questionnaire ag
 5 99 [NIU (not in universe)]                      2 [Replacement cross-section]   1057
 6 NA                                             NA                              83678</code></pre>
 </div>
-<p>As mentioned above, it is not possible to link Phase 1 and Phase 2 records for household members who were not women participating in the panel study. However, the variable <a href="https://pma.ipums.org/pma-action/variables/HHMEMSTAT">HHMEMSTAT_2</a> does describe whether a Phase 1 household member was listed on the household roster for Phase 2; if not, PMA creates a Phase 2 record for that person indicating whether they moved or were deceased.</p>
+<p>As mentioned above, it is not possible to link Phase 1 and Phase 2
+records for household members who were not women participating in the
+panel study. However, the variable <a
+href="https://pma.ipums.org/pma-action/variables/HHMEMSTAT">HHMEMSTAT_2</a>
+does describe whether a Phase 1 household member was listed on the
+household roster for Phase 2; if not, PMA creates a Phase 2 record for
+that person indicating whether they moved or were deceased.</p>
 <div class="layout-chunk" data-layout="l-screen">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='va'>dat</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/count.html'>count</a></span><span class='op'>(</span><span class='va'>HHMEMSTAT_2</span><span class='op'>)</span>
@@ -3053,8 +3291,17 @@ Across samples, 95.4% of women who completed the Phase 1 Female Questionnaire ag
  9 99 [NIU (not in universe)]                     24813
 10 NA                                             83678</code></pre>
 </div>
-<p>After excluding women who reached age 50 at Phase 2, our CONSORT diagram diverges to show whether panel members were found in their Phase 1 dwelling or a new one. Women whose household was not found in the study area are considered <strong>lost to follow-up</strong>, as are those where the Phase 2 Household Questionnaire was not completed.</p>
-<p>The variable <a href="https://pma.ipums.org/pma-action/variables/HHPANELP2">HHPANELP2_2</a> indicates whether any woman who completed the Phase 1 Female Questionnaire was living in the dwelling at Phase 2. Women who were no longer residents of the household are also considered <strong>lost to follow-up</strong>.</p>
+<p>After excluding women who reached age 50 at Phase 2, our CONSORT
+diagram diverges to show whether panel members were found in their Phase
+1 dwelling or a new one. Women whose household was not found in the
+study area are considered <strong>lost to follow-up</strong>, as are
+those where the Phase 2 Household Questionnaire was not completed.</p>
+<p>The variable <a
+href="https://pma.ipums.org/pma-action/variables/HHPANELP2">HHPANELP2_2</a>
+indicates whether any woman who completed the Phase 1 Female
+Questionnaire was living in the dwelling at Phase 2. Women who were no
+longer residents of the household are also considered <strong>lost to
+follow-up</strong>.</p>
 <div class="layout-chunk" data-layout="l-screen">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='va'>dat</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/count.html'>count</a></span><span class='op'>(</span><span class='va'>HHPANELP2_2</span><span class='op'>)</span>
@@ -3071,7 +3318,11 @@ Across samples, 95.4% of women who completed the Phase 1 Female Questionnaire ag
 <p><img src="phase2-members_files/figure-html5/unnamed-chunk-26-1.png" width="1536" /></p>
 </div>
 <h2 id="female-questionnaire-1">Female Questionnaire</h2>
-<p>Finally, eligible women who were found in a household at Phase 2 were invited to complete a Female Questionnaire. <a href="https://pma.ipums.org/pma-action/variables/RESULTFQ">RESULTFQ_2</a> indicates the result of the Phase 2 Female Questionnaire both for panel members and women who were otherwise eligible to participate.</p>
+<p>Finally, eligible women who were found in a household at Phase 2 were
+invited to complete a Female Questionnaire. <a
+href="https://pma.ipums.org/pma-action/variables/RESULTFQ">RESULTFQ_2</a>
+indicates the result of the Phase 2 Female Questionnaire both for panel
+members and women who were otherwise eligible to participate.</p>
 <div class="layout-chunk" data-layout="l-screen">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='va'>dat</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/count.html'>count</a></span><span class='op'>(</span><span class='va'>RESULTFQ_2</span><span class='op'>)</span>
@@ -3092,7 +3343,9 @@ Across samples, 95.4% of women who completed the Phase 1 Female Questionnaire ag
 10 99 [NIU (not in universe)]                     91234
 11 NA                                             83678</code></pre>
 </div>
-<p>You can find the proportion of women who completed the Phase 2 Female Questionnaire that were also available at Phase 1 (i.e. panel members) like so:</p>
+<p>You can find the proportion of women who completed the Phase 2 Female
+Questionnaire that were also available at Phase 1 (i.e. panel members)
+like so:</p>
 <div class="layout-chunk" data-layout="l-screen">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='va'>dat</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> 
@@ -3108,10 +3361,23 @@ Across samples, 95.4% of women who completed the Phase 1 Female Questionnaire ag
 2      1 [Yes] 18180 0.734</code></pre>
 </div>
 <aside>
-<p>Across samples, Phase 1 data are available for 73.4% of women who completed the Phase 2 Female Questionnaire.</p>
+<p>Across samples, Phase 1 data are available for 73.4% of women who
+completed the Phase 2 Female Questionnaire.</p>
 26.6% of these women are newcomers at Phase 2.
 </aside>
-<p><strong>Wide</strong> data extracts make it particularly easy to combine Phase 1 and Phase 2 variables for the same woman. Note that potential panel members were identified at Phase 1: they are women who agreed to participate in <a href="https://pma.ipums.org/pma-action/variables/SURVEYWILLING">SURVEYWILLING_1</a> and were under age 49 in <a href="https://pma.ipums.org/pma-action/variables/AGE">AGE_1</a>. In order to calculate the proportion of potential panel members who ultimately completed the Female Questionnaire at Phase 2, you must include Phase 1 female respondents for whom no Phase 2 data exists. These cases are marked <code>NA</code> in <a href="https://pma.ipums.org/pma-action/variables/RESULTFQ">RESULTFQ_2</a>, so they are easily included like so:</p>
+<p><strong>Wide</strong> data extracts make it particularly easy to
+combine Phase 1 and Phase 2 variables for the same woman. Note that
+potential panel members were identified at Phase 1: they are women who
+agreed to participate in <a
+href="https://pma.ipums.org/pma-action/variables/SURVEYWILLING">SURVEYWILLING_1</a>
+and were under age 49 in <a
+href="https://pma.ipums.org/pma-action/variables/AGE">AGE_1</a>. In
+order to calculate the proportion of potential panel members who
+ultimately completed the Female Questionnaire at Phase 2, you must
+include Phase 1 female respondents for whom no Phase 2 data exists.
+These cases are marked <code>NA</code> in <a
+href="https://pma.ipums.org/pma-action/variables/RESULTFQ">RESULTFQ_2</a>,
+so they are easily included like so:</p>
 <div class="layout-chunk" data-layout="l-screen">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='va'>dat</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> 
@@ -3128,9 +3394,13 @@ Across samples, 95.4% of women who completed the Phase 1 Female Questionnaire ag
 3 NA                 1632 0.0733</code></pre>
 </div>
 <aside>
-Across samples, 81.7% of potential panel members completed the Phase 2 Female Questionnaire.
+Across samples, 81.7% of potential panel members completed the Phase 2
+Female Questionnaire.
 </aside>
-<p>The final row of our CONSORT diagram shows the total number of completed Phase 2 Female Questionnaires for each sample. The totals below match the results reported in each of the PMA User Guides published for individual samples.</p>
+<p>The final row of our CONSORT diagram shows the total number of
+completed Phase 2 Female Questionnaires for each sample. The totals
+below match the results reported in each of the PMA User Guides
+published for individual samples.</p>
 <div class="layout-chunk" data-layout="l-screen">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='va'>dat</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> 
@@ -3160,27 +3430,66 @@ Across samples, 81.7% of potential panel members completed the Phase 2 Female Qu
 <p><img src="phase2-members_files/figure-html5/unnamed-chunk-31-1.png" width="1536" data-distill-preview=1 /></p>
 </div>
 <h1 id="summary">Summary</h1>
-<p>There are ultimately several causes of <strong>loss to follow-up</strong> that may occur at different time points throughout the panel study. An individual is considered <strong>lost to follow-up</strong> if:</p>
+<p>There are ultimately several causes of <strong>loss to
+follow-up</strong> that may occur at different time points throughout
+the panel study. An individual is considered <strong>lost to
+follow-up</strong> if:</p>
 <ol type="1">
-<li>The household moved out of the Phase 1 dwelling, and the new dwelling could not be located within the study area</li>
-<li>The Phase 2 Household Questionnaire was not completed (a respondent refused, was not available, etc)</li>
-<li>A panel member from the household was no longer a resident (deceased, moved, or status unknown)</li>
-<li>A panel member did not complete a Phase 2 Household Questionnaire (she refused, was not available, etc)</li>
+<li>The household moved out of the Phase 1 dwelling, and the new
+dwelling could not be located within the study area</li>
+<li>The Phase 2 Household Questionnaire was not completed (a respondent
+refused, was not available, etc)</li>
+<li>A panel member from the household was no longer a resident
+(deceased, moved, or status unknown)</li>
+<li>A panel member did not complete a Phase 2 Household Questionnaire
+(she refused, was not available, etc)</li>
 </ol>
-<p>At the same time, the <strong>open panel design</strong> allows new participants to complete a Female Questionnaire at any phase. These women are not panel members at Phase 2, but they may become panel members at Phase 3 if they are eligible and agree to complete a forthcoming Phase 3 Female Questionnaire. Women can join the panel at Phase 2, for example, if they:</p>
+<p>At the same time, the <strong>open panel design</strong> allows new
+participants to complete a Female Questionnaire at any phase. These
+women are not panel members at Phase 2, but they may become panel
+members at Phase 3 if they are eligible and agree to complete a
+forthcoming Phase 3 Female Questionnaire. Women can join the panel at
+Phase 2, for example, if they:</p>
 <ol type="1">
 <li>Reach age 15 only after Phase 1 interviews were completed</li>
 <li>Move into a household sampled at Phase 2</li>
 </ol>
-<p>For more details on sample design, check out the IPUMS PMA <a href="https://pma.ipums.org/pma/sample_notes.shtml#long">sample notes</a> and User Guides published for individual samples at <a href="https://www.pmadata.org/">pmadata.org</a>.</p>
-<div class="sourceCode" id="cb23"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
-<section class="footnotes" role="doc-endnotes">
+<p>For more details on sample design, check out the IPUMS PMA <a
+href="https://pma.ipums.org/pma/sample_notes.shtml#long">sample
+notes</a> and User Guides published for individual samples at <a
+href="https://www.pmadata.org/">pmadata.org</a>.</p>
+<div class="sourceCode" id="cb23"><pre
+class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
+<section class="footnotes footnotes-end-of-document"
+role="doc-endnotes">
 <hr />
 <ol>
-<li id="fn1" role="doc-endnote"><p>Questionnaires administered in each country may vary from this <strong>Core Household Questionnaire</strong> - <a href="https://pma.ipums.org/pma/enum_materials.shtml">click here</a> for details.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn2" role="doc-endnote"><p>Questionnaires administered in each country may vary from this Core Female Questionnaire - <a href="https://pma.ipums.org/pma/enum_materials.shtml">click here</a> for details.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn3" role="doc-endnote"><p>Women who completed the Phase 1 Female Questionnaire but declined to participate in the panel were given an opportunity to join the panel again at Phase 2 (if eligible). They are not panel members as shown in <a href="https://pma.ipums.org/pma-action/variables/PANELWOMAN">PANELWOMAN_2</a>, but they may be listed as such in <a href="https://pma.ipums.org/pma-action/variables/PANELWOMAN">PANELWOMAN_3</a> if they agree to participation in the panel going forward.<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn4" role="doc-endnote"><p>The “study area” is area within which resident enumerators should attempt to find panel women that have moved out of their Phase 1 dwelling. This may extend beyond the woman’s original EA as determined by in-country administrators - see <a href="https://www.pmadata.org/data/survey-methodology">PMA Phase 2 and Phase 3 Survey Protocol</a> for details.<a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn1" role="doc-endnote"><p>Questionnaires administered in each
+country may vary from this <strong>Core Household Questionnaire</strong>
+- <a href="https://pma.ipums.org/pma/enum_materials.shtml">click
+here</a> for details.<a href="#fnref1" class="footnote-back"
+role="doc-backlink">↩︎</a></p></li>
+<li id="fn2" role="doc-endnote"><p>Questionnaires administered in each
+country may vary from this Core Female Questionnaire - <a
+href="https://pma.ipums.org/pma/enum_materials.shtml">click here</a> for
+details.<a href="#fnref2" class="footnote-back"
+role="doc-backlink">↩︎</a></p></li>
+<li id="fn3" role="doc-endnote"><p>Women who completed the Phase 1
+Female Questionnaire but declined to participate in the panel were given
+an opportunity to join the panel again at Phase 2 (if eligible). They
+are not panel members as shown in <a
+href="https://pma.ipums.org/pma-action/variables/PANELWOMAN">PANELWOMAN_2</a>,
+but they may be listed as such in <a
+href="https://pma.ipums.org/pma-action/variables/PANELWOMAN">PANELWOMAN_3</a>
+if they agree to participation in the panel going forward.<a
+href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn4" role="doc-endnote"><p>The “study area” is area within which
+resident enumerators should attempt to find panel women that have moved
+out of their Phase 1 dwelling. This may extend beyond the woman’s
+original EA as determined by in-country administrators - see <a
+href="https://www.pmadata.org/data/survey-methodology">PMA Phase 2 and
+Phase 3 Survey Protocol</a> for details.<a href="#fnref4"
+class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
 </section>
 <!--radix_placeholder_article_footer-->
@@ -3234,9 +3543,13 @@ var disqus_config = function () {
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/REC-html40/loose.dtd">
 <!--radix_placeholder_navigation_after_body--><html><body>
 <div class="distill-site-nav distill-site-footer">
-<p>Developed by <a href="https://www.ipums.org">IPUMS</a> at the University of Minnesota</p>
-<p>Licensed under the <a href="https://www.mozilla.org/en-US/MPL/2.0/">Mozilla Public License Version 2.0</a></p>
-<p>Site built with <a href="https://rstudio.github.io/distill/">Distill for R Markdown</a></p>
+<p>Developed by <a href="https://www.ipums.org">IPUMS</a> at the
+University of Minnesota</p>
+<p>Licensed under the
+<a href="https://www.mozilla.org/en-US/MPL/2.0/">Mozilla Public License
+Version 2.0</a></p>
+<p>Site built with <a href="https://rstudio.github.io/distill/">Distill
+for R Markdown</a></p>
 </div>
 <!--/radix_placeholder_navigation_after_body-->
 </body></html>

@@ -2597,7 +2597,8 @@ Community
 <h1>Blogging with RMarkdown</h1>
 <!--radix_placeholder_categories-->
 <!--/radix_placeholder_categories-->
-<p><p>Quick tips for authoring and editing blog posts with RMarkdown</p></p>
+<p><p>Quick tips for authoring and editing blog posts with
+RMarkdown</p></p>
 </div>
 
 <div class="d-byline">
@@ -2619,28 +2620,45 @@ Community
 <li><a href="#categories">Categories</a></li>
 <li><a href="#author">Author</a></li>
 <li><a href="#date">Date</a></li>
-<li><a href="#output-table-of-contents">Output (Table of Contents)</a></li>
+<li><a href="#output-table-of-contents">Output (Table of
+Contents)</a></li>
 <li><a href="#preview">Preview</a></li>
 </ul></li>
 <li><a href="#code-chunks">Code chunks</a>
 <ul>
 <li><a href="#chunk-options">Chunk options</a></li>
-<li><a href="#data-visualizations-from-chunks">Data Visualizations from chunks</a></li>
+<li><a href="#data-visualizations-from-chunks">Data Visualizations from
+chunks</a></li>
 </ul></li>
 <li><a href="#formatted-text">Formatted Text</a>
 <ul>
 <li><a href="#headings">Headings</a></li>
 <li><a href="#bold-and-italics">Bold and Italics</a></li>
-<li><a href="#inline-code-variable-names-packages-functions-etc">Inline code (variable names, packages, functions, etc)</a></li>
+<li><a href="#inline-code-variable-names-packages-functions-etc">Inline
+code (variable names, packages, functions, etc)</a></li>
 <li><a href="#hyperlinks">Hyperlinks</a></li>
 <li><a href="#asides-and-footnotes">Asides and Footnotes</a></li>
 </ul></li>
 </ul>
 </nav>
 </div>
-<p>RMarkdown documents (.Rmd) work just like regular R scripts (.R) in that you can use them as a space to develop code before sending it to the R Console. The main difference is that an RMarkdown file breaks code into discrete “chunks” of code that can be separated by blocks of text. When you run an RMarkdown document, the Console ignores anything that’s not included in a code chunk (so there’s no need to use the comment indicator <code>#</code>).</p>
-<p>RMarkdown is a powerful tool for sharing and teaching R code, but it has become even more useful with the advent of packages like <a href="https://yihui.org/knitr/">knitr</a>, which can transform RMarkdown files into Word documents, PDFs, sideshows, HTML pages, and more. The PMA Data Hub is built with <code>knitr</code> and another package called <a href="https://rstudio.github.io/distill/">distill</a>, which transforms RMarkdown files into fully formatted blog posts.</p>
-<p>If you’ve never used RMarkdown, <code>knitr</code>, or <code>distill</code> before, you’ll need to install them with your R Console now:</p>
+<p>RMarkdown documents (.Rmd) work just like regular R scripts (.R) in
+that you can use them as a space to develop code before sending it to
+the R Console. The main difference is that an RMarkdown file breaks code
+into discrete “chunks” of code that can be separated by blocks of text.
+When you run an RMarkdown document, the Console ignores anything that’s
+not included in a code chunk (so there’s no need to use the comment
+indicator <code>#</code>).</p>
+<p>RMarkdown is a powerful tool for sharing and teaching R code, but it
+has become even more useful with the advent of packages like <a
+href="https://yihui.org/knitr/">knitr</a>, which can transform RMarkdown
+files into Word documents, PDFs, sideshows, HTML pages, and more. The
+PMA Data Hub is built with <code>knitr</code> and another package called
+<a href="https://rstudio.github.io/distill/">distill</a>, which
+transforms RMarkdown files into fully formatted blog posts.</p>
+<p>If you’ve never used RMarkdown, <code>knitr</code>, or
+<code>distill</code> before, you’ll need to install them with your R
+Console now:</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/utils/install.packages.html'>install.packages</a></span><span class='op'>(</span><span class='st'>"RMarkdown"</span><span class='op'>)</span>
@@ -2650,8 +2668,12 @@ Community
 </div>
 </div>
 <h1 id="creating-a-blog-post">Creating a blog post</h1>
-<p>In this post, we’ll assume that you’ve already reviewed the <a href="../2021-02-02-blog-post-workflow/index.html">Blog Post Workflow</a>, so you’re familiar with the process for creating <em>a new blog post on a new branch</em> of the Git repository.</p>
-<p>Assuming you’ve created a new branch for your post, you’ll create and open an RMarkdown file when you run:</p>
+<p>In this post, we’ll assume that you’ve already reviewed the <a
+href="../2021-02-02-blog-post-workflow/index.html">Blog Post
+Workflow</a>, so you’re familiar with the process for creating <em>a new
+blog post on a new branch</em> of the Git repository.</p>
+<p>Assuming you’ve created a new branch for your post, you’ll create and
+open an RMarkdown file when you run:</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='fu'>distill</span><span class='fu'>::</span><span class='fu'><a href='https://pkgs.rstudio.com/distill/reference/create_post.html'>create_post</a></span><span class='op'>(</span><span class='st'>"Getting started with RMarkdown"</span><span class='op'>)</span>
@@ -2663,34 +2685,55 @@ Community
 <p><img src="images/bwrmd/new_rmarkdown.png" width="1280" /></p>
 </div>
 <aside>
-Circled in red: notice that a new folder was created in the “_posts” directory shown in the <b>Files</b> tab, and your new files also are now being tracked in the <b>Git</b> tab.
+Circled in red: notice that a new folder was created in the “_posts”
+directory shown in the <b>Files</b> tab, and your new files also are now
+being tracked in the <b>Git</b> tab.
 </aside>
-<p>An RMarkdown file opens with a template showing a YAML metadata header, a code chunk called “setup”, and some boilerplate text.</p>
+<p>An RMarkdown file opens with a template showing a YAML metadata
+header, a code chunk called “setup”, and some boilerplate text.</p>
 <h1 id="yaml-metadata">YAML Metadata</h1>
-<p>Your RMarkdown template contains a header consisting of a series of <code>key: "value"</code> pairs written in <a href="https://yaml.org/">YAML</a>. This is where we store metadata for each article appearing both at 1) the top of every blog post, and 2) on the blog homepage.</p>
-<p>Here’s an example of a complete YAML header for a post on the Data Hub:</p>
+<p>Your RMarkdown template contains a header consisting of a series of
+<code>key: "value"</code> pairs written in <a
+href="https://yaml.org/">YAML</a>. This is where we store metadata for
+each article appearing both at 1) the top of every blog post, and 2) on
+the blog homepage.</p>
+<p>Here’s an example of a complete YAML header for a post on the Data
+Hub:</p>
 <div class="layout-chunk" data-layout="l-body">
 <p><img src="images/bwrmd/yaml.png" width="609" /></p>
 </div>
 <h2 id="title">Title</h2>
-<p>This will be the main Title shown in CSS style H1 at the top of your post. We automatically reformat to all-caps, so this is <em>not</em> case-sensitive.</p>
-<p>Please do not use sentence punctuation (unless your title is a question).</p>
-<p>Ensure that your Title matches the “H1 Title” on the Data Hub Tracking Sheet.</p>
+<p>This will be the main Title shown in CSS style H1 at the top of your
+post. We automatically reformat to all-caps, so this is <em>not</em>
+case-sensitive.</p>
+<p>Please do not use sentence punctuation (unless your title is a
+question).</p>
+<p>Ensure that your Title matches the “H1 Title” on the Data Hub
+Tracking Sheet.</p>
 <h2 id="description">Description</h2>
-<p>This is the subtitle shown in CSS style H2 (just below the H1 Title). This subtitle <em>is</em> case-senstive.</p>
-<p>Please do not use sentence punctuation (unless your subtitle is a question).</p>
-<p>Try your best to avoid repeating the subtitle pattern “How to X”. Subtitles should emphasize the importance of a post <em>in the particular context of analyzing PMA data</em> if possible.</p>
+<p>This is the subtitle shown in CSS style H2 (just below the H1 Title).
+This subtitle <em>is</em> case-senstive.</p>
+<p>Please do not use sentence punctuation (unless your subtitle is a
+question).</p>
+<p>Try your best to avoid repeating the subtitle pattern “How to X”.
+Subtitles should emphasize the importance of a post <em>in the
+particular context of analyzing PMA data</em> if possible.</p>
 <h2 id="categories">Categories</h2>
-<p>The are the “tags” that will help readers filter posts and navigate through different thematic modules. What tags should you include?</p>
+<p>The are the “tags” that will help readers filter posts and navigate
+through different thematic modules. What tags should you include?</p>
 <ul>
 <li>Module name (Column A of the tracking sheet)</li>
 <li>Post type (Column B of the tracking sheet)</li>
-<li>Important package functions (<code>package::function</code>) or techniques</li>
+<li>Important package functions (<code>package::function</code>) or
+techniques</li>
 <li>Analysis tools</li>
 </ul>
-<p>Always check to see if your tags have been used in a previous post and, if so, make sure to match their existing style, spelling, etc.</p>
+<p>Always check to see if your tags have been used in a previous post
+and, if so, make sure to match their existing style, spelling, etc.</p>
 <h2 id="author">Author</h2>
-<p>Always include your name and your affiliation with the project. Optionally, <em>feel free to link to a personal website or social media account!</em></p>
+<p>Always include your name and your affiliation with the project.
+Optionally, <em>feel free to link to a personal website or social media
+account!</em></p>
 <p>Examples:</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>author<span class="sc">:</span></span>
@@ -2712,7 +2755,8 @@ Circled in red: notice that a new folder was created in the “_posts” directo
 <h2 id="date">Date</h2>
 <p>Admin will update this to reflect date of publication.</p>
 <h2 id="output-table-of-contents">Output (Table of Contents)</h2>
-<p>The PMA Data Hub uses a floating table of contents that follows up to 3 heading depths. Please format exactly as shown:</p>
+<p>The PMA Data Hub uses a floating table of contents that follows up to
+3 heading depths. Please format exactly as shown:</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='va'>output</span><span class='op'>:</span>
@@ -2725,12 +2769,21 @@ Circled in red: notice that a new folder was created in the “_posts” directo
 </div>
 </div>
 <h2 id="preview">Preview</h2>
-<p>This is the image that will appear alongside your post in the blog homepage. If you don’t specify an image, <code>distill</code> will automatically select the first image in your post; if there are no images, the space will be left blank (but please consider using one!)</p>
-<p>The file path to your image should be <em>relative to the RMarkdown file, itself</em>. For example:</p>
+<p>This is the image that will appear alongside your post in the blog
+homepage. If you don’t specify an image, <code>distill</code> will
+automatically select the first image in your post; if there are no
+images, the space will be left blank (but please consider using
+one!)</p>
+<p>The file path to your image should be <em>relative to the RMarkdown
+file, itself</em>. For example:</p>
 <div class="layout-chunk" data-layout="l-body">
 <p><img src="images/bwrmd/images.png" width="649" /></p>
 </div>
-<p>This shows the folder “2020-12-09-mapping-contraceptive-stockouts” in the “_posts” folder. The .Rmd file lives in the top level of the folder, and the desired image <code>Rlogo.png</code> lives in the <code>images</code> subfolder. The correct way to reference the image is:</p>
+<p>This shows the folder “2020-12-09-mapping-contraceptive-stockouts” in
+the “_posts” folder. The .Rmd file lives in the top level of the folder,
+and the desired image <code>Rlogo.png</code> lives in the
+<code>images</code> subfolder. The correct way to reference the image
+is:</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='va'>preview</span><span class='op'>:</span> <span class='va'>images</span><span class='op'>/</span><span class='va'>static</span><span class='op'>-</span><span class='va'>map.png</span>
@@ -2738,24 +2791,32 @@ Circled in red: notice that a new folder was created in the “_posts” directo
 </div>
 </div>
 <h1 id="code-chunks">Code chunks</h1>
-<p>Each chunk of code in your RMarkdown file must be offset as shown here (note the tic-marks and “r” in curly brackets):</p>
+<p>Each chunk of code in your RMarkdown file must be offset as shown
+here (note the tic-marks and “r” in curly brackets):</p>
 <div class="layout-chunk" data-layout="l-body">
 <p><img src="images/bwrmd/empty_chunk.png" width="411" /></p>
 </div>
 <aside>
-The “r” tells R to interpret this chunk as R code (RMarkdown also supports other languages like Python, Julia, C++, and SQL).
+The “r” tells R to interpret this chunk as R code (RMarkdown also
+supports other languages like Python, Julia, C++, and SQL).
 </aside>
-<p>You can quickly insert a code chunk via the <code>Code</code> menu in RStudio’s menu bar, or <em>by using the keyboard shortcut shown there</em> (e.g. command + option + I for mac users).</p>
+<p>You can quickly insert a code chunk via the <code>Code</code> menu in
+RStudio’s menu bar, or <em>by using the keyboard shortcut shown
+there</em> (e.g. command + option + I for mac users).</p>
 <h2 id="chunk-options">Chunk options</h2>
-<p>You can set specific rendering instructions for RMarkdown inside the curly brackets. Some common options include:</p>
+<p>You can set specific rendering instructions for RMarkdown inside the
+curly brackets. Some common options include:</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>r, eval <span class="ot">=</span> F <span class="co"># don&#39;t run the code in this chunk</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>r, echo <span class="ot">=</span> F <span class="co"># hide the code, but not the results </span></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>r, eval <span class="ot">=</span> T, echo <span class="ot">=</span> F <span class="co"># combine options with commas like this</span></span>
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>r, error <span class="ot">=</span> F, message <span class="ot">=</span> F, warning <span class="ot">=</span> F <span class="co"># hide errors, messages, &amp; warnings</span></span></code></pre></div>
 </div>
-<p><em>A full list of chunk options are explained <a href="https://yihui.org/knitr/options/">here</a>.</em></p>
-<p>You can also set default options for all of your code chunks at the top of your RMarkdown document (see the <code>setup</code> chunk that opens in a new template):</p>
+<p><em>A full list of chunk options are explained <a
+href="https://yihui.org/knitr/options/">here</a>.</em></p>
+<p>You can also set default options for all of your code chunks at the
+top of your RMarkdown document (see the <code>setup</code> chunk that
+opens in a new template):</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='fu'>knitr</span><span class='fu'>::</span><span class='va'><a href='https://rdrr.io/pkg/knitr/man/opts_chunk.html'>opts_chunk</a></span><span class='op'>$</span><span class='fu'>set</span><span class='op'>(</span>
@@ -2768,55 +2829,91 @@ The “r” tells R to interpret this chunk as R code (RMarkdown also supports o
 </code></pre>
 </div>
 </div>
-<h2 id="data-visualizations-from-chunks">Data Visualizations from chunks</h2>
-<p>The Distill website explains how to format <a href="https://rstudio.github.io/distill/figures.html">figures</a>, <a href="https://rstudio.github.io/distill/tables.html">tables</a>, and <a href="https://rstudio.github.io/distill/diagrams.html">diagrams</a> via code chunk arguments.</p>
+<h2 id="data-visualizations-from-chunks">Data Visualizations from
+chunks</h2>
+<p>The Distill website explains how to format <a
+href="https://rstudio.github.io/distill/figures.html">figures</a>, <a
+href="https://rstudio.github.io/distill/tables.html">tables</a>, and <a
+href="https://rstudio.github.io/distill/diagrams.html">diagrams</a> via
+code chunk arguments.</p>
 <h1 id="formatted-text">Formatted Text</h1>
-<p>Here, we’ll show some examples for adding formatted text to the body of your RMarkdown file (i.e. everything that <em>not</em> included in the YAML header or a code chunk).</p>
+<p>Here, we’ll show some examples for adding formatted text to the body
+of your RMarkdown file (i.e. everything that <em>not</em> included in
+the YAML header or a code chunk).</p>
 <h2 id="headings">Headings</h2>
-<p>Use the <code>#</code> symbol once for an H1 heading, twice <code>##</code> for an H2 heading, or three times <code>###</code> for an H3 heading.</p>
-<p>Look at the table of contents for this page: H1 headings are left aligned, and H2 headings are indented once; any H3 headings would be indented twice if we had them.</p>
+<p>Use the <code>#</code> symbol once for an H1 heading, twice
+<code>##</code> for an H2 heading, or three times <code>###</code> for
+an H3 heading.</p>
+<p>Look at the table of contents for this page: H1 headings are left
+aligned, and H2 headings are indented once; any H3 headings would be
+indented twice if we had them.</p>
 <h2 id="bold-and-italics">Bold and Italics</h2>
 <p><em>Italics</em> are offset by one <code>*</code> like this:</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="sc">*</span>Italics<span class="sc">*</span> are offset by one <span class="st">`</span><span class="at">*</span><span class="st">`</span> like this<span class="sc">:</span></span></code></pre></div>
 </div>
-<p><strong>Bold</strong> text is offset by two <code>**</code> like this:</p>
+<p><strong>Bold</strong> text is offset by two <code>**</code> like
+this:</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="sc">**</span>Bold<span class="sc">**</span> text is offset by two <span class="st">`</span><span class="at">**</span><span class="st">`</span> like this<span class="sc">:</span></span></code></pre></div>
 </div>
-<h2 id="inline-code-variable-names-packages-functions-etc">Inline code (variable names, packages, functions, etc)</h2>
-<p>We use a particular font for code chunks, and this font also gets applied in the text body to any mention of a variable name, package, or function - basically anything that might appear in the console.</p>
-<p><strong>Note:</strong> the <em>first</em> time you use a variable name, package, or function in a post, it’s usually best in include a hyperlink to the underlying documentation. <em>When you insert a hyperlink, do not offset text for inline code</em>.</p>
+<h2 id="inline-code-variable-names-packages-functions-etc">Inline code
+(variable names, packages, functions, etc)</h2>
+<p>We use a particular font for code chunks, and this font also gets
+applied in the text body to any mention of a variable name, package, or
+function - basically anything that might appear in the console.</p>
+<p><strong>Note:</strong> the <em>first</em> time you use a variable
+name, package, or function in a post, it’s usually best in include a
+hyperlink to the underlying documentation. <em>When you insert a
+hyperlink, do not offset text for inline code</em>.</p>
 <p><code>Inline code</code> is offset by one ` like this:</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="st">`</span><span class="at">Inline code</span><span class="st">`</span> is offset by one <span class="st">`</span><span class="at"> like this:</span></span></code></pre></div>
 </div>
 <h2 id="hyperlinks">Hyperlinks</h2>
-<p>A hyperlink should be used the first time you mention a variable, package, function, or anything else that has underlying documentation at an external source.</p>
-<p>A <a href="http://bitly.com/98K8eH">hyperlink</a> can be inserted like this:</p>
+<p>A hyperlink should be used the first time you mention a variable,
+package, function, or anything else that has underlying documentation at
+an external source.</p>
+<p>A <a href="http://bitly.com/98K8eH">hyperlink</a> can be inserted
+like this:</p>
 <pre><code>A [hyperlink](http://bitly.com/98K8eH) can be inserted like this:</code></pre>
-<p>If you want to link to another page on the PMA Data Hub, use relative links (do not include the full path). For example:</p>
+<p>If you want to link to another page on the PMA Data Hub, use relative
+links (do not include the full path). For example:</p>
 <p>A relative path to the <a href="about.html">ABOUT</a> page:</p>
 <pre><code>A relative path to the [ABOUT](about.html) page:</code></pre>
-<p>Or, a relative path to one of the <a href="posts/2020-12-09-mapping-contraceptive-stockouts/index.html">blog posts</a>:</p>
+<p>Or, a relative path to one of the <a
+href="posts/2020-12-09-mapping-contraceptive-stockouts/index.html">blog
+posts</a>:</p>
 <pre><code>Or, a relative path to one of the [blog posts](posts/2020-12-09-mapping-contraceptive-stockouts/index.html)</code></pre>
-<p>Here is a relative path to one of the <a href="posts/2020-12-09-mapping-contraceptive-stockouts/index.html#shiny-application">headings</a> on that blog post:</p>
+<p>Here is a relative path to one of the <a
+href="posts/2020-12-09-mapping-contraceptive-stockouts/index.html#shiny-application">headings</a>
+on that blog post:</p>
 <pre><code>Here is a relative path to one of the [headings](posts/2020-12-09-mapping-contraceptive-stockouts/index.html#shiny-application) on that blog post</code></pre>
 <h2 id="asides-and-footnotes">Asides and Footnotes</h2>
-<p>Asides are designed for very brief comments rendered to the side of the text body. They must be offset with <code>&lt;aside&gt;</code> tags like this:</p>
+<p>Asides are designed for very brief comments rendered to the side of
+the text body. They must be offset with <code>&lt;aside&gt;</code> tags
+like this:</p>
 <pre><code>&lt;aside&gt;
 FYI: formatted text in an &quot;aside&quot; must use &lt;b&gt;HTML tags&lt;/b&gt;
 &lt;/aside&gt;</code></pre>
 <aside>
 FYI: formatted text in an “aside” must use <b>HTML tags</b>
 </aside>
-<p>Asides are associated with a particular paragraph or code chunk, so they will create white-space in the text body if they become longer than their partner! For longer comments, consider using a footnote.<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></p>
+<p>Asides are associated with a particular paragraph or code chunk, so
+they will create white-space in the text body if they become longer than
+their partner! For longer comments, consider using a footnote.<a
+href="#fn1" class="footnote-ref" id="fnref1"
+role="doc-noteref"><sup>1</sup></a></p>
 <pre><code>Insert a footnote here^[This is my footnote]</code></pre>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
-<section class="footnotes" role="doc-endnotes">
+<div class="sourceCode" id="cb12"><pre
+class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
+<section class="footnotes footnotes-end-of-document"
+role="doc-endnotes">
 <hr />
 <ol>
-<li id="fn1" role="doc-endnote"><p>Footnotes appear as hover-text, and they also populate at the bottom of the page.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn1" role="doc-endnote"><p>Footnotes appear as hover-text, and
+they also populate at the bottom of the page.<a href="#fnref1"
+class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
 </section>
 <!--radix_placeholder_article_footer-->
@@ -2837,9 +2934,13 @@ FYI: formatted text in an “aside” must use <b>HTML tags</b>
 <!--/radix_placeholder_appendices-->
 <!--radix_placeholder_navigation_after_body-->
 <div class="distill-site-nav distill-site-footer">
-<p>Developed by <a href="https://www.ipums.org">IPUMS</a> at the University of Minnesota</p>
-<p>Licensed under the <a href="https://www.mozilla.org/en-US/MPL/2.0/">Mozilla Public License Version 2.0</a></p>
-<p>Site built with <a href="https://rstudio.github.io/distill/">Distill for R Markdown</a></p>
+<p>Developed by <a href="https://www.ipums.org">IPUMS</a> at the
+University of Minnesota</p>
+<p>Licensed under the
+<a href="https://www.mozilla.org/en-US/MPL/2.0/">Mozilla Public License
+Version 2.0</a></p>
+<p>Site built with <a href="https://rstudio.github.io/distill/">Distill
+for R Markdown</a></p>
 </div>
 <!--/radix_placeholder_navigation_after_body-->
 

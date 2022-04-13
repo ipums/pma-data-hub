@@ -347,13 +347,13 @@ consort(hh_plot)
 
 ## Female Questionnaire 
 
-IPUMS PMA uses a **topcode** labeled "Not interviewed (household questionnaire)" for variables related to questions that were only relevant if the Household Questionnaire was fully or partly completed. This includes [ELIGIBLE_1](https://pma.ipums.org/pma-action/variables/ELIGIBLE), which indicates whether a particular household member was a woman aged 15-49 at Phase 1, and therefore eligible for the Phase 1 Female Questionnaire. If the household was not interviewed, eligibility for the Female Questionnaire could not be determined.
+IPUMS PMA uses a **non-response code** labeled "Not interviewed (household questionnaire)" for variables related to questions that were only relevant if the Household Questionnaire was fully or partly completed. This includes [ELIGIBLE_1](https://pma.ipums.org/pma-action/variables/ELIGIBLE), which indicates whether a particular household member was a woman aged 15-49 at Phase 1, and therefore eligible for the Phase 1 Female Questionnaire. If the household was not interviewed, eligibility for the Female Questionnaire could not be determined.
 
 ```{r, R.options = list(width = 100)}
 dat %>% count(RESULTHQ_1, ELIGIBLE_1)
 ```
 
-[RESULTLFQ_1](https://pma.ipums.org/pma-action/variables/RESULTLFQ) shows the result of the Female Questionnaire for eligible women. The **topcode** "NIU (not in universe)" is used for household members who were not eligible. 
+[RESULTLFQ_1](https://pma.ipums.org/pma-action/variables/RESULTLFQ) shows the result of the Female Questionnaire for eligible women. The **non-response code** "NIU (not in universe)" is used for household members who were not eligible. 
 
 ```{r, eval = FALSE}
 dat %>% count(RESULTFQ_1)
@@ -421,7 +421,7 @@ consort(hh_plot)
 
 Enumerators invited these women to participate in Phase 2 of the panel study one year later. Only women who agreed to participate at that time are considered panel members at Phase 2, as shown in [PANELWOMAN_2](https://pma.ipums.org/pma-action/variables/PANELWOMAN).^[Women who completed the Phase 1 Female Questionnaire but declined to participate in the panel were given an opportunity to join the panel again at Phase 2 (if eligible). They are not panel members as shown in [PANELWOMAN_2](https://pma.ipums.org/pma-action/variables/PANELWOMAN), but they may be listed as such in [PANELWOMAN_3](https://pma.ipums.org/pma-action/variables/PANELWOMAN) if they agree to participation in the panel going forward.] 
 
-Their responses to the panel invitation are recorded in [SURVEYWILLING_1](https://pma.ipums.org/pma-action/variables/SURVEYWILLING). IPUMS PMA uses the **topcode** "Not interviewed (female questionnaire)" to indicate women who were eligible, but not interviewed for the Female Questionnaire as shown in [RESULTLFQ_1](https://pma.ipums.org/pma-action/variables/RESULTLFQ). Additionally, "No response or missing" is used for women who did not respond to the panel invitation. 
+Their responses to the panel invitation are recorded in [SURVEYWILLING_1](https://pma.ipums.org/pma-action/variables/SURVEYWILLING). IPUMS PMA uses the **non-response code** "Not interviewed (female questionnaire)" to indicate women who were eligible, but not interviewed for the Female Questionnaire as shown in [RESULTLFQ_1](https://pma.ipums.org/pma-action/variables/RESULTLFQ). Additionally, "No response or missing" is used for women who did not respond to the panel invitation. 
 
 ```{r}
 dat %>% count(SURVEYWILLING_1)
@@ -475,7 +475,7 @@ dat %>% count(RESULTHQ_2)
 dat %>% count(SAMEDWELLING_2)
 ```
 
-Each Phase 2 sample may also include new households that were not included in Phase 1, as indicated by [HHTYPE_2](https://pma.ipums.org/pma-action/variables/HHTYPE): these are replacement households drawn for enumeration areas where more than 10% of Phase 1 households were no longer present. They account for all of the **topcodes** shown in [SAMEDWELLING_2](https://pma.ipums.org/pma-action/variables/SAMEDWELLING), as no prior dwelling was sampled. 
+Each Phase 2 sample may also include new households that were not included in Phase 1, as indicated by [HHTYPE_2](https://pma.ipums.org/pma-action/variables/HHTYPE): these are replacement households drawn for enumeration areas where more than 10% of Phase 1 households were no longer present. They account for all of the **non-response code** shown in [SAMEDWELLING_2](https://pma.ipums.org/pma-action/variables/SAMEDWELLING), as no prior dwelling was sampled. 
 
 ```{r, R.options = list(width = 100)}
 dat %>% count(SAMEDWELLING_2, HHTYPE_2)

@@ -445,13 +445,13 @@ Additionally, these reports only include women who completed (or partially compl
 knitr::include_graphics("images/cases.png")
 ```
 
-We'll further restrict our sample by selecting only cases where `RESULTFQ_2` shows that the woman also completed the Phase 2 questionnaire. Notice that, in addition to each of the value 1 through 10, there are several **top codes** for different types of non-response numbered 90 through 99. You'll see similar values repeated across all IPUMS PMA variables, except that they will be left-padded to match the maximum width of a particular variable (e.g. `9999` is used for `r varlink(INTFQYEAR)`, which represents a 4-digit year for the Female Interview). 
+We'll further restrict our sample by selecting only cases where `RESULTFQ_2` shows that the woman also completed the Phase 2 questionnaire. Notice that, in addition to each of the value 1 through 10, there are several **non-response codes** numbered 90 through 99. You'll see similar values repeated across all IPUMS PMA variables, except that they will be left-padded to match the maximum width of a particular variable (e.g. `9999` is used for `r varlink(INTFQYEAR)`, which represents a 4-digit year for the Female Interview). 
 
 ```{r}
 dat %>% count(RESULTFQ_2)
 ```
 
-Possible **topcodes** include: 
+Possible **non-response codes** include: 
 
   * `95` Not interviewed (female questionnaire)
   * `96` Not interviewed (household questionnaire)
