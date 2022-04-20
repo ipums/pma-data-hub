@@ -31,6 +31,36 @@ if(!suppressWarnings(suppressMessages(require(RCurl)))){
   ))
 }
 
+# try here ----
+if(!suppressWarnings(suppressMessages(require(here)))){
+  rlang::warn(c(
+    "here is not installed",
+    "i" = "Install here with `install.packages('here')`"
+  ))
+}
+
+# try sysfonts ----
+if(!suppressWarnings(suppressMessages(require(sysfonts)))){
+  rlang::abort(c(
+    "sysfonts is not installed",
+    "i" = "Install sysfonts with `install.packages('sysfonts')`"
+  ))
+} else {
+  sysfonts::font_add(
+    family = "cabrito",
+    regular = here::here("fonts/cabritosansnormregular-webfont.ttf")
+  )
+}
+
+# try showtext ----
+if(!suppressWarnings(suppressMessages(require(showtext)))){
+  rlang::warn(c(
+    "showtext is not installed",
+    "i" = "Install showtext with `install.packages('showtext')`"
+  ))
+} else {
+  showtext::showtext_auto()
+}
 
 # varlink ----
 # Build hyperlink to a variable page on pma.ipums.org 

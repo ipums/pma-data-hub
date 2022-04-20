@@ -12,7 +12,24 @@
       <link>https://ipums.github.io/pma-data-hub/</link>
     </image>
     <generator>Distill</generator>
-    <lastBuildDate>Fri, 01 Apr 2022 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 19 Apr 2022 00:00:00 +0000</lastBuildDate>
+    <item>
+      <title>Calculating Key Indicators for Family Planning Panel Data</title>
+      <dc:creator>Matt Gunther</dc:creator>
+      <link>https://ipums.github.io/pma-data-hub/posts/2022-04-15-phase2-indicators</link>
+      <description>We show how to reproduce measures featured in PMA panel reports, and how to visualize significant differences between groups in figures built with ggplot2.</description>
+      <category>Panel Data</category>
+      <category>Data Visualization</category>
+      <category>Data Analysis</category>
+      <category>Family Planning</category>
+      <category>Weights</category>
+      <category>Sample Clusters</category>
+      <category>ggplot2</category>
+      <category>srvyr</category>
+      <guid>https://ipums.github.io/pma-data-hub/posts/2022-04-15-phase2-indicators</guid>
+      <pubDate>Tue, 19 Apr 2022 00:00:00 +0000</pubDate>
+      <media:content url="https://ipums.github.io/pma-data-hub/posts/2022-04-15-phase2-indicators/phase2-indicators_files/figure-html5/unnamed-chunk-25-1.png" medium="image" type="image/png" width="2304" height="1536"/>
+    </item>
     <item>
       <title>Visualizing Panel Membership</title>
       <dc:creator>Matt Gunther</dc:creator>

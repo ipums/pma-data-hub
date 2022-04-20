@@ -2005,10 +2005,10 @@ confidence level if desired.</p>
 <code>_low</code> and <code>_upp</code> show the lower and upper bounds
 of a 99% confidence interval
 </aside>
-<p>For binary variables where the estimated proportion approaches 0% or
-100%, it’s often useful to obtain an asymmetric confidence interval that
-cannot exceed those values. Consider, for example, the proportion of
-women who were pregnant at Phase 1 and again just 12 months later at
+<p>For discrete variables where the estimated proportion approaches 0%
+or 100%, it’s often useful to obtain an asymmetric confidence interval
+that cannot exceed those values. Consider, for example, the proportion
+of women who were pregnant at Phase 1 and again just 12 months later at
 Phase 2 (excluding women who were unsure or did not respond in either
 phase):</p>
 <div class="layout-chunk" data-layout="l-body">
@@ -2349,7 +2349,7 @@ GPS coordinates</a> for the centroid of each EA are available for most
 samples <a
 href="https://www.pmadata.org/data/request-access-datasets">by
 request</a> from PMA. IPUMS PMA provides shapefiles for PMA countries <a
-href="https://internal.pma.ipums.org/pma/gis_boundary_files.shtml">here</a>.<a
+href="https://pma.ipums.org/pma/gis_boundary_files.shtml">here</a>.<a
 href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn3" role="doc-endnote"><p>Questionnaires administered in each
 country may vary from this <strong>Core Household Questionnaire</strong>
@@ -2376,28 +2376,26 @@ if she declined to participate, or if she was deceased or otherwise
 unavailable.<a href="#fnref6" class="footnote-back"
 role="doc-backlink">↩︎</a></p></li>
 <li id="fn7" role="doc-endnote"><p><code>HQWEIGHT</code> reflects the <a
-href="https://internal.pma.ipums.org/pma/resources/documentation/weighting_memo.pdf">calculated
+href="https://pma.ipums.org/pma/resources/documentation/weighting_memo.pdf">calculated
 selection probability</a> for a household in an EA, normalized at the
 population-level. Users intending to estimate population-level
 indicators for <em>households</em> should restrict their sample to one
 person per household via <a
 href="https://pma.ipums.org/pma-action/variables/LINENO#description_section">LINENO</a>
-- see <a
-href="https://internal.pma.ipums.org/pma/weightguide.shtml#hh">household
+- see <a href="https://pma.ipums.org/pma/weightguide.shtml#hh">household
 weighting guide</a> for details.<a href="#fnref7" class="footnote-back"
 role="doc-backlink">↩︎</a></p></li>
 <li id="fn8" role="doc-endnote"><p><code>FQWEIGHT</code> adjusts
 <code>HQWEIGHT</code> for female non-response within the EA, normalized
 at the population-level - see <a
-href="https://internal.pma.ipums.org/pma/weightguide.shtml#female">female
+href="https://pma.ipums.org/pma/weightguide.shtml#female">female
 weighting guide</a> for details.<a href="#fnref8" class="footnote-back"
 role="doc-backlink">↩︎</a></p></li>
 <li id="fn9" role="doc-endnote"><p><code>POPWT</code> can be used to
 estimate population-level <em>counts</em> - <a
-href="https://internal.pma.ipums.org/pma/population_weights.shtml">click
-here</a> or check out <a
-href="https://www.youtube.com/watch?v=GnCq26t4zgM">this video</a> for
-details.<a href="#fnref9" class="footnote-back"
+href="https://pma.ipums.org/pma/population_weights.shtml">click here</a>
+or check out <a href="https://www.youtube.com/watch?v=GnCq26t4zgM">this
+video</a> for details.<a href="#fnref9" class="footnote-back"
 role="doc-backlink">↩︎</a></p></li>
 <li id="fn10" role="doc-endnote"><p>The <code>srvyr</code> package is a
 <a href="https://tidyverse.tidyverse.org/">tidy</a> implementation of

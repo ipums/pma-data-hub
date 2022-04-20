@@ -1,0 +1,4091 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1"/>
+  <meta name="generator" content="distill" />
+
+  <style type="text/css">
+  /* Hide doc at startup (prevent jankiness while JS renders/transforms) */
+  body {
+    visibility: hidden;
+  }
+  </style>
+
+ <!--radix_placeholder_import_source-->
+ <!--/radix_placeholder_import_source-->
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css" data-origin="pandoc">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ad0000; } /* Alert */
+code span.an { color: #5e5e5e; } /* Annotation */
+code span.at { } /* Attribute */
+code span.bn { color: #ad0000; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007ba5; } /* ControlFlow */
+code span.ch { color: #20794d; } /* Char */
+code span.cn { color: #8f5902; } /* Constant */
+code span.co { color: #5e5e5e; } /* Comment */
+code span.cv { color: #5e5e5e; font-style: italic; } /* CommentVar */
+code span.do { color: #5e5e5e; font-style: italic; } /* Documentation */
+code span.dt { color: #ad0000; } /* DataType */
+code span.dv { color: #ad0000; } /* DecVal */
+code span.er { color: #ad0000; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #ad0000; } /* Float */
+code span.fu { color: #4758ab; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #5e5e5e; } /* Information */
+code span.kw { color: #007ba5; } /* Keyword */
+code span.op { color: #5e5e5e; } /* Operator */
+code span.ot { color: #007ba5; } /* Other */
+code span.pp { color: #ad0000; } /* Preprocessor */
+code span.sc { color: #5e5e5e; } /* SpecialChar */
+code span.ss { color: #20794d; } /* SpecialString */
+code span.st { color: #20794d; } /* String */
+code span.va { color: #111111; } /* Variable */
+code span.vs { color: #20794d; } /* VerbatimString */
+code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
+</style>
+
+
+  <!--radix_placeholder_meta_tags-->
+<title>Data Analysis Hub: Calculating Key Indicators for Family Planning Panel Data</title>
+
+<meta property="description" itemprop="description" content="We show how to reproduce measures featured in PMA panel reports, and how to visualize significant differences between groups in figures built with ggplot2."/>
+
+<link rel="canonical" href="https://ipums.github.io/pma-data-hub/posts/2022-04-15-phase2-indicators/"/>
+<link rel="icon" type="image/png" href="../../images/favicon/favicon-32x32.png"/>
+
+<!--  https://schema.org/Article -->
+<meta property="article:published" itemprop="datePublished" content="2022-04-19"/>
+<meta property="article:created" itemprop="dateCreated" content="2022-04-19"/>
+<meta name="article:author" content="Matt Gunther"/>
+
+<!--  https://developers.facebook.com/docs/sharing/webmasters#markup -->
+<meta property="og:title" content="Data Analysis Hub: Calculating Key Indicators for Family Planning Panel Data"/>
+<meta property="og:type" content="article"/>
+<meta property="og:description" content="We show how to reproduce measures featured in PMA panel reports, and how to visualize significant differences between groups in figures built with ggplot2."/>
+<meta property="og:url" content="https://ipums.github.io/pma-data-hub/posts/2022-04-15-phase2-indicators/"/>
+<meta property="og:image" content="https://ipums.github.io/pma-data-hub/posts/2022-04-15-phase2-indicators/phase2-indicators_files/figure-html5/unnamed-chunk-25-1.png"/>
+<meta property="og:image:width" content="2304"/>
+<meta property="og:image:height" content="1536"/>
+<meta property="og:locale" content="en_US"/>
+<meta property="og:site_name" content="Data Analysis Hub"/>
+
+<!--  https://dev.twitter.com/cards/types/summary -->
+<meta property="twitter:card" content="summary_large_image"/>
+<meta property="twitter:title" content="Data Analysis Hub: Calculating Key Indicators for Family Planning Panel Data"/>
+<meta property="twitter:description" content="We show how to reproduce measures featured in PMA panel reports, and how to visualize significant differences between groups in figures built with ggplot2."/>
+<meta property="twitter:url" content="https://ipums.github.io/pma-data-hub/posts/2022-04-15-phase2-indicators/"/>
+<meta property="twitter:image" content="https://ipums.github.io/pma-data-hub/posts/2022-04-15-phase2-indicators/phase2-indicators_files/figure-html5/unnamed-chunk-25-1.png"/>
+<meta property="twitter:image:width" content="2304"/>
+<meta property="twitter:image:height" content="1536"/>
+<meta property="twitter:site" content="@ipumsGH"/>
+
+<!--/radix_placeholder_meta_tags-->
+  <!--radix_placeholder_rmarkdown_metadata-->
+
+<script type="text/json" id="radix-rmarkdown-metadata">
+{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","author","categories","date","output","canonical_url"]}},"value":[{"type":"character","attributes":{},"value":["Calculating Key Indicators for Family Planning Panel Data"]},{"type":"character","attributes":{},"value":["We show how to reproduce measures featured in PMA panel reports, and how to visualize significant differences between groups in figures built with ggplot2."]},{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","affiliation"]}},"value":[{"type":"character","attributes":{},"value":["Matt Gunther"]},{"type":"character","attributes":{},"value":["IPUMS PMA Senior Data Analyst"]}]}]},{"type":"character","attributes":{},"value":["Panel Data","Data Visualization","Data Analysis","Family Planning","Weights","Sample Clusters","ggplot2","srvyr"]},{"type":"character","attributes":{},"value":["2022-04-19"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["self_contained","toc","toc_depth","toc_float"]}},"value":[{"type":"logical","attributes":{},"value":[false]},{"type":"logical","attributes":{},"value":[true]},{"type":"integer","attributes":{},"value":[3]},{"type":"logical","attributes":{},"value":[true]}]}]},{"type":"character","attributes":{},"value":["https://ipums.github.io/pma-data-hub/posts/2022-04-15-phase2-indicators/"]}]}
+</script>
+<!--/radix_placeholder_rmarkdown_metadata-->
+  
+  <script type="text/json" id="radix-resource-manifest">
+  {"type":"character","attributes":{},"value":["data/pma_00105.dat.gz","data/pma_00105.xml","images/checkout.png","images/samples.png","phase2-indicators_files/anchor-4.2.2/anchor.min.js","phase2-indicators_files/bowser-1.9.3/bowser.min.js","phase2-indicators_files/distill-2.2.21/template.v2.js","phase2-indicators_files/figure-html5/unnamed-chunk-16-1.png","phase2-indicators_files/figure-html5/unnamed-chunk-17-1.png","phase2-indicators_files/figure-html5/unnamed-chunk-18-1.png","phase2-indicators_files/figure-html5/unnamed-chunk-19-1.png","phase2-indicators_files/figure-html5/unnamed-chunk-20-1.png","phase2-indicators_files/figure-html5/unnamed-chunk-21-1.png","phase2-indicators_files/figure-html5/unnamed-chunk-22-1.png","phase2-indicators_files/figure-html5/unnamed-chunk-23-1.png","phase2-indicators_files/figure-html5/unnamed-chunk-24-1.png","phase2-indicators_files/figure-html5/unnamed-chunk-25-1.png","phase2-indicators_files/figure-html5/unnamed-chunk-26-1.png","phase2-indicators_files/figure-html5/unnamed-chunk-27-1.png","phase2-indicators_files/figure-html5/unnamed-chunk-28-1.png","phase2-indicators_files/figure-html5/unnamed-chunk-29-1.png","phase2-indicators_files/figure-html5/unnamed-chunk-30-1.png","phase2-indicators_files/figure-html5/unnamed-chunk-31-1.png","phase2-indicators_files/figure-html5/unnamed-chunk-32-1.png","phase2-indicators_files/figure-html5/unnamed-chunk-33-1.png","phase2-indicators_files/figure-html5/unnamed-chunk-34-1.png","phase2-indicators_files/figure-html5/unnamed-chunk-35-1.png","phase2-indicators_files/figure-html5/unnamed-chunk-36-1.png","phase2-indicators_files/figure-html5/unnamed-chunk-37-1.png","phase2-indicators_files/figure-html5/unnamed-chunk-39-1.png","phase2-indicators_files/figure-html5/unnamed-chunk-40-1.png","phase2-indicators_files/figure-html5/unnamed-chunk-43-1.png","phase2-indicators_files/figure-html5/unnamed-chunk-5-1.png","phase2-indicators_files/figure-html5/unnamed-chunk-6-1.png","phase2-indicators_files/figure-html5/unnamed-chunk-7-1.png","phase2-indicators_files/figure-html5/unnamed-chunk-8-1.png","phase2-indicators_files/header-attrs-2.11/header-attrs.js","phase2-indicators_files/jquery-3.6.0/jquery-3.6.0.js","phase2-indicators_files/jquery-3.6.0/jquery-3.6.0.min.js","phase2-indicators_files/jquery-3.6.0/jquery-3.6.0.min.map","phase2-indicators_files/popper-2.6.0/popper.min.js","phase2-indicators_files/tippy-6.2.7/tippy-bundle.umd.min.js","phase2-indicators_files/tippy-6.2.7/tippy-light-border.css","phase2-indicators_files/tippy-6.2.7/tippy.css","phase2-indicators_files/tippy-6.2.7/tippy.umd.min.js","phase2-indicators_files/webcomponents-2.0.0/webcomponents.js"]}
+  </script>
+  <!--radix_placeholder_navigation_in_header-->
+<meta name="distill:offset" content="../.."/>
+
+<script type="application/javascript">
+
+  window.headroom_prevent_pin = false;
+
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+
+    // initialize headroom for banner
+    var header = $('header').get(0);
+    var headerHeight = header.offsetHeight;
+    var headroom = new Headroom(header, {
+      tolerance: 5,
+      onPin : function() {
+        if (window.headroom_prevent_pin) {
+          window.headroom_prevent_pin = false;
+          headroom.unpin();
+        }
+      }
+    });
+    headroom.init();
+    if(window.location.hash)
+      headroom.unpin();
+    $(header).addClass('headroom--transition');
+
+    // offset scroll location for banner on hash change
+    // (see: https://github.com/WickyNilliams/headroom.js/issues/38)
+    window.addEventListener("hashchange", function(event) {
+      window.scrollTo(0, window.pageYOffset - (headerHeight + 25));
+    });
+
+    // responsive menu
+    $('.distill-site-header').each(function(i, val) {
+      var topnav = $(this);
+      var toggle = topnav.find('.nav-toggle');
+      toggle.on('click', function() {
+        topnav.toggleClass('responsive');
+      });
+    });
+
+    // nav dropdowns
+    $('.nav-dropbtn').click(function(e) {
+      $(this).next('.nav-dropdown-content').toggleClass('nav-dropdown-active');
+      $(this).parent().siblings('.nav-dropdown')
+         .children('.nav-dropdown-content').removeClass('nav-dropdown-active');
+    });
+    $("body").click(function(e){
+      $('.nav-dropdown-content').removeClass('nav-dropdown-active');
+    });
+    $(".nav-dropdown").click(function(e){
+      e.stopPropagation();
+    });
+  });
+</script>
+
+<style type="text/css">
+
+/* Theme (user-documented overrideables for nav appearance) */
+
+.distill-site-nav {
+  color: rgba(255, 255, 255, 0.8);
+  background-color: #0F2E3D;
+  font-size: 15px;
+  font-weight: 300;
+}
+
+.distill-site-nav a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.distill-site-nav a:hover {
+  color: white;
+}
+
+@media print {
+  .distill-site-nav {
+    display: none;
+  }
+}
+
+.distill-site-header {
+
+}
+
+.distill-site-footer {
+
+}
+
+
+/* Site Header */
+
+.distill-site-header {
+  width: 100%;
+  box-sizing: border-box;
+  z-index: 3;
+}
+
+.distill-site-header .nav-left {
+  display: inline-block;
+  margin-left: 8px;
+}
+
+@media screen and (max-width: 768px) {
+  .distill-site-header .nav-left {
+    margin-left: 0;
+  }
+}
+
+
+.distill-site-header .nav-right {
+  float: right;
+  margin-right: 8px;
+}
+
+.distill-site-header a,
+.distill-site-header .title {
+  display: inline-block;
+  text-align: center;
+  padding: 14px 10px 14px 10px;
+}
+
+.distill-site-header .title {
+  font-size: 18px;
+  min-width: 150px;
+}
+
+.distill-site-header .logo {
+  padding: 0;
+}
+
+.distill-site-header .logo img {
+  display: none;
+  max-height: 20px;
+  width: auto;
+  margin-bottom: -4px;
+}
+
+.distill-site-header .nav-image img {
+  max-height: 18px;
+  width: auto;
+  display: inline-block;
+  margin-bottom: -3px;
+}
+
+
+
+@media screen and (min-width: 1000px) {
+  .distill-site-header .logo img {
+    display: inline-block;
+  }
+  .distill-site-header .nav-left {
+    margin-left: 20px;
+  }
+  .distill-site-header .nav-right {
+    margin-right: 20px;
+  }
+  .distill-site-header .title {
+    padding-left: 12px;
+  }
+}
+
+
+.distill-site-header .nav-toggle {
+  display: none;
+}
+
+.nav-dropdown {
+  display: inline-block;
+  position: relative;
+}
+
+.nav-dropdown .nav-dropbtn {
+  border: none;
+  outline: none;
+  color: rgba(255, 255, 255, 0.8);
+  padding: 16px 10px;
+  background-color: transparent;
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: inherit;
+  margin: 0;
+  margin-top: 1px;
+  z-index: 2;
+}
+
+.nav-dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: white;
+  min-width: 200px;
+  border: 1px solid rgba(0,0,0,0.15);
+  border-radius: 4px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.1);
+  z-index: 1;
+  margin-top: 2px;
+  white-space: nowrap;
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+.nav-dropdown-content hr {
+  margin-top: 4px;
+  margin-bottom: 4px;
+  border: none;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.nav-dropdown-active {
+  display: block;
+}
+
+.nav-dropdown-content a, .nav-dropdown-content .nav-dropdown-header {
+  color: black;
+  padding: 6px 24px;
+  text-decoration: none;
+  display: block;
+  text-align: left;
+}
+
+.nav-dropdown-content .nav-dropdown-header {
+  display: block;
+  padding: 5px 24px;
+  padding-bottom: 0;
+  text-transform: uppercase;
+  font-size: 14px;
+  color: #999999;
+  white-space: nowrap;
+}
+
+.nav-dropdown:hover .nav-dropbtn {
+  color: white;
+}
+
+.nav-dropdown-content a:hover {
+  background-color: #ddd;
+  color: black;
+}
+
+.nav-right .nav-dropdown-content {
+  margin-left: -45%;
+  right: 0;
+}
+
+@media screen and (max-width: 768px) {
+  .distill-site-header a, .distill-site-header .nav-dropdown  {display: none;}
+  .distill-site-header a.nav-toggle {
+    float: right;
+    display: block;
+  }
+  .distill-site-header .title {
+    margin-left: 0;
+  }
+  .distill-site-header .nav-right {
+    margin-right: 0;
+  }
+  .distill-site-header {
+    overflow: hidden;
+  }
+  .nav-right .nav-dropdown-content {
+    margin-left: 0;
+  }
+}
+
+
+@media screen and (max-width: 768px) {
+  .distill-site-header.responsive {position: relative; min-height: 500px; }
+  .distill-site-header.responsive a.nav-toggle {
+    position: absolute;
+    right: 0;
+    top: 0;
+  }
+  .distill-site-header.responsive a,
+  .distill-site-header.responsive .nav-dropdown {
+    display: block;
+    text-align: left;
+  }
+  .distill-site-header.responsive .nav-left,
+  .distill-site-header.responsive .nav-right {
+    width: 100%;
+  }
+  .distill-site-header.responsive .nav-dropdown {float: none;}
+  .distill-site-header.responsive .nav-dropdown-content {position: relative;}
+  .distill-site-header.responsive .nav-dropdown .nav-dropbtn {
+    display: block;
+    width: 100%;
+    text-align: left;
+  }
+}
+
+/* Site Footer */
+
+.distill-site-footer {
+  width: 100%;
+  overflow: hidden;
+  box-sizing: border-box;
+  z-index: 3;
+  margin-top: 30px;
+  padding-top: 30px;
+  padding-bottom: 30px;
+  text-align: center;
+}
+
+/* Headroom */
+
+d-title {
+  padding-top: 6rem;
+}
+
+@media print {
+  d-title {
+    padding-top: 4rem;
+  }
+}
+
+.headroom {
+  z-index: 1000;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+}
+
+.headroom--transition {
+  transition: all .4s ease-in-out;
+}
+
+.headroom--unpinned {
+  top: -100px;
+}
+
+.headroom--pinned {
+  top: 0;
+}
+
+/* adjust viewport for navbar height */
+/* helps vertically center bootstrap (non-distill) content */
+.min-vh-100 {
+  min-height: calc(100vh - 100px) !important;
+}
+
+</style>
+
+<script src="../../site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<link href="../../site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet"/>
+<link href="../../site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet"/>
+<script src="../../site_libs/headroom-0.9.4/headroom.min.js"></script>
+<script src="../../site_libs/autocomplete-0.37.1/autocomplete.min.js"></script>
+<script src="../../site_libs/fuse-6.4.1/fuse.min.js"></script>
+
+<script type="application/javascript">
+
+function getMeta(metaName) {
+  var metas = document.getElementsByTagName('meta');
+  for (let i = 0; i < metas.length; i++) {
+    if (metas[i].getAttribute('name') === metaName) {
+      return metas[i].getAttribute('content');
+    }
+  }
+  return '';
+}
+
+function offsetURL(url) {
+  var offset = getMeta('distill:offset');
+  return offset ? offset + '/' + url : url;
+}
+
+function createFuseIndex() {
+
+  // create fuse index
+  var options = {
+    keys: [
+      { name: 'title', weight: 20 },
+      { name: 'categories', weight: 15 },
+      { name: 'description', weight: 10 },
+      { name: 'contents', weight: 5 },
+    ],
+    ignoreLocation: true,
+    threshold: 0
+  };
+  var fuse = new window.Fuse([], options);
+
+  // fetch the main search.json
+  return fetch(offsetURL('search.json'))
+    .then(function(response) {
+      if (response.status == 200) {
+        return response.json().then(function(json) {
+          // index main articles
+          json.articles.forEach(function(article) {
+            fuse.add(article);
+          });
+          // download collections and index their articles
+          return Promise.all(json.collections.map(function(collection) {
+            return fetch(offsetURL(collection)).then(function(response) {
+              if (response.status === 200) {
+                return response.json().then(function(articles) {
+                  articles.forEach(function(article) {
+                    fuse.add(article);
+                  });
+                })
+              } else {
+                return Promise.reject(
+                  new Error('Unexpected status from search index request: ' +
+                            response.status)
+                );
+              }
+            });
+          })).then(function() {
+            return fuse;
+          });
+        });
+
+      } else {
+        return Promise.reject(
+          new Error('Unexpected status from search index request: ' +
+                      response.status)
+        );
+      }
+    });
+}
+
+window.document.addEventListener("DOMContentLoaded", function (event) {
+
+  // get search element (bail if we don't have one)
+  var searchEl = window.document.getElementById('distill-search');
+  if (!searchEl)
+    return;
+
+  createFuseIndex()
+    .then(function(fuse) {
+
+      // make search box visible
+      searchEl.classList.remove('hidden');
+
+      // initialize autocomplete
+      var options = {
+        autoselect: true,
+        hint: false,
+        minLength: 2,
+      };
+      window.autocomplete(searchEl, options, [{
+        source: function(query, callback) {
+          const searchOptions = {
+            isCaseSensitive: false,
+            shouldSort: true,
+            minMatchCharLength: 2,
+            limit: 10,
+          };
+          var results = fuse.search(query, searchOptions);
+          callback(results
+            .map(function(result) { return result.item; })
+          );
+        },
+        templates: {
+          suggestion: function(suggestion) {
+            var img = suggestion.preview && Object.keys(suggestion.preview).length > 0
+              ? `<img src="${offsetURL(suggestion.preview)}"</img>`
+              : '';
+            var html = `
+              <div class="search-item">
+                <h3>${suggestion.title}</h3>
+                <div class="search-item-description">
+                  ${suggestion.description || ''}
+                </div>
+                <div class="search-item-preview">
+                  ${img}
+                </div>
+              </div>
+            `;
+            return html;
+          }
+        }
+      }]).on('autocomplete:selected', function(event, suggestion) {
+        window.location.href = offsetURL(suggestion.path);
+      });
+      // remove inline display style on autocompleter (we want to
+      // manage responsive display via css)
+      $('.algolia-autocomplete').css("display", "");
+    })
+    .catch(function(error) {
+      console.log(error);
+    });
+
+});
+
+</script>
+
+<style type="text/css">
+
+.nav-search {
+  font-size: x-small;
+}
+
+/* Algolioa Autocomplete */
+
+.algolia-autocomplete {
+  display: inline-block;
+  margin-left: 10px;
+  vertical-align: sub;
+  background-color: white;
+  color: black;
+  padding: 6px;
+  padding-top: 8px;
+  padding-bottom: 0;
+  border-radius: 6px;
+  border: 1px #0F2E3D solid;
+  width: 180px;
+}
+
+
+@media screen and (max-width: 768px) {
+  .distill-site-nav .algolia-autocomplete {
+    display: none;
+    visibility: hidden;
+  }
+  .distill-site-nav.responsive .algolia-autocomplete {
+    display: inline-block;
+    visibility: visible;
+  }
+  .distill-site-nav.responsive .algolia-autocomplete .aa-dropdown-menu {
+    margin-left: 0;
+    width: 400px;
+    max-height: 400px;
+  }
+}
+
+.algolia-autocomplete .aa-input, .algolia-autocomplete .aa-hint {
+  width: 90%;
+  outline: none;
+  border: none;
+}
+
+.algolia-autocomplete .aa-hint {
+  color: #999;
+}
+.algolia-autocomplete .aa-dropdown-menu {
+  width: 550px;
+  max-height: 70vh;
+  overflow-x: visible;
+  overflow-y: scroll;
+  padding: 5px;
+  margin-top: 3px;
+  margin-left: -150px;
+  background-color: #fff;
+  border-radius: 5px;
+  border: 1px solid #999;
+  border-top: none;
+}
+
+.algolia-autocomplete .aa-dropdown-menu .aa-suggestion {
+  cursor: pointer;
+  padding: 5px 4px;
+  border-bottom: 1px solid #eee;
+}
+
+.algolia-autocomplete .aa-dropdown-menu .aa-suggestion:last-of-type {
+  border-bottom: none;
+  margin-bottom: 2px;
+}
+
+.algolia-autocomplete .aa-dropdown-menu .aa-suggestion .search-item {
+  overflow: hidden;
+  font-size: 0.8em;
+  line-height: 1.4em;
+}
+
+.algolia-autocomplete .aa-dropdown-menu .aa-suggestion .search-item h3 {
+  font-size: 1rem;
+  margin-block-start: 0;
+  margin-block-end: 5px;
+}
+
+.algolia-autocomplete .aa-dropdown-menu .aa-suggestion .search-item-description {
+  display: inline-block;
+  overflow: hidden;
+  height: 2.8em;
+  width: 80%;
+  margin-right: 4%;
+}
+
+.algolia-autocomplete .aa-dropdown-menu .aa-suggestion .search-item-preview {
+  display: inline-block;
+  width: 15%;
+}
+
+.algolia-autocomplete .aa-dropdown-menu .aa-suggestion .search-item-preview img {
+  height: 3em;
+  width: auto;
+  display: none;
+}
+
+.algolia-autocomplete .aa-dropdown-menu .aa-suggestion .search-item-preview img[src] {
+  display: initial;
+}
+
+.algolia-autocomplete .aa-dropdown-menu .aa-suggestion.aa-cursor {
+  background-color: #eee;
+}
+.algolia-autocomplete .aa-dropdown-menu .aa-suggestion em {
+  font-weight: bold;
+  font-style: normal;
+}
+
+</style>
+
+
+<!--/radix_placeholder_navigation_in_header-->
+  <!--radix_placeholder_distill-->
+
+<style type="text/css">
+
+body {
+  background-color: white;
+}
+
+.pandoc-table {
+  width: 100%;
+}
+
+.pandoc-table>caption {
+  margin-bottom: 10px;
+}
+
+.pandoc-table th:not([align]) {
+  text-align: left;
+}
+
+.pagedtable-footer {
+  font-size: 15px;
+}
+
+d-byline .byline {
+  grid-template-columns: 2fr 2fr;
+}
+
+d-byline .byline h3 {
+  margin-block-start: 1.5em;
+}
+
+d-byline .byline .authors-affiliations h3 {
+  margin-block-start: 0.5em;
+}
+
+.authors-affiliations .orcid-id {
+  width: 16px;
+  height:16px;
+  margin-left: 4px;
+  margin-right: 4px;
+  vertical-align: middle;
+  padding-bottom: 2px;
+}
+
+d-title .dt-tags {
+  margin-top: 1em;
+  grid-column: text;
+}
+
+.dt-tags .dt-tag {
+  text-decoration: none;
+  display: inline-block;
+  color: rgba(0,0,0,0.6);
+  padding: 0em 0.4em;
+  margin-right: 0.5em;
+  margin-bottom: 0.4em;
+  font-size: 70%;
+  border: 1px solid rgba(0,0,0,0.2);
+  border-radius: 3px;
+  text-transform: uppercase;
+  font-weight: 500;
+}
+
+d-article table.gt_table td,
+d-article table.gt_table th {
+  border-bottom: none;
+}
+
+.html-widget {
+  margin-bottom: 2.0em;
+}
+
+.l-screen-inset {
+  padding-right: 16px;
+}
+
+.l-screen .caption {
+  margin-left: 10px;
+}
+
+.shaded {
+  background: rgb(247, 247, 247);
+  padding-top: 20px;
+  padding-bottom: 20px;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.shaded .html-widget {
+  margin-bottom: 0;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.shaded .shaded-content {
+  background: white;
+}
+
+.text-output {
+  margin-top: 0;
+  line-height: 1.5em;
+}
+
+.hidden {
+  display: none !important;
+}
+
+d-article {
+  padding-top: 2.5rem;
+  padding-bottom: 30px;
+}
+
+d-appendix {
+  padding-top: 30px;
+}
+
+d-article>p>img {
+  width: 100%;
+}
+
+d-article h2 {
+  margin: 1rem 0 1.5rem 0;
+}
+
+d-article h3 {
+  margin-top: 1.5rem;
+}
+
+d-article iframe {
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  margin-bottom: 2.0em;
+  width: 100%;
+}
+
+/* Tweak code blocks */
+
+d-article div.sourceCode code,
+d-article pre code {
+  font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+}
+
+d-article pre,
+d-article div.sourceCode,
+d-article div.sourceCode pre {
+  overflow: auto;
+}
+
+d-article div.sourceCode {
+  background-color: white;
+}
+
+d-article div.sourceCode pre {
+  padding-left: 10px;
+  font-size: 12px;
+  border-left: 2px solid rgba(0,0,0,0.1);
+}
+
+d-article pre {
+  font-size: 12px;
+  color: black;
+  background: none;
+  margin-top: 0;
+  text-align: left;
+  white-space: pre;
+  word-spacing: normal;
+  word-break: normal;
+  word-wrap: normal;
+  line-height: 1.5;
+
+  -moz-tab-size: 4;
+  -o-tab-size: 4;
+  tab-size: 4;
+
+  -webkit-hyphens: none;
+  -moz-hyphens: none;
+  -ms-hyphens: none;
+  hyphens: none;
+}
+
+d-article pre a {
+  border-bottom: none;
+}
+
+d-article pre a:hover {
+  border-bottom: none;
+  text-decoration: underline;
+}
+
+d-article details {
+  grid-column: text;
+  margin-bottom: 0.8em;
+}
+
+@media(min-width: 768px) {
+
+d-article pre,
+d-article div.sourceCode,
+d-article div.sourceCode pre {
+  overflow: visible !important;
+}
+
+d-article div.sourceCode pre {
+  padding-left: 18px;
+  font-size: 14px;
+}
+
+d-article pre {
+  font-size: 14px;
+}
+
+}
+
+figure img.external {
+  background: white;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  box-shadow: 0 1px 8px rgba(0, 0, 0, 0.1);
+  padding: 18px;
+  box-sizing: border-box;
+}
+
+/* CSS for d-contents */
+
+.d-contents {
+  grid-column: text;
+  color: rgba(0,0,0,0.8);
+  font-size: 0.9em;
+  padding-bottom: 1em;
+  margin-bottom: 1em;
+  padding-bottom: 0.5em;
+  margin-bottom: 1em;
+  padding-left: 0.25em;
+  justify-self: start;
+}
+
+@media(min-width: 1000px) {
+  .d-contents.d-contents-float {
+    height: 0;
+    grid-column-start: 1;
+    grid-column-end: 4;
+    justify-self: center;
+    padding-right: 3em;
+    padding-left: 2em;
+  }
+}
+
+.d-contents nav h3 {
+  font-size: 18px;
+  margin-top: 0;
+  margin-bottom: 1em;
+}
+
+.d-contents li {
+  list-style-type: none
+}
+
+.d-contents nav > ul {
+  padding-left: 0;
+}
+
+.d-contents ul {
+  padding-left: 1em
+}
+
+.d-contents nav ul li {
+  margin-top: 0.6em;
+  margin-bottom: 0.2em;
+}
+
+.d-contents nav a {
+  font-size: 13px;
+  border-bottom: none;
+  text-decoration: none
+  color: rgba(0, 0, 0, 0.8);
+}
+
+.d-contents nav a:hover {
+  text-decoration: underline solid rgba(0, 0, 0, 0.6)
+}
+
+.d-contents nav > ul > li > a {
+  font-weight: 600;
+}
+
+.d-contents nav > ul > li > ul {
+  font-weight: inherit;
+}
+
+.d-contents nav > ul > li > ul > li {
+  margin-top: 0.2em;
+}
+
+
+.d-contents nav ul {
+  margin-top: 0;
+  margin-bottom: 0.25em;
+}
+
+.d-article-with-toc h2:nth-child(2) {
+  margin-top: 0;
+}
+
+
+/* Figure */
+
+.figure {
+  position: relative;
+  margin-bottom: 2.5em;
+  margin-top: 1.5em;
+}
+
+.figure img {
+  width: 100%;
+}
+
+.figure .caption {
+  color: rgba(0, 0, 0, 0.6);
+  font-size: 12px;
+  line-height: 1.5em;
+}
+
+.figure img.external {
+  background: white;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  box-shadow: 0 1px 8px rgba(0, 0, 0, 0.1);
+  padding: 18px;
+  box-sizing: border-box;
+}
+
+.figure .caption a {
+  color: rgba(0, 0, 0, 0.6);
+}
+
+.figure .caption b,
+.figure .caption strong, {
+  font-weight: 600;
+  color: rgba(0, 0, 0, 1.0);
+}
+
+/* Citations */
+
+d-article .citation {
+  color: inherit;
+  cursor: inherit;
+}
+
+div.hanging-indent{
+  margin-left: 1em; text-indent: -1em;
+}
+
+/* Citation hover box */
+
+.tippy-box[data-theme~=light-border] {
+  background-color: rgba(250, 250, 250, 0.95);
+}
+
+.tippy-content > p {
+  margin-bottom: 0;
+  padding: 2px;
+}
+
+
+/* Tweak 1000px media break to show more text */
+
+@media(min-width: 1000px) {
+  .base-grid,
+  distill-header,
+  d-title,
+  d-abstract,
+  d-article,
+  d-appendix,
+  distill-appendix,
+  d-byline,
+  d-footnote-list,
+  d-citation-list,
+  distill-footer {
+    grid-template-columns: [screen-start] 1fr [page-start kicker-start] 80px [middle-start] 50px [text-start kicker-end] 65px 65px 65px 65px 65px 65px 65px 65px [text-end gutter-start] 65px [middle-end] 65px [page-end gutter-end] 1fr [screen-end];
+    grid-column-gap: 16px;
+  }
+
+  .grid {
+    grid-column-gap: 16px;
+  }
+
+  d-article {
+    font-size: 1.06rem;
+    line-height: 1.7em;
+  }
+  figure .caption, .figure .caption, figure figcaption {
+    font-size: 13px;
+  }
+}
+
+@media(min-width: 1180px) {
+  .base-grid,
+  distill-header,
+  d-title,
+  d-abstract,
+  d-article,
+  d-appendix,
+  distill-appendix,
+  d-byline,
+  d-footnote-list,
+  d-citation-list,
+  distill-footer {
+    grid-template-columns: [screen-start] 1fr [page-start kicker-start] 60px [middle-start] 60px [text-start kicker-end] 60px 60px 60px 60px 60px 60px 60px 60px [text-end gutter-start] 60px [middle-end] 60px [page-end gutter-end] 1fr [screen-end];
+    grid-column-gap: 32px;
+  }
+
+  .grid {
+    grid-column-gap: 32px;
+  }
+}
+
+
+/* Get the citation styles for the appendix (not auto-injected on render since
+   we do our own rendering of the citation appendix) */
+
+d-appendix .citation-appendix,
+.d-appendix .citation-appendix {
+  font-size: 11px;
+  line-height: 15px;
+  border-left: 1px solid rgba(0, 0, 0, 0.1);
+  padding-left: 18px;
+  border: 1px solid rgba(0,0,0,0.1);
+  background: rgba(0, 0, 0, 0.02);
+  padding: 10px 18px;
+  border-radius: 3px;
+  color: rgba(150, 150, 150, 1);
+  overflow: hidden;
+  margin-top: -12px;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+
+/* Include appendix styles here so they can be overridden */
+
+d-appendix {
+  contain: layout style;
+  font-size: 0.8em;
+  line-height: 1.7em;
+  margin-top: 60px;
+  margin-bottom: 0;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+  color: rgba(0,0,0,0.5);
+  padding-top: 60px;
+  padding-bottom: 48px;
+}
+
+d-appendix h3 {
+  grid-column: page-start / text-start;
+  font-size: 15px;
+  font-weight: 500;
+  margin-top: 1em;
+  margin-bottom: 0;
+  color: rgba(0,0,0,0.65);
+}
+
+d-appendix h3 + * {
+  margin-top: 1em;
+}
+
+d-appendix ol {
+  padding: 0 0 0 15px;
+}
+
+@media (min-width: 768px) {
+  d-appendix ol {
+    padding: 0 0 0 30px;
+    margin-left: -30px;
+  }
+}
+
+d-appendix li {
+  margin-bottom: 1em;
+}
+
+d-appendix a {
+  color: rgba(0, 0, 0, 0.6);
+}
+
+d-appendix > * {
+  grid-column: text;
+}
+
+d-appendix > d-footnote-list,
+d-appendix > d-citation-list,
+d-appendix > distill-appendix {
+  grid-column: screen;
+}
+
+/* Include footnote styles here so they can be overridden */
+
+d-footnote-list {
+  contain: layout style;
+}
+
+d-footnote-list > * {
+  grid-column: text;
+}
+
+d-footnote-list a.footnote-backlink {
+  color: rgba(0,0,0,0.3);
+  padding-left: 0.5em;
+}
+
+
+
+/* Anchor.js */
+
+.anchorjs-link {
+  /*transition: all .25s linear; */
+  text-decoration: none;
+  border-bottom: none;
+}
+*:hover > .anchorjs-link {
+  margin-left: -1.125em !important;
+  text-decoration: none;
+  border-bottom: none;
+}
+
+/* Social footer */
+
+.social_footer {
+  margin-top: 30px;
+  margin-bottom: 0;
+  color: rgba(0,0,0,0.67);
+}
+
+.disqus-comments {
+  margin-right: 30px;
+}
+
+.disqus-comment-count {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.4);
+  cursor: pointer;
+}
+
+#disqus_thread {
+  margin-top: 30px;
+}
+
+.article-sharing a {
+  border-bottom: none;
+  margin-right: 8px;
+}
+
+.article-sharing a:hover {
+  border-bottom: none;
+}
+
+.sidebar-section.subscribe {
+  font-size: 12px;
+  line-height: 1.6em;
+}
+
+.subscribe p {
+  margin-bottom: 0.5em;
+}
+
+
+.article-footer .subscribe {
+  font-size: 15px;
+  margin-top: 45px;
+}
+
+
+.sidebar-section.custom {
+  font-size: 12px;
+  line-height: 1.6em;
+}
+
+.custom p {
+  margin-bottom: 0.5em;
+}
+
+/* Styles for listing layout (hide title) */
+.layout-listing d-title, .layout-listing .d-title {
+  display: none;
+}
+
+/* Styles for posts lists (not auto-injected) */
+
+
+.posts-with-sidebar {
+  padding-left: 45px;
+  padding-right: 45px;
+}
+
+.posts-list .description h2,
+.posts-list .description p {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", Arial, sans-serif;
+}
+
+.posts-list .description h2 {
+  font-weight: 700;
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.posts-list h2.post-tag {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+  padding-bottom: 12px;
+}
+.posts-list {
+  margin-top: 60px;
+  margin-bottom: 24px;
+}
+
+.posts-list .post-preview {
+  text-decoration: none;
+  overflow: hidden;
+  display: block;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  padding: 24px 0;
+}
+
+.post-preview-last {
+  border-bottom: none !important;
+}
+
+.posts-list .posts-list-caption {
+  grid-column: screen;
+  font-weight: 400;
+}
+
+.posts-list .post-preview h2 {
+  margin: 0 0 6px 0;
+  line-height: 1.2em;
+  font-style: normal;
+  font-size: 24px;
+}
+
+.posts-list .post-preview p {
+  margin: 0 0 12px 0;
+  line-height: 1.4em;
+  font-size: 16px;
+}
+
+.posts-list .post-preview .thumbnail {
+  box-sizing: border-box;
+  margin-bottom: 24px;
+  position: relative;
+  max-width: 500px;
+}
+.posts-list .post-preview img {
+  width: 100%;
+  display: block;
+}
+
+.posts-list .metadata {
+  font-size: 12px;
+  line-height: 1.4em;
+  margin-bottom: 18px;
+}
+
+.posts-list .metadata > * {
+  display: inline-block;
+}
+
+.posts-list .metadata .publishedDate {
+  margin-right: 2em;
+}
+
+.posts-list .metadata .dt-authors {
+  display: block;
+  margin-top: 0.3em;
+  margin-right: 2em;
+}
+
+.posts-list .dt-tags {
+  display: block;
+  line-height: 1em;
+}
+
+.posts-list .dt-tags .dt-tag {
+  display: inline-block;
+  color: rgba(0,0,0,0.6);
+  padding: 0.3em 0.4em;
+  margin-right: 0.2em;
+  margin-bottom: 0.4em;
+  font-size: 60%;
+  border: 1px solid rgba(0,0,0,0.2);
+  border-radius: 3px;
+  text-transform: uppercase;
+  font-weight: 500;
+}
+
+.posts-list img {
+  opacity: 1;
+}
+
+.posts-list img[data-src] {
+  opacity: 0;
+}
+
+.posts-more {
+  clear: both;
+}
+
+
+.posts-sidebar {
+  font-size: 16px;
+}
+
+.posts-sidebar h3 {
+  font-size: 16px;
+  margin-top: 0;
+  margin-bottom: 0.5em;
+  font-weight: 400;
+  text-transform: uppercase;
+}
+
+.sidebar-section {
+  margin-bottom: 30px;
+}
+
+.categories ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+.categories li {
+  color: rgba(0, 0, 0, 0.8);
+  margin-bottom: 0;
+}
+
+.categories li>a {
+  border-bottom: none;
+}
+
+.categories li>a:hover {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.4);
+}
+
+.categories .active {
+  font-weight: 600;
+}
+
+.categories .category-count {
+  color: rgba(0, 0, 0, 0.4);
+}
+
+
+@media(min-width: 768px) {
+  .posts-list .post-preview h2 {
+    font-size: 26px;
+  }
+  .posts-list .post-preview .thumbnail {
+    float: right;
+    width: 30%;
+    margin-bottom: 0;
+  }
+  .posts-list .post-preview .description {
+    float: left;
+    width: 45%;
+  }
+  .posts-list .post-preview .metadata {
+    float: left;
+    width: 20%;
+    margin-top: 8px;
+  }
+  .posts-list .post-preview p {
+    margin: 0 0 12px 0;
+    line-height: 1.5em;
+    font-size: 16px;
+  }
+  .posts-with-sidebar .posts-list {
+    float: left;
+    width: 75%;
+  }
+  .posts-with-sidebar .posts-sidebar {
+    float: right;
+    width: 20%;
+    margin-top: 60px;
+    padding-top: 24px;
+    padding-bottom: 24px;
+  }
+}
+
+
+/* Improve display for browsers without grid (IE/Edge <= 15) */
+
+.downlevel {
+  line-height: 1.6em;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", Arial, sans-serif;
+  margin: 0;
+}
+
+.downlevel .d-title {
+  padding-top: 6rem;
+  padding-bottom: 1.5rem;
+}
+
+.downlevel .d-title h1 {
+  font-size: 50px;
+  font-weight: 700;
+  line-height: 1.1em;
+  margin: 0 0 0.5rem;
+}
+
+.downlevel .d-title p {
+  font-weight: 300;
+  font-size: 1.2rem;
+  line-height: 1.55em;
+  margin-top: 0;
+}
+
+.downlevel .d-byline {
+  padding-top: 0.8em;
+  padding-bottom: 0.8em;
+  font-size: 0.8rem;
+  line-height: 1.8em;
+}
+
+.downlevel .section-separator {
+  border: none;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.downlevel .d-article {
+  font-size: 1.06rem;
+  line-height: 1.7em;
+  padding-top: 1rem;
+  padding-bottom: 2rem;
+}
+
+
+.downlevel .d-appendix {
+  padding-left: 0;
+  padding-right: 0;
+  max-width: none;
+  font-size: 0.8em;
+  line-height: 1.7em;
+  margin-bottom: 0;
+  color: rgba(0,0,0,0.5);
+  padding-top: 40px;
+  padding-bottom: 48px;
+}
+
+.downlevel .footnotes ol {
+  padding-left: 13px;
+}
+
+.downlevel .base-grid,
+.downlevel .distill-header,
+.downlevel .d-title,
+.downlevel .d-abstract,
+.downlevel .d-article,
+.downlevel .d-appendix,
+.downlevel .distill-appendix,
+.downlevel .d-byline,
+.downlevel .d-footnote-list,
+.downlevel .d-citation-list,
+.downlevel .distill-footer,
+.downlevel .appendix-bottom,
+.downlevel .posts-container {
+  padding-left: 40px;
+  padding-right: 40px;
+}
+
+@media(min-width: 768px) {
+  .downlevel .base-grid,
+  .downlevel .distill-header,
+  .downlevel .d-title,
+  .downlevel .d-abstract,
+  .downlevel .d-article,
+  .downlevel .d-appendix,
+  .downlevel .distill-appendix,
+  .downlevel .d-byline,
+  .downlevel .d-footnote-list,
+  .downlevel .d-citation-list,
+  .downlevel .distill-footer,
+  .downlevel .appendix-bottom,
+  .downlevel .posts-container {
+  padding-left: 150px;
+  padding-right: 150px;
+  max-width: 900px;
+}
+}
+
+.downlevel pre code {
+  display: block;
+  border-left: 2px solid rgba(0, 0, 0, .1);
+  padding: 0 0 0 20px;
+  font-size: 14px;
+}
+
+.downlevel code, .downlevel pre {
+  color: black;
+  background: none;
+  font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+  text-align: left;
+  white-space: pre;
+  word-spacing: normal;
+  word-break: normal;
+  word-wrap: normal;
+  line-height: 1.5;
+
+  -moz-tab-size: 4;
+  -o-tab-size: 4;
+  tab-size: 4;
+
+  -webkit-hyphens: none;
+  -moz-hyphens: none;
+  -ms-hyphens: none;
+  hyphens: none;
+}
+
+.downlevel .posts-list .post-preview {
+  color: inherit;
+}
+
+
+
+</style>
+
+<script type="application/javascript">
+
+function is_downlevel_browser() {
+  if (bowser.isUnsupportedBrowser({ msie: "12", msedge: "16"},
+                                 window.navigator.userAgent)) {
+    return true;
+  } else {
+    return window.load_distill_framework === undefined;
+  }
+}
+
+// show body when load is complete
+function on_load_complete() {
+
+  // add anchors
+  if (window.anchors) {
+    window.anchors.options.placement = 'left';
+    window.anchors.add('d-article > h2, d-article > h3, d-article > h4, d-article > h5');
+  }
+
+
+  // set body to visible
+  document.body.style.visibility = 'visible';
+
+  // force redraw for leaflet widgets
+  if (window.HTMLWidgets) {
+    var maps = window.HTMLWidgets.findAll(".leaflet");
+    $.each(maps, function(i, el) {
+      var map = this.getMap();
+      map.invalidateSize();
+      map.eachLayer(function(layer) {
+        if (layer instanceof L.TileLayer)
+          layer.redraw();
+      });
+    });
+  }
+
+  // trigger 'shown' so htmlwidgets resize
+  $('d-article').trigger('shown');
+}
+
+function init_distill() {
+
+  init_common();
+
+  // create front matter
+  var front_matter = $('<d-front-matter></d-front-matter>');
+  $('#distill-front-matter').wrap(front_matter);
+
+  // create d-title
+  $('.d-title').changeElementType('d-title');
+
+  // create d-byline
+  var byline = $('<d-byline></d-byline>');
+  $('.d-byline').replaceWith(byline);
+
+  // create d-article
+  var article = $('<d-article></d-article>');
+  $('.d-article').wrap(article).children().unwrap();
+
+  // move posts container into article
+  $('.posts-container').appendTo($('d-article'));
+
+  // create d-appendix
+  $('.d-appendix').changeElementType('d-appendix');
+
+  // flag indicating that we have appendix items
+  var appendix = $('.appendix-bottom').children('h3').length > 0;
+
+  // replace footnotes with <d-footnote>
+  $('.footnote-ref').each(function(i, val) {
+    appendix = true;
+    var href = $(this).attr('href');
+    var id = href.replace('#', '');
+    var fn = $('#' + id);
+    var fn_p = $('#' + id + '>p');
+    fn_p.find('.footnote-back').remove();
+    var text = fn_p.html();
+    var dtfn = $('<d-footnote></d-footnote>');
+    dtfn.html(text);
+    $(this).replaceWith(dtfn);
+  });
+  // remove footnotes
+  $('.footnotes').remove();
+
+  // move refs into #references-listing
+  $('#references-listing').replaceWith($('#refs'));
+
+  $('h1.appendix, h2.appendix').each(function(i, val) {
+    $(this).changeElementType('h3');
+  });
+  $('h3.appendix').each(function(i, val) {
+    var id = $(this).attr('id');
+    $('.d-contents a[href="#' + id + '"]').parent().remove();
+    appendix = true;
+    $(this).nextUntil($('h1, h2, h3')).addBack().appendTo($('d-appendix'));
+  });
+
+  // show d-appendix if we have appendix content
+  $("d-appendix").css('display', appendix ? 'grid' : 'none');
+
+  // localize layout chunks to just output
+  $('.layout-chunk').each(function(i, val) {
+
+    // capture layout
+    var layout = $(this).attr('data-layout');
+
+    // apply layout to markdown level block elements
+    var elements = $(this).children().not('details, div.sourceCode, pre, script');
+    elements.each(function(i, el) {
+      var layout_div = $('<div class="' + layout + '"></div>');
+      if (layout_div.hasClass('shaded')) {
+        var shaded_content = $('<div class="shaded-content"></div>');
+        $(this).wrap(shaded_content);
+        $(this).parent().wrap(layout_div);
+      } else {
+        $(this).wrap(layout_div);
+      }
+    });
+
+
+    // unwrap the layout-chunk div
+    $(this).children().unwrap();
+  });
+
+  // remove code block used to force  highlighting css
+  $('.distill-force-highlighting-css').parent().remove();
+
+  // remove empty line numbers inserted by pandoc when using a
+  // custom syntax highlighting theme
+  $('code.sourceCode a:empty').remove();
+
+  // load distill framework
+  load_distill_framework();
+
+  // wait for window.distillRunlevel == 4 to do post processing
+  function distill_post_process() {
+
+    if (!window.distillRunlevel || window.distillRunlevel < 4)
+      return;
+
+    // hide author/affiliations entirely if we have no authors
+    var front_matter = JSON.parse($("#distill-front-matter").html());
+    var have_authors = front_matter.authors && front_matter.authors.length > 0;
+    if (!have_authors)
+      $('d-byline').addClass('hidden');
+
+    // article with toc class
+    $('.d-contents').parent().addClass('d-article-with-toc');
+
+    // strip links that point to #
+    $('.authors-affiliations').find('a[href="#"]').removeAttr('href');
+
+    // add orcid ids
+    $('.authors-affiliations').find('.author').each(function(i, el) {
+      var orcid_id = front_matter.authors[i].orcidID;
+      if (orcid_id) {
+        var a = $('<a></a>');
+        a.attr('href', 'https://orcid.org/' + orcid_id);
+        var img = $('<img></img>');
+        img.addClass('orcid-id');
+        img.attr('alt', 'ORCID ID');
+        img.attr('src','data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA2ZpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDo1N0NEMjA4MDI1MjA2ODExOTk0QzkzNTEzRjZEQTg1NyIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDozM0NDOEJGNEZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDozM0NDOEJGM0ZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ1M1IE1hY2ludG9zaCI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOkZDN0YxMTc0MDcyMDY4MTE5NUZFRDc5MUM2MUUwNEREIiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjU3Q0QyMDgwMjUyMDY4MTE5OTRDOTM1MTNGNkRBODU3Ii8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+84NovQAAAR1JREFUeNpiZEADy85ZJgCpeCB2QJM6AMQLo4yOL0AWZETSqACk1gOxAQN+cAGIA4EGPQBxmJA0nwdpjjQ8xqArmczw5tMHXAaALDgP1QMxAGqzAAPxQACqh4ER6uf5MBlkm0X4EGayMfMw/Pr7Bd2gRBZogMFBrv01hisv5jLsv9nLAPIOMnjy8RDDyYctyAbFM2EJbRQw+aAWw/LzVgx7b+cwCHKqMhjJFCBLOzAR6+lXX84xnHjYyqAo5IUizkRCwIENQQckGSDGY4TVgAPEaraQr2a4/24bSuoExcJCfAEJihXkWDj3ZAKy9EJGaEo8T0QSxkjSwORsCAuDQCD+QILmD1A9kECEZgxDaEZhICIzGcIyEyOl2RkgwAAhkmC+eAm0TAAAAABJRU5ErkJggg==');
+        a.append(img);
+        $(this).append(a);
+      }
+    });
+
+    // hide elements of author/affiliations grid that have no value
+    function hide_byline_column(caption) {
+      $('d-byline').find('h3:contains("' + caption + '")').parent().css('visibility', 'hidden');
+    }
+
+    // affiliations
+    var have_affiliations = false;
+    for (var i = 0; i<front_matter.authors.length; ++i) {
+      var author = front_matter.authors[i];
+      if (author.affiliation !== "&nbsp;") {
+        have_affiliations = true;
+        break;
+      }
+    }
+    if (!have_affiliations)
+      $('d-byline').find('h3:contains("Affiliations")').css('visibility', 'hidden');
+
+    // published date
+    if (!front_matter.publishedDate)
+      hide_byline_column("Published");
+
+    // document object identifier
+    var doi = $('d-byline').find('h3:contains("DOI")');
+    var doi_p = doi.next().empty();
+    if (!front_matter.doi) {
+      // if we have a citation and valid citationText then link to that
+      if ($('#citation').length > 0 && front_matter.citationText) {
+        doi.html('Citation');
+        $('<a href="#citation"></a>')
+          .text(front_matter.citationText)
+          .appendTo(doi_p);
+      } else {
+        hide_byline_column("DOI");
+      }
+    } else {
+      $('<a></a>')
+         .attr('href', "https://doi.org/" + front_matter.doi)
+         .html(front_matter.doi)
+         .appendTo(doi_p);
+    }
+
+     // change plural form of authors/affiliations
+    if (front_matter.authors.length === 1) {
+      var grid = $('.authors-affiliations');
+      grid.children('h3:contains("Authors")').text('Author');
+      grid.children('h3:contains("Affiliations")').text('Affiliation');
+    }
+
+    // remove d-appendix and d-footnote-list local styles
+    $('d-appendix > style:first-child').remove();
+    $('d-footnote-list > style:first-child').remove();
+
+    // move appendix-bottom entries to the bottom
+    $('.appendix-bottom').appendTo('d-appendix').children().unwrap();
+    $('.appendix-bottom').remove();
+
+    // hoverable references
+    $('span.citation[data-cites]').each(function() {
+      var refs = $(this).attr('data-cites').split(" ");
+      var refHtml = refs.map(function(ref) {
+        return "<p>" + $('#ref-' + ref).html() + "</p>";
+      }).join("\n");
+      window.tippy(this, {
+        allowHTML: true,
+        content: refHtml,
+        maxWidth: 500,
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'light-border',
+        placement: 'bottom-start'
+      });
+    });
+
+    // clear polling timer
+    clearInterval(tid);
+
+    // show body now that everything is ready
+    on_load_complete();
+  }
+
+  var tid = setInterval(distill_post_process, 50);
+  distill_post_process();
+
+}
+
+function init_downlevel() {
+
+  init_common();
+
+   // insert hr after d-title
+  $('.d-title').after($('<hr class="section-separator"/>'));
+
+  // check if we have authors
+  var front_matter = JSON.parse($("#distill-front-matter").html());
+  var have_authors = front_matter.authors && front_matter.authors.length > 0;
+
+  // manage byline/border
+  if (!have_authors)
+    $('.d-byline').remove();
+  $('.d-byline').after($('<hr class="section-separator"/>'));
+  $('.d-byline a').remove();
+
+  // remove toc
+  $('.d-contents').remove();
+
+  // move appendix elements
+  $('h1.appendix, h2.appendix').each(function(i, val) {
+    $(this).changeElementType('h3');
+  });
+  $('h3.appendix').each(function(i, val) {
+    $(this).nextUntil($('h1, h2, h3')).addBack().appendTo($('.d-appendix'));
+  });
+
+
+  // inject headers into references and footnotes
+  var refs_header = $('<h3></h3>');
+  refs_header.text('References');
+  $('#refs').prepend(refs_header);
+
+  var footnotes_header = $('<h3></h3');
+  footnotes_header.text('Footnotes');
+  $('.footnotes').children('hr').first().replaceWith(footnotes_header);
+
+  // move appendix-bottom entries to the bottom
+  $('.appendix-bottom').appendTo('.d-appendix').children().unwrap();
+  $('.appendix-bottom').remove();
+
+  // remove appendix if it's empty
+  if ($('.d-appendix').children().length === 0)
+    $('.d-appendix').remove();
+
+  // prepend separator above appendix
+  $('.d-appendix').before($('<hr class="section-separator" style="clear: both"/>'));
+
+  // trim code
+  $('pre>code').each(function(i, val) {
+    $(this).html($.trim($(this).html()));
+  });
+
+  // move posts-container right before article
+  $('.posts-container').insertBefore($('.d-article'));
+
+  $('body').addClass('downlevel');
+
+  on_load_complete();
+}
+
+
+function init_common() {
+
+  // jquery plugin to change element types
+  (function($) {
+    $.fn.changeElementType = function(newType) {
+      var attrs = {};
+
+      $.each(this[0].attributes, function(idx, attr) {
+        attrs[attr.nodeName] = attr.nodeValue;
+      });
+
+      this.replaceWith(function() {
+        return $("<" + newType + "/>", attrs).append($(this).contents());
+      });
+    };
+  })(jQuery);
+
+  // prevent underline for linked images
+  $('a > img').parent().css({'border-bottom' : 'none'});
+
+  // mark non-body figures created by knitr chunks as 100% width
+  $('.layout-chunk').each(function(i, val) {
+    var figures = $(this).find('img, .html-widget');
+    if ($(this).attr('data-layout') !== "l-body") {
+      figures.css('width', '100%');
+    } else {
+      figures.css('max-width', '100%');
+      figures.filter("[width]").each(function(i, val) {
+        var fig = $(this);
+        fig.css('width', fig.attr('width') + 'px');
+      });
+
+    }
+  });
+
+  // auto-append index.html to post-preview links in file: protocol
+  // and in rstudio ide preview
+  $('.post-preview').each(function(i, val) {
+    if (window.location.protocol === "file:")
+      $(this).attr('href', $(this).attr('href') + "index.html");
+  });
+
+  // get rid of index.html references in header
+  if (window.location.protocol !== "file:") {
+    $('.distill-site-header a[href]').each(function(i,val) {
+      $(this).attr('href', $(this).attr('href').replace("index.html", "./"));
+    });
+  }
+
+  // add class to pandoc style tables
+  $('tr.header').parent('thead').parent('table').addClass('pandoc-table');
+  $('.kable-table').children('table').addClass('pandoc-table');
+
+  // add figcaption style to table captions
+  $('caption').parent('table').addClass("figcaption");
+
+  // initialize posts list
+  if (window.init_posts_list)
+    window.init_posts_list();
+
+  // implmement disqus comment link
+  $('.disqus-comment-count').click(function() {
+    window.headroom_prevent_pin = true;
+    $('#disqus_thread').toggleClass('hidden');
+    if (!$('#disqus_thread').hasClass('hidden')) {
+      var offset = $(this).offset();
+      $(window).resize();
+      $('html, body').animate({
+        scrollTop: offset.top - 35
+      });
+    }
+  });
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+  if (is_downlevel_browser())
+    init_downlevel();
+  else
+    window.addEventListener('WebComponentsReady', init_distill);
+});
+
+</script>
+
+<style type="text/css">
+/* base variables */
+
+/* Edit the CSS properties in this file to create a custom
+   Distill theme. Only edit values in the right column
+   for each row; values shown are the CSS defaults.
+   To return any property to the default,
+   you may set its value to: unset
+   All rows must end with a semi-colon.                      */
+
+/* Optional: embed custom fonts here with `@import`          */
+/* This must remain at the top of this file.                 */
+
+
+
+html {
+  /*-- Main font sizes --*/
+  --title-size:      50px;
+  --body-size:       1.06rem;
+  --code-size:       14px;
+  --aside-size:      12px;
+  --fig-cap-size:    13px;
+  /*-- Main font colors --*/
+  --title-color:     #000000;
+  --header-color:    rgba(0, 0, 0, 0.8);
+  --body-color:      rgba(0, 0, 0, 0.8);
+  --aside-color:     rgba(0, 0, 0, 0.6);
+  --fig-cap-color:   rgba(0, 0, 0, 0.6);
+  /*-- Specify custom fonts ~~~ must be imported above   --*/
+  --heading-font:    sans-serif;
+  --mono-font:       monospace;
+  --body-font:       sans-serif;
+  --navbar-font:     sans-serif;  /* websites + blogs only */
+}
+
+/*-- ARTICLE METADATA --*/
+d-byline {
+  --heading-size:    0.6rem;
+  --heading-color:   rgba(0, 0, 0, 0.5);
+  --body-size:       0.8rem;
+  --body-color:      rgba(0, 0, 0, 0.8);
+}
+
+/*-- ARTICLE TABLE OF CONTENTS --*/
+.d-contents {
+  --heading-size:    18px;
+  --contents-size:   13px;
+}
+
+/*-- ARTICLE APPENDIX --*/
+d-appendix {
+  --heading-size:    15px;
+  --heading-color:   rgba(0, 0, 0, 0.65);
+  --text-size:       0.8em;
+  --text-color:      rgba(0, 0, 0, 0.5);
+}
+
+/*-- WEBSITE HEADER + FOOTER --*/
+/* These properties only apply to Distill sites and blogs  */
+
+.distill-site-header {
+  --title-size:       18px;
+  --text-color:       rgba(255, 255, 255, 0.8);
+  --text-size:        15px;
+  --hover-color:      white;
+  --bkgd-color:       #0F2E3D;
+}
+
+.distill-site-footer {
+  --text-color:       rgba(255, 255, 255, 0.8);
+  --text-size:        15px;
+  --hover-color:      white;
+  --bkgd-color:       #0F2E3D;
+}
+
+/*-- Additional custom styles --*/
+/* Add any additional CSS rules below                      */
+</style>
+<style type="text/css">
+/* base variables */
+
+/* Edit the CSS properties in this file to create a custom
+   Distill theme. Only edit values in the right column
+   for each row; values shown are the CSS defaults.
+   To return any property to the default,
+   you may set its value to: unset
+   All rows must end with a semi-colon.                      */
+
+/* Optional: embed custom fonts here with `@import`          */
+/* This must remain at the top of this file.                 */
+
+@import url('https://assets.ipums.org/_css/font-faces.css');
+
+html {
+  /*-- Main font sizes --*/
+  --title-size:      50px;
+  --body-size:       1.06rem;
+  --code-size:       14px;
+  --aside-size:      12px;
+  --fig-cap-size:    13px;
+  /*-- Main font colors --*/
+  --title-color:     #00263A;
+  --header-color:    #00263A;
+  --body-color:      #00263A;
+  --aside-color:     rgba(0, 0, 0, 0.6);
+  --fig-cap-color:   rgba(0, 0, 0, 0.6);
+  /*-- Specify custom fonts ~~~ must be imported above   --*/
+  --heading-font:    cabrito_sans_norm_regular;
+  --mono-font:       Menlo, Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+  --body-font:       cabrito_sans_norm_regular;
+  --navbar-font:     cabrito_sans_norm_regular;  /* websites + blogs only */
+}
+
+/*-- ARTICLE METADATA --*/
+d-byline {
+  --heading-size:    0.6rem;
+  --heading-color:   rgba(0, 0, 0, 0.5);
+  --body-size:       0.8rem;
+  --body-color:      rgba(0, 0, 0, 0.8);
+}
+
+/*-- ARTICLE TABLE OF CONTENTS --*/
+.d-contents {
+  --heading-size:    18px;
+  --contents-size:   13px;
+}
+
+/*-- ARTICLE APPENDIX --*/
+d-appendix {
+  --heading-size:    15px;
+  --heading-color:   rgba(0, 0, 0, 0.65);
+  --text-size:       0.8em;
+  --text-color:      rgba(0, 0, 0, 0.5);
+}
+
+/*-- WEBSITE HEADER + FOOTER --*/
+/* These properties only apply to Distill sites and blogs  */
+
+.distill-site-header {
+  --title-size:       18px;
+  --text-color:       rgba(255, 255, 255, 0.8);
+  --text-size:        15px;
+  --hover-color:      white;
+  --bkgd-color:       #00263A;
+}
+
+.distill-site-footer {
+  --text-color:       rgba(255, 255, 255, 0.8);
+  --text-size:        15px;
+  --hover-color:      white;
+  --bkgd-color:       #00263A;
+}
+
+/*-- Additional custom styles --*/
+/* Add any additional CSS rules below                      */
+
+h1{
+  font-family: 'cabrito_sans_norm_regular';
+  text-transform: uppercase;
+  color: #00263A;
+}
+
+d-title h1{
+  font-weight: 500;
+}
+
+d-article h1{
+  font-size: 36px;
+  line-height: 1.1em;
+  font-weight: 100;
+}
+
+d-article h2{
+    font-size: 30px;
+    font-family: "cabrito_sans_cond_demi";
+    text-transform: uppercase;
+    color: #00263A;
+    font-weight: 100;
+}
+
+d-article h3{
+  font-size: 26px;
+  font-family: 'cabrito_sans_cond_demi';
+  color: #00263A;
+  margin-top: 1.5rem;
+  margin-bottom: 1em;
+  font-weight: 100;
+}
+
+d-article h4{
+  font-size: 24px;
+  font-family: 'cabrito_sans_norm_regular';
+  color: #00263A;
+  text-transform: unset;
+  margin-top: 1.5rem;
+  margin-bottom: 1em;
+  font-weight: 100;
+}
+
+d-article h5{
+  font-size: 24px;
+  font-family: 'cabrito_sans_cond_demi';
+  color: #00263A;
+  margin-top: 1.5rem;
+  margin-bottom: 1em;
+  font-weight: 100;
+}
+
+d-article li {
+    margin-bottom: 0;
+    margin-left: 1rem;
+    padding-left: 0;
+    color: #00263A;
+}
+
+d-article table {
+    color: #00263A;
+}
+.d-contents nav > ul > li > a {
+    font-weight: 100;
+}
+
+body{
+  font-family: 'cabrito_subset';
+}
+
+b, strong {
+  font-family: "cabrito_sans_cond_demi";
+  font-weight: 100;
+}
+
+p>a {
+    color: #98579B
+}
+
+li>a {
+    color: #98579B;
+}
+
+.btn {
+    font-family: "cabrito_subset";
+    font-size: 16px;
+    background-color: #F0E6F0;
+    margin-bottom: 20px;
+    border-width: 1px;
+    padding-top: 6px;
+    padding-bottom: 6px;
+    cursor: pointer;
+}
+
+.distill-site-header .title {
+    text-transform: uppercase;
+    line-height: 38px;
+    vertical-align: middle;
+}
+
+.distill-site-header .logo img{
+  max-height: 50px; /* Makes logo bigger, default was 20px */
+  vertical-align: middle;
+  margin-bottom: 0;
+}
+
+.distill-site-header .nav-right {
+    float: right;
+    line-height: 38px;
+    vertical-align: middle;
+}
+
+.distill-site-header .nav-left {
+    display: inline-block;
+    line-height: 38px;
+    vertical-align: middle;
+}
+
+.algolia-autocomplete {
+  line-height: 25px;
+}
+
+d-article iframe {
+    border: 0;
+    margin-bottom: 0;
+    width: 100%;
+}
+
+d-article aside a {
+  color: #98579B;
+}
+
+@media(max-width: 767px){
+  aside{
+    width: 50%;
+    position: relative;
+    left: 25%;
+    padding-bottom: 20px;
+  }
+}
+
+code {
+  font-family: Menlo, Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+}</style>
+<style type="text/css">
+/* base style */
+
+/* FONT FAMILIES */
+
+:root {
+  --heading-default: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", Arial, sans-serif;
+  --mono-default: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+  --body-default: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", Arial, sans-serif;
+}
+
+body,
+.posts-list .post-preview p,
+.posts-list .description p {
+  font-family: var(--body-font), var(--body-default);
+}
+
+h1, h2, h3, h4, h5, h6,
+.posts-list .post-preview h2,
+.posts-list .description h2 {
+  font-family: var(--heading-font), var(--heading-default);
+}
+
+d-article div.sourceCode code,
+d-article pre code {
+  font-family: var(--mono-font), var(--mono-default);
+}
+
+
+/*-- TITLE --*/
+d-title h1,
+.posts-list > h1 {
+  color: var(--title-color, black);
+}
+
+d-title h1 {
+  font-size: var(--title-size, 50px);
+}
+
+/*-- HEADERS --*/
+d-article h1,
+d-article h2,
+d-article h3,
+d-article h4,
+d-article h5,
+d-article h6 {
+  color: var(--header-color, rgba(0, 0, 0, 0.8));
+}
+
+/*-- BODY --*/
+d-article > p,  /* only text inside of <p> tags */
+d-article > ul, /* lists */
+d-article > ol {
+  color: var(--body-color, rgba(0, 0, 0, 0.8));
+  font-size: var(--body-size, 1.06rem);
+}
+
+
+/*-- CODE --*/
+d-article div.sourceCode code,
+d-article pre code {
+  font-size: var(--code-size, 14px);
+}
+
+/*-- ASIDE --*/
+d-article aside {
+  font-size: var(--aside-size, 12px);
+  color: var(--aside-color, rgba(0, 0, 0, 0.6));
+}
+
+/*-- FIGURE CAPTIONS --*/
+figure .caption,
+figure figcaption,
+.figure .caption {
+  font-size: var(--fig-cap-size, 13px);
+  color: var(--fig-cap-color, rgba(0, 0, 0, 0.6));
+}
+
+/*-- METADATA --*/
+d-byline h3 {
+  font-size: var(--heading-size, 0.6rem);
+  color: var(--heading-color, rgba(0, 0, 0, 0.5));
+}
+
+d-byline {
+  font-size: var(--body-size, 0.8rem);
+  color: var(--body-color, rgba(0, 0, 0, 0.8));
+}
+
+d-byline a,
+d-article d-byline a {
+  color: var(--body-color, rgba(0, 0, 0, 0.8));
+}
+
+/*-- TABLE OF CONTENTS --*/
+.d-contents nav h3 {
+  font-size: var(--heading-size, 18px);
+}
+
+.d-contents nav a {
+  font-size: var(--contents-size, 13px);
+}
+
+/*-- APPENDIX --*/
+d-appendix h3 {
+  font-size: var(--heading-size, 15px);
+  color: var(--heading-color, rgba(0, 0, 0, 0.65));
+}
+
+d-appendix {
+  font-size: var(--text-size, 0.8em);
+  color: var(--text-color, rgba(0, 0, 0, 0.5));
+}
+
+d-appendix d-footnote-list a.footnote-backlink {
+  color: var(--text-color, rgba(0, 0, 0, 0.5));
+}
+
+/*-- WEBSITE HEADER + FOOTER --*/
+.distill-site-header .title {
+  font-size: var(--title-size, 18px);
+  font-family: var(--navbar-font), var(--heading-default);
+}
+
+.distill-site-header a,
+.nav-dropdown .nav-dropbtn {
+  font-family: var(--navbar-font), var(--heading-default);
+}
+
+.nav-dropdown .nav-dropbtn {
+  color: var(--text-color, rgba(255, 255, 255, 0.8));
+  font-size: var(--text-size, 15px);
+}
+
+.distill-site-header a:hover,
+.nav-dropdown:hover .nav-dropbtn {
+  color: var(--hover-color, white);
+}
+
+.distill-site-header {
+  font-size: var(--text-size, 15px);
+  color: var(--text-color, rgba(255, 255, 255, 0.8));
+  background-color: var(--bkgd-color, #0F2E3D);
+}
+
+.distill-site-footer {
+  font-size: var(--text-size, 15px);
+  color: var(--text-color, rgba(255, 255, 255, 0.8));
+  background-color: var(--bkgd-color, #0F2E3D);
+}
+
+.distill-site-footer a:hover {
+  color: var(--hover-color, white);
+}</style>
+<!--/radix_placeholder_distill-->
+  <script src="../../site_libs/header-attrs-2.11/header-attrs.js"></script>
+  <script src="../../site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+  <script src="../../site_libs/popper-2.6.0/popper.min.js"></script>
+  <link href="../../site_libs/tippy-6.2.7/tippy.css" rel="stylesheet" />
+  <link href="../../site_libs/tippy-6.2.7/tippy-light-border.css" rel="stylesheet" />
+  <script src="../../site_libs/tippy-6.2.7/tippy.umd.min.js"></script>
+  <script src="../../site_libs/anchor-4.2.2/anchor.min.js"></script>
+  <script src="../../site_libs/bowser-1.9.3/bowser.min.js"></script>
+  <script src="../../site_libs/webcomponents-2.0.0/webcomponents.js"></script>
+  <script src="../../site_libs/distill-2.2.21/template.v2.js"></script>
+  <!--radix_placeholder_site_in_header-->
+<script type="text/javascript" cookie-consent="tracking" async src="https://www.googletagmanager.com/gtag/js?id=UA-191039907-2"></script>
+<script type="text/javascript" cookie-consent="tracking">
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'UA-191039907-2');
+</script>
+<!--/radix_placeholder_site_in_header-->
+
+
+</head>
+
+<body>
+
+<!--radix_placeholder_front_matter-->
+
+<script id="distill-front-matter" type="text/json">
+{"title":"Calculating Key Indicators for Family Planning Panel Data","description":"We show how to reproduce measures featured in PMA panel reports, and how to visualize significant differences between groups in figures built with ggplot2.","authors":[{"author":"Matt Gunther","authorURL":"#","affiliation":"IPUMS PMA Senior Data Analyst","affiliationURL":"#","orcidID":""}],"publishedDate":"2022-04-19T00:00:00.000-05:00","citationText":"Gunther, 2022"}
+</script>
+
+<!--/radix_placeholder_front_matter-->
+<!--radix_placeholder_navigation_before_body-->
+<header class="header header--fixed" role="banner">
+<nav class="distill-site-nav distill-site-header">
+<div class="nav-left">
+<a class="logo" href="https://pma.ipums.org/pma/">
+<img src="../../images/logo-white.png" alt="Logo"/>
+</a>
+<a href="../../index.html" class="title">Data Analysis Hub</a>
+<input id="distill-search" class="nav-search hidden" type="text" placeholder="Search..."/>
+</div>
+<div class="nav-right">
+<a href="../../index.html">Posts</a>
+<div class="nav-dropdown">
+<button class="nav-dropbtn">
+Courses
+ 
+<span class="down-arrow">&#x25BE;</span>
+</button>
+<div class="nav-dropdown-content">
+<a href="../../introduction.html">Introduction to IPUMS PMA Data Analysis</a>
+</div>
+</div>
+<div class="nav-dropdown">
+<button class="nav-dropbtn">
+R Tips
+ 
+<span class="down-arrow">&#x25BE;</span>
+</button>
+<div class="nav-dropdown-content">
+<a href="../../posts/2020-12-10-get-ipums-pma-data/index.html">Import IPUMS PMA Data into R</a>
+<a href="../../posts/2020-12-10-get-r-and-packages/index.html">R, RStudio, and R Packages</a>
+<a href="../../posts/2021-11-15-find-an-example/index.html">Find an Example</a>
+</div>
+</div>
+<div class="nav-dropdown">
+<button class="nav-dropbtn">
+Community
+ 
+<span class="down-arrow">&#x25BE;</span>
+</button>
+<div class="nav-dropdown-content">
+<a href="../../CONTRIBUTING.html">Contributing guide</a>
+<a href="../../CODE_OF_CONDUCT.html">Code of conduct</a>
+<a href="../../LICENSE.html">License</a>
+<a href="https://github.com/ipums/pma-data-hub/">GitHub</a>
+</div>
+</div>
+<a href="../../about.html">About</a>
+<a href="../../index.xml">
+<i class="fa fa-rss" aria-hidden="true"></i>
+</a>
+<a href="https://twitter.com/ipumsGH">
+<i class="fab fa-twitter" aria-hidden="true"></i>
+</a>
+<a href="https://github.com/ipums/pma-data-hub" aria-label="Link to source">
+<i class="fab fa-github" aria-hidden="true"></i>
+</a>
+<a href="javascript:void(0);" class="nav-toggle">&#9776;</a>
+</div>
+</nav>
+</header>
+<!--/radix_placeholder_navigation_before_body-->
+<!--radix_placeholder_site_before_body-->
+<!--/radix_placeholder_site_before_body-->
+
+<div class="d-title">
+<h1>Calculating Key Indicators for Family Planning Panel Data</h1>
+<!--radix_placeholder_categories-->
+<div class="dt-tags">
+  <a href="../../index.html#category:Panel_Data" class="dt-tag">Panel Data</a>
+  <a href="../../index.html#category:Data_Visualization" class="dt-tag">Data Visualization</a>
+  <a href="../../index.html#category:Data_Analysis" class="dt-tag">Data Analysis</a>
+  <a href="../../index.html#category:Family_Planning" class="dt-tag">Family Planning</a>
+  <a href="../../index.html#category:Weights" class="dt-tag">Weights</a>
+  <a href="../../index.html#category:Sample_Clusters" class="dt-tag">Sample Clusters</a>
+  <a href="../../index.html#category:ggplot2" class="dt-tag">ggplot2</a>
+  <a href="../../index.html#category:srvyr" class="dt-tag">srvyr</a>
+</div>
+<!--/radix_placeholder_categories-->
+<p><p>We show how to reproduce measures featured in PMA panel reports,
+and how to visualize significant differences between groups in figures
+built with ggplot2.</p></p>
+</div>
+
+<div class="d-byline">
+  Matt Gunther  (IPUMS PMA Senior Data Analyst)
+  
+<br/>2022-04-19
+</div>
+
+<div class="d-article">
+<div class="d-contents d-contents-float">
+<nav class="l-text toc figcaption" id="TOC">
+<h3>Contents</h3>
+<ul>
+<li><a href="#setup">Setup</a></li>
+<li><a href="#populations-of-interest">Populations of Interest</a></li>
+<li><a href="#population-inference">Population Inference</a></li>
+<li><a href="#visualization">Visualization</a></li>
+<li><a href="#key-indicators">Key Indicators</a>
+<ul>
+<li><a href="#contraceptive-use-or-non-use">Contraceptive Use or
+Non-Use</a></li>
+<li><a href="#contraceptive-method-type">Contraceptive Method
+Type</a></li>
+<li><a href="#contraceptive-dynamics-by-subgroup">Contraceptive Dynamics
+by Subgroup</a>
+<ul>
+<li><a href="#age">Age</a></li>
+<li><a href="#education-level">Education level</a></li>
+<li><a href="#marital-status">Marital status</a></li>
+<li><a href="#parity">Parity</a></li>
+</ul></li>
+<li><a href="#other-panel-dynamics">Other Panel Dynamics</a>
+<ul>
+<li><a href="#unmet-need">Unmet need</a></li>
+<li><a href="#partner-support">Partner support</a></li>
+<li><a href="#intentions">Intentions</a></li>
+</ul></li>
+</ul></li>
+<li><a href="#wrap-up">Wrap-up</a></li>
+</ul>
+</nav>
+</div>
+<div class="layout-chunk" data-layout="l-body">
+
+</div>
+<p>We’ve mentioned in previous posts in <a
+href="../../#category:Panel_Data">this series</a> that data from the new
+<a href="../2022-03-01-phase2-discovery/index.html">PMA panel study</a>
+gives researchers an important tool for understanding how women’s family
+planning demand and utilization changes over time. In particular, PMA
+surveys cover topics like:</p>
+<ul>
+<li>pregnancy intentions and outcomes</li>
+<li>current use of long-acting, short-acting, and traditional
+contraceptives</li>
+<li>discontinuation of family planning</li>
+<li>intentions for future use of family planning</li>
+<li>unmet need for family planning</li>
+<li>partner’s support for use of family planning</li>
+</ul>
+<p>IPUMS PMA recently released <strong>harmonized data</strong> from
+four of the participating countries where the first two phases of data
+collection in this three-year panel study have already been completed.
+In this post, we’ll demonstrate how to use an <a
+href="../2022-03-15-phase2-formats/">IPUMS PMA data extract</a> to
+calculate and compare key family planning indicators across multiple
+samples.</p>
+<p>Our partners at PMA have published indicators for each of these
+samples, individually. Phase 2 panel results summaries are available
+for:</p>
+<ul>
+<li><a
+href="https://www.pmadata.org/sites/default/files/data_product_results/Burkina%20National_Phase%202_Panel_Results%20Brief_English_Final.pdf">Burkina
+Faso</a></li>
+<li><a
+href="https://www.pmadata.org/sites/default/files/data_product_results/DRC%20Kinshasa_%20Phase%202%20Panel%20Results%20Brief_English_Final.pdf">DRC
+- Kinshasa</a></li>
+<li><a
+href="https://www.pmadata.org/sites/default/files/data_product_results/DRC%20Kongo%20Central_%20Phase%202%20Panel%20Results%20Brief_English_Final.pdf">DRC
+- Kongo Central</a></li>
+<li><a
+href="https://www.pmadata.org/sites/default/files/data_product_results/Kenya%20National_Phase%202_Panel%20Results%20Brief_Final.pdf">Kenya</a></li>
+<li><a
+href="https://www.pmadata.org/sites/default/files/data_product_results/Nigeria%20KANO_Phase%202_Panel_Results%20Brief_Final.pdf">Nigeria
+- Kano</a></li>
+<li><a
+href="https://www.pmadata.org/sites/default/files/data_product_results/Nigeria%20LAGOS_Phase%202_Panel_Results%20Brief_Final.pdf">Nigeria
+- Lagos</a></li>
+</ul>
+<aside>
+Interested in building the <strong>alluvial plots</strong> seen in these
+reports? Join us again in two weeks, when we’ll dig into the <a
+href="https://corybrunson.github.io/ggalluvial/index.html">ggalluvial</a>
+package!
+</aside>
+<p>Here, we’ll share code you can use to reproduce the findings in each
+report, and we’ll demonstrate one simple approach to visualizing
+indicators across samples with <a
+href="https://ggplot2.tidyverse.org/index.html">ggplot2</a>, a popular
+graphics package included in the <a
+href="https://tidyverse.tidyverse.org/index.html">tidyverse</a> toolkit
+for R.</p>
+<h1 id="setup">Setup</h1>
+<p>To get started, you’ll need to load three main packages:</p>
+<ul>
+<li><a href="https://tidyverse.tidyverse.org/index.html">tidyverse</a>,
+which includes <a
+href="https://ggplot2.tidyverse.org/index.html">ggplot2</a> and other
+data manipulation tools</li>
+<li><a href="https://tech.popdata.org/ipumsr/">ipumsr</a> for working
+with IPUMS data</li>
+<li><a href="http://gdfe.co/srvyr/index.html">srvyr</a> for use of
+survey design information (survey weights and sample cluster IDs)</li>
+</ul>
+<aside>
+<a href="http://gdfe.co/srvyr/index.html">srvyr</a> brings <a
+href="https://tidyverse.tidyverse.org/index.html">tidyverse</a> syntax
+to the popular <a
+href="http://r-survey.r-forge.r-project.org/survey/">survey</a> package.
+</aside>
+<div class="layout-chunk" data-layout="l-page">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://tidyverse.tidyverse.org'>tidyverse</a></span><span class='op'>)</span>
+<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://www.ipums.org'>ipumsr</a></span><span class='op'>)</span>
+<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='http://gdfe.co/srvyr/'>srvyr</a></span><span class='op'>)</span>
+</code></pre>
+</div>
+</div>
+<p>We’ll feature data organized in <strong>wide format</strong> for each
+of the six samples currently available from IPUMS PMA. You’ll find the
+“wide” option under the “Longitudinal” sample button on our <a
+href="https://pma.ipums.org/pma-action/samples">Select Samples</a>
+page.</p>
+<aside>
+IPUMS PMA also publishes panel data in <strong>long format</strong>.
+Check out our complete <a href="../2022-03-15-phase2-formats/">guide to
+longitudinal data extracts</a> for details.
+</aside>
+<div class="layout-chunk" data-layout="l-body">
+<p><img src="images/samples.png" width="832" /></p>
+</div>
+<p>Notice that, under “Sample Members”, we’ve selected the button for
+“Female Respondents”. This excludes records for all household members
+who are not, themselves, members of the panel study. You’ll find one row
+for each woman who completed all or part of the Female Questionnaire for
+at least one phase of the study.</p>
+<aside>
+For details on panel enrollment and loss to follow-up, see our <a
+href="../2022-04-01-phase2-members/">panel membership</a> guide.
+</aside>
+<p>Add the following variables to you Data Cart, then click the <a
+href="https://pma.ipums.org/pma-action/extract_requests/variables">View
+Cart</a> button to begin checkout (<a
+href="https://pma.ipums.org/pma-action/faq#ques28">preselected</a>
+variables are added automatically).</p>
+<ul>
+<li><a
+href="https://pma.ipums.org/pma-action/variables/RESULTFQ#codes_section">RESULTFQ</a>
+- Result of female questionnaire</li>
+<li><a
+href="https://pma.ipums.org/pma-action/variables/PANELWEIGHT#codes_section">PANELWEIGHT</a>
+- Phase 2 female panel weight</li>
+<li><a
+href="https://pma.ipums.org/pma-action/variables/RESIDENT#codes_section">RESIDENT</a>
+- Household residence / membership</li>
+<li><a
+href="https://pma.ipums.org/pma-action/variables/AGE#codes_section">AGE</a>
+- Age in female questionnaire</li>
+<li><a
+href="https://pma.ipums.org/pma-action/variables/PREGNANT#codes_section">PREGNANT</a>
+- Pregnancy status</li>
+<li><a
+href="https://pma.ipums.org/pma-action/variables/BIRTHEVENT#codes_section">BIRTHEVENT</a>
+- Number of birth events</li>
+<li><a
+href="https://pma.ipums.org/pma-action/variables/EDUCATTGEN#codes_section">EDUCATTGEN</a>
+- Highest level of school attended (4 categories)</li>
+<li><a
+href="https://pma.ipums.org/pma-action/variables/MARSTAT#codes_section">MARSTAT</a>
+- Marital status</li>
+<li><a
+href="https://pma.ipums.org/pma-action/variables/GEOCD#codes_section">GEOCD</a>
+- Province, DRC</li>
+<li><a
+href="https://pma.ipums.org/pma-action/variables/GEONG#codes_section">GEONG</a>
+- State, Nigeria</li>
+<li><a
+href="https://pma.ipums.org/pma-action/variables/CP#codes_section">CP</a>
+- Contraceptive user</li>
+<li><a
+href="https://pma.ipums.org/pma-action/variables/FPCURREFFMETHRC#codes_section">FPCURREFFMETHRC</a>
+- Most effective current FP method</li>
+<li><a
+href="https://pma.ipums.org/pma-action/variables/UNMETYN#codes_section">UNMETYN</a>
+- Total unmet need</li>
+<li><a
+href="https://pma.ipums.org/pma-action/variables/FPPARTSUPPORT#codes_section">FPPARTSUPPORT</a>
+- Husband / partner would be supportive of FP use</li>
+<li><a
+href="https://pma.ipums.org/pma-action/variables/FPPLANVAL#codes_section">FPPLANVAL</a>
+- When will start using FP method in the future - value</li>
+<li><a
+href="https://pma.ipums.org/pma-action/variables/FPPLANWHEN#codes_section">FPPLANWHEN</a>
+- When will start using FP method in the future - unit</li>
+<li><a
+href="https://pma.ipums.org/pma-action/variables/COUNTRY#codes_section">COUNTRY</a>
+- PMA country (preselected)</li>
+<li><a
+href="https://pma.ipums.org/pma-action/variables/EAID#codes_section">EAID</a>
+- Enumeration area (preselected)</li>
+</ul>
+<p>Before completing checkout, make sure that you’ve selected the
+<code>dat</code> data format (fixed-width text).</p>
+<div class="layout-chunk" data-layout="l-body">
+<p><img src="images/checkout.png" width="843" /></p>
+</div>
+<p>Finally, you’ll need to download 2 files: an <code>xml</code>
+metadata file and a <code>dat.gz</code> compressed data file. We’ve
+saved both of these files in the “data” folder in R’s working directory,
+so we’ll import both to create a dataframe called <code>dat</code>:</p>
+<div class="layout-chunk" data-layout="l-page">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>dat</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/ipumsr/man/read_ipums_micro.html'>read_ipums_micro</a></span><span class='op'>(</span>
+  ddi <span class='op'>=</span> <span class='st'>"data/pma_00084.xml"</span>,
+  data <span class='op'>=</span> <span class='st'>"data/pma_00084.dat.gz"</span>
+<span class='op'>)</span>
+</code></pre>
+</div>
+</div>
+<h1 id="populations-of-interest">Populations of Interest</h1>
+<p>We’ve mentioned in previous posts that PMA samples are only valid for
+the <a
+href="../2022-03-01-phase2-discovery/#inclusion-criteria-for-analysis">de
+facto</a> population: these are women who slept in the household during
+the night before the interview for the Household Questionnaire in both
+phases. These women are coded either <code>11</code> or <code>22</code>
+in both <code>RESIDENT_1</code> and <code>RESIDENT_2</code>.</p>
+<div class="layout-chunk" data-layout="l-page">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>dat</span> <span class='op'>&lt;-</span> <span class='va'>dat</span> <span class='op'><a href='http://gdfe.co/srvyr/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='http://gdfe.co/srvyr/reference/dplyr_single.html'>filter</a></span><span class='op'>(</span><span class='va'>RESIDENT_1</span> <span class='op'><a href='https://rdrr.io/r/base/match.html'>%in%</a></span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>11</span>, <span class='fl'>22</span><span class='op'>)</span> <span class='op'>&amp;</span> <span class='va'>RESIDENT_2</span> <span class='op'><a href='https://rdrr.io/r/base/match.html'>%in%</a></span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>11</span>, <span class='fl'>22</span><span class='op'>)</span><span class='op'>)</span>
+</code></pre>
+</div>
+</div>
+<p>We also mentioned in our <a
+href="../2022-04-01-phase2-members/">sample membership guide</a> that
+women who completed the Phase 1 Female Questionnaire may have been
+<strong>lost to follow-up</strong> at Phase 2. As a reminder, we’ll need
+to drop any cases where <code>RESULTFQ_2</code> is not coded
+<code>1</code> for “completed”.</p>
+<div class="layout-chunk" data-layout="l-page">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>dat</span> <span class='op'>&lt;-</span> <span class='va'>dat</span> <span class='op'><a href='http://gdfe.co/srvyr/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='http://gdfe.co/srvyr/reference/dplyr_single.html'>filter</a></span><span class='op'>(</span><span class='va'>RESULTFQ_2</span> <span class='op'>==</span> <span class='fl'>1</span><span class='op'>)</span>
+</code></pre>
+</div>
+</div>
+<p>Additionally, a small number of women in each sample elected not to
+respond to key questions regarding current use of contraceptives. These
+cases are coded <code>90</code> and above, as shown on the <a
+href="https://pma.ipums.org/pma-action/variables/CP#codes_section">CP</a>
+Codes tab. In a <strong>wide</strong> extract, these cases can be
+identified with <code>CP_1</code> and <code>CP_2</code>.</p>
+<div class="layout-chunk" data-layout="l-page">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>dat</span> <span class='op'>&lt;-</span> <span class='va'>dat</span> <span class='op'><a href='http://gdfe.co/srvyr/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='http://gdfe.co/srvyr/reference/dplyr_single.html'>filter</a></span><span class='op'>(</span><span class='va'>CP_1</span> <span class='op'>&lt;</span> <span class='fl'>90</span>, <span class='va'>CP_2</span> <span class='op'>&lt;</span> <span class='fl'>90</span><span class='op'>)</span> 
+</code></pre>
+</div>
+</div>
+<p>Finally, recall that only the Burkina Faso and Kenya samples are
+<strong>nationally representative</strong>. Samples from DRC represent
+regions identified by <a
+href="https://pma.ipums.org/pma-action/variables/GEOCD#codes_section">GEOCD</a>,
+while samples from Nigeria represent regions identified by <a
+href="https://pma.ipums.org/pma-action/variables/GEONG#codes_section">GEONG</a>.
+In order to distinguish each population of interest, we’ll define a
+custom variable <code>POP</code> that shows each sample’s <a
+href="https://pma.ipums.org/pma-action/variables/COUNTRY#codes_section">COUNTRY</a>
+label concatenated with each of these regions where appropriate.</p>
+<ul>
+<li><code>POP</code> - Population of interest</li>
+</ul>
+<div class="layout-chunk" data-layout="l-page">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>dat</span> <span class='op'>&lt;-</span> <span class='va'>dat</span> <span class='op'><a href='http://gdfe.co/srvyr/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='http://gdfe.co/srvyr/reference/dplyr_single.html'>mutate</a></span><span class='op'>(</span>POP <span class='op'>=</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/case_when.html'>case_when</a></span><span class='op'>(</span>
+    <span class='op'>!</span><span class='fu'><a href='https://rdrr.io/r/base/NA.html'>is.na</a></span><span class='op'>(</span><span class='va'>GEOCD</span><span class='op'>)</span> <span class='op'>~</span> <span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste</a></span><span class='op'>(</span><span class='st'>"DRC -"</span>, <span class='fu'><a href='https://forcats.tidyverse.org/reference/as_factor.html'>as_factor</a></span><span class='op'>(</span><span class='va'>GEOCD</span><span class='op'>)</span><span class='op'>)</span>,
+    <span class='op'>!</span><span class='fu'><a href='https://rdrr.io/r/base/NA.html'>is.na</a></span><span class='op'>(</span><span class='va'>GEONG</span><span class='op'>)</span> <span class='op'>~</span> <span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste</a></span><span class='op'>(</span><span class='st'>"Nigeria -"</span>, <span class='fu'><a href='https://forcats.tidyverse.org/reference/as_factor.html'>as_factor</a></span><span class='op'>(</span><span class='va'>GEONG</span><span class='op'>)</span><span class='op'>)</span>,
+    <span class='cn'>TRUE</span> <span class='op'>~</span> <span class='fu'><a href='https://forcats.tidyverse.org/reference/as_factor.html'>as_factor</a></span><span class='op'>(</span><span class='va'>COUNTRY</span><span class='op'>)</span> <span class='op'><a href='http://gdfe.co/srvyr/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://rdrr.io/r/base/character.html'>as.character</a></span><span class='op'>(</span><span class='op'>)</span>
+  <span class='op'>)</span><span class='op'>)</span>
+</code></pre>
+</div>
+</div>
+<p>The remaining sample size for each population of interest is simply a
+<a href="https://dplyr.tidyverse.org/reference/count.html">count</a> of
+each level in <code>POP</code>.</p>
+<div class="layout-chunk" data-layout="l-page">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>dat</span> <span class='op'><a href='http://gdfe.co/srvyr/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/count.html'>count</a></span><span class='op'>(</span><span class='va'>POP</span><span class='op'>)</span>
+</code></pre>
+</div>
+<pre><code># A tibble: 6 × 2
+  POP                     n
+  &lt;chr&gt;               &lt;int&gt;
+1 Burkina Faso         5207
+2 DRC - Kinshasa       1967
+3 DRC - Kongo Central  1511
+4 Kenya                6934
+5 Nigeria - Kano        998
+6 Nigeria - Lagos      1088</code></pre>
+</div>
+<h1 id="population-inference">Population Inference</h1>
+<p>We’ll use the <a href="http://gdfe.co/srvyr/index.html">srvyr</a>
+package to incorporate survey design information into each of the
+population estimates calculated below. This includes <a
+href="https://pma.ipums.org/pma-action/variables/PANELWEIGHT#codes_section">PANELWEIGHT</a>,
+which represents the calculated inverse selection probability for all
+panel members, adjusted for loss to follow-up.</p>
+<p>You might remember from <a
+href="../2022-03-01-phase2-discovery/#weights-and-clusters">earlier
+posts</a> that PMA surveys are collected within spatially-defined
+<strong>sample clusters</strong>. We’ll also include identifying numbers
+for each cluster as survey design information via <a
+href="https://pma.ipums.org/pma-action/variables/EAID#codes_section">EAID</a>.<a
+href="#fn1" class="footnote-ref" id="fnref1"
+role="doc-noteref"><sup>1</sup></a></p>
+<p>Lastly, we’ll want to use the <code>POP</code> variable to stratify
+our data extract by populations of interest. The inclusion of
+<code>POP</code> ensures that <strong>standard error</strong> estimates
+incorporate only the variation from a single population (rather than the
+combined variation for all samples at once).</p>
+<p>Summary functions like <a
+href="http://gdfe.co/srvyr/reference/survey_mean.html">survey_mean</a>
+generate population-level estimates from survey design information
+specified with <a
+href="http://gdfe.co/srvyr/reference/as_survey_design.html">as_survey_design</a>.
+For instance, suppose you wanted to calculate the mean age of all
+reproductive women in each <code>POP</code> at Phase 2. The
+<em>sample</em> mean is a simple <a
+href="https://rdrr.io/r/base/mean.html">mean</a> function <a
+href="https://dplyr.tidyverse.org/reference/group_by.html">grouped
+by</a> <code>POP</code>:</p>
+<div class="layout-chunk" data-layout="l-page">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>dat</span> <span class='op'><a href='http://gdfe.co/srvyr/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='http://gdfe.co/srvyr/reference/group_by.html'>group_by</a></span><span class='op'>(</span><span class='va'>POP</span><span class='op'>)</span> <span class='op'><a href='http://gdfe.co/srvyr/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='http://gdfe.co/srvyr/reference/summarise.html'>summarise</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span><span class='op'>(</span><span class='va'>AGE_2</span><span class='op'>)</span><span class='op'>)</span>
+</code></pre>
+</div>
+<pre><code># A tibble: 6 × 2
+  POP                 `mean(AGE_2)`
+  &lt;chr&gt;                       &lt;dbl&gt;
+1 Burkina Faso                 29.6
+2 DRC - Kinshasa               29.1
+3 DRC - Kongo Central          30.1
+4 Kenya                        30.4
+5 Nigeria - Kano               28.7
+6 Nigeria - Lagos              32.4</code></pre>
+</div>
+<p>If you provide only a survey <code>weight</code> to <a
+href="http://gdfe.co/srvyr/reference/as_survey_design.html">as_survey_design</a>,
+you’ll be able to calculate the mean age for all reproductive-aged women
+in each <em>population</em> of interest. Instead of <a
+href="https://rdrr.io/r/base/mean.html">mean</a>, we’ll use the <a
+href="http://gdfe.co/srvyr/index.html">srvyr</a> function <a
+href="http://gdfe.co/srvyr/reference/survey_mean.html">survey_mean</a>:</p>
+<div class="layout-chunk" data-layout="l-page">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>dat</span> <span class='op'><a href='http://gdfe.co/srvyr/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='http://gdfe.co/srvyr/reference/as_survey_design.html'>as_survey_design</a></span><span class='op'>(</span>weight <span class='op'>=</span> <span class='va'>PANELWEIGHT</span><span class='op'>)</span> <span class='op'><a href='http://gdfe.co/srvyr/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='http://gdfe.co/srvyr/reference/group_by.html'>group_by</a></span><span class='op'>(</span><span class='va'>POP</span><span class='op'>)</span> <span class='op'><a href='http://gdfe.co/srvyr/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='http://gdfe.co/srvyr/reference/summarise.html'>summarise</a></span><span class='op'>(</span><span class='fu'><a href='http://gdfe.co/srvyr/reference/survey_mean.html'>survey_mean</a></span><span class='op'>(</span><span class='va'>AGE_2</span><span class='op'>)</span><span class='op'>)</span>
+</code></pre>
+</div>
+<pre><code># A tibble: 6 × 3
+  POP                  coef `_se`
+  &lt;chr&gt;               &lt;dbl&gt; &lt;dbl&gt;
+1 Burkina Faso         29.7 0.192
+2 DRC - Kinshasa       29.2 0.253
+3 DRC - Kongo Central  30.2 0.297
+4 Kenya                29.6 0.132
+5 Nigeria - Kano       28.8 0.382
+6 Nigeria - Lagos      32.3 0.297</code></pre>
+</div>
+<p>Notice that <a
+href="http://gdfe.co/srvyr/reference/survey_mean.html">survey_mean</a>
+provides a point-estimate in <code>coef</code>, plus a standard error
+estimated in <code>_se</code>. The standard error shown above is not
+quite right, because our <code>survey_design</code> information is
+incomplete. Notice that, if we include <code>EAID_1</code> as a cluster
+ID, the estimates in <code>_se</code> may move upward or downward
+(depending on the age distribution within clusters), but our
+point-estimates in <code>coef</code> remain unchanged.</p>
+<div class="layout-chunk" data-layout="l-page">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>dat</span> <span class='op'><a href='http://gdfe.co/srvyr/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='http://gdfe.co/srvyr/reference/as_survey_design.html'>as_survey_design</a></span><span class='op'>(</span>weight <span class='op'>=</span> <span class='va'>PANELWEIGHT</span>, id <span class='op'>=</span> <span class='va'>EAID_1</span><span class='op'>)</span> <span class='op'><a href='http://gdfe.co/srvyr/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='http://gdfe.co/srvyr/reference/group_by.html'>group_by</a></span><span class='op'>(</span><span class='va'>POP</span><span class='op'>)</span> <span class='op'><a href='http://gdfe.co/srvyr/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='http://gdfe.co/srvyr/reference/summarise.html'>summarise</a></span><span class='op'>(</span><span class='fu'><a href='http://gdfe.co/srvyr/reference/survey_mean.html'>survey_mean</a></span><span class='op'>(</span><span class='va'>AGE_2</span><span class='op'>)</span><span class='op'>)</span>
+</code></pre>
+</div>
+<pre><code># A tibble: 6 × 3
+  POP                  coef `_se`
+  &lt;chr&gt;               &lt;dbl&gt; &lt;dbl&gt;
+1 Burkina Faso         29.7 0.202
+2 DRC - Kinshasa       29.2 0.216
+3 DRC - Kongo Central  30.2 0.358
+4 Kenya                29.6 0.133
+5 Nigeria - Kano       28.8 0.338
+6 Nigeria - Lagos      32.3 0.386</code></pre>
+</div>
+<p>Lastly, we should also remember to stratify our multi-sample data
+extract by <code>POP</code>. This ensures that only the age variation
+within a given sample is used for its standard error estimate. You’d
+achieve the same results if you downloaded one extract for each sample,
+and then calculated the mean age for each population separately. For
+example, consider the standard error estimate for “DRC - Kinshasa” if
+our extract only included members of that sample:</p>
+<div class="layout-chunk" data-layout="l-page">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>dat</span> <span class='op'><a href='http://gdfe.co/srvyr/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='http://gdfe.co/srvyr/reference/dplyr_single.html'>filter</a></span><span class='op'>(</span><span class='va'>POP</span> <span class='op'>==</span> <span class='st'>"DRC - Kinshasa"</span><span class='op'>)</span> <span class='op'><a href='http://gdfe.co/srvyr/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='http://gdfe.co/srvyr/reference/as_survey_design.html'>as_survey_design</a></span><span class='op'>(</span>weight <span class='op'>=</span> <span class='va'>PANELWEIGHT</span>, id <span class='op'>=</span> <span class='va'>EAID_1</span><span class='op'>)</span> <span class='op'><a href='http://gdfe.co/srvyr/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='http://gdfe.co/srvyr/reference/summarise.html'>summarise</a></span><span class='op'>(</span><span class='fu'><a href='http://gdfe.co/srvyr/reference/survey_mean.html'>survey_mean</a></span><span class='op'>(</span><span class='va'>AGE_2</span><span class='op'>)</span><span class='op'>)</span>
+</code></pre>
+</div>
+<pre><code># A tibble: 1 × 2
+   coef `_se`
+  &lt;dbl&gt; &lt;dbl&gt;
+1  29.2 0.218</code></pre>
+</div>
+<p>Here, the standard error is <code>0.218</code>. Above, when we
+included the variation across <em>all</em> samples, the same standard
+error estimate was <code>0.216</code>. We’ll get the correct standard
+error for “DRC - Kinshasa” (and other small samples) if stratify the
+combined, multi-sample extract by <code>POP</code>.</p>
+<div class="layout-chunk" data-layout="l-page">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>dat</span> <span class='op'><a href='http://gdfe.co/srvyr/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='http://gdfe.co/srvyr/reference/as_survey_design.html'>as_survey_design</a></span><span class='op'>(</span>weight <span class='op'>=</span> <span class='va'>PANELWEIGHT</span>, id <span class='op'>=</span> <span class='va'>EAID_1</span>, strata <span class='op'>=</span> <span class='va'>POP</span><span class='op'>)</span> <span class='op'><a href='http://gdfe.co/srvyr/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='http://gdfe.co/srvyr/reference/group_by.html'>group_by</a></span><span class='op'>(</span><span class='va'>POP</span><span class='op'>)</span> <span class='op'><a href='http://gdfe.co/srvyr/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='http://gdfe.co/srvyr/reference/summarise.html'>summarise</a></span><span class='op'>(</span><span class='fu'><a href='http://gdfe.co/srvyr/reference/survey_mean.html'>survey_mean</a></span><span class='op'>(</span><span class='va'>AGE_2</span><span class='op'>)</span><span class='op'>)</span>
+</code></pre>
+</div>
+<pre><code># A tibble: 6 × 3
+  POP                  coef `_se`
+  &lt;chr&gt;               &lt;dbl&gt; &lt;dbl&gt;
+1 Burkina Faso         29.7 0.202
+2 DRC - Kinshasa       29.2 0.218
+3 DRC - Kongo Central  30.2 0.361
+4 Kenya                29.6 0.133
+5 Nigeria - Kano       28.8 0.344
+6 Nigeria - Lagos      32.3 0.390</code></pre>
+</div>
+<p>Summary functions like <a
+href="http://gdfe.co/srvyr/reference/survey_mean.html">survey_mean</a>
+always produce standard error estimates by default. Alternatively, we
+can use the <code>vartype</code> argument to obtain a confidence
+interval (95% by default) bounded by <code>_low</code> and
+<code>_upp</code>:</p>
+<div class="layout-chunk" data-layout="l-page">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>dat</span> <span class='op'><a href='http://gdfe.co/srvyr/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='http://gdfe.co/srvyr/reference/as_survey_design.html'>as_survey_design</a></span><span class='op'>(</span>weight <span class='op'>=</span> <span class='va'>PANELWEIGHT</span>, id <span class='op'>=</span> <span class='va'>EAID_1</span>, strata <span class='op'>=</span> <span class='va'>POP</span><span class='op'>)</span> <span class='op'><a href='http://gdfe.co/srvyr/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='http://gdfe.co/srvyr/reference/group_by.html'>group_by</a></span><span class='op'>(</span><span class='va'>POP</span><span class='op'>)</span> <span class='op'><a href='http://gdfe.co/srvyr/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='http://gdfe.co/srvyr/reference/summarise.html'>summarise</a></span><span class='op'>(</span><span class='fu'><a href='http://gdfe.co/srvyr/reference/survey_mean.html'>survey_mean</a></span><span class='op'>(</span><span class='va'>AGE_2</span>, vartype <span class='op'>=</span> <span class='st'>"ci"</span><span class='op'>)</span><span class='op'>)</span>
+</code></pre>
+</div>
+<pre><code># A tibble: 6 × 4
+  POP                  coef `_low` `_upp`
+  &lt;chr&gt;               &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;
+1 Burkina Faso         29.7   29.3   30.1
+2 DRC - Kinshasa       29.2   28.8   29.6
+3 DRC - Kongo Central  30.2   29.5   30.9
+4 Kenya                29.6   29.4   29.9
+5 Nigeria - Kano       28.8   28.2   29.5
+6 Nigeria - Lagos      32.3   31.5   33.1</code></pre>
+</div>
+<p><a href="https://pma.ipums.org/pma-action/variables/AGE">AGE_2</a> is
+a <strong>continuous</strong> variable that can take any integer value
+between 15 and 49. Most of our variables, however, are
+<strong>discrete</strong>: they represent categorical responses (like
+“yes” and “no”) that should be estimated as proportions of the
+population of interest. In case a particular confidence interval
+approaches 0% or 100%, <a
+href="http://gdfe.co/srvyr/reference/survey_mean.html">survey_mean</a>
+uses a method specified by the <code>proportion</code> argument to
+create limits at those values. The “logit” method calculates a Wald-type
+confidence interval on the log-odds scale; Stata users will notice that
+it reproduces results obtained with <code>svy: prop</code>.<a
+href="#fn2" class="footnote-ref" id="fnref2"
+role="doc-noteref"><sup>2</sup></a></p>
+<p>For example, <a
+href="https://pma.ipums.org/pma-action/variables/PREGNANT">PREGNANT_2</a>
+is a <strong>discrete</strong> variable indicating whether a woman was
+pregnant at Phase 2. We’ll use the <a
+href="http://gdfe.co/srvyr/reference/survey_mean.html">survey_mean</a>
+again to calculate the population-level proportion for each response.
+We’ll add <code>PREGNANT_2</code> to our <a
+href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a>
+function, and then specify details for estimating each proportion in <a
+href="http://gdfe.co/srvyr/reference/survey_mean.html">survey_mean</a>.</p>
+<div class="layout-chunk" data-layout="l-page">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>dat</span> <span class='op'><a href='http://gdfe.co/srvyr/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='http://gdfe.co/srvyr/reference/as_survey_design.html'>as_survey_design</a></span><span class='op'>(</span>weight <span class='op'>=</span> <span class='va'>PANELWEIGHT</span>, id <span class='op'>=</span> <span class='va'>EAID_1</span>, strata <span class='op'>=</span> <span class='va'>POP</span><span class='op'>)</span> <span class='op'><a href='http://gdfe.co/srvyr/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='http://gdfe.co/srvyr/reference/group_by.html'>group_by</a></span><span class='op'>(</span><span class='va'>POP</span>, <span class='va'>PREGNANT_2</span><span class='op'>)</span> <span class='op'><a href='http://gdfe.co/srvyr/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='http://gdfe.co/srvyr/reference/summarise.html'>summarise</a></span><span class='op'>(</span><span class='fu'><a href='http://gdfe.co/srvyr/reference/survey_mean.html'>survey_mean</a></span><span class='op'>(</span>vartype <span class='op'>=</span> <span class='st'>"ci"</span>, proportion <span class='op'>=</span> <span class='cn'>TRUE</span>, prop_method <span class='op'>=</span> <span class='st'>"logit"</span><span class='op'>)</span><span class='op'>)</span>
+</code></pre>
+</div>
+<pre><code># A tibble: 20 × 5
+# Groups:   POP [6]
+   POP                       PREGNANT_2     coef   `_low`  `_upp`
+   &lt;chr&gt;                      &lt;int+lbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;   &lt;dbl&gt;
+ 1 Burkina Faso         0 [No]          0.915    0.901    0.927  
+ 2 Burkina Faso         1 [Yes]         0.0799   0.0688   0.0926 
+ 3 Burkina Faso        97 [Don&#39;t know]  0.00431  0.00256  0.00724
+ 4 Burkina Faso        98 [No response] 0.000734 0.000157 0.00342
+ 5 DRC - Kinshasa       0 [No]          0.940    0.923    0.953  
+ 6 DRC - Kinshasa       1 [Yes]         0.0533   0.0427   0.0663 
+ 7 DRC - Kinshasa      97 [Don&#39;t know]  0.00722  0.00314  0.0165 
+ 8 DRC - Kongo Central  0 [No]          0.917    0.895    0.935  
+ 9 DRC - Kongo Central  1 [Yes]         0.0800   0.0622   0.102  
+10 DRC - Kongo Central 97 [Don&#39;t know]  0.00272  0.000819 0.00897
+11 Kenya                0 [No]          0.947    0.940    0.954  
+12 Kenya                1 [Yes]         0.0502   0.0438   0.0574 
+13 Kenya               97 [Don&#39;t know]  0.00257  0.00136  0.00485
+14 Nigeria - Kano       0 [No]          0.907    0.889    0.922  
+15 Nigeria - Kano       1 [Yes]         0.0796   0.0651   0.0970 
+16 Nigeria - Kano      97 [Don&#39;t know]  0.0138   0.00553  0.0340 
+17 Nigeria - Lagos      0 [No]          0.940    0.920    0.956  
+18 Nigeria - Lagos      1 [Yes]         0.0410   0.0312   0.0538 
+19 Nigeria - Lagos     97 [Don&#39;t know]  0.0178   0.0107   0.0295 
+20 Nigeria - Lagos     98 [No response] 0.000720 0.000102 0.00508</code></pre>
+</div>
+<h1 id="visualization">Visualization</h1>
+<p>We’ll use simple <strong>grouped bar charts</strong> to show
+population estimates for each proportion below. A grouped bar chart
+differs from the <strong>stacked bar charts</strong> shown in PMA
+reports in that each response is plotted along an axis (rather than
+stacked together in a single bar). We’ll show <strong>grouped bar
+charts</strong> here so that we can also include <strong>error
+bars</strong> representing the 95% confidence interval for each
+proportion. This gives us a simple way to test for statistical
+significance between groups: if the error bars for any two groups do not
+overlap, we’ll say (with 95% confidence) that a difference exists
+between them in the population of interest.</p>
+<p>For example, let’s plot the estimates from <code>PREGNANT_2</code>
+shown above. We’ll begin by saving the summary output as a table called
+<code>pregnant_2_tbl</code>.</p>
+<div class="layout-chunk" data-layout="l-page">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>pregnant_2_tbl</span> <span class='op'>&lt;-</span> <span class='va'>dat</span> <span class='op'><a href='http://gdfe.co/srvyr/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='http://gdfe.co/srvyr/reference/as_survey_design.html'>as_survey_design</a></span><span class='op'>(</span>weight <span class='op'>=</span> <span class='va'>PANELWEIGHT</span>, id <span class='op'>=</span> <span class='va'>EAID_1</span>, strata <span class='op'>=</span> <span class='va'>POP</span><span class='op'>)</span> <span class='op'><a href='http://gdfe.co/srvyr/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='http://gdfe.co/srvyr/reference/group_by.html'>group_by</a></span><span class='op'>(</span><span class='va'>POP</span>, <span class='va'>PREGNANT_2</span><span class='op'>)</span> <span class='op'><a href='http://gdfe.co/srvyr/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='http://gdfe.co/srvyr/reference/summarise.html'>summarise</a></span><span class='op'>(</span><span class='fu'><a href='http://gdfe.co/srvyr/reference/survey_mean.html'>survey_mean</a></span><span class='op'>(</span>vartype <span class='op'>=</span> <span class='st'>"ci"</span>, prop <span class='op'>=</span> <span class='cn'>TRUE</span>, prop_method <span class='op'>=</span> <span class='st'>"logit"</span><span class='op'>)</span><span class='op'>)</span>
+</code></pre>
+</div>
+</div>
+<p>We’ve mentioned <a
+href="../2021-07-01-covid-tables/index.html#display-value-labels">elsewhere</a>
+on this blog that IPUMS variables are <strong>labelled</strong> numbers
+rather than <strong>factors</strong>. If you want to display the label
+for each response - rather than its numeric code - you’ll want to coerce
+each discrete variable with <a
+href="https://forcats.tidyverse.org/reference/as_factor.html">as_factor</a>.
+You can also control the order in which responses are plotted by setting
+factor levels with <a
+href="https://forcats.tidyverse.org/reference/fct_relevel.html">fct_relevel</a>.</p>
+<div class="layout-chunk" data-layout="l-page">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>pregnant_2_tbl</span> <span class='op'>&lt;-</span> <span class='va'>pregnant_2_tbl</span> <span class='op'><a href='http://gdfe.co/srvyr/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='http://gdfe.co/srvyr/reference/dplyr_single.html'>mutate</a></span><span class='op'>(</span>
+    PREGNANT_2 <span class='op'>=</span> <span class='va'>PREGNANT_2</span> <span class='op'><a href='http://gdfe.co/srvyr/reference/pipe.html'>%&gt;%</a></span> 
+      <span class='va'>as_factor</span> <span class='op'><a href='http://gdfe.co/srvyr/reference/pipe.html'>%&gt;%</a></span>  
+      <span class='fu'><a href='https://forcats.tidyverse.org/reference/fct_relevel.html'>fct_relevel</a></span><span class='op'>(</span><span class='st'>"No response"</span>, <span class='st'>"Don't know"</span>, <span class='st'>"No"</span>, <span class='st'>"Yes"</span><span class='op'>)</span>
+  <span class='op'>)</span>
+</code></pre>
+</div>
+</div>
+<p>Finally, we’ll use <a
+href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot2</a>
+to build the plot. Because our data includes multiple samples, we’ll use
+<a
+href="https://ggplot2.tidyverse.org/reference/facet_grid.html">facet_grid</a>
+to plot each <code>POP</code> in a separate panel, each with the same
+<code>x</code> and <code>y</code> axis. The functions <a
+href="https://ggplot2.tidyverse.org/reference/geom_bar.html">geom_bar</a>
+and <a
+href="https://ggplot2.tidyverse.org/reference/geom_linerange.html">geom_errorbar</a>
+plot the grouped bars and error bars, respectively. A baseline plot
+should look something like this:</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>pregnant_2_tbl</span> <span class='op'><a href='http://gdfe.co/srvyr/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>coef</span>, y <span class='op'>=</span> <span class='va'>PREGNANT_2</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span> 
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/facet_grid.html'>facet_grid</a></span><span class='op'>(</span>rows <span class='op'>=</span> <span class='fu'><a href='http://gdfe.co/srvyr/reference/summarise_all.html'>vars</a></span><span class='op'>(</span><span class='va'>POP</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span> 
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_bar.html'>geom_bar</a></span><span class='op'>(</span>stat <span class='op'>=</span> <span class='st'>"identity"</span><span class='op'>)</span> <span class='op'>+</span> 
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_linerange.html'>geom_errorbar</a></span><span class='op'>(</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>xmin <span class='op'>=</span> <span class='va'>`_low`</span>, xmax <span class='op'>=</span> <span class='va'>`_upp`</span><span class='op'>)</span>, width <span class='op'>=</span> <span class='fl'>0.2</span><span class='op'>)</span>
+</code></pre>
+</div>
+<p><img src="phase2-indicators_files/figure-html5/unnamed-chunk-19-1.png" width="1152" /></p>
+</div>
+<p>One of the powerful features of <a
+href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot2</a>
+is that you can use <a
+href="https://ggplot2.tidyverse.org/reference/ggtheme.html">pre-built
+themes</a> to customize this baseline layout. We’ll build on <a
+href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_minimal</a>
+to create our own <code>theme_pma</code> (with custom fonts incorporated
+by the <a
+href="https://cran.r-project.org/package=sysfonts">sysfonts</a> and <a
+href="https://cran.rstudio.com/web/packages/showtext/vignettes/introduction.html">showtext</a>
+packages). Feel free to use our theme, or tweak it to create your
+own.</p>
+<div class="layout-chunk" data-layout="l-page">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://github.com/yixuan/showtext'>showtext</a></span><span class='op'>)</span>
+
+<span class='fu'>sysfonts</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/sysfonts/man/font_add.html'>font_add</a></span><span class='op'>(</span>
+  family <span class='op'>=</span> <span class='st'>"cabrito"</span>, 
+  regular <span class='op'>=</span> <span class='st'>"../../fonts/cabritosansnormregular-webfont.ttf"</span>
+<span class='op'>)</span>
+<span class='fu'>showtext</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/showtext/man/showtext_auto.html'>showtext_auto</a></span><span class='op'>(</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/base/options.html'>options</a></span><span class='op'>(</span>tibble.print_min <span class='op'>=</span> <span class='fl'>20</span><span class='op'>)</span>
+
+<span class='va'>theme_pma</span> <span class='op'>&lt;-</span> <span class='kw'>function</span><span class='op'>(</span>
+  <span class='va'>title</span> <span class='op'>=</span> <span class='cn'>NULL</span>,     <span class='co'># an optional title </span>
+  <span class='va'>subtitle</span> <span class='op'>=</span> <span class='cn'>NULL</span>,  <span class='co'># an optional subtitle </span>
+  <span class='va'>xaxis</span> <span class='op'>=</span> <span class='cn'>NULL</span>,     <span class='co'># an optional label for the x-axis (displayed above)</span>
+  <span class='va'>yaxis</span> <span class='op'>=</span> <span class='cn'>NULL</span>      <span class='co'># an optional lael for the y-axis (displayed left)</span>
+<span class='op'>)</span><span class='op'>{</span>
+  <span class='va'>components</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>
+    <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggtheme.html'>theme_minimal</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'><a href='https://ggplot2.tidyverse.org/reference/theme_get.html'>%+replace%</a></span> 
+      <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/theme.html'>theme</a></span><span class='op'>(</span>
+        text <span class='op'>=</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/element.html'>element_text</a></span><span class='op'>(</span>family <span class='op'>=</span> <span class='st'>"cabrito"</span>, size <span class='op'>=</span> <span class='fl'>13</span><span class='op'>)</span>,
+        plot.title <span class='op'>=</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/element.html'>element_text</a></span><span class='op'>(</span>size <span class='op'>=</span> <span class='fl'>22</span>, color <span class='op'>=</span> <span class='st'>"#00263A"</span>, 
+                                  hjust <span class='op'>=</span> <span class='fl'>0</span>, margin <span class='op'>=</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/element.html'>margin</a></span><span class='op'>(</span>b <span class='op'>=</span> <span class='fl'>5</span><span class='op'>)</span><span class='op'>)</span>,
+        plot.subtitle <span class='op'>=</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/element.html'>element_text</a></span><span class='op'>(</span>hjust <span class='op'>=</span> <span class='fl'>0</span>, margin <span class='op'>=</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/element.html'>margin</a></span><span class='op'>(</span>b <span class='op'>=</span> <span class='fl'>10</span><span class='op'>)</span><span class='op'>)</span>,
+        strip.background <span class='op'>=</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/element.html'>element_blank</a></span><span class='op'>(</span><span class='op'>)</span>,
+        strip.text.y <span class='op'>=</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/element.html'>element_text</a></span><span class='op'>(</span>size <span class='op'>=</span> <span class='fl'>16</span>, angle <span class='op'>=</span> <span class='fl'>0</span><span class='op'>)</span>,
+        panel.spacing <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/grid/unit.html'>unit</a></span><span class='op'>(</span><span class='fl'>1</span>, <span class='st'>"lines"</span><span class='op'>)</span>,
+        axis.title.y <span class='op'>=</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/element.html'>element_text</a></span><span class='op'>(</span>angle <span class='op'>=</span> <span class='fl'>0</span>, margin <span class='op'>=</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/element.html'>margin</a></span><span class='op'>(</span>r <span class='op'>=</span> <span class='fl'>10</span><span class='op'>)</span><span class='op'>)</span>
+      <span class='op'>)</span>,
+    <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/labs.html'>labs</a></span><span class='op'>(</span>
+      title <span class='op'>=</span> <span class='va'>title</span>,
+      subtitle <span class='op'>=</span> <span class='va'>subtitle</span>,
+      y <span class='op'>=</span> <span class='fu'><a href='https://stringr.tidyverse.org/reference/str_wrap.html'>str_wrap</a></span><span class='op'>(</span><span class='va'>yaxis</span>, <span class='fl'>10</span><span class='op'>)</span>,
+      x <span class='op'>=</span> <span class='cn'>NULL</span>,
+      fill <span class='op'>=</span> <span class='cn'>NULL</span>
+    <span class='op'>)</span>,
+    <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_continuous.html'>scale_x_continuous</a></span><span class='op'>(</span>
+      position <span class='op'>=</span> <span class='st'>'bottom'</span>,
+      sec.axis <span class='op'>=</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/sec_axis.html'>sec_axis</a></span><span class='op'>(</span>trans <span class='op'>=</span> <span class='op'>~</span><span class='va'>.</span>, name <span class='op'>=</span> <span class='va'>xaxis</span>, breaks <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span>,
+      labels <span class='op'>=</span> <span class='fu'>scales</span><span class='fu'>::</span><span class='fu'><a href='https://scales.r-lib.org/reference/label_percent.html'>label_percent</a></span><span class='op'>(</span><span class='op'>)</span>
+    <span class='op'>)</span>,
+    <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_discrete.html'>scale_y_discrete</a></span><span class='op'>(</span>limits <span class='op'>=</span> <span class='va'>rev</span><span class='op'>)</span>,
+    <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_bar.html'>geom_bar</a></span><span class='op'>(</span>stat <span class='op'>=</span> <span class='st'>"identity"</span>, fill <span class='op'>=</span> <span class='st'>"#98579BB0"</span><span class='op'>)</span>,
+    <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_linerange.html'>geom_errorbar</a></span><span class='op'>(</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>xmin <span class='op'>=</span> <span class='va'>`_low`</span>, xmax <span class='op'>=</span> <span class='va'>`_upp`</span><span class='op'>)</span>, width <span class='op'>=</span> <span class='fl'>0.2</span>, color <span class='op'>=</span> <span class='st'>"#00263A"</span><span class='op'>)</span>
+  <span class='op'>)</span>
+<span class='op'>}</span>
+</code></pre>
+</div>
+</div>
+<p>Going forward, we’ll use <code>theme_pma</code> to create the stacked
+bars, error bars, and other style elements like so:</p>
+<div class="layout-chunk" data-layout="l-page">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>pregnant_2_tbl</span> <span class='op'><a href='http://gdfe.co/srvyr/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>coef</span>, y <span class='op'>=</span> <span class='va'>PREGNANT_2</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span> 
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/facet_grid.html'>facet_grid</a></span><span class='op'>(</span>rows <span class='op'>=</span> <span class='fu'><a href='http://gdfe.co/srvyr/reference/summarise_all.html'>vars</a></span><span class='op'>(</span><span class='va'>POP</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span> 
+  <span class='fu'>theme_pma</span><span class='op'>(</span>
+    title <span class='op'>=</span> <span class='st'>"Pregnancy Status at Phase 2"</span>,
+    subtitle <span class='op'>=</span> <span class='st'>"A grouped bar chart, faceted by population of interest"</span>
+  <span class='op'>)</span> 
+</code></pre>
+</div>
+<p><img src="phase2-indicators_files/figure-html5/unnamed-chunk-21-1.png" width="1152" /></p>
+</div>
+<h1 id="key-indicators">Key Indicators</h1>
+<h2 id="contraceptive-use-or-non-use">Contraceptive Use or Non-Use</h2>
+<p>The variable <a
+href="https://pma.ipums.org/pma-action/variables/CP#codes_section">CP</a>
+describes whether a woman was currently using contraception at a
+particular phase in the panel study. It combines information from
+multiple variables to describe women who:</p>
+<ul>
+<li>were currently using (or whose partner was using) any method to
+delay or avoid getting pregnant (<a
+href="https://pma.ipums.org/pma-action/variables/FPCURRUSE#codes_section">FPCURRUSE</a>)</li>
+<li>had been previously sterilized (<a
+href="https://pma.ipums.org/pma-action/variables/FP1STMETHOD#codes_section">FP1STMETHOD</a>)</li>
+<li>used emergency contraception within the past 12 months (<a
+href="https://pma.ipums.org/pma-action/variables/FPEFFECTIVEYR#codes_section">FPEFFECTIVEYR</a>)</li>
+</ul>
+<p><a
+href="https://pma.ipums.org/pma-action/variables/CP#codes_section">CP</a>
+differs from the related variable <a
+href="https://pma.ipums.org/pma-action/variables/FPCURRUSE#codes_section">FPCURRUSE</a>
+in that the former <em>includes</em> responses from women who were
+currently pregnant. In many cases, you’ll need to identify these women
+with <a
+href="https://pma.ipums.org/pma-action/variables/PREGNANT#codes_section">PREGNANT</a>.</p>
+<p>For example, the first figure in each PMA report distinguishes
+between users, non-users, and women who were pregnant at Phase 1 or
+Phase 2. To replicate those results, we’ll need to create our own
+variable <code>FPSTATUS</code> combining information from <a
+href="https://pma.ipums.org/pma-action/variables/CP#codes_section">CP</a>
+and <a
+href="https://pma.ipums.org/pma-action/variables/PREGNANT#codes_section">PREGNANT</a>
+in each phase.</p>
+<ul>
+<li><code>FPSTATUS</code> - Pregnant, using contraception, or using no
+contraception</li>
+</ul>
+<div class="layout-chunk" data-layout="l-page">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>dat</span> <span class='op'>&lt;-</span> <span class='va'>dat</span> <span class='op'><a href='http://gdfe.co/srvyr/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='http://gdfe.co/srvyr/reference/dplyr_single.html'>mutate</a></span><span class='op'>(</span>
+    FPSTATUS_1 <span class='op'>=</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/case_when.html'>case_when</a></span><span class='op'>(</span>
+      <span class='va'>PREGNANT_1</span> <span class='op'>==</span> <span class='fl'>1</span> <span class='op'>~</span> <span class='st'>"Pregnant"</span>,
+      <span class='va'>CP_1</span> <span class='op'>==</span> <span class='fl'>1</span> <span class='op'>~</span> <span class='st'>"Using FP"</span>,
+      <span class='va'>CP_1</span> <span class='op'>==</span> <span class='fl'>0</span> <span class='op'>~</span> <span class='st'>"Not Using FP"</span>
+    <span class='op'>)</span>, 
+    FPSTATUS_2 <span class='op'>=</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/case_when.html'>case_when</a></span><span class='op'>(</span>
+      <span class='va'>PREGNANT_2</span> <span class='op'>==</span> <span class='fl'>1</span> <span class='op'>~</span> <span class='st'>"Pregnant"</span>,
+      <span class='va'>CP_2</span> <span class='op'>==</span> <span class='fl'>1</span> <span class='op'>~</span> <span class='st'>"Using FP"</span>,
+      <span class='va'>CP_2</span> <span class='op'>==</span> <span class='fl'>0</span> <span class='op'>~</span> <span class='st'>"Not Using FP"</span>
+    <span class='op'>)</span>,
+    <span class='fu'><a href='https://dplyr.tidyverse.org/reference/across.html'>across</a></span><span class='op'>(</span>
+      <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='va'>FPSTATUS_1</span>, <span class='va'>FPSTATUS_2</span><span class='op'>)</span>,
+      <span class='op'>~</span><span class='va'>.x</span> <span class='op'><a href='http://gdfe.co/srvyr/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://forcats.tidyverse.org/reference/fct_relevel.html'>fct_relevel</a></span><span class='op'>(</span><span class='st'>"Pregnant"</span>, <span class='st'>"Not Using FP"</span>, <span class='st'>"Using FP"</span><span class='op'>)</span>
+    <span class='op'>)</span>
+  <span class='op'>)</span>
+</code></pre>
+</div>
+</div>
+<p>The proportion of women who were pregnant, currently using
+contraception, or using no contraception at Phase 1 can be estimated for
+each population with <code>FPSTATUS_1</code>.</p>
+<div class="layout-chunk" data-layout="l-page">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>dat</span> <span class='op'><a href='http://gdfe.co/srvyr/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='http://gdfe.co/srvyr/reference/as_survey_design.html'>as_survey_design</a></span><span class='op'>(</span>weight <span class='op'>=</span> <span class='va'>PANELWEIGHT</span>, id <span class='op'>=</span> <span class='va'>EAID_1</span>, strata <span class='op'>=</span> <span class='va'>POP</span><span class='op'>)</span> <span class='op'><a href='http://gdfe.co/srvyr/reference/pipe.html'>%&gt;%</a></span>
+  <span class='fu'><a href='http://gdfe.co/srvyr/reference/group_by.html'>group_by</a></span><span class='op'>(</span><span class='va'>POP</span>, <span class='va'>FPSTATUS_1</span><span class='op'>)</span> <span class='op'><a href='http://gdfe.co/srvyr/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='http://gdfe.co/srvyr/reference/summarise.html'>summarise</a></span><span class='op'>(</span><span class='fu'><a href='http://gdfe.co/srvyr/reference/survey_mean.html'>survey_mean</a></span><span class='op'>(</span>prop <span class='op'>=</span> <span class='cn'>TRUE</span>, prop_method <span class='op'>=</span> <span class='st'>"logit"</span>, vartype <span class='op'>=</span> <span class='st'>"ci"</span><span class='op'>)</span><span class='op'>)</span>
+</code></pre>
+</div>
+<pre><code># A tibble: 18 × 5
+# Groups:   POP [6]
+   POP                 FPSTATUS_1     coef `_low` `_upp`
+   &lt;chr&gt;               &lt;fct&gt;         &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;
+ 1 Burkina Faso        Pregnant     0.0879 0.0773 0.0997
+ 2 Burkina Faso        Not Using FP 0.624  0.591  0.656 
+ 3 Burkina Faso        Using FP     0.288  0.259  0.318 
+ 4 DRC - Kinshasa      Pregnant     0.0552 0.0426 0.0711
+ 5 DRC - Kinshasa      Not Using FP 0.511  0.467  0.554 
+ 6 DRC - Kinshasa      Using FP     0.434  0.398  0.471 
+ 7 DRC - Kongo Central Pregnant     0.0928 0.0774 0.111 
+ 8 DRC - Kongo Central Not Using FP 0.540  0.487  0.593 
+ 9 DRC - Kongo Central Using FP     0.367  0.310  0.427 
+10 Kenya               Pregnant     0.0544 0.0483 0.0613
+11 Kenya               Not Using FP 0.490  0.469  0.510 
+12 Kenya               Using FP     0.456  0.436  0.476 
+13 Nigeria - Kano      Pregnant     0.116  0.0888 0.150 
+14 Nigeria - Kano      Not Using FP 0.788  0.730  0.836 
+15 Nigeria - Kano      Using FP     0.0958 0.0589 0.152 
+16 Nigeria - Lagos     Pregnant     0.0505 0.0381 0.0666
+17 Nigeria - Lagos     Not Using FP 0.566  0.531  0.601 
+18 Nigeria - Lagos     Using FP     0.383  0.351  0.417 </code></pre>
+</div>
+<p>Analogous proportions can be calculated for Phase 2 using
+<code>FPSTATUS_2</code>:</p>
+<div class="layout-chunk" data-layout="l-page">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>dat</span> <span class='op'><a href='http://gdfe.co/srvyr/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='http://gdfe.co/srvyr/reference/as_survey_design.html'>as_survey_design</a></span><span class='op'>(</span>weight <span class='op'>=</span> <span class='va'>PANELWEIGHT</span>, id <span class='op'>=</span> <span class='va'>EAID_1</span>, strata <span class='op'>=</span> <span class='va'>POP</span><span class='op'>)</span> <span class='op'><a href='http://gdfe.co/srvyr/reference/pipe.html'>%&gt;%</a></span>
+  <span class='fu'><a href='http://gdfe.co/srvyr/reference/group_by.html'>group_by</a></span><span class='op'>(</span><span class='va'>POP</span>, <span class='va'>FPSTATUS_2</span><span class='op'>)</span> <span class='op'><a href='http://gdfe.co/srvyr/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='http://gdfe.co/srvyr/reference/summarise.html'>summarise</a></span><span class='op'>(</span><span class='fu'><a href='http://gdfe.co/srvyr/reference/survey_mean.html'>survey_mean</a></span><span class='op'>(</span>prop <span class='op'>=</span> <span class='cn'>TRUE</span>, prop_method <span class='op'>=</span> <span class='st'>"logit"</span>, vartype <span class='op'>=</span> <span class='st'>"ci"</span><span class='op'>)</span><span class='op'>)</span>
+</code></pre>
+</div>
+<pre><code># A tibble: 18 × 5
+# Groups:   POP [6]
+   POP                 FPSTATUS_2     coef `_low` `_upp`
+   &lt;chr&gt;               &lt;fct&gt;         &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;
+ 1 Burkina Faso        Pregnant     0.0799 0.0688 0.0926
+ 2 Burkina Faso        Not Using FP 0.583  0.551  0.614 
+ 3 Burkina Faso        Using FP     0.337  0.305  0.372 
+ 4 DRC - Kinshasa      Pregnant     0.0533 0.0427 0.0663
+ 5 DRC - Kinshasa      Not Using FP 0.486  0.433  0.538 
+ 6 DRC - Kinshasa      Using FP     0.461  0.414  0.508 
+ 7 DRC - Kongo Central Pregnant     0.0800 0.0622 0.102 
+ 8 DRC - Kongo Central Not Using FP 0.485  0.420  0.551 
+ 9 DRC - Kongo Central Using FP     0.435  0.374  0.497 
+10 Kenya               Pregnant     0.0502 0.0438 0.0574
+11 Kenya               Not Using FP 0.420  0.401  0.438 
+12 Kenya               Using FP     0.530  0.511  0.550 
+13 Nigeria - Kano      Pregnant     0.0796 0.0651 0.0970
+14 Nigeria - Kano      Not Using FP 0.818  0.765  0.860 
+15 Nigeria - Kano      Using FP     0.103  0.0644 0.160 
+16 Nigeria - Lagos     Pregnant     0.0410 0.0312 0.0538
+17 Nigeria - Lagos     Not Using FP 0.516  0.477  0.555 
+18 Nigeria - Lagos     Using FP     0.443  0.404  0.482 </code></pre>
+</div>
+<p>We’ll combine information from <code>FPSTATUS_1</code> and
+<code>FPSTATUS_2</code> to examine how Phase 1 status impacts status at
+Phase 2. For example,</p>
+<ul>
+<li>Are women who were pregnant at Phase 1 more likely to use or not use
+family planning at Phase 2?</li>
+<li>Are women who were using (or not using) contraception at Phase 1
+likely to maintain the same status at Phase 2?</li>
+</ul>
+<div class="layout-chunk" data-layout="l-page">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>dat</span> <span class='op'><a href='http://gdfe.co/srvyr/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='http://gdfe.co/srvyr/reference/as_survey_design.html'>as_survey_design</a></span><span class='op'>(</span>weight <span class='op'>=</span> <span class='va'>PANELWEIGHT</span>, id <span class='op'>=</span> <span class='va'>EAID_1</span>, strata <span class='op'>=</span> <span class='va'>POP</span><span class='op'>)</span> <span class='op'><a href='http://gdfe.co/srvyr/reference/pipe.html'>%&gt;%</a></span>
+  <span class='fu'><a href='http://gdfe.co/srvyr/reference/group_by.html'>group_by</a></span><span class='op'>(</span><span class='va'>POP</span>, <span class='va'>FPSTATUS_1</span>, <span class='va'>FPSTATUS_2</span><span class='op'>)</span> <span class='op'><a href='http://gdfe.co/srvyr/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='http://gdfe.co/srvyr/reference/summarise.html'>summarise</a></span><span class='op'>(</span><span class='fu'><a href='http://gdfe.co/srvyr/reference/survey_mean.html'>survey_mean</a></span><span class='op'>(</span>prop <span class='op'>=</span> <span class='cn'>TRUE</span>, prop_method <span class='op'>=</span> <span class='st'>"logit"</span>, vartype <span class='op'>=</span> <span class='st'>"ci"</span><span class='op'>)</span><span class='op'>)</span> <span class='op'><a href='http://gdfe.co/srvyr/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>coef</span>, y <span class='op'>=</span> <span class='va'>FPSTATUS_2</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span> 
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/facet_grid.html'>facet_grid</a></span><span class='op'>(</span>cols <span class='op'>=</span> <span class='fu'><a href='http://gdfe.co/srvyr/reference/summarise_all.html'>vars</a></span><span class='op'>(</span><span class='va'>FPSTATUS_1</span><span class='op'>)</span>, rows <span class='op'>=</span> <span class='fu'><a href='http://gdfe.co/srvyr/reference/summarise_all.html'>vars</a></span><span class='op'>(</span><span class='va'>POP</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span> 
+  <span class='fu'>theme_pma</span><span class='op'>(</span>
+    <span class='st'>"CHANGE IN CONTRACEPTIVE USE OR NON-USE"</span>,
+    <span class='st'>"Percent women age 15-49 who changed contraceptive use status"</span>,
+    xaxis <span class='op'>=</span> <span class='st'>"Phase 1 Status"</span>,
+    yaxis <span class='op'>=</span> <span class='st'>"Phase 2 Status"</span>
+  <span class='op'>)</span>
+</code></pre>
+</div>
+<p><img src="phase2-indicators_files/figure-html5/unnamed-chunk-25-1.png" width="1152" data-distill-preview=1 /></p>
+</div>
+<p>Here, a significant difference between subgroups in the same
+population is said to exist if the error bars representing any pair of
+subgroups <strong>do not overlap</strong>.</p>
+<ul>
+<li>For women who were pregnant at Phase 1, there is usually no
+significant difference between using and not using family planning at
+Phase 2. Kenya and Nigeria - Kano are the exception: in Kenya, pregnant
+women at Phase 1 were significantly more likely to be using FP at Phase
+2, while the opposite is true in Kano.<br />
+</li>
+<li>Overall, non-pregnant women at Phase 1 were significantly more
+likely to maintain the same status (use or non-use) at Phase 2 than they
+were to switch or become pregnant.</li>
+</ul>
+<h2 id="contraceptive-method-type">Contraceptive Method Type</h2>
+<p>PMA surveys ask contraceptive users to indicate which method they are
+currently using at each phase of the study. If a woman reports using
+more than one method, <a
+href="https://pma.ipums.org/pma-action/variables/FPCURREFFMETH#codes_section">FPCURREFFMETH</a>
+shows her most <em>effective</em> currently used method. These responses
+are combined with detailed information about use of the lactational
+amenorrhea method (LAM), emergency contraception, or injectable type in
+<a
+href="https://pma.ipums.org/pma-action/variables/FPCURREFFMETHRC#codes_section">FPCURREFFMETHRC</a>.
+PMA reports use <a
+href="https://pma.ipums.org/pma-action/variables/FPCURREFFMETHRC#codes_section">FPCURREFFMETHRC</a>
+to determine whether each woman’s most effective current method is a
+short-acting, long-acting, or traditional method.</p>
+<p>Long-acting methods include:</p>
+<ul>
+<li>IUDs</li>
+<li>implants</li>
+<li>male sterilization</li>
+<li>female sterilization</li>
+</ul>
+<p>Short-acting methods include:</p>
+<ul>
+<li>injectables (intramuscular and subcutaneous)</li>
+<li>the pill</li>
+<li>emergency contraception</li>
+<li>male condoms</li>
+<li>female condoms</li>
+<li>LAM</li>
+<li>diaphragm</li>
+<li>foam/jelly</li>
+<li>standard days method</li>
+</ul>
+<p>Traditional methods include:</p>
+<ul>
+<li>rhythm</li>
+<li>withdrawal</li>
+<li>other traditional</li>
+</ul>
+<p>These methods are coded sequentially by group in <a
+href="https://pma.ipums.org/pma-action/variables/FPCURREFFMETHRC#codes_section">FPCURREFFMETHRC</a>.
+Women who are “NIU (not in universe)” were using no method.</p>
+<div class="layout-chunk" data-layout="l-page">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>dat</span> <span class='op'><a href='http://gdfe.co/srvyr/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/count.html'>count</a></span><span class='op'>(</span><span class='va'>FPCURREFFMETHRC_1</span><span class='op'>)</span>
+</code></pre>
+</div>
+<pre><code># A tibble: 19 × 2
+                           FPCURREFFMETHRC_1     n
+                                   &lt;int+lbl&gt; &lt;int&gt;
+ 1 101 [Female Sterilization]                  198
+ 2 102 [Male Sterilization]                      1
+ 3 111 [Implants]                             2248
+ 4 112 [IUD]                                   226
+ 5 121 [Injectables (3 months)]               1412
+ 6 123 [Injectables (Sayana Press)]            296
+ 7 131 [Pill]                                  547
+ 8 132 [Emergency Contraception]               243
+ 9 141 [Male condom]                           791
+10 142 [Female condom]                           1
+11 151 [Diaphragm]                               1
+12 152 [Foam]                                    1
+13 160 [Standard Days/Cycle Beads Method]       70
+14 170 [Lactational amenorrhea method (LAM)]    24
+15 210 [Rhythm]                                569
+16 220 [Withdrawal]                            351
+17 240 [Other traditional]                     153
+18 998 [No response or missing]                  1
+19 999 [NIU (not in universe)]               10572</code></pre>
+</div>
+<p>We’ll use <a
+href="https://dplyr.tidyverse.org/reference/across.html">across</a> to
+recode the Phase 1 and Phase 2 versions of <a
+href="https://pma.ipums.org/pma-action/variables/FPCURREFFMETHRC#codes_section">FPCURREFFMETHRC</a>
+simultaneously. We’ll also attach the prefix <code>CAT</code> to each
+variable, indicating that we’ve created “categorized” versions of
+each.</p>
+<ul>
+<li><code>CAT_FPSFPCURREFFMETHRC_1</code> - Phase 1 contraceptive method
+type</li>
+<li><code>CAT_FPSFPCURREFFMETHRC_2</code> - Phase 2 contraceptive method
+type</li>
+</ul>
+<div class="layout-chunk" data-layout="l-page">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>dat</span> <span class='op'>&lt;-</span> <span class='va'>dat</span> <span class='op'><a href='http://gdfe.co/srvyr/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='http://gdfe.co/srvyr/reference/dplyr_single.html'>mutate</a></span><span class='op'>(</span>
+    <span class='fu'><a href='https://dplyr.tidyverse.org/reference/across.html'>across</a></span><span class='op'>(</span>
+      <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='va'>FPCURREFFMETHRC_1</span>, <span class='va'>FPCURREFFMETHRC_2</span><span class='op'>)</span>,
+      <span class='op'>~</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/case_when.html'>case_when</a></span><span class='op'>(</span>
+        <span class='va'>.x</span> <span class='op'>&lt;</span> <span class='fl'>120</span> <span class='op'>~</span> <span class='st'>"long-acting"</span>,
+        <span class='va'>.x</span> <span class='op'>&lt;</span> <span class='fl'>200</span> <span class='op'>~</span> <span class='st'>"short-acting"</span>,
+        <span class='va'>.x</span> <span class='op'>&lt;</span> <span class='fl'>900</span> <span class='op'>~</span> <span class='st'>"traditional"</span>,
+        <span class='cn'>TRUE</span> <span class='op'>~</span> <span class='st'>"none"</span><span class='op'>)</span> <span class='op'><a href='http://gdfe.co/srvyr/reference/pipe.html'>%&gt;%</a></span> 
+        <span class='fu'><a href='https://forcats.tidyverse.org/reference/fct_relevel.html'>fct_relevel</a></span><span class='op'>(</span> <span class='st'>"long-acting"</span>, <span class='st'>"short-acting"</span>, <span class='st'>"traditional"</span>, <span class='st'>"none"</span><span class='op'>)</span>,
+      .names <span class='op'>=</span> <span class='st'>"CAT_{.col}"</span>
+    <span class='op'>)</span>
+  <span class='op'>)</span> 
+</code></pre>
+</div>
+</div>
+<p>Next, we’ll generate population estimates for our derived variables,
+<code>CAT_FPCURREFFMETHRC_1</code> and
+<code>CAT_FPCURREFFMETHRC_2</code>. We’ll again use
+<code>theme_pma</code> to plot the results.</p>
+<div class="layout-chunk" data-layout="l-page">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>dat</span> <span class='op'><a href='http://gdfe.co/srvyr/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='http://gdfe.co/srvyr/reference/as_survey_design.html'>as_survey_design</a></span><span class='op'>(</span>weight <span class='op'>=</span> <span class='va'>PANELWEIGHT</span>, id <span class='op'>=</span> <span class='va'>EAID_1</span>, strata <span class='op'>=</span> <span class='va'>POP</span><span class='op'>)</span> <span class='op'><a href='http://gdfe.co/srvyr/reference/pipe.html'>%&gt;%</a></span>
+  <span class='fu'><a href='http://gdfe.co/srvyr/reference/group_by.html'>group_by</a></span><span class='op'>(</span><span class='va'>POP</span>, <span class='va'>CAT_FPCURREFFMETHRC_1</span>, <span class='va'>CAT_FPCURREFFMETHRC_2</span><span class='op'>)</span> <span class='op'><a href='http://gdfe.co/srvyr/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='http://gdfe.co/srvyr/reference/summarise.html'>summarise</a></span><span class='op'>(</span><span class='fu'><a href='http://gdfe.co/srvyr/reference/survey_mean.html'>survey_mean</a></span><span class='op'>(</span>prop <span class='op'>=</span> <span class='cn'>TRUE</span>, prop_method <span class='op'>=</span> <span class='st'>"logit"</span>, vartype <span class='op'>=</span> <span class='st'>"ci"</span><span class='op'>)</span><span class='op'>)</span> <span class='op'><a href='http://gdfe.co/srvyr/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>coef</span>, y <span class='op'>=</span> <span class='va'>CAT_FPCURREFFMETHRC_2</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span> 
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/facet_grid.html'>facet_grid</a></span><span class='op'>(</span>cols <span class='op'>=</span> <span class='fu'><a href='http://gdfe.co/srvyr/reference/summarise_all.html'>vars</a></span><span class='op'>(</span><span class='va'>CAT_FPCURREFFMETHRC_1</span><span class='op'>)</span>, rows <span class='op'>=</span> <span class='fu'><a href='http://gdfe.co/srvyr/reference/summarise_all.html'>vars</a></span><span class='op'>(</span><span class='va'>POP</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span> 
+  <span class='fu'>theme_pma</span><span class='op'>(</span>
+    <span class='st'>"CHANGE IN CONTRACEPTIVE METHOD TYPE"</span>,
+    <span class='st'>"Percent of women age 15-49 who changed contraceptive method or use status"</span>,
+    xaxis <span class='op'>=</span> <span class='st'>"Phase 1 Method"</span>,
+    yaxis <span class='op'>=</span> <span class='st'>"Phase 2 Method"</span>
+  <span class='op'>)</span>
+</code></pre>
+</div>
+<p><img src="phase2-indicators_files/figure-html5/unnamed-chunk-28-1.png" width="1152" /></p>
+</div>
+<p>What do we learn from this plot? Let’s consider each column in
+turn:</p>
+<ul>
+<li>Users of “long-acting” methods at Phase 1 were significantly more
+likely to use “long-acting” methods at Phase 2 than to have changed
+status (except in Kano, where no significant difference exists between
+“long-acting” and “none” at Phase 2).</li>
+<li>Users of “short-acting” methods at Phase 1 are generally likely to
+use them again at Phase 2, but some samples show that women are equally
+likely to be using “none” at Phase 2. A significant difference between
+these two outcomes appears only in Kinshasa, Kenya, and Lagos (where
+women were more likely to be using “short-acting” methods than
+“none”).</li>
+<li>The status of Phase 1 “traditional” users is generally unclear at
+Phase 2. In Kinshasa, Kongo Central, and Lagos, these women were most
+likely to remain “traditional” users at Phase 2. Elsewhere, there are no
+clear trends.</li>
+<li>Users of “none” at Phase 1 were clearly mostly likely to remain as
+such at Phase 2.</li>
+</ul>
+<h2 id="contraceptive-dynamics-by-subgroup">Contraceptive Dynamics by
+Subgroup</h2>
+<p>We can also use <a
+href="https://pma.ipums.org/pma-action/variables/FPCURREFFMETHRC#codes_section">FPCURREFFMETHRC</a>
+to see whether women switched methods, stopped using any method, started
+using any method, or made no changes. Let’s summarize this information
+as <code>CHG_FPCURR</code>:</p>
+<ul>
+<li><code>CHG_FPCURR</code> - Change in contraceptive use between Phase
+1 and Phase 2</li>
+</ul>
+<div class="layout-chunk" data-layout="l-page">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>dat</span> <span class='op'>&lt;-</span> <span class='va'>dat</span> <span class='op'><a href='http://gdfe.co/srvyr/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='http://gdfe.co/srvyr/reference/dplyr_single.html'>mutate</a></span><span class='op'>(</span>
+    CHG_FPCURR <span class='op'>=</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/case_when.html'>case_when</a></span><span class='op'>(</span>
+      <span class='va'>FPCURREFFMETHRC_1</span> <span class='op'>&gt;</span> <span class='fl'>900</span> <span class='op'>&amp;</span> <span class='va'>FPCURREFFMETHRC_2</span> <span class='op'>&gt;</span> <span class='fl'>900</span> <span class='op'>~</span> <span class='st'>"Continued non-use"</span>,
+      <span class='va'>FPCURREFFMETHRC_1</span> <span class='op'>&gt;</span> <span class='fl'>900</span> <span class='op'>~</span> <span class='st'>"Started using"</span>,
+      <span class='va'>FPCURREFFMETHRC_2</span> <span class='op'>&gt;</span> <span class='fl'>900</span> <span class='op'>~</span> <span class='st'>"Stopped using"</span>,
+      <span class='va'>FPCURREFFMETHRC_1</span> <span class='op'>!=</span> <span class='va'>FPCURREFFMETHRC_2</span> <span class='op'>~</span> <span class='st'>"Changed methods"</span>,
+      <span class='va'>FPCURREFFMETHRC_1</span> <span class='op'>==</span> <span class='va'>FPCURREFFMETHRC_2</span> <span class='op'>~</span> <span class='st'>"Continued method"</span>
+    <span class='op'>)</span>
+  <span class='op'>)</span> 
+</code></pre>
+</div>
+</div>
+<p>PMA reports disaggregate the outcomes captured in
+<code>CHG_FPCURR</code> by age, marital status, education level, and
+parity (number of live childbirths).</p>
+<h3 id="age">Age</h3>
+<p>We’ll use PMA’s categorization of <code>AGE_2</code> to examine
+differences between women in three categories.</p>
+<ul>
+<li><code>CAT_AGE_2</code> - Phase 2 age (3 categories)</li>
+</ul>
+<div class="layout-chunk" data-layout="l-page">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>dat</span> <span class='op'>&lt;-</span> <span class='va'>dat</span> <span class='op'><a href='http://gdfe.co/srvyr/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='http://gdfe.co/srvyr/reference/dplyr_single.html'>mutate</a></span><span class='op'>(</span>
+    CAT_AGE_2 <span class='op'>=</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/case_when.html'>case_when</a></span><span class='op'>(</span>
+      <span class='va'>AGE_2</span> <span class='op'>&lt;</span> <span class='fl'>20</span> <span class='op'>~</span> <span class='st'>"15-19"</span>,
+      <span class='va'>AGE_2</span> <span class='op'>&lt;</span> <span class='fl'>25</span> <span class='op'>~</span> <span class='st'>"20-24"</span>,
+      <span class='cn'>TRUE</span> <span class='op'>~</span> <span class='st'>"25-49"</span>
+    <span class='op'>)</span>
+  <span class='op'>)</span> 
+</code></pre>
+</div>
+</div>
+<p>Plotting <code>CAT_AGE_2</code> on the y-axis allows us to compare
+confidence intervals across age groups. For example, notice that women
+aged 15-19 in every population are significantly more likely to continue
+non-use than women who are aged 20-24 or 25-49 (column 3).</p>
+<div class="layout-chunk" data-layout="l-page">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>dat</span> <span class='op'><a href='http://gdfe.co/srvyr/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='http://gdfe.co/srvyr/reference/as_survey_design.html'>as_survey_design</a></span><span class='op'>(</span>weight <span class='op'>=</span> <span class='va'>PANELWEIGHT</span>, id <span class='op'>=</span> <span class='va'>EAID_1</span>, strata <span class='op'>=</span> <span class='va'>POP</span><span class='op'>)</span> <span class='op'><a href='http://gdfe.co/srvyr/reference/pipe.html'>%&gt;%</a></span>
+  <span class='fu'><a href='http://gdfe.co/srvyr/reference/group_by.html'>group_by</a></span><span class='op'>(</span><span class='va'>POP</span>, <span class='va'>CAT_AGE_2</span>, <span class='va'>CHG_FPCURR</span><span class='op'>)</span> <span class='op'><a href='http://gdfe.co/srvyr/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='http://gdfe.co/srvyr/reference/summarise.html'>summarise</a></span><span class='op'>(</span><span class='fu'><a href='http://gdfe.co/srvyr/reference/survey_mean.html'>survey_mean</a></span><span class='op'>(</span>prop <span class='op'>=</span> <span class='cn'>TRUE</span>, prop_method <span class='op'>=</span> <span class='st'>"logit"</span>, vartype <span class='op'>=</span> <span class='st'>"ci"</span><span class='op'>)</span><span class='op'>)</span> <span class='op'><a href='http://gdfe.co/srvyr/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>coef</span>, y <span class='op'>=</span> <span class='va'>CAT_AGE_2</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span> 
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/facet_grid.html'>facet_grid</a></span><span class='op'>(</span>cols <span class='op'>=</span> <span class='fu'><a href='http://gdfe.co/srvyr/reference/summarise_all.html'>vars</a></span><span class='op'>(</span><span class='va'>CHG_FPCURR</span><span class='op'>)</span>, rows <span class='op'>=</span> <span class='fu'><a href='http://gdfe.co/srvyr/reference/summarise_all.html'>vars</a></span><span class='op'>(</span><span class='va'>POP</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span> 
+  <span class='fu'>theme_pma</span><span class='op'>(</span>
+    <span class='st'>"CHANGE IN CONTRACEPTIVEUSE STATUS, BY AGE"</span>,
+    yaxis <span class='op'>=</span> <span class='st'>"Phase 2 Age"</span>
+  <span class='op'>)</span>
+</code></pre>
+</div>
+<p><img src="phase2-indicators_files/figure-html5/unnamed-chunk-31-1.png" width="1152" /></p>
+</div>
+<h3 id="education-level">Education level</h3>
+<p>The variable <a
+href="https://pma.ipums.org/pma-action/variables/EDUCATTGEN#codes_section">EDUCATTGEN</a>
+standardizes educational categories across countries (see <a
+href="https://pma.ipums.org/pma-action/variables/EDUCATT#codes_section">EDUCATT</a>
+for country-specific codes). To match PMA reports, we’ll recode <a
+href="https://pma.ipums.org/pma-action/variables/EDUCATTGEN#codes_section">EDUCATTGEN</a>
+into just three groups:</p>
+<ul>
+<li><code>CAT_EDUCATTGEN_2</code> - Phase 2 education level (3
+categories)</li>
+</ul>
+<div class="layout-chunk" data-layout="l-page">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>dat</span> <span class='op'>&lt;-</span> <span class='va'>dat</span> <span class='op'><a href='http://gdfe.co/srvyr/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='http://gdfe.co/srvyr/reference/dplyr_single.html'>mutate</a></span><span class='op'>(</span>
+    CAT_EDUCATTGEN_2 <span class='op'>=</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/case_when.html'>case_when</a></span><span class='op'>(</span>
+      <span class='va'>EDUCATTGEN_2</span> <span class='op'>&lt;</span> <span class='fl'>3</span> <span class='op'>~</span> <span class='st'>"None / Primary"</span>,
+      <span class='va'>EDUCATTGEN_2</span> <span class='op'>==</span> <span class='fl'>3</span> <span class='op'>~</span> <span class='st'>"Secondary"</span>,
+      <span class='va'>EDUCATTGEN_2</span> <span class='op'>==</span> <span class='fl'>4</span> <span class='op'>~</span> <span class='st'>"Tertiary"</span>
+    <span class='op'>)</span>
+  <span class='op'>)</span> 
+</code></pre>
+</div>
+</div>
+<p>As with age, we’ll plot <code>CAT_EDUCATTGEN_2</code> on the y-axis.
+There aren’t many clear takeaways here: confidence intervals overlap in
+each column for almost every education level, indicating no significant
+difference in most populations.</p>
+<div class="layout-chunk" data-layout="l-page">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>dat</span> <span class='op'><a href='http://gdfe.co/srvyr/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='http://gdfe.co/srvyr/reference/dplyr_single.html'>filter</a></span><span class='op'>(</span><span class='va'>EDUCATTGEN_2</span> <span class='op'>&lt;</span> <span class='fl'>90</span><span class='op'>)</span> <span class='op'><a href='http://gdfe.co/srvyr/reference/pipe.html'>%&gt;%</a></span> <span class='co'># drop if missing </span>
+  <span class='fu'><a href='http://gdfe.co/srvyr/reference/as_survey_design.html'>as_survey_design</a></span><span class='op'>(</span>weight <span class='op'>=</span> <span class='va'>PANELWEIGHT</span>, id <span class='op'>=</span> <span class='va'>EAID_1</span>, strata <span class='op'>=</span> <span class='va'>POP</span><span class='op'>)</span> <span class='op'><a href='http://gdfe.co/srvyr/reference/pipe.html'>%&gt;%</a></span>
+  <span class='fu'><a href='http://gdfe.co/srvyr/reference/group_by.html'>group_by</a></span><span class='op'>(</span><span class='va'>POP</span>, <span class='va'>CAT_EDUCATTGEN_2</span>, <span class='va'>CHG_FPCURR</span><span class='op'>)</span> <span class='op'><a href='http://gdfe.co/srvyr/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='http://gdfe.co/srvyr/reference/summarise.html'>summarise</a></span><span class='op'>(</span><span class='fu'><a href='http://gdfe.co/srvyr/reference/survey_mean.html'>survey_mean</a></span><span class='op'>(</span>prop <span class='op'>=</span> <span class='cn'>TRUE</span>, prop_method <span class='op'>=</span> <span class='st'>"logit"</span>, vartype <span class='op'>=</span> <span class='st'>"ci"</span><span class='op'>)</span><span class='op'>)</span> <span class='op'><a href='http://gdfe.co/srvyr/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>coef</span>, y <span class='op'>=</span> <span class='va'>CAT_EDUCATTGEN_2</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span> 
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/facet_grid.html'>facet_grid</a></span><span class='op'>(</span>cols <span class='op'>=</span> <span class='fu'><a href='http://gdfe.co/srvyr/reference/summarise_all.html'>vars</a></span><span class='op'>(</span><span class='va'>CHG_FPCURR</span><span class='op'>)</span>, rows <span class='op'>=</span> <span class='fu'><a href='http://gdfe.co/srvyr/reference/summarise_all.html'>vars</a></span><span class='op'>(</span><span class='va'>POP</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span> 
+  <span class='fu'>theme_pma</span><span class='op'>(</span>
+    <span class='st'>"CHANGE IN CONTRACEPTIVEUSE STATUS, BY EDUCATION LEVEL"</span>,
+    yaxis <span class='op'>=</span> <span class='st'>"Phase 2 Education Level"</span>
+  <span class='op'>)</span>
+</code></pre>
+</div>
+<p><img src="phase2-indicators_files/figure-html5/unnamed-chunk-33-1.png" width="1152" /></p>
+</div>
+<h3 id="marital-status">Marital status</h3>
+<p>The variable <a
+href="https://pma.ipums.org/pma-action/variables/MARSTAT#codes_section">MARSTAT</a>
+indicates each woman’s marital / partnership status. PMA considers women
+“in union” to be those who are currently married (code <code>21</code>)
+or currently living with their partner (code <code>22</code>).
+Otherwise, women who were never married, divorced / separated, or
+widowed are considered “not in union”.</p>
+<ul>
+<li><code>CAT_MARSTAT_2</code> - Phase 2 marital status (2
+categories)</li>
+</ul>
+<div class="layout-chunk" data-layout="l-page">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>dat</span> <span class='op'>&lt;-</span> <span class='va'>dat</span> <span class='op'><a href='http://gdfe.co/srvyr/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='http://gdfe.co/srvyr/reference/dplyr_single.html'>mutate</a></span><span class='op'>(</span>
+    CAT_MARSTAT_2 <span class='op'>=</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/case_when.html'>case_when</a></span><span class='op'>(</span>
+      <span class='va'>MARSTAT_2</span> <span class='op'><a href='https://rdrr.io/r/base/match.html'>%in%</a></span> <span class='fl'>21</span><span class='op'>:</span><span class='fl'>22</span> <span class='op'>~</span> <span class='st'>"In union"</span>,
+      <span class='cn'>TRUE</span> <span class='op'>~</span> <span class='st'>"Not in union"</span>
+    <span class='op'>)</span>
+  <span class='op'>)</span> 
+</code></pre>
+</div>
+</div>
+<p>Here, we see that women who were <em>not</em> in a union at Phase 2
+were significantly more likely to continue non-use of contraception
+compared to married / partnered women in each population. On the other
+hand, women who <em>were</em> in a union appeared more likely to
+continue using the same method, and perhaps change methods (most clearly
+in Kenya).</p>
+<div class="layout-chunk" data-layout="l-page">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>dat</span> <span class='op'><a href='http://gdfe.co/srvyr/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='http://gdfe.co/srvyr/reference/as_survey_design.html'>as_survey_design</a></span><span class='op'>(</span>weight <span class='op'>=</span> <span class='va'>PANELWEIGHT</span>, id <span class='op'>=</span> <span class='va'>EAID_1</span>, strata <span class='op'>=</span> <span class='va'>POP</span><span class='op'>)</span> <span class='op'><a href='http://gdfe.co/srvyr/reference/pipe.html'>%&gt;%</a></span>
+  <span class='fu'><a href='http://gdfe.co/srvyr/reference/group_by.html'>group_by</a></span><span class='op'>(</span><span class='va'>POP</span>, <span class='va'>CAT_MARSTAT_2</span>, <span class='va'>CHG_FPCURR</span><span class='op'>)</span> <span class='op'><a href='http://gdfe.co/srvyr/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='http://gdfe.co/srvyr/reference/summarise.html'>summarise</a></span><span class='op'>(</span><span class='fu'><a href='http://gdfe.co/srvyr/reference/survey_mean.html'>survey_mean</a></span><span class='op'>(</span>prop <span class='op'>=</span> <span class='cn'>TRUE</span>, prop_method <span class='op'>=</span> <span class='st'>"logit"</span>, vartype <span class='op'>=</span> <span class='st'>"ci"</span><span class='op'>)</span><span class='op'>)</span> <span class='op'><a href='http://gdfe.co/srvyr/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>coef</span>, y <span class='op'>=</span> <span class='va'>CAT_MARSTAT_2</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span> 
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/facet_grid.html'>facet_grid</a></span><span class='op'>(</span>cols <span class='op'>=</span> <span class='fu'><a href='http://gdfe.co/srvyr/reference/summarise_all.html'>vars</a></span><span class='op'>(</span><span class='va'>CHG_FPCURR</span><span class='op'>)</span>, rows <span class='op'>=</span> <span class='fu'><a href='http://gdfe.co/srvyr/reference/summarise_all.html'>vars</a></span><span class='op'>(</span><span class='va'>POP</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span> 
+  <span class='fu'>theme_pma</span><span class='op'>(</span>
+    <span class='st'>"CHANGE IN CONTRACEPTIVE METHOD TYPE, BY MARITAL STATUS"</span>,
+    yaxis <span class='op'>=</span> <span class='st'>"Phase 2 Marital Status"</span>
+  <span class='op'>)</span>
+</code></pre>
+</div>
+<p><img src="phase2-indicators_files/figure-html5/unnamed-chunk-35-1.png" width="1152" /></p>
+</div>
+<h3 id="parity">Parity</h3>
+<p>Parity refers to the number of times a women has given live birth
+(excluding stillbirths). This information is recorded in the IPUMS
+variable <a
+href="https://pma.ipums.org/pma-action/variables/BIRTHEVENT#codes_section">BIRTHEVENT</a>,
+in which the values <code>0</code> and <code>99</code> (not in universe)
+can both be interpreted as “none”.</p>
+<ul>
+<li><code>CAT_BIRTHEVENT_2</code> - Phase 2 number of live births (4
+categories)</li>
+</ul>
+<div class="layout-chunk" data-layout="l-page">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>dat</span> <span class='op'>&lt;-</span> <span class='va'>dat</span> <span class='op'><a href='http://gdfe.co/srvyr/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='http://gdfe.co/srvyr/reference/dplyr_single.html'>mutate</a></span><span class='op'>(</span>
+    CAT_BIRTHEVENT_2 <span class='op'>=</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/case_when.html'>case_when</a></span><span class='op'>(</span>
+      <span class='va'>BIRTHEVENT_2</span> <span class='op'><a href='https://rdrr.io/r/base/match.html'>%in%</a></span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='fl'>99</span><span class='op'>)</span> <span class='op'>~</span> <span class='st'>"None"</span>,
+      <span class='va'>BIRTHEVENT_2</span> <span class='op'><a href='https://rdrr.io/r/base/match.html'>%in%</a></span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span>, <span class='fl'>2</span><span class='op'>)</span> <span class='op'>~</span> <span class='st'>"One-two"</span>,
+      <span class='va'>BIRTHEVENT_2</span> <span class='op'><a href='https://rdrr.io/r/base/match.html'>%in%</a></span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>3</span>, <span class='fl'>4</span><span class='op'>)</span> <span class='op'>~</span> <span class='st'>"Three-four"</span>,
+      <span class='va'>BIRTHEVENT_2</span> <span class='op'>&gt;=</span> <span class='fl'>5</span> <span class='op'>~</span> <span class='st'>"Five +"</span><span class='op'>)</span> <span class='op'><a href='http://gdfe.co/srvyr/reference/pipe.html'>%&gt;%</a></span> 
+      <span class='fu'><a href='https://forcats.tidyverse.org/reference/fct_relevel.html'>fct_relevel</a></span><span class='op'>(</span><span class='st'>"None"</span>, <span class='st'>"One-two"</span>, <span class='st'>"Three-four"</span>, <span class='st'>"Five +"</span><span class='op'>)</span>
+  <span class='op'>)</span> 
+</code></pre>
+</div>
+</div>
+<p>There are few clear patterns related to parity, except that women who
+have never given birth are also more likely to continue non-use of
+contraception between phases.</p>
+<div class="layout-chunk" data-layout="l-page">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>dat</span> <span class='op'><a href='http://gdfe.co/srvyr/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='http://gdfe.co/srvyr/reference/as_survey_design.html'>as_survey_design</a></span><span class='op'>(</span>weight <span class='op'>=</span> <span class='va'>PANELWEIGHT</span>, id <span class='op'>=</span> <span class='va'>EAID_1</span>, strata <span class='op'>=</span> <span class='va'>POP</span><span class='op'>)</span> <span class='op'><a href='http://gdfe.co/srvyr/reference/pipe.html'>%&gt;%</a></span>
+  <span class='fu'><a href='http://gdfe.co/srvyr/reference/group_by.html'>group_by</a></span><span class='op'>(</span><span class='va'>POP</span>, <span class='va'>CAT_BIRTHEVENT_2</span>, <span class='va'>CHG_FPCURR</span><span class='op'>)</span> <span class='op'><a href='http://gdfe.co/srvyr/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='http://gdfe.co/srvyr/reference/summarise.html'>summarise</a></span><span class='op'>(</span><span class='fu'><a href='http://gdfe.co/srvyr/reference/survey_mean.html'>survey_mean</a></span><span class='op'>(</span>prop <span class='op'>=</span> <span class='cn'>TRUE</span>, prop_method <span class='op'>=</span> <span class='st'>"logit"</span>, vartype <span class='op'>=</span> <span class='st'>"ci"</span><span class='op'>)</span><span class='op'>)</span> <span class='op'><a href='http://gdfe.co/srvyr/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>coef</span>, y <span class='op'>=</span> <span class='va'>CAT_BIRTHEVENT_2</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span> 
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/facet_grid.html'>facet_grid</a></span><span class='op'>(</span>cols <span class='op'>=</span> <span class='fu'><a href='http://gdfe.co/srvyr/reference/summarise_all.html'>vars</a></span><span class='op'>(</span><span class='va'>CHG_FPCURR</span><span class='op'>)</span>, rows <span class='op'>=</span> <span class='fu'><a href='http://gdfe.co/srvyr/reference/summarise_all.html'>vars</a></span><span class='op'>(</span><span class='va'>POP</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span> 
+  <span class='fu'>theme_pma</span><span class='op'>(</span>
+    <span class='st'>"CHANGE IN CONTRACEPTIVE METHOD TYPE, BY PARITY"</span>,
+    yaxis <span class='op'>=</span> <span class='st'>"Phase 2 Childbirths"</span>
+  <span class='op'>)</span>
+</code></pre>
+</div>
+<p><img src="phase2-indicators_files/figure-html5/unnamed-chunk-37-1.png" width="1152" /></p>
+</div>
+<h2 id="other-panel-dynamics">Other Panel Dynamics</h2>
+<p>The final page in each PMA report covers family planning dynamics
+related to unmet need, partner support, and plans for future use of
+family planning methods. In each case, we’ll be focusing on women who
+were <em>not</em> using any method at Phase 1. We’ll show how each of
+these dynamics impacts the likelihood that Phase 1 non-users would have
+adopted any family planning method at Phase 2.</p>
+<div class="layout-chunk" data-layout="l-page">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>dat</span> <span class='op'>&lt;-</span> <span class='va'>dat</span> <span class='op'><a href='http://gdfe.co/srvyr/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='http://gdfe.co/srvyr/reference/dplyr_single.html'>filter</a></span><span class='op'>(</span><span class='va'>CP_1</span> <span class='op'>==</span> <span class='fl'>0</span><span class='op'>)</span>
+</code></pre>
+</div>
+</div>
+<h3 id="unmet-need">Unmet need</h3>
+<p>PMA defines unmet need for family planning according to each woman’s
+fertility preferences, current use of family planning methods, and risk
+factors for pregnancy. Women may have “unmet need” for birth spacing
+(e.g. pregnant women whose pregnancy was mistimed) or for limiting
+births (e.g. pregnant women whose pregnancy was unwanted), while women
+are considered “not at risk” if they are not sexually active or cannot
+become pregnant. The variable <a
+href="https://pma.ipums.org/pma-action/variables/UNMETNEED#codes_section">UNMETNEED</a>
+provides detailed information on types of need for each woman, and on
+related variables that were used to calculate unmet need.</p>
+<p>The binary variable <a
+href="https://pma.ipums.org/pma-action/variables/UNMETYN#codes_section">UNMETYN</a>
+recodes <a
+href="https://pma.ipums.org/pma-action/variables/UNMETNEED#codes_section">UNMETNEED</a>
+as either “Unmet need”, or “No unmet need”. We’ll reword these labels
+only slightly to minimize the amount of repeated text on our plot:</p>
+<div class="layout-chunk" data-layout="l-page">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>dat</span> <span class='op'><a href='http://gdfe.co/srvyr/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='http://gdfe.co/srvyr/reference/dplyr_single.html'>mutate</a></span><span class='op'>(</span>UNMETYN_1 <span class='op'>=</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/if_else.html'>if_else</a></span><span class='op'>(</span><span class='va'>UNMETYN_1</span> <span class='op'>==</span> <span class='fl'>1</span>, <span class='st'>"Yes"</span>, <span class='st'>"No"</span><span class='op'>)</span><span class='op'>)</span> <span class='op'><a href='http://gdfe.co/srvyr/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='http://gdfe.co/srvyr/reference/as_survey_design.html'>as_survey_design</a></span><span class='op'>(</span>weight <span class='op'>=</span> <span class='va'>PANELWEIGHT</span>, id <span class='op'>=</span> <span class='va'>EAID_2</span><span class='op'>)</span> <span class='op'><a href='http://gdfe.co/srvyr/reference/pipe.html'>%&gt;%</a></span>
+  <span class='fu'><a href='http://gdfe.co/srvyr/reference/group_by.html'>group_by</a></span><span class='op'>(</span><span class='va'>POP</span>, <span class='va'>UNMETYN_1</span>, <span class='va'>CP_2</span><span class='op'>)</span> <span class='op'><a href='http://gdfe.co/srvyr/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='http://gdfe.co/srvyr/reference/summarise.html'>summarise</a></span><span class='op'>(</span><span class='fu'><a href='http://gdfe.co/srvyr/reference/survey_mean.html'>survey_mean</a></span><span class='op'>(</span>prop <span class='op'>=</span> <span class='cn'>TRUE</span>, prop_method <span class='op'>=</span> <span class='st'>"logit"</span>, vartype <span class='op'>=</span> <span class='st'>"ci"</span><span class='op'>)</span><span class='op'>)</span> <span class='op'><a href='http://gdfe.co/srvyr/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='http://gdfe.co/srvyr/reference/dplyr_single.html'>filter</a></span><span class='op'>(</span><span class='va'>CP_2</span> <span class='op'>==</span> <span class='fl'>1</span><span class='op'>)</span> <span class='op'><a href='http://gdfe.co/srvyr/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>coef</span>, y <span class='op'>=</span> <span class='va'>UNMETYN_1</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span> 
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/facet_grid.html'>facet_grid</a></span><span class='op'>(</span>rows <span class='op'>=</span> <span class='fu'><a href='http://gdfe.co/srvyr/reference/summarise_all.html'>vars</a></span><span class='op'>(</span><span class='va'>POP</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span> 
+  <span class='fu'>theme_pma</span><span class='op'>(</span>
+    <span class='st'>"UNMET NEED FOR FAMILY PLANNING"</span>,
+    <span class='st'>"Percent of women age 15-49 who were not using a method at Phase 1"</span>,
+    xaxis <span class='op'>=</span> <span class='st'>"Phase 2: Adopted a method"</span>,
+    yaxis <span class='op'>=</span> <span class='st'>"Phase 1: Unmet Need"</span>
+  <span class='op'>)</span>
+</code></pre>
+</div>
+<p><img src="phase2-indicators_files/figure-html5/unnamed-chunk-39-1.png" width="1152" /></p>
+</div>
+<p>Overall, these results suggest that non-users with unmet need for
+family planning at Phase 1 were more likely to adopt a method at Phase 2
+compared to non-users who had none (e.g. women who were not sexually
+active, could not become pregnant, etc.). However, these trends were not
+quite statistically significant in Burkina Faso or Nigeria - Lagos.</p>
+<h3 id="partner-support">Partner support</h3>
+<p>Women who were not using family planning and not pregnant at Phase 1
+were asked whether they thought their husband / partner would be
+supportive of use of family planning in the future. These results are
+recorded in <a
+href="https://pma.ipums.org/pma-action/variables/FPPARTSUPPORT#codes_section">FPPARTSUPPORT</a>.
+We’ll exclude non-partnered women here, as they are “NIU (not in
+universe)”.</p>
+<div class="layout-chunk" data-layout="l-page">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>dat</span> <span class='op'><a href='http://gdfe.co/srvyr/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='http://gdfe.co/srvyr/reference/dplyr_single.html'>filter</a></span><span class='op'>(</span><span class='va'>FPPARTSUPPORT_1</span> <span class='op'><a href='https://rdrr.io/r/base/match.html'>%in%</a></span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='fl'>1</span>, <span class='fl'>97</span><span class='op'>)</span><span class='op'>)</span> <span class='op'><a href='http://gdfe.co/srvyr/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='http://gdfe.co/srvyr/reference/dplyr_single.html'>mutate</a></span><span class='op'>(</span>FPPARTSUPPORT_1 <span class='op'>=</span> <span class='va'>FPPARTSUPPORT_1</span> <span class='op'><a href='http://gdfe.co/srvyr/reference/pipe.html'>%&gt;%</a></span> <span class='va'>as_factor</span><span class='op'>)</span> <span class='op'><a href='http://gdfe.co/srvyr/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='http://gdfe.co/srvyr/reference/as_survey_design.html'>as_survey_design</a></span><span class='op'>(</span>weight <span class='op'>=</span> <span class='va'>PANELWEIGHT</span>, id <span class='op'>=</span> <span class='va'>EAID_2</span><span class='op'>)</span> <span class='op'><a href='http://gdfe.co/srvyr/reference/pipe.html'>%&gt;%</a></span>
+  <span class='fu'><a href='http://gdfe.co/srvyr/reference/group_by.html'>group_by</a></span><span class='op'>(</span><span class='va'>POP</span>, <span class='va'>FPPARTSUPPORT_1</span>, <span class='va'>CP_2</span><span class='op'>)</span> <span class='op'><a href='http://gdfe.co/srvyr/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='http://gdfe.co/srvyr/reference/summarise.html'>summarise</a></span><span class='op'>(</span><span class='fu'><a href='http://gdfe.co/srvyr/reference/survey_mean.html'>survey_mean</a></span><span class='op'>(</span>prop <span class='op'>=</span> <span class='cn'>TRUE</span>, prop_method <span class='op'>=</span> <span class='st'>"logit"</span>, vartype <span class='op'>=</span> <span class='st'>"ci"</span><span class='op'>)</span><span class='op'>)</span> <span class='op'><a href='http://gdfe.co/srvyr/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='http://gdfe.co/srvyr/reference/dplyr_single.html'>filter</a></span><span class='op'>(</span><span class='va'>CP_2</span> <span class='op'>==</span> <span class='fl'>1</span><span class='op'>)</span> <span class='op'><a href='http://gdfe.co/srvyr/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>coef</span>, y <span class='op'>=</span> <span class='va'>FPPARTSUPPORT_1</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span> 
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/facet_grid.html'>facet_grid</a></span><span class='op'>(</span>rows <span class='op'>=</span> <span class='fu'><a href='http://gdfe.co/srvyr/reference/summarise_all.html'>vars</a></span><span class='op'>(</span><span class='va'>POP</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span> 
+  <span class='fu'>theme_pma</span><span class='op'>(</span>
+    <span class='st'>"PARTNER SUPPORT FOR FAMILY PLANNING"</span>,
+    <span class='st'>"Percent of women age 15-49 who were not using a method at Phase 1"</span>,
+    xaxis <span class='op'>=</span> <span class='st'>"Phase 2: Adopted a method"</span>,
+    yaxis <span class='op'>=</span> <span class='st'>"Phase 1: Partner would support FP"</span>
+  <span class='op'>)</span>
+</code></pre>
+</div>
+<p><img src="phase2-indicators_files/figure-html5/unnamed-chunk-40-1.png" width="1152" /></p>
+</div>
+<p>We’ve included responses for women who were unsure whether their
+partner would or would not support future use of FP (“Dont know”), but
+Phase 2 outcomes for these women were usually not significantly
+different from those who answered “Yes” or “No”.</p>
+<p>Meanwhile, women with Phase 1 partner support in DRC - Kongo Central
+and Kenya were more likely to adopt a method than not. Outcomes for
+women in other populations are not significantly different based on
+partner support, one way or the other.</p>
+<h3 id="intentions">Intentions</h3>
+<p>Lastly, we’ll demonstrate the impact of women’s plans for future
+family planning use at Phase 1. The variable <a
+href="https://pma.ipums.org/pma-action/variables/FPUSPLAN#codes_section">FPUSPLAN</a>
+indicates whether women had plans for future use <em>at any point</em>
+in the future, but here we’ll consider whether women had plans to adopt
+a method <em>within the next year</em> to correspond with the timing of
+Phase 2 surveys.</p>
+<p>There are two variables that describe the approximate time when women
+said they would adopt a family planning method (if at all). <a
+href="https://pma.ipums.org/pma-action/variables/FPPLANVAL#codes_section">FPPLANVAL</a>
+contains a raw number that should be matched with a <em>unit</em> of
+time (months, years) or a categorical response (“soon / now”, “after the
+birth of this child”) in <a
+href="https://pma.ipums.org/pma-action/variables/FPPLANWHEN#codes_section">FPPLANWHEN</a>:</p>
+<div class="layout-chunk" data-layout="l-page">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>dat</span> <span class='op'><a href='http://gdfe.co/srvyr/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/count.html'>count</a></span><span class='op'>(</span><span class='va'>FPPLANWHEN_1</span><span class='op'>)</span>
+</code></pre>
+</div>
+<pre><code># A tibble: 7 × 2
+                        FPPLANWHEN_1     n
+                           &lt;int+lbl&gt; &lt;int&gt;
+1  1 [Months]                          932
+2  2 [Years]                          3039
+3  3 [Soon / Now]                      685
+4  4 [After the birth of this child]   338
+5 97 [Don&#39;t know]                      893
+6 98 [No response or missing]           18
+7 99 [NIU (not in universe)]          4668</code></pre>
+</div>
+<p>We’ll create <code>FPPLANYR_1</code> to indicate whether each woman
+planned to use family planning within a year’s time at Phase 1.</p>
+<ul>
+<li><code>FPPLANYR_1</code> - Phase 1 plans to use FP within one
+year</li>
+</ul>
+<div class="layout-chunk" data-layout="l-page">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>dat</span> <span class='op'>&lt;-</span> <span class='va'>dat</span> <span class='op'><a href='http://gdfe.co/srvyr/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='http://gdfe.co/srvyr/reference/dplyr_single.html'>mutate</a></span><span class='op'>(</span>
+    FPPLANYR_1 <span class='op'>=</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/case_when.html'>case_when</a></span><span class='op'>(</span>
+      <span class='va'>FPPLANWHEN_1</span> <span class='op'>==</span> <span class='fl'>1</span> <span class='op'>&amp;</span> <span class='va'>FPPLANVAL_1</span> <span class='op'>&lt;=</span> <span class='fl'>12</span> <span class='op'>~</span> <span class='st'>"Yes"</span>, <span class='co'># Within 12 months </span>
+      <span class='va'>FPPLANWHEN_1</span> <span class='op'>==</span> <span class='fl'>2</span> <span class='op'>&amp;</span> <span class='va'>FPPLANVAL_1</span> <span class='op'>==</span> <span class='fl'>1</span> <span class='op'>~</span> <span class='st'>"Yes"</span>, <span class='co'># Within 1 year</span>
+      <span class='va'>FPPLANWHEN_1</span> <span class='op'><a href='https://rdrr.io/r/base/match.html'>%in%</a></span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>3</span>, <span class='fl'>4</span><span class='op'>)</span> <span class='op'>~</span> <span class='st'>"Yes"</span>, <span class='co'># Soon / now or after current pregnancy</span>
+      <span class='cn'>TRUE</span> <span class='op'>~</span> <span class='st'>"No"</span> <span class='co'># Includes date unknown, no response, or no intention (FPUSPLAN)</span>
+    <span class='op'>)</span>
+  <span class='op'>)</span>
+</code></pre>
+</div>
+</div>
+<p>Our final plot shows the difference in FP adoption between women who
+planned to do so within the year, compared with women with no such
+plans.</p>
+<div class="layout-chunk" data-layout="l-page">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>dat</span> <span class='op'><a href='http://gdfe.co/srvyr/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='http://gdfe.co/srvyr/reference/as_survey_design.html'>as_survey_design</a></span><span class='op'>(</span>weight <span class='op'>=</span> <span class='va'>PANELWEIGHT</span>, id <span class='op'>=</span> <span class='va'>EAID_2</span><span class='op'>)</span> <span class='op'><a href='http://gdfe.co/srvyr/reference/pipe.html'>%&gt;%</a></span>
+  <span class='fu'><a href='http://gdfe.co/srvyr/reference/group_by.html'>group_by</a></span><span class='op'>(</span><span class='va'>POP</span>, <span class='va'>FPPLANYR_1</span>, <span class='va'>CP_2</span><span class='op'>)</span> <span class='op'><a href='http://gdfe.co/srvyr/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='http://gdfe.co/srvyr/reference/summarise.html'>summarise</a></span><span class='op'>(</span><span class='fu'><a href='http://gdfe.co/srvyr/reference/survey_mean.html'>survey_mean</a></span><span class='op'>(</span>prop <span class='op'>=</span> <span class='cn'>TRUE</span>, prop_method <span class='op'>=</span> <span class='st'>"logit"</span>, vartype <span class='op'>=</span> <span class='st'>"ci"</span><span class='op'>)</span><span class='op'>)</span> <span class='op'><a href='http://gdfe.co/srvyr/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='http://gdfe.co/srvyr/reference/dplyr_single.html'>filter</a></span><span class='op'>(</span><span class='va'>CP_2</span> <span class='op'>==</span> <span class='fl'>1</span><span class='op'>)</span> <span class='op'><a href='http://gdfe.co/srvyr/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>coef</span>, y <span class='op'>=</span> <span class='va'>FPPLANYR_1</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span> 
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/facet_grid.html'>facet_grid</a></span><span class='op'>(</span>rows <span class='op'>=</span> <span class='fu'><a href='http://gdfe.co/srvyr/reference/summarise_all.html'>vars</a></span><span class='op'>(</span><span class='va'>POP</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span> 
+  <span class='fu'>theme_pma</span><span class='op'>(</span>
+    <span class='st'>"INTENTION TO USE FAMIILY PLANNING WITHIN ONE YEAR"</span>,
+    <span class='st'>"Percent of women age 15-49 who were not using a method at Phase 1"</span>,
+    xaxis <span class='op'>=</span> <span class='st'>"Phase 2: Adopted a method"</span>,
+    yaxis <span class='op'>=</span> <span class='st'>"Phase 1: Plan to use FP"</span>
+  <span class='op'>)</span>
+</code></pre>
+</div>
+<p><img src="phase2-indicators_files/figure-html5/unnamed-chunk-43-1.png" width="1152" /></p>
+</div>
+<p>In every population, Phase 1 non-users who planned to adopt a method
+by Phase 2 were significantly more likely to do so. However, a
+significant <em>majority</em> of Phase 1 non-users with plans to adopt a
+method actually did so only in Kenya, where the 95% confidence interval
+for “Yes” responses includes only proportions greater than the 50%
+threshold. In fact, women who adopted a method at Phase 2 represent a
+significant <em>minority</em> of Phase 1 non-users who planned to do so
+in Burkina Faso, DRC - Kongo Central, and Nigeria - Kano.</p>
+<h1 id="wrap-up">Wrap-up</h1>
+<p>As we’ve seen, <strong>grouped bar charts</strong> give us a simple
+way to visually check whether Phase 2 outcomes differ significantly for
+subgroups defined by baseline family planning conditions or key
+demographic features. Additionally, when we <strong>facet</strong>
+populations of interest on the same axis, we can easily compare
+differences between subgroups for many samples in a single figure.</p>
+<p>One drawback to this approach is that we’ve been unable to showcase
+estimates for the proportion of responses at any <em>one</em> phase of
+the study. For example, in our last figure, we estimated that about 35%
+of women who <em>planned to use</em> contraception within the year at
+Phase 1 did so at Phase 2; our figure does not show how many women
+planned to use contraception within the year <em>as a share of the Phase
+1 population</em>.</p>
+<p>To better understand the change over time relative to the size of
+each subgroup in our analysis, we’ll turn to a slightly more complicated
+data visualization method. In our next post, we’ll show how to create
+<strong>alluvial plots</strong>, like those shown in the first two pages
+of each PMA report.</p>
+<div class="sourceCode" id="cb13"><pre
+class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
+<section class="footnotes footnotes-end-of-document"
+role="doc-endnotes">
+<hr />
+<ol>
+<li id="fn1" role="doc-endnote"><p>Because women are considered “lost to
+follow-up” if they moved outside the study area, <code>EAID_1</code> and
+<code>EAID_2</code> are identical for all panel members: you can use
+either one to identify sample clusters.<a href="#fnref1"
+class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2" role="doc-endnote"><p>See <a
+href="https://rdrr.io/pkg/survey/man/svyciprop.html">svyciprop</a> for
+additional methods.<a href="#fnref2" class="footnote-back"
+role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section>
+<!--radix_placeholder_article_footer-->
+<div class="article-footer">
+  <p class="social_footer">
+    <span class="disqus-comments">
+      <i class="fas fa-comments"></i>
+      &nbsp;
+      <span class="disqus-comment-count" data-disqus-identifier="posts/2022-04-15-phase2-indicators/">Comment on this article</span>
+    </span>
+    <span class="article-sharing">
+      Share: &nbsp;
+      <a href="https://twitter.com/share?text=Calculating%20Key%20Indicators%20for%20Family%20Planning%20Panel%20Data&amp;url=https%3A%2F%2Fipums.github.io%2Fpma-data-hub%2Fposts%2F2022-04-15-phase2-indicators%2F">
+        <i class="fab fa-twitter"></i>
+      </a>
+      <a href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https%3A%2F%2Fipums.github.io%2Fpma-data-hub%2Fposts%2F2022-04-15-phase2-indicators%2F&amp;title=Calculating%20Key%20Indicators%20for%20Family%20Planning%20Panel%20Data">
+        <i class="fab fa-linkedin"></i>
+      </a>
+    </span>
+  </p>
+  <script id="dsq-count-scr" src="https://pma-data-hub.disqus.com/count.js" async></script>
+  <div id="disqus_thread" class="hidden"></div>
+  <script type="text/javascript" cookie-consent="functionality">
+var disqus_config = function () {
+  this.page.url = 'https://ipums.github.io/pma-data-hub/posts/2022-04-15-phase2-indicators/';
+  this.page.identifier = 'posts/2022-04-15-phase2-indicators/';
+};
+(function() {
+  var d = document, s = d.createElement('script');
+  s.src = 'https://pma-data-hub.disqus.com/embed.js';
+  s.setAttribute('data-timestamp', +new Date());
+  (d.head || d.body).appendChild(s);
+})();
+</script>
+</div>
+<!--/radix_placeholder_article_footer-->
+</div>
+
+<div class="d-appendix">
+</div>
+
+
+<!--radix_placeholder_site_after_body-->
+<!--/radix_placeholder_site_after_body-->
+<!--radix_placeholder_appendices-->
+<div class="appendix-bottom">
+  <h3 id="updates-and-corrections">Corrections</h3>
+  <p>If you see mistakes or want to suggest changes, please <a href="https://github.com/ipums/pma-data-hub/issues/new">create an issue</a> on the source repository.</p>
+</div>
+<!--/radix_placeholder_appendices-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/REC-html40/loose.dtd">
+<!--radix_placeholder_navigation_after_body--><html><body>
+<div class="distill-site-nav distill-site-footer">
+<p>Developed by <a href="https://www.ipums.org">IPUMS</a> at the
+University of Minnesota</p>
+<p>Licensed under the
+<a href="https://www.mozilla.org/en-US/MPL/2.0/">Mozilla Public License
+Version 2.0</a></p>
+<p>Site built with <a href="https://rstudio.github.io/distill/">Distill
+for R Markdown</a></p>
+</div>
+<!--/radix_placeholder_navigation_after_body-->
+</body></html>
+
+
+</body>
+
+</html>
