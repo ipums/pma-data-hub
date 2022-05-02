@@ -12,7 +12,24 @@
       <link>https://ipums.github.io/pma-data-hub/</link>
     </image>
     <generator>Distill</generator>
-    <lastBuildDate>Tue, 19 Apr 2022 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sun, 01 May 2022 00:00:00 +0000</lastBuildDate>
+    <item>
+      <title>Data Visualization Toolkit for PMA Panel Data</title>
+      <dc:creator>Matt Gunther</dc:creator>
+      <link>https://ipums.github.io/pma-data-hub/posts/2022-05-01-phase2-alluvial</link>
+      <description>Heatmaps and alluvial plots make it easy to compare key family planning indicators over time and across multiple populations sampled by PMA panel surveys.</description>
+      <category>Panel Data</category>
+      <category>Data Visualization</category>
+      <category>Family Planning</category>
+      <category>Weights</category>
+      <category>heatmaps</category>
+      <category>ggalluvial</category>
+      <category>ggplot2</category>
+      <category>srvyr</category>
+      <guid>https://ipums.github.io/pma-data-hub/posts/2022-05-01-phase2-alluvial</guid>
+      <pubDate>Sun, 01 May 2022 00:00:00 +0000</pubDate>
+      <media:content url="https://ipums.github.io/pma-data-hub/posts/2022-05-01-phase2-alluvial/images/long.png" medium="image" type="image/png" width="2284" height="1920"/>
+    </item>
     <item>
       <title>Calculating Key Indicators for Family Planning Panel Data</title>
       <dc:creator>Matt Gunther</dc:creator>
@@ -28,7 +45,7 @@
       <category>srvyr</category>
       <guid>https://ipums.github.io/pma-data-hub/posts/2022-04-15-phase2-indicators</guid>
       <pubDate>Tue, 19 Apr 2022 00:00:00 +0000</pubDate>
-      <media:content url="https://ipums.github.io/pma-data-hub/posts/2022-04-15-phase2-indicators/phase2-indicators_files/figure-html5/unnamed-chunk-25-1.png" medium="image" type="image/png" width="2304" height="1536"/>
+      <media:content url="https://ipums.github.io/pma-data-hub/posts/2022-04-15-phase2-indicators/phase2-indicators_files/figure-html5/unnamed-chunk-26-1.png" medium="image" type="image/png" width="2304" height="1536"/>
     </item>
     <item>
       <title>Visualizing Panel Membership</title>
@@ -41,7 +58,7 @@
       <category>Family Planning</category>
       <guid>https://ipums.github.io/pma-data-hub/posts/2022-04-01-phase2-members</guid>
       <pubDate>Fri, 01 Apr 2022 00:00:00 +0000</pubDate>
-      <media:content url="https://ipums.github.io/pma-data-hub/posts/2022-04-01-phase2-members/phase2-members_files/figure-html5/unnamed-chunk-2-1.png" medium="image" type="image/png" width="3072" height="1920"/>
+      <media:content url="https://ipums.github.io/pma-data-hub/posts/2022-04-01-phase2-members/phase2-members_files/figure-html5/unnamed-chunk-3-1.png" medium="image" type="image/png" width="3072" height="1920"/>
     </item>
     <item>
       <title>Longitudinal Data Extracts</title>

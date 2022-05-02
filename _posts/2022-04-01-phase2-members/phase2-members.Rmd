@@ -42,21 +42,12 @@ A CONSORT diagram is a flowchart showing enrollment and attrition points, most t
   * [Nigeria - Lagos](https://pma.ipums.org/pma/resources/longitudinal_flowcharts/Lagos_panel_phase2.pdf)
   * [Nigeria - Kano](https://pma.ipums.org/pma/resources/longitudinal_flowcharts/Kano_panel_phase2.pdf)
   
-We've constructed a multi-sample CONSORT diagram for this post using the [ggplot2](https://ggplot2.tidyverse.org/index.html) package for R, but we'll omit the code here so that we'll be able  focus on sample design (rather than finicky graphics issues). If you're interested, check out the RMarkdown script for this post over at our [GitHub repository](https://github.com/ipums/pma-data-hub/tree/master/_posts/2022-04-01-phase2-members) - we'll cover the technical details in a future post! For now, let's preview the complete multi-sample diagram before we break down what happens at each point in the study: 
+We've constructed a multi-sample CONSORT diagram for this post using the [ggplot2](https://ggplot2.tidyverse.org/index.html) package for R, but we've hidden the source code for readers who might want to stay focused on our sample design discussion. In you're interested, click the "Show CONSORT diagram source code" button to follow along as we build our diagram below.
 
 ```{r, echo=FALSE, results='hide'}
 knitr::opts_chunk$set(echo = T, eval = T, layout="l-screen", fig.width = 16)
 source(here::here("r/utilities.r"))
-source("consort.R")
-library(sysfonts)
-library(showtext)
-
 set_postpath("2022-04-01-phase2-members")
-sysfonts::font_add(
-  family = "cabrito", 
-  regular = "../../fonts/cabritosansnormregular-webfont.ttf"
-)
-showtext::showtext_auto()
 options(tibble.print_min = 20)
 
 # all cases
@@ -67,6 +58,125 @@ hh <- read_ipums_micro(
 
 # create user-facing data: `dat`
 dat <- hh
+```
+
+```{r, code_folding = "Show CONSORT diagram source code"}
+# load custom font
+library(sysfonts)
+library(showtext)
+sysfonts::font_add(
+  family = "cabrito", 
+  regular = "../../fonts/cabritosansnormregular-webfont.ttf"
+)
+showtext::showtext_auto()
+
+# define consort function 
+consort <- function(dat){
+  dat <- dat %>%
+    ungroup() %>%
+    arrange(pop, step, keep) %>%
+    mutate(
+      across(c(pop, label), ~as_factor(.x)),
+      label = fct_rev(label),
+      x = as.double(pop) %>% ifelse(keep, ., . + 0.19),
+      y = as.double(label),
+      x_line1 = ifelse(keep, x, x - 0.19), # start horiz line at origin
+      x_line2 = ifelse(keep, x, x - 0.05), # end horiz line 0.05 before label
+      y_line1 = ifelse(keep, y - 0.3, y),
+      y_line2 = ifelse(keep, y - 1.7, y),
+      across(
+        starts_with("x"),
+        ~case_when(
+          step <= 6 & (is.na(samedw) | !keep) ~ .x,  # leave as-is
+          step == 9 ~ .x,                            # leave as-is
+          keep & samedw ~ .x + 0.19,                 # right-side dwelling
+          keep & !samedw ~ .x - 0.19,                # left-side dwelling
+          !keep ~ .x + .19,                          # dwelling discard 
+        )
+      ),
+      across(
+        starts_with("x"), # flip dwelling discard 
+        ~case_when(!keep & !samedw ~ .x - 2*(.x - floor(.x)), T ~.x)
+      ),
+      x_line2 = case_when(
+        step == 8 & keep & samedw ~ x_line2 - 0.13,  # back to origin  at step 8
+        step == 8 & keep & !samedw ~ x_line2 + 0.13, 
+        TRUE ~ x_line2
+      ),
+      across(
+        matches("line"), 
+        ~ifelse(keep & step == max(step), NA, .x) %>%   # no lines at final step
+          as.double()
+      ),
+      y = case_when(step == 9 ~ y - 1, TRUE ~ as.double(y)),
+      y_line1 = ifelse(step == 6 & keep, y_line1 - 0.5, y_line1),
+      hjust = case_when(
+        keep ~ "center",
+        !keep & !samedw ~ "right",
+        TRUE ~ "left"
+      )
+    )
+  
+  dat %>% 
+    ggplot(aes(x = x, y = y)) + 
+    geom_text(
+      aes(label = n, hjust = hjust),
+      size = 3,
+      family = "cabrito"
+    ) + 
+    geom_segment(
+      arrow = arrow(length = unit(0.008, "npc")),
+      aes(x = x_line1, xend = x_line2, y = y_line1, yend = y_line2),
+      size = .3
+    )  +
+    scale_x_continuous(
+      position = "top", 
+      breaks = 1:6, 
+      labels = levels(dat$pop)
+    ) +
+    scale_y_continuous(
+      breaks = if(max(dat$step) == 9){
+        seq(0, 2*max(dat$step)-1, by = 2)
+      } else if(max(dat$step) == 1){
+        1
+      } else {
+        seq(0, 2*max(dat$step)-1, by = 2) + 1
+      },
+      labels = dat %>% filter(keep) %>%
+        count(label) %>% pull(label) %>% str_wrap(20),
+      sec.axis = sec_axis(
+        trans = ~.,
+        breaks = if(max(dat$step) == 9){
+          seq(3, 2*max(dat$step)-2, by = 2)
+        } else if(max(dat$step) == 1){
+          NULL
+        } else {
+          seq(2, 2*max(dat$step)-1, by = 2)
+        },
+        labels = if(max(dat$step) > 1){
+          dat %>% filter(!keep) %>% count(label) %>% 
+            pull(label) %>% str_wrap(20)
+        } else {
+          NULL
+        }
+      ),
+      expand = if(max(dat$step) > 4){
+        expansion(mult = 0.05)
+      } else {
+        expansion(mult = 0.3)
+      }
+    ) +
+    theme_minimal() + 
+    theme(
+      text = element_text(family = "cabrito"),
+      axis.ticks = element_blank(),
+      axis.title = element_blank(),
+      axis.text.x = element_text(size = 12),
+      panel.grid = element_blank(),
+      panel.border = element_blank(),
+      plot.margin = margin(20, 100, 20, 100)
+    )
+}
 ```
 
 ```{r, fig.height=10, echo = FALSE, preview = TRUE}
@@ -277,7 +387,7 @@ dat %>% count(pop)
 
 # Phase 1 
 
-Phase 1 marks the beginning of the PMA panel study (baseline). As we've mentioned, it consists of two separate questionnaires administered in stages: first, resident enumerators visited 35 household dwellings selected at random within each sample cluster, or [enumeration area](../2022-03-01-phase2-discovery/#sampling). If a qualifying respondent was available, they were invited to complete a [Household Questionnaire](https://pma.ipums.org/pma/resources/questionnaires/hhf/PMA-Household-Questionnaire-English-2019.10.09.pdf)^[Questionnaires administered in each country may vary from this **Core Household Questionnaire** - [click here](https://pma.ipums.org/pma/enum_materials.shtml) for details.] including a census of all household members and visitors who stayed there during the night before the interview. If this census included any women aged 15-49, the enumerator would later return to the household and invite each eligible woman to complete a  [Female Questionnaire](https://pma.ipums.org/pma/resources/questionnaires/hhf/PMA-Female-Questionnaire-English-2019.10.09.pdf)^[Questionnaires administered in each country may vary from this Core Female Questionnaire - [click here](https://pma.ipums.org/pma/enum_materials.shtml) for details.] and participate in the three-year panel study. 
+Phase 1 marks the beginning of the PMA panel study (baseline). As we've mentioned, it consists of two separate questionnaires administered in stages: first, resident enumerators visited 35 household dwellings selected at random within each sample cluster, or [enumeration area](../2022-03-01-phase2-discovery/#sampling). If a qualifying respondent was available, they were invited to complete a [Household Questionnaire](https://pma.ipums.org/pma/resources/questionnaires/hhf/PMA-Household-Questionnaire-English-2019.10.09.pdf)^[Questionnaires administered in each country may vary from this **Core Household Questionnaire** - [click here](https://pma.ipums.org/pma/enum_materials.shtml) for details.] including a census of all household members and visitors who stayed there during the night before the interview. If this census included any women aged 15-49, the enumerator would later return to the household and invite each eligible woman to complete a  [Female Questionnaire](https://pma.ipums.org/pma/resources/questionnaires/hhf/PMA-Female-Questionnaire-English-2019.10.09.pdf)^[Questionnaires administered in each country may vary from this **Core Female Questionnaire** - [click here](https://pma.ipums.org/pma/enum_materials.shtml) for details.] and participate in the three-year panel study. 
 
 We'll take a look at the inclusion criteria and missing data codes for each questionnaire, in turn. 
 
@@ -329,10 +439,10 @@ dat %>%
   count(pop)
 ```
 
-```{r echo = FALSE, fig.height=2, layout = "l-page"}
+```{r, code_folding = "Show CONSORT diagram source code", fig.height=2, layout = "l-page"}
 hh <- dat 
 
-# Step 1: HH members at P1
+# Step 1: Household members at Phase 1
 hh <- hh %>% group_by(pop) %>%  mutate(step = 1, keep = RESULTHQ_1 %in% c(1, 5))
 hh_plot <- hh %>% 
   filter(keep) %>% 
@@ -394,8 +504,8 @@ dat %>%
 If you select a data extract with "Female Respondents" rather than "All cases", you will receive only records for women who completed all or part of the Female Questionnaire in at least one phase. See our [last post](../2022-03-15-phase2-formats/) for details. 
 </aside>
 
-```{r, echo = FALSE, fig.height=3, layout="l-page"}
-# Step 2: HH members Eligible at P1
+```{r, code_folding = "Show CONSORT diagram source code", fig.height=3, layout="l-page"}
+# Step 2: HH members Eligible at Phase 1
 hh <- hh %>% filter(keep) %>% mutate(step = 2, keep = ELIGIBLE_1 == 1)
 hh_plot <- hh %>% 
   count(step, keep) %>% 
@@ -406,6 +516,7 @@ hh_plot <- hh %>%
   )) %>% 
   bind_rows(hh_plot)
 
+# Step 3: Result of Phase 1 FQ
 hh <- hh %>% filter(keep) %>% mutate(step = 3, keep = RESULTFQ_1 %in% c(1, 5))
 hh_plot <- hh %>% 
   count(step, keep) %>% 
@@ -440,8 +551,8 @@ dat %>%
 Across samples, 95.4% of women who completed the Phase 1 Female Questionnaire agreed to participate in panel follow-ups one year later. 
 </aside>
 
-```{r, fig.height=4, layout="l-page", echo = FALSE, preview = TRUE}
-# Step 4: SURVEYWILLING_1
+```{r, code_folding = "Show CONSORT diagram source code", fig.height=4, layout="l-page"}
+# Step 4: Willing to participate in Phase 2
 hh <- hh %>% filter(keep) %>% mutate(step = 4, keep = SURVEYWILLING_1 == 1)
 hh_plot <- hh %>% 
   count(step, keep) %>% 
@@ -495,8 +606,8 @@ The variable [HHPANELP2_2](https://pma.ipums.org/pma-action/variables/HHPANELP2)
 dat %>% count(HHPANELP2_2)
 ```
 
-```{r, fig.height=8, layout="l-page", echo = FALSE}
-# Aged out 
+```{r, code_folding = "Show CONSORT diagram source code", fig.height=8, layout="l-page"}
+# Step 5: Aged out 
 hh <- hh %>% filter(keep) %>% mutate(step = 5, keep = AGE_1 < 49)
 hh_plot <- hh %>% 
   count(step, keep) %>% 
@@ -507,7 +618,7 @@ hh_plot <- hh %>%
   )) %>% 
   bind_rows(hh_plot)
 
-# Same dwelling or not 
+# Step 6: Same dwelling 
 hh <- hh %>% 
   filter(keep) %>% 
   mutate(
@@ -533,7 +644,7 @@ hh_plot <- hh %>%
   ) %>%
   bind_rows(hh_plot %>% mutate(n = as.character(n))) 
 
-# Resident in dwelling
+# Step 7: Resident in dwelling
 hh <- hh %>% filter(keep) %>% mutate(step = 7, keep = HHMEMSTAT_2 %in% c(1, 99))
 hh_plot <- hh %>%
   count(step, keep) %>%
@@ -601,8 +712,8 @@ dat %>%
   select(-final)
 ```
 
-```{r, fig.height=10, layout="l-page", echo = FALSE, preview = TRUE}
-# RESULTFQ_2
+```{r, code_folding = "Show CONSORT diagram source code", fig.height=10, layout="l-page", preview = TRUE}
+# Step 8: Result of Phase 2 FQ
 hh <- hh %>% filter(keep) %>% mutate(step = 8, keep = RESULTFQ_2 == 1)
 hh_plot <- hh %>%
   count(step, keep) %>%
@@ -616,7 +727,7 @@ hh_plot <- hh %>%
   ) %>% 
   bind_rows(hh_plot)
 
-# Final 
+# Step 9: Final diagram
 hh <- hh %>% filter(keep) %>% mutate(step = 9, keep = TRUE)
 hh_plot <- hh %>%
   group_by(pop) %>%

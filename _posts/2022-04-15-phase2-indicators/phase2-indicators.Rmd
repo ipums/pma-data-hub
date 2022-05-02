@@ -40,15 +40,11 @@ options(tibble.print_min = 20)
 source(here::here("r/utilities.r"))
 set_postpath("2022-04-15-phase2-indicators")
 
-# load other packages 
-library(srvyr)
-
-# data: extract system was down, so I had to get an "all cases" extract for now
+# load dat 
 dat <- read_ipums_micro(
-  ddi = "data/pma_00105.xml",
-  data = "data/pma_00105.dat.gz"
+  ddi = "data/pma_00106.xml",
+  data = "data/pma_00106.dat.gz"
 ) 
-dat <- dat %>% filter(RESULTFQ_1 %in% c(1, 5) | RESULTFQ_2 %in% c(1, 5))
 ```
 
 We've mentioned in previous posts in [this series](../../#category:Panel_Data) that data from the new [PMA panel study](../2022-03-01-phase2-discovery/index.html) gives researchers an important tool for understanding how women's family planning demand and utilization changes over time. In particular, PMA surveys cover topics like: 
@@ -142,8 +138,8 @@ Finally, you'll need to download 2 files: an `xml` metadata file and a `dat.gz` 
 
 ```{r, eval = FALSE}
 dat <- read_ipums_micro(
-  ddi = "data/pma_00084.xml",
-  data = "data/pma_00084.dat.gz"
+  ddi = "data/pma_00106.xml",
+  data = "data/pma_00106.dat.gz"
 )
 ```
 
@@ -292,7 +288,7 @@ pregnant_2_tbl %>%
   geom_errorbar(aes(xmin = `_low`, xmax = `_upp`), width = 0.2)
 ```
 
-One of the powerful features of [ggplot2](https://ggplot2.tidyverse.org/reference/ggplot.html) is that you can use [pre-built themes](https://ggplot2.tidyverse.org/reference/ggtheme.html) to customize this baseline layout. We'll build on [theme_minimal](https://ggplot2.tidyverse.org/reference/ggtheme.html) to create our own `theme_pma` (with custom fonts incorporated by the [sysfonts](https://cran.r-project.org/package=sysfonts) and [showtext](https://cran.rstudio.com/web/packages/showtext/vignettes/introduction.html) packages). Feel free to use our theme, or tweak it to create your own.
+One of the powerful features of [ggplot2](https://ggplot2.tidyverse.org/reference/ggplot.html) is that you can use [pre-built themes](https://ggplot2.tidyverse.org/reference/ggtheme.html) to customize this baseline layout. We'll build on [theme_minimal](https://ggplot2.tidyverse.org/reference/ggtheme.html) to create our own `theme_pma` (with custom fonts incorporated by the [sysfonts](https://cran.r-project.org/package=sysfonts) and [showtext](https://cran.rstudio.com/web/packages/showtext/vignettes/introduction.html) packages). **Feel free to use our theme, or tweak it to create your own!** 
 
 ```{r}
 library(showtext)
@@ -302,26 +298,31 @@ sysfonts::font_add(
   regular = "../../fonts/cabritosansnormregular-webfont.ttf"
 )
 showtext::showtext_auto()
-options(tibble.print_min = 20)
 
-theme_pma <- function(
+theme_pma <- theme_minimal() %+replace% 
+  theme(
+    text = element_text(family = "cabrito", size = 13),
+    plot.title = element_text(size = 22, color = "#00263A", 
+                              hjust = 0, margin = margin(b = 5)),
+    plot.subtitle = element_text(hjust = 0, margin = margin(b = 10)),
+    strip.background = element_blank(),
+    strip.text.y = element_text(size = 16, angle = 0),
+    panel.spacing = unit(1, "lines"),
+    axis.title.y = element_text(angle = 0, margin = margin(r = 10))
+  )
+```
+
+Throughout this post, we'll be repeating the same functions to create grouped bars, error bars, and labels for our plot. In order to avoid repeating ourselves each time, we'll combine these functions together with `theme_pma` in a single function called `pma_bars`.
+
+```{r}
+pma_bars <- function(
   title = NULL,     # an optional title 
   subtitle = NULL,  # an optional subtitle 
   xaxis = NULL,     # an optional label for the x-axis (displayed above)
-  yaxis = NULL      # an optional lael for the y-axis (displayed left)
+  yaxis = NULL      # an optional label for the y-axis (displayed left)
 ){
   components <- list(
-    theme_minimal() %+replace% 
-      theme(
-        text = element_text(family = "cabrito", size = 13),
-        plot.title = element_text(size = 22, color = "#00263A", 
-                                  hjust = 0, margin = margin(b = 5)),
-        plot.subtitle = element_text(hjust = 0, margin = margin(b = 10)),
-        strip.background = element_blank(),
-        strip.text.y = element_text(size = 16, angle = 0),
-        panel.spacing = unit(1, "lines"),
-        axis.title.y = element_text(angle = 0, margin = margin(r = 10))
-      ),
+    if(exists("theme_pma")){theme_pma},
     labs(
       title = title,
       subtitle = subtitle,
@@ -336,21 +337,25 @@ theme_pma <- function(
     ),
     scale_y_discrete(limits = rev),
     geom_bar(stat = "identity", fill = "#98579BB0"),
-    geom_errorbar(aes(xmin = `_low`, xmax = `_upp`), width = 0.2, color = "#00263A")
+    geom_errorbar(
+      aes(xmin = `_low`, xmax = `_upp`), 
+      width = 0.2, 
+      color = "#00263A"
+    )
   )
 }
 ```
 
-Going forward, we'll use `theme_pma` to create the stacked bars, error bars, and other style elements like so:
+Going forward, we'll incorporate `pma_bars` together with a [ggplot](https://ggplot2.tidyverse.org/reference/ggplot.html) and [facet](https://ggplot2.tidyverse.org/reference/index.html#facetting) function for a given set of variables like so:
 
 ```{r, fig.height=6}
 pregnant_2_tbl %>% 
   ggplot(aes(x = coef, y = PREGNANT_2)) + 
   facet_grid(rows = vars(POP)) + 
-  theme_pma(
+  pma_bars(
     title = "Pregnancy Status at Phase 2",
     subtitle = "A grouped bar chart, faceted by population of interest"
-  ) 
+  )
 ```
 
 # Key Indicators 
@@ -419,7 +424,7 @@ dat %>%
   summarise(survey_mean(prop = TRUE, prop_method = "logit", vartype = "ci")) %>% 
   ggplot(aes(x = coef, y = FPSTATUS_2)) + 
   facet_grid(cols = vars(FPSTATUS_1), rows = vars(POP)) + 
-  theme_pma(
+  pma_bars(
     "CHANGE IN CONTRACEPTIVE USE OR NON-USE",
     "Percent women age 15-49 who changed contraceptive use status",
     xaxis = "Phase 1 Status",
@@ -498,7 +503,7 @@ dat %>%
   summarise(survey_mean(prop = TRUE, prop_method = "logit", vartype = "ci")) %>% 
   ggplot(aes(x = coef, y = CAT_FPCURREFFMETHRC_2)) + 
   facet_grid(cols = vars(CAT_FPCURREFFMETHRC_1), rows = vars(POP)) + 
-  theme_pma(
+  pma_bars(
     "CHANGE IN CONTRACEPTIVE METHOD TYPE",
     "Percent of women age 15-49 who changed contraceptive method or use status",
     xaxis = "Phase 1 Method",
@@ -560,7 +565,7 @@ dat %>%
   summarise(survey_mean(prop = TRUE, prop_method = "logit", vartype = "ci")) %>% 
   ggplot(aes(x = coef, y = CAT_AGE_2)) + 
   facet_grid(cols = vars(CHG_FPCURR), rows = vars(POP)) + 
-  theme_pma(
+  pma_bars(
     "CHANGE IN CONTRACEPTIVEUSE STATUS, BY AGE",
     yaxis = "Phase 2 Age"
   )
@@ -593,7 +598,7 @@ dat %>%
   summarise(survey_mean(prop = TRUE, prop_method = "logit", vartype = "ci")) %>% 
   ggplot(aes(x = coef, y = CAT_EDUCATTGEN_2)) + 
   facet_grid(cols = vars(CHG_FPCURR), rows = vars(POP)) + 
-  theme_pma(
+  pma_bars(
     "CHANGE IN CONTRACEPTIVEUSE STATUS, BY EDUCATION LEVEL",
     yaxis = "Phase 2 Education Level"
   )
@@ -624,7 +629,7 @@ dat %>%
   summarise(survey_mean(prop = TRUE, prop_method = "logit", vartype = "ci")) %>% 
   ggplot(aes(x = coef, y = CAT_MARSTAT_2)) + 
   facet_grid(cols = vars(CHG_FPCURR), rows = vars(POP)) + 
-  theme_pma(
+  pma_bars(
     "CHANGE IN CONTRACEPTIVE METHOD TYPE, BY MARITAL STATUS",
     yaxis = "Phase 2 Marital Status"
   )
@@ -657,7 +662,7 @@ dat %>%
   summarise(survey_mean(prop = TRUE, prop_method = "logit", vartype = "ci")) %>% 
   ggplot(aes(x = coef, y = CAT_BIRTHEVENT_2)) + 
   facet_grid(cols = vars(CHG_FPCURR), rows = vars(POP)) + 
-  theme_pma(
+  pma_bars(
     "CHANGE IN CONTRACEPTIVE METHOD TYPE, BY PARITY",
     yaxis = "Phase 2 Childbirths"
   )
@@ -686,7 +691,7 @@ dat %>%
   filter(CP_2 == 1) %>% 
   ggplot(aes(x = coef, y = UNMETYN_1)) + 
   facet_grid(rows = vars(POP)) + 
-  theme_pma(
+  pma_bars(
     "UNMET NEED FOR FAMILY PLANNING",
     "Percent of women age 15-49 who were not using a method at Phase 1",
     xaxis = "Phase 2: Adopted a method",
@@ -710,7 +715,7 @@ dat %>%
   filter(CP_2 == 1) %>% 
   ggplot(aes(x = coef, y = FPPARTSUPPORT_1)) + 
   facet_grid(rows = vars(POP)) + 
-  theme_pma(
+  pma_bars(
     "PARTNER SUPPORT FOR FAMILY PLANNING",
     "Percent of women age 15-49 who were not using a method at Phase 1",
     xaxis = "Phase 2: Adopted a method",
@@ -758,7 +763,7 @@ dat %>%
   filter(CP_2 == 1) %>% 
   ggplot(aes(x = coef, y = FPPLANYR_1)) + 
   facet_grid(rows = vars(POP)) + 
-  theme_pma(
+  pma_bars(
     "INTENTION TO USE FAMIILY PLANNING WITHIN ONE YEAR",
     "Percent of women age 15-49 who were not using a method at Phase 1",
     xaxis = "Phase 2: Adopted a method",
