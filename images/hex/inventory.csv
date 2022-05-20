@@ -11,7 +11,7 @@ gtsummary,https://www.danieldsjoberg.com/gtsummary/index.html,MIT,Daniel D. Sjob
 ipumsr,https://tech.popdata.org/ipumsr/,MPL-2.0,IPUMS
 kableExtra,https://haozhu233.github.io/kableExtra/,MIT,Hao Zhu
 knitr,https://yihui.org/knitr/,CC BY-NC-SA 4.0,Yihui Xie
-lubridate,https://lubridate.tidyverse.org/index.html,GPL (>= 2),"Garrett Grolemund, Hadley Wickham"
+lubridate,https://lubridate.tidyverse.org/index.html,GPL >= 2,"Garrett Grolemund, Hadley Wickham"
 pipe,https://magrittr.tidyverse.org/,MIT,"RStudio, Inc."
 plotly,https://plotly.com/r/,MIT,"Plotly, Inc."
 purrr,https://purrr.tidyverse.org/index.html,GPL-3,"RStudio, Inc."
@@ -22,7 +22,8 @@ shiny,https://shiny.rstudio.com/,GPL-3,"RStudio, Inc."
 showtext,https://github.com/yixuan/showtext,Apache 2.0,Yixuan Qiu
 srvyr,http://gdfe.co/srvyr/index.html,GPL-2 | GPL-3,Greg Freedman Ellis
 stringr,https://stringr.tidyverse.org/index.html,MIT,"RStudio, Inc."
-terra,https://rspatial.github.io/terra/index.html,GPL (>=3),Robert J. Hijmans et al.
+terra,https://rspatial.github.io/terra/index.html,GPL >=3,Robert J. Hijmans et al.
 tidymodels,https://tidymodels.tidymodels.org/index.html,MIT,"RStudio, Inc."
 tidyr,https://tidyr.tidyverse.org/index.html,MIT,"RStudio, Inc."
 tidyverse,https://tidyverse.tidyverse.org/index.html,MIT,"RStudio, Inc."
+survival,https://github.com/therneau/survival,LGPL >=2,Terry M. Therneau et al.

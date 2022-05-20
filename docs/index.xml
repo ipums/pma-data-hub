@@ -12,7 +12,22 @@
       <link>https://ipums.github.io/pma-data-hub/</link>
     </image>
     <generator>Distill</generator>
-    <lastBuildDate>Sun, 01 May 2022 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sun, 15 May 2022 00:00:00 +0000</lastBuildDate>
+    <item>
+      <title>Contraceptive Calendar Data in PMA Panel Surveys</title>
+      <dc:creator>Matt Gunther</dc:creator>
+      <link>https://ipums.github.io/pma-data-hub/posts/2022-05-15-phase2-calendar</link>
+      <description>PMA panel members report their contraceptive use, reasons for discontinuation, and pregnancy status for each month leading up to the Female Questionnaire. Here's how to get up and running with your first Time-to-Event analysis.</description>
+      <category>Panel Data</category>
+      <category>Contraceptive Calendar</category>
+      <category>Data Analysis</category>
+      <category>Survival Analysis</category>
+      <category>survival</category>
+      <category>ggplot2</category>
+      <guid>https://ipums.github.io/pma-data-hub/posts/2022-05-15-phase2-calendar</guid>
+      <pubDate>Sun, 15 May 2022 00:00:00 +0000</pubDate>
+      <media:content url="https://ipums.github.io/pma-data-hub/posts/2022-05-15-phase2-calendar/phase2-calendar_files/figure-html5/unnamed-chunk-48-1.png" medium="image" type="image/png" width="2304" height="1536"/>
+    </item>
     <item>
       <title>Data Visualization Toolkit for PMA Panel Data</title>
       <dc:creator>Matt Gunther</dc:creator>
