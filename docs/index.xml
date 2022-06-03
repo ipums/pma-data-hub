@@ -12,7 +12,21 @@
       <link>https://ipums.github.io/pma-data-hub/</link>
     </image>
     <generator>Distill</generator>
-    <lastBuildDate>Sun, 15 May 2022 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 01 Jun 2022 00:00:00 +0000</lastBuildDate>
+    <item>
+      <title>Introducing Longitudinal Service Delivery Point Data</title>
+      <dc:creator>Matt Gunther</dc:creator>
+      <link>https://ipums.github.io/pma-data-hub/posts/2022-06-01-sdp-panel-release</link>
+      <description>A new feature makes it easy to locate facilities surveyed in multiple rounds of SDP data collection. Plus, new Client Exit Interview data are now available!</description>
+      <category>Panel Data</category>
+      <category>Data Discovery</category>
+      <category>New Data</category>
+      <category>Service Delivery Points</category>
+      <category>Client Exit Interviews</category>
+      <guid>https://ipums.github.io/pma-data-hub/posts/2022-06-01-sdp-panel-release</guid>
+      <pubDate>Wed, 01 Jun 2022 00:00:00 +0000</pubDate>
+      <media:content url="https://ipums.github.io/pma-data-hub/posts/2022-06-01-sdp-panel-release/../../images/new_data.png" medium="image" type="image/png" width="2555" height="1437"/>
+    </item>
     <item>
       <title>Contraceptive Calendar Data in PMA Panel Surveys</title>
       <dc:creator>Matt Gunther</dc:creator>
