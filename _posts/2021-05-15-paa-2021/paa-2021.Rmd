@@ -11,6 +11,7 @@ categories:
   - PAA 2021
   - Contraceptive Calendar
   - Stata
+  - Video
 output:
   distill::distill_article:
     self_contained: false

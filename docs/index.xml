@@ -12,7 +12,21 @@
       <link>https://ipums.github.io/pma-data-hub/</link>
     </image>
     <generator>Distill</generator>
-    <lastBuildDate>Wed, 01 Jun 2022 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 15 Jun 2022 00:00:00 +0000</lastBuildDate>
+    <item>
+      <title>Webinar: Did COVID-19 Impact Contraceptive Use?</title>
+      <dc:creator>Matt Gunther</dc:creator>
+      <dc:creator>Devon Kristiansen</dc:creator>
+      <link>https://ipums.github.io/pma-data-hub/posts/2022-06-15-phase2-webinar</link>
+      <description>Breakout sessions for both R and Stata users show how to use panel data from IPUMS PMA to model contraceptive adoption and discontinuation during the first year of the pandemic.</description>
+      <category>Panel Data</category>
+      <category>Data Analysis</category>
+      <category>Stata</category>
+      <category>Video</category>
+      <guid>https://ipums.github.io/pma-data-hub/posts/2022-06-15-phase2-webinar</guid>
+      <pubDate>Wed, 15 Jun 2022 00:00:00 +0000</pubDate>
+      <media:content url="https://ipums.github.io/pma-data-hub/posts/2022-06-15-phase2-webinar/images/feature.png" medium="image" type="image/png" width="3448" height="1938"/>
+    </item>
     <item>
       <title>Introducing Longitudinal Service Delivery Point Data</title>
       <dc:creator>Matt Gunther</dc:creator>
@@ -389,6 +403,7 @@
       <category>PAA 2021</category>
       <category>Contraceptive Calendar</category>
       <category>Stata</category>
+      <category>Video</category>
       <guid>https://ipums.github.io/pma-data-hub/posts/2021-05-15-paa-2021</guid>
       <pubDate>Sat, 15 May 2021 00:00:00 +0000</pubDate>
       <media:content url="https://ipums.github.io/pma-data-hub/posts/2021-05-15-paa-2021/images/featured.png" medium="image" type="image/png" width="2880" height="1800"/>
