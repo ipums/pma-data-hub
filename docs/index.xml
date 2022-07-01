@@ -12,7 +12,21 @@
       <link>https://ipums.github.io/pma-data-hub/</link>
     </image>
     <generator>Distill</generator>
-    <lastBuildDate>Wed, 15 Jun 2022 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Fri, 01 Jul 2022 00:00:00 +0000</lastBuildDate>
+    <item>
+      <title>Slide Presentations in R with Quarto</title>
+      <dc:creator>Matt Gunther</dc:creator>
+      <link>https://ipums.github.io/pma-data-hub/posts/2022-07-01-ined-revealjs</link>
+      <description>We've been preparing for an upcoming workshop by building our first presentation with Quarto and Revealjs. Here's what we've learned so far.</description>
+      <category>Quarto</category>
+      <category>RMarkdown</category>
+      <category>Revealjs</category>
+      <category>Slides</category>
+      <category>R Tips</category>
+      <guid>https://ipums.github.io/pma-data-hub/posts/2022-07-01-ined-revealjs</guid>
+      <pubDate>Fri, 01 Jul 2022 00:00:00 +0000</pubDate>
+      <media:content url="https://ipums.github.io/pma-data-hub/posts/2022-07-01-ined-revealjs/images/feature.png" medium="image" type="image/png" width="2139" height="1204"/>
+    </item>
     <item>
       <title>Webinar: Did COVID-19 Impact Contraceptive Use?</title>
       <dc:creator>Matt Gunther</dc:creator>
@@ -213,7 +227,7 @@
       <dc:creator>Matt Gunther</dc:creator>
       <link>https://ipums.github.io/pma-data-hub/posts/2021-11-15-find-an-example</link>
       <description>Where to find example code for all of the key concepts we've covered so far.</description>
-      <category>R tips</category>
+      <category>R Tips</category>
       <category>R packages</category>
       <guid>https://ipums.github.io/pma-data-hub/posts/2021-11-15-find-an-example</guid>
       <pubDate>Mon, 15 Nov 2021 00:00:00 +0000</pubDate>

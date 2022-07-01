@@ -1,0 +1,388 @@
+---
+title: "Slide Presentations in R with Quarto"
+description: |
+  We've been preparing for an upcoming workshop by building our first presentation with Quarto and Revealjs. Here's what we've learned so far.
+author:
+  - name: Matt Gunther
+    affiliation: IPUMS PMA Senior Data Analyst
+date: 2022-07-01
+output:
+  distill::distill_article:
+    self_contained: false
+    toc: true
+    toc_depth: 3
+    toc_float: true
+categories:
+  - Quarto
+  - RMarkdown
+  - Revealjs
+  - Slides 
+  - R Tips
+preview: images/feature.png
+---
+
+```{r, echo=FALSE}
+source(here::here("r/utilities.r"))
+set_postpath("2022-07-01-ined-revealjs")
+knitr::opts_chunk$set(md.options = list(width = 60))
+
+```
+
+```{css, echo = FALSE}
+div.sourceCode {
+  color: black;
+  font-family: var(--mono-font), var(--mono-default);
+  font-size: var(--code-size, 14px);
+  color: black;
+  border-left: 0px solid rgba(0,0,0,0.1);
+  padding-left: 10px;
+}
+
+pre > code.sourceCode {
+  white-space: pre-wrap;
+  position: relative;
+}
+```
+
+This spring, it seemed like everyone in the R community was suddenly talking about [Quarto](https://quarto.org/), the new multi-language successor to [RMarkdown](https://rmarkdown.rstudio.com/).  
+
+<div style="width: 50%; margin: 10px auto; display: flex; max-width: 550px; margin-bottom: 20px;">
+<blockquote class="twitter-tweet tw-align-center"><p lang="en" dir="ltr" >Over the weekend, I wrote up my notes about using and teaching Quarto, based on my experiences working with the development team for over a year.<br><br>I think (hope?) it is safe to talk about it now 😆<a href="https://t.co/qg98fEsW7g">https://t.co/qg98fEsW7g</a></p>&mdash; Alison Presmanes Hill (@apreshill) <a href="https://twitter.com/apreshill/status/1511143938450616320?ref_src=twsrc%5Etfw">April 5, 2022</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+</div>
+
+Here at IPUMS PMA, we've been happy RMarkdown users for several years. After all, our blog is built entirely with [Distill for RMarkdown](https://rstudio.github.io/distill/) - this allows readers to download every post as a fully executable R script right from our [GitHub page](https://github.com/ipums/pma-data-hub). Internally, we use RMarkdown for all kinds of everyday tasks like: 
+
+  * writing shareable R code with full text comments 
+  * automating the production of fully-formatted PDFs, Word, and Excel files
+  * building interactive Shiny applications for data exploration 
+  * even [running Stata code](https://bookdown.org/yihui/rmarkdown-cookbook/eng-stata.html) from a local installation of `StataSE-64.exe`
+
+Fortunately, because Quarto and RMarkdown both use [Knitr](https://yihui.org/knitr/), it's easy to upgrade! Almost everything we've ever made with RMarkdown can be rendered by Quarto (except for some changes to [YAML fields](https://blog.djnavarro.net/posts/2022-04-20_porting-to-quarto/#notes-on-yaml-headers) in the header). 
+
+One notable exception: we've previously used the popular [Xaringan](https://github.com/yihui/xaringan) R package to create **slide presentations** with RMarkdown. Because Quarto is entirely built on [Pandoc](https://pandoc.org/), we figured it's high time to adopt a Pandoc-defined output format, instead. Below is our first attempt at using [Revealjs](https://quarto.org/docs/presentations/revealjs/) in Quarto! 
+
+<iframe  style="border: 1px solid gray; height: 400px; margin-bottom: 40px;" src="https://matt-gunther.github.io/ined-pma-2022/slides.html">
+  Browser not supported! Visit https://matt-gunther.github.io/ined-pma-2022/slides.html for slides.
+</iframe>
+
+<aside>
+These slides will be presented at the upcoming workshop **Population-environment-health: connecting pixels** hosted at The French Institute for Demographic Studies in Paris on July 6. 
+
+You can [register here](https://www.ined.fr/en/news/scientific-meetings/seminaries-colloque-ined/population-environment-health-connecting-pixels/) to attend remotely!
+
+[Click here](https://matt-gunther.github.io/ined-pma-2022/slides.html#/title-slide) to view the slides in a full-screen browser window, and [here](https://github.com/matt-gunther/ined-pma-2022) for code and toy datasets discussed in the slides. 
+</aside>
+
+# What We Learned 
+
+If you've ever built slides in RMarkdown before, the basics you'll need to get started with RevealJS in Quarto will be very familiar. First, we [downloaded Quarto](https://quarto.org/docs/get-started/) and created a new [RStudio project](https://support.rstudio.com/hc/en-us/articles/200526207-Using-RStudio-Projects) containing a file called `slides.qmd`. We also created a few subfolders: 
+
+  * `data` includes the toy datasets featured in our workshop
+  * `images` includes any image that appears on a slide (including `gifs` and `png` files)
+  * `slides_files` is created automatically when `slides.qmd` is rendered 
+
+The `slides.qmd` file looks very much like a standard RMarkdown file divided by several headings, each representing a new slide. Title slides for major sections can be created with a level-1 heading (`#`) like this: 
+
+````{verbatim}
+# 1 - IPUMS PMA DATA
+```
+
+<iframe  style="border: 1px solid gray; height: 400px; margin-bottom: 40px;" src="https://matt-gunther.github.io/ined-pma-2022/slides.html#/ipums-pma-data">
+  Browser not supported! Visit https://matt-gunther.github.io/ined-pma-2022/slides.html for slides.
+</iframe>
+
+Within sections, we built individual slides with titles set by level-2 headings (`##`) like this:
+
+````{verbatim}
+## Mapping Birth Outcomes by EA
+
+```{r, fig.height=4, fig.align='center'}
+ggplot() + 
+  layer_spatial(ea_summary_gps, aes(fill = many_births)) + 
+  layer_spatial(shape, alpha = 0) + 
+  theme_minimal()
+```
+````
+
+<iframe  style="border: 1px solid gray; height: 400px; margin-bottom: 40px;" src="https://matt-gunther.github.io/ined-pma-2022/slides.html#/mapping-birth-outcomes-by-ea">
+  Browser not supported! Visit https://matt-gunther.github.io/ined-pma-2022/slides.html for slides.
+</iframe>
+
+<aside>
+You can also use `---` to insert a slide with no title.
+</aside>
+
+## Customization
+
+As you can see above, we've incorporated the same fonts that appear on our blog and across all IPUMS websites. These are applied in a `custom.scss` file in the root folder for our project. We're certainly not experts at CSS, but this file was easy to build because Quarto provides great documentation for pre-defined [Sass Variables](https://quarto.org/docs/output-formats/html-themes.html#sass-variables). Our `custom.scss` file looks like this: 
+
+```{css, eval = FALSE}
+/*-- scss:defaults --*/
+
+$font-family-sans-serif: cabrito_sans_norm_regular;
+$presentation-heading-font: cabrito_sans_norm_regular;
+$presentation-heading-color:  #00263A;
+$presentation-heading-text-transform: uppercase;
+$presentation-heading-font-weight: 500;
+$link-color: #98579B;
+$presentation-title-slide-text-align: left;
+$code-block-font-size:	0.6em;
+$presentation-font-smaller: .8;
+```
+
+| Sass Variable                         | What it does                           |
+| ------------------------------------- |--------------------------------------- |
+| $font-family-sans-serif                | Sets main serif font                  |
+| $presentation-heading-font             | Sets font for headings                |
+| $presentation-heading-color            | Sets color for headings (Navy)        |
+| $presentation-heading-text-transform   | All headings to uppercase             |
+| $presentation-heading-font-weight      | Lighter font weight                   |
+| $link-color                            | Sets color for links (Pink)           |
+| $presentation-title-slide-text-align   | Title slides left aligned             |
+| $code-block-font-size                  | Slightly smaller code font            |
+| $presentation-font-smaller             | Proportional adjustment for all fonts |
+
+<aside>
+[Click here](https://quarto.org/docs/output-formats/html-themes.html#sass-variables) to see a list of all available Sass variables.
+</aside>
+
+Addtionally, we specified a few global settings in the YAML header of the `slides.qmd` file. 
+
+```{yaml, eval = FALSE}
+format: 
+  revealjs: 
+    theme: [default, custom.scss]
+    logo: images/logo-navy.png
+    chalkboard: true
+    smaller: true
+    scrollable: false
+    incremental: true
+    preview-links: true
+```
+
+| YAML option   | What it does                           |
+| ------------- | -------------------------------------- |
+| theme         | Use the [default](https://quarto.org/docs/output-formats/html-themes.html#overview) Bootstrap 5 theme, except where our `custom.scss` file says otherwise |
+| logo          | Path the the IPUMS PMA logo image (inserted in the bottom-right of each slide) |
+| chalkboard    | Enables drawing on slides (see button at bottom-left) |
+| smaller       | Proportional size adjustment for all fonts (set in `custom.scss`) |
+| scrollable    | Disable scrolling: we wanted to adjust figure sizes manually so that everything fits on the page |
+| incremental   | Display bullets and content in `fragment` tags incrementally (on click)     |
+| preview-links | Open external links in a preview window          |
+
+## Layout and Animation 
+
+One thing that took practice: creating multiple columns with [fenced div](https://pandoc.org/MANUAL.html#extension-fenced_divs) containers! A typical multi-column slides looks something like this: 
+
+````{verbatim}
+## Downloading IPUMS PMA data {.center .nonincremental}
+
+::: {.columns}
+:::: {.column width="50%"}
+![](images/pma/home.png){}
+::::
+:::: {.column width="50%"}
+[Visit the IPUMS PMA data website](https://pma.ipums.org/pma/)
+
+* Sample 
+  * Burkina Faso
+  * Longitudinal 
+  * Female Respondents Only
+* Variables 
+  * [RESULTFQ](https://pma.ipums.org/pma-action/variables/RESULTFQ)
+  * [PANELBIRTH](https://pma.ipums.org/pma-action/variables/PANELBIRTH)
+  * [PANELWEIGHT](https://pma.ipums.org/pma-action/variables/PANELWEIGHT)
+  * [EAID](https://pma.ipums.org/pma-action/variables/EAID)
+  * [URBAN](https://pma.ipums.org/pma-action/variables/URBAN)
+::::
+:::
+````
+
+<aside>
+Notice that we're trying to show all bullets at once (rather than incrementally) by setting the slide option `.nonincremental`. As you can see, we're still learning: the bullets show up incrementally anyway 😬 
+</aside>
+
+<iframe  style="border: 1px solid gray; height: 400px; margin-bottom: 40px;" src="https://matt-gunther.github.io/ined-pma-2022/slides.html#/downloading-ipums-pma-data">
+  Browser not supported! Visit https://matt-gunther.github.io/ined-pma-2022/slides.html for slides.
+</iframe>
+
+This works great, but things can get complicated quickly. In this slide, we wanted to show several sentences incrementally on the left column, but we didn't want to waste space with bullets. Instead, we inserted `.fragment` tags around the text we wanted to highlight in each step. Then, we added the option `.fade-in-then-semi-out` to fade the color of each point once we'd moved on the the next one.
+
+````{verbatim}
+## About PMA GPS data {auto-animate="true"}
+
+::: {.columns}
+:::: {.column width="60%"}
+::::: {.fragment .fade-in-then-semi-out}
+PMA uses spatially referenced sample clusters - called "enumeration areas" (EAs) - sampled by probability proportional to population size.
+:::::
+::::: {.fragment .fade-in-then-semi-out}
+At the beginning of the panel study, 35 households were randomly selected within each EA.
+:::::
+::::
+:::: {.column width="40%"}
+::::
+::: 
+````
+
+After the first two sentences, we wanted to show a figure in the right column representing a PMA sample cluster *before* moving on to the next two sentences. The easiest way we found to do this was to create a duplicate slide where the first two sentences were faded right away. It took quite a bit of trial-and-error to get the size and `.absolute` position of our figure just the way we wanted!
+
+````{verbatim}
+## About PMA GPS data {auto-animate="true" visibility="uncounted"}
+
+::: {.columns}
+:::: {.column width="60%"}
+::::: {style="opacity:0.5"}
+PMA uses spatially referenced sample clusters - called "enumeration areas" (EAs) - sampled by probability proportional to population size.
+
+At the beginning of the panel study, 35 households were randomly selected within each EA.
+::::: 
+::::: {.fragment .fade-in-then-semi-out}
+IPUMS PMA does not disseminate the GPS coordinates for EAs, but you may [apply here](https://www.pmadata.org/data/request-access-datasets) for access directly from PMA.
+:::::
+::::: {.fragment .fade-in-then-semi-out}
+Today, we'll be using **falsified** GPS coordinates as an example. 
+:::::
+::::
+:::: {.column width="40%"}
+![](images/pma/gps1.png){.absolute top=100 right=50 height=300}
+::::
+::: 
+````
+
+Next, we wanted to demonstrate that we'd be using *falsified* locations for sample clusters in the workshop. In short, we'd created a toy version of the GPS data researchers can obtain from PMA, whereby we jittered each point in a random direction by a random distance within a preset range. To illustrate, we used the RevealJS [auto-animate](https://quarto.org/docs/presentations/revealjs/advanced.html#auto-animate) feature to drag the position of our figure across the slide. This required a second duplicate slide with a new `.absolute` position for our figure. 
+
+````{verbatim}
+## About PMA GPS data {auto-animate="true" visibility="uncounted"}
+
+::: {.columns}
+:::: {.column width="60%"}
+::::: {style="opacity:0.5"}
+PMA uses spatially referenced sample clusters - called "enumeration areas" (EAs) - sampled by probability proportional to population size.
+
+At the beginning of the panel study, 35 households were randomly selected within each EA.
+
+IPUMS PMA does not disseminate the GPS coordinates for EAs, but you may [apply here](https://www.pmadata.org/data/request-access-datasets) for access directly from PMA.
+::::: 
+Today, we'll be using **falsified** GPS coordinates as an example. 
+::::
+:::: {.column width="40%"}
+![](images/pma/gps1.png){.absolute top=300 right=0 height=300}
+::::
+::: 
+````
+
+Finally, we wanted to emphasize that our data only provide the *centroid* of a randomly displaced sample cluster, *not* the location of any household within the cluster. We added one more duplicate slide, except that it shows a modified figure with a red `+` sign in the middle. 
+
+````{verbatim}
+## About PMA GPS data {auto-animate="true" visibility="uncounted"}
+
+::: {.columns}
+:::: {.column width="60%"}
+::::: {style="opacity:0.5"}
+PMA uses spatially referenced sample clusters - called "enumeration areas" (EAs) - sampled by probability proportional to population size.
+
+At the beginning of the panel study, 35 households were randomly selected within each EA.
+
+IPUMS PMA does not disseminate the GPS coordinates for EAs, but you may [apply here](https://www.pmadata.org/data/request-access-datasets) for access directly from PMA.
+
+Today, we'll be using **falsified** GPS coordinates as an example. 
+::::: 
+
+The coordinates represent the <span style="color:red">**centroid**</span> of an enumeration area, *not* the location of any sampled household. 
+::::
+:::: {.column width="40%"}
+![](images/pma/gps2.png){.absolute top=300 right=0 height=300}
+::::
+::: 
+````
+
+The result looks like this: 
+
+<iframe  style="border: 1px solid gray; height: 400px; margin-bottom: 40px;" src="https://matt-gunther.github.io/ined-pma-2022/slides.html#/about-pma-gps-data">
+  Browser not supported! Visit https://matt-gunther.github.io/ined-pma-2022/slides.html for slides.
+</iframe>
+
+You can also use animation together with [line highlighting](https://quarto.org/docs/presentations/revealjs/#line-highlighting) to incrementally build complex coding examples. Here, we use three copies of the same slide to show how we summarise births by enumeration area, and then divide all enumeration areas into upper and lower halves. 
+
+In each duplicate slide, we use `code-line-numbers` to specify highlighting for a different line in the subsequent code chunk.
+
+````{verbatim}
+## Birth outcomes by EA {auto-animate=true}
+
+::: {.fragment .fade-in}
+Where are the enumeration areas where more women gave birth than average? 
+:::
+::: {.fragment .fade-in}
+```{r}
+ea_summary <- pma %>% 
+  as_survey_design(weight = PANELWEIGHT) %>% 
+  group_by(ea = EAID_1, urban = URBAN == 1) %>% 
+  summarise(birth_prop = survey_mean(PANELBIRTH_2 == 1, vartype = NULL)) %>% 
+  ungroup()
+```
+:::
+::: {.fragment .fade-in}
+```{r, echo=FALSE}
+ea_summary 
+```
+:::
+
+
+## Birth outcomes by EA {auto-animate="true" visibility="uncounted"}
+
+Where are the enumeration areas where more women gave birth than average?
+
+```{r, `code-line-numbers` = "6-8"}
+ea_summary <- pma %>% 
+  as_survey_design(weight = PANELWEIGHT) %>% 
+  group_by(ea = EAID_1, urban = URBAN == 1) %>% 
+  summarise(birth_prop = survey_mean(PANELBIRTH_2 == 1, vartype = NULL)) %>% 
+  ungroup() %>% 
+  mutate(
+    ntile = ntile(birth_prop, 2)
+  )
+```
+
+```{r, echo=FALSE}
+ea_summary 
+```
+
+## Birth outcomes by EA {auto-animate="true" visibility="uncounted"}
+
+Where are the enumeration areas where more women gave birth than average?
+
+```{r,  `code-line-numbers` = "8"}
+ea_summary <- pma %>% 
+  as_survey_design(weight = PANELWEIGHT) %>% 
+  group_by(ea = EAID_1, urban = URBAN == 1) %>% 
+  summarise(birth_prop = survey_mean(PANELBIRTH_2 == 1, vartype = NULL)) %>% 
+  ungroup() %>% 
+  mutate(
+    ntile = ntile(birth_prop, 2),
+    many_births = ntile == 2
+  )
+```
+
+```{r, echo=FALSE}
+ea_summary 
+```
+````
+
+<iframe  style="border: 1px solid gray; height: 400px; margin-bottom: 40px;" src="https://matt-gunther.github.io/ined-pma-2022/slides.html#/birth-outcomes-by-ea">
+  Browser not supported! Visit https://matt-gunther.github.io/ined-pma-2022/slides.html for slides.
+</iframe>
+
+# Other Resources
+
+Needless to say, we've very excited about Revealjs and all of the other new features made possible by Quarto! At the same time, we have a lot to learn (particularly around interactivity and custom styling). If you, too, are experimenting with your first Quarto project, we'd recommend any of these great resources to help get started:
+
+  * "A Quarto Tip a Day" from [\@quarto_pub](https://twitter.com/quarto_pub) on Twitter
+  * [Quarto Documentation](https://quarto.org/docs/guide/)
+  * [The Untold Story of Palmerpenguins](https://apreshill.github.io/palmerpenguins-useR-2022/) - a stellar Revealjs presentation by Drs. Kristen Gorman, Allison Horst, and Alison Hill given at the 2022 [useR!](https://user2022.r-project.org/) conference
+  * [We don't talk about Quarto
+](https://www.apreshill.com/blog/2022-04-we-dont-talk-about-quarto/) from Dr. Allison Hill
+  * [With Quarto Coming, is R Markdown Going Away? No.](https://yihui.org/en/2022/04/quarto-r-markdown/) - great explainer by Dr. Yihui Xie, principal author of the Knitr R package (any many others!)
+  * [Porting a Distill blog to Quarto](  https://blog.djnavarro.net/posts/2022-04-20_porting-to-quarto/
+) - from R devoloper / data scientist Dr. Danielle Navarro, a guide to blogging with Quarto (a change we're not likely to make soon, ourselves)
+  * [Notes on Changing from Rmarkdown/Bookdown to Quarto](https://www.njtierney.com/post/2022/04/11/rmd-to-qmd/) - for authors interested in writing their next book in Quarto, courtesy of Dr. Nick Tierney
