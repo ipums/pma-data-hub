@@ -1,0 +1,3392 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1"/>
+  <meta name="generator" content="distill" />
+
+  <style type="text/css">
+  /* Hide doc at startup (prevent jankiness while JS renders/transforms) */
+  body {
+    visibility: hidden;
+  }
+  </style>
+
+ <!--radix_placeholder_import_source-->
+ <!--/radix_placeholder_import_source-->
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css" data-origin="pandoc">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  { color: #00769e; background-color: #f1f3f5; }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span { color: #00769e; } /* Normal */
+code span.al { color: #ad0000; } /* Alert */
+code span.an { color: #5e5e5e; } /* Annotation */
+code span.at { color: #657422; } /* Attribute */
+code span.bn { color: #ad0000; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #00769e; } /* ControlFlow */
+code span.ch { color: #20794d; } /* Char */
+code span.cn { color: #8f5902; } /* Constant */
+code span.co { color: #5e5e5e; } /* Comment */
+code span.cv { color: #5e5e5e; font-style: italic; } /* CommentVar */
+code span.do { color: #5e5e5e; font-style: italic; } /* Documentation */
+code span.dt { color: #ad0000; } /* DataType */
+code span.dv { color: #ad0000; } /* DecVal */
+code span.er { color: #ad0000; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #ad0000; } /* Float */
+code span.fu { color: #4758ab; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #5e5e5e; } /* Information */
+code span.kw { color: #00769e; } /* Keyword */
+code span.op { color: #5e5e5e; } /* Operator */
+code span.ot { color: #00769e; } /* Other */
+code span.pp { color: #ad0000; } /* Preprocessor */
+code span.sc { color: #5e5e5e; } /* SpecialChar */
+code span.ss { color: #20794d; } /* SpecialString */
+code span.st { color: #20794d; } /* String */
+code span.va { color: #111111; } /* Variable */
+code span.vs { color: #20794d; } /* VerbatimString */
+code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
+</style>
+
+
+  <!--radix_placeholder_meta_tags-->
+<title>Data Analysis Hub: Arranging maps in a grid</title>
+
+<meta property="description" itemprop="description" content="Tools for creating spatial visualizations that compare change over time or differences between PMA countries."/>
+
+<link rel="canonical" href="https://ipums.github.io/pma-data-hub/posts/2022-07-15-facet-maps/"/>
+<link rel="icon" type="image/png" href="../../images/favicon/favicon-32x32.png"/>
+
+<!--  https://schema.org/Article -->
+<meta property="article:published" itemprop="datePublished" content="2022-07-18"/>
+<meta property="article:created" itemprop="dateCreated" content="2022-07-18"/>
+<meta name="article:author" content="Matt Gunther"/>
+
+<!--  https://developers.facebook.com/docs/sharing/webmasters#markup -->
+<meta property="og:title" content="Data Analysis Hub: Arranging maps in a grid"/>
+<meta property="og:type" content="article"/>
+<meta property="og:description" content="Tools for creating spatial visualizations that compare change over time or differences between PMA countries."/>
+<meta property="og:url" content="https://ipums.github.io/pma-data-hub/posts/2022-07-15-facet-maps/"/>
+<meta property="og:image" content="https://ipums.github.io/pma-data-hub/posts/2022-07-15-facet-maps/facet-maps_files/figure-html5/unnamed-chunk-23-1.png"/>
+<meta property="og:image:width" content="2304"/>
+<meta property="og:image:height" content="1344"/>
+<meta property="og:locale" content="en_US"/>
+<meta property="og:site_name" content="Data Analysis Hub"/>
+
+<!--  https://dev.twitter.com/cards/types/summary -->
+<meta property="twitter:card" content="summary_large_image"/>
+<meta property="twitter:title" content="Data Analysis Hub: Arranging maps in a grid"/>
+<meta property="twitter:description" content="Tools for creating spatial visualizations that compare change over time or differences between PMA countries."/>
+<meta property="twitter:url" content="https://ipums.github.io/pma-data-hub/posts/2022-07-15-facet-maps/"/>
+<meta property="twitter:image" content="https://ipums.github.io/pma-data-hub/posts/2022-07-15-facet-maps/facet-maps_files/figure-html5/unnamed-chunk-23-1.png"/>
+<meta property="twitter:image:width" content="2304"/>
+<meta property="twitter:image:height" content="1344"/>
+<meta property="twitter:site" content="@ipumsGH"/>
+
+<!--/radix_placeholder_meta_tags-->
+  <!--radix_placeholder_rmarkdown_metadata-->
+
+<script type="text/json" id="radix-rmarkdown-metadata">
+{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","date","author","categories","output","canonical_url"]}},"value":[{"type":"character","attributes":{},"value":["Arranging maps in a grid"]},{"type":"character","attributes":{},"value":["Tools for creating spatial visualizations that compare change over time or differences between PMA countries."]},{"type":"character","attributes":{},"value":["2022-07-18"]},{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","affiliation"]}},"value":[{"type":"character","attributes":{},"value":["Matt Gunther"]},{"type":"character","attributes":{},"value":["IPUMS PMA Senior Data Analyst"]}]}]},{"type":"character","attributes":{},"value":["Data Analysis","Data Visualization","Spatial","Mapping","ggplot2","cowplot","purrr"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["self_contained","toc","toc_depth","toc_float"]}},"value":[{"type":"logical","attributes":{},"value":[false]},{"type":"logical","attributes":{},"value":[true]},{"type":"integer","attributes":{},"value":[3]},{"type":"logical","attributes":{},"value":[true]}]}]},{"type":"character","attributes":{},"value":["https://ipums.github.io/pma-data-hub/posts/2022-07-15-facet-maps/"]}]}
+</script>
+<!--/radix_placeholder_rmarkdown_metadata-->
+  
+  <script type="text/json" id="radix-resource-manifest">
+  {"type":"character","attributes":{},"value":["data/chirps_z.tif","data/geobf/geobf.CPG","data/geobf/geobf.dbf","data/geobf/geobf.prj","data/geobf/geobf.sbn","data/geobf/geobf.sbx","data/geobf/geobf.shp","data/geobf/geobf.shp.xml","data/geobf/geobf.shx","data/modern_tbl.rds","data/pma_00141.dat.gz","data/pma_00141.xml","data/pma_00142.dat.gz","data/pma_00142.xml","data/pma_00143.dat.gz","data/pma_00143.xml","facet-maps_files/anchor-4.2.2/anchor.min.js","facet-maps_files/bowser-1.9.3/bowser.min.js","facet-maps_files/distill-2.2.21/template.v2.js","facet-maps_files/figure-html/unnamed-chunk-4-1.png","facet-maps_files/figure-html/unnamed-chunk-5-1.png","facet-maps_files/figure-html/unnamed-chunk-9-1.png","facet-maps_files/figure-html5/unnamed-chunk-10-1.png","facet-maps_files/figure-html5/unnamed-chunk-11-1.png","facet-maps_files/figure-html5/unnamed-chunk-12-1.png","facet-maps_files/figure-html5/unnamed-chunk-13-1.png","facet-maps_files/figure-html5/unnamed-chunk-14-1.png","facet-maps_files/figure-html5/unnamed-chunk-14-2.png","facet-maps_files/figure-html5/unnamed-chunk-14-3.png","facet-maps_files/figure-html5/unnamed-chunk-14-4.png","facet-maps_files/figure-html5/unnamed-chunk-15-1.png","facet-maps_files/figure-html5/unnamed-chunk-15-2.png","facet-maps_files/figure-html5/unnamed-chunk-15-3.png","facet-maps_files/figure-html5/unnamed-chunk-15-4.png","facet-maps_files/figure-html5/unnamed-chunk-16-1.png","facet-maps_files/figure-html5/unnamed-chunk-16-2.png","facet-maps_files/figure-html5/unnamed-chunk-16-3.png","facet-maps_files/figure-html5/unnamed-chunk-16-4.png","facet-maps_files/figure-html5/unnamed-chunk-17-1.png","facet-maps_files/figure-html5/unnamed-chunk-17-2.png","facet-maps_files/figure-html5/unnamed-chunk-17-3.png","facet-maps_files/figure-html5/unnamed-chunk-18-1.png","facet-maps_files/figure-html5/unnamed-chunk-18-2.png","facet-maps_files/figure-html5/unnamed-chunk-18-3.png","facet-maps_files/figure-html5/unnamed-chunk-19-1.png","facet-maps_files/figure-html5/unnamed-chunk-20-1.png","facet-maps_files/figure-html5/unnamed-chunk-21-1.png","facet-maps_files/figure-html5/unnamed-chunk-22-1.png","facet-maps_files/figure-html5/unnamed-chunk-23-1.png","facet-maps_files/figure-html5/unnamed-chunk-4-1.png","facet-maps_files/figure-html5/unnamed-chunk-5-1.png","facet-maps_files/figure-html5/unnamed-chunk-6-1.png","facet-maps_files/figure-html5/unnamed-chunk-9-1.png","facet-maps_files/header-attrs-2.14/header-attrs.js","facet-maps_files/jquery-3.6.0/jquery-3.6.0.js","facet-maps_files/jquery-3.6.0/jquery-3.6.0.min.js","facet-maps_files/jquery-3.6.0/jquery-3.6.0.min.map","facet-maps_files/popper-2.6.0/popper.min.js","facet-maps_files/tippy-6.2.7/tippy-bundle.umd.min.js","facet-maps_files/tippy-6.2.7/tippy-light-border.css","facet-maps_files/tippy-6.2.7/tippy.css","facet-maps_files/tippy-6.2.7/tippy.umd.min.js","facet-maps_files/webcomponents-2.0.0/webcomponents.js","images/bars.png"]}
+  </script>
+  <!--radix_placeholder_navigation_in_header-->
+<meta name="distill:offset" content="../.."/>
+
+<script type="application/javascript">
+
+  window.headroom_prevent_pin = false;
+
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+
+    // initialize headroom for banner
+    var header = $('header').get(0);
+    var headerHeight = header.offsetHeight;
+    var headroom = new Headroom(header, {
+      tolerance: 5,
+      onPin : function() {
+        if (window.headroom_prevent_pin) {
+          window.headroom_prevent_pin = false;
+          headroom.unpin();
+        }
+      }
+    });
+    headroom.init();
+    if(window.location.hash)
+      headroom.unpin();
+    $(header).addClass('headroom--transition');
+
+    // offset scroll location for banner on hash change
+    // (see: https://github.com/WickyNilliams/headroom.js/issues/38)
+    window.addEventListener("hashchange", function(event) {
+      window.scrollTo(0, window.pageYOffset - (headerHeight + 25));
+    });
+
+    // responsive menu
+    $('.distill-site-header').each(function(i, val) {
+      var topnav = $(this);
+      var toggle = topnav.find('.nav-toggle');
+      toggle.on('click', function() {
+        topnav.toggleClass('responsive');
+      });
+    });
+
+    // nav dropdowns
+    $('.nav-dropbtn').click(function(e) {
+      $(this).next('.nav-dropdown-content').toggleClass('nav-dropdown-active');
+      $(this).parent().siblings('.nav-dropdown')
+         .children('.nav-dropdown-content').removeClass('nav-dropdown-active');
+    });
+    $("body").click(function(e){
+      $('.nav-dropdown-content').removeClass('nav-dropdown-active');
+    });
+    $(".nav-dropdown").click(function(e){
+      e.stopPropagation();
+    });
+  });
+</script>
+
+<style type="text/css">
+
+/* Theme (user-documented overrideables for nav appearance) */
+
+.distill-site-nav {
+  color: rgba(255, 255, 255, 0.8);
+  background-color: #0F2E3D;
+  font-size: 15px;
+  font-weight: 300;
+}
+
+.distill-site-nav a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.distill-site-nav a:hover {
+  color: white;
+}
+
+@media print {
+  .distill-site-nav {
+    display: none;
+  }
+}
+
+.distill-site-header {
+
+}
+
+.distill-site-footer {
+
+}
+
+
+/* Site Header */
+
+.distill-site-header {
+  width: 100%;
+  box-sizing: border-box;
+  z-index: 3;
+}
+
+.distill-site-header .nav-left {
+  display: inline-block;
+  margin-left: 8px;
+}
+
+@media screen and (max-width: 768px) {
+  .distill-site-header .nav-left {
+    margin-left: 0;
+  }
+}
+
+
+.distill-site-header .nav-right {
+  float: right;
+  margin-right: 8px;
+}
+
+.distill-site-header a,
+.distill-site-header .title {
+  display: inline-block;
+  text-align: center;
+  padding: 14px 10px 14px 10px;
+}
+
+.distill-site-header .title {
+  font-size: 18px;
+  min-width: 150px;
+}
+
+.distill-site-header .logo {
+  padding: 0;
+}
+
+.distill-site-header .logo img {
+  display: none;
+  max-height: 20px;
+  width: auto;
+  margin-bottom: -4px;
+}
+
+.distill-site-header .nav-image img {
+  max-height: 18px;
+  width: auto;
+  display: inline-block;
+  margin-bottom: -3px;
+}
+
+
+
+@media screen and (min-width: 1000px) {
+  .distill-site-header .logo img {
+    display: inline-block;
+  }
+  .distill-site-header .nav-left {
+    margin-left: 20px;
+  }
+  .distill-site-header .nav-right {
+    margin-right: 20px;
+  }
+  .distill-site-header .title {
+    padding-left: 12px;
+  }
+}
+
+
+.distill-site-header .nav-toggle {
+  display: none;
+}
+
+.nav-dropdown {
+  display: inline-block;
+  position: relative;
+}
+
+.nav-dropdown .nav-dropbtn {
+  border: none;
+  outline: none;
+  color: rgba(255, 255, 255, 0.8);
+  padding: 16px 10px;
+  background-color: transparent;
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: inherit;
+  margin: 0;
+  margin-top: 1px;
+  z-index: 2;
+}
+
+.nav-dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: white;
+  min-width: 200px;
+  border: 1px solid rgba(0,0,0,0.15);
+  border-radius: 4px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.1);
+  z-index: 1;
+  margin-top: 2px;
+  white-space: nowrap;
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+.nav-dropdown-content hr {
+  margin-top: 4px;
+  margin-bottom: 4px;
+  border: none;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.nav-dropdown-active {
+  display: block;
+}
+
+.nav-dropdown-content a, .nav-dropdown-content .nav-dropdown-header {
+  color: black;
+  padding: 6px 24px;
+  text-decoration: none;
+  display: block;
+  text-align: left;
+}
+
+.nav-dropdown-content .nav-dropdown-header {
+  display: block;
+  padding: 5px 24px;
+  padding-bottom: 0;
+  text-transform: uppercase;
+  font-size: 14px;
+  color: #999999;
+  white-space: nowrap;
+}
+
+.nav-dropdown:hover .nav-dropbtn {
+  color: white;
+}
+
+.nav-dropdown-content a:hover {
+  background-color: #ddd;
+  color: black;
+}
+
+.nav-right .nav-dropdown-content {
+  margin-left: -45%;
+  right: 0;
+}
+
+@media screen and (max-width: 768px) {
+  .distill-site-header a, .distill-site-header .nav-dropdown  {display: none;}
+  .distill-site-header a.nav-toggle {
+    float: right;
+    display: block;
+  }
+  .distill-site-header .title {
+    margin-left: 0;
+  }
+  .distill-site-header .nav-right {
+    margin-right: 0;
+  }
+  .distill-site-header {
+    overflow: hidden;
+  }
+  .nav-right .nav-dropdown-content {
+    margin-left: 0;
+  }
+}
+
+
+@media screen and (max-width: 768px) {
+  .distill-site-header.responsive {position: relative; min-height: 500px; }
+  .distill-site-header.responsive a.nav-toggle {
+    position: absolute;
+    right: 0;
+    top: 0;
+  }
+  .distill-site-header.responsive a,
+  .distill-site-header.responsive .nav-dropdown {
+    display: block;
+    text-align: left;
+  }
+  .distill-site-header.responsive .nav-left,
+  .distill-site-header.responsive .nav-right {
+    width: 100%;
+  }
+  .distill-site-header.responsive .nav-dropdown {float: none;}
+  .distill-site-header.responsive .nav-dropdown-content {position: relative;}
+  .distill-site-header.responsive .nav-dropdown .nav-dropbtn {
+    display: block;
+    width: 100%;
+    text-align: left;
+  }
+}
+
+/* Site Footer */
+
+.distill-site-footer {
+  width: 100%;
+  overflow: hidden;
+  box-sizing: border-box;
+  z-index: 3;
+  margin-top: 30px;
+  padding-top: 30px;
+  padding-bottom: 30px;
+  text-align: center;
+}
+
+/* Headroom */
+
+d-title {
+  padding-top: 6rem;
+}
+
+@media print {
+  d-title {
+    padding-top: 4rem;
+  }
+}
+
+.headroom {
+  z-index: 1000;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+}
+
+.headroom--transition {
+  transition: all .4s ease-in-out;
+}
+
+.headroom--unpinned {
+  top: -100px;
+}
+
+.headroom--pinned {
+  top: 0;
+}
+
+/* adjust viewport for navbar height */
+/* helps vertically center bootstrap (non-distill) content */
+.min-vh-100 {
+  min-height: calc(100vh - 100px) !important;
+}
+
+</style>
+
+<script src="../../site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<link href="../../site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet"/>
+<link href="../../site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet"/>
+<script src="../../site_libs/headroom-0.9.4/headroom.min.js"></script>
+<script src="../../site_libs/autocomplete-0.37.1/autocomplete.min.js"></script>
+<script src="../../site_libs/fuse-6.4.1/fuse.min.js"></script>
+
+<script type="application/javascript">
+
+function getMeta(metaName) {
+  var metas = document.getElementsByTagName('meta');
+  for (let i = 0; i < metas.length; i++) {
+    if (metas[i].getAttribute('name') === metaName) {
+      return metas[i].getAttribute('content');
+    }
+  }
+  return '';
+}
+
+function offsetURL(url) {
+  var offset = getMeta('distill:offset');
+  return offset ? offset + '/' + url : url;
+}
+
+function createFuseIndex() {
+
+  // create fuse index
+  var options = {
+    keys: [
+      { name: 'title', weight: 20 },
+      { name: 'categories', weight: 15 },
+      { name: 'description', weight: 10 },
+      { name: 'contents', weight: 5 },
+    ],
+    ignoreLocation: true,
+    threshold: 0
+  };
+  var fuse = new window.Fuse([], options);
+
+  // fetch the main search.json
+  return fetch(offsetURL('search.json'))
+    .then(function(response) {
+      if (response.status == 200) {
+        return response.json().then(function(json) {
+          // index main articles
+          json.articles.forEach(function(article) {
+            fuse.add(article);
+          });
+          // download collections and index their articles
+          return Promise.all(json.collections.map(function(collection) {
+            return fetch(offsetURL(collection)).then(function(response) {
+              if (response.status === 200) {
+                return response.json().then(function(articles) {
+                  articles.forEach(function(article) {
+                    fuse.add(article);
+                  });
+                })
+              } else {
+                return Promise.reject(
+                  new Error('Unexpected status from search index request: ' +
+                            response.status)
+                );
+              }
+            });
+          })).then(function() {
+            return fuse;
+          });
+        });
+
+      } else {
+        return Promise.reject(
+          new Error('Unexpected status from search index request: ' +
+                      response.status)
+        );
+      }
+    });
+}
+
+window.document.addEventListener("DOMContentLoaded", function (event) {
+
+  // get search element (bail if we don't have one)
+  var searchEl = window.document.getElementById('distill-search');
+  if (!searchEl)
+    return;
+
+  createFuseIndex()
+    .then(function(fuse) {
+
+      // make search box visible
+      searchEl.classList.remove('hidden');
+
+      // initialize autocomplete
+      var options = {
+        autoselect: true,
+        hint: false,
+        minLength: 2,
+      };
+      window.autocomplete(searchEl, options, [{
+        source: function(query, callback) {
+          const searchOptions = {
+            isCaseSensitive: false,
+            shouldSort: true,
+            minMatchCharLength: 2,
+            limit: 10,
+          };
+          var results = fuse.search(query, searchOptions);
+          callback(results
+            .map(function(result) { return result.item; })
+          );
+        },
+        templates: {
+          suggestion: function(suggestion) {
+            var img = suggestion.preview && Object.keys(suggestion.preview).length > 0
+              ? `<img src="${offsetURL(suggestion.preview)}"</img>`
+              : '';
+            var html = `
+              <div class="search-item">
+                <h3>${suggestion.title}</h3>
+                <div class="search-item-description">
+                  ${suggestion.description || ''}
+                </div>
+                <div class="search-item-preview">
+                  ${img}
+                </div>
+              </div>
+            `;
+            return html;
+          }
+        }
+      }]).on('autocomplete:selected', function(event, suggestion) {
+        window.location.href = offsetURL(suggestion.path);
+      });
+      // remove inline display style on autocompleter (we want to
+      // manage responsive display via css)
+      $('.algolia-autocomplete').css("display", "");
+    })
+    .catch(function(error) {
+      console.log(error);
+    });
+
+});
+
+</script>
+
+<style type="text/css">
+
+.nav-search {
+  font-size: x-small;
+}
+
+/* Algolioa Autocomplete */
+
+.algolia-autocomplete {
+  display: inline-block;
+  margin-left: 10px;
+  vertical-align: sub;
+  background-color: white;
+  color: black;
+  padding: 6px;
+  padding-top: 8px;
+  padding-bottom: 0;
+  border-radius: 6px;
+  border: 1px #0F2E3D solid;
+  width: 180px;
+}
+
+
+@media screen and (max-width: 768px) {
+  .distill-site-nav .algolia-autocomplete {
+    display: none;
+    visibility: hidden;
+  }
+  .distill-site-nav.responsive .algolia-autocomplete {
+    display: inline-block;
+    visibility: visible;
+  }
+  .distill-site-nav.responsive .algolia-autocomplete .aa-dropdown-menu {
+    margin-left: 0;
+    width: 400px;
+    max-height: 400px;
+  }
+}
+
+.algolia-autocomplete .aa-input, .algolia-autocomplete .aa-hint {
+  width: 90%;
+  outline: none;
+  border: none;
+}
+
+.algolia-autocomplete .aa-hint {
+  color: #999;
+}
+.algolia-autocomplete .aa-dropdown-menu {
+  width: 550px;
+  max-height: 70vh;
+  overflow-x: visible;
+  overflow-y: scroll;
+  padding: 5px;
+  margin-top: 3px;
+  margin-left: -150px;
+  background-color: #fff;
+  border-radius: 5px;
+  border: 1px solid #999;
+  border-top: none;
+}
+
+.algolia-autocomplete .aa-dropdown-menu .aa-suggestion {
+  cursor: pointer;
+  padding: 5px 4px;
+  border-bottom: 1px solid #eee;
+}
+
+.algolia-autocomplete .aa-dropdown-menu .aa-suggestion:last-of-type {
+  border-bottom: none;
+  margin-bottom: 2px;
+}
+
+.algolia-autocomplete .aa-dropdown-menu .aa-suggestion .search-item {
+  overflow: hidden;
+  font-size: 0.8em;
+  line-height: 1.4em;
+}
+
+.algolia-autocomplete .aa-dropdown-menu .aa-suggestion .search-item h3 {
+  font-size: 1rem;
+  margin-block-start: 0;
+  margin-block-end: 5px;
+}
+
+.algolia-autocomplete .aa-dropdown-menu .aa-suggestion .search-item-description {
+  display: inline-block;
+  overflow: hidden;
+  height: 2.8em;
+  width: 80%;
+  margin-right: 4%;
+}
+
+.algolia-autocomplete .aa-dropdown-menu .aa-suggestion .search-item-preview {
+  display: inline-block;
+  width: 15%;
+}
+
+.algolia-autocomplete .aa-dropdown-menu .aa-suggestion .search-item-preview img {
+  height: 3em;
+  width: auto;
+  display: none;
+}
+
+.algolia-autocomplete .aa-dropdown-menu .aa-suggestion .search-item-preview img[src] {
+  display: initial;
+}
+
+.algolia-autocomplete .aa-dropdown-menu .aa-suggestion.aa-cursor {
+  background-color: #eee;
+}
+.algolia-autocomplete .aa-dropdown-menu .aa-suggestion em {
+  font-weight: bold;
+  font-style: normal;
+}
+
+</style>
+
+
+<!--/radix_placeholder_navigation_in_header-->
+  <!--radix_placeholder_distill-->
+
+<style type="text/css">
+
+body {
+  background-color: white;
+}
+
+.pandoc-table {
+  width: 100%;
+}
+
+.pandoc-table>caption {
+  margin-bottom: 10px;
+}
+
+.pandoc-table th:not([align]) {
+  text-align: left;
+}
+
+.pagedtable-footer {
+  font-size: 15px;
+}
+
+d-byline .byline {
+  grid-template-columns: 2fr 2fr;
+}
+
+d-byline .byline h3 {
+  margin-block-start: 1.5em;
+}
+
+d-byline .byline .authors-affiliations h3 {
+  margin-block-start: 0.5em;
+}
+
+.authors-affiliations .orcid-id {
+  width: 16px;
+  height:16px;
+  margin-left: 4px;
+  margin-right: 4px;
+  vertical-align: middle;
+  padding-bottom: 2px;
+}
+
+d-title .dt-tags {
+  margin-top: 1em;
+  grid-column: text;
+}
+
+.dt-tags .dt-tag {
+  text-decoration: none;
+  display: inline-block;
+  color: rgba(0,0,0,0.6);
+  padding: 0em 0.4em;
+  margin-right: 0.5em;
+  margin-bottom: 0.4em;
+  font-size: 70%;
+  border: 1px solid rgba(0,0,0,0.2);
+  border-radius: 3px;
+  text-transform: uppercase;
+  font-weight: 500;
+}
+
+d-article table.gt_table td,
+d-article table.gt_table th {
+  border-bottom: none;
+}
+
+.html-widget {
+  margin-bottom: 2.0em;
+}
+
+.l-screen-inset {
+  padding-right: 16px;
+}
+
+.l-screen .caption {
+  margin-left: 10px;
+}
+
+.shaded {
+  background: rgb(247, 247, 247);
+  padding-top: 20px;
+  padding-bottom: 20px;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.shaded .html-widget {
+  margin-bottom: 0;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.shaded .shaded-content {
+  background: white;
+}
+
+.text-output {
+  margin-top: 0;
+  line-height: 1.5em;
+}
+
+.hidden {
+  display: none !important;
+}
+
+d-article {
+  padding-top: 2.5rem;
+  padding-bottom: 30px;
+}
+
+d-appendix {
+  padding-top: 30px;
+}
+
+d-article>p>img {
+  width: 100%;
+}
+
+d-article h2 {
+  margin: 1rem 0 1.5rem 0;
+}
+
+d-article h3 {
+  margin-top: 1.5rem;
+}
+
+d-article iframe {
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  margin-bottom: 2.0em;
+  width: 100%;
+}
+
+/* Tweak code blocks */
+
+d-article div.sourceCode code,
+d-article pre code {
+  font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+}
+
+d-article pre,
+d-article div.sourceCode,
+d-article div.sourceCode pre {
+  overflow: auto;
+}
+
+d-article div.sourceCode {
+  background-color: white;
+}
+
+d-article div.sourceCode pre {
+  padding-left: 10px;
+  font-size: 12px;
+  border-left: 2px solid rgba(0,0,0,0.1);
+}
+
+d-article pre {
+  font-size: 12px;
+  color: black;
+  background: none;
+  margin-top: 0;
+  text-align: left;
+  white-space: pre;
+  word-spacing: normal;
+  word-break: normal;
+  word-wrap: normal;
+  line-height: 1.5;
+
+  -moz-tab-size: 4;
+  -o-tab-size: 4;
+  tab-size: 4;
+
+  -webkit-hyphens: none;
+  -moz-hyphens: none;
+  -ms-hyphens: none;
+  hyphens: none;
+}
+
+d-article pre a {
+  border-bottom: none;
+}
+
+d-article pre a:hover {
+  border-bottom: none;
+  text-decoration: underline;
+}
+
+d-article details {
+  grid-column: text;
+  margin-bottom: 0.8em;
+}
+
+@media(min-width: 768px) {
+
+d-article pre,
+d-article div.sourceCode,
+d-article div.sourceCode pre {
+  overflow: visible !important;
+}
+
+d-article div.sourceCode pre {
+  padding-left: 18px;
+  font-size: 14px;
+}
+
+d-article pre {
+  font-size: 14px;
+}
+
+}
+
+figure img.external {
+  background: white;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  box-shadow: 0 1px 8px rgba(0, 0, 0, 0.1);
+  padding: 18px;
+  box-sizing: border-box;
+}
+
+/* CSS for d-contents */
+
+.d-contents {
+  grid-column: text;
+  color: rgba(0,0,0,0.8);
+  font-size: 0.9em;
+  padding-bottom: 1em;
+  margin-bottom: 1em;
+  padding-bottom: 0.5em;
+  margin-bottom: 1em;
+  padding-left: 0.25em;
+  justify-self: start;
+}
+
+@media(min-width: 1000px) {
+  .d-contents.d-contents-float {
+    height: 0;
+    grid-column-start: 1;
+    grid-column-end: 4;
+    justify-self: center;
+    padding-right: 3em;
+    padding-left: 2em;
+  }
+}
+
+.d-contents nav h3 {
+  font-size: 18px;
+  margin-top: 0;
+  margin-bottom: 1em;
+}
+
+.d-contents li {
+  list-style-type: none
+}
+
+.d-contents nav > ul {
+  padding-left: 0;
+}
+
+.d-contents ul {
+  padding-left: 1em
+}
+
+.d-contents nav ul li {
+  margin-top: 0.6em;
+  margin-bottom: 0.2em;
+}
+
+.d-contents nav a {
+  font-size: 13px;
+  border-bottom: none;
+  text-decoration: none
+  color: rgba(0, 0, 0, 0.8);
+}
+
+.d-contents nav a:hover {
+  text-decoration: underline solid rgba(0, 0, 0, 0.6)
+}
+
+.d-contents nav > ul > li > a {
+  font-weight: 600;
+}
+
+.d-contents nav > ul > li > ul {
+  font-weight: inherit;
+}
+
+.d-contents nav > ul > li > ul > li {
+  margin-top: 0.2em;
+}
+
+
+.d-contents nav ul {
+  margin-top: 0;
+  margin-bottom: 0.25em;
+}
+
+.d-article-with-toc h2:nth-child(2) {
+  margin-top: 0;
+}
+
+
+/* Figure */
+
+.figure {
+  position: relative;
+  margin-bottom: 2.5em;
+  margin-top: 1.5em;
+}
+
+.figure .caption {
+  color: rgba(0, 0, 0, 0.6);
+  font-size: 12px;
+  line-height: 1.5em;
+}
+
+.figure img.external {
+  background: white;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  box-shadow: 0 1px 8px rgba(0, 0, 0, 0.1);
+  padding: 18px;
+  box-sizing: border-box;
+}
+
+.figure .caption a {
+  color: rgba(0, 0, 0, 0.6);
+}
+
+.figure .caption b,
+.figure .caption strong, {
+  font-weight: 600;
+  color: rgba(0, 0, 0, 1.0);
+}
+
+/* Citations */
+
+d-article .citation {
+  color: inherit;
+  cursor: inherit;
+}
+
+div.hanging-indent{
+  margin-left: 1em; text-indent: -1em;
+}
+
+/* Citation hover box */
+
+.tippy-box[data-theme~=light-border] {
+  background-color: rgba(250, 250, 250, 0.95);
+}
+
+.tippy-content > p {
+  margin-bottom: 0;
+  padding: 2px;
+}
+
+
+/* Tweak 1000px media break to show more text */
+
+@media(min-width: 1000px) {
+  .base-grid,
+  distill-header,
+  d-title,
+  d-abstract,
+  d-article,
+  d-appendix,
+  distill-appendix,
+  d-byline,
+  d-footnote-list,
+  d-citation-list,
+  distill-footer {
+    grid-template-columns: [screen-start] 1fr [page-start kicker-start] 80px [middle-start] 50px [text-start kicker-end] 65px 65px 65px 65px 65px 65px 65px 65px [text-end gutter-start] 65px [middle-end] 65px [page-end gutter-end] 1fr [screen-end];
+    grid-column-gap: 16px;
+  }
+
+  .grid {
+    grid-column-gap: 16px;
+  }
+
+  d-article {
+    font-size: 1.06rem;
+    line-height: 1.7em;
+  }
+  figure .caption, .figure .caption, figure figcaption {
+    font-size: 13px;
+  }
+}
+
+@media(min-width: 1180px) {
+  .base-grid,
+  distill-header,
+  d-title,
+  d-abstract,
+  d-article,
+  d-appendix,
+  distill-appendix,
+  d-byline,
+  d-footnote-list,
+  d-citation-list,
+  distill-footer {
+    grid-template-columns: [screen-start] 1fr [page-start kicker-start] 60px [middle-start] 60px [text-start kicker-end] 60px 60px 60px 60px 60px 60px 60px 60px [text-end gutter-start] 60px [middle-end] 60px [page-end gutter-end] 1fr [screen-end];
+    grid-column-gap: 32px;
+  }
+
+  .grid {
+    grid-column-gap: 32px;
+  }
+}
+
+
+/* Get the citation styles for the appendix (not auto-injected on render since
+   we do our own rendering of the citation appendix) */
+
+d-appendix .citation-appendix,
+.d-appendix .citation-appendix {
+  font-size: 11px;
+  line-height: 15px;
+  border-left: 1px solid rgba(0, 0, 0, 0.1);
+  padding-left: 18px;
+  border: 1px solid rgba(0,0,0,0.1);
+  background: rgba(0, 0, 0, 0.02);
+  padding: 10px 18px;
+  border-radius: 3px;
+  color: rgba(150, 150, 150, 1);
+  overflow: hidden;
+  margin-top: -12px;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+
+/* Include appendix styles here so they can be overridden */
+
+d-appendix {
+  contain: layout style;
+  font-size: 0.8em;
+  line-height: 1.7em;
+  margin-top: 60px;
+  margin-bottom: 0;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+  color: rgba(0,0,0,0.5);
+  padding-top: 60px;
+  padding-bottom: 48px;
+}
+
+d-appendix h3 {
+  grid-column: page-start / text-start;
+  font-size: 15px;
+  font-weight: 500;
+  margin-top: 1em;
+  margin-bottom: 0;
+  color: rgba(0,0,0,0.65);
+}
+
+d-appendix h3 + * {
+  margin-top: 1em;
+}
+
+d-appendix ol {
+  padding: 0 0 0 15px;
+}
+
+@media (min-width: 768px) {
+  d-appendix ol {
+    padding: 0 0 0 30px;
+    margin-left: -30px;
+  }
+}
+
+d-appendix li {
+  margin-bottom: 1em;
+}
+
+d-appendix a {
+  color: rgba(0, 0, 0, 0.6);
+}
+
+d-appendix > * {
+  grid-column: text;
+}
+
+d-appendix > d-footnote-list,
+d-appendix > d-citation-list,
+d-appendix > distill-appendix {
+  grid-column: screen;
+}
+
+/* Include footnote styles here so they can be overridden */
+
+d-footnote-list {
+  contain: layout style;
+}
+
+d-footnote-list > * {
+  grid-column: text;
+}
+
+d-footnote-list a.footnote-backlink {
+  color: rgba(0,0,0,0.3);
+  padding-left: 0.5em;
+}
+
+
+
+/* Anchor.js */
+
+.anchorjs-link {
+  /*transition: all .25s linear; */
+  text-decoration: none;
+  border-bottom: none;
+}
+*:hover > .anchorjs-link {
+  margin-left: -1.125em !important;
+  text-decoration: none;
+  border-bottom: none;
+}
+
+/* Social footer */
+
+.social_footer {
+  margin-top: 30px;
+  margin-bottom: 0;
+  color: rgba(0,0,0,0.67);
+}
+
+.disqus-comments {
+  margin-right: 30px;
+}
+
+.disqus-comment-count {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.4);
+  cursor: pointer;
+}
+
+#disqus_thread {
+  margin-top: 30px;
+}
+
+.article-sharing a {
+  border-bottom: none;
+  margin-right: 8px;
+}
+
+.article-sharing a:hover {
+  border-bottom: none;
+}
+
+.sidebar-section.subscribe {
+  font-size: 12px;
+  line-height: 1.6em;
+}
+
+.subscribe p {
+  margin-bottom: 0.5em;
+}
+
+
+.article-footer .subscribe {
+  font-size: 15px;
+  margin-top: 45px;
+}
+
+
+.sidebar-section.custom {
+  font-size: 12px;
+  line-height: 1.6em;
+}
+
+.custom p {
+  margin-bottom: 0.5em;
+}
+
+/* Styles for listing layout (hide title) */
+.layout-listing d-title, .layout-listing .d-title {
+  display: none;
+}
+
+/* Styles for posts lists (not auto-injected) */
+
+
+.posts-with-sidebar {
+  padding-left: 45px;
+  padding-right: 45px;
+}
+
+.posts-list .description h2,
+.posts-list .description p {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", Arial, sans-serif;
+}
+
+.posts-list .description h2 {
+  font-weight: 700;
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.posts-list h2.post-tag {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+  padding-bottom: 12px;
+}
+.posts-list {
+  margin-top: 60px;
+  margin-bottom: 24px;
+}
+
+.posts-list .post-preview {
+  text-decoration: none;
+  overflow: hidden;
+  display: block;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  padding: 24px 0;
+}
+
+.post-preview-last {
+  border-bottom: none !important;
+}
+
+.posts-list .posts-list-caption {
+  grid-column: screen;
+  font-weight: 400;
+}
+
+.posts-list .post-preview h2 {
+  margin: 0 0 6px 0;
+  line-height: 1.2em;
+  font-style: normal;
+  font-size: 24px;
+}
+
+.posts-list .post-preview p {
+  margin: 0 0 12px 0;
+  line-height: 1.4em;
+  font-size: 16px;
+}
+
+.posts-list .post-preview .thumbnail {
+  box-sizing: border-box;
+  margin-bottom: 24px;
+  position: relative;
+  max-width: 500px;
+}
+.posts-list .post-preview img {
+  width: 100%;
+  display: block;
+}
+
+.posts-list .metadata {
+  font-size: 12px;
+  line-height: 1.4em;
+  margin-bottom: 18px;
+}
+
+.posts-list .metadata > * {
+  display: inline-block;
+}
+
+.posts-list .metadata .publishedDate {
+  margin-right: 2em;
+}
+
+.posts-list .metadata .dt-authors {
+  display: block;
+  margin-top: 0.3em;
+  margin-right: 2em;
+}
+
+.posts-list .dt-tags {
+  display: block;
+  line-height: 1em;
+}
+
+.posts-list .dt-tags .dt-tag {
+  display: inline-block;
+  color: rgba(0,0,0,0.6);
+  padding: 0.3em 0.4em;
+  margin-right: 0.2em;
+  margin-bottom: 0.4em;
+  font-size: 60%;
+  border: 1px solid rgba(0,0,0,0.2);
+  border-radius: 3px;
+  text-transform: uppercase;
+  font-weight: 500;
+}
+
+.posts-list img {
+  opacity: 1;
+}
+
+.posts-list img[data-src] {
+  opacity: 0;
+}
+
+.posts-more {
+  clear: both;
+}
+
+
+.posts-sidebar {
+  font-size: 16px;
+}
+
+.posts-sidebar h3 {
+  font-size: 16px;
+  margin-top: 0;
+  margin-bottom: 0.5em;
+  font-weight: 400;
+  text-transform: uppercase;
+}
+
+.sidebar-section {
+  margin-bottom: 30px;
+}
+
+.categories ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+.categories li {
+  color: rgba(0, 0, 0, 0.8);
+  margin-bottom: 0;
+}
+
+.categories li>a {
+  border-bottom: none;
+}
+
+.categories li>a:hover {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.4);
+}
+
+.categories .active {
+  font-weight: 600;
+}
+
+.categories .category-count {
+  color: rgba(0, 0, 0, 0.4);
+}
+
+
+@media(min-width: 768px) {
+  .posts-list .post-preview h2 {
+    font-size: 26px;
+  }
+  .posts-list .post-preview .thumbnail {
+    float: right;
+    width: 30%;
+    margin-bottom: 0;
+  }
+  .posts-list .post-preview .description {
+    float: left;
+    width: 45%;
+  }
+  .posts-list .post-preview .metadata {
+    float: left;
+    width: 20%;
+    margin-top: 8px;
+  }
+  .posts-list .post-preview p {
+    margin: 0 0 12px 0;
+    line-height: 1.5em;
+    font-size: 16px;
+  }
+  .posts-with-sidebar .posts-list {
+    float: left;
+    width: 75%;
+  }
+  .posts-with-sidebar .posts-sidebar {
+    float: right;
+    width: 20%;
+    margin-top: 60px;
+    padding-top: 24px;
+    padding-bottom: 24px;
+  }
+}
+
+
+/* Improve display for browsers without grid (IE/Edge <= 15) */
+
+.downlevel {
+  line-height: 1.6em;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", Arial, sans-serif;
+  margin: 0;
+}
+
+.downlevel .d-title {
+  padding-top: 6rem;
+  padding-bottom: 1.5rem;
+}
+
+.downlevel .d-title h1 {
+  font-size: 50px;
+  font-weight: 700;
+  line-height: 1.1em;
+  margin: 0 0 0.5rem;
+}
+
+.downlevel .d-title p {
+  font-weight: 300;
+  font-size: 1.2rem;
+  line-height: 1.55em;
+  margin-top: 0;
+}
+
+.downlevel .d-byline {
+  padding-top: 0.8em;
+  padding-bottom: 0.8em;
+  font-size: 0.8rem;
+  line-height: 1.8em;
+}
+
+.downlevel .section-separator {
+  border: none;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.downlevel .d-article {
+  font-size: 1.06rem;
+  line-height: 1.7em;
+  padding-top: 1rem;
+  padding-bottom: 2rem;
+}
+
+
+.downlevel .d-appendix {
+  padding-left: 0;
+  padding-right: 0;
+  max-width: none;
+  font-size: 0.8em;
+  line-height: 1.7em;
+  margin-bottom: 0;
+  color: rgba(0,0,0,0.5);
+  padding-top: 40px;
+  padding-bottom: 48px;
+}
+
+.downlevel .footnotes ol {
+  padding-left: 13px;
+}
+
+.downlevel .base-grid,
+.downlevel .distill-header,
+.downlevel .d-title,
+.downlevel .d-abstract,
+.downlevel .d-article,
+.downlevel .d-appendix,
+.downlevel .distill-appendix,
+.downlevel .d-byline,
+.downlevel .d-footnote-list,
+.downlevel .d-citation-list,
+.downlevel .distill-footer,
+.downlevel .appendix-bottom,
+.downlevel .posts-container {
+  padding-left: 40px;
+  padding-right: 40px;
+}
+
+@media(min-width: 768px) {
+  .downlevel .base-grid,
+  .downlevel .distill-header,
+  .downlevel .d-title,
+  .downlevel .d-abstract,
+  .downlevel .d-article,
+  .downlevel .d-appendix,
+  .downlevel .distill-appendix,
+  .downlevel .d-byline,
+  .downlevel .d-footnote-list,
+  .downlevel .d-citation-list,
+  .downlevel .distill-footer,
+  .downlevel .appendix-bottom,
+  .downlevel .posts-container {
+  padding-left: 150px;
+  padding-right: 150px;
+  max-width: 900px;
+}
+}
+
+.downlevel pre code {
+  display: block;
+  border-left: 2px solid rgba(0, 0, 0, .1);
+  padding: 0 0 0 20px;
+  font-size: 14px;
+}
+
+.downlevel code, .downlevel pre {
+  color: black;
+  background: none;
+  font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+  text-align: left;
+  white-space: pre;
+  word-spacing: normal;
+  word-break: normal;
+  word-wrap: normal;
+  line-height: 1.5;
+
+  -moz-tab-size: 4;
+  -o-tab-size: 4;
+  tab-size: 4;
+
+  -webkit-hyphens: none;
+  -moz-hyphens: none;
+  -ms-hyphens: none;
+  hyphens: none;
+}
+
+.downlevel .posts-list .post-preview {
+  color: inherit;
+}
+
+
+
+</style>
+
+<script type="application/javascript">
+
+function is_downlevel_browser() {
+  if (bowser.isUnsupportedBrowser({ msie: "12", msedge: "16"},
+                                 window.navigator.userAgent)) {
+    return true;
+  } else {
+    return window.load_distill_framework === undefined;
+  }
+}
+
+// show body when load is complete
+function on_load_complete() {
+
+  // add anchors
+  if (window.anchors) {
+    window.anchors.options.placement = 'left';
+    window.anchors.add('d-article > h2, d-article > h3, d-article > h4, d-article > h5');
+  }
+
+
+  // set body to visible
+  document.body.style.visibility = 'visible';
+
+  // force redraw for leaflet widgets
+  if (window.HTMLWidgets) {
+    var maps = window.HTMLWidgets.findAll(".leaflet");
+    $.each(maps, function(i, el) {
+      var map = this.getMap();
+      map.invalidateSize();
+      map.eachLayer(function(layer) {
+        if (layer instanceof L.TileLayer)
+          layer.redraw();
+      });
+    });
+  }
+
+  // trigger 'shown' so htmlwidgets resize
+  $('d-article').trigger('shown');
+}
+
+function init_distill() {
+
+  init_common();
+
+  // create front matter
+  var front_matter = $('<d-front-matter></d-front-matter>');
+  $('#distill-front-matter').wrap(front_matter);
+
+  // create d-title
+  $('.d-title').changeElementType('d-title');
+
+  // create d-byline
+  var byline = $('<d-byline></d-byline>');
+  $('.d-byline').replaceWith(byline);
+
+  // create d-article
+  var article = $('<d-article></d-article>');
+  $('.d-article').wrap(article).children().unwrap();
+
+  // move posts container into article
+  $('.posts-container').appendTo($('d-article'));
+
+  // create d-appendix
+  $('.d-appendix').changeElementType('d-appendix');
+
+  // flag indicating that we have appendix items
+  var appendix = $('.appendix-bottom').children('h3').length > 0;
+
+  // replace footnotes with <d-footnote>
+  $('.footnote-ref').each(function(i, val) {
+    appendix = true;
+    var href = $(this).attr('href');
+    var id = href.replace('#', '');
+    var fn = $('#' + id);
+    var fn_p = $('#' + id + '>p');
+    fn_p.find('.footnote-back').remove();
+    var text = fn_p.html();
+    var dtfn = $('<d-footnote></d-footnote>');
+    dtfn.html(text);
+    $(this).replaceWith(dtfn);
+  });
+  // remove footnotes
+  $('.footnotes').remove();
+
+  // move refs into #references-listing
+  $('#references-listing').replaceWith($('#refs'));
+
+  $('h1.appendix, h2.appendix').each(function(i, val) {
+    $(this).changeElementType('h3');
+  });
+  $('h3.appendix').each(function(i, val) {
+    var id = $(this).attr('id');
+    $('.d-contents a[href="#' + id + '"]').parent().remove();
+    appendix = true;
+    $(this).nextUntil($('h1, h2, h3')).addBack().appendTo($('d-appendix'));
+  });
+
+  // show d-appendix if we have appendix content
+  $("d-appendix").css('display', appendix ? 'grid' : 'none');
+
+  // localize layout chunks to just output
+  $('.layout-chunk').each(function(i, val) {
+
+    // capture layout
+    var layout = $(this).attr('data-layout');
+
+    // apply layout to markdown level block elements
+    var elements = $(this).children().not('details, div.sourceCode, pre, script');
+    elements.each(function(i, el) {
+      var layout_div = $('<div class="' + layout + '"></div>');
+      if (layout_div.hasClass('shaded')) {
+        var shaded_content = $('<div class="shaded-content"></div>');
+        $(this).wrap(shaded_content);
+        $(this).parent().wrap(layout_div);
+      } else {
+        $(this).wrap(layout_div);
+      }
+    });
+
+
+    // unwrap the layout-chunk div
+    $(this).children().unwrap();
+  });
+
+  // remove code block used to force  highlighting css
+  $('.distill-force-highlighting-css').parent().remove();
+
+  // remove empty line numbers inserted by pandoc when using a
+  // custom syntax highlighting theme
+  $('code.sourceCode a:empty').remove();
+
+  // load distill framework
+  load_distill_framework();
+
+  // wait for window.distillRunlevel == 4 to do post processing
+  function distill_post_process() {
+
+    if (!window.distillRunlevel || window.distillRunlevel < 4)
+      return;
+
+    // hide author/affiliations entirely if we have no authors
+    var front_matter = JSON.parse($("#distill-front-matter").html());
+    var have_authors = front_matter.authors && front_matter.authors.length > 0;
+    if (!have_authors)
+      $('d-byline').addClass('hidden');
+
+    // article with toc class
+    $('.d-contents').parent().addClass('d-article-with-toc');
+
+    // strip links that point to #
+    $('.authors-affiliations').find('a[href="#"]').removeAttr('href');
+
+    // add orcid ids
+    $('.authors-affiliations').find('.author').each(function(i, el) {
+      var orcid_id = front_matter.authors[i].orcidID;
+      if (orcid_id) {
+        var a = $('<a></a>');
+        a.attr('href', 'https://orcid.org/' + orcid_id);
+        var img = $('<img></img>');
+        img.addClass('orcid-id');
+        img.attr('alt', 'ORCID ID');
+        img.attr('src','data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA2ZpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDo1N0NEMjA4MDI1MjA2ODExOTk0QzkzNTEzRjZEQTg1NyIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDozM0NDOEJGNEZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDozM0NDOEJGM0ZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ1M1IE1hY2ludG9zaCI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOkZDN0YxMTc0MDcyMDY4MTE5NUZFRDc5MUM2MUUwNEREIiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjU3Q0QyMDgwMjUyMDY4MTE5OTRDOTM1MTNGNkRBODU3Ii8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+84NovQAAAR1JREFUeNpiZEADy85ZJgCpeCB2QJM6AMQLo4yOL0AWZETSqACk1gOxAQN+cAGIA4EGPQBxmJA0nwdpjjQ8xqArmczw5tMHXAaALDgP1QMxAGqzAAPxQACqh4ER6uf5MBlkm0X4EGayMfMw/Pr7Bd2gRBZogMFBrv01hisv5jLsv9nLAPIOMnjy8RDDyYctyAbFM2EJbRQw+aAWw/LzVgx7b+cwCHKqMhjJFCBLOzAR6+lXX84xnHjYyqAo5IUizkRCwIENQQckGSDGY4TVgAPEaraQr2a4/24bSuoExcJCfAEJihXkWDj3ZAKy9EJGaEo8T0QSxkjSwORsCAuDQCD+QILmD1A9kECEZgxDaEZhICIzGcIyEyOl2RkgwAAhkmC+eAm0TAAAAABJRU5ErkJggg==');
+        a.append(img);
+        $(this).append(a);
+      }
+    });
+
+    // hide elements of author/affiliations grid that have no value
+    function hide_byline_column(caption) {
+      $('d-byline').find('h3:contains("' + caption + '")').parent().css('visibility', 'hidden');
+    }
+
+    // affiliations
+    var have_affiliations = false;
+    for (var i = 0; i<front_matter.authors.length; ++i) {
+      var author = front_matter.authors[i];
+      if (author.affiliation !== "&nbsp;") {
+        have_affiliations = true;
+        break;
+      }
+    }
+    if (!have_affiliations)
+      $('d-byline').find('h3:contains("Affiliations")').css('visibility', 'hidden');
+
+    // published date
+    if (!front_matter.publishedDate)
+      hide_byline_column("Published");
+
+    // document object identifier
+    var doi = $('d-byline').find('h3:contains("DOI")');
+    var doi_p = doi.next().empty();
+    if (!front_matter.doi) {
+      // if we have a citation and valid citationText then link to that
+      if ($('#citation').length > 0 && front_matter.citationText) {
+        doi.html('Citation');
+        $('<a href="#citation"></a>')
+          .text(front_matter.citationText)
+          .appendTo(doi_p);
+      } else {
+        hide_byline_column("DOI");
+      }
+    } else {
+      $('<a></a>')
+         .attr('href', "https://doi.org/" + front_matter.doi)
+         .html(front_matter.doi)
+         .appendTo(doi_p);
+    }
+
+     // change plural form of authors/affiliations
+    if (front_matter.authors.length === 1) {
+      var grid = $('.authors-affiliations');
+      grid.children('h3:contains("Authors")').text('Author');
+      grid.children('h3:contains("Affiliations")').text('Affiliation');
+    }
+
+    // remove d-appendix and d-footnote-list local styles
+    $('d-appendix > style:first-child').remove();
+    $('d-footnote-list > style:first-child').remove();
+
+    // move appendix-bottom entries to the bottom
+    $('.appendix-bottom').appendTo('d-appendix').children().unwrap();
+    $('.appendix-bottom').remove();
+
+    // hoverable references
+    $('span.citation[data-cites]').each(function() {
+      if ($(this).children()[0].nodeName == "D-FOOTNOTE") {
+        var fn = $(this).children()[0]
+        $(this).html(fn.shadowRoot.querySelector("sup"))
+        $(this).id = fn.id
+        fn.remove()
+      }
+      var refs = $(this).attr('data-cites').split(" ");
+      var refHtml = refs.map(function(ref) {
+        return "<p>" + $('#ref-' + ref).html() + "</p>";
+      }).join("\n");
+      window.tippy(this, {
+        allowHTML: true,
+        content: refHtml,
+        maxWidth: 500,
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'light-border',
+        placement: 'bottom-start'
+      });
+    });
+
+    // fix footnotes in tables (#411)
+    // replacing broken distill.pub feature
+    $('table d-footnote').each(function() {
+      // we replace internal showAtNode methode which is triggered when hovering a footnote
+      this.hoverBox.showAtNode = function(node) {
+        // ported from https://github.com/distillpub/template/pull/105/files
+        calcOffset = function(elem) {
+            let x = elem.offsetLeft;
+            let y = elem.offsetTop;
+            // Traverse upwards until an `absolute` element is found or `elem`
+            // becomes null.
+            while (elem = elem.offsetParent && elem.style.position != 'absolute') {
+                x += elem.offsetLeft;
+                y += elem.offsetTop;
+            }
+
+            return { left: x, top: y };
+        }
+        // https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/offsetTop
+        const bbox = node.getBoundingClientRect();
+        const offset = calcOffset(node);
+        this.show([offset.left + bbox.width, offset.top + bbox.height]);
+      }
+    })
+
+    // clear polling timer
+    clearInterval(tid);
+
+    // show body now that everything is ready
+    on_load_complete();
+  }
+
+  var tid = setInterval(distill_post_process, 50);
+  distill_post_process();
+
+}
+
+function init_downlevel() {
+
+  init_common();
+
+   // insert hr after d-title
+  $('.d-title').after($('<hr class="section-separator"/>'));
+
+  // check if we have authors
+  var front_matter = JSON.parse($("#distill-front-matter").html());
+  var have_authors = front_matter.authors && front_matter.authors.length > 0;
+
+  // manage byline/border
+  if (!have_authors)
+    $('.d-byline').remove();
+  $('.d-byline').after($('<hr class="section-separator"/>'));
+  $('.d-byline a').remove();
+
+  // remove toc
+  $('.d-contents').remove();
+
+  // move appendix elements
+  $('h1.appendix, h2.appendix').each(function(i, val) {
+    $(this).changeElementType('h3');
+  });
+  $('h3.appendix').each(function(i, val) {
+    $(this).nextUntil($('h1, h2, h3')).addBack().appendTo($('.d-appendix'));
+  });
+
+
+  // inject headers into references and footnotes
+  var refs_header = $('<h3></h3>');
+  refs_header.text('References');
+  $('#refs').prepend(refs_header);
+
+  var footnotes_header = $('<h3></h3');
+  footnotes_header.text('Footnotes');
+  $('.footnotes').children('hr').first().replaceWith(footnotes_header);
+
+  // move appendix-bottom entries to the bottom
+  $('.appendix-bottom').appendTo('.d-appendix').children().unwrap();
+  $('.appendix-bottom').remove();
+
+  // remove appendix if it's empty
+  if ($('.d-appendix').children().length === 0)
+    $('.d-appendix').remove();
+
+  // prepend separator above appendix
+  $('.d-appendix').before($('<hr class="section-separator" style="clear: both"/>'));
+
+  // trim code
+  $('pre>code').each(function(i, val) {
+    $(this).html($.trim($(this).html()));
+  });
+
+  // move posts-container right before article
+  $('.posts-container').insertBefore($('.d-article'));
+
+  $('body').addClass('downlevel');
+
+  on_load_complete();
+}
+
+
+function init_common() {
+
+  // jquery plugin to change element types
+  (function($) {
+    $.fn.changeElementType = function(newType) {
+      var attrs = {};
+
+      $.each(this[0].attributes, function(idx, attr) {
+        attrs[attr.nodeName] = attr.nodeValue;
+      });
+
+      this.replaceWith(function() {
+        return $("<" + newType + "/>", attrs).append($(this).contents());
+      });
+    };
+  })(jQuery);
+
+  // prevent underline for linked images
+  $('a > img').parent().css({'border-bottom' : 'none'});
+
+  // mark non-body figures created by knitr chunks as 100% width
+  $('.layout-chunk').each(function(i, val) {
+    var figures = $(this).find('img, .html-widget');
+    // ignore leaflet img layers (#106)
+    figures = figures.filter(':not(img[class*="leaflet"])')
+    if ($(this).attr('data-layout') !== "l-body") {
+      figures.css('width', '100%');
+    } else {
+      figures.css('max-width', '100%');
+      figures.filter("[width]").each(function(i, val) {
+        var fig = $(this);
+        fig.css('width', fig.attr('width') + 'px');
+      });
+
+    }
+  });
+
+  // auto-append index.html to post-preview links in file: protocol
+  // and in rstudio ide preview
+  $('.post-preview').each(function(i, val) {
+    if (window.location.protocol === "file:")
+      $(this).attr('href', $(this).attr('href') + "index.html");
+  });
+
+  // get rid of index.html references in header
+  if (window.location.protocol !== "file:") {
+    $('.distill-site-header a[href]').each(function(i,val) {
+      $(this).attr('href', $(this).attr('href').replace(/^index[.]html/, "./"));
+    });
+  }
+
+  // add class to pandoc style tables
+  $('tr.header').parent('thead').parent('table').addClass('pandoc-table');
+  $('.kable-table').children('table').addClass('pandoc-table');
+
+  // add figcaption style to table captions
+  $('caption').parent('table').addClass("figcaption");
+
+  // initialize posts list
+  if (window.init_posts_list)
+    window.init_posts_list();
+
+  // implmement disqus comment link
+  $('.disqus-comment-count').click(function() {
+    window.headroom_prevent_pin = true;
+    $('#disqus_thread').toggleClass('hidden');
+    if (!$('#disqus_thread').hasClass('hidden')) {
+      var offset = $(this).offset();
+      $(window).resize();
+      $('html, body').animate({
+        scrollTop: offset.top - 35
+      });
+    }
+  });
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+  if (is_downlevel_browser())
+    init_downlevel();
+  else
+    window.addEventListener('WebComponentsReady', init_distill);
+});
+
+</script>
+
+<style type="text/css">
+/* base variables */
+
+/* Edit the CSS properties in this file to create a custom
+   Distill theme. Only edit values in the right column
+   for each row; values shown are the CSS defaults.
+   To return any property to the default,
+   you may set its value to: unset
+   All rows must end with a semi-colon.                      */
+
+/* Optional: embed custom fonts here with `@import`          */
+/* This must remain at the top of this file.                 */
+
+
+
+html {
+  /*-- Main font sizes --*/
+  --title-size:      50px;
+  --body-size:       1.06rem;
+  --code-size:       14px;
+  --aside-size:      12px;
+  --fig-cap-size:    13px;
+  /*-- Main font colors --*/
+  --title-color:     #000000;
+  --header-color:    rgba(0, 0, 0, 0.8);
+  --body-color:      rgba(0, 0, 0, 0.8);
+  --aside-color:     rgba(0, 0, 0, 0.6);
+  --fig-cap-color:   rgba(0, 0, 0, 0.6);
+  /*-- Specify custom fonts ~~~ must be imported above   --*/
+  --heading-font:    sans-serif;
+  --mono-font:       monospace;
+  --body-font:       sans-serif;
+  --navbar-font:     sans-serif;  /* websites + blogs only */
+}
+
+/*-- ARTICLE METADATA --*/
+d-byline {
+  --heading-size:    0.6rem;
+  --heading-color:   rgba(0, 0, 0, 0.5);
+  --body-size:       0.8rem;
+  --body-color:      rgba(0, 0, 0, 0.8);
+}
+
+/*-- ARTICLE TABLE OF CONTENTS --*/
+.d-contents {
+  --heading-size:    18px;
+  --contents-size:   13px;
+}
+
+/*-- ARTICLE APPENDIX --*/
+d-appendix {
+  --heading-size:    15px;
+  --heading-color:   rgba(0, 0, 0, 0.65);
+  --text-size:       0.8em;
+  --text-color:      rgba(0, 0, 0, 0.5);
+}
+
+/*-- WEBSITE HEADER + FOOTER --*/
+/* These properties only apply to Distill sites and blogs  */
+
+.distill-site-header {
+  --title-size:       18px;
+  --text-color:       rgba(255, 255, 255, 0.8);
+  --text-size:        15px;
+  --hover-color:      white;
+  --bkgd-color:       #0F2E3D;
+}
+
+.distill-site-footer {
+  --text-color:       rgba(255, 255, 255, 0.8);
+  --text-size:        15px;
+  --hover-color:      white;
+  --bkgd-color:       #0F2E3D;
+}
+
+/*-- Additional custom styles --*/
+/* Add any additional CSS rules below                      */
+</style>
+<style type="text/css">
+/* base variables */
+
+/* Edit the CSS properties in this file to create a custom
+   Distill theme. Only edit values in the right column
+   for each row; values shown are the CSS defaults.
+   To return any property to the default,
+   you may set its value to: unset
+   All rows must end with a semi-colon.                      */
+
+/* Optional: embed custom fonts here with `@import`          */
+/* This must remain at the top of this file.                 */
+
+@import url('https://assets.ipums.org/_css/font-faces.css');
+
+html {
+  /*-- Main font sizes --*/
+  --title-size:      50px;
+  --body-size:       1.06rem;
+  --code-size:       14px;
+  --aside-size:      12px;
+  --fig-cap-size:    13px;
+  /*-- Main font colors --*/
+  --title-color:     #00263A;
+  --header-color:    #00263A;
+  --body-color:      #00263A;
+  --aside-color:     rgba(0, 0, 0, 0.6);
+  --fig-cap-color:   rgba(0, 0, 0, 0.6);
+  /*-- Specify custom fonts ~~~ must be imported above   --*/
+  --heading-font:    cabrito_sans_norm_regular;
+  --mono-font:       Menlo, Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+  --body-font:       cabrito_sans_norm_regular;
+  --navbar-font:     cabrito_sans_norm_regular;  /* websites + blogs only */
+}
+
+/*-- ARTICLE METADATA --*/
+d-byline {
+  --heading-size:    0.6rem;
+  --heading-color:   rgba(0, 0, 0, 0.5);
+  --body-size:       0.8rem;
+  --body-color:      rgba(0, 0, 0, 0.8);
+}
+
+/*-- ARTICLE TABLE OF CONTENTS --*/
+.d-contents {
+  --heading-size:    18px;
+  --contents-size:   13px;
+}
+
+/*-- ARTICLE APPENDIX --*/
+d-appendix {
+  --heading-size:    15px;
+  --heading-color:   rgba(0, 0, 0, 0.65);
+  --text-size:       0.8em;
+  --text-color:      rgba(0, 0, 0, 0.5);
+}
+
+/*-- WEBSITE HEADER + FOOTER --*/
+/* These properties only apply to Distill sites and blogs  */
+
+.distill-site-header {
+  --title-size:       18px;
+  --text-color:       rgba(255, 255, 255, 0.8);
+  --text-size:        15px;
+  --hover-color:      white;
+  --bkgd-color:       #00263A;
+}
+
+.distill-site-footer {
+  --text-color:       rgba(255, 255, 255, 0.8);
+  --text-size:        15px;
+  --hover-color:      white;
+  --bkgd-color:       #00263A;
+}
+
+/*-- Additional custom styles --*/
+/* Add any additional CSS rules below                      */
+
+h1{
+  font-family: 'cabrito_sans_norm_regular';
+  text-transform: uppercase;
+  color: #00263A;
+}
+
+d-title h1{
+  font-weight: 500;
+}
+
+d-article h1{
+  font-size: 36px;
+  line-height: 1.1em;
+  font-weight: 100;
+}
+
+d-article h2{
+    font-size: 30px;
+    font-family: "cabrito_sans_cond_demi";
+    text-transform: uppercase;
+    color: #00263A;
+    font-weight: 100;
+}
+
+d-article h3{
+  font-size: 26px;
+  font-family: 'cabrito_sans_cond_demi';
+  color: #00263A;
+  margin-top: 1.5rem;
+  margin-bottom: 1em;
+  font-weight: 100;
+}
+
+d-article h4{
+  font-size: 24px;
+  font-family: 'cabrito_sans_norm_regular';
+  color: #00263A;
+  text-transform: unset;
+  margin-top: 1.5rem;
+  margin-bottom: 1em;
+  font-weight: 100;
+}
+
+d-article h5{
+  font-size: 24px;
+  font-family: 'cabrito_sans_cond_demi';
+  color: #00263A;
+  margin-top: 1.5rem;
+  margin-bottom: 1em;
+  font-weight: 100;
+}
+
+d-article li {
+    margin-bottom: 0;
+    margin-left: 1rem;
+    padding-left: 0;
+    color: #00263A;
+}
+
+d-article table {
+    color: #00263A;
+}
+.d-contents nav > ul > li > a {
+    font-weight: 100;
+}
+
+body{
+  font-family: 'cabrito_subset';
+}
+
+b, strong {
+  font-family: "cabrito_sans_cond_demi";
+  font-weight: 100;
+}
+
+p>a {
+    color: #98579B
+}
+
+li>a {
+    color: #98579B;
+}
+
+.btn {
+    font-family: "cabrito_subset";
+    font-size: 16px;
+    background-color: #F0E6F0;
+    margin-bottom: 20px;
+    border-width: 1px;
+    padding-top: 6px;
+    padding-bottom: 6px;
+    cursor: pointer;
+}
+
+.distill-site-header .title {
+    text-transform: uppercase;
+    line-height: 38px;
+    vertical-align: middle;
+}
+
+.distill-site-header .logo img{
+  max-height: 50px; /* Makes logo bigger, default was 20px */
+  vertical-align: middle;
+  margin-bottom: 0;
+}
+
+.distill-site-header .nav-right {
+    float: right;
+    line-height: 38px;
+    vertical-align: middle;
+}
+
+.distill-site-header .nav-left {
+    display: inline-block;
+    line-height: 38px;
+    vertical-align: middle;
+}
+
+.algolia-autocomplete {
+  line-height: 25px;
+}
+
+d-article iframe {
+    border: 0;
+    margin-bottom: 0;
+    width: 100%;
+}
+
+d-article aside a {
+  color: #98579B;
+}
+
+@media(max-width: 767px){
+  aside{
+    width: 50%;
+    position: relative;
+    left: 25%;
+    padding-bottom: 20px;
+  }
+}
+
+code {
+  font-family: Menlo, Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+}</style>
+<style type="text/css">
+/* base style */
+
+/* FONT FAMILIES */
+
+:root {
+  --heading-default: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", Arial, sans-serif;
+  --mono-default: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+  --body-default: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", Arial, sans-serif;
+}
+
+body,
+.posts-list .post-preview p,
+.posts-list .description p {
+  font-family: var(--body-font), var(--body-default);
+}
+
+h1, h2, h3, h4, h5, h6,
+.posts-list .post-preview h2,
+.posts-list .description h2 {
+  font-family: var(--heading-font), var(--heading-default);
+}
+
+d-article div.sourceCode code,
+d-article pre code {
+  font-family: var(--mono-font), var(--mono-default);
+}
+
+
+/*-- TITLE --*/
+d-title h1,
+.posts-list > h1 {
+  color: var(--title-color, black);
+}
+
+d-title h1 {
+  font-size: var(--title-size, 50px);
+}
+
+/*-- HEADERS --*/
+d-article h1,
+d-article h2,
+d-article h3,
+d-article h4,
+d-article h5,
+d-article h6 {
+  color: var(--header-color, rgba(0, 0, 0, 0.8));
+}
+
+/*-- BODY --*/
+d-article > p,  /* only text inside of <p> tags */
+d-article > ul, /* lists */
+d-article > ol {
+  color: var(--body-color, rgba(0, 0, 0, 0.8));
+  font-size: var(--body-size, 1.06rem);
+}
+
+
+/*-- CODE --*/
+d-article div.sourceCode code,
+d-article pre code {
+  font-size: var(--code-size, 14px);
+}
+
+/*-- ASIDE --*/
+d-article aside {
+  font-size: var(--aside-size, 12px);
+  color: var(--aside-color, rgba(0, 0, 0, 0.6));
+}
+
+/*-- FIGURE CAPTIONS --*/
+figure .caption,
+figure figcaption,
+.figure .caption {
+  font-size: var(--fig-cap-size, 13px);
+  color: var(--fig-cap-color, rgba(0, 0, 0, 0.6));
+}
+
+/*-- METADATA --*/
+d-byline h3 {
+  font-size: var(--heading-size, 0.6rem);
+  color: var(--heading-color, rgba(0, 0, 0, 0.5));
+}
+
+d-byline {
+  font-size: var(--body-size, 0.8rem);
+  color: var(--body-color, rgba(0, 0, 0, 0.8));
+}
+
+d-byline a,
+d-article d-byline a {
+  color: var(--body-color, rgba(0, 0, 0, 0.8));
+}
+
+/*-- TABLE OF CONTENTS --*/
+.d-contents nav h3 {
+  font-size: var(--heading-size, 18px);
+}
+
+.d-contents nav a {
+  font-size: var(--contents-size, 13px);
+}
+
+/*-- APPENDIX --*/
+d-appendix h3 {
+  font-size: var(--heading-size, 15px);
+  color: var(--heading-color, rgba(0, 0, 0, 0.65));
+}
+
+d-appendix {
+  font-size: var(--text-size, 0.8em);
+  color: var(--text-color, rgba(0, 0, 0, 0.5));
+}
+
+d-appendix d-footnote-list a.footnote-backlink {
+  color: var(--text-color, rgba(0, 0, 0, 0.5));
+}
+
+/*-- WEBSITE HEADER + FOOTER --*/
+.distill-site-header .title {
+  font-size: var(--title-size, 18px);
+  font-family: var(--navbar-font), var(--heading-default);
+}
+
+.distill-site-header a,
+.nav-dropdown .nav-dropbtn {
+  font-family: var(--navbar-font), var(--heading-default);
+}
+
+.nav-dropdown .nav-dropbtn {
+  color: var(--text-color, rgba(255, 255, 255, 0.8));
+  font-size: var(--text-size, 15px);
+}
+
+.distill-site-header a:hover,
+.nav-dropdown:hover .nav-dropbtn {
+  color: var(--hover-color, white);
+}
+
+.distill-site-header {
+  font-size: var(--text-size, 15px);
+  color: var(--text-color, rgba(255, 255, 255, 0.8));
+  background-color: var(--bkgd-color, #0F2E3D);
+}
+
+.distill-site-footer {
+  font-size: var(--text-size, 15px);
+  color: var(--text-color, rgba(255, 255, 255, 0.8));
+  background-color: var(--bkgd-color, #0F2E3D);
+}
+
+.distill-site-footer a:hover {
+  color: var(--hover-color, white);
+}</style>
+<!--/radix_placeholder_distill-->
+  <script src="../../site_libs/header-attrs-2.14/header-attrs.js"></script>
+  <script src="../../site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+  <script src="../../site_libs/popper-2.6.0/popper.min.js"></script>
+  <link href="../../site_libs/tippy-6.2.7/tippy.css" rel="stylesheet" />
+  <link href="../../site_libs/tippy-6.2.7/tippy-light-border.css" rel="stylesheet" />
+  <script src="../../site_libs/tippy-6.2.7/tippy.umd.min.js"></script>
+  <script src="../../site_libs/anchor-4.2.2/anchor.min.js"></script>
+  <script src="../../site_libs/bowser-1.9.3/bowser.min.js"></script>
+  <script src="../../site_libs/webcomponents-2.0.0/webcomponents.js"></script>
+  <script src="../../site_libs/distill-2.2.21/template.v2.js"></script>
+  <!--radix_placeholder_site_in_header-->
+<script type="text/javascript" cookie-consent="tracking" async src="https://www.googletagmanager.com/gtag/js?id=UA-191039907-2"></script>
+<script type="text/javascript" cookie-consent="tracking">
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'UA-191039907-2');
+</script>
+<!--/radix_placeholder_site_in_header-->
+
+
+</head>
+
+<body>
+
+<!--radix_placeholder_front_matter-->
+
+<script id="distill-front-matter" type="text/json">
+{"title":"Arranging maps in a grid","description":"Tools for creating spatial visualizations that compare change over time or differences between PMA countries.","authors":[{"author":"Matt Gunther","authorURL":"#","affiliation":"IPUMS PMA Senior Data Analyst","affiliationURL":"#","orcidID":""}],"publishedDate":"2022-07-18T00:00:00.000-05:00","citationText":"Gunther, 2022"}
+</script>
+
+<!--/radix_placeholder_front_matter-->
+<!--radix_placeholder_navigation_before_body-->
+<header class="header header--fixed" role="banner">
+<nav class="distill-site-nav distill-site-header">
+<div class="nav-left">
+<a class="logo" href="https://pma.ipums.org/pma/">
+<img src="../../images/logo-white.png" alt="Logo"/>
+</a>
+<a href="../../index.html" class="title">Data Analysis Hub</a>
+<input id="distill-search" class="nav-search hidden" type="text" placeholder="Search..."/>
+</div>
+<div class="nav-right">
+<a href="../../index.html">Posts</a>
+<div class="nav-dropdown">
+<button class="nav-dropbtn">
+Courses
+ 
+<span class="down-arrow">&#x25BE;</span>
+</button>
+<div class="nav-dropdown-content">
+<a href="../../introduction.html">Introduction to IPUMS PMA Data Analysis</a>
+</div>
+</div>
+<div class="nav-dropdown">
+<button class="nav-dropbtn">
+R Tips
+ 
+<span class="down-arrow">&#x25BE;</span>
+</button>
+<div class="nav-dropdown-content">
+<a href="../../posts/2020-12-10-get-ipums-pma-data/index.html">Import IPUMS PMA Data into R</a>
+<a href="../../posts/2020-12-10-get-r-and-packages/index.html">R, RStudio, and R Packages</a>
+<a href="../../posts/2021-11-15-find-an-example/index.html">Find an Example</a>
+</div>
+</div>
+<div class="nav-dropdown">
+<button class="nav-dropbtn">
+Community
+ 
+<span class="down-arrow">&#x25BE;</span>
+</button>
+<div class="nav-dropdown-content">
+<a href="../../CONTRIBUTING.html">Contributing guide</a>
+<a href="../../CODE_OF_CONDUCT.html">Code of conduct</a>
+<a href="../../LICENSE.html">License</a>
+<a href="https://github.com/ipums/pma-data-hub/">GitHub</a>
+</div>
+</div>
+<a href="../../about.html">About</a>
+<a href="../../index.xml">
+<i class="fa fa-rss" aria-hidden="true"></i>
+</a>
+<a href="https://twitter.com/ipumsGH">
+<i class="fab fa-twitter" aria-hidden="true"></i>
+</a>
+<a href="https://github.com/ipums/pma-data-hub" aria-label="Link to source">
+<i class="fab fa-github" aria-hidden="true"></i>
+</a>
+<a href="javascript:void(0);" class="nav-toggle">&#9776;</a>
+</div>
+</nav>
+</header>
+<!--/radix_placeholder_navigation_before_body-->
+<!--radix_placeholder_site_before_body-->
+<!--/radix_placeholder_site_before_body-->
+
+<div class="d-title">
+<h1>Arranging maps in a grid</h1>
+<!--radix_placeholder_categories-->
+<div class="dt-tags">
+  <a href="../../index.html#category:Data_Analysis" class="dt-tag">Data Analysis</a>
+  <a href="../../index.html#category:Data_Visualization" class="dt-tag">Data Visualization</a>
+  <a href="../../index.html#category:Spatial" class="dt-tag">Spatial</a>
+  <a href="../../index.html#category:Mapping" class="dt-tag">Mapping</a>
+  <a href="../../index.html#category:ggplot2" class="dt-tag">ggplot2</a>
+  <a href="../../index.html#category:cowplot" class="dt-tag">cowplot</a>
+  <a href="../../index.html#category:purrr" class="dt-tag">purrr</a>
+</div>
+<!--/radix_placeholder_categories-->
+<p><p>Tools for creating spatial visualizations that compare change over
+time or differences between PMA countries.</p></p>
+</div>
+
+<div class="d-byline">
+  Matt Gunther  (IPUMS PMA Senior Data Analyst)
+  
+<br/>2022-07-18
+</div>
+
+<div class="d-article">
+<div class="d-contents d-contents-float">
+<nav class="l-text toc figcaption" id="TOC">
+<h3>Contents</h3>
+<ul>
+<li><a href="#facets-one-country-over-time">Facets: one country over
+time</a></li>
+<li><a href="#cowplot-combining-countries">Cowplot: combining
+countries</a></li>
+</ul>
+</nav>
+</div>
+<div class="layout-chunk" data-layout="l-body">
+
+</div>
+<p>Because the <a href="https://pma.ipums.org/pma/">IPUMS PMA data
+website</a> allows users to combine samples from multiple countries and
+multiple years together in a single download, tools like <a
+href="https://ggplot2.tidyverse.org/reference/facet_wrap.html">facet_wrap</a>
+and <a
+href="https://ggplot2.tidyverse.org/reference/facet_grid.html">facet_grid</a>
+are an indispensable part of our data visualization toolkit. As we’ve
+shown elsewhere on this blog, <strong>facets</strong> are a simple way
+to create plots for multiple samples displayed as an array of
+panels.</p>
+<p>For instance, in <a href="../2022-04-15-phase2-indicators/">this
+recent post</a>, we used faceted bar charts to show change in
+contraceptive use status for women in six samples arranged over 18
+panels.</p>
+<div class="layout-chunk" data-layout="l-body">
+<p><img src="images/bars.png" width="1091" /></p>
+</div>
+<p>In this post, we’ll practice building <a
+href="https://r-graph-gallery.com/327-chloropleth-map-from-geojson-with-ggplot2.html">choropleth
+maps</a> showing modern contraceptive prevalence<a href="#fn1"
+class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> for
+major (admin 1) regions in several PMA samples. As with the bar charts
+shown above, we’ll use <strong>facets</strong> to arrange data for each
+sample together in an array of panels; however, we’ll see that <a
+href="https://ggplot2.tidyverse.org/reference/facet_wrap.html">facet_wrap</a>
+and <a
+href="https://ggplot2.tidyverse.org/reference/facet_grid.html">facet_grid</a>
+may not always be the best option for maps. Instead, we’ll introduce a
+new package, <a href="https://wilkelab.org/cowplot/">cowplot</a>,
+designed to bring additional flexibility to the alignment and
+arrangement of panels built with <a
+href="https://ggplot2.tidyverse.org">ggplot2</a>.</p>
+<p>We’ve created a summary table <code>modern_tbl</code> for this post
+with variables from the <a
+href="https://pma.ipums.org/pma-action/variables/group?id=fem_fpuc">current
+or recent family planning use</a> variable group, where the column
+<code>PCT</code> gives the estimated modern method prevalence within the
+population of women aged 15-49 in each region <code>GEO</code> in each
+sample year <code>YEAR</code> for each of three countries - Burkina
+Faso, Ethiopia, and Uganda - listed in <code>COUNTRY</code> We’ve also
+attached GPS coordinate vectors representing the boundary of each region
+in the <code>geometry</code> column - these come from a shapefile
+downloaded from <a
+href="https://pma.ipums.org/pma/gis_boundary_files.shtml">this page</a>
+on the IPUMS PMA data website. (If you’re interested, check out our data
+preparation steps by clicking the button below).</p>
+<div class="layout-chunk" data-layout="l-body">
+<details>
+<summary>
+Show data preparation steps
+</summary>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://tidyverse.tidyverse.org'>tidyverse</a></span><span class='op'>)</span>
+<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://www.ipums.org'>ipumsr</a></span><span class='op'>)</span>
+<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='http://gdfe.co/srvyr/'>srvyr</a></span><span class='op'>)</span>
+<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://r-spatial.github.io/sf/'>sf</a></span><span class='op'>)</span>
+<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://paleolimbot.github.io/ggspatial/'>ggspatial</a></span><span class='op'>)</span>
+
+<span class='co'># Load IPUMS PMA data extract into R</span>
+<span class='co'># This sample includes data from 3 countries, all available cross-sections</span>
+<span class='va'>dat</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/ipumsr/man/read_ipums_micro.html'>read_ipums_micro</a></span><span class='op'>(</span>
+  ddi <span class='op'>=</span> <span class='st'>"data/pma_00143.xml"</span>,
+  data <span class='op'>=</span> <span class='st'>"data/pma_00143.dat.gz"</span>
+<span class='op'>)</span>
+
+<span class='co'># `COUNTRY` as a factor (for readability)</span>
+<span class='va'>dat</span> <span class='op'>&lt;-</span> <span class='va'>dat</span> <span class='op'><a href='http://gdfe.co/srvyr/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='http://gdfe.co/srvyr/reference/dplyr_single.html'>mutate</a></span><span class='op'>(</span>COUNTRY <span class='op'>=</span> <span class='fu'><a href='https://forcats.tidyverse.org/reference/as_factor.html'>as_factor</a></span><span class='op'>(</span><span class='va'>COUNTRY</span><span class='op'>)</span><span class='op'>)</span>
+
+<span class='co'># Create unique `YEAR` labels where multiple rounds of data were drawn</span>
+<span class='va'>dat</span> <span class='op'>&lt;-</span> <span class='va'>dat</span> <span class='op'><a href='http://gdfe.co/srvyr/reference/pipe.html'>%&gt;%</a></span>
+  <span class='fu'><a href='http://gdfe.co/srvyr/reference/dplyr_single.html'>mutate</a></span><span class='op'>(</span>
+    YEAR <span class='op'>=</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/case_when.html'>case_when</a></span><span class='op'>(</span>
+      <span class='va'>COUNTRY</span> <span class='op'>==</span> <span class='st'>"Ethiopia"</span> <span class='op'>&amp;</span> <span class='va'>ROUND</span> <span class='op'>==</span> <span class='fl'>1</span> <span class='op'>~</span> <span class='st'>"2014a"</span>,
+      <span class='va'>COUNTRY</span> <span class='op'>==</span> <span class='st'>"Ethiopia"</span> <span class='op'>&amp;</span> <span class='va'>ROUND</span> <span class='op'>==</span> <span class='fl'>2</span> <span class='op'>~</span> <span class='st'>"2014b"</span>,
+      <span class='va'>COUNTRY</span> <span class='op'>==</span> <span class='st'>"Uganda"</span> <span class='op'>&amp;</span> <span class='va'>ROUND</span> <span class='op'>==</span> <span class='fl'>2</span> <span class='op'>~</span> <span class='st'>"2015a"</span>,
+      <span class='va'>COUNTRY</span> <span class='op'>==</span> <span class='st'>"Uganda"</span> <span class='op'>&amp;</span> <span class='va'>ROUND</span> <span class='op'>==</span> <span class='fl'>3</span> <span class='op'>~</span> <span class='st'>"2015b"</span>,
+      <span class='va'>COUNTRY</span> <span class='op'>==</span> <span class='st'>"Burkina Faso"</span> <span class='op'>&amp;</span> <span class='va'>ROUND</span> <span class='op'>==</span> <span class='fl'>3</span> <span class='op'>~</span> <span class='st'>"2016a"</span>,
+      <span class='va'>COUNTRY</span> <span class='op'>==</span> <span class='st'>"Burkina Faso"</span> <span class='op'>&amp;</span> <span class='va'>ROUND</span> <span class='op'>==</span> <span class='fl'>4</span> <span class='op'>~</span> <span class='st'>"2016b"</span>,
+      <span class='cn'>TRUE</span> <span class='op'>~</span> <span class='fu'><a href='https://rdrr.io/r/base/character.html'>as.character</a></span><span class='op'>(</span><span class='va'>YEAR</span><span class='op'>)</span>
+    <span class='op'>)</span>
+  <span class='op'>)</span>
+
+<span class='co'># Uganda has 15 regions in one sample, but just 10 in others </span>
+<span class='co'># Harmonize regions so that all samples have the same </span>
+<span class='va'>dat</span> <span class='op'>&lt;-</span> <span class='va'>dat</span> <span class='op'><a href='http://gdfe.co/srvyr/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='http://gdfe.co/srvyr/reference/dplyr_single.html'>mutate</a></span><span class='op'>(</span>
+    GEOUG <span class='op'>=</span> <span class='va'>GEOUG</span> <span class='op'><a href='http://gdfe.co/srvyr/reference/pipe.html'>%&gt;%</a></span> 
+      <span class='fu'><a href='https://rdrr.io/pkg/ipumsr/man/lbl_relabel.html'>lbl_relabel</a></span><span class='op'>(</span>
+        <span class='fu'><a href='https://rdrr.io/pkg/ipumsr/man/lbl.html'>lbl</a></span><span class='op'>(</span><span class='fl'>5</span>, <span class='st'>"Kampala"</span><span class='op'>)</span> <span class='op'>~</span> <span class='va'>.val</span> <span class='op'>==</span> <span class='fl'>0</span>,
+        <span class='fu'><a href='https://rdrr.io/pkg/ipumsr/man/lbl.html'>lbl</a></span><span class='op'>(</span><span class='fl'>1</span>, <span class='st'>"Central 1"</span><span class='op'>)</span> <span class='op'>~</span> <span class='va'>.val</span> <span class='op'>==</span> <span class='fl'>1</span>,
+        <span class='fu'><a href='https://rdrr.io/pkg/ipumsr/man/lbl.html'>lbl</a></span><span class='op'>(</span><span class='fl'>2</span>, <span class='st'>"Central 2"</span><span class='op'>)</span> <span class='op'>~</span> <span class='va'>.val</span> <span class='op'>==</span> <span class='fl'>2</span>,
+        <span class='fu'><a href='https://rdrr.io/pkg/ipumsr/man/lbl.html'>lbl</a></span><span class='op'>(</span><span class='fl'>3</span>, <span class='st'>"East Central, Eastern"</span><span class='op'>)</span> <span class='op'>~</span> <span class='va'>.val</span> <span class='op'><a href='https://rdrr.io/r/base/match.html'>%in%</a></span> <span class='fl'>3</span><span class='op'>:</span><span class='fl'>6</span>,
+        <span class='fu'><a href='https://rdrr.io/pkg/ipumsr/man/lbl.html'>lbl</a></span><span class='op'>(</span><span class='fl'>6</span>, <span class='st'>"Karamoja"</span><span class='op'>)</span> <span class='op'>~</span> <span class='va'>.val</span> <span class='op'>==</span> <span class='fl'>7</span>,
+        <span class='fu'><a href='https://rdrr.io/pkg/ipumsr/man/lbl.html'>lbl</a></span><span class='op'>(</span><span class='fl'>7</span>, <span class='st'>"North"</span><span class='op'>)</span> <span class='op'>~</span> <span class='va'>.val</span> <span class='op'><a href='https://rdrr.io/r/base/match.html'>%in%</a></span> <span class='fl'>8</span><span class='op'>:</span><span class='fl'>9</span>,
+        <span class='fu'><a href='https://rdrr.io/pkg/ipumsr/man/lbl.html'>lbl</a></span><span class='op'>(</span><span class='fl'>8</span>, <span class='st'>"South West"</span><span class='op'>)</span> <span class='op'>~</span> <span class='va'>.val</span> <span class='op'><a href='https://rdrr.io/r/base/match.html'>%in%</a></span> <span class='fl'>13</span><span class='op'>:</span><span class='fl'>14</span>,
+        <span class='fu'><a href='https://rdrr.io/pkg/ipumsr/man/lbl.html'>lbl</a></span><span class='op'>(</span><span class='fl'>9</span>, <span class='st'>"West Nile"</span><span class='op'>)</span> <span class='op'>~</span> <span class='va'>.val</span> <span class='op'>==</span> <span class='fl'>10</span>,
+        <span class='fu'><a href='https://rdrr.io/pkg/ipumsr/man/lbl.html'>lbl</a></span><span class='op'>(</span><span class='fl'>10</span>, <span class='st'>"Western"</span><span class='op'>)</span> <span class='op'>~</span> <span class='va'>.val</span> <span class='op'><a href='https://rdrr.io/r/base/match.html'>%in%</a></span> <span class='fl'>11</span><span class='op'>:</span><span class='fl'>12</span>
+      <span class='op'>)</span> <span class='op'><a href='http://gdfe.co/srvyr/reference/pipe.html'>%&gt;%</a></span> 
+      <span class='fu'><a href='https://forcats.tidyverse.org/reference/as_factor.html'>as_factor</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'><a href='http://gdfe.co/srvyr/reference/pipe.html'>%&gt;%</a></span> 
+      <span class='fu'><a href='https://dplyr.tidyverse.org/reference/if_else.html'>if_else</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/NA.html'>is.na</a></span><span class='op'>(</span><span class='va'>.</span><span class='op'>)</span>, <span class='fu'><a href='https://forcats.tidyverse.org/reference/as_factor.html'>as_factor</a></span><span class='op'>(</span><span class='va'>GEOUGSH</span><span class='op'>)</span>, <span class='va'>.</span><span class='op'>)</span>
+  <span class='op'>)</span>
+
+<span class='co'># Now, rename any regions that do not match the labels in our shapefile </span>
+<span class='co'># Harmonize region vars for all countries together in a single var, `GEO`</span>
+<span class='va'>dat</span> <span class='op'>&lt;-</span> <span class='va'>dat</span> <span class='op'><a href='http://gdfe.co/srvyr/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='http://gdfe.co/srvyr/reference/dplyr_single.html'>mutate</a></span><span class='op'>(</span>
+    <span class='fu'><a href='https://dplyr.tidyverse.org/reference/across.html'>across</a></span><span class='op'>(</span><span class='fu'><a href='https://tidyselect.r-lib.org/reference/starts_with.html'>starts_with</a></span><span class='op'>(</span><span class='st'>"GEO"</span><span class='op'>)</span>, <span class='op'>~</span><span class='fu'><a href='https://forcats.tidyverse.org/reference/as_factor.html'>as_factor</a></span><span class='op'>(</span><span class='va'>.x</span><span class='op'>)</span> <span class='op'><a href='http://gdfe.co/srvyr/reference/pipe.html'>%&gt;%</a></span> <span class='va'>as.character</span><span class='op'>)</span>,
+    GEOBF <span class='op'>=</span> <span class='va'>GEOBF</span> <span class='op'><a href='http://gdfe.co/srvyr/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/recode.html'>recode</a></span><span class='op'>(</span><span class='st'>"Plateau-Central"</span> <span class='op'>=</span> <span class='st'>"Plateau Central"</span><span class='op'>)</span>,
+    GEOET <span class='op'>=</span> <span class='va'>GEOET</span> <span class='op'><a href='http://gdfe.co/srvyr/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/recode.html'>recode</a></span><span class='op'>(</span><span class='st'>"Oromiya"</span> <span class='op'>=</span> <span class='st'>"Oromia"</span><span class='op'>)</span>,
+    GEOUG <span class='op'>=</span> <span class='va'>GEOUG</span> <span class='op'><a href='http://gdfe.co/srvyr/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/recode.html'>recode</a></span><span class='op'>(</span><span class='st'>"South West"</span> <span class='op'>=</span> <span class='st'>"Southwest"</span><span class='op'>)</span>,
+    GEO <span class='op'>=</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/case_when.html'>case_when</a></span><span class='op'>(</span>
+      <span class='op'>!</span><span class='fu'><a href='https://rdrr.io/r/base/NA.html'>is.na</a></span><span class='op'>(</span><span class='va'>GEOUG</span><span class='op'>)</span> <span class='op'>~</span> <span class='va'>GEOUG</span>,
+      <span class='op'>!</span><span class='fu'><a href='https://rdrr.io/r/base/NA.html'>is.na</a></span><span class='op'>(</span><span class='va'>GEOET</span><span class='op'>)</span> <span class='op'>~</span> <span class='va'>GEOET</span>,
+      <span class='op'>!</span><span class='fu'><a href='https://rdrr.io/r/base/NA.html'>is.na</a></span><span class='op'>(</span><span class='va'>GEOBF</span><span class='op'>)</span> <span class='op'>~</span> <span class='va'>GEOBF</span>
+    <span class='op'>)</span>
+  <span class='op'>)</span>
+
+<span class='co'># A `modern_user` is anyone using a method other than rhythm, withdrawal, or</span>
+<span class='co'># other traditional </span>
+<span class='va'>dat</span> <span class='op'>&lt;-</span> <span class='va'>dat</span> <span class='op'><a href='http://gdfe.co/srvyr/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='http://gdfe.co/srvyr/reference/dplyr_single.html'>mutate</a></span><span class='op'>(</span>
+    modern_user <span class='op'>=</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/across.html'>if_any</a></span><span class='op'>(</span>
+      <span class='fu'><a href='https://tidyselect.r-lib.org/reference/starts_with.html'>starts_with</a></span><span class='op'>(</span><span class='st'>"FPNOW"</span><span class='op'>)</span> <span class='op'>&amp;</span> <span class='op'>-</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='va'>FPNOWUSRHY</span>, <span class='va'>FPNOWUSWD</span>, <span class='va'>FPNOWUSTRAD</span><span class='op'>)</span>,
+      <span class='op'>~</span><span class='va'>.x</span> <span class='op'><a href='https://rdrr.io/r/base/match.html'>%in%</a></span> <span class='fl'>1</span> <span class='co'># note: `%in%` generates FALSE if NA </span>
+    <span class='op'>)</span>
+  <span class='op'>)</span>
+
+<span class='co'># Estimate the population proportion for modern use / non-use in each `GEO`</span>
+<span class='va'>modern_tbl</span> <span class='op'>&lt;-</span> <span class='va'>dat</span> <span class='op'><a href='http://gdfe.co/srvyr/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='http://gdfe.co/srvyr/reference/as_survey_design.html'>as_survey_design</a></span><span class='op'>(</span>weight <span class='op'>=</span> <span class='va'>FQWEIGHT</span>, id <span class='op'>=</span> <span class='va'>EAID</span>, strata <span class='op'>=</span> <span class='va'>COUNTRY</span><span class='op'>)</span> <span class='op'><a href='http://gdfe.co/srvyr/reference/pipe.html'>%&gt;%</a></span>
+  <span class='fu'><a href='http://gdfe.co/srvyr/reference/group_by.html'>group_by</a></span><span class='op'>(</span><span class='va'>YEAR</span>, <span class='va'>COUNTRY</span>, <span class='va'>GEO</span>, <span class='va'>modern_user</span><span class='op'>)</span> <span class='op'><a href='http://gdfe.co/srvyr/reference/pipe.html'>%&gt;%</a></span>
+  <span class='fu'><a href='http://gdfe.co/srvyr/reference/summarise.html'>summarise</a></span><span class='op'>(</span>pct <span class='op'>=</span> <span class='fl'>100</span><span class='op'>*</span><span class='fu'><a href='http://gdfe.co/srvyr/reference/survey_mean.html'>survey_mean</a></span><span class='op'>(</span>vartype <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span><span class='op'>)</span> <span class='op'><a href='http://gdfe.co/srvyr/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='http://gdfe.co/srvyr/reference/groups.html'>ungroup</a></span><span class='op'>(</span><span class='op'>)</span>
+
+<span class='co'># We use `pivot_wider` to create 0% values if no modern users were found</span>
+<span class='va'>modern_tbl</span> <span class='op'>&lt;-</span> <span class='va'>modern_tbl</span> <span class='op'><a href='http://gdfe.co/srvyr/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='https://tidyr.tidyverse.org/reference/pivot_wider.html'>pivot_wider</a></span><span class='op'>(</span>
+    <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='va'>YEAR</span>, <span class='va'>COUNTRY</span>, <span class='va'>GEO</span><span class='op'>)</span>, 
+    names_from <span class='op'>=</span> <span class='va'>modern_user</span>, 
+    values_from <span class='op'>=</span> <span class='va'>pct</span>,
+    values_fill <span class='op'>=</span> <span class='fl'>0</span>
+  <span class='op'>)</span> <span class='op'><a href='http://gdfe.co/srvyr/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='http://gdfe.co/srvyr/reference/dplyr_single.html'>select</a></span><span class='op'>(</span><span class='op'>-</span><span class='va'>`FALSE`</span><span class='op'>)</span> <span class='op'><a href='http://gdfe.co/srvyr/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='http://gdfe.co/srvyr/reference/dplyr_single.html'>rename</a></span><span class='op'>(</span>PCT <span class='op'>=</span> <span class='va'>`TRUE`</span><span class='op'>)</span>
+
+<span class='co'># Load shapefile and harmonize variable names with `dat`</span>
+<span class='co'># Include only our 4 countries of interest</span>
+<span class='va'>shape</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://r-spatial.github.io/sf/reference/st_read.html'>st_read</a></span><span class='op'>(</span><span class='st'>"../../data_local/shapefiles/subnational"</span><span class='op'>)</span> <span class='op'><a href='http://gdfe.co/srvyr/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='https://r-spatial.github.io/sf/reference/st_transform.html'>st_transform</a></span><span class='op'>(</span>crs <span class='op'>=</span> <span class='fl'>4326</span><span class='op'>)</span> <span class='op'><a href='http://gdfe.co/srvyr/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='http://gdfe.co/srvyr/reference/dplyr_single.html'>select</a></span><span class='op'>(</span>COUNTRY <span class='op'>=</span> <span class='va'>CNTRY_NAME</span>, GEO <span class='op'>=</span> <span class='va'>ADMIN_NAME</span><span class='op'>)</span> <span class='op'><a href='http://gdfe.co/srvyr/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='http://gdfe.co/srvyr/reference/dplyr_single.html'>filter</a></span><span class='op'>(</span><span class='va'>COUNTRY</span> <span class='op'><a href='https://rdrr.io/r/base/match.html'>%in%</a></span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"Burkina Faso"</span>, <span class='st'>"Ethiopia"</span>, <span class='st'>"Uganda"</span><span class='op'>)</span><span class='op'>)</span>
+
+<span class='co'># Ensure that all shapes are fully enclosed, and smooth borders to 1000 meters </span>
+<span class='co'># Drop any regions marked "Waterbodies" (no households are there)</span>
+<span class='va'>shape</span> <span class='op'>&lt;-</span> <span class='va'>shape</span> <span class='op'><a href='http://gdfe.co/srvyr/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='https://r-spatial.github.io/sf/reference/valid.html'>st_make_valid</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'><a href='http://gdfe.co/srvyr/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='https://r-spatial.github.io/sf/reference/geos_unary.html'>st_simplify</a></span><span class='op'>(</span>dTolerance <span class='op'>=</span> <span class='fl'>1000</span><span class='op'>)</span> <span class='op'><a href='http://gdfe.co/srvyr/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='http://gdfe.co/srvyr/reference/dplyr_single.html'>filter</a></span><span class='op'>(</span><span class='va'>GEO</span> <span class='op'>!=</span> <span class='st'>"Waterbodies"</span><span class='op'>)</span>
+
+<span class='co'># Attach shapes for each `GEO`</span>
+<span class='va'>modern_tbl</span> <span class='op'>&lt;-</span> <span class='va'>modern_tbl</span> <span class='op'><a href='http://gdfe.co/srvyr/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate-joins.html'>full_join</a></span><span class='op'>(</span><span class='va'>shape</span><span class='op'>)</span> 
+
+<span class='co'># If no data collected in a region, duplicate `NA` for each `YEAR`</span>
+<span class='co'># This requires `pivot_wider` to create placeholder `NA` values</span>
+<span class='co'># Then, `pivot_longer` again: new rows appear for each `YEAR`</span>
+<span class='va'>modern_tbl</span> <span class='op'>&lt;-</span> <span class='va'>modern_tbl</span> <span class='op'><a href='http://gdfe.co/srvyr/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='https://tidyr.tidyverse.org/reference/pivot_wider.html'>pivot_wider</a></span><span class='op'>(</span>
+    names_from <span class='op'>=</span> <span class='va'>YEAR</span>,
+    values_from <span class='op'>=</span> <span class='va'>PCT</span>
+  <span class='op'>)</span> <span class='op'><a href='http://gdfe.co/srvyr/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='http://gdfe.co/srvyr/reference/dplyr_single.html'>select</a></span><span class='op'>(</span><span class='op'>-</span><span class='va'>`NA`</span><span class='op'>)</span> <span class='op'><a href='http://gdfe.co/srvyr/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='https://tidyr.tidyverse.org/reference/pivot_longer.html'>pivot_longer</a></span><span class='op'>(</span>
+    <span class='fu'>where</span><span class='op'>(</span><span class='va'>is.double</span><span class='op'>)</span>,
+    names_to <span class='op'>=</span> <span class='st'>"YEAR"</span>,
+    values_to <span class='op'>=</span> <span class='st'>"PCT"</span>
+  <span class='op'>)</span> 
+
+<span class='co'># Note that some countries may have 2 samples drawn in the same year, but others </span>
+<span class='co'># included only 1 sample. Drop any extra `YEAR` labels for each `COUNTRY` here</span>
+<span class='va'>modern_tbl</span> <span class='op'>&lt;-</span> <span class='va'>modern_tbl</span> <span class='op'><a href='http://gdfe.co/srvyr/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='http://gdfe.co/srvyr/reference/group_by.html'>group_by</a></span><span class='op'>(</span><span class='va'>COUNTRY</span>, <span class='va'>YEAR</span><span class='op'>)</span> <span class='op'><a href='http://gdfe.co/srvyr/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='http://gdfe.co/srvyr/reference/dplyr_single.html'>filter</a></span><span class='op'>(</span><span class='op'>!</span><span class='fu'><a href='https://rdrr.io/r/base/all.html'>all</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/NA.html'>is.na</a></span><span class='op'>(</span><span class='va'>PCT</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span> <span class='op'><a href='http://gdfe.co/srvyr/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='http://gdfe.co/srvyr/reference/groups.html'>ungroup</a></span><span class='op'>(</span><span class='op'>)</span>
+
+<span class='co'># Rearrange columns and rows for improved display </span>
+<span class='va'>modern_tbl</span> <span class='op'>&lt;-</span> <span class='va'>modern_tbl</span> <span class='op'><a href='http://gdfe.co/srvyr/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/relocate.html'>relocate</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='va'>YEAR</span>, <span class='va'>PCT</span><span class='op'>)</span>, .after <span class='op'>=</span> <span class='va'>GEO</span><span class='op'>)</span> <span class='op'><a href='http://gdfe.co/srvyr/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/arrange.html'>arrange</a></span><span class='op'>(</span><span class='va'>COUNTRY</span>, <span class='va'>YEAR</span>, <span class='va'>GEO</span><span class='op'>)</span>
+</code></pre>
+</div>
+</details>
+</div>
+<div class="layout-chunk" data-layout="l-body">
+
+</div>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>modern_tbl</span>
+</code></pre>
+</div>
+<pre><code># A tibble: 260 × 5
+   COUNTRY      GEO               YEAR    PCT                           geometry
+   &lt;chr&gt;        &lt;chr&gt;             &lt;chr&gt; &lt;dbl&gt;                 &lt;MULTIPOLYGON [°]&gt;
+ 1 Burkina Faso Boucle du Mouhoun 2014  20.2  (((-3.190611 13.68045, -3.226559 …
+ 2 Burkina Faso Cascades          2014  12.9  (((-5.39324 10.99398, -5.416136 1…
+ 3 Burkina Faso Centre            2014  21.9  (((-1.572501 12.60137, -1.566564 …
+ 4 Burkina Faso Centre-Est        2014  17.2  (((-0.2427228 12.55885, -0.292054…
+ 5 Burkina Faso Centre-Nord       2014  11.4  (((-0.625751 13.99783, -0.6899 13…
+ 6 Burkina Faso Centre-Ouest      2014  10.7  (((-2.519715 12.83308, -2.557285 …
+ 7 Burkina Faso Centre-Sud        2014  28.1  (((-1.459765 12.19329, -1.508548 …
+ 8 Burkina Faso Est               2014  19.0  (((0.0653133 13.48729, 0.0587278 …
+ 9 Burkina Faso Hauts-Bassins     2014  18.6  (((-4.4633 12.07738, -4.499922 12…
+10 Burkina Faso Nord              2014   9.68 (((-2.119268 14.15666, -2.353057 …
+# … with 250 more rows</code></pre>
+</div>
+<h1 id="facets-one-country-over-time">Facets: one country over time</h1>
+<p>Let’s look at an example featuring data from just <em>one</em>
+country first. We’ll use our favorite mapping package <a
+href="https://paleolimbot.github.io/ggspatial/">ggspatial</a>, since it
+allows us to use familiar tools from <a
+href="https://ggplot2.tidyverse.org">ggplot2</a> to customize the layout
+of our panel array. Most crucially, we use <a
+href="https://ggplot2.tidyverse.org/reference/facet_wrap.html">facet_wrap</a>
+to create one panel for each sample <code>YEAR</code>. Additionally,
+we’ll define the <code>fill</code> color for each region with <a
+href="https://ggplot2.tidyverse.org/reference/scale_gradient.html">scale_fill_gradient</a>:
+we’ll use a red color <a
+href="https://www.google.com/search?q=%23BD262D&amp;oq=%23BD262D&amp;aqs=chrome..69i57.429j0j4&amp;sourceid=chrome&amp;ie=UTF-8">#BD262D</a>
+for high-levels on modern method prevalence, and we’ll use
+<code>transparent</code> for regions where no modern method users were
+sampled. The grey shade <a
+href="https://www.google.com/search?q=%23cfcfcf&amp;oq=%23CFCFCF&amp;aqs=chrome.0.0i512l3j0i7i10i30j0i7i30j0i7i15i30l5.2249j0j9&amp;sourceid=chrome&amp;ie=UTF-8">#CFCFCF</a>
+will represent regions were no women were sampled.</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span> 
+  <span class='fu'><a href='https://paleolimbot.github.io/ggspatial/reference/layer_spatial.html'>layer_spatial</a></span><span class='op'>(</span><span class='va'>modern_tbl</span> <span class='op'><a href='http://gdfe.co/srvyr/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='http://gdfe.co/srvyr/reference/dplyr_single.html'>filter</a></span><span class='op'>(</span><span class='va'>COUNTRY</span> <span class='op'>==</span> <span class='st'>"Ethiopia"</span><span class='op'>)</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>fill <span class='op'>=</span> <span class='va'>PCT</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span> 
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/facet_wrap.html'>facet_wrap</a></span><span class='op'>(</span><span class='fu'><a href='http://gdfe.co/srvyr/reference/summarise_all.html'>vars</a></span><span class='op'>(</span><span class='va'>YEAR</span><span class='op'>)</span>, strip.position <span class='op'>=</span> <span class='st'>"bottom"</span>, <span class='op'>)</span> <span class='op'>+</span> 
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_gradient.html'>scale_fill_gradient</a></span><span class='op'>(</span>
+    low <span class='op'>=</span> <span class='st'>"transparent"</span>,
+    high <span class='op'>=</span> <span class='st'>"#BD262D"</span>,
+    na.value <span class='op'>=</span> <span class='st'>"#CFCFCF"</span>
+  <span class='op'>)</span> <span class='op'>+</span> 
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/labs.html'>labs</a></span><span class='op'>(</span>
+    title <span class='op'>=</span> <span class='st'>"Modern Contraceptive Prevalence in Ethiopia: 2014-2019"</span>,
+    fill <span class='op'>=</span> <span class='st'>"Percent Women \nAge 15-49"</span>
+  <span class='op'>)</span> <span class='op'>+</span> 
+  <span class='va'>theme_pma</span> 
+</code></pre>
+</div>
+<p><img src="facet-maps_files/figure-html5/unnamed-chunk-5-1.png" width="1152" /></p>
+</div>
+<p>Our use of <a
+href="https://ggplot2.tidyverse.org/reference/facet_wrap.html">facet_wrap</a>
+works well in this case because the spatial extent of each panel is
+identical: we’ve only plotted the same country seven times. Watch what
+happens, though, when we try the same approach to faceting maps with
+<em>different</em> spatial extents. Here, we’ll create one choloropleth
+for each of three countries sampled by PMA in 2019.</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span> 
+  <span class='fu'><a href='https://paleolimbot.github.io/ggspatial/reference/layer_spatial.html'>layer_spatial</a></span><span class='op'>(</span><span class='va'>modern_tbl</span> <span class='op'><a href='http://gdfe.co/srvyr/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='http://gdfe.co/srvyr/reference/dplyr_single.html'>filter</a></span><span class='op'>(</span><span class='va'>YEAR</span> <span class='op'>==</span> <span class='st'>"2019"</span><span class='op'>)</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>fill <span class='op'>=</span> <span class='va'>PCT</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span> 
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/facet_wrap.html'>facet_wrap</a></span><span class='op'>(</span><span class='fu'><a href='http://gdfe.co/srvyr/reference/summarise_all.html'>vars</a></span><span class='op'>(</span><span class='va'>COUNTRY</span><span class='op'>)</span>, strip.position <span class='op'>=</span> <span class='st'>"bottom"</span>, <span class='op'>)</span> <span class='op'>+</span> 
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_gradient.html'>scale_fill_gradient</a></span><span class='op'>(</span>
+    low <span class='op'>=</span> <span class='st'>"transparent"</span>,
+    high <span class='op'>=</span> <span class='st'>"#BD262D"</span>,
+    na.value <span class='op'>=</span> <span class='st'>"#CFCFCF"</span>
+  <span class='op'>)</span> <span class='op'>+</span> 
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/labs.html'>labs</a></span><span class='op'>(</span>
+    title <span class='op'>=</span> <span class='st'>"Modern Contraceptive Prevalence: 2019"</span>,
+    fill <span class='op'>=</span> <span class='st'>"Percent Women \nAge 15-49"</span>
+  <span class='op'>)</span> <span class='op'>+</span> 
+  <span class='va'>theme_pma</span> 
+</code></pre>
+</div>
+<p><img src="facet-maps_files/figure-html5/unnamed-chunk-6-1.png" width="1152" /></p>
+</div>
+<p>The problem here is that <a
+href="https://ggplot2.tidyverse.org/reference/facet_wrap.html">facet_wrap</a>
+attempts to use the same scales along the x and y-axes by default. When
+we facet by <code>COUNTRY</code>, each map is drawn to scale and in
+absolute position. Instead, we want each country’s map to appear
+approximately the same size and in the center of each panel.</p>
+<p>In most <a href="https://ggplot2.tidyverse.org">ggplot2</a>
+applications, we’d resolve this problem by setting
+<code>scales = "free"</code>. This <em>should</em> allow <a
+href="https://ggplot2.tidyverse.org/reference/facet_wrap.html">facet_wrap</a>
+to identify axes that fit the data in each panel. Instead, it generates
+the following error:</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span> 
+  <span class='fu'><a href='https://paleolimbot.github.io/ggspatial/reference/layer_spatial.html'>layer_spatial</a></span><span class='op'>(</span><span class='va'>modern_tbl</span> <span class='op'><a href='http://gdfe.co/srvyr/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='http://gdfe.co/srvyr/reference/dplyr_single.html'>filter</a></span><span class='op'>(</span><span class='va'>YEAR</span> <span class='op'>==</span> <span class='st'>"2019"</span><span class='op'>)</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>fill <span class='op'>=</span> <span class='va'>PCT</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span> 
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/facet_wrap.html'>facet_wrap</a></span><span class='op'>(</span><span class='fu'><a href='http://gdfe.co/srvyr/reference/summarise_all.html'>vars</a></span><span class='op'>(</span><span class='va'>COUNTRY</span><span class='op'>)</span>, strip.position <span class='op'>=</span> <span class='st'>"bottom"</span>, scales <span class='op'>=</span> <span class='st'>"free"</span><span class='op'>)</span> <span class='op'>+</span> 
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_gradient.html'>scale_fill_gradient</a></span><span class='op'>(</span>
+    low <span class='op'>=</span> <span class='st'>"transparent"</span>,
+    high <span class='op'>=</span> <span class='st'>"#BD262D"</span>,
+    na.value <span class='op'>=</span> <span class='st'>"#CFCFCF"</span>
+  <span class='op'>)</span> <span class='op'>+</span> 
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/labs.html'>labs</a></span><span class='op'>(</span>
+    title <span class='op'>=</span> <span class='st'>"Modern Contraceptive Prevalence: 2019"</span>,
+    fill <span class='op'>=</span> <span class='st'>"Percent Women \nAge 15-49"</span>
+  <span class='op'>)</span> <span class='op'>+</span> 
+  <span class='va'>theme_pma</span> 
+</code></pre>
+</div>
+</div>
+<pre><code>Error in `f()`:
+! coord_sf doesn&#39;t support free scales</code></pre>
+<p>Fortunately, we were able to find <a
+href="https://jayrobwilliams.com/posts/2021/05/geom-sf-facet">this
+excellent blog post</a> with an explanation and work-around.</p>
+<blockquote>
+<p>It turns out the the <code>ggplot2</code> codebase <a
+href="https://github.com/tidyverse/ggplot2/issues/2651#issuecomment-391011703">assumes
+that it can maniulate axes independently of one another</a>. This is
+very much not the case with geographic data where a meter vertically
+needs to equal a meter horizontally, so <code>coord_sf()</code> locks
+the axes in much the same manner as <code>coord_fixed()</code>.</p>
+<footer>
+— <a href="https://jayrobwilliams.com">Rob Williams, Data Scientist</a>
+</footer>
+</blockquote>
+<div>
+<p>Williams suggests a different approach using the <a
+href="https://wilkelab.org/cowplot/index.html">cowplot</a> package
+developed by biologist <a href="https://wilkelab.org/">Claus O.
+Wilke</a> at the University of Texas at Austin. We’ve never featured
+<code>cowplot</code> before on our blog, so we first needed to install
+it from CRAN:</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/utils/install.packages.html'>install.packages</a></span><span class='op'>(</span><span class='st'>"cowplot"</span><span class='op'>)</span>
+</code></pre>
+</div>
+</div>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://wilkelab.org/cowplot/'>cowplot</a></span><span class='op'>)</span>
+</code></pre>
+</div>
+</div>
+<p>The key difference in this approach is that you create each panel
+separately, and then use <a
+href="https://wilkelab.org/cowplot/index.html">cowplot</a> to align
+them. Panels can be arranged in rows or columns, and their sizes can be
+identical or individually specified. You can also overlay plots on top
+of each other to produce annotations or even watermarks. A general
+introduction is available <a
+href="https://wilkelab.org/cowplot/articles/introduction.html#generic-plot-annotations-1">here</a>.</p>
+</div>
+<aside>
+<div class="layout-chunk" data-layout="l-body">
+<div>
+<a href="https://wilkelab.org/cowplot/">
+<img src="../../images/hex/cowplot.png"/>
+</a>
+© Claus O. Wilke (GPL-2)
+</div>
+</div>
+<br> The <a href="https://wilkelab.org/cowplot/index.html">cowplot</a>
+package is featured extensively in the book <a
+href="https://www.amazon.com/gp/product/1492031089">Fundamentals of Data
+Visualization</a>.
+</aside>
+<h1 id="cowplot-combining-countries">Cowplot: combining countries</h1>
+<div class="layout-chunk" data-layout="l-body">
+
+</div>
+<p>The function <a
+href="https://wilkelab.org/cowplot/reference/plot_grid.html">cowplot::plot_grid</a>
+takes a list of plots as input, so we first need to write a function
+that will generate one plot for each of our four 2019 samples. We’ll
+start with Ethiopia first:</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span> 
+  <span class='fu'><a href='https://paleolimbot.github.io/ggspatial/reference/layer_spatial.html'>layer_spatial</a></span><span class='op'>(</span>
+    <span class='va'>modern_tbl</span> <span class='op'><a href='http://gdfe.co/srvyr/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='http://gdfe.co/srvyr/reference/dplyr_single.html'>filter</a></span><span class='op'>(</span><span class='va'>COUNTRY</span> <span class='op'>==</span> <span class='st'>"Ethiopia"</span> <span class='op'>&amp;</span> <span class='va'>YEAR</span> <span class='op'>==</span> <span class='fl'>2019</span><span class='op'>)</span>,
+    <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>fill <span class='op'>=</span> <span class='va'>PCT</span><span class='op'>)</span>
+  <span class='op'>)</span> <span class='op'>+</span> 
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_gradient.html'>scale_fill_gradient</a></span><span class='op'>(</span>
+    low <span class='op'>=</span> <span class='st'>"transparent"</span>,
+    high <span class='op'>=</span> <span class='st'>"#BD262D"</span>,
+    na.value <span class='op'>=</span> <span class='st'>"#CFCFCF"</span>,
+    guide <span class='op'>=</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/guide_colourbar.html'>guide_colorbar</a></span><span class='op'>(</span>
+      title.position <span class='op'>=</span> <span class='st'>"left"</span>, 
+      direction <span class='op'>=</span> <span class='st'>"horizontal"</span>, 
+      barwidth <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/grid/unit.html'>unit</a></span><span class='op'>(</span><span class='fl'>5</span>, <span class='st'>"cm"</span><span class='op'>)</span>
+    <span class='op'>)</span>
+  <span class='op'>)</span> <span class='op'>+</span> 
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/labs.html'>labs</a></span><span class='op'>(</span>
+    caption <span class='op'>=</span> <span class='st'>"Ethiopia"</span>,
+    fill <span class='op'>=</span> <span class='st'>"Percent Women \nAge 15-49"</span>
+  <span class='op'>)</span> <span class='op'>+</span> 
+  <span class='va'>theme_pma</span> 
+</code></pre>
+</div>
+<p><img src="facet-maps_files/figure-html5/unnamed-chunk-12-1.png" width="1152" /></p>
+</div>
+<p>If we want to switch countries to Burkina Faso, for example, we only
+need to replace the string <code>"Ethiopia"</code> in two places.</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span> 
+  <span class='fu'><a href='https://paleolimbot.github.io/ggspatial/reference/layer_spatial.html'>layer_spatial</a></span><span class='op'>(</span>
+    <span class='va'>modern_tbl</span> <span class='op'><a href='http://gdfe.co/srvyr/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='http://gdfe.co/srvyr/reference/dplyr_single.html'>filter</a></span><span class='op'>(</span><span class='va'>COUNTRY</span> <span class='op'>==</span> <span class='st'>"Burkina Faso"</span> <span class='op'>&amp;</span> <span class='va'>YEAR</span> <span class='op'>==</span> <span class='fl'>2019</span><span class='op'>)</span>,
+    <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>fill <span class='op'>=</span> <span class='va'>PCT</span><span class='op'>)</span>
+  <span class='op'>)</span> <span class='op'>+</span> 
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_gradient.html'>scale_fill_gradient</a></span><span class='op'>(</span>
+    low <span class='op'>=</span> <span class='st'>"transparent"</span>,
+    high <span class='op'>=</span> <span class='st'>"#BD262D"</span>,
+    na.value <span class='op'>=</span> <span class='st'>"#CFCFCF"</span>,
+    guide <span class='op'>=</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/guide_colourbar.html'>guide_colorbar</a></span><span class='op'>(</span>
+      title.position <span class='op'>=</span> <span class='st'>"left"</span>, 
+      direction <span class='op'>=</span> <span class='st'>"horizontal"</span>, 
+      barwidth <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/grid/unit.html'>unit</a></span><span class='op'>(</span><span class='fl'>5</span>, <span class='st'>"cm"</span><span class='op'>)</span>
+    <span class='op'>)</span>
+  <span class='op'>)</span> <span class='op'>+</span> 
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/labs.html'>labs</a></span><span class='op'>(</span>
+    caption <span class='op'>=</span> <span class='st'>"Burkina Faso"</span>,
+    fill <span class='op'>=</span> <span class='st'>"Percent Women \nAge 15-49"</span>
+  <span class='op'>)</span> <span class='op'>+</span> 
+  <span class='va'>theme_pma</span>
+</code></pre>
+</div>
+<p><img src="facet-maps_files/figure-html5/unnamed-chunk-13-1.png" width="1152" /></p>
+</div>
+<p>Notice that the range of values shown on our legend changes
+automatically when we switch countries? When we combine countries into a
+single plot, we’ll want to specify these values manually so that the
+same <code>fill</code> color represents the same value on every plot.
+We’ll use 0% as a minimum value, but the maximum value should be only
+slightly higher than the maximum value in our data: this maximizes the
+dynamic color range between any two data points.</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>modern_tbl</span> <span class='op'><a href='http://gdfe.co/srvyr/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='http://gdfe.co/srvyr/reference/dplyr_single.html'>filter</a></span><span class='op'>(</span><span class='va'>YEAR</span> <span class='op'>==</span> <span class='fl'>2019</span><span class='op'>)</span> <span class='op'><a href='http://gdfe.co/srvyr/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='http://gdfe.co/srvyr/reference/summarise.html'>summarise</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/Extremes.html'>max</a></span><span class='op'>(</span><span class='va'>PCT</span>, na.rm <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span><span class='op'>)</span>
+</code></pre>
+</div>
+<pre><code># A tibble: 1 × 1
+  `max(PCT, na.rm = TRUE)`
+                     &lt;dbl&gt;
+1                     36.5</code></pre>
+</div>
+<p>We’ll now set <code>limits</code> at 0% and 37% in <a
+href="https://ggplot2.tidyverse.org/reference/scale_gradient.html">scale_fill_gradient</a>.
+(As expected, this decreases the dynamic color range between each
+region.)</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span> 
+  <span class='fu'><a href='https://paleolimbot.github.io/ggspatial/reference/layer_spatial.html'>layer_spatial</a></span><span class='op'>(</span>
+    <span class='va'>modern_tbl</span> <span class='op'><a href='http://gdfe.co/srvyr/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='http://gdfe.co/srvyr/reference/dplyr_single.html'>filter</a></span><span class='op'>(</span><span class='va'>COUNTRY</span> <span class='op'>==</span> <span class='st'>"Burkina Faso"</span> <span class='op'>&amp;</span> <span class='va'>YEAR</span> <span class='op'>==</span> <span class='fl'>2019</span><span class='op'>)</span>,
+    <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>fill <span class='op'>=</span> <span class='va'>PCT</span><span class='op'>)</span>
+  <span class='op'>)</span> <span class='op'>+</span> 
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_gradient.html'>scale_fill_gradient</a></span><span class='op'>(</span>
+    low <span class='op'>=</span> <span class='st'>"transparent"</span>,
+    high <span class='op'>=</span> <span class='st'>"#BD262D"</span>,
+    na.value <span class='op'>=</span> <span class='st'>"#CFCFCF"</span>,
+    guide <span class='op'>=</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/guide_colourbar.html'>guide_colorbar</a></span><span class='op'>(</span>
+      title.position <span class='op'>=</span> <span class='st'>"left"</span>, 
+      direction <span class='op'>=</span> <span class='st'>"horizontal"</span>, 
+      barwidth <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/grid/unit.html'>unit</a></span><span class='op'>(</span><span class='fl'>5</span>, <span class='st'>"cm"</span><span class='op'>)</span>
+    <span class='op'>)</span>,
+    limits <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='fl'>37</span><span class='op'>)</span>  <span class='co'># Legend limits inserted here </span>
+  <span class='op'>)</span> <span class='op'>+</span> 
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/labs.html'>labs</a></span><span class='op'>(</span>
+    caption <span class='op'>=</span> <span class='st'>"Burkina Faso"</span>,
+    fill <span class='op'>=</span> <span class='st'>"Percent Women \nAge 15-49"</span>
+  <span class='op'>)</span> <span class='op'>+</span> 
+  <span class='va'>theme_pma</span> 
+</code></pre>
+</div>
+<p><img src="facet-maps_files/figure-html5/unnamed-chunk-15-1.png" width="1152" /></p>
+</div>
+<p>Finally, we’ll use the <a
+href="https://purrr.tidyverse.org/reference/map.html">map</a> function
+from the <a href="https://purrr.tidyverse.org/index.html">purrr</a>
+package to build a list containing one map for each country. Remember:
+here <code>map</code> refers to a function applied iteratively to each
+item in a list - not the kind of spatial map we’re trying to add to our
+plot! The easiest way to reference a list item within a mapped function
+is to use the symbol <code>~</code>, which signals an <a
+href="http://adv-r.had.co.nz/Functional-programming.html#anonymous-functions">anonymous
+funciton</a> where the list item is represented by the variable
+<code>.x</code>. Here, we use <code>.x</code> in place of each country
+name in our data.</p>
+<aside>
+<div class="layout-chunk" data-layout="l-body">
+<div>
+<a href="https://purrr.tidyverse.org/index.html">
+<img src="../../images/hex/purrr.png"/>
+</a>
+© RStudio, Inc. (GPL-3)
+</div>
+</div>
+</aside>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>plotlist</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/unique.html'>unique</a></span><span class='op'>(</span><span class='va'>modern_tbl</span><span class='op'>$</span><span class='va'>COUNTRY</span><span class='op'>)</span> <span class='op'><a href='http://gdfe.co/srvyr/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='https://purrr.tidyverse.org/reference/map.html'>map</a></span><span class='op'>(</span><span class='op'>~</span><span class='op'>{</span>
+    <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span> 
+      <span class='fu'><a href='https://paleolimbot.github.io/ggspatial/reference/layer_spatial.html'>layer_spatial</a></span><span class='op'>(</span>
+        <span class='va'>modern_tbl</span> <span class='op'><a href='http://gdfe.co/srvyr/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='http://gdfe.co/srvyr/reference/dplyr_single.html'>filter</a></span><span class='op'>(</span><span class='va'>COUNTRY</span> <span class='op'>==</span> <span class='va'>.x</span> <span class='op'>&amp;</span> <span class='va'>YEAR</span> <span class='op'>==</span> <span class='fl'>2019</span><span class='op'>)</span>,
+        <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>fill <span class='op'>=</span> <span class='va'>PCT</span><span class='op'>)</span>
+      <span class='op'>)</span> <span class='op'>+</span> 
+      <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_gradient.html'>scale_fill_gradient</a></span><span class='op'>(</span>
+        low <span class='op'>=</span> <span class='st'>"transparent"</span>,
+        high <span class='op'>=</span> <span class='st'>"#BD262D"</span>,
+        na.value <span class='op'>=</span> <span class='st'>"#CFCFCF"</span>,
+        guide <span class='op'>=</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/guide_colourbar.html'>guide_colorbar</a></span><span class='op'>(</span>
+          title.position <span class='op'>=</span> <span class='st'>"left"</span>, 
+          direction <span class='op'>=</span> <span class='st'>"horizontal"</span>, 
+          barwidth <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/grid/unit.html'>unit</a></span><span class='op'>(</span><span class='fl'>10</span>, <span class='st'>"cm"</span><span class='op'>)</span>
+        <span class='op'>)</span>,
+        limits <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='fl'>37</span><span class='op'>)</span>
+      <span class='op'>)</span> <span class='op'>+</span> 
+      <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/labs.html'>labs</a></span><span class='op'>(</span>
+        caption <span class='op'>=</span> <span class='va'>.x</span>,
+        fill <span class='op'>=</span> <span class='st'>"Percent Women \nAge 15-49"</span>
+      <span class='op'>)</span> <span class='op'>+</span> 
+      <span class='va'>theme_pma</span> 
+  <span class='op'>}</span><span class='op'>)</span>
+</code></pre>
+</div>
+</div>
+<p>Now, <code>plotlist</code> is a list with four items: one plot per
+country. The function <code>unique(modern_tbl$COUNTRY)</code> listed our
+countries alphabetically:</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>plotlist</span><span class='op'>[[</span><span class='fl'>1</span><span class='op'>]</span><span class='op'>]</span>
+</code></pre>
+</div>
+<img src="facet-maps_files/figure-html5/unnamed-chunk-18-1.png" width="1152" />
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>plotlist</span><span class='op'>[[</span><span class='fl'>2</span><span class='op'>]</span><span class='op'>]</span>
+</code></pre>
+</div>
+<img src="facet-maps_files/figure-html5/unnamed-chunk-18-2.png" width="1152" />
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>plotlist</span><span class='op'>[[</span><span class='fl'>3</span><span class='op'>]</span><span class='op'>]</span>
+</code></pre>
+</div>
+<p><img src="facet-maps_files/figure-html5/unnamed-chunk-18-3.png" width="1152" /></p>
+</div>
+<p>Before we assemble these plots in an array, we’ll want to extract
+<em>one</em> copy of the shared legend. Here, we use <a
+href="https://wilkelab.org/cowplot/reference/get_legend.html">get_legend</a>
+to extract the legend from Burkina Faso:</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>legend</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://wilkelab.org/cowplot/reference/get_legend.html'>get_legend</a></span><span class='op'>(</span><span class='va'>plotlist</span><span class='op'>[[</span><span class='fl'>1</span><span class='op'>]</span><span class='op'>]</span><span class='op'>)</span>
+</code></pre>
+</div>
+</div>
+<p>We can now strip all of the legends from each of the individual
+panels with another <a
+href="https://purrr.tidyverse.org/reference/map.html">map</a>
+function.</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>plotlist</span> <span class='op'>&lt;-</span> <span class='va'>plotlist</span> <span class='op'><a href='http://gdfe.co/srvyr/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://purrr.tidyverse.org/reference/map.html'>map</a></span><span class='op'>(</span><span class='op'>~</span><span class='va'>.x</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/theme.html'>theme</a></span><span class='op'>(</span>legend.position <span class='op'>=</span> <span class='st'>"none"</span><span class='op'>)</span><span class='op'>)</span>
+</code></pre>
+</div>
+</div>
+<p>We’ll also build a title with <a
+href="https://wilkelab.org/cowplot/reference/ggdraw.html">ggdraw</a>
+that will span all three panels. Make sure to check out the complete
+list of <a
+href="https://wilkelab.org/cowplot/reference/index.html">cowplot
+functions</a> available to help customize your plot.</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>title</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://wilkelab.org/cowplot/reference/ggdraw.html'>ggdraw</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span> 
+  <span class='fu'><a href='https://wilkelab.org/cowplot/reference/draw_label.html'>draw_label</a></span><span class='op'>(</span>
+    <span class='fu'><a href='https://rdrr.io/r/base/chartr.html'>toupper</a></span><span class='op'>(</span><span class='st'>"Modern Contraceptive Prevalence: 2019"</span><span class='op'>)</span>,
+    fontfamily <span class='op'>=</span> <span class='st'>'cabrito'</span>,
+    x <span class='op'>=</span> <span class='fl'>0.5</span>, 
+    y <span class='op'>=</span> <span class='fl'>0.5</span>,
+    hjust <span class='op'>=</span> <span class='fl'>0.5</span>,
+    color <span class='op'>=</span> <span class='st'>"#00263A"</span>,
+    size <span class='op'>=</span> <span class='fl'>30</span>
+  <span class='op'>)</span>
+
+<span class='va'>title</span>
+</code></pre>
+</div>
+<p><img src="facet-maps_files/figure-html5/unnamed-chunk-21-1.png" width="1152" /></p>
+</div>
+<p>We’ll build our final plot in two steps, both using <a
+href="https://wilkelab.org/cowplot/reference/plot_grid.html">plot_grid</a>.
+The first arranges our three panels in a single row with three columns.
+It took some trial and error to get the set the relative width of each
+panel with <code>rel_widths</code> (for example, the Uganda plot is
+about 72% narrower than the Burkina Faso plot: if both were plotted with
+the same width, the Uganda plot would be taller).</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>output</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://wilkelab.org/cowplot/reference/plot_grid.html'>plot_grid</a></span><span class='op'>(</span>plotlist <span class='op'>=</span> <span class='va'>plotlist</span>, nrow <span class='op'>=</span> <span class='fl'>1</span>, rel_widths <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span>, <span class='fl'>0.95</span>, <span class='fl'>0.72</span><span class='op'>)</span><span class='op'>)</span>
+
+<span class='va'>output</span>
+</code></pre>
+</div>
+<p><img src="facet-maps_files/figure-html5/unnamed-chunk-22-1.png" width="1152" /></p>
+</div>
+<p>The second step arranges this <code>output</code> between our
+<code>title</code> and <code>legend</code>, creating three rows total.
+Here, we use <code>rel_heights</code> to make the <code>output</code>
+row three times taller than the rows containing <code>title</code> and
+<code>legend</code>.</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://wilkelab.org/cowplot/reference/plot_grid.html'>plot_grid</a></span><span class='op'>(</span>
+  <span class='va'>title</span>,
+  <span class='va'>output</span>,
+  <span class='va'>legend</span>,
+  ncol <span class='op'>=</span> <span class='fl'>1</span>, 
+  rel_heights <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span>, <span class='fl'>3</span>, <span class='fl'>1</span><span class='op'>)</span>
+<span class='op'>)</span>
+</code></pre>
+</div>
+<p><img src="facet-maps_files/figure-html5/unnamed-chunk-23-1.png" width="1152" data-distill-preview=1 /></p>
+</div>
+<p>And there you have it! With <a
+href="https://wilkelab.org/cowplot/index.html">cowplot</a>, it’s easy to
+build an array of maps - or any combination of plots - with a shared
+title, legend, or any other annotation you might need. And, because it’s
+built to work with <a
+href="https://ggplot2.tidyverse.org/index.html">ggplot2</a>, <a
+href="https://wilkelab.org/cowplot/index.html">cowplot</a> works
+perfectly with our existing data visualization workflow.</p>
+<div class="sourceCode" id="cb4"><pre
+class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
+<section class="footnotes footnotes-end-of-document"
+role="doc-endnotes">
+<hr />
+<ol>
+<li id="fn1" role="doc-endnote"><p>Surveyed methods may vary by country
+and within the same country following a survey redesign period between
+rounds. Modern methods could include: female sterilization, male
+sterilization, implants, IUDs, injectables, pills, emergency
+contraception, male condoms, female condoms, diaphragms, foam, beads, N
+tablet, and lactational amenorrhea method (LAM).<a href="#fnref1"
+class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section>
+<!--radix_placeholder_article_footer-->
+<div class="article-footer">
+  <p class="social_footer">
+    <span class="disqus-comments">
+      <i class="fas fa-comments"></i>
+      &nbsp;
+      <span class="disqus-comment-count" data-disqus-identifier="posts/2022-07-15-facet-maps/">Comment on this article</span>
+    </span>
+    <span class="article-sharing">
+      Share: &nbsp;
+      <a href="https://twitter.com/share?text=Arranging%20maps%20in%20a%20grid&amp;url=https%3A%2F%2Fipums.github.io%2Fpma-data-hub%2Fposts%2F2022-07-15-facet-maps%2F" aria-label="share on twitter">
+        <i class="fab fa-twitter" aria-hidden="true"></i>
+      </a>
+      <a href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https%3A%2F%2Fipums.github.io%2Fpma-data-hub%2Fposts%2F2022-07-15-facet-maps%2F&amp;title=Arranging%20maps%20in%20a%20grid" aria-label="share on linkedin">
+        <i class="fab fa-linkedin" aria-hidden="true"></i>
+      </a>
+    </span>
+  </p>
+  <script id="dsq-count-scr" src="https://pma-data-hub.disqus.com/count.js" async></script>
+  <div id="disqus_thread" class="hidden"></div>
+  <script type="text/javascript" cookie-consent="functionality">
+var disqus_config = function () {
+  this.page.url = 'https://ipums.github.io/pma-data-hub/posts/2022-07-15-facet-maps/';
+  this.page.identifier = 'posts/2022-07-15-facet-maps/';
+};
+(function() {
+  var d = document, s = d.createElement('script');
+  s.src = 'https://pma-data-hub.disqus.com/embed.js';
+  s.setAttribute('data-timestamp', +new Date());
+  (d.head || d.body).appendChild(s);
+})();
+</script>
+</div>
+<!--/radix_placeholder_article_footer-->
+</div>
+
+<div class="d-appendix">
+</div>
+
+
+<!--radix_placeholder_site_after_body-->
+<!--/radix_placeholder_site_after_body-->
+<!--radix_placeholder_appendices-->
+<div class="appendix-bottom">
+  <h3 id="updates-and-corrections">Corrections</h3>
+  <p>If you see mistakes or want to suggest changes, please <a href="https://github.com/ipums/pma-data-hub/issues/new">create an issue</a> on the source repository.</p>
+</div>
+<!--/radix_placeholder_appendices-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/REC-html40/loose.dtd">
+<!--radix_placeholder_navigation_after_body--><html><body>
+<div class="distill-site-nav distill-site-footer">
+<p>Developed by <a href="https://www.ipums.org">IPUMS</a> at the
+University of Minnesota</p>
+<p>Licensed under the
+<a href="https://www.mozilla.org/en-US/MPL/2.0/">Mozilla Public License
+Version 2.0</a></p>
+<p>Site built with <a href="https://rstudio.github.io/distill/">Distill
+for R Markdown</a></p>
+</div>
+<!--/radix_placeholder_navigation_after_body-->
+</body></html>
+
+
+</body>
+
+</html>

@@ -27,3 +27,4 @@ tidymodels,https://tidymodels.tidymodels.org/index.html,MIT,"RStudio, Inc."
 tidyr,https://tidyr.tidyverse.org/index.html,MIT,"RStudio, Inc."
 tidyverse,https://tidyverse.tidyverse.org/index.html,MIT,"RStudio, Inc."
 survival,https://github.com/therneau/survival,LGPL >=2,Terry M. Therneau et al.
+cowplot,https://wilkelab.org/cowplot/,GPL-2,Claus O. Wilke
