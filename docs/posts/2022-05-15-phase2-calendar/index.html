@@ -50,16 +50,17 @@ pre.numberSource code > span > a:first-child::before
   }
 pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
 div.sourceCode
-  {   }
+  { color: #00769e; background-color: #f1f3f5; }
 @media screen {
 pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
+code span { color: #00769e; } /* Normal */
 code span.al { color: #ad0000; } /* Alert */
 code span.an { color: #5e5e5e; } /* Annotation */
-code span.at { } /* Attribute */
+code span.at { color: #657422; } /* Attribute */
 code span.bn { color: #ad0000; } /* BaseN */
 code span.bu { } /* BuiltIn */
-code span.cf { color: #007ba5; } /* ControlFlow */
+code span.cf { color: #00769e; } /* ControlFlow */
 code span.ch { color: #20794d; } /* Char */
 code span.cn { color: #8f5902; } /* Constant */
 code span.co { color: #5e5e5e; } /* Comment */
@@ -73,9 +74,9 @@ code span.fl { color: #ad0000; } /* Float */
 code span.fu { color: #4758ab; } /* Function */
 code span.im { } /* Import */
 code span.in { color: #5e5e5e; } /* Information */
-code span.kw { color: #007ba5; } /* Keyword */
+code span.kw { color: #00769e; } /* Keyword */
 code span.op { color: #5e5e5e; } /* Operator */
-code span.ot { color: #007ba5; } /* Other */
+code span.ot { color: #00769e; } /* Other */
 code span.pp { color: #ad0000; } /* Preprocessor */
 code span.sc { color: #5e5e5e; } /* SpecialChar */
 code span.ss { color: #20794d; } /* SpecialString */
@@ -151,7 +152,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <!--/radix_placeholder_rmarkdown_metadata-->
   
   <script type="text/json" id="radix-resource-manifest">
-  {"type":"character","attributes":{},"value":["cals.csv","cites.bib","data/pma_00101.dat.gz","data/pma_00101.xml","data/pma_00107.dat.gz","data/pma_00107.xml","data/pma_00108.dat.gz","data/pma_00108.xml","data/pma_00109.dat.gz","data/pma_00109.xml","data/pma_00110.dat.gz","data/pma_00110.xml","data/pma_00111.dat.gz","data/pma_00111.xml","data/resources/cal-reliability.pdf","data/resources/dana-caption.png","data/resources/dana-diagram.png","data/resources/dhs-cal-indicators.png","images/startmo.png","images/universe.png","images/vargroup.png","phase2-calendar_files/anchor-4.2.2/anchor.min.js","phase2-calendar_files/bowser-1.9.3/bowser.min.js","phase2-calendar_files/distill-2.2.21/template.v2.js","phase2-calendar_files/figure-html5/unnamed-chunk-37-1.png","phase2-calendar_files/figure-html5/unnamed-chunk-38-1.png","phase2-calendar_files/figure-html5/unnamed-chunk-39-1.png","phase2-calendar_files/figure-html5/unnamed-chunk-40-1.png","phase2-calendar_files/figure-html5/unnamed-chunk-41-1.png","phase2-calendar_files/figure-html5/unnamed-chunk-45-1.png","phase2-calendar_files/figure-html5/unnamed-chunk-46-1.png","phase2-calendar_files/figure-html5/unnamed-chunk-47-1.png","phase2-calendar_files/figure-html5/unnamed-chunk-48-1.png","phase2-calendar_files/figure-html5/unnamed-chunk-49-1.png","phase2-calendar_files/header-attrs-2.11/header-attrs.js","phase2-calendar_files/jquery-3.6.0/jquery-3.6.0.js","phase2-calendar_files/jquery-3.6.0/jquery-3.6.0.min.js","phase2-calendar_files/jquery-3.6.0/jquery-3.6.0.min.map","phase2-calendar_files/popper-2.6.0/popper.min.js","phase2-calendar_files/tippy-6.2.7/tippy-bundle.umd.min.js","phase2-calendar_files/tippy-6.2.7/tippy-light-border.css","phase2-calendar_files/tippy-6.2.7/tippy.css","phase2-calendar_files/tippy-6.2.7/tippy.umd.min.js","phase2-calendar_files/webcomponents-2.0.0/webcomponents.js"]}
+  {"type":"character","attributes":{},"value":["cites.bib","data/bad_cals.csv","data/cals_check.Rmd","data/cals.csv","data/pma_00101.dat.gz","data/pma_00101.xml","data/pma_00107.dat.gz","data/pma_00107.xml","data/pma_00108.dat.gz","data/pma_00108.xml","data/pma_00109.dat.gz","data/pma_00109.xml","data/pma_00110.dat.gz","data/pma_00110.xml","data/pma_00111.dat.gz","data/pma_00111.xml","data/resources/cal-reliability.pdf","data/resources/dana-caption.png","data/resources/dana-diagram.png","data/resources/dhs-cal-indicators.png","images/startmo.png","images/universe.png","images/vargroup.png","phase2-calendar_files/anchor-4.2.2/anchor.min.js","phase2-calendar_files/bowser-1.9.3/bowser.min.js","phase2-calendar_files/distill-2.2.21/template.v2.js","phase2-calendar_files/figure-html5/unnamed-chunk-37-1.png","phase2-calendar_files/figure-html5/unnamed-chunk-38-1.png","phase2-calendar_files/figure-html5/unnamed-chunk-39-1.png","phase2-calendar_files/figure-html5/unnamed-chunk-40-1.png","phase2-calendar_files/figure-html5/unnamed-chunk-41-1.png","phase2-calendar_files/figure-html5/unnamed-chunk-45-1.png","phase2-calendar_files/figure-html5/unnamed-chunk-46-1.png","phase2-calendar_files/figure-html5/unnamed-chunk-47-1.png","phase2-calendar_files/figure-html5/unnamed-chunk-48-1.png","phase2-calendar_files/figure-html5/unnamed-chunk-49-1.png","phase2-calendar_files/header-attrs-2.11/header-attrs.js","phase2-calendar_files/jquery-3.6.0/jquery-3.6.0.js","phase2-calendar_files/jquery-3.6.0/jquery-3.6.0.min.js","phase2-calendar_files/jquery-3.6.0/jquery-3.6.0.min.map","phase2-calendar_files/popper-2.6.0/popper.min.js","phase2-calendar_files/tippy-6.2.7/tippy-bundle.umd.min.js","phase2-calendar_files/tippy-6.2.7/tippy-light-border.css","phase2-calendar_files/tippy-6.2.7/tippy.css","phase2-calendar_files/tippy-6.2.7/tippy.umd.min.js","phase2-calendar_files/webcomponents-2.0.0/webcomponents.js"]}
   </script>
   <!--radix_placeholder_navigation_in_header-->
 <meta name="distill:offset" content="../.."/>
@@ -2561,7 +2562,7 @@ d-appendix d-footnote-list a.footnote-backlink {
   color: var(--hover-color, white);
 }</style>
 <!--/radix_placeholder_distill-->
-  <script src="../../site_libs/header-attrs-2.11/header-attrs.js"></script>
+  <script src="../../site_libs/header-attrs-2.14/header-attrs.js"></script>
   <script src="../../site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
   <script src="../../site_libs/popper-2.6.0/popper.min.js"></script>
   <link href="../../site_libs/tippy-6.2.7/tippy.css" rel="stylesheet" />
@@ -2687,18 +2688,23 @@ Time-to-Event analysis.</p></p>
 <nav class="l-text toc figcaption" id="TOC">
 <h3>Contents</h3>
 <ul>
-<li><a href="#setup">Setup</a></li>
-<li><a href="#century-month-codes-cmc">Century Month Codes
-(CMC)</a></li>
-<li><a href="#merging-country-calendars">Merging Country Calendars</a>
+<li><a href="#setup" id="toc-setup">Setup</a></li>
+<li><a href="#century-month-codes-cmc"
+id="toc-century-month-codes-cmc">Century Month Codes (CMC)</a></li>
+<li><a href="#merging-country-calendars"
+id="toc-merging-country-calendars">Merging Country Calendars</a>
 <ul>
-<li><a href="#start-and-stop-dates">Start and Stop Dates</a></li>
-<li><a href="#pivot-country-calendars">Pivot Country Calendars</a></li>
+<li><a href="#start-and-stop-dates" id="toc-start-and-stop-dates">Start
+and Stop Dates</a></li>
+<li><a href="#pivot-country-calendars"
+id="toc-pivot-country-calendars">Pivot Country Calendars</a></li>
 </ul></li>
-<li><a href="#data-availability">Data Availability</a></li>
-<li><a href="#splitting-months-into-columns">Splitting months into
+<li><a href="#data-availability" id="toc-data-availability">Data
+Availability</a></li>
+<li><a href="#splitting-months-into-columns"
+id="toc-splitting-months-into-columns">Splitting months into
 columns</a></li>
-<li><a href="#analysis">Analysis</a></li>
+<li><a href="#analysis" id="toc-analysis">Analysis</a></li>
 </ul>
 </nav>
 </div>
@@ -3259,18 +3265,18 @@ two rows per woman).</p>
 </code></pre>
 </div>
 <pre><code># A tibble: 35,424 × 13
-      ID COUNTRY PHASE CALENDARBF       CALENDARBFWHY   CALENDARKE CALENDARKEWHY
-   &lt;int&gt; &lt;fct&gt;   &lt;chr&gt; &lt;chr+lbl&gt;        &lt;chr+lbl&gt;       &lt;chr+lbl&gt;  &lt;chr+lbl&gt;    
- 1     1 BF      1     &quot;,,,,,,,,,,0,0,… &quot;,,,,,,,,,,,,,… &quot;&quot;         &quot;&quot;           
- 2     1 BF      2     &quot;,,,,,,,,,,,3,3… &quot;,,,,,,,,,,,,,… &quot;&quot;         &quot;&quot;           
- 3     2 BF      1     &quot;,,,,,,,,,,,P,P… &quot;,,,,,,,,,,,,,… &quot;&quot;         &quot;&quot;           
- 4     2 BF      2     &quot;,,,,,,,,,,,,5,… &quot;,,,,,,,,,,,,,… &quot;&quot;         &quot;&quot;           
- 5     3 BF      1     &quot;,,,,,,,,,,,0,0… &quot;&quot;              &quot;&quot;         &quot;&quot;           
- 6     3 BF      2     &quot;&quot;               &quot;&quot;              &quot;&quot;         &quot;&quot;           
- 7     4 BF      1     &quot;,,,,,,,,,,,0,0… &quot;,,,,,,,,,,,,,… &quot;&quot;         &quot;&quot;           
- 8     4 BF      2     &quot;,,,,,,,,,,,,0,… &quot;,,,,,,,,,,,,,… &quot;&quot;         &quot;&quot;           
- 9     5 BF      1     &quot;,,,,,,,,,,,0,0… &quot;,,,,,,,,,,,,,… &quot;&quot;         &quot;&quot;           
-10     5 BF      2     &quot;&quot;               &quot;&quot;              &quot;&quot;         &quot;&quot;           
+      ID COUNTRY PHASE CALENDARBF         CALENDARBFWHY CALENDARKE CALENDARKEWHY
+   &lt;int&gt; &lt;fct&gt;   &lt;chr&gt; &lt;chr+lbl&gt;          &lt;chr+lbl&gt;     &lt;chr+lbl&gt;  &lt;chr+lbl&gt;    
+ 1     1 BF      1     &quot;,,,,,,,,,,0,0,0,… &quot;,,,,,,,,,,,… &quot;&quot;         &quot;&quot;           
+ 2     1 BF      2     &quot;,,,,,,,,,,,3,3,3… &quot;,,,,,,,,,,,… &quot;&quot;         &quot;&quot;           
+ 3     2 BF      1     &quot;,,,,,,,,,,,P,P,P… &quot;,,,,,,,,,,,… &quot;&quot;         &quot;&quot;           
+ 4     2 BF      2     &quot;,,,,,,,,,,,,5,5,… &quot;,,,,,,,,,,,… &quot;&quot;         &quot;&quot;           
+ 5     3 BF      1     &quot;,,,,,,,,,,,0,0,0… &quot;&quot;            &quot;&quot;         &quot;&quot;           
+ 6     3 BF      2     &quot;&quot;                 &quot;&quot;            &quot;&quot;         &quot;&quot;           
+ 7     4 BF      1     &quot;,,,,,,,,,,,0,0,0… &quot;,,,,,,,,,,,… &quot;&quot;         &quot;&quot;           
+ 8     4 BF      2     &quot;,,,,,,,,,,,,0,0,… &quot;,,,,,,,,,,,… &quot;&quot;         &quot;&quot;           
+ 9     5 BF      1     &quot;,,,,,,,,,,,0,0,0… &quot;,,,,,,,,,,,… &quot;&quot;         &quot;&quot;           
+10     5 BF      2     &quot;&quot;                 &quot;&quot;            &quot;&quot;         &quot;&quot;           
 # … with 35,414 more rows, and 6 more variables: CALENDARNG &lt;chr+lbl&gt;,
 #   CALENDARNGWHY &lt;chr+lbl&gt;, CALENDARCD &lt;chr+lbl&gt;, CALENDARCDWHY &lt;chr+lbl&gt;,
 #   CALSTART &lt;dbl&gt;, CALSTOP &lt;dbl&gt;</code></pre>
@@ -3313,18 +3319,18 @@ with each calendar.</p>
 </code></pre>
 </div>
 <pre><code># A tibble: 141,696 × 8
-      ID COUNTRY PHASE CALSTART CALSTOP COUNTRY_CAL FPSTATUS         WHYSTOP    
-   &lt;int&gt; &lt;fct&gt;   &lt;chr&gt;    &lt;dbl&gt;   &lt;dbl&gt; &lt;chr&gt;       &lt;chr+lbl&gt;        &lt;chr+lbl&gt;  
- 1     1 BF      1         1417    1442 BF          &quot;,,,,,,,,,,0,0,… &quot;,,,,,,,,,…
- 2     1 BF      1         1417    1442 KE          &quot;&quot;               &quot;&quot;         
- 3     1 BF      1         1417    1442 NG          &quot;&quot;               &quot;&quot;         
- 4     1 BF      1         1417    1442 CD          &quot;&quot;               &quot;&quot;         
- 5     1 BF      2         1417    1453 BF          &quot;,,,,,,,,,,,3,3… &quot;,,,,,,,,,…
- 6     1 BF      2         1417    1453 KE          &quot;&quot;               &quot;&quot;         
- 7     1 BF      2         1417    1453 NG          &quot;&quot;               &quot;&quot;         
- 8     1 BF      2         1417    1453 CD          &quot;&quot;               &quot;&quot;         
- 9     2 BF      1         1417    1441 BF          &quot;,,,,,,,,,,,P,P… &quot;,,,,,,,,,…
-10     2 BF      1         1417    1441 KE          &quot;&quot;               &quot;&quot;         
+      ID COUNTRY PHASE CALSTART CALSTOP COUNTRY_CAL FPSTATUS             WHYSTOP
+   &lt;int&gt; &lt;fct&gt;   &lt;chr&gt;    &lt;dbl&gt;   &lt;dbl&gt; &lt;chr&gt;       &lt;chr+lbl&gt;            &lt;chr+l&gt;
+ 1     1 BF      1         1417    1442 BF          &quot;,,,,,,,,,,0,0,0,0,… &quot;,,,,,…
+ 2     1 BF      1         1417    1442 KE          &quot;&quot;                   &quot;&quot;     
+ 3     1 BF      1         1417    1442 NG          &quot;&quot;                   &quot;&quot;     
+ 4     1 BF      1         1417    1442 CD          &quot;&quot;                   &quot;&quot;     
+ 5     1 BF      2         1417    1453 BF          &quot;,,,,,,,,,,,3,3,3,3… &quot;,,,,,…
+ 6     1 BF      2         1417    1453 KE          &quot;&quot;                   &quot;&quot;     
+ 7     1 BF      2         1417    1453 NG          &quot;&quot;                   &quot;&quot;     
+ 8     1 BF      2         1417    1453 CD          &quot;&quot;                   &quot;&quot;     
+ 9     2 BF      1         1417    1441 BF          &quot;,,,,,,,,,,,P,P,P,P… &quot;,,,,,…
+10     2 BF      1         1417    1441 KE          &quot;&quot;                   &quot;&quot;     
 # … with 141,686 more rows</code></pre>
 </div>
 <p>Lastly, we can drop any row where <code>COUNTRY</code> does not match
@@ -3339,18 +3345,18 @@ the value in <code>COUNTRY_CAL</code>:</p>
 </code></pre>
 </div>
 <pre><code># A tibble: 35,424 × 7
-      ID COUNTRY PHASE CALSTART CALSTOP FPSTATUS                WHYSTOP         
-   &lt;int&gt; &lt;fct&gt;   &lt;chr&gt;    &lt;dbl&gt;   &lt;dbl&gt; &lt;chr+lbl&gt;               &lt;chr+lbl&gt;       
- 1     1 BF      1         1417    1442 &quot;,,,,,,,,,,0,0,0,0,0,0… &quot;,,,,,,,,,,,,,,…
- 2     1 BF      2         1417    1453 &quot;,,,,,,,,,,,3,3,3,3,3,… &quot;,,,,,,,,,,,,,,…
- 3     2 BF      1         1417    1441 &quot;,,,,,,,,,,,P,P,P,P,P,… &quot;,,,,,,,,,,,,,,…
- 4     2 BF      2         1417    1453 &quot;,,,,,,,,,,,,5,5,5,5,5… &quot;,,,,,,,,,,,,,,…
- 5     3 BF      1         1417    1441 &quot;,,,,,,,,,,,0,0,0,0,0,… &quot;&quot;              
- 6     3 BF      2         1417    1453 &quot;&quot;                      &quot;&quot;              
- 7     4 BF      1         1417    1441 &quot;,,,,,,,,,,,0,0,0,5,5,… &quot;,,,,,,,,,,,,,,…
- 8     4 BF      2         1417    1452 &quot;,,,,,,,,,,,,0,0,0,0,0… &quot;,,,,,,,,,,,,,,…
- 9     5 BF      1         1417    1441 &quot;,,,,,,,,,,,0,0,0,0,0,… &quot;,,,,,,,,,,,,,,…
-10     5 BF      2         1417    1453 &quot;&quot;                      &quot;&quot;              
+      ID COUNTRY PHASE CALSTART CALSTOP FPSTATUS                         WHYSTOP
+   &lt;int&gt; &lt;fct&gt;   &lt;chr&gt;    &lt;dbl&gt;   &lt;dbl&gt; &lt;chr+lbl&gt;                        &lt;chr+l&gt;
+ 1     1 BF      1         1417    1442 &quot;,,,,,,,,,,0,0,0,0,0,0,0,0,0,0,… &quot;,,,,,…
+ 2     1 BF      2         1417    1453 &quot;,,,,,,,,,,,3,3,3,3,3,3,0,0,0,0… &quot;,,,,,…
+ 3     2 BF      1         1417    1441 &quot;,,,,,,,,,,,P,P,P,P,P,P,P,0,0,0… &quot;,,,,,…
+ 4     2 BF      2         1417    1453 &quot;,,,,,,,,,,,,5,5,5,5,5,5,5,5,5,… &quot;,,,,,…
+ 5     3 BF      1         1417    1441 &quot;,,,,,,,,,,,0,0,0,0,0,0,0,0,0,0… &quot;&quot;     
+ 6     3 BF      2         1417    1453 &quot;&quot;                               &quot;&quot;     
+ 7     4 BF      1         1417    1441 &quot;,,,,,,,,,,,0,0,0,5,5,5,5,5,5,5… &quot;,,,,,…
+ 8     4 BF      2         1417    1452 &quot;,,,,,,,,,,,,0,0,0,0,0,0,0,0,0,… &quot;,,,,,…
+ 9     5 BF      1         1417    1441 &quot;,,,,,,,,,,,0,0,0,0,0,0,0,0,0,0… &quot;,,,,,…
+10     5 BF      2         1417    1453 &quot;&quot;                               &quot;&quot;     
 # … with 35,414 more rows</code></pre>
 </div>
 <p>We’re nearly ready to split each string into more usable variables
@@ -3973,9 +3979,9 @@ Show code for this plot
   <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span>proprow <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span><span class='op'>(</span><span class='va'>n</span><span class='op'>)</span><span class='op'>/</span><span class='va'>tot</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='co'># row margins </span>
   <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>ungroup</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> 
   <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span>
-    propcol <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste</a></span><span class='op'>(</span><span class='va'>UNMETYN_1</span>, <span class='fu'>scales</span><span class='fu'>::</span><span class='fu'><a href='https://scales.r-lib.org/reference/label_percent.html'>percent</a></span><span class='op'>(</span><span class='va'>propcol</span>, <span class='fl'>.1</span><span class='op'>)</span><span class='op'>)</span>,
-    proprow <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste</a></span><span class='op'>(</span><span class='va'>FPPLANYR_1</span>, <span class='fu'>scales</span><span class='fu'>::</span><span class='fu'><a href='https://scales.r-lib.org/reference/label_percent.html'>percent</a></span><span class='op'>(</span><span class='va'>proprow</span>, <span class='fl'>.1</span><span class='op'>)</span><span class='op'>)</span>,
-    proplbl <span class='op'>=</span>  <span class='fu'>scales</span><span class='fu'>::</span><span class='fu'><a href='https://scales.r-lib.org/reference/label_percent.html'>percent</a></span><span class='op'>(</span><span class='va'>prop</span>, <span class='fl'>.1</span><span class='op'>)</span>
+    propcol <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste</a></span><span class='op'>(</span><span class='va'>UNMETYN_1</span>, <span class='fu'>scales</span><span class='fu'>::</span><span class='fu'><a href='https://scales.r-lib.org/reference/percent_format.html'>percent</a></span><span class='op'>(</span><span class='va'>propcol</span>, <span class='fl'>.1</span><span class='op'>)</span><span class='op'>)</span>,
+    proprow <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste</a></span><span class='op'>(</span><span class='va'>FPPLANYR_1</span>, <span class='fu'>scales</span><span class='fu'>::</span><span class='fu'><a href='https://scales.r-lib.org/reference/percent_format.html'>percent</a></span><span class='op'>(</span><span class='va'>proprow</span>, <span class='fl'>.1</span><span class='op'>)</span><span class='op'>)</span>,
+    proplbl <span class='op'>=</span>  <span class='fu'>scales</span><span class='fu'>::</span><span class='fu'><a href='https://scales.r-lib.org/reference/percent_format.html'>percent</a></span><span class='op'>(</span><span class='va'>prop</span>, <span class='fl'>.1</span><span class='op'>)</span>
   <span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> 
   <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>propcol</span>, y <span class='op'>=</span> <span class='va'>proprow</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span> 
   <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_tile.html'>geom_tile</a></span><span class='op'>(</span>fill <span class='op'>=</span> <span class='st'>"#98579BB0"</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>alpha <span class='op'>=</span> <span class='va'>prop</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span> 
@@ -4076,19 +4082,19 @@ earliest month in <code>CALCMC</code>.</p>
 href="https://dplyr.tidyverse.org/reference/case_when">case_when</a>
 assigns the value <code>NA</code>). If there are any months of
 <code>USE</code> for an individual woman, we’ll identify the first such
-month with <code>STOP</code>; if there are no cases of <code>USE</code>,
-<code>STOP</code> will record the last month in <code>MO</code>. Finally
-we’ll use <code>RC</code> to indicate whether <code>STOP</code> is
-“right censored” - these are cases where <code>STOP</code> is the last
-month in <code>MO</code>.</p>
+month with <code>ADOPT</code>; if there are no cases of
+<code>USE</code>, <code>ADOPT</code> will record the last month in
+<code>MO</code>. Finally we’ll use <code>RC</code> to indicate whether
+<code>ADOPT</code> is “right censored” - these are cases where
+<code>ADOPT</code> is the last month in <code>MO</code>.</p>
 <div class="layout-chunk" data-layout="l-body-outset">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='va'>nonusers</span> <span class='op'>&lt;-</span> <span class='va'>nonusers</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> 
   <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span><span class='op'>(</span><span class='va'>ID</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> 
   <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span>
     USEMO <span class='op'>=</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/case_when.html'>case_when</a></span><span class='op'>(</span><span class='va'>USE</span> <span class='op'>~</span> <span class='va'>MO</span><span class='op'>)</span>,
-    STOP <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/ifelse.html'>ifelse</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/any.html'>any</a></span><span class='op'>(</span><span class='va'>USE</span><span class='op'>)</span>, <span class='fu'><a href='https://rdrr.io/r/base/Extremes.html'>min</a></span><span class='op'>(</span><span class='va'>USEMO</span>, na.rm <span class='op'>=</span> <span class='cn'>T</span><span class='op'>)</span>, <span class='fu'><a href='https://rdrr.io/r/base/Extremes.html'>max</a></span><span class='op'>(</span><span class='va'>MO</span><span class='op'>)</span><span class='op'>)</span>,
-    RC <span class='op'>=</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/case_when.html'>case_when</a></span><span class='op'>(</span><span class='va'>STOP</span> <span class='op'>==</span> <span class='va'>MO</span> <span class='op'>~</span> <span class='op'>!</span><span class='va'>USE</span><span class='op'>)</span>
+    ADOPT <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/ifelse.html'>ifelse</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/any.html'>any</a></span><span class='op'>(</span><span class='va'>USE</span><span class='op'>)</span>, <span class='fu'><a href='https://rdrr.io/r/base/Extremes.html'>min</a></span><span class='op'>(</span><span class='va'>USEMO</span>, na.rm <span class='op'>=</span> <span class='cn'>T</span><span class='op'>)</span>, <span class='fu'><a href='https://rdrr.io/r/base/Extremes.html'>max</a></span><span class='op'>(</span><span class='va'>MO</span><span class='op'>)</span><span class='op'>)</span>,
+    RC <span class='op'>=</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/case_when.html'>case_when</a></span><span class='op'>(</span><span class='va'>ADOPT</span> <span class='op'>==</span> <span class='va'>MO</span> <span class='op'>~</span> <span class='op'>!</span><span class='va'>USE</span><span class='op'>)</span>
   <span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> 
   <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>ungroup</a></span><span class='op'>(</span><span class='op'>)</span> 
 
@@ -4096,7 +4102,7 @@ month in <code>MO</code>.</p>
 </code></pre>
 </div>
 <pre><code># A tibble: 116,860 × 11
-      ID COUNTRY CALCMC FPSTATUS_2 UNMETYN_1 FPPLANYR_1    MO USE   USEMO  STOP RC   
+      ID COUNTRY CALCMC FPSTATUS_2 UNMETYN_1 FPPLANYR_1    MO USE   USEMO ADOPT RC   
    &lt;int&gt; &lt;fct&gt;    &lt;dbl&gt; &lt;chr&gt;      &lt;lgl&gt;     &lt;lgl&gt;      &lt;dbl&gt; &lt;lgl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;lgl&gt;
  1     1 BF        1453 3          FALSE     TRUE          11 TRUE     11     6 NA   
  2     1 BF        1452 3          FALSE     TRUE          10 TRUE     10     6 NA   
@@ -4121,21 +4127,21 @@ month in <code>MO</code>.</p>
 # … with 116,840 more rows</code></pre>
 </div>
 <p>Notice, for example, that the first month of <code>USE</code> for
-<code>ID == 1</code> occurs in month 6. Hence, <code>STOP == 6</code>
+<code>ID == 1</code> occurs in month 6. Hence, <code>ADOPT == 6</code>
 and, because she adopted a method before the end of the calendar,
 <code>RC == FALSE</code>.</p>
 <p>Finally, we’ll now drop every row except for those matching
-<code>STOP</code>. This leaves one row for each woman in
+<code>ADOPT</code>. This leaves one row for each woman in
 <code>nonusers</code>.</p>
 <div class="layout-chunk" data-layout="l-body-outset">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>nonusers</span> <span class='op'>&lt;-</span> <span class='va'>nonusers</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>STOP</span> <span class='op'>==</span> <span class='va'>MO</span><span class='op'>)</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>nonusers</span> <span class='op'>&lt;-</span> <span class='va'>nonusers</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>ADOPT</span> <span class='op'>==</span> <span class='va'>MO</span><span class='op'>)</span>
 
 <span class='va'>nonusers</span> 
 </code></pre>
 </div>
 <pre><code># A tibble: 9,206 × 11
-      ID COUNTRY CALCMC FPSTATUS_2 UNMETYN_1 FPPLANYR_1    MO USE   USEMO  STOP RC   
+      ID COUNTRY CALCMC FPSTATUS_2 UNMETYN_1 FPPLANYR_1    MO USE   USEMO ADOPT RC   
    &lt;int&gt; &lt;fct&gt;    &lt;dbl&gt; &lt;chr&gt;      &lt;lgl&gt;     &lt;lgl&gt;      &lt;dbl&gt; &lt;lgl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;lgl&gt;
  1     1 BF        1448 3          FALSE     TRUE           6 TRUE      6     6 FALSE
  2     2 BF        1444 5          FALSE     FALSE          3 TRUE      3     3 FALSE
@@ -4217,29 +4223,29 @@ month reported for women with “No Unmet Need” and “Unmet Need”.</p>
 </code></pre>
 </div>
 <pre><code># A tibble: 117 × 12
-   COUNTRY strata  time n.risk n.event n.censor estimate std.error conf.high conf.low plan  interact
-   &lt;fct&gt;   &lt;chr&gt;  &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt; &lt;lis&gt; &lt;list&gt;  
- 1 Burkin… No Un…     0   2245     157        0    0.930   0.00579     0.941    0.920 &lt;tib… &lt;tibble…
- 2 Burkin… No Un…     1   2088      20        0    0.921   0.00617     0.932    0.910 &lt;tib… &lt;tibble…
- 3 Burkin… No Un…     2   2068      21        0    0.912   0.00656     0.924    0.900 &lt;tib… &lt;tibble…
- 4 Burkin… No Un…     3   2047      25        0    0.901   0.00701     0.913    0.888 &lt;tib… &lt;tibble…
- 5 Burkin… No Un…     4   2022      27        0    0.889   0.00747     0.902    0.876 &lt;tib… &lt;tibble…
- 6 Burkin… No Un…     5   1995      22        0    0.879   0.00784     0.892    0.865 &lt;tib… &lt;tibble…
- 7 Burkin… No Un…     6   1973      27        0    0.867   0.00827     0.881    0.853 &lt;tib… &lt;tibble…
- 8 Burkin… No Un…     7   1946      26        0    0.855   0.00868     0.870    0.841 &lt;tib… &lt;tibble…
- 9 Burkin… No Un…     8   1920      30        0    0.842   0.00915     0.857    0.827 &lt;tib… &lt;tibble…
-10 Burkin… No Un…     9   1890      37        0    0.825   0.00971     0.841    0.810 &lt;tib… &lt;tibble…
-11 Burkin… No Un…    10   1853      35       97    0.810   0.0102      0.826    0.794 &lt;tib… &lt;tibble…
-12 Burkin… No Un…    11   1721      27      906    0.797   0.0107      0.814    0.781 &lt;tib… &lt;tibble…
-13 Burkin… No Un…    12    788       5      687    0.792   0.0110      0.809    0.775 &lt;tib… &lt;tibble…
-14 Burkin… No Un…    13     96       3       70    0.767   0.0214      0.800    0.736 &lt;tib… &lt;tibble…
-15 Burkin… No Un…    14     23       0       23    0.767   0.0214      0.800    0.736 &lt;tib… &lt;tibble…
-16 Burkin… Unmet…     0    632      86        0    0.864   0.0158      0.891    0.838 &lt;tib… &lt;tibble…
-17 Burkin… Unmet…     1    546      15        0    0.840   0.0173      0.869    0.812 &lt;tib… &lt;tibble…
-18 Burkin… Unmet…     2    531       6        0    0.831   0.0180      0.860    0.802 &lt;tib… &lt;tibble…
-19 Burkin… Unmet…     3    525       9        0    0.816   0.0189      0.847    0.787 &lt;tib… &lt;tibble…
-20 Burkin… Unmet…     4    516       6        0    0.807   0.0195      0.838    0.777 &lt;tib… &lt;tibble…
-# … with 97 more rows</code></pre>
+   COUNTRY      strata   time n.risk n.event n.censor estimate std.error conf.high conf.low plan    
+   &lt;fct&gt;        &lt;chr&gt;   &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt; &lt;list&gt;  
+ 1 Burkina Faso No Unm…     0   2245     157        0    0.930   0.00579     0.941    0.920 &lt;tibble&gt;
+ 2 Burkina Faso No Unm…     1   2088      20        0    0.921   0.00617     0.932    0.910 &lt;tibble&gt;
+ 3 Burkina Faso No Unm…     2   2068      21        0    0.912   0.00656     0.924    0.900 &lt;tibble&gt;
+ 4 Burkina Faso No Unm…     3   2047      25        0    0.901   0.00701     0.913    0.888 &lt;tibble&gt;
+ 5 Burkina Faso No Unm…     4   2022      27        0    0.889   0.00747     0.902    0.876 &lt;tibble&gt;
+ 6 Burkina Faso No Unm…     5   1995      22        0    0.879   0.00784     0.892    0.865 &lt;tibble&gt;
+ 7 Burkina Faso No Unm…     6   1973      27        0    0.867   0.00827     0.881    0.853 &lt;tibble&gt;
+ 8 Burkina Faso No Unm…     7   1946      26        0    0.855   0.00868     0.870    0.841 &lt;tibble&gt;
+ 9 Burkina Faso No Unm…     8   1920      30        0    0.842   0.00915     0.857    0.827 &lt;tibble&gt;
+10 Burkina Faso No Unm…     9   1890      37        0    0.825   0.00971     0.841    0.810 &lt;tibble&gt;
+11 Burkina Faso No Unm…    10   1853      35       97    0.810   0.0102      0.826    0.794 &lt;tibble&gt;
+12 Burkina Faso No Unm…    11   1721      27      906    0.797   0.0107      0.814    0.781 &lt;tibble&gt;
+13 Burkina Faso No Unm…    12    788       5      687    0.792   0.0110      0.809    0.775 &lt;tibble&gt;
+14 Burkina Faso No Unm…    13     96       3       70    0.767   0.0214      0.800    0.736 &lt;tibble&gt;
+15 Burkina Faso No Unm…    14     23       0       23    0.767   0.0214      0.800    0.736 &lt;tibble&gt;
+16 Burkina Faso Unmet …     0    632      86        0    0.864   0.0158      0.891    0.838 &lt;tibble&gt;
+17 Burkina Faso Unmet …     1    546      15        0    0.840   0.0173      0.869    0.812 &lt;tibble&gt;
+18 Burkina Faso Unmet …     2    531       6        0    0.831   0.0180      0.860    0.802 &lt;tibble&gt;
+19 Burkina Faso Unmet …     3    525       9        0    0.816   0.0189      0.847    0.787 &lt;tibble&gt;
+20 Burkina Faso Unmet …     4    516       6        0    0.807   0.0195      0.838    0.777 &lt;tibble&gt;
+# … with 97 more rows, and 1 more variable: interact &lt;list&gt;</code></pre>
 </div>
 <p>The column <code>n.risk</code> shows the total number of non-users
 remaining after the number of months passed in <code>time</code>. The

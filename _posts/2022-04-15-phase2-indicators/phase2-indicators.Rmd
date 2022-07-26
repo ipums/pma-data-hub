@@ -30,11 +30,12 @@ knitr::opts_chunk$set(
   eval = T,
   layout="l-page", 
   fig.width = 12,
-  fig.height = 8
+  fig.height = 8,
+  R.options = list(width = 100)
 )
 
 # tibble options 
-options(tibble.print_min = 20)
+options(tibble.print_min = 30)
 
 # load utils 
 source(here::here("r/utilities.r"))
@@ -186,104 +187,106 @@ dat %>% count(POP)
 
 We'll use the [srvyr](http://gdfe.co/srvyr/index.html) package to incorporate survey design information into each of the population estimates calculated below. This includes `r varlink(PANELWEIGHT)`, which represents the calculated inverse selection probability for all panel members, adjusted for loss to follow-up. 
 
-You might remember from [earlier posts](../2022-03-01-phase2-discovery/#weights-and-clusters) that PMA surveys are collected within spatially-defined **sample clusters**. We'll also include identifying numbers for each cluster as survey design information via `r varlink(EAID)`.^[Because women are considered "lost to follow-up" if they moved outside the study area, `EAID_1` and `EAID_2` are identical for all panel members: you can use either one to identify sample clusters.]
+You might remember from [earlier posts](../2022-03-01-phase2-discovery/#survey-design-elements) that PMA surveys are collected within spatially-defined **sample clusters**. We'll also include identifying numbers for each cluster as survey design information via `r varlink(EAID)`. Here, we'll use clusters identified in `EAID_1`.^[Because women are considered "lost to follow-up" if they moved outside the study area, `EAID_1` and `EAID_2` are identical for all panel members: you can use either one to identify sample clusters.]
 
-Lastly, we'll want to use the `POP` variable to stratify our data extract by populations of interest. The inclusion of `POP` ensures that **standard error** estimates incorporate only the variation from a single population (rather than the combined variation for all samples at once).
-
-Summary functions like [survey_mean](http://gdfe.co/srvyr/reference/survey_mean.html) generate population-level estimates from survey design information specified with [as_survey_design](http://gdfe.co/srvyr/reference/as_survey_design.html). For instance, suppose you wanted to calculate the mean age of all reproductive women in each `POP` at Phase 2. The *sample* mean is a simple [mean](https://rdrr.io/r/base/mean.html) function [grouped by](https://dplyr.tidyverse.org/reference/group_by.html) `POP`:
+Most PMA samples are also collected within separate strata indicated by `r varlink(STRATA)`. We've [previously noted](../2022-03-01-phase2-discovery/#survey-design-elements) that `STRATA` is *not available* for samples collected from DRC - Kinshasa and DRC - Kongo Central, so we demonstrated how to create placeholder codes for those samples in a variable we called `STRATA_RECODE`. To review: `STRATA_RECODE` uses unique numeric codes from `STRATA`, except that it also includes unique identifiers for each sampled region in `GEOCD`.
 
 ```{r}
-dat %>% 
+dat <- dat %>% 
+  mutate(
+    STRATA_RECODE = if_else(
+      is.na(GEOCD), 
+      as.numeric(STRATA_1), 
+      as.numeric(GEOCD)
+    )
+  ) 
+
+dat %>% count(STRATA_1, GEOCD, STRATA_RECODE) 
+```
+
+The [srvyr](http://gdfe.co/srvyr/index.html) function [as_survey_design](http://gdfe.co/srvyr/reference/as_survey_design.html) allows us to pass the information in `PANELWEIGHT`, `EAID_1`, and `STRATA_RECODE` to other package functions like [survey_mean](http://gdfe.co/srvyr/reference/survey_mean.html). We'll also demonstrate how to use this information in formal significance tests within each sample via [svychisq](http://gdfe.co/srvyr/reference/svychisq.html).
+
+<aside>
+Check out [this post](../2022-03-01-phase2-discovery/#survey-design-elements) for more information on PMA survey design and the [srvyr](http://gdfe.co/srvyr/index.html) package.
+</aside>
+
+Let's begin with a simple example. The variable `r varlink(CP)` indicates whether a woman was currently using any family planning method. The variables `CP_1` and `CP_2` in our **wide** extract represent responses collected at Phase 1 and Phase 2, respectively. With help from [srvyr](http://gdfe.co/srvyr/index.html), we'll obtain a population-level estimate of the proportion of women who were using a method at Phase 2, given their status at Phase 1. 
+
+```{r}
+cp_tbl <- dat %>% 
   group_by(POP) %>% 
-  summarise(mean(AGE_2))
+  summarise(
+    .groups = "keep",
+    cur_data() %>% 
+      as_survey_design(weight = PANELWEIGHT, id = EAID_1, strata = STRATA_RECODE) %>% 
+      group_by(CP_1, CP_2) %>% 
+      summarise(survey_mean(vartype = "ci", prop = TRUE, prop_method = "logit"))
+  )
+
+cp_tbl
 ```
 
-If you provide only a survey `weight` to [as_survey_design](http://gdfe.co/srvyr/reference/as_survey_design.html), you'll be able to calculate the mean age for all reproductive-aged women in each *population* of interest. Instead of [mean](https://rdrr.io/r/base/mean.html), we'll use the [srvyr](http://gdfe.co/srvyr/index.html) function [survey_mean](http://gdfe.co/srvyr/reference/survey_mean.html):
+Here, we first use [group_by](http://gdfe.co/srvyr/reference/group_by.html) to divide the data extract into individual samples defined by `POP`. We then reference each of these samples as [cur_data](https://dplyr.tidyverse.org/reference/context.html) inside a summary function defined by [summarise](http://gdfe.co/srvyr/reference/summarise.html) - this ensures that the population estimates obtained from our combined data extract are identical to those you would obtain if you downloaded one extract for each sample and analyzed them separately. 
+
+Within [summarise](http://gdfe.co/srvyr/reference/summarise.html), we use [as_survey_design](http://gdfe.co/srvyr/reference/as_survey_design.html) so specify information about the design of each sample, and we then use a second [group_by](http://gdfe.co/srvyr/reference/group_by.html) to identify each of our variables of interest, `CP_1` and `CP_2`. Finally, we use a second [summarise](http://gdfe.co/srvyr/reference/summarise.html) function to calculate a [srvyr](http://gdfe.co/srvyr/index.html) summary statistic: in this case, we use [survey_mean](http://gdfe.co/srvyr/reference/survey_mean.html) to estimate proportions in the population. 
+
+The population estimate for each row appears in the column `_coef`. Looking at row 1, we would estimate that 79% of women aged 15-49 in Burkina Faso used *no method* both at Phase 1 and again at Phase 2. The columns `_low` and `_upp` report the limits of a 95% confidence interval: 76.3% and 81.5%.
+
+<aside>
+You may change the confidence interval to, for example, 99% by setting `level = 0.99` in [survey_mean](http://gdfe.co/srvyr/reference/survey_mean.html).
+</aside>
+
+Comparing these confidence intervals gives us an informal, conservative way to test for a significant difference between outcomes for each `POP`: if the intervals for any pair of outcomes in the same sample include no common values, we'll say that a significant difference exists. *Formal testing may also reveal significant differences between pairs of outcomes where these intervals overlap only slightly.* Our approach is well suited for data visualization, but it should not replace formal testing. Fortunately, you can adapt our code to replace (or complement) the output from [survey_mean](http://gdfe.co/srvyr/reference/survey_mean.html). 
+
+For example, here we demonstrate how to calculate a Rao-Scott chi-square test for significant differences between the estimated population proportions for each `POP` and the proportions we would *expect* to observe if Phase 2 outcomes were statistically independent from Phase 1 conditions.^[The Rao-Scott second-order correction to Pearson's chi-square test is used to incorporate survey design information from [as_survey_design](http://gdfe.co/srvyr/reference/as_survey_design.html), reflecting weighted population estimates. Wald-type chi-square tests are also available: see [svychisq](https://rdrr.io/cran/survey/man/svychisq.html) for details.] Because we're interested in just one summary statistic per sample, we no longer need to [group_by](http://gdfe.co/srvyr/reference/group_by.html) `CP_1` and `CP_2`; instead, we'll use the formula `~CP_1 + CP_2` in the function [svychisq](https://rdrr.io/cran/survey/man/svychisq.html).
 
 ```{r}
-dat %>% 
-  as_survey_design(weight = PANELWEIGHT) %>% 
+rao_tbl <- dat %>% 
   group_by(POP) %>% 
-  summarise(survey_mean(AGE_2))
+  summarise(
+    .groups = "keep",
+    cur_data() %>% 
+      as_survey_design(weight = PANELWEIGHT, id = EAID_1,  strata = STRATA_RECODE) %>% 
+      summarise(rao = svychisq(~CP_1 + CP_2, design = .) %>% list)
+  )
+
+rao_tbl
 ```
 
-Notice that [survey_mean](http://gdfe.co/srvyr/reference/survey_mean.html) provides a point-estimate in `coef`, plus a standard error estimated in `_se`. The standard error shown above is not quite right, because our `survey_design` information is incomplete. Notice that, if we include `EAID_1` as a cluster ID, the estimates in `_se` may move upward or downward (depending on the age distribution within clusters), but our point-estimates in `coef` remain unchanged.
+Our new summary column `rao` contains output for each sample's test in a [list](https://www.rdocumentation.org/packages/base/versions/3.6.2/topics/list). From here, you can extract output elements [rowwise](https://dplyr.tidyverse.org/articles/rowwise.html) by name like so: 
 
 ```{r}
-dat %>% 
-  as_survey_design(weight = PANELWEIGHT, id = EAID_1) %>% 
-  group_by(POP) %>% 
-  summarise(survey_mean(AGE_2))
-```
-
-Lastly, we should also remember to stratify our multi-sample data extract by `POP`. This ensures that only the age variation within a given sample is used for its standard error estimate. You'd achieve the same results if you downloaded one extract for each sample, and then calculated the mean age for each population separately. For example, consider the standard error estimate for "DRC - Kinshasa" if our extract only included members of that sample: 
-
-```{r}
-dat %>% 
-  filter(POP == "DRC - Kinshasa") %>% 
-  as_survey_design(weight = PANELWEIGHT, id = EAID_1) %>% 
-  summarise(survey_mean(AGE_2))
-```
-
-Here, the standard error is `0.218`. Above, when we included the variation across *all* samples, the same standard error estimate was `0.216`. We'll get the correct standard error for "DRC - Kinshasa" (and other small samples) if stratify the combined, multi-sample extract by `POP`. 
-
-```{r}
-dat %>% 
-  as_survey_design(weight = PANELWEIGHT, id = EAID_1, strata = POP) %>% 
-  group_by(POP) %>% 
-  summarise(survey_mean(AGE_2))
-```
-
-Summary functions like [survey_mean](http://gdfe.co/srvyr/reference/survey_mean.html) always produce standard error estimates by default. Alternatively, we can use the `vartype` argument to obtain a confidence interval (95% by default) bounded by `_low` and `_upp`:
-
-```{r}
-dat %>% 
-  as_survey_design(weight = PANELWEIGHT, id = EAID_1, strata = POP) %>% 
-  group_by(POP) %>% 
-  summarise(survey_mean(AGE_2, vartype = "ci"))
-```
-
-[AGE_2](https://pma.ipums.org/pma-action/variables/AGE) is a **continuous** variable that can take any integer value between 15 and 49. Most of our variables, however, are **discrete**: they represent categorical responses (like "yes" and "no") that should be estimated as proportions of the population of interest. In case a particular confidence interval approaches 0% or 100%, [survey_mean](http://gdfe.co/srvyr/reference/survey_mean.html) uses a method specified by the `proportion` argument to create limits at those values. The “logit” method calculates a Wald-type confidence interval on the log-odds scale; Stata users will notice that it reproduces results obtained with `svy: prop`.^[See [svyciprop](https://rdrr.io/pkg/survey/man/svyciprop.html) for additional methods.]
-
-For example, [PREGNANT_2](https://pma.ipums.org/pma-action/variables/PREGNANT) is a **discrete** variable indicating whether a woman was pregnant at Phase 2. We'll use the [survey_mean](http://gdfe.co/srvyr/reference/survey_mean.html) again to calculate the population-level proportion for each response. We'll add `PREGNANT_2` to our [group_by](https://dplyr.tidyverse.org/reference/group_by.html) function, and then specify details for estimating each proportion in [survey_mean](http://gdfe.co/srvyr/reference/survey_mean.html). 
-
-```{r}
-dat %>% 
-  as_survey_design(weight = PANELWEIGHT, id = EAID_1, strata = POP) %>% 
-  group_by(POP, PREGNANT_2) %>% 
-  summarise(survey_mean(vartype = "ci", proportion = TRUE, prop_method = "logit"))
+rao_tbl %>% 
+  rowwise() %>% 
+  mutate(
+    `F` = rao$statistic, 
+    p.value = rao$p.value,
+    sig95 = p.value < 0.05
+  )
 ```
 
 # Visualization 
 
-We'll use simple **grouped bar charts** to show population estimates for each proportion below. A grouped bar chart differs from the **stacked bar charts** shown in PMA reports in that each response is plotted along an axis (rather than stacked together in a single bar). We'll show **grouped bar charts** here so that we can also include **error bars** representing the 95% confidence interval for each proportion. This gives us a simple way to test for statistical significance between groups: if the error bars for any two groups do not overlap, we'll say (with 95% confidence) that a difference exists between them in the population of interest. 
+We'll use simple **grouped bar charts** to show population estimates for each proportion below. A grouped bar chart differs from the **stacked bar charts** shown in PMA reports in that each response is plotted along an axis (rather than stacked together in a single bar). We'll show **grouped bar charts** here so that we can also include **error bars** representing a 95% confidence interval for each proportion.
 
-For example, let's plot the estimates from `PREGNANT_2` shown above. We'll begin by saving the summary output as a table called `pregnant_2_tbl`. 
-
-```{r}
-pregnant_2_tbl <- dat %>% 
-  as_survey_design(weight = PANELWEIGHT, id = EAID_1, strata = POP) %>% 
-  group_by(POP, PREGNANT_2) %>% 
-  summarise(survey_mean(vartype = "ci", prop = TRUE, prop_method = "logit"))
-```
-
-We've mentioned [elsewhere](../2021-07-01-covid-tables/index.html#display-value-labels) on this blog that IPUMS variables are **labelled** numbers rather than **factors**. If you want to display the label for each response - rather than its numeric code - you'll want to coerce each discrete variable with [as_factor](https://forcats.tidyverse.org/reference/as_factor.html). You can also control the order in which responses are plotted by setting factor levels with [fct_relevel](https://forcats.tidyverse.org/reference/fct_relevel.html). 
+For example, let's plot the estimates created in `cp_tbl` above. As a preliminary step, we'll recode `CP_1` and `CP_2` with [as_factor](https://forcats.tidyverse.org/reference/as_factor.html) and sort their levels with [fct_relevel](https://forcats.tidyverse.org/reference/fct_relevel.html). This ensures that the *value labels* for each variable will be printed on our plot.
 
 ```{r}
-pregnant_2_tbl <- pregnant_2_tbl %>% 
+cp_tbl <- cp_tbl %>% 
   mutate(
-    PREGNANT_2 = PREGNANT_2 %>% 
-      as_factor %>%  
-      fct_relevel("No response", "Don't know", "No", "Yes")
+    across(
+      c(CP_1, CP_2),
+      ~as_factor(.x) %>% fct_relevel("No", "Yes")
+    )
   )
 ```
 
-Finally, we'll use [ggplot2](https://ggplot2.tidyverse.org/reference/ggplot.html) to build the plot. Because our data includes multiple samples, we'll use [facet_grid](https://ggplot2.tidyverse.org/reference/facet_grid.html) to plot each `POP` in a separate panel, each with the same `x` and `y` axis. The functions [geom_bar](https://ggplot2.tidyverse.org/reference/geom_bar.html) and [geom_errorbar](https://ggplot2.tidyverse.org/reference/geom_linerange.html) plot the grouped bars and error bars, respectively. A baseline plot should look something like this:   
+Next, we'll use [ggplot2](https://ggplot2.tidyverse.org/reference/ggplot.html) to build the plot. Because our data includes multiple samples, we'll use [facet_grid](https://ggplot2.tidyverse.org/reference/facet_grid.html) to plot all summary data in multiple panels. The functions [geom_bar](https://ggplot2.tidyverse.org/reference/geom_bar.html) and [geom_errorbar](https://ggplot2.tidyverse.org/reference/geom_linerange.html) plot the grouped bars and error bars, respectively. A baseline plot should look something like this:   
 
 ```{r, layout = "l-body", fig.height=5}
-pregnant_2_tbl %>% 
-  ggplot(aes(x = coef, y = PREGNANT_2)) + 
-  facet_grid(rows = vars(POP)) + 
+cp_tbl %>% 
+  ggplot(aes(x = coef, y = CP_2)) + 
+  facet_grid(rows = vars(POP), cols = vars(CP_1)) + 
   geom_bar(stat = "identity") + 
   geom_errorbar(aes(xmin = `_low`, xmax = `_upp`), width = 0.2)
 ```
@@ -349,12 +352,14 @@ pma_bars <- function(
 Going forward, we'll incorporate `pma_bars` together with a [ggplot](https://ggplot2.tidyverse.org/reference/ggplot.html) and [facet](https://ggplot2.tidyverse.org/reference/index.html#facetting) function for a given set of variables like so:
 
 ```{r, fig.height=6}
-pregnant_2_tbl %>% 
-  ggplot(aes(x = coef, y = PREGNANT_2)) + 
-  facet_grid(rows = vars(POP)) + 
+cp_tbl %>% 
+  ggplot(aes(x = coef, y = CP_2)) + 
+  facet_grid(rows = vars(POP), cols = vars(CP_1)) + 
   pma_bars(
-    title = "Pregnancy Status at Phase 2",
-    subtitle = "A grouped bar chart, faceted by population of interest"
+    title = "Change in Contracptive Use Status",
+    subtitle = "A grouped bar chart, faceted by population of interest",
+    xaxis = "Phase 1",
+    yaxis = "Phase 2"
   )
 ```
 
@@ -362,15 +367,7 @@ pregnant_2_tbl %>%
 
 ## Contraceptive Use or Non-Use
 
-The variable `r varlink(CP)` describes whether a woman was currently using contraception at a particular phase in the panel study. It combines information from multiple variables to describe women who: 
-
-  * were currently using (or whose partner was using) any method to delay or avoid getting pregnant (`r varlink(FPCURRUSE)`)
-  * had been previously sterilized (`r varlink(FP1STMETHOD)`) 
-  * used emergency contraception within the past 12 months (`r varlink(FPEFFECTIVEYR)`)
-  
-`r varlink(CP)` differs from the related variable `r varlink(FPCURRUSE)` in that the former *includes* responses from women who were currently pregnant. In many cases, you'll need to identify these women with `r varlink(PREGNANT)`. 
-
-For example, the first figure in each PMA report distinguishes between users, non-users, and women who were pregnant at Phase 1 or Phase 2. To replicate those results, we'll need to create our own variable `FPSTATUS` combining information from `r varlink(CP)` and `r varlink(PREGNANT)` in each phase. 
+Let's continue our examination of `r varlink(CP)`. In the PMA reports for each sample linked above, you'll notice that women who were pregnant at either phase are distinguished from women who reported use or non-use in `CP_1` or `CP_2`. We'll identify these women in the variable `r varlink(PREGNANT)`, and then we'll create a combined indicator called `FPSTATUS`. 
 
   * `FPSTATUS` - Pregnant, using contraception, or using no contraception 
 
@@ -394,34 +391,27 @@ dat <- dat %>%
   )
 ```
 
-The proportion of women who were pregnant, currently using contraception, or using no contraception at Phase 1 can be estimated for each population with `FPSTATUS_1`. 
-
-```{r}
-dat %>% 
-  as_survey_design(weight = PANELWEIGHT, id = EAID_1, strata = POP) %>%
-  group_by(POP, FPSTATUS_1) %>% 
-  summarise(survey_mean(prop = TRUE, prop_method = "logit", vartype = "ci"))
-```
-
-Analogous proportions can be calculated for Phase 2 using `FPSTATUS_2`:
-
-```{r}
-dat %>% 
-  as_survey_design(weight = PANELWEIGHT, id = EAID_1, strata = POP) %>%
-  group_by(POP, FPSTATUS_2) %>% 
-  summarise(survey_mean(prop = TRUE, prop_method = "logit", vartype = "ci"))
-```
-
-We'll combine information from `FPSTATUS_1` and `FPSTATUS_2` to examine how Phase 1 status impacts status at Phase 2. For example, 
+We'll now revise `cp_tbl` to include information from `FPSTATUS_1` and `FPSTATUS_2`. This will help us answer key questions like: 
 
   * Are women who were pregnant at Phase 1 more likely to use or not use family planning at Phase 2? 
   * Are women who were using (or not using) contraception at Phase 1 likely to maintain the same status at Phase 2? 
+  
+```{r}
+cp_tbl <- dat %>% 
+  group_by(POP) %>% 
+  summarise(
+    .groups = "keep",
+    cur_data() %>% 
+      as_survey_design(weight = PANELWEIGHT, id = EAID_1, strata = STRATA_RECODE) %>% 
+      group_by(FPSTATUS_1, FPSTATUS_2) %>% 
+      summarise(survey_mean(vartype = "ci", prop = TRUE, prop_method = "logit"))
+  )
+```
+
+Next, we'll plot `cp_tbl` with `pma_bars`:
 
 ```{r, preview = TRUE}
-dat %>% 
-  as_survey_design(weight = PANELWEIGHT, id = EAID_1, strata = POP) %>%
-  group_by(POP, FPSTATUS_1, FPSTATUS_2) %>% 
-  summarise(survey_mean(prop = TRUE, prop_method = "logit", vartype = "ci")) %>% 
+cp_tbl %>% 
   ggplot(aes(x = coef, y = FPSTATUS_2)) + 
   facet_grid(cols = vars(FPSTATUS_1), rows = vars(POP)) + 
   pma_bars(
@@ -432,15 +422,14 @@ dat %>%
   )
 ```
 
-Here, a significant difference between subgroups in the same population is said to exist if the error bars representing any pair of subgroups **do not overlap**. 
+To reiterate: comparing the error bars within each of these 18 panels gives us a informal, but conservative test for significant difference. We'll say that a significant difference occurs where two pairs of error bars **do not overlap** (but additional testing may be necessary to determine whether a significant difference occurs where error bars overlap only slightly). A few observations: 
 
-  * For women who were pregnant at Phase 1, there is usually no significant difference between using and not using family planning at Phase 2. Kenya and Nigeria - Kano are the exception: in Kenya, pregnant women at Phase 1 were significantly more likely to be using FP at Phase 2, while the opposite is true in Kano.  
-  * Overall, non-pregnant women at Phase 1 were significantly more likely to maintain the same status (use or non-use) at Phase 2 than they were to switch or become pregnant. 
-
+   * For women who were pregnant at Phase 1, there is usually no apparent difference between using and not using family planning at Phase 2. Kenya and Nigeria - Kano are the exception: in Kenya, pregnant women at Phase 1 were appear more likely to be using FP at Phase 2, while the opposite is true in Kano.  
+  * Overall, non-pregnant women at Phase 1 appeared more likely to maintain the same status (use or non-use) at Phase 2 than they were to switch or become pregnant. 
+  
 ## Contraceptive Method Type 
 
-PMA surveys ask contraceptive users to indicate which method they are currently using at each phase of the study. If a woman reports using more than one method, `r varlink(FPCURREFFMETH)` shows her most *effective* currently used method. These responses are combined with detailed information about use of the lactational amenorrhea method (LAM), emergency contraception, or injectable type in  `r varlink(FPCURREFFMETHRC)`. 
-PMA reports use `r varlink(FPCURREFFMETHRC)` to determine whether each woman's most effective current method is a short-acting, long-acting, or traditional method. 
+PMA surveys also ask contraceptive users to indicate which method they are currently using at each phase of the study. If a woman reports using more than one method, `r varlink(FPCURREFFMETH)` shows her most *effective* currently used method. These responses are combined with detailed information about use of the lactational amenorrhea method (LAM), emergency contraception, or injectable type in  `r varlink(FPCURREFFMETHRC)`. PMA reports use `r varlink(FPCURREFFMETHRC)` to determine whether each woman's most effective current method is a short-acting, long-acting, or traditional method. 
 
 Long-acting methods include:
 
@@ -494,13 +483,24 @@ dat <- dat %>%
   ) 
 ```
 
-Next, we'll generate population estimates for our derived variables, `CAT_FPCURREFFMETHRC_1` and `CAT_FPCURREFFMETHRC_2`. We'll again use `theme_pma` to plot the results. 
+Next, we'll generate population estimates for our derived variables, `CAT_FPCURREFFMETHRC_1` and `CAT_FPCURREFFMETHRC_2`. 
 
 ```{r}
-dat %>% 
-  as_survey_design(weight = PANELWEIGHT, id = EAID_1, strata = POP) %>%
-  group_by(POP, CAT_FPCURREFFMETHRC_1, CAT_FPCURREFFMETHRC_2) %>% 
-  summarise(survey_mean(prop = TRUE, prop_method = "logit", vartype = "ci")) %>% 
+meth_tbl <- dat %>% 
+  group_by(POP) %>% 
+  summarise(
+    .groups = "keep",
+    cur_data() %>% 
+      as_survey_design(weight = PANELWEIGHT, id = EAID_1, strata = STRATA_RECODE) %>% 
+      group_by(CAT_FPCURREFFMETHRC_1, CAT_FPCURREFFMETHRC_2) %>% 
+      summarise(survey_mean(vartype = "ci", prop = TRUE, prop_method = "logit"))
+  )
+```
+
+We'll again use `pma_bars` to plot the results. 
+
+```{r}
+meth_tbl %>% 
   ggplot(aes(x = coef, y = CAT_FPCURREFFMETHRC_2)) + 
   facet_grid(cols = vars(CAT_FPCURREFFMETHRC_1), rows = vars(POP)) + 
   pma_bars(
@@ -513,11 +513,11 @@ dat %>%
 
 What do we learn from this plot? Let's consider each column in turn:
 
-  * Users of "long-acting" methods at Phase 1 were significantly more likely to use "long-acting" methods at Phase 2 than to have changed status (except in Kano, where no significant difference exists between "long-acting" and "none" at Phase 2). 
-  * Users of "short-acting" methods at Phase 1 are generally likely to use them again at Phase 2, but some samples show that women are equally likely to be using "none" at Phase 2. A significant difference between these two outcomes appears only in Kinshasa, Kenya, and Lagos (where women were more likely to be using "short-acting" methods than "none"). 
-  * The status of Phase 1 "traditional" users is generally unclear at Phase 2. In Kinshasa, Kongo Central, and Lagos, these women were most likely to remain "traditional" users at Phase 2. Elsewhere, there are no clear trends. 
-  * Users of "none" at Phase 1 were clearly mostly likely to remain as such at Phase 2.
-
+  * Users of "long-acting" methods at Phase 1 appear more likely to have used "long-acting" methods at Phase 2 than to have changed status (except perhaps in Kano, where the intervals for "long-acting" and "none" overlap at Phase 2). 
+  * Users of "short-acting" methods at Phase 1 appeared generally likely to use them again at Phase 2, but some samples show that women are equally likely to be using "none" at Phase 2. A difference between these two outcomes is visually apparent only in Kinshasa, Kenya, and Lagos (where women were more likely to be using "short-acting" methods than "none"). 
+  * The status of Phase 1 "traditional" users is generally unclear at Phase 2. In Kinshasa, Kongo Central, and Lagos, these women seem most likely to remain "traditional" users at Phase 2. Elsewhere, there are no clear trends. 
+  * Users of "none" at Phase 1 were clearly most likely to remain as such at Phase 2.
+  
 ## Contraceptive Dynamics by Subgroup
 
 We can also use `r varlink(FPCURREFFMETHRC)` to see whether women switched methods, stopped using any method, started using any method, or made no changes. Let's summarize this information as `CHG_FPCURR`:
@@ -556,13 +556,18 @@ dat <- dat %>%
   ) 
 ```
 
-Plotting `CAT_AGE_2` on the y-axis allows us to compare confidence intervals across age groups. For example, notice that women aged 15-19 in every population are significantly more likely to continue non-use than women who are aged 20-24 or 25-49 (column 3). 
+Plotting `CAT_AGE_2` on the y-axis allows us to compare confidence intervals across age groups. For example, notice that women aged 15-19 in every population seem more likely to continue non-use than women who are aged 20-24 or 25-49 (column 3). 
 
 ```{r}
 dat %>% 
-  as_survey_design(weight = PANELWEIGHT, id = EAID_1, strata = POP) %>%
-  group_by(POP, CAT_AGE_2, CHG_FPCURR) %>% 
-  summarise(survey_mean(prop = TRUE, prop_method = "logit", vartype = "ci")) %>% 
+  group_by(POP) %>% 
+  summarise(
+    .groups = "keep",
+    cur_data() %>% 
+      as_survey_design(weight = PANELWEIGHT, id = EAID_1, strata = STRATA_RECODE) %>% 
+      group_by(CAT_AGE_2, CHG_FPCURR) %>% 
+      summarise(survey_mean(vartype = "ci", prop = TRUE, prop_method = "logit"))
+  ) %>% 
   ggplot(aes(x = coef, y = CAT_AGE_2)) + 
   facet_grid(cols = vars(CHG_FPCURR), rows = vars(POP)) + 
   pma_bars(
@@ -588,14 +593,19 @@ dat <- dat %>%
   ) 
 ```
 
-As with age, we'll plot `CAT_EDUCATTGEN_2` on the y-axis. There aren't many clear takeaways here: confidence intervals overlap in each column for almost every education level, indicating no significant difference in most populations. 
+As with age, we'll plot `CAT_EDUCATTGEN_2` on the y-axis. There aren't many clear takeaways here: confidence intervals overlap in each column for almost every education level, so visual inspection reveals no clear significant differences: 
 
 ```{r}
 dat %>% 
   filter(EDUCATTGEN_2 < 90) %>% # drop if missing 
-  as_survey_design(weight = PANELWEIGHT, id = EAID_1, strata = POP) %>%
-  group_by(POP, CAT_EDUCATTGEN_2, CHG_FPCURR) %>% 
-  summarise(survey_mean(prop = TRUE, prop_method = "logit", vartype = "ci")) %>% 
+  group_by(POP) %>% 
+  summarise(
+    .groups = "keep",
+    cur_data() %>% 
+      as_survey_design(weight = PANELWEIGHT, id = EAID_1, strata = STRATA_RECODE) %>% 
+      group_by(CAT_EDUCATTGEN_2, CHG_FPCURR) %>% 
+      summarise(survey_mean(vartype = "ci", prop = TRUE, prop_method = "logit"))
+  ) %>% 
   ggplot(aes(x = coef, y = CAT_EDUCATTGEN_2)) + 
   facet_grid(cols = vars(CHG_FPCURR), rows = vars(POP)) + 
   pma_bars(
@@ -620,13 +630,18 @@ dat <- dat %>%
   ) 
 ```
 
-Here, we see that women who were *not* in a union at Phase 2 were significantly more likely to continue non-use of contraception compared to married / partnered women in each population. On the other hand, women who *were* in a union appeared more likely to continue using the same method, and perhaps change methods (most clearly in Kenya). 
+Here, we see that women who were *not* in a union at Phase 2 were significantly more likely to continue non-use of contraception compared to married / partnered women in each population. On the other hand, women who *were* in a union mainly appeared more likely to continue using the same method, or perhaps to change methods (most clearly in Kenya). 
 
 ```{r}
 dat %>% 
-  as_survey_design(weight = PANELWEIGHT, id = EAID_1, strata = POP) %>%
-  group_by(POP, CAT_MARSTAT_2, CHG_FPCURR) %>% 
-  summarise(survey_mean(prop = TRUE, prop_method = "logit", vartype = "ci")) %>% 
+  group_by(POP) %>% 
+  summarise(
+    .groups = "keep",
+    cur_data() %>% 
+      as_survey_design(weight = PANELWEIGHT, id = EAID_1, strata = STRATA_RECODE) %>% 
+      group_by(CAT_MARSTAT_2, CHG_FPCURR) %>% 
+      summarise(survey_mean(vartype = "ci", prop = TRUE, prop_method = "logit"))
+  ) %>% 
   ggplot(aes(x = coef, y = CAT_MARSTAT_2)) + 
   facet_grid(cols = vars(CHG_FPCURR), rows = vars(POP)) + 
   pma_bars(
@@ -657,9 +672,14 @@ There are few clear patterns related to parity, except that women who have never
 
 ```{r}
 dat %>% 
-  as_survey_design(weight = PANELWEIGHT, id = EAID_1, strata = POP) %>%
-  group_by(POP, CAT_BIRTHEVENT_2, CHG_FPCURR) %>% 
-  summarise(survey_mean(prop = TRUE, prop_method = "logit", vartype = "ci")) %>% 
+  filter(BIRTHEVENT_2 != 98) %>% # drops 2 missing cases (code 98)
+  group_by(POP) %>% 
+  summarise(
+    .groups = "keep",
+    cur_data() %>% 
+      as_survey_design(weight = PANELWEIGHT, id = EAID_1, strata = STRATA_RECODE) %>% 
+      group_by(CAT_BIRTHEVENT_2, CHG_FPCURR) %>% 
+      summarise(survey_mean(vartype = "ci", prop = TRUE, prop_method = "logit"))) %>% 
   ggplot(aes(x = coef, y = CAT_BIRTHEVENT_2)) + 
   facet_grid(cols = vars(CHG_FPCURR), rows = vars(POP)) + 
   pma_bars(
@@ -685,9 +705,14 @@ The binary variable `r varlink(UNMETYN)` recodes `r varlink(UNMETNEED)` as eithe
 ```{r, fig.height=5}
 dat %>% 
   mutate(UNMETYN_1 = if_else(UNMETYN_1 == 1, "Yes", "No")) %>% 
-  as_survey_design(weight = PANELWEIGHT, id = EAID_2) %>%
-  group_by(POP, UNMETYN_1, CP_2) %>% 
-  summarise(survey_mean(prop = TRUE, prop_method = "logit", vartype = "ci")) %>% 
+  group_by(POP) %>% 
+  summarise(
+    .groups = "keep",
+    cur_data() %>% 
+      as_survey_design(weight = PANELWEIGHT, id = EAID_1, strata = STRATA_RECODE) %>% 
+      group_by(UNMETYN_1, CP_2) %>% 
+      summarise(survey_mean(vartype = "ci", prop = TRUE, prop_method = "logit"))
+  ) %>% 
   filter(CP_2 == 1) %>% 
   ggplot(aes(x = coef, y = UNMETYN_1)) + 
   facet_grid(rows = vars(POP)) + 
@@ -699,7 +724,7 @@ dat %>%
   )
 ```
 
-Overall, these results suggest that non-users with unmet need for family planning at Phase 1 were more likely to adopt a method at Phase 2 compared to non-users who had none (e.g. women who were not sexually active, could not become pregnant, etc.). However, these trends were not quite statistically significant in Burkina Faso or Nigeria - Lagos. 
+Overall, these results suggest that non-users with unmet need for family planning at Phase 1 were more likely to adopt a method at Phase 2 compared to non-users who had none (e.g. women who were not sexually active, could not become pregnant, etc.). However, formal testing is needed to determine whether these trends were statistically significant in Burkina Faso and Nigeria - Lagos. 
 
 ### Partner support 
 
@@ -709,9 +734,14 @@ Women who were not using family planning and not pregnant at Phase 1 were asked 
 dat %>% 
   filter(FPPARTSUPPORT_1 %in% c(0, 1, 97)) %>% 
   mutate(FPPARTSUPPORT_1 = FPPARTSUPPORT_1 %>% as_factor) %>% 
-  as_survey_design(weight = PANELWEIGHT, id = EAID_2) %>%
-  group_by(POP, FPPARTSUPPORT_1, CP_2) %>% 
-  summarise(survey_mean(prop = TRUE, prop_method = "logit", vartype = "ci")) %>% 
+  group_by(POP) %>% 
+  summarise(
+    .groups = "keep",
+    cur_data() %>% 
+      as_survey_design(weight = PANELWEIGHT, id = EAID_1, strata = STRATA_RECODE) %>% 
+      group_by(FPPARTSUPPORT_1, CP_2) %>% 
+      summarise(survey_mean(vartype = "ci", prop = TRUE, prop_method = "logit"))
+  ) %>% 
   filter(CP_2 == 1) %>% 
   ggplot(aes(x = coef, y = FPPARTSUPPORT_1)) + 
   facet_grid(rows = vars(POP)) + 
@@ -723,9 +753,9 @@ dat %>%
   )
 ```
 
-We've included responses for women who were unsure whether their partner would or would not support future use of FP ("Dont know"), but Phase 2 outcomes for these women were usually not significantly different from those who answered "Yes" or "No". 
+We've included responses for women who were unsure whether their partner would or would not support future use of FP ("Dont know"), but Phase 2 outcomes for these women were usually not visually distinct from those who answered "Yes" or "No". Formal testing is needed to determine whether any significant differences exist.
 
-Meanwhile, women with Phase 1 partner support in DRC - Kongo Central and Kenya were more likely to adopt a method than not. Outcomes for women in other populations are not significantly different based on partner support, one way or the other. 
+Meanwhile, women with Phase 1 partner support in DRC - Kongo Central and Kenya were more likely to adopt a method than not. Outcomes for women in other populations are not visibly different based on partner support, one way or the other (again, formal testing may prove otherwise). 
 
 ### Intentions
 
@@ -757,9 +787,14 @@ Our final plot shows the difference in FP adoption between women who planned to 
 
 ```{r, fig.height=5}
 dat %>% 
-  as_survey_design(weight = PANELWEIGHT, id = EAID_2) %>%
-  group_by(POP, FPPLANYR_1, CP_2) %>% 
-  summarise(survey_mean(prop = TRUE, prop_method = "logit", vartype = "ci")) %>% 
+  group_by(POP) %>% 
+  summarise(
+    .groups = "keep",
+    cur_data() %>% 
+      as_survey_design(weight = PANELWEIGHT, id = EAID_1, strata = STRATA_RECODE) %>% 
+      group_by(FPPLANYR_1, CP_2) %>% 
+      summarise(survey_mean(vartype = "ci", prop = TRUE, prop_method = "logit"))
+  ) %>% 
   filter(CP_2 == 1) %>% 
   ggplot(aes(x = coef, y = FPPLANYR_1)) + 
   facet_grid(rows = vars(POP)) + 
@@ -775,8 +810,10 @@ In every population, Phase 1 non-users who planned to adopt a method by Phase 2 
 
 # Wrap-up 
 
-As we've seen, **grouped bar charts** give us a simple way to visually check whether Phase 2 outcomes differ significantly for subgroups defined by baseline family planning conditions or key demographic features. Additionally, when we **facet** populations of interest on the same axis, we can easily compare differences between subgroups for many samples in a single figure. 
+As we've seen, **grouped bar charts** give us a simple way to identify clear differences between Phase 2 outcomes for subgroups defined by baseline family planning conditions or key demographic features. Additionally, when we **facet** populations of interest on the same axis, we can easily compare differences between subgroups for many samples in a single figure. 
 
-One drawback to this approach is that we've been unable to showcase estimates for the proportion of responses at any *one* phase of the study. For example, in our last figure, we estimated that about 35% of women who *planned to use* contraception within the year at Phase 1 did so at Phase 2; our figure does not show how many women planned to use contraception within the year *as a share of the Phase 1 population*. 
+One drawback to this approach is that it's more conservative than formal statistical tests. We are not able to easily spot differences near the conventional 95% certainty threshold. However, we demonstrated how you can adapt our code to conduct formal hypothesis tests like the [Rao-Scott chi-square test](https://rdrr.io/cran/survey/man/svychisq.html) for weighted proportions.
+
+Another drawback to this approach is that we've been unable to showcase estimates for the proportion of responses at any *one* phase of the study. For example, in our last figure, we estimated that about 35% of women who *planned to use* contraception within the year at Phase 1 did so at Phase 2; our figure does not show how many women planned to use contraception within the year *as a share of the Phase 1 population*. 
 
 To better understand the change over time relative to the size of each subgroup in our analysis, we'll turn to a slightly more complicated data visualization method. In our next post, we'll show how to create **alluvial plots**, like those shown in the first two pages of each PMA report. 

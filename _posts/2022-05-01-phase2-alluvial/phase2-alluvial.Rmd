@@ -99,7 +99,7 @@ dat <- dat %>%
     RESULTFQ_2 == 1,  # must have completed Phase 1 FQ
     RESIDENT_1 %in% c(11, 22) & # must be de facto population (both phases)
       RESIDENT_2 %in% c(11, 22),
-    CP_1 < 99 & CP_2 < 99 # must answer "current FP use" question (both phases)
+    CP_1 < 90 & CP_2 < 90 # must answer "current FP use" question (both phases)
   ) 
 
 # custom variables: `POP` and `FPSTATUS`
@@ -110,6 +110,12 @@ dat <- dat %>%
       !is.na(GEOCD) ~ paste("DRC -", as_factor(GEOCD)),
       !is.na(GEONG) ~ paste("Nigeria -", as_factor(GEONG)),
       TRUE ~ as_factor(COUNTRY) %>% as.character()
+    ),
+    # strata: includes placeholder values for DRC regions 
+    STRATA_RECODE = if_else(
+      is.na(GEOCD), 
+      as.numeric(STRATA_1), 
+      as.numeric(GEOCD)
     ),
     # Family planning use-status at Phase 1 
     FPSTATUS_1 = case_when(
@@ -162,22 +168,25 @@ theme_pma <- theme_minimal() %+replace%
 
 Now let's revisit the **grouped bar chart** we made to compare `FPSTATUS_1` and `FPSTATUS_2` for each population `POP`. We made this chart in basically two steps. 
 
-First, we used [srvyr](http://gdfe.co/srvyr/index.html) to build a summary table that incorporates survey weights from `r varlink(PANELWEIGHT)` and generates a 95% confidence interval for each estimate. We used [EAID_1](https://pma.ipums.org/pma-action/variables/EAID#codes_section) to generate the cluster-robust standard errors underlying each confidence interval, and we stratified standard error estimation by `POP`.
+First, we used [srvyr](http://gdfe.co/srvyr/index.html) to build a summary table that incorporates survey weights from `r varlink(PANELWEIGHT)` and generates a 95% confidence interval for each estimate. We used [EAID_1](https://pma.ipums.org/pma-action/variables/EAID#codes_section) to generate the cluster-robust standard errors underlying each confidence interval, and we stratified standard error estimation by `STRATA_RECODE`.
 
-Notice that we [group_by](http://gdfe.co/srvyr/reference/group_by.html) `POP`, `FPSTATUS_1`, and `FPSTATUS_2` here. When we do this, [survey_mean](http://gdfe.co/srvyr/reference/survey_mean.html) estimates the proportion of outcomes represented by the variable that appears *last*, which is `FPSTATUS_2`. The proportions sum to `1.0` for each combination of `POP` and `FPSTATUS_1`: in other words, we obtain the proportion of `FPSTATUS_2` *on the condition* that women from a given `POP` held a particular status represented by `FPSTATUS_1`. For this reason, this is known as a **conditional distribution**. 
+Notice that we [group_by](http://gdfe.co/srvyr/reference/group_by.html) `FPSTATUS_1` and `FPSTATUS_2` here. When we do this, [survey_mean](http://gdfe.co/srvyr/reference/survey_mean.html) estimates the proportion of outcomes represented by the variable that appears *last*, which is `FPSTATUS_2`. The proportions sum to `1.0` for each combination of `POP` and `FPSTATUS_1`: in other words, we obtain the proportion of `FPSTATUS_2` *on the condition* that women from a given `POP` held a particular status represented by `FPSTATUS_1`. For this reason, this is known as a **conditional distribution**. 
 
 ```{r}
 status_tbl <- dat %>% 
-  as_survey_design(weight = PANELWEIGHT, id = EAID_1, strata = POP) %>%
-  group_by(POP, FPSTATUS_1, FPSTATUS_2) %>% 
-  summarise(survey_mean(prop = TRUE, prop_method = "logit", vartype = "ci"))
+  group_by(POP) %>% 
+  summarise(
+    .groups = "keep",
+    cur_data() %>% 
+      as_survey_design(weight = PANELWEIGHT, id = EAID_1, strata = STRATA_RECODE) %>%
+      group_by(FPSTATUS_1, FPSTATUS_2) %>% 
+      summarise(survey_mean(prop = TRUE, prop_method = "logit", vartype = "ci"))
+  )
 
 status_tbl
 ```
 
-As a second step, we plotted each conditional distribution as a series of grouped bar charts arranged in [facets](https://ggplot2.tidyverse.org/reference/index.html#facetting) by `POP`. We plotted `FPSTATUS_1` on the x-axis so that it would be easy to compare the probability of `FPSTATUS_2` outcomes under each Phase 1 "condition". Because we also plotted [error bars](https://ggplot2.tidyverse.org/reference/geom_linerange.html) from our 95% confidence interval, readers could easily discern whether a difference between `FPSTATUS_2` outcomes was statistically significant: if the error bars overlap under any given combination of `FPSTATUS_1` and `POP`, no significant difference can be claimed. 
-
-We combined the functions responsible for plotting grouped bars, error bars, and elements from `theme_pma` into a single function we called `pma_bars`. This step allowed us to repeat the same functions many times with different variables (and to hide some of the messier code responsible for the cosmetic design of our figures). 
+As a second step, we plotted each conditional distribution as a series of grouped bar charts arranged in [facets](https://ggplot2.tidyverse.org/reference/index.html#facetting) by `POP`. Because we wanted to recycle the same layout for several similar variables, we wrapped all of the necessary [ggplot2](https://ggplot2.tidyverse.org) tools together in a custom function called `pma_bars`.
 
 ```{r, code_folding = "Remind me how we built `pma_bars`"}
 pma_bars <- function(
@@ -298,14 +307,24 @@ The nice thing about this heatmap layout is that we *can* easily include data fr
 
 ```{r}
 col_margins <- dat %>% 
-  as_survey_design(weight = PANELWEIGHT, id = EAID_1, strata = POP) %>%
-  group_by(POP, FPSTATUS_1) %>% 
-  summarise(cols = survey_mean(prop = TRUE, prop_method = "logit", vartype = NULL))
-
+  group_by(POP) %>% 
+  summarise(
+    .groups = "keep",
+    cur_data() %>% 
+      as_survey_design(weight = PANELWEIGHT, id = EAID_1, strata = STRATA_RECODE) %>%
+      group_by(FPSTATUS_1) %>% 
+      summarise(cols = survey_mean(prop = TRUE, prop_method = "logit", vartype = NULL))
+  )
+  
 row_margins <- dat %>% 
-  as_survey_design(weight = PANELWEIGHT, id = EAID_1, strata = POP) %>%
-  group_by(POP, FPSTATUS_2) %>% 
-  summarise(rows = survey_mean(prop = TRUE, prop_method = "logit", vartype = NULL))
+  group_by(POP) %>% 
+  summarise(
+    .groups = "keep",
+    cur_data() %>% 
+      as_survey_design(weight = PANELWEIGHT, id = EAID_1, strata = STRATA_RECODE) %>%
+      group_by(FPSTATUS_2) %>% 
+      summarise(rows = survey_mean(prop = TRUE, prop_method = "logit", vartype = NULL))
+  )
 
 status_tbl <- status_tbl %>% right_join(col_margins) %>% right_join(row_margins)
 
@@ -338,7 +357,7 @@ status_tbl %>%
 
 The information contained in our heatmap is similar to what we saw in our bar chart, except for two things:
 
-  1. There are no error bars on our heatmap. If we wanted to include information about the statistical significance of each estimation, we would have to include [text symbols](https://search.r-project.org/CRAN/refmans/gtools/html/stars.pval.html).
+  1. There are no error bars on our heatmap. If we wanted to include information about the confidence interval for each estimation, we would have to include [text symbols](https://search.r-project.org/CRAN/refmans/gtools/html/stars.pval.html).
   2. While both plots show information about the conditional distribution of `FPSTATUS_2` given a starting point in `FPSTATUS_1`, only the heatmap includes the marginal distribution of each variable in its row and column margins. 
   
 The marginal distribution may provide crucial information about the conditional distribution that we would otherwise miss. Consider Burkina Faso, where both users and non-users of family planning at Phase 1 were generally most likely to maintain their status at Phase 2. The marginal distribution adds additional information: non-users comprise a larger share of the overall population at Phase 1.    
@@ -362,10 +381,15 @@ In practice, you'll usually want to let [srvyr](http://gdfe.co/srvyr) calculate 
 
 ```{r, R.options = list(width = 100)}
 joint_tbl <- dat %>% 
-  as_survey_design(weight = PANELWEIGHT, id = EAID_1, strata = POP) %>%
-  group_by(POP, interact(FPSTATUS_1, FPSTATUS_2)) %>% 
-  summarise(joint = survey_mean(prop = TRUE, prop_method = "logit", vartype = "ci"))
-
+  group_by(POP) %>% 
+  summarise(
+    .groups = "keep",
+    cur_data() %>% 
+      as_survey_design(weight = PANELWEIGHT, id = EAID_1, strata = STRATA_RECODE) %>%
+      group_by(interact(FPSTATUS_1, FPSTATUS_2)) %>% 
+      summarise(joint = survey_mean(prop = TRUE, prop_method = "logit", vartype = "ci"))
+  )
+  
 joint_tbl
 ```
 

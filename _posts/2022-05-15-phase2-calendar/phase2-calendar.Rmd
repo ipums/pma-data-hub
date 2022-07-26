@@ -695,27 +695,27 @@ nonusers <- nonusers %>%
 nonusers 
 ```
 
-Next, we'll create `USEMO` to copy the month recorded in `MO` for each month of `USE` (otherwise, [case_when](https://dplyr.tidyverse.org/reference/case_when) assigns the value `NA`). If there are any months of `USE` for an individual woman, we'll identify the first such month with `STOP`; if there are no cases of `USE`, `STOP` will record the last month in `MO`. Finally we'll use `RC` to indicate whether `STOP` is "right censored" - these are cases where `STOP` is the last month in `MO`. 
+Next, we'll create `USEMO` to copy the month recorded in `MO` for each month of `USE` (otherwise, [case_when](https://dplyr.tidyverse.org/reference/case_when) assigns the value `NA`). If there are any months of `USE` for an individual woman, we'll identify the first such month with `ADOPT`; if there are no cases of `USE`, `ADOPT` will record the last month in `MO`. Finally we'll use `RC` to indicate whether `ADOPT` is "right censored" - these are cases where `ADOPT` is the last month in `MO`. 
 
 ```{r}
 nonusers <- nonusers %>% 
   group_by(ID) %>% 
   mutate(
     USEMO = case_when(USE ~ MO),
-    STOP = ifelse(any(USE), min(USEMO, na.rm = T), max(MO)),
-    RC = case_when(STOP == MO ~ !USE)
+    ADOPT = ifelse(any(USE), min(USEMO, na.rm = T), max(MO)),
+    RC = case_when(ADOPT == MO ~ !USE)
   ) %>% 
   ungroup() 
 
 nonusers 
 ```
 
-Notice, for example, that the first month of `USE` for `ID == 1` occurs in month 6. Hence, `STOP == 6` and, because she adopted a method before the end of the calendar, `RC == FALSE`. 
+Notice, for example, that the first month of `USE` for `ID == 1` occurs in month 6. Hence, `ADOPT == 6` and, because she adopted a method before the end of the calendar, `RC == FALSE`. 
 
-Finally, we'll now drop every row except for those matching `STOP`. This leaves one row for each woman in `nonusers`. 
+Finally, we'll now drop every row except for those matching `ADOPT`. This leaves one row for each woman in `nonusers`. 
 
 ```{r}
-nonusers <- nonusers %>% filter(STOP == MO)
+nonusers <- nonusers %>% filter(ADOPT == MO)
 
 nonusers 
 ```

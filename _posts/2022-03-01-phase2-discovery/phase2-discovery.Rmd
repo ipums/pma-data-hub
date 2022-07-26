@@ -151,7 +151,9 @@ You'll find PMA cross-sectional samples dating back to 2013 if you select the **
 knitr::include_graphics("images/cross_radio.png")
 ```
 
-# Weights and Clusters
+# Survey Design Elements
+
+In upcoming posts, we'll demonstrate how to incorporate PMA sampling weights and information about its stratified cluster sampling procedure into your analysis. To do so, we'll rely on tools from the [srvyr](http://gdfe.co/srvyr/index.html) package.^[The `srvyr` package is a [tidy](https://tidyverse.tidyverse.org/) implementation of the popular [survey](http://r-survey.r-forge.r-project.org/survey/) package for R, authored by Dr. Thomas Lumley. For thorough discussion of the types of weights available in both R and Stata, we recommend [this blog post](https://notstatschat.rbind.io/2020/08/04/weights-in-statistics/) by Dr. Lumley.]  
 
 Whether you intend to work with a new **Longitudinal** or **Cross-sectional** data extract, you'll find the same set of sampling weights available for all PMA Family Planning surveys dating back to 2013. 
 
@@ -166,7 +168,7 @@ A fourth Family Planning survey weight, `r varlink(POPWT, description)`, is curr
 Additionally, PMA created a new weight, `r varlink(PANELWEIGHT, description)`, 
 which should be used in longitudinal analyses spanning multiple phases, as it adjusts for loss to follow-up. `PANELWEIGHT` is available only for **Longitudinal** data extracts. 
 
-In upcoming posts, we'll use the [srvyr](http://gdfe.co/srvyr/index.html) package to weight longitudinal indicators with `PANELWEIGHT`.^[The `srvyr` package is a [tidy](https://tidyverse.tidyverse.org/) implementation of the popular [survey](http://r-survey.r-forge.r-project.org/survey/) package for R, authored by Dr. Thomas Lumley. For thorough discussion of the types of weights available in both R and Stata, we recommend [this blog post](https://notstatschat.rbind.io/2020/08/04/weights-in-statistics/) by Dr. Lumley.] For example, suppose we wanted to estimate the proportion of reproductive age women in Burkina Faso who were using contraception at the time of data collection for both Phase 1 and Phase 2. In a "wide" longitudinal extract, you'll find responses from this survey question recorded in `CP_1` for Phase 1, and in `CP_2` for Phase 2. 
+For example, suppose we wanted to estimate the proportion of reproductive age women in Burkina Faso who were using contraception at the time of data collection for both Phase 1 and Phase 2. In a cross-sectional or "long" longitudinal extract, you'll find this information in the variable `r varlink(CP)`. In a "wide" longitudinal extract, you'll find it in `CP_1` for Phase 1, and in `CP_2` for Phase 2. We'll be working with a "wide" extract loaded into R as an object called `dat`.
 
 <aside>
 Variable names in a "wide" extract have a numeric suffix corresponding with a data collection phase. `CP_1` is the Phase 1 version of `r varlink(CP)`, while `CP_2` comes from Phase 2. 
@@ -196,205 +198,151 @@ knitr::opts_chunk$set(echo = TRUE)
 dat %>% count(CP_1, CP_2)
 ```
 
-The `srvyr` package provides two functions we'll need to obtain our population estimate. The first, [as_survey_design](http://gdfe.co/srvyr/reference/as_survey_design.html), allows us to specify `PANELWEIGHT` as a sampling weight. The second, [survey_mean](http://gdfe.co/srvyr/reference/survey_mean.html), uses that weight in an estimating function; in this case, we'll get the estimated proportion where `CP_1` and `CP_2` both have the value `1 [Yes]` after removing missing / NIU responses with `CP_1 != 99`.
+The `srvyr` package provides two functions we'll need to obtain our population estimate. The first, [as_survey_design](http://gdfe.co/srvyr/reference/as_survey_design.html), allows us to specify `PANELWEIGHT` as a sampling weight. The second, [survey_mean](http://gdfe.co/srvyr/reference/survey_mean.html), uses that weight in an estimating function; in this case, we'll get the estimated proportion where `CP_1` and `CP_2` both have the value `1 [Yes]` after removing missing / NIU responses with `CP_1 < 90 & CP_2 < 90`. 
 
+Here, we use `vartype = "ci"` to include a 95% confidence interval set by `level = 0.95`. We also recommend using `proportion = TRUE` and `prop_method = "logit"` to make a Wald-type confidence interval adjustment for discrete variables where the estimated proportion approaches 0% or 100%.^[See [svyciprop](https://rdrr.io/pkg/survey/man/svyciprop.html) for additional methods.]
+
+<div>
 ```{r}
 library(srvyr)
 
 dat %>% 
   as_survey_design(weight = PANELWEIGHT) %>% 
-  filter(CP_1 != 99) %>% 
-  summarize(survey_mean(CP_1 * CP_2))
+  filter(CP_1 < 90 & CP_2 < 90) %>% 
+  summarise(
+    survey_mean(
+      CP_1 * CP_2,
+      vartype = "ci",
+      level = 0.95,
+      proportion = TRUE,
+      prop_method = "logit"
+    )
+  )
 ```
+</div>
 
 <aside>
 `coef` shows the estimated population proportion
 
-`_se` shows the standard error for this estimate
+`_low` and `_upp` show the lower and upper bounds of a 95% confidence interval
 </aside>
-
-This estimate suggests that 18.8% of all reproductive age women in Burkina Faso would have been using contraception when both Phase 1 and Phase 2 data were collected. The standard error 0.00733 is shown by default, but we can choose a confidence interval "ci" for a specified confidence level if desired. 
-
-```{r}
-dat %>% 
-  as_survey_design(weight = PANELWEIGHT) %>% 
-  filter(CP_1 != 99) %>% 
-  summarize(
-    survey_mean(
-      CP_1 * CP_2,
-      vartype = "ci",
-      level = 0.99
-    )
-  )
-```
-
-<aside>
-`_low` and `_upp` show the lower and upper bounds of a 99% confidence interval
-</aside>
-
-For discrete variables where the estimated proportion approaches 0% or 100%, it's often useful to obtain an asymmetric confidence interval that cannot exceed those values. Consider, for example, the proportion of women who were pregnant at Phase 1 and again just 12 months later at Phase 2 (excluding women who were unsure or did not respond in either phase): 
-
-```{r}
-dat %>% 
-  filter(PREGNANT_1 < 90, PREGNANT_2 < 90) %>% 
-  count(PREGNANT_1, PREGNANT_2)
-```
-
-Only 11 such women were found in the Burkina Faso sample, so we should expect the population estimate to be very close to 0%. 
-
-```{r}
-dat %>% 
-  filter(PREGNANT_1 < 90, PREGNANT_2 < 90) %>% 
-  as_survey_design(weight = PANELWEIGHT) %>% 
-  summarize(
-    survey_mean(
-      PREGNANT_1 * PREGNANT_2,
-      vartype = "ci",
-      level = 0.99
-    )
-  )
-```
-
-<aside>
-`_low` shows a negative value: our confidence interval should not include values below 0%
-</aside>
-
-The `survey_mean` function accepts several methods for setting a lower limit on `_low`. We'll use `proportion = TRUE` to employ a method selected by `prop_method`. The "logit" method calculates a Wald-type confidence interval on the log-odds scale; Stata users will notice that it reproduces results obtained with `svy: prop`.^[See [svyciprop](https://rdrr.io/pkg/survey/man/svyciprop.html) for additional methods.]
-
-```{r}
-dat %>% 
-  as_survey_design(weight = PANELWEIGHT) %>% 
-  filter(PREGNANT_1 < 90, PREGNANT_2 < 90) %>% 
-  summarize(
-    survey_mean(
-      PREGNANT_1 * PREGNANT_2,
-      vartype = "ci",
-      level = 0.99,
-      proportion = TRUE,
-      prop_method = "logit"
-    )
-  )
-```
-
-Compared with the non-adjusted standard error, the Wald-type confidence interval contains only values between 0% and 100%. Also notice that the interval is asymmetrical for values close to these limits.
-
-```{r, echo = FALSE, layout="l-page", fig.height=5, fig.width=12}
-library(sysfonts)
-library(showtext)
-
-sysfonts::font_add(
-  family = "cabrito", 
-  regular = "../../fonts/cabritosansnormregular-webfont.ttf"
-)
-showtext::showtext_auto()
-
-no <- dat %>% 
-  as_survey_design(weight = PANELWEIGHT) %>% 
-  filter(PREGNANT_1 < 90, PREGNANT_2 < 90) %>% 
-  summarize(
-    100*survey_mean(
-      PREGNANT_1 * PREGNANT_2,
-      vartype = "ci",
-      level = 0.99
-    )
-  ) %>% 
-  mutate(CLUSTERED = "Non-adjusted \nStandard Error")
-
-yes <- dat %>% 
-  as_survey_design(weight = PANELWEIGHT) %>% 
-  filter(PREGNANT_1 < 90, PREGNANT_2 < 90) %>% 
-  summarize(
-    100*survey_mean(
-      PREGNANT_1 * PREGNANT_2,
-      vartype = "ci",
-      level = 0.99,
-      proportion = TRUE,
-      prop_method = "logit"
-    )
-  ) %>% 
-  mutate(CLUSTERED = "Wald-type \nStandard Error")
-
-out <- bind_rows(no, yes) %>% 
-  mutate(CLUSTERED = as_factor(CLUSTERED) %>% forcats::fct_rev())
-
-out %>% 
-  ggplot(aes(x = coef, xmin = `_low`, xmax = `_upp`, y = CLUSTERED)) + 
-  geom_errorbarh(aes(height = 0.2), color = "#00263A") + 
-  geom_point() + 
-  geom_text(nudge_y = 0.2, aes(label = paste0(round(coef, 1), "%"))) + 
-  xlim(-1, 1) + 
-  theme_minimal() + 
-  labs(
-    title = "Adjusted Standard Errors for Proportions",
-    subtitle = paste(
-      "The predicted percentage of women age 15-49 who were pregnant at both",
-      "Phase 1 and Phase 2",
-      "in \nBurkina Faso is close to zero. Without adjustment, our 99%",
-      "confidence interval would include \nnegative values."
-    ),
-    x = paste(sep = "\n",
-      "Percent women age 15-49 pregnant both at Phase 1 and at Phase 2",
-      "Weighted estimate (99% Confidence Interval)"
-    ),
-    y = NULL
-  ) + 
-  theme(
-    text = element_text(family = "cabrito", size = 14, color =  "#00263A"),
-    plot.title = element_text(hjust = 0, size = 22),
-    plot.subtitle = element_text(hjust = 0, size = 16),
-  ) 
-```
 
 You can also provide information about sample clusters via [as_survey_design](http://gdfe.co/srvyr/reference/as_survey_design.html). In general, we expect households selected from the same EA to share certain characteristics, such that some degree of variation seen in a variable of interest may be non-random at the EA-level. To compensate, you may wish the expand the standard errors produced by `survey_mean` by providing EA identifiers in `r varlink(EAID)`.
 
+Here, we include `id = EAID_1`.^[As we'll see in an upcoming post, women are considered "lost to follow-up" if they moved outside the study area after Phase 1. Therefore, `EAID_1` and `EAID_2` are identical for all panel members: you can use either one to identify sample clusters.] Compared with our original estimate, notice that the 95% confidence interval for our contraceptive use estimate is wider when we provide information about the clustered sample design - these are "cluster-robust" standard errors.
+
 ```{r}
 dat %>% 
-  as_survey_design(weight = PANELWEIGHT, id = EAID_2) %>% 
-  filter(CP_1 != 99) %>% 
-  summarize(survey_mean(CP_1 * CP_2))
+  as_survey_design(weight = PANELWEIGHT, id = EAID_1) %>% 
+  filter(CP_1 < 90 & CP_2 < 90) %>% 
+  summarise(
+    survey_mean(
+      CP_1 * CP_2,
+      vartype = "ci",
+      level = 0.95,
+      proportion = TRUE,
+      prop_method = "logit"
+    )
+  )
 ```
 
-Compared with our original estimate, notice that the 99% confidence interval for our contraceptive use estimate is *wider* when we provide information about the clustered sample design - these are "cluster-robust" standard errors.
+Finally, we'll also use [as_survey_design](http://gdfe.co/srvyr/reference/as_survey_design.html) to specify sample strata. For most samples, including Burkina Faso, this information is included in the variable `r varlink(STRATA)`. We'll include it here with `strata = STRATA_1`.^[As with `r varlink(EAID)`, you may use either `STRATA_1` or `STRATA_2` if your analysis is restricted to panel members.] 
 
-```{r, echo = FALSE, layout="l-page", fig.height=5, fig.width=12}
-no <- dat %>% 
-  as_survey_design(weight = PANELWEIGHT) %>% 
-  filter(CP_1 != 99) %>% 
-  summarize(100*survey_mean(CP_1 * CP_2, vartype = "ci", level = 0.99)) %>% 
-  mutate(CLUSTERED = "Non-clustered \nStandard Error")
+```{r}
+dat %>% 
+  as_survey_design(weight = PANELWEIGHT, id = EAID_1, strata = STRATA_1) %>% 
+  filter(CP_1 < 90 & CP_2 < 90) %>% 
+  summarise(
+    survey_mean(
+      CP_1 * CP_2,
+      vartype = "ci",
+      level = 0.95,
+      proportion = TRUE,
+      prop_method = "logit"
+    )
+  )
+```
 
-yes <- dat %>% 
-  as_survey_design(weight = PANELWEIGHT, id = EAID_2) %>% 
-  filter(CP_1 != 99) %>% 
-  summarize(100*survey_mean(CP_1 * CP_2, vartype = "ci", level = 0.99)) %>% 
-  mutate(CLUSTERED = "Cluster-robust \nStandard Error")
+The variable `r varlink(STRATA)` is *not available* for samples collected from DRC - Kinshasa or DRC - Kongo Central. If your extract includes any DRC sample, you'll need to amend this variable to include one unique numeric code for each of those regions.    
 
-bind_rows(no, yes) %>% 
-  ggplot(aes(x = coef, xmin = `_low`, xmax = `_upp`, y = CLUSTERED)) + 
-  geom_errorbarh(aes(height = 0.2), color = "#00263A") + 
-  geom_point() + 
-  geom_text(nudge_y = 0.2, aes(label = paste0(round(coef, 1), "%"))) + 
-  xlim(0, 25) + 
-  theme_minimal() + 
-  labs(
-    title = "Cluster-robust Standard Errors",
-    subtitle = paste(
-      "Because households in the same enumeration area share certain",
-      "similarities, a",
-      "cluster-robust \nstandard error produces a wider confidence interval",
-      "(reflecting less statistical certainty)."
-    ),
-    x = paste(sep = "\n",
-      "Percent women age 15-49 using family planning at Phase 1 and at Phase 2",
-      "Weighted estimate (99% Confidence Interval)"
-    ),
-    y = NULL
-  ) + 
-  theme(
-    text = element_text(family = "cabrito", size = 14, color =  "#00263A"),
-    plot.title = element_text(hjust = 0, size = 22),
-    plot.subtitle = element_text(hjust = 0, size = 16),
+For example, let's look at a different "wide" extract, `dat2`, containing all of the samples included in this data release. Notice that `STRATA_1` lists the sample strata for every `r varlink(COUNTRY)` *except* for DRC, where you see the value `NA`. 
+
+```{r, echo = FALSE, results='hide'}
+# I created a new version of the data extract we were using that includes 
+# `GEOCD`. In case any revisions have been made since the original publication # of this post, I only load it here (rather than at the beginning).
+dat2 <- read_ipums_micro(
+  ddi = "data/pma_00144.xml",
+  data = "data/pma_00144.dat.gz"
+)
+
+dat2 <- dat2 %>% 
+  filter(RESIDENT_1 %in% c(11, 22) & RESIDENT_2 %in% c(11, 22)) %>%
+  filter(RESULTFQ_2 == 1)
+
+# Bigger tibbles 
+options(tibble.print_min = 30)
+knitr::opts_chunk$set(R.options = list(width = 100))
+```
+
+```{r}
+dat2 %>% count(COUNTRY, STRATA_1)
+```
+
+Now let's see what happens when we try to produce population-level estimates with `STRATA_1`: 
+
+```{r, error=TRUE}
+dat2 %>% 
+  as_survey_design(weight = PANELWEIGHT, id = EAID_1, strata = STRATA_1) %>% 
+  filter(CP_1 < 90 & CP_2 < 90) %>% 
+  group_by(COUNTRY, GEOCD, GEONG) %>% 
+  summarise(
+    survey_mean(
+      CP_1 * CP_2,
+      vartype = "ci",
+      level = 0.95,
+      proportion = TRUE,
+      prop_method = "logit"
+    )
+  )
+```
+
+This fails because [as_survey_design](http://gdfe.co/srvyr/reference/as_survey_design.html) encounters `NA` values in `STRATA_1`. Fortunately, we can replace those values with numeric codes from the variable `r varlink(GEOCD)`: 
+
+```{r}
+dat2 %>% count(GEOCD)
+```
+
+If `GEOCD` is not `NA`, we'll use its numeric code in place of `STRATA_1`. Otherwise, we'd like to leave `STRATA_1` unchanged. However, because both variables include *value labels*, we'll first need remove them with [as.numeric](https://rdrr.io/r/base/numeric.html). To avoid confusion with the original variable `STRATA_1`, we'll call our new variable `STRATA_RECODE`.
+
+```{r}
+dat2 <- dat2 %>% 
+  mutate(
+    STRATA_RECODE = if_else(
+      is.na(GEOCD), 
+      as.numeric(STRATA_1), 
+      as.numeric(GEOCD)
+    )
   ) 
+
+dat2 %>% count(GEOCD, STRATA_1, STRATA_RECODE)
+```
+
+Now, we can use `STRATA_RECODE` with [as_survey_design](http://gdfe.co/srvyr/reference/as_survey_design.html) to obtain population estimates for each nationally representative or sub-nationally representative sample.
+
+```{r, error=TRUE}
+dat2 %>% 
+  as_survey_design(weight = PANELWEIGHT, id = EAID_1, strata = STRATA_RECODE) %>% 
+  filter(CP_1 < 90 & CP_2 < 90) %>% 
+  group_by(COUNTRY, GEOCD, GEONG) %>%
+  summarise(
+    survey_mean(
+      CP_1 * CP_2,
+      vartype = "ci",
+      level = 0.95,
+      proportion = TRUE,
+      prop_method = "logit"
+    )
+  )
 ```
 
 # Inclusion Criteria for Analysis 

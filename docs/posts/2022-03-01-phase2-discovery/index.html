@@ -50,16 +50,17 @@ pre.numberSource code > span > a:first-child::before
   }
 pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
 div.sourceCode
-  {   }
+  { color: #00769e; background-color: #f1f3f5; }
 @media screen {
 pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
+code span { color: #00769e; } /* Normal */
 code span.al { color: #ad0000; } /* Alert */
 code span.an { color: #5e5e5e; } /* Annotation */
-code span.at { } /* Attribute */
+code span.at { color: #657422; } /* Attribute */
 code span.bn { color: #ad0000; } /* BaseN */
 code span.bu { } /* BuiltIn */
-code span.cf { color: #007ba5; } /* ControlFlow */
+code span.cf { color: #00769e; } /* ControlFlow */
 code span.ch { color: #20794d; } /* Char */
 code span.cn { color: #8f5902; } /* Constant */
 code span.co { color: #5e5e5e; } /* Comment */
@@ -73,9 +74,9 @@ code span.fl { color: #ad0000; } /* Float */
 code span.fu { color: #4758ab; } /* Function */
 code span.im { } /* Import */
 code span.in { color: #5e5e5e; } /* Information */
-code span.kw { color: #007ba5; } /* Keyword */
+code span.kw { color: #00769e; } /* Keyword */
 code span.op { color: #5e5e5e; } /* Operator */
-code span.ot { color: #007ba5; } /* Other */
+code span.ot { color: #00769e; } /* Other */
 code span.pp { color: #ad0000; } /* Preprocessor */
 code span.sc { color: #5e5e5e; } /* SpecialChar */
 code span.ss { color: #20794d; } /* SpecialString */
@@ -130,7 +131,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <!--/radix_placeholder_rmarkdown_metadata-->
   
   <script type="text/json" id="radix-resource-manifest">
-  {"type":"character","attributes":{},"value":["data/cross.dat.gz","data/cross.xml","data/long_files.rds.gz","data/long.dat.gz","data/long.xml","data/pma_00001.dat.gz","data/pma_00001.xml","data/pma_00079.dat.gz","data/pma_00079.xml","data/sample_avail.csv","data/wide.dat.gz","data/wide.xml","data/widef.dat.gz","data/widef.xml","images/cases.png","images/cross_radio.png","images/long_radio.png","phase2-discovery_files/anchor-4.2.2/anchor.min.js","phase2-discovery_files/bowser-1.9.3/bowser.min.js","phase2-discovery_files/distill-2.2.21/template.v2.js","phase2-discovery_files/figure-html5/unnamed-chunk-11-1.png","phase2-discovery_files/figure-html5/unnamed-chunk-12-1.png","phase2-discovery_files/figure-html5/unnamed-chunk-13-1.png","phase2-discovery_files/header-attrs-2.11/header-attrs.js","phase2-discovery_files/jquery-3.6.0/jquery-3.6.0.js","phase2-discovery_files/jquery-3.6.0/jquery-3.6.0.min.js","phase2-discovery_files/jquery-3.6.0/jquery-3.6.0.min.map","phase2-discovery_files/kePrint-0.0.1/kePrint.js","phase2-discovery_files/lightable-0.0.1/lightable.css","phase2-discovery_files/popper-2.6.0/popper.min.js","phase2-discovery_files/tippy-6.2.7/tippy-bundle.umd.min.js","phase2-discovery_files/tippy-6.2.7/tippy-light-border.css","phase2-discovery_files/tippy-6.2.7/tippy.css","phase2-discovery_files/tippy-6.2.7/tippy.umd.min.js","phase2-discovery_files/webcomponents-2.0.0/webcomponents.js"]}
+  {"type":"character","attributes":{},"value":["data/bf_cpuse.R","data/cross.dat.gz","data/cross.xml","data/long_files.rds.gz","data/long.dat.gz","data/long.xml","data/maps.R","data/pma_00001.dat.gz","data/pma_00001.xml","data/pma_00079.dat.gz","data/pma_00079.xml","data/pma_00144.dat.gz","data/pma_00144.xml","data/sample_avail.csv","data/wide.dat.gz","data/wide.xml","data/widef.dat.gz","data/widef.xml","images/cases.png","images/cross_radio.png","images/long_radio.png","phase2-discovery_files/anchor-4.2.2/anchor.min.js","phase2-discovery_files/bowser-1.9.3/bowser.min.js","phase2-discovery_files/distill-2.2.21/template.v2.js","phase2-discovery_files/figure-html5/unnamed-chunk-10-1.png","phase2-discovery_files/figure-html5/unnamed-chunk-11-1.png","phase2-discovery_files/figure-html5/unnamed-chunk-12-1.png","phase2-discovery_files/figure-html5/unnamed-chunk-13-1.png","phase2-discovery_files/figure-html5/unnamed-chunk-14-1.png","phase2-discovery_files/figure-html5/unnamed-chunk-16-1.png","phase2-discovery_files/header-attrs-2.11/header-attrs.js","phase2-discovery_files/header-attrs-2.14/header-attrs.js","phase2-discovery_files/jquery-3.6.0/jquery-3.6.0.js","phase2-discovery_files/jquery-3.6.0/jquery-3.6.0.min.js","phase2-discovery_files/jquery-3.6.0/jquery-3.6.0.min.map","phase2-discovery_files/kePrint-0.0.1/kePrint.js","phase2-discovery_files/lightable-0.0.1/lightable.css","phase2-discovery_files/popper-2.6.0/popper.min.js","phase2-discovery_files/tippy-6.2.7/tippy-bundle.umd.min.js","phase2-discovery_files/tippy-6.2.7/tippy-light-border.css","phase2-discovery_files/tippy-6.2.7/tippy.css","phase2-discovery_files/tippy-6.2.7/tippy.umd.min.js","phase2-discovery_files/webcomponents-2.0.0/webcomponents.js"]}
   </script>
   <!--radix_placeholder_navigation_in_header-->
 <meta name="distill:offset" content="../.."/>
@@ -2540,7 +2541,7 @@ d-appendix d-footnote-list a.footnote-backlink {
   color: var(--hover-color, white);
 }</style>
 <!--/radix_placeholder_distill-->
-  <script src="../../site_libs/header-attrs-2.11/header-attrs.js"></script>
+  <script src="../../site_libs/header-attrs-2.14/header-attrs.js"></script>
   <script src="../../site_libs/kePrint-0.0.1/kePrint.js"></script>
   <link href="../../site_libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
   <script src="../../site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
@@ -2671,10 +2672,12 @@ Project Manager)
 <nav class="l-text toc figcaption" id="TOC">
 <h3>Contents</h3>
 <ul>
-<li><a href="#background">Background</a></li>
-<li><a href="#sampling">Sampling</a></li>
-<li><a href="#weights-and-clusters">Weights and Clusters</a></li>
-<li><a href="#inclusion-criteria-for-analysis">Inclusion Criteria for
+<li><a href="#background" id="toc-background">Background</a></li>
+<li><a href="#sampling" id="toc-sampling">Sampling</a></li>
+<li><a href="#survey-design-elements"
+id="toc-survey-design-elements">Survey Design Elements</a></li>
+<li><a href="#inclusion-criteria-for-analysis"
+id="toc-inclusion-criteria-for-analysis">Inclusion Criteria for
 Analysis</a></li>
 </ul>
 </nav>
@@ -3047,7 +3050,12 @@ checkout.</p>
 <div class="layout-chunk" data-layout="l-body">
 <p><img src="images/cross_radio.png" width="1012" /></p>
 </div>
-<h1 id="weights-and-clusters">Weights and Clusters</h1>
+<h1 id="survey-design-elements">Survey Design Elements</h1>
+<p>In upcoming posts, we’ll demonstrate how to incorporate PMA sampling
+weights and information about its stratified cluster sampling procedure
+into your analysis. To do so, we’ll rely on tools from the <a
+href="http://gdfe.co/srvyr/index.html">srvyr</a> package.<a href="#fn7"
+class="footnote-ref" id="fnref7" role="doc-noteref"><sup>7</sup></a></p>
 <p>Whether you intend to work with a new <strong>Longitudinal</strong>
 or <strong>Cross-sectional</strong> data extract, you’ll find the same
 set of sampling weights available for all PMA Family Planning surveys
@@ -3056,15 +3064,15 @@ dating back to 2013.</p>
 <li><a
 href="https://pma.ipums.org/pma-action/variables/HQWEIGHT#description_section">HQWEIGHT</a>
 can be used to generate cross-sectional population estimates from
-questions on the Household Questionnaire.<a href="#fn7"
-class="footnote-ref" id="fnref7"
-role="doc-noteref"><sup>7</sup></a></li>
+questions on the Household Questionnaire.<a href="#fn8"
+class="footnote-ref" id="fnref8"
+role="doc-noteref"><sup>8</sup></a></li>
 <li><a
 href="https://pma.ipums.org/pma-action/variables/FQWEIGHT#description_section">FQWEIGHT</a>
 can be used to to generate cross-sectional population estimates from
-questions on the Female Questionnaire.<a href="#fn8"
-class="footnote-ref" id="fnref8"
-role="doc-noteref"><sup>8</sup></a></li>
+questions on the Female Questionnaire.<a href="#fn9"
+class="footnote-ref" id="fnref9"
+role="doc-noteref"><sup>9</sup></a></li>
 <li><a
 href="https://pma.ipums.org/pma-action/variables/EAWEIGHT#description_section">EAWEIGHT</a>
 can be used to compare the selection probability of a particular
@@ -3074,24 +3082,23 @@ household with that of its EA.</li>
 A fourth Family Planning survey weight, <a
 href="https://pma.ipums.org/pma-action/variables/POPWT#description_section">POPWT</a>,
 is currently available only for <strong>Cross-sectional</strong> data
-extracts and Phase 1 panel data.<a href="#fn9" class="footnote-ref"
-id="fnref9" role="doc-noteref"><sup>9</sup></a>
+extracts and Phase 1 panel data.<a href="#fn10" class="footnote-ref"
+id="fnref10" role="doc-noteref"><sup>10</sup></a>
 </aside>
 <p>Additionally, PMA created a new weight, <a
 href="https://pma.ipums.org/pma-action/variables/PANELWEIGHT#description_section">PANELWEIGHT</a>,
 which should be used in longitudinal analyses spanning multiple phases,
 as it adjusts for loss to follow-up. <code>PANELWEIGHT</code> is
 available only for <strong>Longitudinal</strong> data extracts.</p>
-<p>In upcoming posts, we’ll use the <a
-href="http://gdfe.co/srvyr/index.html">srvyr</a> package to weight
-longitudinal indicators with <code>PANELWEIGHT</code>.<a href="#fn10"
-class="footnote-ref" id="fnref10" role="doc-noteref"><sup>10</sup></a>
-For example, suppose we wanted to estimate the proportion of
+<p>For example, suppose we wanted to estimate the proportion of
 reproductive age women in Burkina Faso who were using contraception at
-the time of data collection for both Phase 1 and Phase 2. In a “wide”
-longitudinal extract, you’ll find responses from this survey question
-recorded in <code>CP_1</code> for Phase 1, and in <code>CP_2</code> for
-Phase 2.</p>
+the time of data collection for both Phase 1 and Phase 2. In a
+cross-sectional or “long” longitudinal extract, you’ll find this
+information in the variable <a
+href="https://pma.ipums.org/pma-action/variables/CP#codes_section">CP</a>.
+In a “wide” longitudinal extract, you’ll find it in <code>CP_1</code>
+for Phase 1, and in <code>CP_2</code> for Phase 2. We’ll be working with
+a “wide” extract loaded into R as an object called <code>dat</code>.</p>
 <aside>
 Variable names in a “wide” extract have a numeric suffix corresponding
 with a data collection phase. <code>CP_1</code> is the Phase 1 version
@@ -3125,118 +3132,27 @@ href="http://gdfe.co/srvyr/reference/survey_mean.html">survey_mean</a>,
 uses that weight in an estimating function; in this case, we’ll get the
 estimated proportion where <code>CP_1</code> and <code>CP_2</code> both
 have the value <code>1 [Yes]</code> after removing missing / NIU
-responses with <code>CP_1 != 99</code>.</p>
+responses with <code>CP_1 &lt; 90 &amp; CP_2 &lt; 90</code>.</p>
+<p>Here, we use <code>vartype = "ci"</code> to include a 95% confidence
+interval set by <code>level = 0.95</code>. We also recommend using
+<code>proportion = TRUE</code> and <code>prop_method = "logit"</code> to
+make a Wald-type confidence interval adjustment for discrete variables
+where the estimated proportion approaches 0% or 100%.<a href="#fn11"
+class="footnote-ref" id="fnref11"
+role="doc-noteref"><sup>11</sup></a></p>
+<div>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='http://gdfe.co/srvyr/'>srvyr</a></span><span class='op'>)</span>
 
 <span class='va'>dat</span> <span class='op'><a href='http://gdfe.co/srvyr/reference/pipe.html'>%&gt;%</a></span> 
   <span class='fu'><a href='http://gdfe.co/srvyr/reference/as_survey_design.html'>as_survey_design</a></span><span class='op'>(</span>weight <span class='op'>=</span> <span class='va'>PANELWEIGHT</span><span class='op'>)</span> <span class='op'><a href='http://gdfe.co/srvyr/reference/pipe.html'>%&gt;%</a></span> 
-  <span class='fu'><a href='http://gdfe.co/srvyr/reference/dplyr_single.html'>filter</a></span><span class='op'>(</span><span class='va'>CP_1</span> <span class='op'>!=</span> <span class='fl'>99</span><span class='op'>)</span> <span class='op'><a href='http://gdfe.co/srvyr/reference/pipe.html'>%&gt;%</a></span> 
-  <span class='fu'><a href='http://gdfe.co/srvyr/reference/summarise.html'>summarize</a></span><span class='op'>(</span><span class='fu'><a href='http://gdfe.co/srvyr/reference/survey_mean.html'>survey_mean</a></span><span class='op'>(</span><span class='va'>CP_1</span> <span class='op'>*</span> <span class='va'>CP_2</span><span class='op'>)</span><span class='op'>)</span>
-</code></pre>
-</div>
-<pre><code># A tibble: 1 × 2
-   coef   `_se`
-  &lt;dbl&gt;   &lt;dbl&gt;
-1 0.188 0.00733</code></pre>
-</div>
-<aside>
-<p><code>coef</code> shows the estimated population proportion</p>
-<code>_se</code> shows the standard error for this estimate
-</aside>
-<p>This estimate suggests that 18.8% of all reproductive age women in
-Burkina Faso would have been using contraception when both Phase 1 and
-Phase 2 data were collected. The standard error 0.00733 is shown by
-default, but we can choose a confidence interval “ci” for a specified
-confidence level if desired.</p>
-<div class="layout-chunk" data-layout="l-body">
-<div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>dat</span> <span class='op'><a href='http://gdfe.co/srvyr/reference/pipe.html'>%&gt;%</a></span> 
-  <span class='fu'><a href='http://gdfe.co/srvyr/reference/as_survey_design.html'>as_survey_design</a></span><span class='op'>(</span>weight <span class='op'>=</span> <span class='va'>PANELWEIGHT</span><span class='op'>)</span> <span class='op'><a href='http://gdfe.co/srvyr/reference/pipe.html'>%&gt;%</a></span> 
-  <span class='fu'><a href='http://gdfe.co/srvyr/reference/dplyr_single.html'>filter</a></span><span class='op'>(</span><span class='va'>CP_1</span> <span class='op'>!=</span> <span class='fl'>99</span><span class='op'>)</span> <span class='op'><a href='http://gdfe.co/srvyr/reference/pipe.html'>%&gt;%</a></span> 
-  <span class='fu'><a href='http://gdfe.co/srvyr/reference/summarise.html'>summarize</a></span><span class='op'>(</span>
+  <span class='fu'><a href='http://gdfe.co/srvyr/reference/dplyr_single.html'>filter</a></span><span class='op'>(</span><span class='va'>CP_1</span> <span class='op'>&lt;</span> <span class='fl'>90</span> <span class='op'>&amp;</span> <span class='va'>CP_2</span> <span class='op'>&lt;</span> <span class='fl'>90</span><span class='op'>)</span> <span class='op'><a href='http://gdfe.co/srvyr/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='http://gdfe.co/srvyr/reference/summarise.html'>summarise</a></span><span class='op'>(</span>
     <span class='fu'><a href='http://gdfe.co/srvyr/reference/survey_mean.html'>survey_mean</a></span><span class='op'>(</span>
       <span class='va'>CP_1</span> <span class='op'>*</span> <span class='va'>CP_2</span>,
       vartype <span class='op'>=</span> <span class='st'>"ci"</span>,
-      level <span class='op'>=</span> <span class='fl'>0.99</span>
-    <span class='op'>)</span>
-  <span class='op'>)</span>
-</code></pre>
-</div>
-<pre><code># A tibble: 1 × 3
-   coef `_low` `_upp`
-  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;
-1 0.188  0.169  0.207</code></pre>
-</div>
-<aside>
-<code>_low</code> and <code>_upp</code> show the lower and upper bounds
-of a 99% confidence interval
-</aside>
-<p>For discrete variables where the estimated proportion approaches 0%
-or 100%, it’s often useful to obtain an asymmetric confidence interval
-that cannot exceed those values. Consider, for example, the proportion
-of women who were pregnant at Phase 1 and again just 12 months later at
-Phase 2 (excluding women who were unsure or did not respond in either
-phase):</p>
-<div class="layout-chunk" data-layout="l-body">
-<div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>dat</span> <span class='op'><a href='http://gdfe.co/srvyr/reference/pipe.html'>%&gt;%</a></span> 
-  <span class='fu'><a href='http://gdfe.co/srvyr/reference/dplyr_single.html'>filter</a></span><span class='op'>(</span><span class='va'>PREGNANT_1</span> <span class='op'>&lt;</span> <span class='fl'>90</span>, <span class='va'>PREGNANT_2</span> <span class='op'>&lt;</span> <span class='fl'>90</span><span class='op'>)</span> <span class='op'><a href='http://gdfe.co/srvyr/reference/pipe.html'>%&gt;%</a></span> 
-  <span class='fu'>count</span><span class='op'>(</span><span class='va'>PREGNANT_1</span>, <span class='va'>PREGNANT_2</span><span class='op'>)</span>
-</code></pre>
-</div>
-<pre><code># A tibble: 4 × 3
-  PREGNANT_1 PREGNANT_2     n
-   &lt;int+lbl&gt;  &lt;int+lbl&gt; &lt;int&gt;
-1    0 [No]     0 [No]   4379
-2    0 [No]     1 [Yes]   364
-3    1 [Yes]    0 [No]    391
-4    1 [Yes]    1 [Yes]    11</code></pre>
-</div>
-<p>Only 11 such women were found in the Burkina Faso sample, so we
-should expect the population estimate to be very close to 0%.</p>
-<div class="layout-chunk" data-layout="l-body">
-<div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>dat</span> <span class='op'><a href='http://gdfe.co/srvyr/reference/pipe.html'>%&gt;%</a></span> 
-  <span class='fu'><a href='http://gdfe.co/srvyr/reference/dplyr_single.html'>filter</a></span><span class='op'>(</span><span class='va'>PREGNANT_1</span> <span class='op'>&lt;</span> <span class='fl'>90</span>, <span class='va'>PREGNANT_2</span> <span class='op'>&lt;</span> <span class='fl'>90</span><span class='op'>)</span> <span class='op'><a href='http://gdfe.co/srvyr/reference/pipe.html'>%&gt;%</a></span> 
-  <span class='fu'><a href='http://gdfe.co/srvyr/reference/as_survey_design.html'>as_survey_design</a></span><span class='op'>(</span>weight <span class='op'>=</span> <span class='va'>PANELWEIGHT</span><span class='op'>)</span> <span class='op'><a href='http://gdfe.co/srvyr/reference/pipe.html'>%&gt;%</a></span> 
-  <span class='fu'><a href='http://gdfe.co/srvyr/reference/summarise.html'>summarize</a></span><span class='op'>(</span>
-    <span class='fu'><a href='http://gdfe.co/srvyr/reference/survey_mean.html'>survey_mean</a></span><span class='op'>(</span>
-      <span class='va'>PREGNANT_1</span> <span class='op'>*</span> <span class='va'>PREGNANT_2</span>,
-      vartype <span class='op'>=</span> <span class='st'>"ci"</span>,
-      level <span class='op'>=</span> <span class='fl'>0.99</span>
-    <span class='op'>)</span>
-  <span class='op'>)</span>
-</code></pre>
-</div>
-<pre><code># A tibble: 1 × 3
-     coef    `_low`  `_upp`
-    &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt;
-1 0.00268 -0.000264 0.00563</code></pre>
-</div>
-<aside>
-<code>_low</code> shows a negative value: our confidence interval should
-not include values below 0%
-</aside>
-<p>The <code>survey_mean</code> function accepts several methods for
-setting a lower limit on <code>_low</code>. We’ll use
-<code>proportion = TRUE</code> to employ a method selected by
-<code>prop_method</code>. The “logit” method calculates a Wald-type
-confidence interval on the log-odds scale; Stata users will notice that
-it reproduces results obtained with <code>svy: prop</code>.<a
-href="#fn11" class="footnote-ref" id="fnref11"
-role="doc-noteref"><sup>11</sup></a></p>
-<div class="layout-chunk" data-layout="l-body">
-<div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>dat</span> <span class='op'><a href='http://gdfe.co/srvyr/reference/pipe.html'>%&gt;%</a></span> 
-  <span class='fu'><a href='http://gdfe.co/srvyr/reference/as_survey_design.html'>as_survey_design</a></span><span class='op'>(</span>weight <span class='op'>=</span> <span class='va'>PANELWEIGHT</span><span class='op'>)</span> <span class='op'><a href='http://gdfe.co/srvyr/reference/pipe.html'>%&gt;%</a></span> 
-  <span class='fu'><a href='http://gdfe.co/srvyr/reference/dplyr_single.html'>filter</a></span><span class='op'>(</span><span class='va'>PREGNANT_1</span> <span class='op'>&lt;</span> <span class='fl'>90</span>, <span class='va'>PREGNANT_2</span> <span class='op'>&lt;</span> <span class='fl'>90</span><span class='op'>)</span> <span class='op'><a href='http://gdfe.co/srvyr/reference/pipe.html'>%&gt;%</a></span> 
-  <span class='fu'><a href='http://gdfe.co/srvyr/reference/summarise.html'>summarize</a></span><span class='op'>(</span>
-    <span class='fu'><a href='http://gdfe.co/srvyr/reference/survey_mean.html'>survey_mean</a></span><span class='op'>(</span>
-      <span class='va'>PREGNANT_1</span> <span class='op'>*</span> <span class='va'>PREGNANT_2</span>,
-      vartype <span class='op'>=</span> <span class='st'>"ci"</span>,
-      level <span class='op'>=</span> <span class='fl'>0.99</span>,
+      level <span class='op'>=</span> <span class='fl'>0.95</span>,
       proportion <span class='op'>=</span> <span class='cn'>TRUE</span>,
       prop_method <span class='op'>=</span> <span class='st'>"logit"</span>
     <span class='op'>)</span>
@@ -3244,17 +3160,16 @@ role="doc-noteref"><sup>11</sup></a></p>
 </code></pre>
 </div>
 <pre><code># A tibble: 1 × 3
-     coef   `_low`  `_upp`
-    &lt;dbl&gt;    &lt;dbl&gt;   &lt;dbl&gt;
-1 0.00268 0.000894 0.00803</code></pre>
+   coef `_low` `_upp`
+  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;
+1 0.188  0.174  0.203</code></pre>
 </div>
-<p>Compared with the non-adjusted standard error, the Wald-type
-confidence interval contains only values between 0% and 100%. Also
-notice that the interval is asymmetrical for values close to these
-limits.</p>
-<div class="layout-chunk" data-layout="l-page">
-<p><img src="phase2-discovery_files/figure-html5/unnamed-chunk-11-1.png" width="1152" /></p>
 </div>
+<aside>
+<p><code>coef</code> shows the estimated population proportion</p>
+<code>_low</code> and <code>_upp</code> show the lower and upper bounds
+of a 95% confidence interval
+</aside>
 <p>You can also provide information about sample clusters via <a
 href="http://gdfe.co/srvyr/reference/as_survey_design.html">as_survey_design</a>.
 In general, we expect households selected from the same EA to share
@@ -3263,25 +3178,235 @@ variable of interest may be non-random at the EA-level. To compensate,
 you may wish the expand the standard errors produced by
 <code>survey_mean</code> by providing EA identifiers in <a
 href="https://pma.ipums.org/pma-action/variables/EAID#codes_section">EAID</a>.</p>
+<p>Here, we include <code>id = EAID_1</code>.<a href="#fn12"
+class="footnote-ref" id="fnref12" role="doc-noteref"><sup>12</sup></a>
+Compared with our original estimate, notice that the 95% confidence
+interval for our contraceptive use estimate is wider when we provide
+information about the clustered sample design - these are
+“cluster-robust” standard errors.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='va'>dat</span> <span class='op'><a href='http://gdfe.co/srvyr/reference/pipe.html'>%&gt;%</a></span> 
-  <span class='fu'><a href='http://gdfe.co/srvyr/reference/as_survey_design.html'>as_survey_design</a></span><span class='op'>(</span>weight <span class='op'>=</span> <span class='va'>PANELWEIGHT</span>, id <span class='op'>=</span> <span class='va'>EAID_2</span><span class='op'>)</span> <span class='op'><a href='http://gdfe.co/srvyr/reference/pipe.html'>%&gt;%</a></span> 
-  <span class='fu'><a href='http://gdfe.co/srvyr/reference/dplyr_single.html'>filter</a></span><span class='op'>(</span><span class='va'>CP_1</span> <span class='op'>!=</span> <span class='fl'>99</span><span class='op'>)</span> <span class='op'><a href='http://gdfe.co/srvyr/reference/pipe.html'>%&gt;%</a></span> 
-  <span class='fu'><a href='http://gdfe.co/srvyr/reference/summarise.html'>summarize</a></span><span class='op'>(</span><span class='fu'><a href='http://gdfe.co/srvyr/reference/survey_mean.html'>survey_mean</a></span><span class='op'>(</span><span class='va'>CP_1</span> <span class='op'>*</span> <span class='va'>CP_2</span><span class='op'>)</span><span class='op'>)</span>
+  <span class='fu'><a href='http://gdfe.co/srvyr/reference/as_survey_design.html'>as_survey_design</a></span><span class='op'>(</span>weight <span class='op'>=</span> <span class='va'>PANELWEIGHT</span>, id <span class='op'>=</span> <span class='va'>EAID_1</span><span class='op'>)</span> <span class='op'><a href='http://gdfe.co/srvyr/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='http://gdfe.co/srvyr/reference/dplyr_single.html'>filter</a></span><span class='op'>(</span><span class='va'>CP_1</span> <span class='op'>&lt;</span> <span class='fl'>90</span> <span class='op'>&amp;</span> <span class='va'>CP_2</span> <span class='op'>&lt;</span> <span class='fl'>90</span><span class='op'>)</span> <span class='op'><a href='http://gdfe.co/srvyr/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='http://gdfe.co/srvyr/reference/summarise.html'>summarise</a></span><span class='op'>(</span>
+    <span class='fu'><a href='http://gdfe.co/srvyr/reference/survey_mean.html'>survey_mean</a></span><span class='op'>(</span>
+      <span class='va'>CP_1</span> <span class='op'>*</span> <span class='va'>CP_2</span>,
+      vartype <span class='op'>=</span> <span class='st'>"ci"</span>,
+      level <span class='op'>=</span> <span class='fl'>0.95</span>,
+      proportion <span class='op'>=</span> <span class='cn'>TRUE</span>,
+      prop_method <span class='op'>=</span> <span class='st'>"logit"</span>
+    <span class='op'>)</span>
+  <span class='op'>)</span>
 </code></pre>
 </div>
-<pre><code># A tibble: 1 × 2
-   coef  `_se`
-  &lt;dbl&gt;  &lt;dbl&gt;
-1 0.188 0.0130</code></pre>
+<pre><code># A tibble: 1 × 3
+   coef `_low` `_upp`
+  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;
+1 0.188  0.163  0.215</code></pre>
 </div>
-<p>Compared with our original estimate, notice that the 99% confidence
-interval for our contraceptive use estimate is <em>wider</em> when we
-provide information about the clustered sample design - these are
-“cluster-robust” standard errors.</p>
-<div class="layout-chunk" data-layout="l-page">
-<p><img src="phase2-discovery_files/figure-html5/unnamed-chunk-13-1.png" width="1152" /></p>
+<p>Finally, we’ll also use <a
+href="http://gdfe.co/srvyr/reference/as_survey_design.html">as_survey_design</a>
+to specify sample strata. For most samples, including Burkina Faso, this
+information is included in the variable <a
+href="https://pma.ipums.org/pma-action/variables/STRATA#codes_section">STRATA</a>.
+We’ll include it here with <code>strata = STRATA_1</code>.<a
+href="#fn13" class="footnote-ref" id="fnref13"
+role="doc-noteref"><sup>13</sup></a></p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>dat</span> <span class='op'><a href='http://gdfe.co/srvyr/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='http://gdfe.co/srvyr/reference/as_survey_design.html'>as_survey_design</a></span><span class='op'>(</span>weight <span class='op'>=</span> <span class='va'>PANELWEIGHT</span>, id <span class='op'>=</span> <span class='va'>EAID_1</span>, strata <span class='op'>=</span> <span class='va'>STRATA_1</span><span class='op'>)</span> <span class='op'><a href='http://gdfe.co/srvyr/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='http://gdfe.co/srvyr/reference/dplyr_single.html'>filter</a></span><span class='op'>(</span><span class='va'>CP_1</span> <span class='op'>&lt;</span> <span class='fl'>90</span> <span class='op'>&amp;</span> <span class='va'>CP_2</span> <span class='op'>&lt;</span> <span class='fl'>90</span><span class='op'>)</span> <span class='op'><a href='http://gdfe.co/srvyr/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='http://gdfe.co/srvyr/reference/summarise.html'>summarise</a></span><span class='op'>(</span>
+    <span class='fu'><a href='http://gdfe.co/srvyr/reference/survey_mean.html'>survey_mean</a></span><span class='op'>(</span>
+      <span class='va'>CP_1</span> <span class='op'>*</span> <span class='va'>CP_2</span>,
+      vartype <span class='op'>=</span> <span class='st'>"ci"</span>,
+      level <span class='op'>=</span> <span class='fl'>0.95</span>,
+      proportion <span class='op'>=</span> <span class='cn'>TRUE</span>,
+      prop_method <span class='op'>=</span> <span class='st'>"logit"</span>
+    <span class='op'>)</span>
+  <span class='op'>)</span>
+</code></pre>
+</div>
+<pre><code># A tibble: 1 × 3
+   coef `_low` `_upp`
+  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;
+1 0.188  0.164  0.214</code></pre>
+</div>
+<p>The variable <a
+href="https://pma.ipums.org/pma-action/variables/STRATA#codes_section">STRATA</a>
+is <em>not available</em> for samples collected from DRC - Kinshasa or
+DRC - Kongo Central. If your extract includes any DRC sample, you’ll
+need to amend this variable to include one unique numeric code for each
+of those regions.</p>
+<p>For example, let’s look at a different “wide” extract,
+<code>dat2</code>, containing all of the samples included in this data
+release. Notice that <code>STRATA_1</code> lists the sample strata for
+every <a
+href="https://pma.ipums.org/pma-action/variables/COUNTRY#codes_section">COUNTRY</a>
+<em>except</em> for DRC, where you see the value <code>NA</code>.</p>
+<div class="layout-chunk" data-layout="l-body">
+
+</div>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>dat2</span> <span class='op'><a href='http://gdfe.co/srvyr/reference/pipe.html'>%&gt;%</a></span> <span class='fu'>count</span><span class='op'>(</span><span class='va'>COUNTRY</span>, <span class='va'>STRATA_1</span><span class='op'>)</span>
+</code></pre>
+</div>
+<pre><code># A tibble: 27 × 3
+                          COUNTRY                          STRATA_1     n
+                        &lt;int+lbl&gt;                         &lt;int+lbl&gt; &lt;int&gt;
+ 1 1 [Burkina Faso]               85401 [Urban, Burkina Faso]        3058
+ 2 1 [Burkina Faso]               85402 [Rural, Burkina Faso]        2154
+ 3 2 [Congo, Democratic Republic]    NA                              3487
+ 4 7 [Kenya]                      40410 [Bungoma - urban, Kenya]      153
+ 5 7 [Kenya]                      40411 [Bungoma - rural, Kenya]      489
+ 6 7 [Kenya]                      40412 [Kakamega - urban, Kenya]     133
+ 7 7 [Kenya]                      40413 [Kakamega - rural, Kenya]     438
+ 8 7 [Kenya]                      40414 [Kericho - urban, Kenya]      249
+ 9 7 [Kenya]                      40415 [Kericho - rural, Kenya]      453
+10 7 [Kenya]                      40416 [Kiambu - urban, Kenya]       214
+11 7 [Kenya]                      40417 [Kiambu - rural, Kenya]       311
+12 7 [Kenya]                      40418 [Kilifi - urban, Kenya]       170
+13 7 [Kenya]                      40419 [Kilifi - rural, Kenya]       455
+14 7 [Kenya]                      40420 [Kitui - urban, Kenya]        153
+15 7 [Kenya]                      40421 [Kitui - rural, Kenya]        586
+16 7 [Kenya]                      40422 [Nairobi - urban, Kenya]      494
+17 7 [Kenya]                      40423 [Nandi - urban, Kenya]        260
+18 7 [Kenya]                      40424 [Nandi - rural, Kenya]        711
+19 7 [Kenya]                      40425 [Nyamira - urban, Kenya]      143
+20 7 [Kenya]                      40426 [Nyamira - rural, Kenya]      382
+21 7 [Kenya]                      40427 [Siaya - urban, Kenya]        130
+22 7 [Kenya]                      40428 [Siaya - rural, Kenya]        437
+23 7 [Kenya]                      40429 [West Pokot - urban, Kenya]   104
+24 7 [Kenya]                      40430 [West Pokot - rural, Kenya]   474
+25 9 [Nigeria]                    56606 [Lagos, Nigeria]             1089
+26 9 [Nigeria]                    56611 [Kano - Urban]                437
+27 9 [Nigeria]                    56612 [Kano - Rural]                561</code></pre>
+</div>
+<p>Now let’s see what happens when we try to produce population-level
+estimates with <code>STRATA_1</code>:</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>dat2</span> <span class='op'><a href='http://gdfe.co/srvyr/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='http://gdfe.co/srvyr/reference/as_survey_design.html'>as_survey_design</a></span><span class='op'>(</span>weight <span class='op'>=</span> <span class='va'>PANELWEIGHT</span>, id <span class='op'>=</span> <span class='va'>EAID_1</span>, strata <span class='op'>=</span> <span class='va'>STRATA_1</span><span class='op'>)</span> <span class='op'><a href='http://gdfe.co/srvyr/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='http://gdfe.co/srvyr/reference/dplyr_single.html'>filter</a></span><span class='op'>(</span><span class='va'>CP_1</span> <span class='op'>&lt;</span> <span class='fl'>90</span> <span class='op'>&amp;</span> <span class='va'>CP_2</span> <span class='op'>&lt;</span> <span class='fl'>90</span><span class='op'>)</span> <span class='op'><a href='http://gdfe.co/srvyr/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='http://gdfe.co/srvyr/reference/group_by.html'>group_by</a></span><span class='op'>(</span><span class='va'>COUNTRY</span>, <span class='va'>GEOCD</span>, <span class='va'>GEONG</span><span class='op'>)</span> <span class='op'><a href='http://gdfe.co/srvyr/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='http://gdfe.co/srvyr/reference/summarise.html'>summarise</a></span><span class='op'>(</span>
+    <span class='fu'><a href='http://gdfe.co/srvyr/reference/survey_mean.html'>survey_mean</a></span><span class='op'>(</span>
+      <span class='va'>CP_1</span> <span class='op'>*</span> <span class='va'>CP_2</span>,
+      vartype <span class='op'>=</span> <span class='st'>"ci"</span>,
+      level <span class='op'>=</span> <span class='fl'>0.95</span>,
+      proportion <span class='op'>=</span> <span class='cn'>TRUE</span>,
+      prop_method <span class='op'>=</span> <span class='st'>"logit"</span>
+    <span class='op'>)</span>
+  <span class='op'>)</span>
+</code></pre>
+</div>
+<pre><code>Error in (function (object, ...) : missing values in `strata&#39;</code></pre>
+</div>
+<p>This fails because <a
+href="http://gdfe.co/srvyr/reference/as_survey_design.html">as_survey_design</a>
+encounters <code>NA</code> values in <code>STRATA_1</code>. Fortunately,
+we can replace those values with numeric codes from the variable <a
+href="https://pma.ipums.org/pma-action/variables/GEOCD#codes_section">GEOCD</a>:</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>dat2</span> <span class='op'><a href='http://gdfe.co/srvyr/reference/pipe.html'>%&gt;%</a></span> <span class='fu'>count</span><span class='op'>(</span><span class='va'>GEOCD</span><span class='op'>)</span>
+</code></pre>
+</div>
+<pre><code># A tibble: 3 × 2
+               GEOCD     n
+           &lt;int+lbl&gt; &lt;int&gt;
+1  1 [Kinshasa]       1973
+2  2 [Kongo Central]  1514
+3 NA                 14238</code></pre>
+</div>
+<p>If <code>GEOCD</code> is not <code>NA</code>, we’ll use its numeric
+code in place of <code>STRATA_1</code>. Otherwise, we’d like to leave
+<code>STRATA_1</code> unchanged. However, because both variables include
+<em>value labels</em>, we’ll first need remove them with <a
+href="https://rdrr.io/r/base/numeric.html">as.numeric</a>. To avoid
+confusion with the original variable <code>STRATA_1</code>, we’ll call
+our new variable <code>STRATA_RECODE</code>.</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>dat2</span> <span class='op'>&lt;-</span> <span class='va'>dat2</span> <span class='op'><a href='http://gdfe.co/srvyr/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='http://gdfe.co/srvyr/reference/dplyr_single.html'>mutate</a></span><span class='op'>(</span>
+    STRATA_RECODE <span class='op'>=</span> <span class='fu'>if_else</span><span class='op'>(</span>
+      <span class='fu'><a href='https://rdrr.io/r/base/NA.html'>is.na</a></span><span class='op'>(</span><span class='va'>GEOCD</span><span class='op'>)</span>, 
+      <span class='fu'><a href='https://rdrr.io/r/base/numeric.html'>as.numeric</a></span><span class='op'>(</span><span class='va'>STRATA_1</span><span class='op'>)</span>, 
+      <span class='fu'><a href='https://rdrr.io/r/base/numeric.html'>as.numeric</a></span><span class='op'>(</span><span class='va'>GEOCD</span><span class='op'>)</span>
+    <span class='op'>)</span>
+  <span class='op'>)</span> 
+
+<span class='va'>dat2</span> <span class='op'><a href='http://gdfe.co/srvyr/reference/pipe.html'>%&gt;%</a></span> <span class='fu'>count</span><span class='op'>(</span><span class='va'>GEOCD</span>, <span class='va'>STRATA_1</span>, <span class='va'>STRATA_RECODE</span><span class='op'>)</span>
+</code></pre>
+</div>
+<pre><code># A tibble: 28 × 4
+                GEOCD                          STRATA_1 STRATA_RECODE     n
+            &lt;int+lbl&gt;                         &lt;int+lbl&gt;         &lt;dbl&gt; &lt;int&gt;
+ 1  1 [Kinshasa]         NA                                         1  1973
+ 2  2 [Kongo Central]    NA                                         2  1514
+ 3 NA                 40410 [Bungoma - urban, Kenya]            40410   153
+ 4 NA                 40411 [Bungoma - rural, Kenya]            40411   489
+ 5 NA                 40412 [Kakamega - urban, Kenya]           40412   133
+ 6 NA                 40413 [Kakamega - rural, Kenya]           40413   438
+ 7 NA                 40414 [Kericho - urban, Kenya]            40414   249
+ 8 NA                 40415 [Kericho - rural, Kenya]            40415   453
+ 9 NA                 40416 [Kiambu - urban, Kenya]             40416   214
+10 NA                 40417 [Kiambu - rural, Kenya]             40417   311
+11 NA                 40418 [Kilifi - urban, Kenya]             40418   170
+12 NA                 40419 [Kilifi - rural, Kenya]             40419   455
+13 NA                 40420 [Kitui - urban, Kenya]              40420   153
+14 NA                 40421 [Kitui - rural, Kenya]              40421   586
+15 NA                 40422 [Nairobi - urban, Kenya]            40422   494
+16 NA                 40423 [Nandi - urban, Kenya]              40423   260
+17 NA                 40424 [Nandi - rural, Kenya]              40424   711
+18 NA                 40425 [Nyamira - urban, Kenya]            40425   143
+19 NA                 40426 [Nyamira - rural, Kenya]            40426   382
+20 NA                 40427 [Siaya - urban, Kenya]              40427   130
+21 NA                 40428 [Siaya - rural, Kenya]              40428   437
+22 NA                 40429 [West Pokot - urban, Kenya]         40429   104
+23 NA                 40430 [West Pokot - rural, Kenya]         40430   474
+24 NA                 56606 [Lagos, Nigeria]                    56606  1089
+25 NA                 56611 [Kano - Urban]                      56611   437
+26 NA                 56612 [Kano - Rural]                      56612   561
+27 NA                 85401 [Urban, Burkina Faso]               85401  3058
+28 NA                 85402 [Rural, Burkina Faso]               85402  2154</code></pre>
+</div>
+<p>Now, we can use <code>STRATA_RECODE</code> with <a
+href="http://gdfe.co/srvyr/reference/as_survey_design.html">as_survey_design</a>
+to obtain population estimates for each nationally representative or
+sub-nationally representative sample.</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>dat2</span> <span class='op'><a href='http://gdfe.co/srvyr/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='http://gdfe.co/srvyr/reference/as_survey_design.html'>as_survey_design</a></span><span class='op'>(</span>weight <span class='op'>=</span> <span class='va'>PANELWEIGHT</span>, id <span class='op'>=</span> <span class='va'>EAID_1</span>, strata <span class='op'>=</span> <span class='va'>STRATA_RECODE</span><span class='op'>)</span> <span class='op'><a href='http://gdfe.co/srvyr/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='http://gdfe.co/srvyr/reference/dplyr_single.html'>filter</a></span><span class='op'>(</span><span class='va'>CP_1</span> <span class='op'>&lt;</span> <span class='fl'>90</span> <span class='op'>&amp;</span> <span class='va'>CP_2</span> <span class='op'>&lt;</span> <span class='fl'>90</span><span class='op'>)</span> <span class='op'><a href='http://gdfe.co/srvyr/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='http://gdfe.co/srvyr/reference/group_by.html'>group_by</a></span><span class='op'>(</span><span class='va'>COUNTRY</span>, <span class='va'>GEOCD</span>, <span class='va'>GEONG</span><span class='op'>)</span> <span class='op'><a href='http://gdfe.co/srvyr/reference/pipe.html'>%&gt;%</a></span>
+  <span class='fu'><a href='http://gdfe.co/srvyr/reference/summarise.html'>summarise</a></span><span class='op'>(</span>
+    <span class='fu'><a href='http://gdfe.co/srvyr/reference/survey_mean.html'>survey_mean</a></span><span class='op'>(</span>
+      <span class='va'>CP_1</span> <span class='op'>*</span> <span class='va'>CP_2</span>,
+      vartype <span class='op'>=</span> <span class='st'>"ci"</span>,
+      level <span class='op'>=</span> <span class='fl'>0.95</span>,
+      proportion <span class='op'>=</span> <span class='cn'>TRUE</span>,
+      prop_method <span class='op'>=</span> <span class='st'>"logit"</span>
+    <span class='op'>)</span>
+  <span class='op'>)</span>
+</code></pre>
+</div>
+<pre><code># A tibble: 6 × 6
+# Groups:   COUNTRY, GEOCD [5]
+                         COUNTRY              GEOCD      GEONG   coef `_low` `_upp`
+                       &lt;int+lbl&gt;          &lt;int+lbl&gt;  &lt;int+lbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;
+1 1 [Burkina Faso]               NA                 NA         0.188  0.164  0.214 
+2 2 [Congo, Democratic Republic]  1 [Kinshasa]      NA         0.320  0.288  0.353 
+3 2 [Congo, Democratic Republic]  2 [Kongo Central] NA         0.268  0.215  0.329 
+4 7 [Kenya]                      NA                 NA         0.366  0.350  0.382 
+5 9 [Nigeria]                    NA                  2 [Lagos] 0.293  0.259  0.330 
+6 9 [Nigeria]                    NA                  4 [Kano]  0.0537 0.0322 0.0880</code></pre>
 </div>
 <h1 id="inclusion-criteria-for-analysis">Inclusion Criteria for
 Analysis</h1>
@@ -3343,13 +3468,13 @@ Household Questionnaire for each phase reported in
 </code></pre>
 </div>
 <pre><code># A tibble: 5 × 2
-                                                      RESIDENT_2     n
-                                                       &lt;int+lbl&gt; &lt;int&gt;
-1 11 [Visitor, slept in hh last night]                              74
-2 21 [Usual member, did not sleep in hh last night]                230
-3 22 [Usual member, slept in hh last night]                       5993
-4 31 [Slept in hh last night, no response if usually lives in h…     1
-5 NA                                                               492</code></pre>
+                                                       RESIDENT_2     n
+                                                        &lt;int+lbl&gt; &lt;int&gt;
+1 11 [Visitor, slept in hh last night]                               74
+2 21 [Usual member, did not sleep in hh last night]                 230
+3 22 [Usual member, slept in hh last night]                        5993
+4 31 [Slept in hh last night, no response if usually lives in hh]     1
+5 NA                                                                492</code></pre>
 </div>
 <aside>
 <code>NA</code> cases in <code>RESIDENT_2</code> represent women who
@@ -3370,12 +3495,12 @@ We’ll use <code>filter</code> to include only those cases.</p>
 </code></pre>
 </div>
 <pre><code># A tibble: 4 × 3
-                                 RESIDENT_1           RESIDENT_2     n
-                                  &lt;int+lbl&gt;            &lt;int+lbl&gt; &lt;int&gt;
-1 11 [Visitor, slept in hh last night]      11 [Visitor, slept …    56
-2 11 [Visitor, slept in hh last night]      22 [Usual member, s…    39
-3 22 [Usual member, slept in hh last night] 11 [Visitor, slept …    17
-4 22 [Usual member, slept in hh last night] 22 [Usual member, s…  5855</code></pre>
+                                 RESIDENT_1                                RESIDENT_2     n
+                                  &lt;int+lbl&gt;                                 &lt;int+lbl&gt; &lt;int&gt;
+1 11 [Visitor, slept in hh last night]      11 [Visitor, slept in hh last night]         56
+2 11 [Visitor, slept in hh last night]      22 [Usual member, slept in hh last night]    39
+3 22 [Usual member, slept in hh last night] 11 [Visitor, slept in hh last night]         17
+4 22 [Usual member, slept in hh last night] 22 [Usual member, slept in hh last night]  5855</code></pre>
 </div>
 <p>Additionally, these reports only include women who completed (or
 partially completed) both Female Questionnaires. This information is
@@ -3472,33 +3597,33 @@ href="https://pma.ipums.org/pma-action/variables/MARSTAT#codes_section">MARSTAT<
 href="https://pma.ipums.org/pma-action/variables/EDUCATT#codes_section">EDUCATT</a>
 and <a
 href="https://pma.ipums.org/pma-action/variables/EDUCATTGEN#codes_section">EDUCATTGEN</a>
-- highest attended level of education<a href="#fn12"
-class="footnote-ref" id="fnref12"
-role="doc-noteref"><sup>12</sup></a></li>
+- highest attended level of education<a href="#fn14"
+class="footnote-ref" id="fnref14"
+role="doc-noteref"><sup>14</sup></a></li>
 <li><a
 href="https://pma.ipums.org/pma-action/variables/AGE#codes_section">AGE</a>
-- age<a href="#fn13" class="footnote-ref" id="fnref13"
-role="doc-noteref"><sup>13</sup></a></li>
+- age<a href="#fn15" class="footnote-ref" id="fnref15"
+role="doc-noteref"><sup>15</sup></a></li>
 <li><a
 href="https://pma.ipums.org/pma-action/variables/WEALTHQ#codes_section">WEALTHQ</a>
 and <a
 href="https://pma.ipums.org/pma-action/variables/WEALTHT#codes_section">WEALTHT</a>
-- household wealth quintile or tertile<a href="#fn14"
-class="footnote-ref" id="fnref14"
-role="doc-noteref"><sup>14</sup></a></li>
+- household wealth quintile or tertile<a href="#fn16"
+class="footnote-ref" id="fnref16"
+role="doc-noteref"><sup>16</sup></a></li>
 <li><a
 href="https://pma.ipums.org/pma-action/variables/URBAN#codes_section">URBAN</a>
 and <a
 href="https://pma.ipums.org/pma-action/variables/SUBNATIONAL#codes_section">SUBNATIONAL</a>
-- geographic location<a href="#fn15" class="footnote-ref" id="fnref15"
-role="doc-noteref"><sup>15</sup></a></li>
+- geographic location<a href="#fn17" class="footnote-ref" id="fnref17"
+role="doc-noteref"><sup>17</sup></a></li>
 </ul>
 <p>We’ll be releasing a new blog post in this series <strong>every two
 weeks</strong>, but you can also get regular updates from the <a
 href="https://twitter.com/ipumsGH">IPUMS Global Health Twitter</a> page.
 Join us again on March 15 for a full rundown of both “wide” and “long”
 data extract options available from IPUMS PMA.</p>
-<div class="sourceCode" id="cb13"><pre
+<div class="sourceCode" id="cb15"><pre
 class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <section class="footnotes footnotes-end-of-document"
 role="doc-endnotes">
@@ -3543,7 +3668,16 @@ considered LTFU if a Phase 2 Household Questionnaire was not completed,
 if she declined to participate, or if she was deceased or otherwise
 unavailable.<a href="#fnref6" class="footnote-back"
 role="doc-backlink">↩︎</a></p></li>
-<li id="fn7" role="doc-endnote"><p><code>HQWEIGHT</code> reflects the <a
+<li id="fn7" role="doc-endnote"><p>The <code>srvyr</code> package is a
+<a href="https://tidyverse.tidyverse.org/">tidy</a> implementation of
+the popular <a
+href="http://r-survey.r-forge.r-project.org/survey/">survey</a> package
+for R, authored by Dr. Thomas Lumley. For thorough discussion of the
+types of weights available in both R and Stata, we recommend <a
+href="https://notstatschat.rbind.io/2020/08/04/weights-in-statistics/">this
+blog post</a> by Dr. Lumley.<a href="#fnref7" class="footnote-back"
+role="doc-backlink">↩︎</a></p></li>
+<li id="fn8" role="doc-endnote"><p><code>HQWEIGHT</code> reflects the <a
 href="https://pma.ipums.org/pma/resources/documentation/weighting_memo.pdf">calculated
 selection probability</a> for a household in an EA, normalized at the
 population-level. Users intending to estimate population-level
@@ -3551,53 +3685,54 @@ indicators for <em>households</em> should restrict their sample to one
 person per household via <a
 href="https://pma.ipums.org/pma-action/variables/LINENO#description_section">LINENO</a>
 - see <a href="https://pma.ipums.org/pma/weightguide.shtml#hh">household
-weighting guide</a> for details.<a href="#fnref7" class="footnote-back"
+weighting guide</a> for details.<a href="#fnref8" class="footnote-back"
 role="doc-backlink">↩︎</a></p></li>
-<li id="fn8" role="doc-endnote"><p><code>FQWEIGHT</code> adjusts
+<li id="fn9" role="doc-endnote"><p><code>FQWEIGHT</code> adjusts
 <code>HQWEIGHT</code> for female non-response within the EA, normalized
 at the population-level - see <a
 href="https://pma.ipums.org/pma/weightguide.shtml#female">female
-weighting guide</a> for details.<a href="#fnref8" class="footnote-back"
+weighting guide</a> for details.<a href="#fnref9" class="footnote-back"
 role="doc-backlink">↩︎</a></p></li>
-<li id="fn9" role="doc-endnote"><p><code>POPWT</code> can be used to
+<li id="fn10" role="doc-endnote"><p><code>POPWT</code> can be used to
 estimate population-level <em>counts</em> - <a
 href="https://pma.ipums.org/pma/population_weights.shtml">click here</a>
 or check out <a href="https://www.youtube.com/watch?v=GnCq26t4zgM">this
-video</a> for details.<a href="#fnref9" class="footnote-back"
-role="doc-backlink">↩︎</a></p></li>
-<li id="fn10" role="doc-endnote"><p>The <code>srvyr</code> package is a
-<a href="https://tidyverse.tidyverse.org/">tidy</a> implementation of
-the popular <a
-href="http://r-survey.r-forge.r-project.org/survey/">survey</a> package
-for R, authored by Dr. Thomas Lumley. For thorough discussion of the
-types of weights available in both R and Stata, we recommend <a
-href="https://notstatschat.rbind.io/2020/08/04/weights-in-statistics/">this
-blog post</a> by Dr. Lumley.<a href="#fnref10" class="footnote-back"
+video</a> for details.<a href="#fnref10" class="footnote-back"
 role="doc-backlink">↩︎</a></p></li>
 <li id="fn11" role="doc-endnote"><p>See <a
 href="https://rdrr.io/pkg/survey/man/svyciprop.html">svyciprop</a> for
 additional methods.<a href="#fnref11" class="footnote-back"
 role="doc-backlink">↩︎</a></p></li>
-<li id="fn12" role="doc-endnote"><p>Levels in <code>EDUCATT</code> may
+<li id="fn12" role="doc-endnote"><p>As we’ll see in an upcoming post,
+women are considered “lost to follow-up” if they moved outside the study
+area after Phase 1. Therefore, <code>EAID_1</code> and
+<code>EAID_2</code> are identical for all panel members: you can use
+either one to identify sample clusters.<a href="#fnref12"
+class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn13" role="doc-endnote"><p>As with <a
+href="https://pma.ipums.org/pma-action/variables/EAID#codes_section">EAID</a>,
+you may use either <code>STRATA_1</code> or <code>STRATA_2</code> if
+your analysis is restricted to panel members.<a href="#fnref13"
+class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn14" role="doc-endnote"><p>Levels in <code>EDUCATT</code> may
 vary by country; <code>EDUCATTGEN</code> recodes country-specific levels
-in four general categories.<a href="#fnref12" class="footnote-back"
+in four general categories.<a href="#fnref14" class="footnote-back"
 role="doc-backlink">↩︎</a></p></li>
-<li id="fn13" role="doc-endnote"><p>Ages are frequently reported in
+<li id="fn15" role="doc-endnote"><p>Ages are frequently reported in
 five-year groups: 15-19, 20-24, 25-29, 30-34, 35-39, 40-44, and 45-49.<a
-href="#fnref13" class="footnote-back"
-role="doc-backlink">↩︎</a></p></li>
-<li id="fn14" role="doc-endnote"><p>Households are divided into
+href="#fnref15" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn16" role="doc-endnote"><p>Households are divided into
 quintiles/tertiles relative to the distribution of an asset <a
 href="https://pma.ipums.org/pma-action/variables/SCORE#description_section">SCORE</a>
 weighted for all sampled households. For subnationally-representative
 samples (DRC and Nigeria), separate wealth distributions are calculated
-for each sampled region.<a href="#fnref14" class="footnote-back"
+for each sampled region.<a href="#fnref16" class="footnote-back"
 role="doc-backlink">↩︎</a></p></li>
-<li id="fn15" role="doc-endnote"><p><code>SUBNATIONAL</code> includes
+<li id="fn17" role="doc-endnote"><p><code>SUBNATIONAL</code> includes
 subnational regions for all sampled countries; country-specific
 variables are also available on the <a
 href="https://pma.ipums.org/pma-action/variables/group?id=hh_geo">household
-- geography</a> page.<a href="#fnref15" class="footnote-back"
+- geography</a> page.<a href="#fnref17" class="footnote-back"
 role="doc-backlink">↩︎</a></p></li>
 </ol>
 </section>
