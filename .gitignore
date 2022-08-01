@@ -4,3 +4,4 @@
 .DS_Store
 data_local
 fonts/
+**/pma_env

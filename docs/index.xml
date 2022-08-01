@@ -12,7 +12,21 @@
       <link>https://ipums.github.io/pma-data-hub/</link>
     </image>
     <generator>Distill</generator>
-    <lastBuildDate>Mon, 18 Jul 2022 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 01 Aug 2022 00:00:00 +0000</lastBuildDate>
+    <item>
+      <title>Translated Youtube Transcripts with R and Python</title>
+      <dc:creator>Matt Gunther</dc:creator>
+      <link>https://ipums.github.io/pma-data-hub/posts/2022-08-01-youtube-transcripts</link>
+      <description>With help from an imported Python module, you can get an automatically generated transcript for any IPUMS PMA video tutorial in your preferred language. No Python experience necessary!</description>
+      <category>Video</category>
+      <category>Python</category>
+      <category>reticulate</category>
+      <category>translation</category>
+      <category>transcription</category>
+      <guid>https://ipums.github.io/pma-data-hub/posts/2022-08-01-youtube-transcripts</guid>
+      <pubDate>Mon, 01 Aug 2022 00:00:00 +0000</pubDate>
+      <media:content url="https://ipums.github.io/pma-data-hub/posts/2022-08-01-youtube-transcripts/images/logo.png" medium="image" type="image/png" width="1050" height="567"/>
+    </item>
     <item>
       <title>Arranging maps in a grid</title>
       <dc:creator>Matt Gunther</dc:creator>
