@@ -198,7 +198,19 @@ library(ggspatial)
 
 # modern_tbl %>% write_rds("data/modern_tbl.rds")
 modern_tbl <- read_rds("data/modern_tbl.rds")
+```
 
+```{r}
+modern_tbl
+```
+
+# Facets: one country over time 
+
+Let's look at an example featuring data from just *one* country first. We'll use our favorite mapping package [ggspatial](https://paleolimbot.github.io/ggspatial/), since it allows us to use familiar tools from [ggplot2](https://ggplot2.tidyverse.org) to customize the layout of our panel array. Most crucially, we use [facet_wrap](https://ggplot2.tidyverse.org/reference/facet_wrap.html) to create one panel for each sample `YEAR`. Additionally, we'll define the `fill` color for each region with [scale_fill_gradient](https://ggplot2.tidyverse.org/reference/scale_gradient.html): we'll use a red color [#BD262D](https://www.google.com/search?q=%23BD262D&oq=%23BD262D&aqs=chrome..69i57.429j0j4&sourceid=chrome&ie=UTF-8) for high-levels on modern method prevalence, and we'll use `transparent` for regions where no modern method users were sampled. The grey shade [#CFCFCF](https://www.google.com/search?q=%23cfcfcf&oq=%23CFCFCF&aqs=chrome.0.0i512l3j0i7i10i30j0i7i30j0i7i15i30l5.2249j0j9&sourceid=chrome&ie=UTF-8) will represent regions were no women were sampled. 
+
+Finally, we'll customize the look of our plot with a theme we'll call `theme_pma`. We encourage you to experiment with your own theme, but feel free to use ours as a template if you're interested.
+
+```{r,  code_folding="How to build theme_pma"}
 # Define `theme_pma` for maps
 library(showtext)
 sysfonts::font_add(
@@ -226,14 +238,6 @@ theme_pma <- theme_void() %+replace%
     legend.position = "right"
   )
 ```
-
-```{r}
-modern_tbl
-```
-
-# Facets: one country over time 
-
-Let's look at an example featuring data from just *one* country first. We'll use our favorite mapping package [ggspatial](https://paleolimbot.github.io/ggspatial/), since it allows us to use familiar tools from [ggplot2](https://ggplot2.tidyverse.org) to customize the layout of our panel array. Most crucially, we use [facet_wrap](https://ggplot2.tidyverse.org/reference/facet_wrap.html) to create one panel for each sample `YEAR`. Additionally, we'll define the `fill` color for each region with [scale_fill_gradient](https://ggplot2.tidyverse.org/reference/scale_gradient.html): we'll use a red color [#BD262D](https://www.google.com/search?q=%23BD262D&oq=%23BD262D&aqs=chrome..69i57.429j0j4&sourceid=chrome&ie=UTF-8) for high-levels on modern method prevalence, and we'll use `transparent` for regions where no modern method users were sampled. The grey shade [#CFCFCF](https://www.google.com/search?q=%23cfcfcf&oq=%23CFCFCF&aqs=chrome.0.0i512l3j0i7i10i30j0i7i30j0i7i15i30l5.2249j0j9&sourceid=chrome&ie=UTF-8) will represent regions were no women were sampled. 
 
 ```{r}
 ggplot() + 

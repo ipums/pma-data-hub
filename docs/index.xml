@@ -12,7 +12,21 @@
       <link>https://ipums.github.io/pma-data-hub/</link>
     </image>
     <generator>Distill</generator>
-    <lastBuildDate>Mon, 01 Aug 2022 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Thu, 25 Aug 2022 00:00:00 +0000</lastBuildDate>
+    <item>
+      <title>Trends in Modern Contraceptive Method Mix</title>
+      <dc:creator>Matt Gunther</dc:creator>
+      <link>https://ipums.github.io/pma-data-hub/posts/2022-08-15-method-mix-trends</link>
+      <description>Which methods are have gained popularity among modern method users since 2014?</description>
+      <category>Modern Method Mix</category>
+      <category>Indicators</category>
+      <category>Measurement</category>
+      <category>Data Analysis</category>
+      <category>Data Visualization</category>
+      <guid>https://ipums.github.io/pma-data-hub/posts/2022-08-15-method-mix-trends</guid>
+      <pubDate>Thu, 25 Aug 2022 00:00:00 +0000</pubDate>
+      <media:content url="https://ipums.github.io/pma-data-hub/posts/2022-08-15-method-mix-trends/method-mix-trends_files/figure-html5/unnamed-chunk-16-1.png" medium="image" type="image/png" width="2688" height="1920"/>
+    </item>
     <item>
       <title>Translated Youtube Transcripts with R and Python</title>
       <dc:creator>Matt Gunther</dc:creator>
@@ -41,7 +55,7 @@
       <category>purrr</category>
       <guid>https://ipums.github.io/pma-data-hub/posts/2022-07-15-facet-maps</guid>
       <pubDate>Mon, 18 Jul 2022 00:00:00 +0000</pubDate>
-      <media:content url="https://ipums.github.io/pma-data-hub/posts/2022-07-15-facet-maps/facet-maps_files/figure-html5/unnamed-chunk-23-1.png" medium="image" type="image/png" width="2304" height="1344"/>
+      <media:content url="https://ipums.github.io/pma-data-hub/posts/2022-07-15-facet-maps/facet-maps_files/figure-html5/unnamed-chunk-24-1.png" medium="image" type="image/png" width="2304" height="1344"/>
     </item>
     <item>
       <title>Slide Presentations in R with Quarto</title>

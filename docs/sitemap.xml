@@ -2,202 +2,206 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" version="1.0">
   <url>
     <loc>https://ipums.github.io/pma-data-hub/about.html</loc>
-    <lastmod>2021-03-26T16:30:29-05:00</lastmod>
+    <lastmod>2021-03-26T17:30:29-04:00</lastmod>
   </url>
   <url>
     <loc>https://ipums.github.io/pma-data-hub/blog-post-workflow.html</loc>
-    <lastmod>2022-04-13T12:10:18-05:00</lastmod>
+    <lastmod>2022-04-13T13:10:18-04:00</lastmod>
   </url>
   <url>
     <loc>https://ipums.github.io/pma-data-hub/blogging-with-rmarkdown.html</loc>
-    <lastmod>2022-04-13T12:10:18-05:00</lastmod>
+    <lastmod>2022-04-13T13:10:18-04:00</lastmod>
   </url>
   <url>
     <loc>https://ipums.github.io/pma-data-hub/CODE_OF_CONDUCT.html</loc>
-    <lastmod>2022-04-13T12:10:18-05:00</lastmod>
+    <lastmod>2022-04-13T13:10:18-04:00</lastmod>
   </url>
   <url>
     <loc>https://ipums.github.io/pma-data-hub/CONTRIBUTING.html</loc>
-    <lastmod>2022-04-13T12:10:18-05:00</lastmod>
+    <lastmod>2022-04-13T13:10:18-04:00</lastmod>
   </url>
   <url>
     <loc>https://ipums.github.io/pma-data-hub/</loc>
-    <lastmod>2021-07-15T14:22:28-05:00</lastmod>
+    <lastmod>2021-07-15T15:22:28-04:00</lastmod>
   </url>
   <url>
     <loc>https://ipums.github.io/pma-data-hub/introduction.html</loc>
-    <lastmod>2022-04-13T12:10:18-05:00</lastmod>
+    <lastmod>2022-04-13T13:10:18-04:00</lastmod>
   </url>
   <url>
     <loc>https://ipums.github.io/pma-data-hub/LICENSE.html</loc>
-    <lastmod>2022-04-13T12:10:18-05:00</lastmod>
+    <lastmod>2022-04-13T13:10:18-04:00</lastmod>
+  </url>
+  <url>
+    <loc>https://ipums.github.io/pma-data-hub/posts/2022-08-15-method-mix-trends/</loc>
+    <lastmod>2022-08-25T09:40:41-04:00</lastmod>
   </url>
   <url>
     <loc>https://ipums.github.io/pma-data-hub/posts/2022-08-01-youtube-transcripts/</loc>
-    <lastmod>2022-08-01T10:02:04-05:00</lastmod>
+    <lastmod>2022-08-01T11:02:04-04:00</lastmod>
   </url>
   <url>
     <loc>https://ipums.github.io/pma-data-hub/posts/2022-07-15-facet-maps/</loc>
-    <lastmod>2022-07-19T09:19:10-05:00</lastmod>
+    <lastmod>2022-08-25T09:41:05-04:00</lastmod>
   </url>
   <url>
     <loc>https://ipums.github.io/pma-data-hub/posts/2022-07-01-ined-revealjs/</loc>
-    <lastmod>2022-07-01T14:03:30-05:00</lastmod>
+    <lastmod>2022-07-01T15:03:30-04:00</lastmod>
   </url>
   <url>
     <loc>https://ipums.github.io/pma-data-hub/posts/2022-06-15-phase2-webinar/</loc>
-    <lastmod>2022-06-14T09:42:53-05:00</lastmod>
+    <lastmod>2022-06-14T10:42:53-04:00</lastmod>
   </url>
   <url>
     <loc>https://ipums.github.io/pma-data-hub/posts/2022-06-01-sdp-panel-release/</loc>
-    <lastmod>2022-06-03T12:37:49-05:00</lastmod>
+    <lastmod>2022-06-03T13:37:49-04:00</lastmod>
   </url>
   <url>
     <loc>https://ipums.github.io/pma-data-hub/posts/2022-05-15-phase2-calendar/</loc>
-    <lastmod>2022-07-26T11:38:22-05:00</lastmod>
+    <lastmod>2022-07-26T12:38:22-04:00</lastmod>
   </url>
   <url>
     <loc>https://ipums.github.io/pma-data-hub/posts/2022-05-01-phase2-alluvial/</loc>
-    <lastmod>2022-07-26T11:38:22-05:00</lastmod>
+    <lastmod>2022-07-26T12:38:22-04:00</lastmod>
   </url>
   <url>
     <loc>https://ipums.github.io/pma-data-hub/posts/2022-04-15-phase2-indicators/</loc>
-    <lastmod>2022-08-01T10:02:28-05:00</lastmod>
+    <lastmod>2022-08-01T11:02:28-04:00</lastmod>
   </url>
   <url>
     <loc>https://ipums.github.io/pma-data-hub/posts/2022-04-01-phase2-members/</loc>
-    <lastmod>2022-05-02T17:12:33-05:00</lastmod>
+    <lastmod>2022-05-02T18:12:33-04:00</lastmod>
   </url>
   <url>
     <loc>https://ipums.github.io/pma-data-hub/posts/2022-03-15-phase2-formats/</loc>
-    <lastmod>2022-03-15T16:02:55-05:00</lastmod>
+    <lastmod>2022-03-15T17:02:55-04:00</lastmod>
   </url>
   <url>
     <loc>https://ipums.github.io/pma-data-hub/posts/2022-03-01-phase2-discovery/</loc>
-    <lastmod>2022-08-01T10:02:28-05:00</lastmod>
+    <lastmod>2022-08-01T11:02:28-04:00</lastmod>
   </url>
   <url>
     <loc>https://ipums.github.io/pma-data-hub/posts/2022-02-15-cei-analysis/</loc>
-    <lastmod>2022-04-13T12:11:20-05:00</lastmod>
+    <lastmod>2022-04-13T13:11:20-04:00</lastmod>
   </url>
   <url>
     <loc>https://ipums.github.io/pma-data-hub/posts/2022-02-01-cei-fp/</loc>
-    <lastmod>2022-04-13T12:11:20-05:00</lastmod>
+    <lastmod>2022-04-13T13:11:20-04:00</lastmod>
   </url>
   <url>
     <loc>https://ipums.github.io/pma-data-hub/posts/2022-01-15-cei-sdp/</loc>
-    <lastmod>2022-04-13T12:11:20-05:00</lastmod>
+    <lastmod>2022-04-13T13:11:20-04:00</lastmod>
   </url>
   <url>
     <loc>https://ipums.github.io/pma-data-hub/posts/2021-12-15-cei-conflict/</loc>
-    <lastmod>2022-04-13T12:10:48-05:00</lastmod>
+    <lastmod>2022-04-13T13:10:48-04:00</lastmod>
   </url>
   <url>
     <loc>https://ipums.github.io/pma-data-hub/posts/2021-12-01-cei-discovery/</loc>
-    <lastmod>2022-04-13T12:10:48-05:00</lastmod>
+    <lastmod>2022-04-13T13:10:48-04:00</lastmod>
   </url>
   <url>
     <loc>https://ipums.github.io/pma-data-hub/posts/2021-11-15-find-an-example/</loc>
-    <lastmod>2022-07-01T14:03:35-05:00</lastmod>
+    <lastmod>2022-07-01T15:03:35-04:00</lastmod>
   </url>
   <url>
     <loc>https://ipums.github.io/pma-data-hub/posts/2021-11-01-nutrition-analysis/</loc>
-    <lastmod>2022-04-13T12:10:48-05:00</lastmod>
+    <lastmod>2022-04-13T13:10:48-04:00</lastmod>
   </url>
   <url>
     <loc>https://ipums.github.io/pma-data-hub/posts/2021-10-15-nutrition-climate/</loc>
-    <lastmod>2022-04-13T12:10:47-05:00</lastmod>
+    <lastmod>2022-04-13T13:10:47-04:00</lastmod>
   </url>
   <url>
     <loc>https://ipums.github.io/pma-data-hub/posts/2021-10-01-nutrition-indicators/</loc>
-    <lastmod>2022-04-13T12:10:47-05:00</lastmod>
+    <lastmod>2022-04-13T13:10:47-04:00</lastmod>
   </url>
   <url>
     <loc>https://ipums.github.io/pma-data-hub/posts/2021-09-15-nutrition-linking/</loc>
-    <lastmod>2022-04-13T12:10:47-05:00</lastmod>
+    <lastmod>2022-04-13T13:10:47-04:00</lastmod>
   </url>
   <url>
     <loc>https://ipums.github.io/pma-data-hub/posts/2021-09-01-nutrition-discovery/</loc>
-    <lastmod>2022-04-13T12:10:46-05:00</lastmod>
+    <lastmod>2022-04-13T13:10:46-04:00</lastmod>
   </url>
   <url>
     <loc>https://ipums.github.io/pma-data-hub/posts/2021-08-15-covid-analysis/</loc>
-    <lastmod>2022-04-13T12:10:46-05:00</lastmod>
+    <lastmod>2022-04-13T13:10:46-04:00</lastmod>
   </url>
   <url>
     <loc>https://ipums.github.io/pma-data-hub/posts/2021-08-07-pma-intro/</loc>
-    <lastmod>2022-04-13T12:10:46-05:00</lastmod>
+    <lastmod>2022-04-13T13:10:46-04:00</lastmod>
   </url>
   <url>
     <loc>https://ipums.github.io/pma-data-hub/posts/2021-08-01-covid-batches/</loc>
-    <lastmod>2022-04-13T12:10:46-05:00</lastmod>
+    <lastmod>2022-04-13T13:10:46-04:00</lastmod>
   </url>
   <url>
     <loc>https://ipums.github.io/pma-data-hub/posts/2021-07-15-covid-likert/</loc>
-    <lastmod>2022-04-13T12:10:46-05:00</lastmod>
+    <lastmod>2022-04-13T13:10:46-04:00</lastmod>
   </url>
   <url>
     <loc>https://ipums.github.io/pma-data-hub/posts/2021-07-01-covid-tables/</loc>
-    <lastmod>2022-04-13T12:10:46-05:00</lastmod>
+    <lastmod>2022-04-13T13:10:46-04:00</lastmod>
   </url>
   <url>
     <loc>https://ipums.github.io/pma-data-hub/posts/2021-06-15-covid-discovery/</loc>
-    <lastmod>2022-04-13T12:10:45-05:00</lastmod>
+    <lastmod>2022-04-13T13:10:45-04:00</lastmod>
   </url>
   <url>
     <loc>https://ipums.github.io/pma-data-hub/posts/2021-05-24-migration-data-analysis/</loc>
-    <lastmod>2022-04-13T12:10:45-05:00</lastmod>
+    <lastmod>2022-04-13T13:10:45-04:00</lastmod>
   </url>
   <url>
     <loc>https://ipums.github.io/pma-data-hub/posts/2021-05-15-paa-2021/</loc>
-    <lastmod>2022-06-14T09:43:16-05:00</lastmod>
+    <lastmod>2022-06-14T10:43:16-04:00</lastmod>
   </url>
   <url>
     <loc>https://ipums.github.io/pma-data-hub/posts/2021-05-01-storymaps/</loc>
-    <lastmod>2022-08-01T10:01:55-05:00</lastmod>
+    <lastmod>2022-08-25T09:40:31-04:00</lastmod>
   </url>
   <url>
     <loc>https://ipums.github.io/pma-data-hub/posts/2021-04-15-migration-discovery/</loc>
-    <lastmod>2022-04-13T12:10:45-05:00</lastmod>
+    <lastmod>2022-04-13T13:10:45-04:00</lastmod>
   </url>
   <url>
     <loc>https://ipums.github.io/pma-data-hub/posts/2021-04-01-et-internal-migration/</loc>
-    <lastmod>2022-04-13T12:10:45-05:00</lastmod>
+    <lastmod>2022-04-13T13:10:45-04:00</lastmod>
   </url>
   <url>
     <loc>https://ipums.github.io/pma-data-hub/posts/2021-02-09-march-2021-data-release/</loc>
-    <lastmod>2022-04-13T12:10:45-05:00</lastmod>
+    <lastmod>2022-04-13T13:10:45-04:00</lastmod>
   </url>
   <url>
     <loc>https://ipums.github.io/pma-data-hub/posts/2021-02-19-analyzing-the-individual-in-context/</loc>
-    <lastmod>2022-04-13T12:10:45-05:00</lastmod>
+    <lastmod>2022-04-13T13:10:45-04:00</lastmod>
   </url>
   <url>
     <loc>https://ipums.github.io/pma-data-hub/posts/2021-02-04-merging-external-spatial-data/</loc>
-    <lastmod>2022-04-13T12:10:45-05:00</lastmod>
+    <lastmod>2022-04-13T13:10:45-04:00</lastmod>
   </url>
   <url>
     <loc>https://ipums.github.io/pma-data-hub/posts/2021-01-29-mapping-sdp-variables/</loc>
-    <lastmod>2022-04-13T12:10:45-05:00</lastmod>
+    <lastmod>2022-04-13T13:10:45-04:00</lastmod>
   </url>
   <url>
     <loc>https://ipums.github.io/pma-data-hub/posts/2021-01-28-summarize-by-easerved/</loc>
-    <lastmod>2022-04-13T12:10:45-05:00</lastmod>
+    <lastmod>2022-04-13T13:10:45-04:00</lastmod>
   </url>
   <url>
     <loc>https://ipums.github.io/pma-data-hub/posts/2021-01-28-across-sdp/</loc>
-    <lastmod>2022-04-13T12:10:45-05:00</lastmod>
+    <lastmod>2022-04-13T13:10:45-04:00</lastmod>
   </url>
   <url>
     <loc>https://ipums.github.io/pma-data-hub/posts/2021-01-26-sdp-data/</loc>
-    <lastmod>2022-04-13T12:10:45-05:00</lastmod>
+    <lastmod>2022-04-13T13:10:45-04:00</lastmod>
   </url>
   <url>
     <loc>https://ipums.github.io/pma-data-hub/posts/2020-12-10-get-ipums-pma-data/</loc>
-    <lastmod>2022-04-13T12:10:44-05:00</lastmod>
+    <lastmod>2022-04-13T13:10:44-04:00</lastmod>
   </url>
   <url>
     <loc>https://ipums.github.io/pma-data-hub/posts/2020-12-10-get-r-and-packages/</loc>
-    <lastmod>2022-04-13T12:10:44-05:00</lastmod>
+    <lastmod>2022-04-13T13:10:44-04:00</lastmod>
   </url>
 </urlset>
