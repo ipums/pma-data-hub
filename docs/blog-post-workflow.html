@@ -2371,6 +2371,11 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 
   code {
     font-family: Menlo, Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+  }
+
+  /* Prevent leaflet widgets from appearing above navbar */ 
+  .header {
+    z-index: 1001;
   }</style>
   <style type="text/css">
   /* base style */
@@ -2554,7 +2559,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <!--radix_placeholder_front_matter-->
 
 <script id="distill-front-matter" type="text/json">
-{"title":"Blog post workflow","description":"How to create or review a PMA Data Hub blog post","authors":[{"author":"Matt Gunther","authorURL":"#","affiliation":"&nbsp;","affiliationURL":"#","orcidID":""}],"publishedDate":"2021-02-02T00:00:00.000-05:00","citationText":"Gunther, 2021"}
+{"title":"Blog post workflow","description":"How to create or review a PMA Data Hub blog post","authors":[{"author":"Matt Gunther","authorURL":"#","affiliation":"&nbsp;","affiliationURL":"#","orcidID":""}],"publishedDate":"2021-02-02T00:00:00.000-06:00","citationText":"Gunther, 2021"}
 </script>
 
 <!--/radix_placeholder_front_matter-->
@@ -2641,48 +2646,59 @@ Community
 <nav class="l-text toc figcaption" id="TOC">
 <h3>Contents</h3>
 <ul>
-<li><a href="#all-users-first-time-setup">All users: first time
-setup</a>
+<li><a href="#all-users-first-time-setup"
+id="toc-all-users-first-time-setup">All users: first time setup</a>
 <ul>
-<li><a href="#r-rstudio-and-required-packages">R, RStudio, and required
+<li><a href="#r-rstudio-and-required-packages"
+id="toc-r-rstudio-and-required-packages">R, RStudio, and required
 packages</a></li>
-<li><a href="#initialize-your-umn-github-account">Initialize your UMN
-GitHub account</a></li>
-<li><a href="#using-umn-github-from-rstudio">Using UMN GitHub from
+<li><a href="#initialize-your-umn-github-account"
+id="toc-initialize-your-umn-github-account">Initialize your UMN GitHub
+account</a></li>
+<li><a href="#using-umn-github-from-rstudio"
+id="toc-using-umn-github-from-rstudio">Using UMN GitHub from
 RStudio</a></li>
-<li><a href="#the-pma-data-hub-repository">The PMA Data Hub
+<li><a href="#the-pma-data-hub-repository"
+id="toc-the-pma-data-hub-repository">The PMA Data Hub
 Repository</a></li>
 </ul></li>
-<li><a href="#authors-creating-a-new-post">Authors: Creating a new
-post</a>
+<li><a href="#authors-creating-a-new-post"
+id="toc-authors-creating-a-new-post">Authors: Creating a new post</a>
 <ul>
-<li><a href="#create-a-new-branch">Create a new branch</a></li>
-<li><a href="#create-a-new-folder-in-_posts">Create a new folder in
+<li><a href="#create-a-new-branch" id="toc-create-a-new-branch">Create a
+new branch</a></li>
+<li><a href="#create-a-new-folder-in-_posts"
+id="toc-create-a-new-folder-in-_posts">Create a new folder in
 “_posts”</a></li>
-<li><a href="#put-your-data-in-a-data-folder">Put your data in a “data”
+<li><a href="#put-your-data-in-a-data-folder"
+id="toc-put-your-data-in-a-data-folder">Put your data in a “data”
 folder!</a></li>
-<li><a href="#push-your-post-to-github">Push your post to
-GitHub</a></li>
+<li><a href="#push-your-post-to-github"
+id="toc-push-your-post-to-github">Push your post to GitHub</a></li>
 </ul></li>
-<li><a href="#editors">Editors</a>
+<li><a href="#editors" id="toc-editors">Editors</a>
 <ul>
-<li><a href="#pull-the-authors-branch-to-your-computer">Pull the
-author’s branch to your computer</a></li>
-<li><a href="#locate-and-edit-the-new-post">Locate and edit the new
+<li><a href="#pull-the-authors-branch-to-your-computer"
+id="toc-pull-the-authors-branch-to-your-computer">Pull the author’s
+branch to your computer</a></li>
+<li><a href="#locate-and-edit-the-new-post"
+id="toc-locate-and-edit-the-new-post">Locate and edit the new
 post</a></li>
-<li><a href="#push-the-edited-post-back-to-github">Push the edited post
-back to GitHub</a></li>
+<li><a href="#push-the-edited-post-back-to-github"
+id="toc-push-the-edited-post-back-to-github">Push the edited post back
+to GitHub</a></li>
 </ul></li>
-<li><a href="#all-users-making-revisions">All users: making
-revisions</a></li>
-<li><a href="#site-admin">Site Admin</a>
+<li><a href="#all-users-making-revisions"
+id="toc-all-users-making-revisions">All users: making revisions</a></li>
+<li><a href="#site-admin" id="toc-site-admin">Site Admin</a>
 <ul>
-<li><a href="#setup">Setup</a></li>
-<li><a
-href="#create-a-git-hook-to-remove-data-from-the-public-repo">Create a
+<li><a href="#setup" id="toc-setup">Setup</a></li>
+<li><a href="#create-a-git-hook-to-remove-data-from-the-public-repo"
+id="toc-create-a-git-hook-to-remove-data-from-the-public-repo">Create a
 Git Hook to remove data from the public repo</a></li>
-<li><a href="#merging">Merging</a></li>
-<li><a href="#other-git-tips">Other git tips</a></li>
+<li><a href="#merging" id="toc-merging">Merging</a></li>
+<li><a href="#other-git-tips" id="toc-other-git-tips">Other git
+tips</a></li>
 </ul></li>
 </ul>
 </nav>

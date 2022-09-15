@@ -12,7 +12,21 @@
       <link>https://ipums.github.io/pma-data-hub/</link>
     </image>
     <generator>Distill</generator>
-    <lastBuildDate>Thu, 25 Aug 2022 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Thu, 15 Sep 2022 00:00:00 +0000</lastBuildDate>
+    <item>
+      <title>Data Exploration with Leaflet</title>
+      <dc:creator>Finn Roberts</dc:creator>
+      <link>https://ipums.github.io/pma-data-hub/posts/2022-09-15-leaflet-eda</link>
+      <description>Using interactive maps for exploratory data analysis with PMA GPS data</description>
+      <category>Leaflet</category>
+      <category>Data Analysis</category>
+      <category>Data Visualization</category>
+      <category>Spatial</category>
+      <category>Mapping</category>
+      <guid>https://ipums.github.io/pma-data-hub/posts/2022-09-15-leaflet-eda</guid>
+      <pubDate>Thu, 15 Sep 2022 00:00:00 +0000</pubDate>
+      <media:content url="https://ipums.github.io/pma-data-hub/posts/2022-09-15-leaflet-eda/images/preview.png" medium="image" type="image/png" width="2296" height="1540"/>
+    </item>
     <item>
       <title>Trends in Modern Contraceptive Method Mix</title>
       <dc:creator>Matt Gunther</dc:creator>

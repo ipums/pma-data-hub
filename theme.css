@@ -220,3 +220,8 @@ d-article aside a {
 code {
   font-family: Menlo, Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
 }
+
+/* Prevent leaflet widgets from appearing above navbar */ 
+.header {
+  z-index: 1001;
+}

@@ -2365,6 +2365,11 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 
   code {
     font-family: Menlo, Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+  }
+
+  /* Prevent leaflet widgets from appearing above navbar */ 
+  .header {
+    z-index: 1001;
   }</style>
   <style type="text/css">
   /* base style */
@@ -2768,6 +2773,29 @@ function init_posts_list() {
 <div class="posts-container posts-with-sidebar posts-apply-limit l-screen-inset">
 <div class="posts-list">
 <h1 class="posts-list-caption" data-caption="Data Analysis Hub">Data Analysis Hub</h1>
+<a href="posts/2022-09-15-leaflet-eda/" class="post-preview">
+<script class="post-metadata" type="text/json">{"categories":["Leaflet","Data Analysis","Data Visualization","Spatial","Mapping"]}</script>
+<div class="metadata">
+<div class="publishedDate">Sept. 15, 2022</div>
+<div class="dt-authors">
+<div class="dt-author">Finn Roberts</div>
+</div>
+</div>
+<div class="thumbnail">
+<img src="posts/2022-09-15-leaflet-eda/images/preview.png"/>
+</div>
+<div class="description">
+<h2>Data Exploration with Leaflet</h2>
+<div class="dt-tags">
+<div class="dt-tag">Leaflet</div>
+<div class="dt-tag">Data Analysis</div>
+<div class="dt-tag">Data Visualization</div>
+<div class="dt-tag">Spatial</div>
+<div class="dt-tag">Mapping</div>
+</div>
+<p>Using interactive maps for exploratory data analysis with PMA GPS data</p>
+</div>
+</a>
 <a href="posts/2022-08-15-method-mix-trends/" class="post-preview">
 <script class="post-metadata" type="text/json">{"categories":["Modern Method Mix","Indicators","Measurement","Data Analysis","Data Visualization"]}</script>
 <div class="metadata">
@@ -2841,6 +2869,823 @@ function init_posts_list() {
 </a>
 <a href="posts/2022-07-01-ined-revealjs/" class="post-preview">
 <script class="post-metadata" type="text/json">{"categories":["Quarto","RMarkdown","Revealjs","Slides","R Tips"]}</script>
+<div class="metadata">
+<div class="publishedDate">July 1, 2022</div>
+<div class="dt-authors">
+<div class="dt-author">Matt Gunther</div>
+</div>
+</div>
+<div class="thumbnail">
+<img src="posts/2022-07-01-ined-revealjs/images/feature.png"/>
+</div>
+<div class="description">
+<h2>Slide Presentations in R with Quarto</h2>
+<div class="dt-tags">
+<div class="dt-tag">Quarto</div>
+<div class="dt-tag">RMarkdown</div>
+<div class="dt-tag">Revealjs</div>
+<div class="dt-tag">Slides</div>
+<div class="dt-tag">R Tips</div>
+</div>
+<p>We've been preparing for an upcoming workshop by building our first presentation with Quarto and Revealjs. Here's what we've learned so far.</p>
+</div>
+</a>
+<a href="posts/2022-06-15-phase2-webinar/" class="post-preview">
+<script class="post-metadata" type="text/json">{"categories":["Panel Data","Data Analysis","Stata","Video"]}</script>
+<div class="metadata">
+<div class="publishedDate">June 15, 2022</div>
+<div class="dt-authors">
+<div class="dt-author">Matt Gunther</div>
+<div class="dt-author">Devon Kristiansen</div>
+</div>
+</div>
+<div class="thumbnail">
+<img data-src="posts/2022-06-15-phase2-webinar/images/feature.png"/>
+</div>
+<div class="description">
+<h2>Webinar: Did COVID-19 Impact Contraceptive Use?</h2>
+<div class="dt-tags">
+<div class="dt-tag">Panel Data</div>
+<div class="dt-tag">Data Analysis</div>
+<div class="dt-tag">Stata</div>
+<div class="dt-tag">Video</div>
+</div>
+<p>Breakout sessions for both R and Stata users show how to use panel data from IPUMS PMA to model contraceptive adoption and discontinuation during the first year of the pandemic.</p>
+</div>
+</a>
+<a href="posts/2022-06-01-sdp-panel-release/" class="post-preview">
+<script class="post-metadata" type="text/json">{"categories":["Panel Data","Data Discovery","New Data","Service Delivery Points","Client Exit Interviews"]}</script>
+<div class="metadata">
+<div class="publishedDate">June 1, 2022</div>
+<div class="dt-authors">
+<div class="dt-author">Matt Gunther</div>
+</div>
+</div>
+<div class="thumbnail">
+<img data-src="posts/2022-06-01-sdp-panel-release/../../images/new_data.png"/>
+</div>
+<div class="description">
+<h2>Introducing Longitudinal Service Delivery Point Data</h2>
+<div class="dt-tags">
+<div class="dt-tag">Panel Data</div>
+<div class="dt-tag">Data Discovery</div>
+<div class="dt-tag">New Data</div>
+<div class="dt-tag">Service Delivery Points</div>
+<div class="dt-tag">Client Exit Interviews</div>
+</div>
+<p>A new feature makes it easy to locate facilities surveyed in multiple rounds of SDP data collection. Plus, new Client Exit Interview data are now available!</p>
+</div>
+</a>
+<a href="posts/2022-05-15-phase2-calendar/" class="post-preview">
+<script class="post-metadata" type="text/json">{"categories":["Panel Data","Contraceptive Calendar","Data Analysis","Survival Analysis","survival","ggplot2"]}</script>
+<div class="metadata">
+<div class="publishedDate">May 15, 2022</div>
+<div class="dt-authors">
+<div class="dt-author">Matt Gunther</div>
+</div>
+</div>
+<div class="thumbnail">
+<img data-src="posts/2022-05-15-phase2-calendar/phase2-calendar_files/figure-html5/unnamed-chunk-48-1.png"/>
+</div>
+<div class="description">
+<h2>Contraceptive Calendar Data in PMA Panel Surveys</h2>
+<div class="dt-tags">
+<div class="dt-tag">Panel Data</div>
+<div class="dt-tag">Contraceptive Calendar</div>
+<div class="dt-tag">Data Analysis</div>
+<div class="dt-tag">Survival Analysis</div>
+<div class="dt-tag">survival</div>
+<div class="dt-tag">ggplot2</div>
+</div>
+<p>PMA panel members report their contraceptive use, reasons for discontinuation, and pregnancy status for each month leading up to the Female Questionnaire. Here's how to get up and running with your first Time-to-Event analysis.</p>
+</div>
+</a>
+<a href="posts/2022-05-01-phase2-alluvial/" class="post-preview">
+<script class="post-metadata" type="text/json">{"categories":["Panel Data","Data Visualization","Family Planning","Weights","heatmaps","ggalluvial","ggplot2","srvyr"]}</script>
+<div class="metadata">
+<div class="publishedDate">May 1, 2022</div>
+<div class="dt-authors">
+<div class="dt-author">Matt Gunther</div>
+</div>
+</div>
+<div class="thumbnail">
+<img data-src="posts/2022-05-01-phase2-alluvial/images/long.png"/>
+</div>
+<div class="description">
+<h2>Data Visualization Toolkit for PMA Panel Data</h2>
+<div class="dt-tags">
+<div class="dt-tag">Panel Data</div>
+<div class="dt-tag">Data Visualization</div>
+<div class="dt-tag">Family Planning</div>
+<div class="dt-tag">Weights</div>
+<div class="dt-tag">heatmaps</div>
+<div class="dt-tag">ggalluvial</div>
+<div class="dt-tag">ggplot2</div>
+<div class="dt-tag">srvyr</div>
+</div>
+<p>Heatmaps and alluvial plots make it easy to compare key family planning indicators over time and across multiple populations sampled by PMA panel surveys.</p>
+</div>
+</a>
+<a href="posts/2022-04-15-phase2-indicators/" class="post-preview">
+<script class="post-metadata" type="text/json">{"categories":["Panel Data","Data Visualization","Data Analysis","Family Planning","Weights","Sample Clusters","ggplot2","srvyr"]}</script>
+<div class="metadata">
+<div class="publishedDate">April 19, 2022</div>
+<div class="dt-authors">
+<div class="dt-author">Matt Gunther</div>
+</div>
+</div>
+<div class="thumbnail">
+<img data-src="posts/2022-04-15-phase2-indicators/phase2-indicators_files/figure-html5/unnamed-chunk-21-1.png"/>
+</div>
+<div class="description">
+<h2>Calculating Key Indicators for Family Planning Panel Data</h2>
+<div class="dt-tags">
+<div class="dt-tag">Panel Data</div>
+<div class="dt-tag">Data Visualization</div>
+<div class="dt-tag">Data Analysis</div>
+<div class="dt-tag">Family Planning</div>
+<div class="dt-tag">Weights</div>
+<div class="dt-tag">Sample Clusters</div>
+<div class="dt-tag">ggplot2</div>
+<div class="dt-tag">srvyr</div>
+</div>
+<p>We show how to reproduce measures featured in PMA panel reports, and how to visualize significant differences between groups in figures built with ggplot2.</p>
+</div>
+</a>
+<a href="posts/2022-04-01-phase2-members/" class="post-preview">
+<script class="post-metadata" type="text/json">{"categories":["Panel Data","Data Discovery","Data Visualization","Family Planning"]}</script>
+<div class="metadata">
+<div class="publishedDate">April 1, 2022</div>
+<div class="dt-authors">
+<div class="dt-author">Matt Gunther</div>
+</div>
+</div>
+<div class="thumbnail">
+<img data-src="posts/2022-04-01-phase2-members/phase2-members_files/figure-html5/unnamed-chunk-3-1.png"/>
+</div>
+<div class="description">
+<h2>Visualizing Panel Membership</h2>
+<div class="dt-tags">
+<div class="dt-tag">Panel Data</div>
+<div class="dt-tag">Data Discovery</div>
+<div class="dt-tag">Data Visualization</div>
+<div class="dt-tag">Family Planning</div>
+</div>
+<p>Your guide to inclusion criteria, loss to follow-up, and key technical variables for Family Planning panel data from IPUMS PMA.</p>
+</div>
+</a>
+<a href="posts/2022-03-15-phase2-formats/" class="post-preview">
+<script class="post-metadata" type="text/json">{"categories":["Panel Data","Data Discovery","Family Planning","Importing Data","ipumsr"]}</script>
+<div class="metadata">
+<div class="publishedDate">March 15, 2022</div>
+<div class="dt-authors">
+<div class="dt-author">Matt Gunther</div>
+<div class="dt-author">Devon Kristiansen</div>
+</div>
+</div>
+<div class="thumbnail">
+<img data-src="posts/2022-03-15-phase2-formats/images/video.png"/>
+</div>
+<div class="description">
+<h2>Longitudinal Data Extracts</h2>
+<div class="dt-tags">
+<div class="dt-tag">Panel Data</div>
+<div class="dt-tag">Data Discovery</div>
+<div class="dt-tag">Family Planning</div>
+<div class="dt-tag">Importing Data</div>
+<div class="dt-tag">ipumsr</div>
+</div>
+<p>Getting started with new "long" and "wide" data formats in R.</p>
+</div>
+</a>
+<a href="posts/2022-03-01-phase2-discovery/" class="post-preview">
+<script class="post-metadata" type="text/json">{"categories":["Panel Data","Data Discovery","New Data","Family Planning","Weights","Cluster Sampling"]}</script>
+<div class="metadata">
+<div class="publishedDate">March 1, 2022</div>
+<div class="dt-authors">
+<div class="dt-author">Matt Gunther</div>
+<div class="dt-author">Devon Kristiansen</div>
+</div>
+</div>
+<div class="thumbnail">
+<img data-src="posts/2022-03-01-phase2-discovery/../../images/new_data.png"/>
+</div>
+<div class="description">
+<h2>Family Planning Panel Data Now Available from IPUMS PMA</h2>
+<div class="dt-tags">
+<div class="dt-tag">Panel Data</div>
+<div class="dt-tag">Data Discovery</div>
+<div class="dt-tag">New Data</div>
+<div class="dt-tag">Family Planning</div>
+<div class="dt-tag">Weights</div>
+<div class="dt-tag">Cluster Sampling</div>
+</div>
+<p>This month's data release includes Phase 2 panel data from 6 samples, plus Phase 1 panel data from 3 new countries.</p>
+</div>
+</a>
+<a href="posts/2022-02-15-cei-analysis/" class="post-preview">
+<script class="post-metadata" type="text/json">{"categories":["Client Exit Interviews","Data Analysis","lme4","Multilevel model"]}</script>
+<div class="metadata">
+<div class="publishedDate">Feb. 15, 2022</div>
+<div class="dt-authors">
+<div class="dt-author">Jiao Yu</div>
+<div class="dt-author">Matt Gunther</div>
+</div>
+</div>
+<div class="thumbnail">
+<img data-src="posts/2022-02-15-cei-analysis/cei-analysis_files/figure-html5/unnamed-chunk-25-1.png"/>
+</div>
+<div class="description">
+<h2>Modeling client satistifaction with both individual and facility characteristics</h2>
+<div class="dt-tags">
+<div class="dt-tag">Client Exit Interviews</div>
+<div class="dt-tag">Data Analysis</div>
+<div class="dt-tag">lme4</div>
+<div class="dt-tag">Multilevel model</div>
+</div>
+<p>We use multilevel models to examine factors related to women's satisfaction with family planning care received from the service delivery facilities in Kenya.</p>
+</div>
+</a>
+<a href="posts/2022-02-01-cei-fp/" class="post-preview">
+<script class="post-metadata" type="text/json">{"categories":["Client Exit Interviews","Data Analysis","Bar Charts","srvyr","ggplot2"]}</script>
+<div class="metadata">
+<div class="publishedDate">Feb. 1, 2022</div>
+<div class="dt-authors">
+<div class="dt-author">Matt Gunther</div>
+</div>
+</div>
+<div class="thumbnail">
+<img data-src="posts/2022-02-01-cei-fp/cei-fp_files/figure-html5/unnamed-chunk-35-1.png"/>
+</div>
+<div class="description">
+<h2>Comparing client experiences with family planning service providers</h2>
+<div class="dt-tags">
+<div class="dt-tag">Client Exit Interviews</div>
+<div class="dt-tag">Data Analysis</div>
+<div class="dt-tag">Bar Charts</div>
+<div class="dt-tag">srvyr</div>
+<div class="dt-tag">ggplot2</div>
+</div>
+<p>Service quality questions are included in both Client Exit Interview and Family Planning surveys from PMA. We show how to match similar questions across surveys and compare the results with faceted graphics.</p>
+</div>
+</a>
+<a href="posts/2022-01-15-cei-sdp/" class="post-preview">
+<script class="post-metadata" type="text/json">{"categories":["Client Exit Interviews","Service Delivery Points","Data Manipulation","across","pack","glm"]}</script>
+<div class="metadata">
+<div class="publishedDate">Jan. 15, 2022</div>
+<div class="dt-authors">
+<div class="dt-author">Matt Gunther</div>
+</div>
+</div>
+<div class="thumbnail">
+<img data-src="posts/2022-01-15-cei-sdp/images/tbl_regression.png"/>
+</div>
+<div class="description">
+<h2>Building many similar models: easy variable substitution with 'pack' and 'across'</h2>
+<div class="dt-tags">
+<div class="dt-tag">Client Exit Interviews</div>
+<div class="dt-tag">Service Delivery Points</div>
+<div class="dt-tag">Data Manipulation</div>
+<div class="dt-tag">across</div>
+<div class="dt-tag">pack</div>
+<div class="dt-tag">glm</div>
+</div>
+<p>SDP surveys include data on the availability, cost, and demand for up to 13 family planning methods at each facility. Use one generic formula to explore independent models for client counseling on each method.</p>
+</div>
+</a>
+<a href="posts/2021-12-15-cei-conflict/" class="post-preview">
+<script class="post-metadata" type="text/json">{"categories":["Client Exit Interviews","Armed Conflict","ACLED","Mapping","Animation","sf","ggspatial","gganimate"]}</script>
+<div class="metadata">
+<div class="publishedDate">Dec. 15, 2021</div>
+<div class="dt-authors">
+<div class="dt-author">Maya Luetke</div>
+<div class="dt-author">Matt Gunther</div>
+</div>
+</div>
+<div class="thumbnail">
+<img data-src="posts/2021-12-15-cei-conflict/cei-conflict_files/figure-html5/unnamed-chunk-28-1.png"/>
+</div>
+<div class="description">
+<h2>How to integrate ACLED conflict data with PMA Client Exit Interview data</h2>
+<div class="dt-tags">
+<div class="dt-tag">Client Exit Interviews</div>
+<div class="dt-tag">Armed Conflict</div>
+<div class="dt-tag">ACLED</div>
+<div class="dt-tag">Mapping</div>
+<div class="dt-tag">Animation</div>
+<div class="dt-tag">sf</div>
+<div class="dt-tag">ggspatial</div>
+<div class="dt-tag">gganimate</div>
+</div>
+<p>Conflict data provides important context for access to family planning services.</p>
+</div>
+</a>
+<a href="posts/2021-12-01-cei-discovery/" class="post-preview">
+<script class="post-metadata" type="text/json">{"categories":["Data Discovery","New Data","Client Exit Interviews","Service Delivery Points"]}</script>
+<div class="metadata">
+<div class="publishedDate">Dec. 1, 2021</div>
+<div class="dt-authors">
+<div class="dt-author">Matt Gunther</div>
+</div>
+</div>
+<div class="thumbnail">
+<img data-src="posts/2021-12-01-cei-discovery/../../images/new_data.png"/>
+</div>
+<div class="description">
+<h2>Introducing Client Exit Interviews</h2>
+<div class="dt-tags">
+<div class="dt-tag">Data Discovery</div>
+<div class="dt-tag">New Data</div>
+<div class="dt-tag">Client Exit Interviews</div>
+<div class="dt-tag">Service Delivery Points</div>
+</div>
+<p>Women receiving family planning services assess their care in a new data series from PMA.</p>
+</div>
+</a>
+<a href="posts/2021-11-15-find-an-example/" class="post-preview">
+<script class="post-metadata" type="text/json">{"categories":["R Tips","R packages"]}</script>
+<div class="metadata">
+<div class="publishedDate">Nov. 15, 2021</div>
+<div class="dt-authors">
+<div class="dt-author">Matt Gunther</div>
+</div>
+</div>
+<div class="thumbnail">
+<img data-src="posts/2021-11-15-find-an-example/../../images/logo-navy.png"/>
+</div>
+<div class="description">
+<h2>2021 Blog Round-Up</h2>
+<div class="dt-tags">
+<div class="dt-tag">R Tips</div>
+<div class="dt-tag">R packages</div>
+</div>
+<p>Where to find example code for all of the key concepts we've covered so far.</p>
+</div>
+</a>
+<a href="posts/2021-11-01-nutrition-analysis/" class="post-preview">
+<script class="post-metadata" type="text/json">{"categories":["Nutrition","Climate","Data Analysis","Mixed Effects","PMA Publications","terra","sf","lme4","gtsummary"]}</script>
+<div class="metadata">
+<div class="publishedDate">Nov. 5, 2021</div>
+<div class="dt-authors">
+<div class="dt-author">Matt Gunther</div>
+</div>
+</div>
+<div class="thumbnail">
+<img data-src="posts/2021-11-01-nutrition-analysis/nutrition-analysis_files/figure-html5/unnamed-chunk-12-1.png"/>
+</div>
+<div class="description">
+<h2>Measuring agricultural conditions and their relationship with infant nutrition in Burkina Faso</h2>
+<div class="dt-tags">
+<div class="dt-tag">Nutrition</div>
+<div class="dt-tag">Climate</div>
+<div class="dt-tag">Data Analysis</div>
+<div class="dt-tag">Mixed Effects</div>
+<div class="dt-tag">PMA Publications</div>
+<div class="dt-tag">terra</div>
+<div class="dt-tag">sf</div>
+<div class="dt-tag">lme4</div>
+<div class="dt-tag">gtsummary</div>
+</div>
+<p>We've learned how to build key indicators with spatially referenced nutrition data from PMA. Now let's see how researchers have used them.</p>
+</div>
+</a>
+<a href="posts/2021-10-15-nutrition-climate/" class="post-preview">
+<script class="post-metadata" type="text/json">{"categories":["Nutrition","CHIRPS","Precipitation","Climate","Agriculture","terra","sf","ggspatial"]}</script>
+<div class="metadata">
+<div class="publishedDate">Oct. 15, 2021</div>
+<div class="dt-authors">
+<div class="dt-author">Matt Gunther</div>
+</div>
+</div>
+<div class="thumbnail">
+<img data-src="posts/2021-10-15-nutrition-climate/nutrition-climate_files/figure-html5/unnamed-chunk-32-1.png"/>
+</div>
+<div class="description">
+<h2>How to use CHIRPS Climate Data with PMA Nutrition Surveys</h2>
+<div class="dt-tags">
+<div class="dt-tag">Nutrition</div>
+<div class="dt-tag">CHIRPS</div>
+<div class="dt-tag">Precipitation</div>
+<div class="dt-tag">Climate</div>
+<div class="dt-tag">Agriculture</div>
+<div class="dt-tag">terra</div>
+<div class="dt-tag">sf</div>
+<div class="dt-tag">ggspatial</div>
+</div>
+<p>Remotely sensed daily precipitation data is an incredible resource for understanding rainfed food systems.</p>
+</div>
+</a>
+<a href="posts/2021-10-01-nutrition-indicators/" class="post-preview">
+<script class="post-metadata" type="text/json">{"categories":["Nutrition","IYCF","Indicators","Data Manipulation"]}</script>
+<div class="metadata">
+<div class="publishedDate">Oct. 1, 2021</div>
+<div class="dt-authors">
+<div class="dt-author">Matt Gunther</div>
+</div>
+</div>
+<div class="thumbnail">
+<img data-src="posts/2021-10-01-nutrition-indicators/nutrition-indicators_files/figure-html5/unnamed-chunk-22-1.png"/>
+</div>
+<div class="description">
+<h2>Infant and Young Child Feeding (IYCF) Indicators for PMA Nutrition Data</h2>
+<div class="dt-tags">
+<div class="dt-tag">Nutrition</div>
+<div class="dt-tag">IYCF</div>
+<div class="dt-tag">Indicators</div>
+<div class="dt-tag">Data Manipulation</div>
+</div>
+<p>Use WHO guidelines to calculate Minimum Dietary Diversity (MDD), Minimum Meal Frequency (MMF), and Minimum Acceptable Diet (MAD).</p>
+</div>
+</a>
+<a href="posts/2021-09-15-nutrition-linking/" class="post-preview">
+<script class="post-metadata" type="text/json">{"categories":["Nutrition","Data Manipulation","rowwise","group_by","cur_data","pmap"]}</script>
+<div class="metadata">
+<div class="publishedDate">Sept. 15, 2021</div>
+<div class="dt-authors">
+<div class="dt-author">Matt Gunther</div>
+</div>
+</div>
+<div class="thumbnail">
+<img data-src="posts/2021-09-15-nutrition-linking/images/logos.png"/>
+</div>
+<div class="description">
+<h2>Update: Matching Records in 2018 Nutrition Surveys</h2>
+<div class="dt-tags">
+<div class="dt-tag">Nutrition</div>
+<div class="dt-tag">Data Manipulation</div>
+<div class="dt-tag">rowwise</div>
+<div class="dt-tag">group_by</div>
+<div class="dt-tag">cur_data</div>
+<div class="dt-tag">pmap</div>
+</div>
+<p>It's now much easier to perform row-wise operations with pre-grouped data!</p>
+</div>
+</a>
+<a href="posts/2021-09-01-nutrition-discovery/" class="post-preview">
+<script class="post-metadata" type="text/json">{"categories":["Nutrition","Data Discovery","Service Delivery Points","Infant and Young Child Feeding"]}</script>
+<div class="metadata">
+<div class="publishedDate">Sept. 1, 2021</div>
+<div class="dt-authors">
+<div class="dt-author">Matt Gunther</div>
+</div>
+</div>
+<div class="thumbnail">
+<img data-src="posts/2021-09-01-nutrition-discovery/images/unitofanalysis.png"/>
+</div>
+<div class="description">
+<h2>Introducing PMA Nutrition Data</h2>
+<div class="dt-tags">
+<div class="dt-tag">Nutrition</div>
+<div class="dt-tag">Data Discovery</div>
+<div class="dt-tag">Service Delivery Points</div>
+<div class="dt-tag">Infant and Young Child Feeding</div>
+</div>
+<p>Nutrition surveys are available for women, young children, and health service providers in their area.</p>
+</div>
+</a>
+<a href="posts/2021-08-15-covid-analysis/" class="post-preview">
+<script class="post-metadata" type="text/json">{"categories":["COVID-19","Data Analysis","svyVGAM","Multinomial Logit","Weights"]}</script>
+<div class="metadata">
+<div class="publishedDate">Aug. 15, 2021</div>
+<div class="dt-authors">
+<div class="dt-author">Devon Kristiansen</div>
+<div class="dt-author">Matt Gunther</div>
+</div>
+</div>
+<div class="thumbnail">
+<img data-src="posts/2021-08-15-covid-analysis/images/alluvial.png"/>
+</div>
+<div class="description">
+<h2>Multinomial Regression with Complex Survey Design</h2>
+<div class="dt-tags">
+<div class="dt-tag">COVID-19</div>
+<div class="dt-tag">Data Analysis</div>
+<div class="dt-tag">svyVGAM</div>
+<div class="dt-tag">Multinomial Logit</div>
+<div class="dt-tag">Weights</div>
+</div>
+<p>The PMA COVID-19 survey is part of a broader panel study. We discuss how to merge it with the baseline survey, and how to specify sample weights and cluster information with the new svyVGAM package.</p>
+</div>
+</a>
+<a href="posts/2021-08-07-pma-intro/" class="post-preview">
+<script class="post-metadata" type="text/json">{"categories":[]}</script>
+<div class="metadata">
+<div class="publishedDate">Aug. 7, 2021</div>
+<div class="dt-authors"></div>
+</div>
+<div class="thumbnail">
+<img data-src="posts/2021-08-07-pma-intro/../../images/new_course.png"/>
+</div>
+<div class="description">
+<h2>New Online Course: Introduction to IPUMS PMA Data Analysis</h2>
+<div class="dt-tags"></div>
+<p>Explore IPUMS PMA data with R right in your browser, or download Stata code for offline practice</p>
+</div>
+</a>
+<a href="posts/2021-08-01-covid-batches/" class="post-preview">
+<script class="post-metadata" type="text/json">{"categories":["COVID-19","Data Visualization","ggplot2","fmsb","Bar Charts","Lollipop Charts","Radar Charts"]}</script>
+<div class="metadata">
+<div class="publishedDate">Aug. 1, 2021</div>
+<div class="dt-authors">
+<div class="dt-author">Tayler Nelson</div>
+<div class="dt-author">Matt Gunther</div>
+</div>
+</div>
+<div class="thumbnail">
+<img data-src="posts/2021-08-01-covid-batches/images/preview2.png"/>
+</div>
+<div class="description">
+<h2>Three ways to visualize binary survey data</h2>
+<div class="dt-tags">
+<div class="dt-tag">COVID-19</div>
+<div class="dt-tag">Data Visualization</div>
+<div class="dt-tag">ggplot2</div>
+<div class="dt-tag">fmsb</div>
+<div class="dt-tag">Bar Charts</div>
+<div class="dt-tag">Lollipop Charts</div>
+<div class="dt-tag">Radar Charts</div>
+</div>
+<p>You can compare levels of trust and efficacy for 13 information sources in 4 countries with data from the new PMA COVID-19 survey. Let's talk data visualization options.</p>
+</div>
+</a>
+<a href="posts/2021-07-15-covid-likert/" class="post-preview">
+<script class="post-metadata" type="text/json">{"categories":["COVID-19","Descriptive Analysis","Data Visualization","ggplot2"]}</script>
+<div class="metadata">
+<div class="publishedDate">July 15, 2021</div>
+<div class="dt-authors">
+<div class="dt-author">Saeun Park</div>
+<div class="dt-author">Matt Gunther</div>
+</div>
+</div>
+<div class="thumbnail">
+<img data-src="posts/2021-07-15-covid-likert/images/faceted.png"/>
+</div>
+<div class="description">
+<h2>Visualizing perceptions of risk from COVID-19</h2>
+<div class="dt-tags">
+<div class="dt-tag">COVID-19</div>
+<div class="dt-tag">Descriptive Analysis</div>
+<div class="dt-tag">Data Visualization</div>
+<div class="dt-tag">ggplot2</div>
+</div>
+<p>A guide to bar charts for Likert-type psychometric scales built with ggplot2.</p>
+</div>
+</a>
+<a href="posts/2021-07-01-covid-tables/" class="post-preview">
+<script class="post-metadata" type="text/json">{"categories":["COVID-19","gtsummary","srvyr","purrr","Descriptive Analysis","Data Manipulation","Weights"]}</script>
+<div class="metadata">
+<div class="publishedDate">July 1, 2021</div>
+<div class="dt-authors">
+<div class="dt-author">Shelby Rutzick</div>
+<div class="dt-author">Matt Gunther</div>
+</div>
+</div>
+<div class="thumbnail">
+<img data-src="posts/2021-07-01-covid-tables/images/gtsummary_wide.png"/>
+</div>
+<div class="description">
+<h2>Making Tables with PMA COVID-19 Data</h2>
+<div class="dt-tags">
+<div class="dt-tag">COVID-19</div>
+<div class="dt-tag">gtsummary</div>
+<div class="dt-tag">srvyr</div>
+<div class="dt-tag">purrr</div>
+<div class="dt-tag">Descriptive Analysis</div>
+<div class="dt-tag">Data Manipulation</div>
+<div class="dt-tag">Weights</div>
+</div>
+<p>Showcasing the gtsummary package for sample descriptive statistics, weighted population estimates, and model summary output.</p>
+</div>
+</a>
+<a href="posts/2021-06-15-covid-discovery/" class="post-preview">
+<script class="post-metadata" type="text/json">{"categories":["COVID-19","Panel Data","Data Discovery","New Data"]}</script>
+<div class="metadata">
+<div class="publishedDate">June 15, 2021</div>
+<div class="dt-authors">
+<div class="dt-author">Matt Gunther</div>
+</div>
+</div>
+<div class="thumbnail">
+<img data-src="posts/2021-06-15-covid-discovery/../../images/new_data.png"/>
+</div>
+<div class="description">
+<h2>New PMA COVID-19 Survey Data</h2>
+<div class="dt-tags">
+<div class="dt-tag">COVID-19</div>
+<div class="dt-tag">Panel Data</div>
+<div class="dt-tag">Data Discovery</div>
+<div class="dt-tag">New Data</div>
+</div>
+<p>A new panel study promises insights into the impact of COVID-19 on family planning and reproductive health.</p>
+</div>
+</a>
+<a href="posts/2021-05-24-migration-data-analysis/" class="post-preview">
+<script class="post-metadata" type="text/json">{"categories":["Migration","Data Analysis","Data Visualization","Descriptive Analysis","ggalluvial","ggridges"]}</script>
+<div class="metadata">
+<div class="publishedDate">June 2, 2021</div>
+<div class="dt-authors">
+<div class="dt-author">Nina Brooks</div>
+</div>
+</div>
+<div class="thumbnail">
+<img data-src="posts/2021-05-24-migration-data-analysis/images/migration_alluvial.png"/>
+</div>
+<div class="description">
+<h2>Visualizing migration patterns over time</h2>
+<div class="dt-tags">
+<div class="dt-tag">Migration</div>
+<div class="dt-tag">Data Analysis</div>
+<div class="dt-tag">Data Visualization</div>
+<div class="dt-tag">Descriptive Analysis</div>
+<div class="dt-tag">ggalluvial</div>
+<div class="dt-tag">ggridges</div>
+</div>
+<p>How to visualize patterns in migration data using alluvial plots, line plots, and density plots.</p>
+</div>
+</a>
+<a href="posts/2021-05-15-paa-2021/" class="post-preview">
+<script class="post-metadata" type="text/json">{"categories":["PMA Publications","PAA 2021","Contraceptive Calendar","Stata","Video"]}</script>
+<div class="metadata">
+<div class="publishedDate">May 15, 2021</div>
+<div class="dt-authors">
+<div class="dt-author">Matt Gunther</div>
+</div>
+</div>
+<div class="thumbnail">
+<img data-src="posts/2021-05-15-paa-2021/images/featured.png"/>
+</div>
+<div class="description">
+<h2>Making the Contraceptive Calendar Data Work For You</h2>
+<div class="dt-tags">
+<div class="dt-tag">PMA Publications</div>
+<div class="dt-tag">PAA 2021</div>
+<div class="dt-tag">Contraceptive Calendar</div>
+<div class="dt-tag">Stata</div>
+<div class="dt-tag">Video</div>
+</div>
+<p>R and Stata code with video from an event held at the Population Association of America 2021 Annual Meeting.</p>
+</div>
+</a>
+<a href="posts/2021-05-01-storymaps/" class="post-preview">
+<script class="post-metadata" type="text/json">{"categories":["PMA Publications","StoryMaps","Undergrads","Teaching"]}</script>
+<div class="metadata">
+<div class="publishedDate">May 3, 2021</div>
+<div class="dt-authors">
+<div class="dt-author">Matt Gunther</div>
+</div>
+</div>
+<div class="thumbnail">
+<img data-src="posts/2021-05-01-storymaps/images/featured.png"/>
+</div>
+<div class="description">
+<h2>Visualizing PMA Data with StoryMaps</h2>
+<div class="dt-tags">
+<div class="dt-tag">PMA Publications</div>
+<div class="dt-tag">StoryMaps</div>
+<div class="dt-tag">Undergrads</div>
+<div class="dt-tag">Teaching</div>
+</div>
+<p>Five outstanding undergraduate research projects integrate dynamic data visualization with spatial analysis and narrative.</p>
+</div>
+</a>
+<a href="posts/2021-04-15-migration-discovery/" class="post-preview">
+<script class="post-metadata" type="text/json">{"categories":["Migration","Data Discovery","Data Manipulation","pivot_longer","regex"]}</script>
+<div class="metadata">
+<div class="publishedDate">April 15, 2021</div>
+<div class="dt-authors">
+<div class="dt-author">Matt Gunther</div>
+</div>
+</div>
+<div class="thumbnail">
+<img data-src="posts/2021-04-15-migration-discovery/images/tidyr_wide.png"/>
+</div>
+<div class="description">
+<h2>Formatting Migration Recall Data for Longitudinal Analysis</h2>
+<div class="dt-tags">
+<div class="dt-tag">Migration</div>
+<div class="dt-tag">Data Discovery</div>
+<div class="dt-tag">Data Manipulation</div>
+<div class="dt-tag">pivot_longer</div>
+<div class="dt-tag">regex</div>
+</div>
+<p>Use tidyr::pivot_longer to reshape wide data into a long format.</p>
+</div>
+</a>
+<a href="posts/2021-04-01-et-internal-migration/" class="post-preview">
+<script class="post-metadata" type="text/json">{"categories":["Migration","PMA Publications","svyglm","bootstraps"]}</script>
+<div class="metadata">
+<div class="publishedDate">April 2, 2021</div>
+<div class="dt-authors">
+<div class="dt-author">Matt Gunther</div>
+</div>
+</div>
+<div class="thumbnail">
+<img data-src="posts/2021-04-01-et-internal-migration/images/pred_prob_h4.png"/>
+</div>
+<div class="description">
+<h2>Unmet need for family planning after internal migration</h2>
+<div class="dt-tags">
+<div class="dt-tag">Migration</div>
+<div class="dt-tag">PMA Publications</div>
+<div class="dt-tag">svyglm</div>
+<div class="dt-tag">bootstraps</div>
+</div>
+<p>Summary and source code from a recent article using data from Ethiopia.</p>
+</div>
+</a>
+<a href="posts/2021-02-09-march-2021-data-release/" class="post-preview">
+<script class="post-metadata" type="text/json">{"categories":["New Data","Data Discovery"]}</script>
+<div class="metadata">
+<div class="publishedDate">March 15, 2021</div>
+<div class="dt-authors">
+<div class="dt-author">Matt Gunther</div>
+</div>
+</div>
+<div class="thumbnail">
+<img data-src="posts/2021-02-09-march-2021-data-release/../../images/new_data.png"/>
+</div>
+<div class="description">
+<h2>New SDP Data Available Spring 2021</h2>
+<div class="dt-tags">
+<div class="dt-tag">New Data</div>
+<div class="dt-tag">Data Discovery</div>
+</div>
+<p>Get details on new variables related to labor &amp; delivery services, antenatal care, vaccinations, facility shipment schedules, and more!</p>
+</div>
+</a>
+<a href="posts/2021-02-19-analyzing-the-individual-in-context/" class="post-preview">
+<script class="post-metadata" type="text/json">{"categories":["Individuals in Context","Service Delivery Points","Data Analysis","survey","dotwhisker"]}</script>
+<div class="metadata">
+<div class="publishedDate">March 2, 2021</div>
+<div class="dt-authors">
+<div class="dt-author">Nina Brooks</div>
+</div>
+</div>
+<div class="thumbnail">
+<img data-src="posts/2021-02-19-analyzing-the-individual-in-context/images/results.png"/>
+</div>
+<div class="description">
+<h2>Putting It All Together: Analyzing the Individual in Context</h2>
+<div class="dt-tags">
+<div class="dt-tag">Individuals in Context</div>
+<div class="dt-tag">Service Delivery Points</div>
+<div class="dt-tag">Data Analysis</div>
+<div class="dt-tag">survey</div>
+<div class="dt-tag">dotwhisker</div>
+</div>
+<p>Analyzing women's contraceptive use while considering service delivery point and spatial contextual factors.</p>
+</div>
+</a>
+<a href="posts/2021-02-04-merging-external-spatial-data/" class="post-preview">
+<script class="post-metadata" type="text/json">{"categories":["Individuals in Context","Service Delivery Points","Data Manipulation","join","sf","raster","Spatial"]}</script>
+<div class="metadata">
+<div class="publishedDate">Feb. 15, 2021</div>
+<div class="dt-authors">
+<div class="dt-author">Nina Brooks</div>
+</div>
+</div>
+<div class="thumbnail">
+<img data-src="posts/2021-02-04-merging-external-spatial-data/images/road_map.png"/>
+</div>
+<div class="description">
+<h2>Merging external spatial data</h2>
+<div class="dt-tags">
+<div class="dt-tag">Individuals in Context</div>
+<div class="dt-tag">Service Delivery Points</div>
+<div class="dt-tag">Data Manipulation</div>
+<div class="dt-tag">join</div>
+<div class="dt-tag">sf</div>
+<div class="dt-tag">raster</div>
+<div class="dt-tag">Spatial</div>
+</div>
+<p>How to integrate external spatial data with PMA data.</p>
+</div>
+</a>
+<a href="posts/2021-01-29-mapping-sdp-variables/" class="post-preview">
+<script class="post-metadata" type="text/json">{"categories":["Individuals in Context","Service Delivery Points","Data Manipulation","Mapping","sf"]}</script>
+<div class="metadata">
+<div class="publishedDate">Jan. 30, 2021</div>
+<div class="dt-authors">
+<div class="dt-author">Nina Brooks</div>
+</div>
+</div>
+<div class="thumbnail">
+<img data-src="posts/2021-01-29-mapping-sdp-variables/images/bf_fp_map.png"/>
+</div>
+<div class="description">
+<h2>Mapping Service Delivery Point Data</h2>
+<div class="dt-tags">
+<div class="dt-tag">Individuals in Context</div>
+<div class="dt-tag">Service Delivery Points</div>
+<div class="dt-tag">Data Manipulation</div>
+<div class="dt-tag">Mapping</div>
+<div class="dt-tag">sf</div>
+</div>
+<p>Tools for creating spatial visualizations that compare change over time or differences between PMA countries.</p>
+</div>
+</a>
+<a href="posts/2021-01-28-summarize-by-easerved/" class="post-preview">
+<script class="post-metadata" type="text/json">{"categories":["Individuals in Context","Data Manipulation","Service Delivery Points","pivot_longer","join"]}</script>
 <div class="metadata">
 <div class="publishedDate">July 1, 2022</div>
 <div class="dt-authors">
@@ -3771,7 +4616,7 @@ function init_posts_list() {
 <ul>
 <li>
 <a href="#category:Articles">Articles</a>
-<span class="category-count">(43)</span>
+<span class="category-count">(44)</span>
 </li>
 <li>
 <a href="#category:ACLED">ACLED</a>
@@ -3835,7 +4680,7 @@ function init_posts_list() {
 </li>
 <li>
 <a href="#category:Data_Analysis">Data Analysis</a>
-<span class="category-count">(11)</span>
+<span class="category-count">(12)</span>
 </li>
 <li>
 <a href="#category:Data_Discovery">Data Discovery</a>
@@ -3847,7 +4692,7 @@ function init_posts_list() {
 </li>
 <li>
 <a href="#category:Data_Visualization">Data Visualization</a>
-<span class="category-count">(8)</span>
+<span class="category-count">(9)</span>
 </li>
 <li>
 <a href="#category:Descriptive_Analysis">Descriptive Analysis</a>
@@ -3930,6 +4775,10 @@ function init_posts_list() {
 <span class="category-count">(2)</span>
 </li>
 <li>
+<a href="#category:Leaflet">Leaflet</a>
+<span class="category-count">(1)</span>
+</li>
+<li>
 <a href="#category:lme4">lme4</a>
 <span class="category-count">(2)</span>
 </li>
@@ -3939,7 +4788,7 @@ function init_posts_list() {
 </li>
 <li>
 <a href="#category:Mapping">Mapping</a>
-<span class="category-count">(3)</span>
+<span class="category-count">(4)</span>
 </li>
 <li>
 <a href="#category:Measurement">Measurement</a>
@@ -4071,7 +4920,7 @@ function init_posts_list() {
 </li>
 <li>
 <a href="#category:Spatial">Spatial</a>
-<span class="category-count">(2)</span>
+<span class="category-count">(3)</span>
 </li>
 <li>
 <a href="#category:srvyr">srvyr</a>
