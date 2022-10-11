@@ -12,7 +12,21 @@
       <link>https://ipums.github.io/pma-data-hub/</link>
     </image>
     <generator>Distill</generator>
-    <lastBuildDate>Thu, 15 Sep 2022 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Fri, 07 Oct 2022 00:00:00 +0000</lastBuildDate>
+    <item>
+      <title>Barriers to Implant Removal</title>
+      <dc:creator>Matt Gunther</dc:creator>
+      <link>https://ipums.github.io/pma-data-hub/posts/2022-10-07-implant-removal</link>
+      <description>For women who tried and were unable to have their implant removed in the past year, were the main obstacles related to provider willingness, access to services, or something else?</description>
+      <category>Data Analysis</category>
+      <category>Data Visualization</category>
+      <category>Measurement</category>
+      <category>Implants</category>
+      <category>LARCs</category>
+      <guid>https://ipums.github.io/pma-data-hub/posts/2022-10-07-implant-removal</guid>
+      <pubDate>Fri, 07 Oct 2022 00:00:00 +0000</pubDate>
+      <media:content url="https://ipums.github.io/pma-data-hub/posts/2022-10-07-implant-removal/implant-removal_files/figure-html5/unnamed-chunk-21-1.png" medium="image" type="image/png" width="2304" height="1728"/>
+    </item>
     <item>
       <title>Data Exploration with Leaflet</title>
       <dc:creator>Finn Roberts</dc:creator>
