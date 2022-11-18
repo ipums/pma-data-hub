@@ -794,6 +794,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   d-article table.gt_table td,
   d-article table.gt_table th {
     border-bottom: none;
+    font-size: 100%;
   }
 
   .html-widget {
@@ -1866,15 +1867,21 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 
       // hoverable references
       $('span.citation[data-cites]').each(function() {
-        if ($(this).children()[0].nodeName == "D-FOOTNOTE") {
-          var fn = $(this).children()[0]
+        const citeChild = $(this).children()[0]
+        // Do not process if @xyz has been used without escaping and without bibliography activated
+        // https://github.com/rstudio/distill/issues/466
+        if (citeChild === undefined) return true
+
+        if (citeChild.nodeName == "D-FOOTNOTE") {
+          var fn = citeChild
           $(this).html(fn.shadowRoot.querySelector("sup"))
           $(this).id = fn.id
           fn.remove()
         }
         var refs = $(this).attr('data-cites').split(" ");
         var refHtml = refs.map(function(ref) {
-          return "<p>" + $('#ref-' + ref).html() + "</p>";
+          // Could use CSS.escape too here, we insure backward compatibility in navigator
+          return "<p>" + $('div[id="ref-' + ref + '"]').html() + "</p>";
         }).join("\n");
         window.tippy(this, {
           allowHTML: true,
@@ -2646,625 +2653,362 @@ Community
 <nav class="l-text toc figcaption" id="TOC">
 <h3>Contents</h3>
 <ul>
-<li><a href="#all-users-first-time-setup">All users: first time
-setup</a>
+<li><a href="#all-users-first-time-setup" id="toc-all-users-first-time-setup">All users: first time setup</a>
 <ul>
-<li><a href="#r-rstudio-and-required-packages">R, RStudio, and required
-packages</a></li>
-<li><a href="#initialize-your-umn-github-account">Initialize your UMN
-GitHub account</a></li>
-<li><a href="#using-umn-github-from-rstudio">Using UMN GitHub from
-RStudio</a></li>
-<li><a href="#the-pma-data-hub-repository">The PMA Data Hub
-Repository</a></li>
+<li><a href="#r-rstudio-and-required-packages" id="toc-r-rstudio-and-required-packages">R, RStudio, and required packages</a></li>
+<li><a href="#initialize-your-umn-github-account" id="toc-initialize-your-umn-github-account">Initialize your UMN GitHub account</a></li>
+<li><a href="#using-umn-github-from-rstudio" id="toc-using-umn-github-from-rstudio">Using UMN GitHub from RStudio</a></li>
+<li><a href="#the-pma-data-hub-repository" id="toc-the-pma-data-hub-repository">The PMA Data Hub Repository</a></li>
 </ul></li>
-<li><a href="#authors-creating-a-new-post">Authors: Creating a new
-post</a>
+<li><a href="#authors-creating-a-new-post" id="toc-authors-creating-a-new-post">Authors: Creating a new post</a>
 <ul>
-<li><a href="#create-a-new-branch">Create a new branch</a></li>
-<li><a href="#create-a-new-folder-in-_posts">Create a new folder in
-“_posts”</a></li>
-<li><a href="#put-your-data-in-a-data-folder">Put your data in a “data”
-folder!</a></li>
-<li><a href="#push-your-post-to-github">Push your post to
-GitHub</a></li>
+<li><a href="#create-a-new-branch" id="toc-create-a-new-branch">Create a new branch</a></li>
+<li><a href="#create-a-new-folder-in-_posts" id="toc-create-a-new-folder-in-_posts">Create a new folder in “_posts”</a></li>
+<li><a href="#put-your-data-in-a-data-folder" id="toc-put-your-data-in-a-data-folder">Put your data in a “data” folder!</a></li>
+<li><a href="#push-your-post-to-github" id="toc-push-your-post-to-github">Push your post to GitHub</a></li>
 </ul></li>
-<li><a href="#editors">Editors</a>
+<li><a href="#editors" id="toc-editors">Editors</a>
 <ul>
-<li><a href="#pull-the-authors-branch-to-your-computer">Pull the
-author’s branch to your computer</a></li>
-<li><a href="#locate-and-edit-the-new-post">Locate and edit the new
-post</a></li>
-<li><a href="#push-the-edited-post-back-to-github">Push the edited post
-back to GitHub</a></li>
+<li><a href="#pull-the-authors-branch-to-your-computer" id="toc-pull-the-authors-branch-to-your-computer">Pull the author’s branch to your computer</a></li>
+<li><a href="#locate-and-edit-the-new-post" id="toc-locate-and-edit-the-new-post">Locate and edit the new post</a></li>
+<li><a href="#push-the-edited-post-back-to-github" id="toc-push-the-edited-post-back-to-github">Push the edited post back to GitHub</a></li>
 </ul></li>
-<li><a href="#all-users-making-revisions">All users: making
-revisions</a></li>
-<li><a href="#site-admin">Site Admin</a>
+<li><a href="#all-users-making-revisions" id="toc-all-users-making-revisions">All users: making revisions</a></li>
+<li><a href="#site-admin" id="toc-site-admin">Site Admin</a>
 <ul>
-<li><a href="#setup">Setup</a></li>
-<li><a
-href="#create-a-git-hook-to-remove-data-from-the-public-repo">Create a
-Git Hook to remove data from the public repo</a></li>
-<li><a href="#merging">Merging</a></li>
-<li><a href="#other-git-tips">Other git tips</a></li>
+<li><a href="#setup" id="toc-setup">Setup</a></li>
+<li><a href="#create-a-git-hook-to-remove-data-from-the-public-repo" id="toc-create-a-git-hook-to-remove-data-from-the-public-repo">Create a Git Hook to remove data from the public repo</a></li>
+<li><a href="#merging" id="toc-merging">Merging</a></li>
+<li><a href="#other-git-tips" id="toc-other-git-tips">Other git tips</a></li>
 </ul></li>
 </ul>
 </nav>
 </div>
 <h1 id="all-users-first-time-setup">All users: first time setup</h1>
-<h2 id="r-rstudio-and-required-packages">R, RStudio, and required
-packages</h2>
-<p>To get a copy of R, visit the <a
-href="https://cloud.r-project.org/">Comprehensive R Archive Network</a>
-(CRAN) and choose the right download link for your operating system.</p>
-<p>The PMA Data Hub is organized as an <a
-href="https://support.rstudio.com/hc/en-us/articles/200526207-Using-Projects">RStudio
-Project</a>, so you’ll also need to use <a
-href="https://rstudio.com/products/rstudio/download/">RStudio</a> (not
-base R).</p>
-<p><em>Note: a copy of RStudio running R version 4.0.2 (or higher) lives
-on the MPC gp1 server</em> <a
-href="https://rstudio.pop.umn.edu/">here</a>. Members of the MPC GitHub
-organization can access an article specifically about using RStudio on
-gp1 (e.g. how to build a package library) <a
-href="https://pages.github.umn.edu/mpc/ipumsPMA/articles/rstudio_gp1.html">here</a>.</p>
+<h2 id="r-rstudio-and-required-packages">R, RStudio, and required packages</h2>
+<p>To get a copy of R, visit the <a href="https://cloud.r-project.org/">Comprehensive R Archive Network</a> (CRAN) and choose the right download link for your operating system.</p>
+<p>The PMA Data Hub is organized as an <a href="https://support.rstudio.com/hc/en-us/articles/200526207-Using-Projects">RStudio Project</a>, so you’ll also need to use <a href="https://rstudio.com/products/rstudio/download/">RStudio</a> (not base R).</p>
+<p><em>Note: a copy of RStudio running R version 4.0.2 (or higher) lives on the MPC gp1 server</em> <a href="https://rstudio.pop.umn.edu/">here</a>. Members of the MPC GitHub organization can access an article specifically about using RStudio on gp1 (e.g. how to build a package library) <a href="https://pages.github.umn.edu/mpc/ipumsPMA/articles/rstudio_gp1.html">here</a>.</p>
 <p>When you’ve got RStudio set up, install these packages:</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/utils/install.packages.html'>install.packages</a></span><span class='op'>(</span><span class='st'>"rmarkdown"</span><span class='op'>)</span>
-<span class='fu'><a href='https://rdrr.io/r/utils/install.packages.html'>install.packages</a></span><span class='op'>(</span><span class='st'>"knitr"</span><span class='op'>)</span>
-<span class='fu'><a href='https://rdrr.io/r/utils/install.packages.html'>install.packages</a></span><span class='op'>(</span><span class='st'>"distill"</span><span class='op'>)</span>
-<span class='fu'><a href='https://rdrr.io/r/utils/install.packages.html'>install.packages</a></span><span class='op'>(</span><span class='st'>"usethis"</span><span class='op'>)</span>
-</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='fu'><a href='https://rdrr.io/r/utils/install.packages.html'>install.packages</a></span><span class='op'>(</span><span class='st'>"rmarkdown"</span><span class='op'>)</span></span>
+<span><span class='fu'><a href='https://rdrr.io/r/utils/install.packages.html'>install.packages</a></span><span class='op'>(</span><span class='st'>"knitr"</span><span class='op'>)</span></span>
+<span><span class='fu'><a href='https://rdrr.io/r/utils/install.packages.html'>install.packages</a></span><span class='op'>(</span><span class='st'>"distill"</span><span class='op'>)</span></span>
+<span><span class='fu'><a href='https://rdrr.io/r/utils/install.packages.html'>install.packages</a></span><span class='op'>(</span><span class='st'>"usethis"</span><span class='op'>)</span></span></code></pre>
 </div>
 </div>
-<p><strong>Troubleshooting note:</strong> the package
-<code>rmarkdown</code> comes along with RStudio, but you may receive an
-older version than we need to build the site. So, when you try
-<code>install.packages("rmarkdown")</code>, you may get a message asking
-to restart R (avoiding a conflict with the prior version). <em>We’ve
-found that it’s best to reply ‘No’ to the restart prompt, wait for
-rmarkdown to install, and then re-launch RStudio.</em> If you do choose
-to restart, you may experience a recursive loop of restart prompts!</p>
-<h2 id="initialize-your-umn-github-account">Initialize your UMN GitHub
-account</h2>
-<p>Contributors to the PMA Data Hub will work on an internal copy of the
-public site - it’s visible only to certain people affiliated with the
-MPC. A smaller team of Data Hub “admin” (currently Matt &amp; postdocs)
-will take care of migrating content from the private site to our public
-site: we’re always here to help with formatting, editing, and version
-control!</p>
-<p><strong>So what is UMN GitHub?</strong> GitHub, itself, is a company
-that hosts projects on proprietary server: when you make a repository
-“public”, anyone in the world can visit your project on a GitHub server.
-GitHub also makes its underlying software available to institutions that
-want to provide a similar service <em>restricted to institutional
-members</em>. In practice, UMN operates its own GitHub server where
-organizations like the MPC can host projects that are more private in
-scope.</p>
-<p>UMN GitHub is an instance of <a
-href="https://docs.github.com/en/github/getting-started-with-github/githubs-products#github-enterprise">Enterprise
-GitHub</a>, whereas the public version of our blog lives in a space that
-folks sometimes call “public GitHub”. It’s common for people to have one
-account for “public GitHub” and one account for their job associated
-with an “enterprise GitHub”. <strong>To initialize an account for UMN
-GitHub, visit <a href="https://github.umn.edu">github.umn.edu</a> and
-log in with your University Internet ID and password.</strong></p>
-<h2 id="using-umn-github-from-rstudio">Using UMN GitHub from
-RStudio</h2>
-<p>First things first: you must install install <a
-href="https://git-scm.com/">Git</a> on your computer if it isn’t there
-already. Mac OS comes with git installed,<a href="#fn1"
-class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>
-while other users should <a
-href="http://git-scm.com/downloads">download</a> the right Git for their
-operation system. <em>If you’re using RStudio on the gp1 server, Git is
-already installed.</em></p>
-<p>Next, open the <code>Global Options</code> menu in RStudio and locate
-the Git/SVN tab. Ensure that the box shown below is checked, and then
-enter the location of the executable file<a href="#fn2"
-class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a> for
-your Git installation:</p>
+<p><strong>Troubleshooting note:</strong> the package <code>rmarkdown</code> comes along with RStudio, but you may receive an older version than we need to build the site. So, when you try <code>install.packages("rmarkdown")</code>, you may get a message asking to restart R (avoiding a conflict with the prior version). <em>We’ve found that it’s best to reply ‘No’ to the restart prompt, wait for rmarkdown to install, and then re-launch RStudio.</em> If you do choose to restart, you may experience a recursive loop of restart prompts!</p>
+<h2 id="initialize-your-umn-github-account">Initialize your UMN GitHub account</h2>
+<p>Contributors to the PMA Data Hub will work on an internal copy of the public site - it’s visible only to certain people affiliated with the MPC. A smaller team of Data Hub “admin” (currently Matt &amp; postdocs) will take care of migrating content from the private site to our public site: we’re always here to help with formatting, editing, and version control!</p>
+<p><strong>So what is UMN GitHub?</strong> GitHub, itself, is a company that hosts projects on proprietary server: when you make a repository “public”, anyone in the world can visit your project on a GitHub server. GitHub also makes its underlying software available to institutions that want to provide a similar service <em>restricted to institutional members</em>. In practice, UMN operates its own GitHub server where organizations like the MPC can host projects that are more private in scope.</p>
+<p>UMN GitHub is an instance of <a href="https://docs.github.com/en/github/getting-started-with-github/githubs-products#github-enterprise">Enterprise GitHub</a>, whereas the public version of our blog lives in a space that folks sometimes call “public GitHub”. It’s common for people to have one account for “public GitHub” and one account for their job associated with an “enterprise GitHub”. <strong>To initialize an account for UMN GitHub, visit <a href="https://github.umn.edu">github.umn.edu</a> and log in with your University Internet ID and password.</strong></p>
+<h2 id="using-umn-github-from-rstudio">Using UMN GitHub from RStudio</h2>
+<p>First things first: you must install install <a href="https://git-scm.com/">Git</a> on your computer if it isn’t there already. Mac OS comes with git installed,<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> while other users should <a href="http://git-scm.com/downloads">download</a> the right Git for their operation system. <em>If you’re using RStudio on the gp1 server, Git is already installed.</em></p>
+<p>Next, open the <code>Global Options</code> menu in RStudio and locate the Git/SVN tab. Ensure that the box shown below is checked, and then enter the location of the executable file<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a> for your Git installation:</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'>knitr</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/knitr/man/include_graphics.html'>include_graphics</a></span><span class='op'>(</span><span class='st'>"images/bpw/git-menu.png"</span><span class='op'>)</span>
-</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='fu'>knitr</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/knitr/man/include_graphics.html'>include_graphics</a></span><span class='op'>(</span><span class='st'>"images/bpw/git-menu.png"</span><span class='op'>)</span></span></code></pre>
 </div>
 <p><img src="images/bpw/git-menu.png" width="590" /></p>
 </div>
-<p>Lastly, you should provide Git with a username, email, and Personal
-Access Token (PAT) for your UMN GitHub account. If you’ve installed <a
-href="https://usethis.r-lib.org/articles/articles/git-credentials.html">usethis</a>
-as shown <a href="#r-rstudio-and-required-packages">above</a>, you’ll be
-able to set these up with R commands (changes will be applied to
-globally wherever you use Git on your operating system). First, set the
-username and email address for your UMN GitHub account. For example,
-mine are:</p>
+<p>Lastly, you should provide Git with a username, email, and Personal Access Token (PAT) for your UMN GitHub account. If you’ve installed <a href="https://usethis.r-lib.org/articles/articles/git-credentials.html">usethis</a> as shown <a href="#r-rstudio-and-required-packages">above</a>, you’ll be able to set these up with R commands (changes will be applied to globally wherever you use Git on your operating system). First, set the username and email address for your UMN GitHub account. For example, mine are:</p>
 <aside>
-<b>Why a PAT?</b> GitHub plans to deprecate password authentication in
-the near future. You could use one for now (like the example below), but
-you’ll need a PAT soon!
+<b>Why a PAT?</b> GitHub plans to deprecate password authentication in the near future. You could use one for now (like the example below), but you’ll need a PAT soon!
 </aside>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'>gert</span><span class='fu'>::</span><span class='fu'><a href='https://docs.ropensci.org/gert/reference/git_config.html'>git_config_global_set</a></span><span class='op'>(</span><span class='st'>"user.name"</span>, <span class='st'>"Matt Gunther"</span><span class='op'>)</span>
-<span class='fu'>gert</span><span class='fu'>::</span><span class='fu'><a href='https://docs.ropensci.org/gert/reference/git_config.html'>git_config_global_set</a></span><span class='op'>(</span><span class='st'>"user.email"</span>, <span class='st'>"mgunther@umn.edu"</span><span class='op'>)</span>
-</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='fu'>gert</span><span class='fu'>::</span><span class='fu'><a href='https://docs.ropensci.org/gert/reference/git_config.html'>git_config_global_set</a></span><span class='op'>(</span><span class='st'>"user.name"</span>, <span class='st'>"Matt Gunther"</span><span class='op'>)</span></span>
+<span><span class='fu'>gert</span><span class='fu'>::</span><span class='fu'><a href='https://docs.ropensci.org/gert/reference/git_config.html'>git_config_global_set</a></span><span class='op'>(</span><span class='st'>"user.email"</span>, <span class='st'>"mgunther@umn.edu"</span><span class='op'>)</span></span></code></pre>
 </div>
 </div>
 <p>Then, create a PAT for your account with:</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'>usethis</span><span class='fu'>::</span><span class='fu'><a href='https://usethis.r-lib.org/reference/github-token.html'>create_github_token</a></span><span class='op'>(</span>host <span class='op'>=</span> <span class='st'>"https://github.umn.edu"</span><span class='op'>)</span>
-</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='fu'>usethis</span><span class='fu'>::</span><span class='fu'><a href='https://usethis.r-lib.org/reference/github-token.html'>create_github_token</a></span><span class='op'>(</span>host <span class='op'>=</span> <span class='st'>"https://github.umn.edu"</span><span class='op'>)</span></span></code></pre>
 </div>
 </div>
-<p>Your browser will open to a webpage. <strong>Check all the boxes you
-see</strong>, then click the green <code>Generate Token</code> button.
-On the next page, notice the very long string shown in the green box:
-this is your PAT. <em>Don’t close this page yet!</em>. Return to R and
-call:</p>
+<p>Your browser will open to a webpage. <strong>Check all the boxes you see</strong>, then click the green <code>Generate Token</code> button. On the next page, notice the very long string shown in the green box: this is your PAT. <em>Don’t close this page yet!</em>. Return to R and call:</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'>gitcreds</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/gitcreds/man/gitcreds_get.html'>gitcreds_set</a></span><span class='op'>(</span><span class='st'>"https://github.umn.edu"</span><span class='op'>)</span>
-</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='fu'>gitcreds</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/gitcreds/man/gitcreds_get.html'>gitcreds_set</a></span><span class='op'>(</span><span class='st'>"https://github.umn.edu"</span><span class='op'>)</span></span></code></pre>
 </div>
 </div>
-<p>You’ll be asked to enter a new password or token: copy and paste your
-PAT from your browser and press Enter. From now on, RStudio and Git will
-be able to access your UMN GitHub account automatically! (If you have a
-personal GitHub account at github.com, you could repeat this process
-substituting <code>https://github.com</code> for
-<code>https://github.umn.edu</code>, and Git will automatically choose
-the right credentials based on the repository associated with your
-project).</p>
+<p>You’ll be asked to enter a new password or token: copy and paste your PAT from your browser and press Enter. From now on, RStudio and Git will be able to access your UMN GitHub account automatically! (If you have a personal GitHub account at github.com, you could repeat this process substituting <code>https://github.com</code> for <code>https://github.umn.edu</code>, and Git will automatically choose the right credentials based on the repository associated with your project).</p>
 <h2 id="the-pma-data-hub-repository">The PMA Data Hub Repository</h2>
-<p>Open RStudio and navigate to <code>File &gt; New Project</code>, then
-select <code>Version Control</code>:</p>
+<p>Open RStudio and navigate to <code>File &gt; New Project</code>, then select <code>Version Control</code>:</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'>knitr</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/knitr/man/include_graphics.html'>include_graphics</a></span><span class='op'>(</span><span class='st'>"images/bpw/version_control.png"</span><span class='op'>)</span>
-</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='fu'>knitr</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/knitr/man/include_graphics.html'>include_graphics</a></span><span class='op'>(</span><span class='st'>"images/bpw/version_control.png"</span><span class='op'>)</span></span></code></pre>
 </div>
 <p><img src="images/bpw/version_control.png" width="527" /></p>
 </div>
-<p>Choose <code>Git</code> to clone our project from a GitHub
-repository:</p>
+<p>Choose <code>Git</code> to clone our project from a GitHub repository:</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'>knitr</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/knitr/man/include_graphics.html'>include_graphics</a></span><span class='op'>(</span><span class='st'>"images/bpw/use_git.png"</span><span class='op'>)</span>
-</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='fu'>knitr</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/knitr/man/include_graphics.html'>include_graphics</a></span><span class='op'>(</span><span class='st'>"images/bpw/use_git.png"</span><span class='op'>)</span></span></code></pre>
 </div>
 <p><img src="images/bpw/use_git.png" width="529" /></p>
 </div>
-<p>On the next menu page, enter the address for the enterprise
-repository exactly as shown (do not clone the public repository):</p>
+<p>On the next menu page, enter the address for the enterprise repository exactly as shown (do not clone the public repository):</p>
 <pre><code>https://github.umn.edu/mpc/pma-data-hub/</code></pre>
 <p>Also enter the project directory name “pma-data-hub” as shown:</p>
 <pre><code>pma-data-hub</code></pre>
-<p>In the third field, choose a location where you would like to save
-this file on your computer (mine was “~/R” - <strong>insert your own
-path, instead</strong>). Finally, click <code>Create Project</code>.</p>
+<p>In the third field, choose a location where you would like to save this file on your computer (mine was “~/R” - <strong>insert your own path, instead</strong>). Finally, click <code>Create Project</code>.</p>
 <aside>
-When choosing a place to save this project, <b>do not save to a network
-drive</b>. This seems to cause RStudio to crash!
+When choosing a place to save this project, <b>do not save to a network drive</b>. This seems to cause RStudio to crash!
 </aside>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'>knitr</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/knitr/man/include_graphics.html'>include_graphics</a></span><span class='op'>(</span><span class='st'>"images/bpw/clone_info.png"</span><span class='op'>)</span>
-</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='fu'>knitr</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/knitr/man/include_graphics.html'>include_graphics</a></span><span class='op'>(</span><span class='st'>"images/bpw/clone_info.png"</span><span class='op'>)</span></span></code></pre>
 </div>
 <p><img src="images/bpw/clone_info.png" width="530" /></p>
 </div>
-<p>If you have not configured Git to automatically use your UMN GitHub
-credentials with the <a href="#using-umn-github-from-rstudio">steps
-shown above</a>, you may be prompted to provide them in a pop-up
-window:</p>
+<p>If you have not configured Git to automatically use your UMN GitHub credentials with the <a href="#using-umn-github-from-rstudio">steps shown above</a>, you may be prompted to provide them in a pop-up window:</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'>knitr</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/knitr/man/include_graphics.html'>include_graphics</a></span><span class='op'>(</span><span class='st'>"images/bpw/username.png"</span><span class='op'>)</span>
-</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='fu'>knitr</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/knitr/man/include_graphics.html'>include_graphics</a></span><span class='op'>(</span><span class='st'>"images/bpw/username.png"</span><span class='op'>)</span></span></code></pre>
 </div>
 <img src="images/bpw/username.png" width="629" />
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'>knitr</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/knitr/man/include_graphics.html'>include_graphics</a></span><span class='op'>(</span><span class='st'>"images/bpw/password.png"</span><span class='op'>)</span>
-</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='fu'>knitr</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/knitr/man/include_graphics.html'>include_graphics</a></span><span class='op'>(</span><span class='st'>"images/bpw/password.png"</span><span class='op'>)</span></span></code></pre>
 </div>
 <p><img src="images/bpw/password.png" width="631" /></p>
 </div>
 <aside>
-Until you configure Git with these credentials, you’ll have to do this
-every time you interact with GitHub. Additionally, <b>password
-authentication for GitHub will be deprecated in the near future</b> so
-you’ll need to do it soon!
+Until you configure Git with these credentials, you’ll have to do this every time you interact with GitHub. Additionally, <b>password authentication for GitHub will be deprecated in the near future</b> so you’ll need to do it soon!
 </aside>
-<p>After a short bit, RStudio will relaunch and open the new project. If
-you adjust the windows to show the tabs <code>Git</code> (left) and
-<code>Files</code> (right), you should see something like this:</p>
+<p>After a short bit, RStudio will relaunch and open the new project. If you adjust the windows to show the tabs <code>Git</code> (left) and <code>Files</code> (right), you should see something like this:</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'>knitr</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/knitr/man/include_graphics.html'>include_graphics</a></span><span class='op'>(</span><span class='st'>"images/bpw/clone_success.png"</span><span class='op'>)</span>
-</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='fu'>knitr</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/knitr/man/include_graphics.html'>include_graphics</a></span><span class='op'>(</span><span class='st'>"images/bpw/clone_success.png"</span><span class='op'>)</span></span></code></pre>
 </div>
 <p><img src="images/bpw/clone_success.png" width="1274" /></p>
 </div>
-<p>You have now downloaded a copy of the Enterprise repository to your
-computer!</p>
-<p>Moreover, because you’ve connected these files to a GitHub
-repository, the RStudio Project will now keep track of changes you make
-to the files in this folder, and it will prompt you to upload your
-changes back to GitHub: as you add, edit, or delete files, a list of
-changes will appear in the <code>Git</code> tab.</p>
+<p>You have now downloaded a copy of the Enterprise repository to your computer!</p>
+<p>Moreover, because you’ve connected these files to a GitHub repository, the RStudio Project will now keep track of changes you make to the files in this folder, and it will prompt you to upload your changes back to GitHub: as you add, edit, or delete files, a list of changes will appear in the <code>Git</code> tab.</p>
 <aside>
-To open an RStudio project, click on the file <b>pma-data-hub.Rproj</b>.
-If you ever forget, RStudio won’t know to look for a Git history
-associated with all of the underlying files.
+To open an RStudio project, click on the file <b>pma-data-hub.Rproj</b>. If you ever forget, RStudio won’t know to look for a Git history associated with all of the underlying files.
 </aside>
-<p>Notice the word <code>master</code> shown in the <code>Git</code> tab
-- this shows that any changes we make to files will be recorded in our
-local copy of the “master” version of the repository. If we made changes
-here and then <em>pushed</em> them to GitHub, they would be reflected on
-the “master” version we’ve saved there, too.</p>
-<p>In general, Matt and postdocs will be responsible for merging
-finished blog posts to the master branch and deploying its contents to
-the “live” blog that’s seen by users (for details, see <a
-href="#site-admin">site admin</a> instructions below). <strong>All other
-contributors should create their own branch when writing a new blog
-post</strong>; Matt or postdocs will merge them to “master” after
-they’ve been reviewed and approved by an editor. Read on!</p>
+<p>Notice the word <code>master</code> shown in the <code>Git</code> tab - this shows that any changes we make to files will be recorded in our local copy of the “master” version of the repository. If we made changes here and then <em>pushed</em> them to GitHub, they would be reflected on the “master” version we’ve saved there, too.</p>
+<p>In general, Matt and postdocs will be responsible for merging finished blog posts to the master branch and deploying its contents to the “live” blog that’s seen by users (for details, see <a href="#site-admin">site admin</a> instructions below). <strong>All other contributors should create their own branch when writing a new blog post</strong>; Matt or postdocs will merge them to “master” after they’ve been reviewed and approved by an editor. Read on!</p>
 <h1 id="authors-creating-a-new-post">Authors: Creating a new post</h1>
 <h2 id="create-a-new-branch">Create a new branch</h2>
-<p>Notice that the <code>Git</code> tab in RStudio has a purple
-icon:</p>
+<p>Notice that the <code>Git</code> tab in RStudio has a purple icon:</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'>knitr</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/knitr/man/include_graphics.html'>include_graphics</a></span><span class='op'>(</span><span class='st'>"images/bpw/new_branch.png"</span><span class='op'>)</span>
-</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='fu'>knitr</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/knitr/man/include_graphics.html'>include_graphics</a></span><span class='op'>(</span><span class='st'>"images/bpw/new_branch.png"</span><span class='op'>)</span></span></code></pre>
 </div>
 <p><img src="images/bpw/new_branch.png" width="483" /></p>
 </div>
-<p>Click this icon to create a new branch. You can name it anything you
-like, but we recommend using your URL slug if possible
-(e.g. “blog-post-workflow” is the end of the URL for this webpage).
-Leave the box next to “Sync branch with remote”
-<strong>checked</strong>, as this will create your branch both locally
-and on our GitHub page:</p>
+<p>Click this icon to create a new branch. You can name it anything you like, but we recommend using your URL slug if possible (e.g. “blog-post-workflow” is the end of the URL for this webpage). Leave the box next to “Sync branch with remote” <strong>checked</strong>, as this will create your branch both locally and on our GitHub page:</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'>knitr</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/knitr/man/include_graphics.html'>include_graphics</a></span><span class='op'>(</span><span class='st'>"images/bpw/branch_name.png"</span><span class='op'>)</span>
-</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='fu'>knitr</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/knitr/man/include_graphics.html'>include_graphics</a></span><span class='op'>(</span><span class='st'>"images/bpw/branch_name.png"</span><span class='op'>)</span></span></code></pre>
 </div>
 <p><img src="images/bpw/branch_name.png" width="317" /></p>
 </div>
-<p>RStudio now displays the new branch in place of “master” to show that
-we’re working on the new branch, instead!</p>
-<h2 id="create-a-new-folder-in-_posts">Create a new folder in
-“_posts”</h2>
-<p>Now that you’ve created a new branch in the <code>Git</code> window,
-take a look at the <code>File</code> window.</p>
+<p>RStudio now displays the new branch in place of “master” to show that we’re working on the new branch, instead!</p>
+<h2 id="create-a-new-folder-in-_posts">Create a new folder in “_posts”</h2>
+<p>Now that you’ve created a new branch in the <code>Git</code> window, take a look at the <code>File</code> window.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'>knitr</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/knitr/man/include_graphics.html'>include_graphics</a></span><span class='op'>(</span><span class='st'>"images/bpw/file_window1.png"</span><span class='op'>)</span>
-</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='fu'>knitr</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/knitr/man/include_graphics.html'>include_graphics</a></span><span class='op'>(</span><span class='st'>"images/bpw/file_window1.png"</span><span class='op'>)</span></span></code></pre>
 </div>
 <p><img src="images/bpw/file_window1.png" width="1273" /></p>
 </div>
-<p>The program we use to build the blog is called <a
-href="https://rstudio.github.io/distill/">Distill</a>, and it takes care
-of all the back-end work as long as we put every new blog post inside of
-a unique folder within the “_posts” directory. Opening “_posts”, you can
-see that every post is contained within a time-stamped sub-folder:</p>
+<p>The program we use to build the blog is called <a href="https://rstudio.github.io/distill/">Distill</a>, and it takes care of all the back-end work as long as we put every new blog post inside of a unique folder within the “_posts” directory. Opening “_posts”, you can see that every post is contained within a time-stamped sub-folder:</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'>knitr</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/knitr/man/include_graphics.html'>include_graphics</a></span><span class='op'>(</span><span class='st'>"images/bpw/posts_list.png"</span><span class='op'>)</span>
-</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='fu'>knitr</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/knitr/man/include_graphics.html'>include_graphics</a></span><span class='op'>(</span><span class='st'>"images/bpw/posts_list.png"</span><span class='op'>)</span></span></code></pre>
 </div>
 <p><img src="images/bpw/posts_list.png" width="764" /></p>
 </div>
-<p>To create one of these folders for your new post, enter the following
-command into R:</p>
+<p>To create one of these folders for your new post, enter the following command into R:</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'>distill</span><span class='fu'>::</span><span class='fu'><a href='https://pkgs.rstudio.com/distill/reference/create_post.html'>create_post</a></span><span class='op'>(</span><span class='st'>"Blog post workflow"</span><span class='op'>)</span>
-</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='fu'>distill</span><span class='fu'>::</span><span class='fu'><a href='https://pkgs.rstudio.com/distill/reference/create_post.html'>create_post</a></span><span class='op'>(</span><span class='st'>"Blog post workflow"</span><span class='op'>)</span></span></code></pre>
 </div>
 </div>
-<p>This does two things: it creates the folder automatically (circled in
-red), and it opens a new RMarkdown file where you can begin writing your
-post (circled in green).</p>
+<p>This does two things: it creates the folder automatically (circled in red), and it opens a new RMarkdown file where you can begin writing your post (circled in green).</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'>knitr</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/knitr/man/include_graphics.html'>include_graphics</a></span><span class='op'>(</span><span class='st'>"images/bpw/post_added.png"</span><span class='op'>)</span>
-</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='fu'>knitr</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/knitr/man/include_graphics.html'>include_graphics</a></span><span class='op'>(</span><span class='st'>"images/bpw/post_added.png"</span><span class='op'>)</span></span></code></pre>
 </div>
 <p><img src="images/bpw/post_added.png" width="1430" /></p>
 </div>
 <aside>
-<p>In red: notice the folder appears in both your <b>File</b> tab and
-your <b>Git</b> tab. (Don’t worry about the date on this folder - it’s
-for internal use and does not need to match the publication date.)</p>
+<p>In red: notice the folder appears in both your <b>File</b> tab and your <b>Git</b> tab. (Don’t worry about the date on this folder - it’s for internal use and does not need to match the publication date.)</p>
 In green: this is the RMarkdown file where you’ll write your post.
 </aside>
-<p>Check out our <a
-href="../2021-02-02-blogging-with-rmarkdown/index.html">Quick-start
-Guide for Blogging with RMarkdown</a>!</p>
-<p>As you’re writing your post, you can preview it as a fully formatted
-webpage by hitting the <code>Knit</code> button at the top of your
-RMarkdown file:</p>
+<p>Check out our <a href="../2021-02-02-blogging-with-rmarkdown/index.html">Quick-start Guide for Blogging with RMarkdown</a>!</p>
+<p>As you’re writing your post, you can preview it as a fully formatted webpage by hitting the <code>Knit</code> button at the top of your RMarkdown file:</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'>knitr</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/knitr/man/include_graphics.html'>include_graphics</a></span><span class='op'>(</span><span class='st'>"images/bpw/knit.png"</span><span class='op'>)</span>
-</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='fu'>knitr</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/knitr/man/include_graphics.html'>include_graphics</a></span><span class='op'>(</span><span class='st'>"images/bpw/knit.png"</span><span class='op'>)</span></span></code></pre>
 </div>
 <p><img src="images/bpw/knit.png" width="1434" /></p>
 </div>
 <aside>
-You can switch between previewing the page in the RStudio Viewer tab, or
-in your computer’s default web browser. Click the settings icon next to
-“Knit” for preview options.
+You can switch between previewing the page in the RStudio Viewer tab, or in your computer’s default web browser. Click the settings icon next to “Knit” for preview options.
 </aside>
-<h2 id="put-your-data-in-a-data-folder">Put your data in a “data”
-folder!</h2>
-<p>If you’re working with a PMA data extract in your post <strong>put it
-in a sub-folder called</strong> <code>data</code>. Your editors will
-need a copy of your extract in order to render your post! For example, I
-would store the data and the ddi for this post like this:</p>
+<h2 id="put-your-data-in-a-data-folder">Put your data in a “data” folder!</h2>
+<p>If you’re working with a PMA data extract in your post <strong>put it in a sub-folder called</strong> <code>data</code>. Your editors will need a copy of your extract in order to render your post! For example, I would store the data and the ddi for this post like this:</p>
 <pre><code>./_posts/2021-02-02-blog-post-workflow/data/pma_00008.dat.gz
 ./_posts/2021-02-02-blog-post-workflow/data/pma_00008.xml</code></pre>
-<p>It’s OK to push your data to UMN Github! As long as you put it in a
-folder called <code>data</code>, admin will automatically remove it
-before posting the public version of the blog.</p>
+<p>It’s OK to push your data to UMN Github! As long as you put it in a folder called <code>data</code>, admin will automatically remove it before posting the public version of the blog.</p>
 <h2 id="push-your-post-to-github">Push your post to GitHub</h2>
-<p>When you’re finished writing, follow these steps to share your post
-with the team on our Enterprise GitHub page (reminder: it won’t go
-“live” until Matt or postdocs merge your post to <code>master</code> and
-publishes it to the public GitHub page).</p>
-<p><strong>Press the “Knit” button one more time to render a final HTML
-version of the page.</strong> (At this point, you may see a number of
-automatically created files related to your RMarkdown file in the
-<code>Git</code> tab.)</p>
-<p>Now, enter the following commands directly into the R console,
-<em>but please adjust the brief commit “message” as necessary to
-describe your change!</em></p>
+<p>When you’re finished writing, follow these steps to share your post with the team on our Enterprise GitHub page (reminder: it won’t go “live” until Matt or postdocs merge your post to <code>master</code> and publishes it to the public GitHub page).</p>
+<p><strong>Press the “Knit” button one more time to render a final HTML version of the page.</strong> (At this point, you may see a number of automatically created files related to your RMarkdown file in the <code>Git</code> tab.)</p>
+<p>Now, enter the following commands directly into the R console, <em>but please adjust the brief commit “message” as necessary to describe your change!</em></p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'>gert</span><span class='fu'>::</span><span class='fu'><a href='https://docs.ropensci.org/gert/reference/git_commit.html'>git_add</a></span><span class='op'>(</span><span class='st'>"."</span><span class='op'>)</span>
-<span class='fu'>gert</span><span class='fu'>::</span><span class='fu'><a href='https://docs.ropensci.org/gert/reference/git_commit.html'>git_commit</a></span><span class='op'>(</span><span class='st'>"Draft published: blog-post-workflow"</span><span class='op'>)</span>
-<span class='fu'>gert</span><span class='fu'>::</span><span class='fu'><a href='https://docs.ropensci.org/gert/reference/git_fetch.html'>git_push</a></span><span class='op'>(</span><span class='op'>)</span>
-</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='fu'>gert</span><span class='fu'>::</span><span class='fu'><a href='https://docs.ropensci.org/gert/reference/git_commit.html'>git_add</a></span><span class='op'>(</span><span class='st'>"."</span><span class='op'>)</span></span>
+<span><span class='fu'>gert</span><span class='fu'>::</span><span class='fu'><a href='https://docs.ropensci.org/gert/reference/git_commit.html'>git_commit</a></span><span class='op'>(</span><span class='st'>"Draft published: blog-post-workflow"</span><span class='op'>)</span></span>
+<span><span class='fu'>gert</span><span class='fu'>::</span><span class='fu'><a href='https://docs.ropensci.org/gert/reference/git_fetch.html'>git_push</a></span><span class='op'>(</span><span class='op'>)</span></span></code></pre>
 </div>
 </div>
-<p>Now, if you visit our Enterprise GitHub page, your post will appear
-in a new branch! (It will not yet appear on the copy of the blog we have
-posted there, which is rendered only from <code>master</code>.)</p>
+<p>Now, if you visit our Enterprise GitHub page, your post will appear in a new branch! (It will not yet appear on the copy of the blog we have posted there, which is rendered only from <code>master</code>.)</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'>knitr</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/knitr/man/include_graphics.html'>include_graphics</a></span><span class='op'>(</span><span class='st'>"images/bpw/see_branches.png"</span><span class='op'>)</span>
-</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='fu'>knitr</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/knitr/man/include_graphics.html'>include_graphics</a></span><span class='op'>(</span><span class='st'>"images/bpw/see_branches.png"</span><span class='op'>)</span></span></code></pre>
 </div>
 <p><img src="images/bpw/see_branches.png" width="1418" /></p>
 </div>
 <h1 id="editors">Editors</h1>
-<h2 id="pull-the-authors-branch-to-your-computer">Pull the author’s
-branch to your computer</h2>
-<p>Any time that you want to review an author’s post, you’ll always need
-to get the latest copy of their branch from our Enterprise GitHub page.
-If this is the first time you’ve read a draft for the post, the author’s
-branch won’t yet be listed in RStudio.</p>
+<h2 id="pull-the-authors-branch-to-your-computer">Pull the author’s branch to your computer</h2>
+<p>Any time that you want to review an author’s post, you’ll always need to get the latest copy of their branch from our Enterprise GitHub page. If this is the first time you’ve read a draft for the post, the author’s branch won’t yet be listed in RStudio.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'>knitr</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/knitr/man/include_graphics.html'>include_graphics</a></span><span class='op'>(</span><span class='st'>"images/bpw/master_only.png"</span><span class='op'>)</span>
-</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='fu'>knitr</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/knitr/man/include_graphics.html'>include_graphics</a></span><span class='op'>(</span><span class='st'>"images/bpw/master_only.png"</span><span class='op'>)</span></span></code></pre>
 </div>
 <p><img src="images/bpw/master_only.png" width="597" /></p>
 </div>
 <aside>
 This editor’s RStudio only knows about the “master” branch so far.
 </aside>
-<p>The <code>Pull</code> button in RStudio’s <code>Git</code> tab will
-gather information about all of the new branches on GitHub, and it will
-download a copy of each one onto your computer:</p>
+<p>The <code>Pull</code> button in RStudio’s <code>Git</code> tab will gather information about all of the new branches on GitHub, and it will download a copy of each one onto your computer:</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'>knitr</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/knitr/man/include_graphics.html'>include_graphics</a></span><span class='op'>(</span><span class='st'>"images/bpw/pull_button.png"</span><span class='op'>)</span>
-</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='fu'>knitr</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/knitr/man/include_graphics.html'>include_graphics</a></span><span class='op'>(</span><span class='st'>"images/bpw/pull_button.png"</span><span class='op'>)</span></span></code></pre>
 </div>
 <p><img src="images/bpw/pull_button.png" width="716" /></p>
 </div>
-<p>Clicking it will bring up a dialogue screen. RStudio reports that it
-discovered a new branch <code>blog-post-workflow</code> living at the
-remote repository <code>origin</code>.</p>
+<p>Clicking it will bring up a dialogue screen. RStudio reports that it discovered a new branch <code>blog-post-workflow</code> living at the remote repository <code>origin</code>.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'>knitr</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/knitr/man/include_graphics.html'>include_graphics</a></span><span class='op'>(</span><span class='st'>"images/bpw/pull_new_branch.png"</span><span class='op'>)</span>
-</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='fu'>knitr</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/knitr/man/include_graphics.html'>include_graphics</a></span><span class='op'>(</span><span class='st'>"images/bpw/pull_new_branch.png"</span><span class='op'>)</span></span></code></pre>
 </div>
 <p><img src="images/bpw/pull_new_branch.png" width="631" /></p>
 </div>
-<p>Returning to RStudio’s main window, notice that you can now toggle
-between the working on the remote <code>master</code> branch, or the new
-remote branch called <code>blog-post-workflow</code>. When you’re ready
-to edit the author’s post, use this menu to select their branch.</p>
+<p>Returning to RStudio’s main window, notice that you can now toggle between the working on the remote <code>master</code> branch, or the new remote branch called <code>blog-post-workflow</code>. When you’re ready to edit the author’s post, use this menu to select their branch.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'>knitr</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/knitr/man/include_graphics.html'>include_graphics</a></span><span class='op'>(</span><span class='st'>"images/bpw/toggle_branches.png"</span><span class='op'>)</span>
-</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='fu'>knitr</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/knitr/man/include_graphics.html'>include_graphics</a></span><span class='op'>(</span><span class='st'>"images/bpw/toggle_branches.png"</span><span class='op'>)</span></span></code></pre>
 </div>
 <p><img src="images/bpw/toggle_branches.png" width="419" /></p>
 </div>
-<p>RStudio automatically creates a local version of this branch on your
-computer, and it reports that your changes will be tracked and pushed to
-the remote branch of the same name.</p>
+<p>RStudio automatically creates a local version of this branch on your computer, and it reports that your changes will be tracked and pushed to the remote branch of the same name.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'>knitr</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/knitr/man/include_graphics.html'>include_graphics</a></span><span class='op'>(</span><span class='st'>"images/bpw/new_local_branch.png"</span><span class='op'>)</span>
-</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='fu'>knitr</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/knitr/man/include_graphics.html'>include_graphics</a></span><span class='op'>(</span><span class='st'>"images/bpw/new_local_branch.png"</span><span class='op'>)</span></span></code></pre>
 </div>
 <p><img src="images/bpw/new_local_branch.png" width="626" /></p>
 </div>
 <h2 id="locate-and-edit-the-new-post">Locate and edit the new post</h2>
-<p>Now, RStudio shows that you’re working on the author’s branch in the
-<code>Git</code> tab, and you’ll see their post listed in the
-<code>_posts</code> folder on the <code>Files</code> tab. Navigate to
-the <code>.Rmd</code> file for their post, then click it to begin making
-edits.</p>
+<p>Now, RStudio shows that you’re working on the author’s branch in the <code>Git</code> tab, and you’ll see their post listed in the <code>_posts</code> folder on the <code>Files</code> tab. Navigate to the <code>.Rmd</code> file for their post, then click it to begin making edits.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'>knitr</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/knitr/man/include_graphics.html'>include_graphics</a></span><span class='op'>(</span><span class='st'>"images/bpw/author_post_appears.png"</span><span class='op'>)</span>
-</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='fu'>knitr</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/knitr/man/include_graphics.html'>include_graphics</a></span><span class='op'>(</span><span class='st'>"images/bpw/author_post_appears.png"</span><span class='op'>)</span></span></code></pre>
 </div>
 <p><img src="images/bpw/author_post_appears.png" width="724" /></p>
 </div>
-<p>Check out our <a
-href="../2021-02-02-blogging-with-rmarkdown/index.html">Quick-start
-Guide for Blogging with RMarkdown</a>!</p>
-<p>As you’re writing your post, you can preview it as a fully formatted
-webpage by hitting the <code>Knit</code> button at the top of your
-RMarkdown file:</p>
+<p>Check out our <a href="../2021-02-02-blogging-with-rmarkdown/index.html">Quick-start Guide for Blogging with RMarkdown</a>!</p>
+<p>As you’re writing your post, you can preview it as a fully formatted webpage by hitting the <code>Knit</code> button at the top of your RMarkdown file:</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'>knitr</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/knitr/man/include_graphics.html'>include_graphics</a></span><span class='op'>(</span><span class='st'>"images/bpw/edit_knit.png"</span><span class='op'>)</span>
-</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='fu'>knitr</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/knitr/man/include_graphics.html'>include_graphics</a></span><span class='op'>(</span><span class='st'>"images/bpw/edit_knit.png"</span><span class='op'>)</span></span></code></pre>
 </div>
 <p><img src="images/bpw/edit_knit.png" width="1426" /></p>
 </div>
 <aside>
-You can switch between previewing the page in the RStudio Viewer tab, or
-in your computer’s default web browser. Click the settings icon next to
-“Knit” for preview options.
+You can switch between previewing the page in the RStudio Viewer tab, or in your computer’s default web browser. Click the settings icon next to “Knit” for preview options.
 </aside>
-<h2 id="push-the-edited-post-back-to-github">Push the edited post back
-to GitHub</h2>
-<p>When you’re finished editing, follow these steps to send the revised
-file back to GitHub. (Reminder: it won’t appear on the website until
-Matt or postdocs merge the post to <code>master</code> and publishes it
-to the public GitHub page).</p>
-<p><strong>Press the “Knit” button one more time to render a final HTML
-version of the page.</strong> (At this point, you may see a number of
-automatically created files related to your RMarkdown file in the
-<code>Git</code> tab.)</p>
-<p>Now, enter the following commands directly into the R console,
-<em>but please adjust the brief commit “message” as necessary to
-describe your change!</em></p>
+<h2 id="push-the-edited-post-back-to-github">Push the edited post back to GitHub</h2>
+<p>When you’re finished editing, follow these steps to send the revised file back to GitHub. (Reminder: it won’t appear on the website until Matt or postdocs merge the post to <code>master</code> and publishes it to the public GitHub page).</p>
+<p><strong>Press the “Knit” button one more time to render a final HTML version of the page.</strong> (At this point, you may see a number of automatically created files related to your RMarkdown file in the <code>Git</code> tab.)</p>
+<p>Now, enter the following commands directly into the R console, <em>but please adjust the brief commit “message” as necessary to describe your change!</em></p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'>gert</span><span class='fu'>::</span><span class='fu'><a href='https://docs.ropensci.org/gert/reference/git_commit.html'>git_add</a></span><span class='op'>(</span><span class='st'>"."</span><span class='op'>)</span>
-<span class='fu'>gert</span><span class='fu'>::</span><span class='fu'><a href='https://docs.ropensci.org/gert/reference/git_commit.html'>git_commit</a></span><span class='op'>(</span><span class='st'>"Draft edited: blog-post-workflow"</span><span class='op'>)</span>
-<span class='fu'>gert</span><span class='fu'>::</span><span class='fu'><a href='https://docs.ropensci.org/gert/reference/git_fetch.html'>git_push</a></span><span class='op'>(</span><span class='op'>)</span>
-</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='fu'>gert</span><span class='fu'>::</span><span class='fu'><a href='https://docs.ropensci.org/gert/reference/git_commit.html'>git_add</a></span><span class='op'>(</span><span class='st'>"."</span><span class='op'>)</span></span>
+<span><span class='fu'>gert</span><span class='fu'>::</span><span class='fu'><a href='https://docs.ropensci.org/gert/reference/git_commit.html'>git_commit</a></span><span class='op'>(</span><span class='st'>"Draft edited: blog-post-workflow"</span><span class='op'>)</span></span>
+<span><span class='fu'>gert</span><span class='fu'>::</span><span class='fu'><a href='https://docs.ropensci.org/gert/reference/git_fetch.html'>git_push</a></span><span class='op'>(</span><span class='op'>)</span></span></code></pre>
 </div>
 </div>
-<p>Now, if you visit our Enterprise GitHub page, you’ll see that your
-edited files appear on the author’s branch. (They will not yet appear on
-the copy of the blog we have posted there, which is rendered only from
-<code>master</code>.)</p>
+<p>Now, if you visit our Enterprise GitHub page, you’ll see that your edited files appear on the author’s branch. (They will not yet appear on the copy of the blog we have posted there, which is rendered only from <code>master</code>.)</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'>knitr</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/knitr/man/include_graphics.html'>include_graphics</a></span><span class='op'>(</span><span class='st'>"images/bpw/draft_accepted.png"</span><span class='op'>)</span>
-</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='fu'>knitr</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/knitr/man/include_graphics.html'>include_graphics</a></span><span class='op'>(</span><span class='st'>"images/bpw/draft_accepted.png"</span><span class='op'>)</span></span></code></pre>
 </div>
 <p><img src="images/bpw/draft_accepted.png" width="1422" /></p>
 </div>
 <h1 id="all-users-making-revisions">All users: making revisions</h1>
-<p>When you’ve finished pushing something to GitHub, <strong>please
-email your collaborators to let them know about next steps!</strong></p>
-<p>To get your collaborator’s latest updates from GitHub, <strong>you
-should launch the pma-data-hub RStudio project file</strong> called
-<code>pma-data-hub.Rproj</code>. If you forget to open the project file,
-RStudio will not be able to access the contents of your Git folder (it
-won’t know that there’s a GitHub repository for the project at all).</p>
-<p>When you open the project file, RStudio will again display a
-<code>Git</code> tab. Click on the <code>Pull</code> button to get your
-collaborator’s latest changes.</p>
+<p>When you’ve finished pushing something to GitHub, <strong>please email your collaborators to let them know about next steps!</strong></p>
+<p>To get your collaborator’s latest updates from GitHub, <strong>you should launch the pma-data-hub RStudio project file</strong> called <code>pma-data-hub.Rproj</code>. If you forget to open the project file, RStudio will not be able to access the contents of your Git folder (it won’t know that there’s a GitHub repository for the project at all).</p>
+<p>When you open the project file, RStudio will again display a <code>Git</code> tab. Click on the <code>Pull</code> button to get your collaborator’s latest changes.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'>knitr</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/knitr/man/include_graphics.html'>include_graphics</a></span><span class='op'>(</span><span class='st'>"images/bpw/pull_button.png"</span><span class='op'>)</span>
-</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='fu'>knitr</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/knitr/man/include_graphics.html'>include_graphics</a></span><span class='op'>(</span><span class='st'>"images/bpw/pull_button.png"</span><span class='op'>)</span></span></code></pre>
 </div>
 <p><img src="images/bpw/pull_button.png" width="716" /></p>
 </div>
-<p>Switch from the <code>master</code> branch to the branch associated
-with your post:</p>
+<p>Switch from the <code>master</code> branch to the branch associated with your post:</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'>knitr</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/knitr/man/include_graphics.html'>include_graphics</a></span><span class='op'>(</span><span class='st'>"images/bpw/toggle_branches.png"</span><span class='op'>)</span>
-</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='fu'>knitr</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/knitr/man/include_graphics.html'>include_graphics</a></span><span class='op'>(</span><span class='st'>"images/bpw/toggle_branches.png"</span><span class='op'>)</span></span></code></pre>
 </div>
 <p><img src="images/bpw/toggle_branches.png" width="419" /></p>
 </div>
-<p>After you’re finished incorporating their feedback into the RMarkdown
-file (.Rmd), <strong>click Knit</strong> and then run these commands in
-Terminal again to send your work back to GitHub:</p>
+<p>After you’re finished incorporating their feedback into the RMarkdown file (.Rmd), <strong>click Knit</strong> and then run these commands in Terminal again to send your work back to GitHub:</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'>gert</span><span class='fu'>::</span><span class='fu'><a href='https://docs.ropensci.org/gert/reference/git_commit.html'>git_add</a></span><span class='op'>(</span><span class='st'>"."</span><span class='op'>)</span>
-<span class='fu'>gert</span><span class='fu'>::</span><span class='fu'><a href='https://docs.ropensci.org/gert/reference/git_commit.html'>git_commit</a></span><span class='op'>(</span><span class='st'>"Draft complete: blog-post-workflow"</span><span class='op'>)</span>
-<span class='fu'>gert</span><span class='fu'>::</span><span class='fu'><a href='https://docs.ropensci.org/gert/reference/git_fetch.html'>git_push</a></span><span class='op'>(</span><span class='op'>)</span>
-</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='fu'>gert</span><span class='fu'>::</span><span class='fu'><a href='https://docs.ropensci.org/gert/reference/git_commit.html'>git_add</a></span><span class='op'>(</span><span class='st'>"."</span><span class='op'>)</span></span>
+<span><span class='fu'>gert</span><span class='fu'>::</span><span class='fu'><a href='https://docs.ropensci.org/gert/reference/git_commit.html'>git_commit</a></span><span class='op'>(</span><span class='st'>"Draft complete: blog-post-workflow"</span><span class='op'>)</span></span>
+<span><span class='fu'>gert</span><span class='fu'>::</span><span class='fu'><a href='https://docs.ropensci.org/gert/reference/git_fetch.html'>git_push</a></span><span class='op'>(</span><span class='op'>)</span></span></code></pre>
 </div>
 </div>
-<p><strong>Please let Matt &amp; postdocs know when your revisions are
-complete and ready to appear on the live blog!</strong></p>
+<p><strong>Please let Matt &amp; postdocs know when your revisions are complete and ready to appear on the live blog!</strong></p>
 <h1 id="site-admin">Site Admin</h1>
-<p><em>These instructions will introduce an additional remote to your
-local repository. Only use them if you’ll be involved with managing
-updates to the live blog (e.g. Matt &amp; postdocs).</em> All of these
-functions can be used the in RStudio Terminal.</p>
+<p><em>These instructions will introduce an additional remote to your local repository. Only use them if you’ll be involved with managing updates to the live blog (e.g. Matt &amp; postdocs).</em> All of these functions can be used the in RStudio Terminal.</p>
 <h2 id="setup">Setup</h2>
-<p>Before adding a second remote, it’s best to rename the UMN GitHub
-remote something like <code>private</code>. You can check the current
-name with:</p>
+<p>Before adding a second remote, it’s best to rename the UMN GitHub remote something like <code>private</code>. You can check the current name with:</p>
 <pre><code>git remote</code></pre>
-<p>If the UMN GitHub is still called <code>origin</code> (by default),
-rename it with:</p>
+<p>If the UMN GitHub is still called <code>origin</code> (by default), rename it with:</p>
 <pre><code>git remote rename origin private</code></pre>
-<p>Likewise, you should give the <code>private</code> branch
-<code>master</code> a different name, as the second remote will have a
-<code>master</code> branch, too. To see all of the remote branches
-currently in use:</p>
+<p>Likewise, you should give the <code>private</code> branch <code>master</code> a different name, as the second remote will have a <code>master</code> branch, too. To see all of the remote branches currently in use:</p>
 <pre><code>git remote show private</code></pre>
-<p>Checkout <code>master</code> and change its name to something like
-<code>private-master</code>:</p>
+<p>Checkout <code>master</code> and change its name to something like <code>private-master</code>:</p>
 <pre><code>git checkout master
 git branch -m &quot;private-master&quot;</code></pre>
-<p>Now, add the <strong>public remote</strong> and fetch its branches
-(there should only be one, called <code>master</code>):</p>
+<p>Now, add the <strong>public remote</strong> and fetch its branches (there should only be one, called <code>master</code>):</p>
 <pre><code>git remote add public https://github.com/ipums/pma-data-hub
 git fetch public</code></pre>
-<p>Create a local branch called <code>public-master</code> corresponding
-with <code>master</code> on the <code>public</code> remote:</p>
+<p>Create a local branch called <code>public-master</code> corresponding with <code>master</code> on the <code>public</code> remote:</p>
 <pre><code>git branch public-master public/master</code></pre>
-<p>At this point, you’ll notice that RStudio shows two remotes (with the
-branches you’ve fetched) and all of the local branches you’ve created so
-far.</p>
+<p>At this point, you’ll notice that RStudio shows two remotes (with the branches you’ve fetched) and all of the local branches you’ve created so far.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'>knitr</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/knitr/man/include_graphics.html'>include_graphics</a></span><span class='op'>(</span><span class='st'>"images/bpw/dual-remotes.png"</span><span class='op'>)</span>
-</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='fu'>knitr</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/knitr/man/include_graphics.html'>include_graphics</a></span><span class='op'>(</span><span class='st'>"images/bpw/dual-remotes.png"</span><span class='op'>)</span></span></code></pre>
 </div>
 <p><img src="images/bpw/dual-remotes.png" width="298" /></p>
 </div>
 <aside>
-In this example, we set the local “private-master” branch to track
-“master” on the private remote. The “public-master” branch tracks
-“master” on the public remote.
+In this example, we set the local “private-master” branch to track “master” on the private remote. The “public-master” branch tracks “master” on the public remote.
 </aside>
-<h2 id="create-a-git-hook-to-remove-data-from-the-public-repo">Create a
-Git Hook to remove data from the public repo</h2>
-<p><strong>We should never push PMA data extracts to the public
-repository.</strong> Yet, we need to have these data available on the
-private repository in order to build each others’ posts when we want to
-review or merge new content.</p>
-<p>You might imagine that the only way to do this would be to manually
-delete the <code>data</code> folder for each post just before we push
-something from our local version of <code>public-master</code> to the
-remote <code>public/master</code>. Luckily, <a
-href="https://git-scm.com/docs/githooks">git hooks</a> offers a way to
-automatically delete any incoming data folder headed to a merge with
-<code>public-master</code>.</p>
-<p>Simply create a file at <code>.git/hooks/post-merge</code> containing
-the following code:</p>
+<h2 id="create-a-git-hook-to-remove-data-from-the-public-repo">Create a Git Hook to remove data from the public repo</h2>
+<p><strong>We should never push PMA data extracts to the public repository.</strong> Yet, we need to have these data available on the private repository in order to build each others’ posts when we want to review or merge new content.</p>
+<p>You might imagine that the only way to do this would be to manually delete the <code>data</code> folder for each post just before we push something from our local version of <code>public-master</code> to the remote <code>public/master</code>. Luckily, <a href="https://git-scm.com/docs/githooks">git hooks</a> offers a way to automatically delete any incoming data folder headed to a merge with <code>public-master</code>.</p>
+<p>Simply create a file at <code>.git/hooks/post-merge</code> containing the following code:</p>
 <pre><code>#! /bin/sh
 green=&#39;\033[0;32m&#39;
 nc=&#39;\033[0m&#39;
@@ -3279,103 +3023,60 @@ if [ `git rev-parse --abbrev-ref HEAD` == &quot;public-master&quot; ]; then
   find . -type d -empty -delete
 fi</code></pre>
 <aside>
-This will only delete <code>data</code> folders if a branch called
-<code>public-master</code> is currently checked out when we run
-<code>git merge</code> (see below). <strong>If you gave a different name
-to your local public branch, you’ll have to edit this code!</strong>
+This will only delete <code>data</code> folders if a branch called <code>public-master</code> is currently checked out when we run <code>git merge</code> (see below). <strong>If you gave a different name to your local public branch, you’ll have to edit this code!</strong>
 </aside>
-<p>You also must make this file executable. For Mac OS users, you can do
-this by entering the following command into Terminal (assuming you’re
-already in the pma data hub directory):</p>
+<p>You also must make this file executable. For Mac OS users, you can do this by entering the following command into Terminal (assuming you’re already in the pma data hub directory):</p>
 <pre><code>chmod +x .git/hooks/post-merge</code></pre>
-<p>Now, when you follow the merging steps below, any file saved in a
-folder called <code>data</code> (including all sub-folders) will be
-deleted automatically.</p>
+<p>Now, when you follow the merging steps below, any file saved in a folder called <code>data</code> (including all sub-folders) will be deleted automatically.</p>
 <h2 id="merging">Merging</h2>
-<p><strong>Our main goal is to avoid creating divergent commit histories
-between the internal repository and the public repository.</strong> In
-practice, that means a typical workflow will involve these steps:</p>
+<p><strong>Our main goal is to avoid creating divergent commit histories between the internal repository and the public repository.</strong> In practice, that means a typical workflow will involve these steps:</p>
 <ol type="1">
 <li>Squash and Merge the author’s branch to private/master</li>
 <li>Build, Commit, and Push to private/master</li>
 <li>Merge private/master to public/master</li>
 <li>Push to public/master</li>
 </ol>
-<p>Our authoring / editing workflow generates a commit each time someone
-adds a change to the branch for a new post (you can run
-<code>git log</code> on any branch to see its full commit history). We
-will <a
-href="https://docs.gitlab.com/ee/user/project/merge_requests/squash_and_merge.html">squash
-and merge</a> this commit history into a single commit on
-<code>private-master</code>.</p>
-<p>For example, with a new post on the branch
-<code>blog-post-workflow</code>:</p>
+<p>Our authoring / editing workflow generates a commit each time someone adds a change to the branch for a new post (you can run <code>git log</code> on any branch to see its full commit history). We will <a href="https://docs.gitlab.com/ee/user/project/merge_requests/squash_and_merge.html">squash and merge</a> this commit history into a single commit on <code>private-master</code>.</p>
+<p>For example, with a new post on the branch <code>blog-post-workflow</code>:</p>
 <pre><code>git checkout private-master
 git merge --squash blog-post-workflow</code></pre>
-<p>Now, in RStudio, hit the <code>Build Website</code> button. Look over
-the site to make sure everything looks good. (We won’t build on
-<code>public-master</code> to avoid merge conflicts, so get those edits
-in now.)</p>
+<p>Now, in RStudio, hit the <code>Build Website</code> button. Look over the site to make sure everything looks good. (We won’t build on <code>public-master</code> to avoid merge conflicts, so get those edits in now.)</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'>knitr</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/knitr/man/include_graphics.html'>include_graphics</a></span><span class='op'>(</span><span class='st'>"images/bpw/build.png"</span><span class='op'>)</span>
-</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='fu'>knitr</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/knitr/man/include_graphics.html'>include_graphics</a></span><span class='op'>(</span><span class='st'>"images/bpw/build.png"</span><span class='op'>)</span></span></code></pre>
 </div>
 <p><img src="images/bpw/build.png" width="372" /></p>
 </div>
-<p>When you’re ready, add all files and commit your changes with a
-message like:</p>
+<p>When you’re ready, add all files and commit your changes with a message like:</p>
 <pre><code>git add .
 git commit -m &quot;new post: blog-post-workflow&quot;</code></pre>
-<p>Although your local branch has a different name, you can push your
-commit to <code>master</code> on the <code>private</code> remote with
-this command:</p>
+<p>Although your local branch has a different name, you can push your commit to <code>master</code> on the <code>private</code> remote with this command:</p>
 <pre><code>git push private HEAD:master</code></pre>
-<p>Wait a few minutes, and you’ll see that the GitHub Pages site hosted
-at UMN GitHub should update to reflect your changes.</p>
-<p>To merge your <code>private-master</code> to
-<code>public-master</code>:</p>
+<p>Wait a few minutes, and you’ll see that the GitHub Pages site hosted at UMN GitHub should update to reflect your changes.</p>
+<p>To merge your <code>private-master</code> to <code>public-master</code>:</p>
 <pre><code>git checkout public-master
 git merge --squash private-master -X theirs
 git add .
 git commit -m &quot;new post: blog-post-workflow&quot;</code></pre>
-<p>(It’s good practice to squash commits to private-master, too, since
-we sometimes make quick-fixes there. The <code>-X theirs</code> part
-tells Git to defer to <code>private-master</code> over
-<code>public-master</code> in case there are any conflicts.)</p>
-<p>If you’ve created a Git Hook to automatically delete any
-<code>data</code> folders (see above), you’re all set! <strong>If not,
-manually delete them now.</strong> Finally, push your changes to the
-live site:</p>
+<p>(It’s good practice to squash commits to private-master, too, since we sometimes make quick-fixes there. The <code>-X theirs</code> part tells Git to defer to <code>private-master</code> over <code>public-master</code> in case there are any conflicts.)</p>
+<p>If you’ve created a Git Hook to automatically delete any <code>data</code> folders (see above), you’re all set! <strong>If not, manually delete them now.</strong> Finally, push your changes to the live site:</p>
 <pre><code>git push public HEAD:master</code></pre>
 <h2 id="other-git-tips">Other git tips</h2>
-<p>Need to rollback to a previous commit? Look for it in the
-<code>git log</code>, and do a hard reset:</p>
+<p>Need to rollback to a previous commit? Look for it in the <code>git log</code>, and do a hard reset:</p>
 <pre><code>git log
 git reset --hard 58ba4f0396b985fb5ab82c88f7bbc5c9cc619e71</code></pre>
 <p>For a checklist of updated files and their commit status:</p>
 <pre><code>git status</code></pre>
 <p>To see a list of files with unresolved conflicts</p>
 <pre><code>git diff --name-only --diff-filter=U</code></pre>
-<p>If you ever need to force a push to GitHub (e.g. if you REALLY must
-overwrite a commit), you can do that with the force option:</p>
+<p>If you ever need to force a push to GitHub (e.g. if you REALLY must overwrite a commit), you can do that with the force option:</p>
 <pre><code>git push -f </code></pre>
-<div class="sourceCode" id="cb21"><pre
-class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
-<section class="footnotes footnotes-end-of-document"
-role="doc-endnotes">
+<div class="sourceCode" id="cb21"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
+<section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
 <hr />
 <ol>
-<li id="fn1" role="doc-endnote"><p>You can check its location by running
-“which git” in Terminal, and “git –version” to check the installed
-version. If git is somehow not installed, use the “Install git using
-Homebrew” instructions <a
-href="https://jennybc.github.io/2014-05-12-ubc/ubc-r/session03_git.html">here</a><a
-href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn2" role="doc-endnote"><p>Mac users: type “which git” in
-terminal and enter the result; Windows users: look for git.exe (most
-likely in Program Files)<a href="#fnref2" class="footnote-back"
-role="doc-backlink">↩︎</a></p></li>
+<li id="fn1"><p>You can check its location by running “which git” in Terminal, and “git –version” to check the installed version. If git is somehow not installed, use the “Install git using Homebrew” instructions <a href="https://jennybc.github.io/2014-05-12-ubc/ubc-r/session03_git.html">here</a><a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>Mac users: type “which git” in terminal and enter the result; Windows users: look for git.exe (most likely in Program Files)<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
 </section>
 <!--radix_placeholder_article_footer-->

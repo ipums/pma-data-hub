@@ -787,6 +787,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   d-article table.gt_table td,
   d-article table.gt_table th {
     border-bottom: none;
+    font-size: 100%;
   }
 
   .html-widget {
@@ -1859,15 +1860,21 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 
       // hoverable references
       $('span.citation[data-cites]').each(function() {
-        if ($(this).children()[0].nodeName == "D-FOOTNOTE") {
-          var fn = $(this).children()[0]
+        const citeChild = $(this).children()[0]
+        // Do not process if @xyz has been used without escaping and without bibliography activated
+        // https://github.com/rstudio/distill/issues/466
+        if (citeChild === undefined) return true
+
+        if (citeChild.nodeName == "D-FOOTNOTE") {
+          var fn = citeChild
           $(this).html(fn.shadowRoot.querySelector("sup"))
           $(this).id = fn.id
           fn.remove()
         }
         var refs = $(this).attr('data-cites').split(" ");
         var refHtml = refs.map(function(ref) {
-          return "<p>" + $('#ref-' + ref).html() + "</p>";
+          // Could use CSS.escape too here, we insure backward compatibility in navigator
+          return "<p>" + $('div[id="ref-' + ref + '"]').html() + "</p>";
         }).join("\n");
         window.tippy(this, {
           allowHTML: true,
@@ -2634,88 +2641,40 @@ Community
 <nav class="l-text toc figcaption" id="TOC">
 <h3>Contents</h3>
 <ul>
-<li><a href="#why-a-blog">Why a blog?</a></li>
-<li><a href="#try-out-our-code">Try out our code!</a>
+<li><a href="#why-a-blog" id="toc-why-a-blog">Why a blog?</a></li>
+<li><a href="#try-out-our-code" id="toc-try-out-our-code">Try out our code!</a>
 <ul>
-<li><a href="#visit-us-on-github">Visit us on GitHub</a></li>
+<li><a href="#visit-us-on-github" id="toc-visit-us-on-github">Visit us on GitHub</a></li>
 </ul></li>
-<li><a href="#statisitcal-software">Statisitcal Software</a></li>
+<li><a href="#statisitcal-software" id="toc-statisitcal-software">Statisitcal Software</a></li>
 </ul>
 </nav>
 </div>
-<p><a href="https://pma.ipums.org">IPUMS PMA</a> harmonizes the <a
-href="https://www.pmadata.org/">Performance Monitoring for Action
-(PMA)</a> data series (it was formerly known as Performance Monitoring
-and Accountability 2020 - PMA2020). It provides an interactive web
-dissemination system for PMA data with variable documentation on
-thousands of harmonized variables on <strong>family planning, water and
-sanitation, and health</strong>. PMA is fielded by the Bill &amp;
-Melinda Gates Foundation and Johns Hopkins University using streamlined
-and high-frequency data collection in 11 FP2020 pledging countries. <a
-href="https://pma.ipums.org/pma/about.shtml">Read more about the project
-here</a>.</p>
-<p>IPUMS PMA is just one of many <a href="https://ipums.org/">IPUMS</a>
-data projects. IPUMS provides census and survey data from around the
-world integrated across time and space. IPUMS integration and
-documentation makes it easy to study change, conduct comparative
-research, merge information across data types, and analyze individuals
-within family and community context. Data and services are available
-free of charge.</p>
+<p><a href="https://pma.ipums.org">IPUMS PMA</a> harmonizes the <a href="https://www.pmadata.org/">Performance Monitoring for Action (PMA)</a> data series (it was formerly known as Performance Monitoring and Accountability 2020 - PMA2020). It provides an interactive web dissemination system for PMA data with variable documentation on thousands of harmonized variables on <strong>family planning, water and sanitation, and health</strong>. PMA is fielded by the Bill &amp; Melinda Gates Foundation and Johns Hopkins University using streamlined and high-frequency data collection in 11 FP2020 pledging countries. <a href="https://pma.ipums.org/pma/about.shtml">Read more about the project here</a>.</p>
+<p>IPUMS PMA is just one of many <a href="https://ipums.org/">IPUMS</a> data projects. IPUMS provides census and survey data from around the world integrated across time and space. IPUMS integration and documentation makes it easy to study change, conduct comparative research, merge information across data types, and analyze individuals within family and community context. Data and services are available free of charge.</p>
 <h1 id="why-a-blog">Why a blog?</h1>
-<p>As the data available at <a href="https://pma.ipums.org">IPUMS
-PMA</a> continues to grow, we wanted a space to demonstrate the range
-ways that PMA data can help address some of today’s most pressing
-women’s health concerns.</p>
-<p>You’ll find blog posts showing how to use common statistical software
-to do things like:</p>
+<p>As the data available at <a href="https://pma.ipums.org">IPUMS PMA</a> continues to grow, we wanted a space to demonstrate the range ways that PMA data can help address some of today’s most pressing women’s health concerns.</p>
+<p>You’ll find blog posts showing how to use common statistical software to do things like:</p>
 <ul>
 <li>compare PMA data across countries and survey years</li>
-<li>use service delivery point data to contextualize outcomes for
-individuals</li>
+<li>use service delivery point data to contextualize outcomes for individuals</li>
 <li>merge PMA data to external spatial datasets</li>
-<li>explore data related to water, hygiene, nutrition, and food
-security</li>
+<li>explore data related to water, hygiene, nutrition, and food security</li>
 </ul>
 <h1 id="try-out-our-code">Try out our code!</h1>
-<p>If you <a href="https://pma.ipums.org/pma/register.shtml">register
-for a free IPUMS PMA user account</a>, you’ll be able to download the
-same data extracts we feature in our posts.</p>
+<p>If you <a href="https://pma.ipums.org/pma/register.shtml">register for a free IPUMS PMA user account</a>, you’ll be able to download the same data extracts we feature in our posts.</p>
 <h2 id="visit-us-on-github">Visit us on GitHub</h2>
-<p>While it’s <em>not necessary</em> to visit <a
-href="https://github.com/ipums/pma-data-hub">our GitHub repository</a>
-to access the code you’ll find on this blog, we hope that visitors will
-feel encouraged to join a conversation, ask questions, or even post code
-of their own! You can also use the GitHub repository to download code
-from all of our posts in one step.</p>
-<p>To submit a post of your own, please take a look at our <a
-href="CONTRIBUTING.html">Contributing Guide</a> and <a
-href="CODE_OF_CONDUCT.html">Code of Conduct</a>. By contributing to this
-project, you agree to abide by the terms of each.</p>
-<p>If you spot an error or a place where our code could be improved,
-please consider opening an “issue” on our GitHub repository.</p>
+<p>While it’s <em>not necessary</em> to visit <a href="https://github.com/ipums/pma-data-hub">our GitHub repository</a> to access the code you’ll find on this blog, we hope that visitors will feel encouraged to join a conversation, ask questions, or even post code of their own! You can also use the GitHub repository to download code from all of our posts in one step.</p>
+<p>To submit a post of your own, please take a look at our <a href="CONTRIBUTING.html">Contributing Guide</a> and <a href="CODE_OF_CONDUCT.html">Code of Conduct</a>. By contributing to this project, you agree to abide by the terms of each.</p>
+<p>If you spot an error or a place where our code could be improved, please consider opening an “issue” on our GitHub repository.</p>
 <h1 id="statisitcal-software">Statisitcal Software</h1>
-<p>Currently, most of the code highlighted in our articles is written in
-<strong>R</strong>, a free and open-source program used by data analysts
-around the world. We’ve built the blog, itself, with an R package called
-<a href="https://rstudio.github.io/distill/">distill</a>.</p>
+<p>Currently, most of the code highlighted in our articles is written in <strong>R</strong>, a free and open-source program used by data analysts around the world. We’ve built the blog, itself, with an R package called <a href="https://rstudio.github.io/distill/">distill</a>.</p>
 <aside>
-New to R? Not to worry! We’ll post tips and links to help you get going
-in the “R tips” menu above.
+New to R? Not to worry! We’ll post tips and links to help you get going in the “R tips” menu above.
 </aside>
-<p>Experienced R users will notice that we use <a
-href="https://tidyverse.tidyverse.org/">tidyverse</a> conventions
-wherever possible, making the <strong>tidyverse package library</strong>
-an important prerequisite if you want to try our code on your own. We
-recommend the excellent, free introductory text <a
-href="https://r4ds.had.co.nz/index.html">R for Data Science</a> for
-newcomers to R and tidyverse, alike.</p>
-<p><strong>Stata users</strong>: we are also planning to develop Stata
-code for each of our articles, which will be made available by a
-designated download button and in a “stata” folder on the GitHub
-repository. However, the inline code you’ll find in our articles is
-likely to remain in R.</p>
-<div class="sourceCode" id="cb1"><pre
-class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
+<p>Experienced R users will notice that we use <a href="https://tidyverse.tidyverse.org/">tidyverse</a> conventions wherever possible, making the <strong>tidyverse package library</strong> an important prerequisite if you want to try our code on your own. We recommend the excellent, free introductory text <a href="https://r4ds.had.co.nz/index.html">R for Data Science</a> for newcomers to R and tidyverse, alike.</p>
+<p><strong>Stata users</strong>: we are also planning to develop Stata code for each of our articles, which will be made available by a designated download button and in a “stata” folder on the GitHub repository. However, the inline code you’ll find in our articles is likely to remain in R.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <!--radix_placeholder_article_footer-->
 <!--/radix_placeholder_article_footer-->
 </div>

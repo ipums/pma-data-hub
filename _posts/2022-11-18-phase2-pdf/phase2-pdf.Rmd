@@ -1,0 +1,40 @@
+---
+title: "Longitudinal Analysis Guide"
+description: |
+  Attention Stata users! Our blog series covering the first two phases of PMA panel data is now available in PDF format, with separate versions featuring examples in both R and Stata. 
+date: 2022-11-18
+author:
+  - name: Matt Gunther
+    affiliation: IPUMS PMA Senior Data Analyst
+categories:
+  - Panel Data
+  - Stata
+  - R 
+  - PDF 
+  - Data Analysis 
+output:
+  distill::distill_article:
+    self_contained: false
+    toc: false
+preview: images/pdf.png
+---
+
+Thanks to contributions from our friends at [Biostat Global Consulting](http://www.biostatglobal.com/), IPUMS PMA is pleased to announce that we've released a PDF version of our [blog series on PMA panel data](../../index.html#category:Panel_Data) adapted for Stata users. We've also reformatted the original R examples for readers who prefer a PDF. 
+
+You can find both versions of the **PMA Longitudinal Analysis Guide** below, or on our [GitHub Page](https://github.com/IPUMS-Global-Health/IPUMS-PMA-Longitudinal-Guide). If you'd like, you can also download a [.do file](https://ipums-global-health.github.io/IPUMS-PMA-Longitudinal-Guide/stata_users_files/IPUMS_PMA_Longitudinal_Analysis_Guide_For_Stata_Users.do) containing all of the code featured in the Stata version (additional helper files are available [here](https://github.com/IPUMS-Global-Health/IPUMS-PMA-Longitudinal-Guide/tree/main/stata_users_files)). R users can download an [R Markdown file](https://ipums-global-health.github.io/IPUMS-PMA-Longitudinal-Guide/r_users.Rmd) containing the full PDF text with embedded, executable R code. 
+
+# Guide for Stata Users 
+
+<iframe src="https://ipums-global-health.github.io/IPUMS-PMA-Longitudinal-Guide/stata_users.pdf#zoom=50" title="Guide for Stata users" frameborder="0" style="margin-top: 20px; margin-bottom: 20px; width: 100%; height: 600px">
+</iframe>
+
+# Guide for R Users
+
+<iframe src="https://ipums-global-health.github.io/IPUMS-PMA-Longitudinal-Guide/r_users.pdf#zoom=50" title="Guide for R users" frameborder="0" style="margin-top: 20px; margin-bottom: 20px; width: 100%; height: 600px">
+</iframe>
+
+# How We Built This 
+
+If you visit our [GitHub Page](https://github.com/IPUMS-Global-Health/IPUMS-PMA-Longitudinal-Guide), you'll notice two R Markdown files: one for the R version of this guide, and - perhaps surprisingly - one for the Stata version! Although we weren't quite able to elegantly [execute Stata code with R Markdown](https://bookdown.org/yihui/rmarkdown-cookbook/eng-stata.html), building both documents with the same toolkit allowed us to create "twin" versions with a single set of layout options. Additionally, we were able to use hidden inline R functions in both documents that, for example, automatically style hyperlinks for IPUMS variables in R (`UPPERCASE`) and Stata (`lowercase`). Check out our [utilities](https://github.com/IPUMS-Global-Health/IPUMS-PMA-Longitudinal-Guide/blob/main/utils/utilities.r) script on GitHub if you'd like to peek under the hood at these inline tools. 
+
+Huge thanks to the authors of [pagedown](https://github.com/rstudio/pagedown), an R package that uses the [Page.js](https://pagedjs.org/about/) JavaScript library to paginate HTML content for PDF printing. If you're someone who has already put a lot of thought into CSS for an website or blog, and you're wondering if there's an easy way to port your style guide to a book (without LaTeX) - this is it! 

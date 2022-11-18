@@ -12,7 +12,21 @@
       <link>https://ipums.github.io/pma-data-hub/</link>
     </image>
     <generator>Distill</generator>
-    <lastBuildDate>Fri, 07 Oct 2022 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Fri, 18 Nov 2022 00:00:00 +0000</lastBuildDate>
+    <item>
+      <title>Longitudinal Analysis Guide</title>
+      <dc:creator>Matt Gunther</dc:creator>
+      <link>https://ipums.github.io/pma-data-hub/posts/2022-11-18-phase2-pdf</link>
+      <description>Attention Stata users! Our blog series covering the first two phases of PMA panel data is now available in PDF format, with separate versions featuring examples in both R and Stata.</description>
+      <category>Panel Data</category>
+      <category>Stata</category>
+      <category>R</category>
+      <category>PDF</category>
+      <category>Data Analysis</category>
+      <guid>https://ipums.github.io/pma-data-hub/posts/2022-11-18-phase2-pdf</guid>
+      <pubDate>Fri, 18 Nov 2022 00:00:00 +0000</pubDate>
+      <media:content url="https://ipums.github.io/pma-data-hub/posts/2022-11-18-phase2-pdf/images/pdf.png" medium="image" type="image/png" width="1312" height="924"/>
+    </item>
     <item>
       <title>Barriers to Implant Removal</title>
       <dc:creator>Matt Gunther</dc:creator>

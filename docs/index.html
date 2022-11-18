@@ -788,6 +788,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   d-article table.gt_table td,
   d-article table.gt_table th {
     border-bottom: none;
+    font-size: 100%;
   }
 
   .html-widget {
@@ -1860,15 +1861,21 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 
       // hoverable references
       $('span.citation[data-cites]').each(function() {
-        if ($(this).children()[0].nodeName == "D-FOOTNOTE") {
-          var fn = $(this).children()[0]
+        const citeChild = $(this).children()[0]
+        // Do not process if @xyz has been used without escaping and without bibliography activated
+        // https://github.com/rstudio/distill/issues/466
+        if (citeChild === undefined) return true
+
+        if (citeChild.nodeName == "D-FOOTNOTE") {
+          var fn = citeChild
           $(this).html(fn.shadowRoot.querySelector("sup"))
           $(this).id = fn.id
           fn.remove()
         }
         var refs = $(this).attr('data-cites').split(" ");
         var refHtml = refs.map(function(ref) {
-          return "<p>" + $('#ref-' + ref).html() + "</p>";
+          // Could use CSS.escape too here, we insure backward compatibility in navigator
+          return "<p>" + $('div[id="ref-' + ref + '"]').html() + "</p>";
         }).join("\n");
         window.tippy(this, {
           allowHTML: true,
@@ -2773,6 +2780,29 @@ function init_posts_list() {
 <div class="posts-container posts-with-sidebar posts-apply-limit l-screen-inset">
 <div class="posts-list">
 <h1 class="posts-list-caption" data-caption="Data Analysis Hub">Data Analysis Hub</h1>
+<a href="posts/2022-11-18-phase2-pdf/" class="post-preview">
+<script class="post-metadata" type="text/json">{"categories":["Panel Data","Stata","R","PDF","Data Analysis"]}</script>
+<div class="metadata">
+<div class="publishedDate">Nov. 18, 2022</div>
+<div class="dt-authors">
+<div class="dt-author">Matt Gunther</div>
+</div>
+</div>
+<div class="thumbnail">
+<img src="posts/2022-11-18-phase2-pdf/images/pdf.png"/>
+</div>
+<div class="description">
+<h2>Longitudinal Analysis Guide</h2>
+<div class="dt-tags">
+<div class="dt-tag">Panel Data</div>
+<div class="dt-tag">Stata</div>
+<div class="dt-tag">R</div>
+<div class="dt-tag">PDF</div>
+<div class="dt-tag">Data Analysis</div>
+</div>
+<p>Attention Stata users! Our blog series covering the first two phases of PMA panel data is now available in PDF format, with separate versions featuring examples in both R and Stata.</p>
+</div>
+</a>
 <a href="posts/2022-10-07-implant-removal/" class="post-preview">
 <script class="post-metadata" type="text/json">{"categories":["Data Analysis","Data Visualization","Measurement","Implants","LARCs"]}</script>
 <div class="metadata">
@@ -2874,7 +2904,7 @@ function init_posts_list() {
 </div>
 </div>
 <div class="thumbnail">
-<img src="posts/2022-07-15-facet-maps/facet-maps_files/figure-html5/unnamed-chunk-24-1.png"/>
+<img data-src="posts/2022-07-15-facet-maps/facet-maps_files/figure-html5/unnamed-chunk-24-1.png"/>
 </div>
 <div class="description">
 <h2>Arranging maps in a grid</h2>
@@ -3822,7 +3852,7 @@ function init_posts_list() {
 <ul>
 <li>
 <a href="#category:Articles">Articles</a>
-<span class="category-count">(45)</span>
+<span class="category-count">(46)</span>
 </li>
 <li>
 <a href="#category:ACLED">ACLED</a>
@@ -3886,7 +3916,7 @@ function init_posts_list() {
 </li>
 <li>
 <a href="#category:Data_Analysis">Data Analysis</a>
-<span class="category-count">(13)</span>
+<span class="category-count">(14)</span>
 </li>
 <li>
 <a href="#category:Data_Discovery">Data Discovery</a>
@@ -4046,7 +4076,11 @@ function init_posts_list() {
 </li>
 <li>
 <a href="#category:Panel_Data">Panel Data</a>
-<span class="category-count">(9)</span>
+<span class="category-count">(10)</span>
+</li>
+<li>
+<a href="#category:PDF">PDF</a>
+<span class="category-count">(1)</span>
 </li>
 <li>
 <a href="#category:pivot_longer">pivot_longer</a>
@@ -4074,6 +4108,10 @@ function init_posts_list() {
 </li>
 <li>
 <a href="#category:Quarto">Quarto</a>
+<span class="category-count">(1)</span>
+</li>
+<li>
+<a href="#category:R">R</a>
 <span class="category-count">(1)</span>
 </li>
 <li>
@@ -4142,7 +4180,7 @@ function init_posts_list() {
 </li>
 <li>
 <a href="#category:Stata">Stata</a>
-<span class="category-count">(2)</span>
+<span class="category-count">(3)</span>
 </li>
 <li>
 <a href="#category:StoryMaps">StoryMaps</a>
@@ -4214,8 +4252,7 @@ function init_posts_list() {
 
 
 <div class="d-article">
-<div class="sourceCode" id="cb1"><pre
-class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <!--radix_placeholder_article_footer-->
 <!--/radix_placeholder_article_footer-->
 </div>
