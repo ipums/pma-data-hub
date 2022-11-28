@@ -189,6 +189,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   d-article table.gt_table td,
   d-article table.gt_table th {
     border-bottom: none;
+    font-size: 100%;
   }
 
   .html-widget {
@@ -1261,15 +1262,21 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 
       // hoverable references
       $('span.citation[data-cites]').each(function() {
-        if ($(this).children()[0].nodeName == "D-FOOTNOTE") {
-          var fn = $(this).children()[0]
+        const citeChild = $(this).children()[0]
+        // Do not process if @xyz has been used without escaping and without bibliography activated
+        // https://github.com/rstudio/distill/issues/466
+        if (citeChild === undefined) return true
+
+        if (citeChild.nodeName == "D-FOOTNOTE") {
+          var fn = citeChild
           $(this).html(fn.shadowRoot.querySelector("sup"))
           $(this).id = fn.id
           fn.remove()
         }
         var refs = $(this).attr('data-cites').split(" ");
         var refHtml = refs.map(function(ref) {
-          return "<p>" + $('#ref-' + ref).html() + "</p>";
+          // Could use CSS.escape too here, we insure backward compatibility in navigator
+          return "<p>" + $('div[id="ref-' + ref + '"]').html() + "</p>";
         }).join("\n");
         window.tippy(this, {
           allowHTML: true,
@@ -1489,7 +1496,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <!--radix_placeholder_front_matter-->
 
 <script id="distill-front-matter" type="text/json">
-{"title":"Slide Presentations in R with Quarto","description":"We've been preparing for an upcoming workshop by building our first presentation with Quarto and Revealjs. Here's what we've learned so far.","authors":[{"author":"Matt Gunther","authorURL":"#","affiliation":"IPUMS PMA Senior Data Analyst","affiliationURL":"#","orcidID":""}],"publishedDate":"2022-07-01T00:00:00.000-05:00","citationText":"Gunther, 2022"}
+{"title":"Slide Presentations in R with Quarto","description":"We've been preparing for an upcoming workshop by building our first presentation with Quarto and Revealjs. Here's what we've learned so far.","authors":[{"author":"Matt Gunther","authorURL":"#","affiliation":"IPUMS PMA Senior Data Analyst","affiliationURL":"#","orcidID":""}],"publishedDate":"2022-07-01T00:00:00.000-04:00","citationText":"Gunther, 2022"}
 </script>
 
 <!--/radix_placeholder_front_matter-->
@@ -1509,9 +1516,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <div class="dt-tag">R Tips</div>
 </div>
 <!--/radix_placeholder_categories-->
-<p><p>We’ve been preparing for an upcoming workshop by building our
-first presentation with Quarto and Revealjs. Here’s what we’ve learned
-so far.</p></p>
+<p><p>We’ve been preparing for an upcoming workshop by building our first presentation with Quarto and Revealjs. Here’s what we’ve learned so far.</p></p>
 </div>
 
 <div class="d-byline">
@@ -1525,12 +1530,12 @@ so far.</p></p>
 <nav class="l-text toc figcaption" id="TOC">
 <h3>Contents</h3>
 <ul>
-<li><a href="#what-we-learned">What We Learned</a>
+<li><a href="#what-we-learned" id="toc-what-we-learned">What We Learned</a>
 <ul>
-<li><a href="#customization">Customization</a></li>
-<li><a href="#layout-and-animation">Layout and Animation</a></li>
+<li><a href="#customization" id="toc-customization">Customization</a></li>
+<li><a href="#layout-and-animation" id="toc-layout-and-animation">Layout and Animation</a></li>
 </ul></li>
-<li><a href="#other-resources">Other Resources</a></li>
+<li><a href="#other-resources" id="toc-other-resources">Other Resources</a></li>
 </ul>
 </nav>
 </div>
@@ -1554,111 +1559,50 @@ pre > code.sourceCode {
 }
 </style>
 </div>
-<p>This spring, it seemed like everyone in the R community was suddenly
-talking about <a href="https://quarto.org/">Quarto</a>, the new
-multi-language successor to <a
-href="https://rmarkdown.rstudio.com/">RMarkdown</a>.</p>
-<div
-style="width: 50%; margin: 10px auto; display: flex; max-width: 550px; margin-bottom: 20px;">
+<p>This spring, it seemed like everyone in the R community was suddenly talking about <a href="https://quarto.org/">Quarto</a>, the new multi-language successor to <a href="https://rmarkdown.rstudio.com/">RMarkdown</a>.</p>
+<div style="width: 50%; margin: 10px auto; display: flex; max-width: 550px; margin-bottom: 20px;">
 <blockquote class="twitter-tweet tw-align-center">
 <p lang="en" dir="ltr">
-Over the weekend, I wrote up my notes about using and teaching Quarto,
-based on my experiences working with the development team for over a
-year.<br><br>I think (hope?) it is safe to talk about it now
-😆<a href="https://t.co/qg98fEsW7g">https://t.co/qg98fEsW7g</a>
+Over the weekend, I wrote up my notes about using and teaching Quarto, based on my experiences working with the development team for over a year.<br><br>I think (hope?) it is safe to talk about it now 😆<a href="https://t.co/qg98fEsW7g">https://t.co/qg98fEsW7g</a>
 </p>
-— Alison Presmanes Hill (<span class="citation"
-data-cites="apreshill">@apreshill</span>)
-<a href="https://twitter.com/apreshill/status/1511143938450616320?ref_src=twsrc%5Etfw">April
-5, 2022</a>
+— Alison Presmanes Hill (<span class="citation" data-cites="apreshill">@apreshill</span>) <a href="https://twitter.com/apreshill/status/1511143938450616320?ref_src=twsrc%5Etfw">April 5, 2022</a>
 </blockquote>
 <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 </div>
-<p>Here at IPUMS PMA, we’ve been happy RMarkdown users for several
-years. After all, our blog is built entirely with <a
-href="https://rstudio.github.io/distill/">Distill for RMarkdown</a> -
-this allows readers to download every post as a fully executable R
-script right from our <a
-href="https://github.com/ipums/pma-data-hub">GitHub page</a>.
-Internally, we use RMarkdown for all kinds of everyday tasks like:</p>
+<p>Here at IPUMS PMA, we’ve been happy RMarkdown users for several years. After all, our blog is built entirely with <a href="https://rstudio.github.io/distill/">Distill for RMarkdown</a> - this allows readers to download every post as a fully executable R script right from our <a href="https://github.com/ipums/pma-data-hub">GitHub page</a>. Internally, we use RMarkdown for all kinds of everyday tasks like:</p>
 <ul>
 <li>writing shareable R code with full text comments</li>
-<li>automating the production of fully-formatted PDFs, Word, and Excel
-files</li>
+<li>automating the production of fully-formatted PDFs, Word, and Excel files</li>
 <li>building interactive Shiny applications for data exploration</li>
-<li>even <a
-href="https://bookdown.org/yihui/rmarkdown-cookbook/eng-stata.html">running
-Stata code</a> from a local installation of
-<code>StataSE-64.exe</code></li>
+<li>even <a href="https://bookdown.org/yihui/rmarkdown-cookbook/eng-stata.html">running Stata code</a> from a local installation of <code>StataSE-64.exe</code></li>
 </ul>
-<p>Fortunately, because Quarto and RMarkdown both use <a
-href="https://yihui.org/knitr/">Knitr</a>, it’s easy to upgrade! Almost
-everything we’ve ever made with RMarkdown can be rendered by Quarto
-(except for some changes to <a
-href="https://blog.djnavarro.net/posts/2022-04-20_porting-to-quarto/#notes-on-yaml-headers">YAML
-fields</a> in the header).</p>
-<p>One notable exception: we’ve previously used the popular <a
-href="https://github.com/yihui/xaringan">Xaringan</a> R package to
-create <strong>slide presentations</strong> with RMarkdown. Because
-Quarto is entirely built on <a href="https://pandoc.org/">Pandoc</a>, we
-figured it’s high time to adopt a Pandoc-defined output format, instead.
-Below is our first attempt at using <a
-href="https://quarto.org/docs/presentations/revealjs/">Revealjs</a> in
-Quarto!</p>
-<iframe style="border: 1px solid gray; height: 400px; margin-bottom: 40px;" src="https://matt-gunther.github.io/ined-pma-2022/slides.html">
-Browser not supported! Visit <a
-href="https://matt-gunther.github.io/ined-pma-2022/slides.html"
-class="uri">https://matt-gunther.github.io/ined-pma-2022/slides.html</a>
-for slides.
+<p>Fortunately, because Quarto and RMarkdown both use <a href="https://yihui.org/knitr/">Knitr</a>, it’s easy to upgrade! Almost everything we’ve ever made with RMarkdown can be rendered by Quarto (except for some changes to <a href="https://blog.djnavarro.net/posts/2022-04-20_porting-to-quarto/#notes-on-yaml-headers">YAML fields</a> in the header).</p>
+<p>One notable exception: we’ve previously used the popular <a href="https://github.com/yihui/xaringan">Xaringan</a> R package to create <strong>slide presentations</strong> with RMarkdown. Because Quarto is entirely built on <a href="https://pandoc.org/">Pandoc</a>, we figured it’s high time to adopt a Pandoc-defined output format, instead. Below is our first attempt at using <a href="https://quarto.org/docs/presentations/revealjs/">Revealjs</a> in Quarto!</p>
+<iframe style="border: 1px solid gray; height: 400px; margin-bottom: 40px;" src="https://ipums-global-health.github.io/ined-pma-2022/slides.html">
+Browser not supported! Visit <a href="https://ipums-global-health.github.io/ined-pma-2022/slides.html" class="uri">https://ipums-global-health.github.io/ined-pma-2022/slides.html</a> for slides.
 </iframe>
 <aside>
-<p>These slides will be presented at the upcoming workshop
-<strong>Population-environment-health: connecting pixels</strong> hosted
-at The French Institute for Demographic Studies in Paris on July 6.</p>
-<p>You can <a
-href="https://www.ined.fr/en/news/scientific-meetings/seminaries-colloque-ined/population-environment-health-connecting-pixels/">register
-here</a> to attend remotely!</p>
-<a
-href="https://matt-gunther.github.io/ined-pma-2022/slides.html#/title-slide">Click
-here</a> to view the slides in a full-screen browser window, and <a
-href="https://github.com/matt-gunther/ined-pma-2022">here</a> for code
-and toy datasets discussed in the slides.
+<p>These slides will be presented at the upcoming workshop <strong>Population-environment-health: connecting pixels</strong> hosted at The French Institute for Demographic Studies in Paris on July 6.</p>
+<p>You can <a href="https://www.ined.fr/en/news/scientific-meetings/seminaries-colloque-ined/population-environment-health-connecting-pixels/">register here</a> to attend remotely!</p>
+<a href="https://ipums-global-health.github.io/ined-pma-2022/slides.html#/title-slide">Click here</a> to view the slides in a full-screen browser window, and <a href="https://github.com/matt-gunther/ined-pma-2022">here</a> for code and toy datasets discussed in the slides.
 </aside>
 <h1 id="what-we-learned">What We Learned</h1>
-<p>If you’ve ever built slides in RMarkdown before, the basics you’ll
-need to get started with RevealJS in Quarto will be very familiar.
-First, we <a href="https://quarto.org/docs/get-started/">downloaded
-Quarto</a> and created a new <a
-href="https://support.rstudio.com/hc/en-us/articles/200526207-Using-RStudio-Projects">RStudio
-project</a> containing a file called <code>slides.qmd</code>. We also
-created a few subfolders:</p>
+<p>If you’ve ever built slides in RMarkdown before, the basics you’ll need to get started with RevealJS in Quarto will be very familiar. First, we <a href="https://quarto.org/docs/get-started/">downloaded Quarto</a> and created a new <a href="https://support.rstudio.com/hc/en-us/articles/200526207-Using-RStudio-Projects">RStudio project</a> containing a file called <code>slides.qmd</code>. We also created a few subfolders:</p>
 <ul>
-<li><code>data</code> includes the toy datasets featured in our
-workshop</li>
-<li><code>images</code> includes any image that appears on a slide
-(including <code>gifs</code> and <code>png</code> files)</li>
-<li><code>slides_files</code> is created automatically when
-<code>slides.qmd</code> is rendered</li>
+<li><code>data</code> includes the toy datasets featured in our workshop</li>
+<li><code>images</code> includes any image that appears on a slide (including <code>gifs</code> and <code>png</code> files)</li>
+<li><code>slides_files</code> is created automatically when <code>slides.qmd</code> is rendered</li>
 </ul>
-<p>The <code>slides.qmd</code> file looks very much like a standard
-RMarkdown file divided by several headings, each representing a new
-slide. Title slides for major sections can be created with a level-1
-heading (<code>#</code>) like this:</p>
+<p>The <code>slides.qmd</code> file looks very much like a standard RMarkdown file divided by several headings, each representing a new slide. Title slides for major sections can be created with a level-1 heading (<code>#</code>) like this:</p>
 <div class="layout-chunk" data-layout="l-body">
-<div class="sourceCode" id="cb1"><pre
-class="sourceCode default"><code class="sourceCode default"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a># 1 - IPUMS PMA DATA</span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode default"><code class="sourceCode default"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a># 1 - IPUMS PMA DATA</span></code></pre></div>
 </div>
-<iframe style="border: 1px solid gray; height: 400px; margin-bottom: 40px;" src="https://matt-gunther.github.io/ined-pma-2022/slides.html#/ipums-pma-data">
-Browser not supported! Visit <a
-href="https://matt-gunther.github.io/ined-pma-2022/slides.html"
-class="uri">https://matt-gunther.github.io/ined-pma-2022/slides.html</a>
-for slides.
+<iframe style="border: 1px solid gray; height: 400px; margin-bottom: 40px;" src="https://ipums-global-health.github.io/ined-pma-2022/slides.html#/ipums-pma-data">
+Browser not supported! Visit <a href="https://ipums-global-health.github.io/ined-pma-2022/slides.html" class="uri">https://ipums-global-health.github.io/ined-pma-2022/slides.html</a> for slides.
 </iframe>
-<p>Within sections, we built individual slides with titles set by
-level-2 headings (<code>##</code>) like this:</p>
+<p>Within sections, we built individual slides with titles set by level-2 headings (<code>##</code>) like this:</p>
 <div class="layout-chunk" data-layout="l-body">
-<div class="sourceCode" id="cb2"><pre
-class="sourceCode default"><code class="sourceCode default"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>## Mapping Birth Outcomes by EA</span>
+<div class="sourceCode" id="cb2"><pre class="sourceCode default"><code class="sourceCode default"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>## Mapping Birth Outcomes by EA</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>```{r, fig.height=4, fig.align=&#39;center&#39;}</span>
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>ggplot() + </span>
@@ -1667,26 +1611,16 @@ class="sourceCode default"><code class="sourceCode default"><span id="cb2-1"><a 
 <span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>  theme_minimal()</span>
 <span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>```</span></code></pre></div>
 </div>
-<iframe style="border: 1px solid gray; height: 400px; margin-bottom: 40px;" src="https://matt-gunther.github.io/ined-pma-2022/slides.html#/mapping-birth-outcomes-by-ea">
-Browser not supported! Visit <a
-href="https://matt-gunther.github.io/ined-pma-2022/slides.html"
-class="uri">https://matt-gunther.github.io/ined-pma-2022/slides.html</a>
-for slides.
+<iframe style="border: 1px solid gray; height: 400px; margin-bottom: 40px;" src="https://ipums-global-health.github.io/ined-pma-2022/slides.html#/mapping-birth-outcomes-by-ea">
+Browser not supported! Visit <a href="https://ipums-global-health.github.io/ined-pma-2022/slides.html" class="uri">https://ipums-global-health.github.io/ined-pma-2022/slides.html</a> for slides.
 </iframe>
 <aside>
 You can also use <code>---</code> to insert a slide with no title.
 </aside>
 <h2 id="customization">Customization</h2>
-<p>As you can see above, we’ve incorporated the same fonts that appear
-on our blog and across all IPUMS websites. These are applied in a
-<code>custom.scss</code> file in the root folder for our project. We’re
-certainly not experts at CSS, but this file was easy to build because
-Quarto provides great documentation for pre-defined <a
-href="https://quarto.org/docs/output-formats/html-themes.html#sass-variables">Sass
-Variables</a>. Our <code>custom.scss</code> file looks like this:</p>
+<p>As you can see above, we’ve incorporated the same fonts that appear on our blog and across all IPUMS websites. These are applied in a <code>custom.scss</code> file in the root folder for our project. We’re certainly not experts at CSS, but this file was easy to build because Quarto provides great documentation for pre-defined <a href="https://quarto.org/docs/output-formats/html-themes.html#sass-variables">Sass Variables</a>. Our <code>custom.scss</code> file looks like this:</p>
 <div class="layout-chunk" data-layout="l-body">
-<div class="sourceCode" id="cb3"><pre
-class="sourceCode css"><code class="sourceCode css"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co">/*-- scss:defaults --*/</span></span>
+<div class="sourceCode" id="cb3"><pre class="sourceCode css"><code class="sourceCode css"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co">/*-- scss:defaults --*/</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>$font-family-sans-serif<span class="in">: cabrito</span>_sans_norm_regular;</span>
 <span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>$presentation-heading-font<span class="in">: cabrito</span>_sans_norm_regular;</span>
@@ -1749,15 +1683,11 @@ class="sourceCode css"><code class="sourceCode css"><span id="cb3-1"><a href="#c
 </tbody>
 </table>
 <aside>
-<a
-href="https://quarto.org/docs/output-formats/html-themes.html#sass-variables">Click
-here</a> to see a list of all available Sass variables.
+<a href="https://quarto.org/docs/output-formats/html-themes.html#sass-variables">Click here</a> to see a list of all available Sass variables.
 </aside>
-<p>Addtionally, we specified a few global settings in the YAML header of
-the <code>slides.qmd</code> file.</p>
+<p>Addtionally, we specified a few global settings in the YAML header of the <code>slides.qmd</code> file.</p>
 <div class="layout-chunk" data-layout="l-body">
-<div class="sourceCode" id="cb4"><pre
-class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">format</span><span class="kw">:</span><span class="at"> </span></span>
+<div class="sourceCode" id="cb4"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">format</span><span class="kw">:</span><span class="at"> </span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">revealjs</span><span class="kw">:</span><span class="at"> </span></span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">theme</span><span class="kw">:</span><span class="at"> </span><span class="kw">[</span><span class="at">default</span><span class="kw">,</span><span class="at"> custom.scss</span><span class="kw">]</span></span>
 <span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">logo</span><span class="kw">:</span><span class="at"> images/logo-navy.png</span></span>
@@ -1781,15 +1711,11 @@ class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb4-1"><a href="
 <tbody>
 <tr class="odd">
 <td>theme</td>
-<td>Use the <a
-href="https://quarto.org/docs/output-formats/html-themes.html#overview">default</a>
-Bootstrap 5 theme, except where our <code>custom.scss</code> file says
-otherwise</td>
+<td>Use the <a href="https://quarto.org/docs/output-formats/html-themes.html#overview">default</a> Bootstrap 5 theme, except where our <code>custom.scss</code> file says otherwise</td>
 </tr>
 <tr class="even">
 <td>logo</td>
-<td>Path the the IPUMS PMA logo image (inserted in the bottom-right of
-each slide)</td>
+<td>Path the the IPUMS PMA logo image (inserted in the bottom-right of each slide)</td>
 </tr>
 <tr class="odd">
 <td>chalkboard</td>
@@ -1797,18 +1723,15 @@ each slide)</td>
 </tr>
 <tr class="even">
 <td>smaller</td>
-<td>Proportional size adjustment for all fonts (set in
-<code>custom.scss</code>)</td>
+<td>Proportional size adjustment for all fonts (set in <code>custom.scss</code>)</td>
 </tr>
 <tr class="odd">
 <td>scrollable</td>
-<td>Disable scrolling: we wanted to adjust figure sizes manually so that
-everything fits on the page</td>
+<td>Disable scrolling: we wanted to adjust figure sizes manually so that everything fits on the page</td>
 </tr>
 <tr class="even">
 <td>incremental</td>
-<td>Display bullets and content in <code>fragment</code> tags
-incrementally (on click)</td>
+<td>Display bullets and content in <code>fragment</code> tags incrementally (on click)</td>
 </tr>
 <tr class="odd">
 <td>preview-links</td>
@@ -1817,13 +1740,9 @@ incrementally (on click)</td>
 </tbody>
 </table>
 <h2 id="layout-and-animation">Layout and Animation</h2>
-<p>One thing that took practice: creating multiple columns with <a
-href="https://pandoc.org/MANUAL.html#extension-fenced_divs">fenced
-div</a> containers! A typical multi-column slides looks something like
-this:</p>
+<p>One thing that took practice: creating multiple columns with <a href="https://pandoc.org/MANUAL.html#extension-fenced_divs">fenced div</a> containers! A typical multi-column slides looks something like this:</p>
 <div class="layout-chunk" data-layout="l-body">
-<div class="sourceCode" id="cb5"><pre
-class="sourceCode default"><code class="sourceCode default"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>## Downloading IPUMS PMA data {.center .nonincremental}</span>
+<div class="sourceCode" id="cb5"><pre class="sourceCode default"><code class="sourceCode default"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>## Downloading IPUMS PMA data {.center .nonincremental}</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>::: {.columns}</span>
 <span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>:::: {.column width=&quot;50%&quot;}</span>
@@ -1846,27 +1765,14 @@ class="sourceCode default"><code class="sourceCode default"><span id="cb5-1"><a 
 <span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a>:::</span></code></pre></div>
 </div>
 <aside>
-Notice that we’re trying to show all bullets at once (rather than
-incrementally) by setting the slide option <code>.nonincremental</code>.
-As you can see, we’re still learning: the bullets show up incrementally
-anyway 😬
+Notice that we’re trying to show all bullets at once (rather than incrementally) by setting the slide option <code>.nonincremental</code>. As you can see, we’re still learning: the bullets show up incrementally anyway 😬
 </aside>
-<iframe style="border: 1px solid gray; height: 400px; margin-bottom: 40px;" src="https://matt-gunther.github.io/ined-pma-2022/slides.html#/downloading-ipums-pma-data">
-Browser not supported! Visit <a
-href="https://matt-gunther.github.io/ined-pma-2022/slides.html"
-class="uri">https://matt-gunther.github.io/ined-pma-2022/slides.html</a>
-for slides.
+<iframe style="border: 1px solid gray; height: 400px; margin-bottom: 40px;" src="https://ipums-global-health.github.io/ined-pma-2022/slides.html#/downloading-ipums-pma-data">
+Browser not supported! Visit <a href="https://ipums-global-health.github.io/ined-pma-2022/slides.html" class="uri">https://ipums-global-health.github.io/ined-pma-2022/slides.html</a> for slides.
 </iframe>
-<p>This works great, but things can get complicated quickly. In this
-slide, we wanted to show several sentences incrementally on the left
-column, but we didn’t want to waste space with bullets. Instead, we
-inserted <code>.fragment</code> tags around the text we wanted to
-highlight in each step. Then, we added the option
-<code>.fade-in-then-semi-out</code> to fade the color of each point once
-we’d moved on the the next one.</p>
+<p>This works great, but things can get complicated quickly. In this slide, we wanted to show several sentences incrementally on the left column, but we didn’t want to waste space with bullets. Instead, we inserted <code>.fragment</code> tags around the text we wanted to highlight in each step. Then, we added the option <code>.fade-in-then-semi-out</code> to fade the color of each point once we’d moved on the the next one.</p>
 <div class="layout-chunk" data-layout="l-body">
-<div class="sourceCode" id="cb6"><pre
-class="sourceCode default"><code class="sourceCode default"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>## About PMA GPS data {auto-animate=&quot;true&quot;}</span>
+<div class="sourceCode" id="cb6"><pre class="sourceCode default"><code class="sourceCode default"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>## About PMA GPS data {auto-animate=&quot;true&quot;}</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>::: {.columns}</span>
 <span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>:::: {.column width=&quot;60%&quot;}</span>
@@ -1881,16 +1787,9 @@ class="sourceCode default"><code class="sourceCode default"><span id="cb6-1"><a 
 <span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>::::</span>
 <span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>::: </span></code></pre></div>
 </div>
-<p>After the first two sentences, we wanted to show a figure in the
-right column representing a PMA sample cluster <em>before</em> moving on
-to the next two sentences. The easiest way we found to do this was to
-create a duplicate slide where the first two sentences were faded right
-away. It took quite a bit of trial-and-error to get the size and
-<code>.absolute</code> position of our figure just the way we
-wanted!</p>
+<p>After the first two sentences, we wanted to show a figure in the right column representing a PMA sample cluster <em>before</em> moving on to the next two sentences. The easiest way we found to do this was to create a duplicate slide where the first two sentences were faded right away. It took quite a bit of trial-and-error to get the size and <code>.absolute</code> position of our figure just the way we wanted!</p>
 <div class="layout-chunk" data-layout="l-body">
-<div class="sourceCode" id="cb7"><pre
-class="sourceCode default"><code class="sourceCode default"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>## About PMA GPS data {auto-animate=&quot;true&quot; visibility=&quot;uncounted&quot;}</span>
+<div class="sourceCode" id="cb7"><pre class="sourceCode default"><code class="sourceCode default"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>## About PMA GPS data {auto-animate=&quot;true&quot; visibility=&quot;uncounted&quot;}</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>::: {.columns}</span>
 <span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>:::: {.column width=&quot;60%&quot;}</span>
@@ -1911,18 +1810,9 @@ class="sourceCode default"><code class="sourceCode default"><span id="cb7-1"><a 
 <span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a>::::</span>
 <span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a>::: </span></code></pre></div>
 </div>
-<p>Next, we wanted to demonstrate that we’d be using <em>falsified</em>
-locations for sample clusters in the workshop. In short, we’d created a
-toy version of the GPS data researchers can obtain from PMA, whereby we
-jittered each point in a random direction by a random distance within a
-preset range. To illustrate, we used the RevealJS <a
-href="https://quarto.org/docs/presentations/revealjs/advanced.html#auto-animate">auto-animate</a>
-feature to drag the position of our figure across the slide. This
-required a second duplicate slide with a new <code>.absolute</code>
-position for our figure.</p>
+<p>Next, we wanted to demonstrate that we’d be using <em>falsified</em> locations for sample clusters in the workshop. In short, we’d created a toy version of the GPS data researchers can obtain from PMA, whereby we jittered each point in a random direction by a random distance within a preset range. To illustrate, we used the RevealJS <a href="https://quarto.org/docs/presentations/revealjs/advanced.html#auto-animate">auto-animate</a> feature to drag the position of our figure across the slide. This required a second duplicate slide with a new <code>.absolute</code> position for our figure.</p>
 <div class="layout-chunk" data-layout="l-body">
-<div class="sourceCode" id="cb8"><pre
-class="sourceCode default"><code class="sourceCode default"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>## About PMA GPS data {auto-animate=&quot;true&quot; visibility=&quot;uncounted&quot;}</span>
+<div class="sourceCode" id="cb8"><pre class="sourceCode default"><code class="sourceCode default"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>## About PMA GPS data {auto-animate=&quot;true&quot; visibility=&quot;uncounted&quot;}</span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>::: {.columns}</span>
 <span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>:::: {.column width=&quot;60%&quot;}</span>
@@ -1940,14 +1830,9 @@ class="sourceCode default"><code class="sourceCode default"><span id="cb8-1"><a 
 <span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a>::::</span>
 <span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a>::: </span></code></pre></div>
 </div>
-<p>Finally, we wanted to emphasize that our data only provide the
-<em>centroid</em> of a randomly displaced sample cluster, <em>not</em>
-the location of any household within the cluster. We added one more
-duplicate slide, except that it shows a modified figure with a red
-<code>+</code> sign in the middle.</p>
+<p>Finally, we wanted to emphasize that our data only provide the <em>centroid</em> of a randomly displaced sample cluster, <em>not</em> the location of any household within the cluster. We added one more duplicate slide, except that it shows a modified figure with a red <code>+</code> sign in the middle.</p>
 <div class="layout-chunk" data-layout="l-body">
-<div class="sourceCode" id="cb9"><pre
-class="sourceCode default"><code class="sourceCode default"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>## About PMA GPS data {auto-animate=&quot;true&quot; visibility=&quot;uncounted&quot;}</span>
+<div class="sourceCode" id="cb9"><pre class="sourceCode default"><code class="sourceCode default"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>## About PMA GPS data {auto-animate=&quot;true&quot; visibility=&quot;uncounted&quot;}</span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>::: {.columns}</span>
 <span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>:::: {.column width=&quot;60%&quot;}</span>
@@ -1969,24 +1854,13 @@ class="sourceCode default"><code class="sourceCode default"><span id="cb9-1"><a 
 <span id="cb9-20"><a href="#cb9-20" aria-hidden="true" tabindex="-1"></a>::: </span></code></pre></div>
 </div>
 <p>The result looks like this:</p>
-<iframe style="border: 1px solid gray; height: 400px; margin-bottom: 40px;" src="https://matt-gunther.github.io/ined-pma-2022/slides.html#/about-pma-gps-data">
-Browser not supported! Visit <a
-href="https://matt-gunther.github.io/ined-pma-2022/slides.html"
-class="uri">https://matt-gunther.github.io/ined-pma-2022/slides.html</a>
-for slides.
+<iframe style="border: 1px solid gray; height: 400px; margin-bottom: 40px;" src="https://ipums-global-health.github.io/ined-pma-2022/slides.html#/about-pma-gps-data">
+Browser not supported! Visit <a href="https://ipums-global-health.github.io/ined-pma-2022/slides.html" class="uri">https://ipums-global-health.github.io/ined-pma-2022/slides.html</a> for slides.
 </iframe>
-<p>You can also use animation together with <a
-href="https://quarto.org/docs/presentations/revealjs/#line-highlighting">line
-highlighting</a> to incrementally build complex coding examples. Here,
-we use three copies of the same slide to show how we summarise births by
-enumeration area, and then divide all enumeration areas into upper and
-lower halves.</p>
-<p>In each duplicate slide, we use <code>code-line-numbers</code> to
-specify highlighting for a different line in the subsequent code
-chunk.</p>
+<p>You can also use animation together with <a href="https://quarto.org/docs/presentations/revealjs/#line-highlighting">line highlighting</a> to incrementally build complex coding examples. Here, we use three copies of the same slide to show how we summarise births by enumeration area, and then divide all enumeration areas into upper and lower halves.</p>
+<p>In each duplicate slide, we use <code>code-line-numbers</code> to specify highlighting for a different line in the subsequent code chunk.</p>
 <div class="layout-chunk" data-layout="l-body">
-<div class="sourceCode" id="cb10"><pre
-class="sourceCode default"><code class="sourceCode default"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>## Birth outcomes by EA {auto-animate=true}</span>
+<div class="sourceCode" id="cb10"><pre class="sourceCode default"><code class="sourceCode default"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>## Birth outcomes by EA {auto-animate=true}</span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>::: {.fragment .fade-in}</span>
 <span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>Where are the enumeration areas where more women gave birth than average? </span>
@@ -2046,46 +1920,21 @@ class="sourceCode default"><code class="sourceCode default"><span id="cb10-1"><a
 <span id="cb10-58"><a href="#cb10-58" aria-hidden="true" tabindex="-1"></a>ea_summary </span>
 <span id="cb10-59"><a href="#cb10-59" aria-hidden="true" tabindex="-1"></a>```</span></code></pre></div>
 </div>
-<iframe style="border: 1px solid gray; height: 400px; margin-bottom: 40px;" src="https://matt-gunther.github.io/ined-pma-2022/slides.html#/birth-outcomes-by-ea">
-Browser not supported! Visit <a
-href="https://matt-gunther.github.io/ined-pma-2022/slides.html"
-class="uri">https://matt-gunther.github.io/ined-pma-2022/slides.html</a>
-for slides.
+<iframe style="border: 1px solid gray; height: 400px; margin-bottom: 40px;" src="https://ipums-global-health.github.io/ined-pma-2022/slides.html#/birth-outcomes-by-ea">
+Browser not supported! Visit <a href="https://ipums-global-health.github.io/ined-pma-2022/slides.html" class="uri">https://ipums-global-health.github.io/ined-pma-2022/slides.html</a> for slides.
 </iframe>
 <h1 id="other-resources">Other Resources</h1>
-<p>Needless to say, we’ve very excited about Revealjs and all of the
-other new features made possible by Quarto! At the same time, we have a
-lot to learn (particularly around interactivity and custom styling). If
-you, too, are experimenting with your first Quarto project, we’d
-recommend any of these great resources to help get started:</p>
+<p>Needless to say, we’ve very excited about Revealjs and all of the other new features made possible by Quarto! At the same time, we have a lot to learn (particularly around interactivity and custom styling). If you, too, are experimenting with your first Quarto project, we’d recommend any of these great resources to help get started:</p>
 <ul>
-<li>“A Quarto Tip a Day” from <a
-href="https://twitter.com/quarto_pub">@quarto_pub</a> on Twitter</li>
-<li><a href="https://quarto.org/docs/guide/">Quarto
-Documentation</a></li>
-<li><a href="https://apreshill.github.io/palmerpenguins-useR-2022/">The
-Untold Story of Palmerpenguins</a> - a stellar Revealjs presentation by
-Drs. Kristen Gorman, Allison Horst, and Alison Hill given at the 2022 <a
-href="https://user2022.r-project.org/">useR!</a> conference</li>
-<li><a
-href="https://www.apreshill.com/blog/2022-04-we-dont-talk-about-quarto/">We
-don’t talk about Quarto</a> from Dr. Allison Hill</li>
-<li><a href="https://yihui.org/en/2022/04/quarto-r-markdown/">With
-Quarto Coming, is R Markdown Going Away? No.</a> - great explainer by
-Dr. Yihui Xie, principal author of the Knitr R package (any many
-others!)</li>
-<li><a
-href="https://blog.djnavarro.net/posts/2022-04-20_porting-to-quarto/">Porting
-a Distill blog to Quarto</a> - from R devoloper / data scientist
-Dr. Danielle Navarro, a guide to blogging with Quarto (a change we’re
-not likely to make soon, ourselves)</li>
-<li><a
-href="https://www.njtierney.com/post/2022/04/11/rmd-to-qmd/">Notes on
-Changing from Rmarkdown/Bookdown to Quarto</a> - for authors interested
-in writing their next book in Quarto, courtesy of Dr. Nick Tierney</li>
+<li>“A Quarto Tip a Day” from <a href="https://twitter.com/quarto_pub">@quarto_pub</a> on Twitter</li>
+<li><a href="https://quarto.org/docs/guide/">Quarto Documentation</a></li>
+<li><a href="https://apreshill.github.io/palmerpenguins-useR-2022/">The Untold Story of Palmerpenguins</a> - a stellar Revealjs presentation by Drs. Kristen Gorman, Allison Horst, and Alison Hill given at the 2022 <a href="https://user2022.r-project.org/">useR!</a> conference</li>
+<li><a href="https://www.apreshill.com/blog/2022-04-we-dont-talk-about-quarto/">We don’t talk about Quarto</a> from Dr. Allison Hill</li>
+<li><a href="https://yihui.org/en/2022/04/quarto-r-markdown/">With Quarto Coming, is R Markdown Going Away? No.</a> - great explainer by Dr. Yihui Xie, principal author of the Knitr R package (any many others!)</li>
+<li><a href="https://blog.djnavarro.net/posts/2022-04-20_porting-to-quarto/">Porting a Distill blog to Quarto</a> - from R devoloper / data scientist Dr. Danielle Navarro, a guide to blogging with Quarto (a change we’re not likely to make soon, ourselves)</li>
+<li><a href="https://www.njtierney.com/post/2022/04/11/rmd-to-qmd/">Notes on Changing from Rmarkdown/Bookdown to Quarto</a> - for authors interested in writing their next book in Quarto, courtesy of Dr. Nick Tierney</li>
 </ul>
-<div class="sourceCode" id="cb11"><pre
-class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <!--radix_placeholder_article_footer-->
 <!--/radix_placeholder_article_footer-->
 </div>

@@ -12,7 +12,22 @@
       <link>https://ipums.github.io/pma-data-hub/</link>
     </image>
     <generator>Distill</generator>
-    <lastBuildDate>Fri, 18 Nov 2022 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 28 Nov 2022 00:00:00 +0000</lastBuildDate>
+    <item>
+      <title>ICFP Workshop: Reasons for Unmet Need</title>
+      <dc:creator>Matt Gunther</dc:creator>
+      <link>https://ipums.github.io/pma-data-hub/posts/2022-11-28-icfp</link>
+      <description>IPUMS PMA hosted a coding workshop at the International Conference on Family Planning in Pattaya City, Thailand this month. Slides for both R and Stata users are available here!</description>
+      <category>Unmet Need</category>
+      <category>Stata</category>
+      <category>R</category>
+      <category>Data Analysis</category>
+      <category>Slides</category>
+      <category>Quarto</category>
+      <guid>https://ipums.github.io/pma-data-hub/posts/2022-11-28-icfp</guid>
+      <pubDate>Mon, 28 Nov 2022 00:00:00 +0000</pubDate>
+      <media:content url="https://ipums.github.io/pma-data-hub/posts/2022-11-28-icfp/images/featured.png" medium="image" type="image/png" width="1440" height="820"/>
+    </item>
     <item>
       <title>Longitudinal Analysis Guide</title>
       <dc:creator>Matt Gunther</dc:creator>

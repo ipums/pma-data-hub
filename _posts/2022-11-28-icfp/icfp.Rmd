@@ -1,0 +1,49 @@
+---
+title: "ICFP Workshop: Reasons for Unmet Need"
+description: |
+  IPUMS PMA hosted a coding workshop at the International Conference on Family Planning in Pattaya City, Thailand this month. Slides for both R and Stata users are available here! 
+date: 2022-11-28
+author:
+  - name: Matt Gunther
+    affiliation: IPUMS PMA Senior Data Analyst
+categories:
+  - Unmet Need
+  - Stata
+  - R 
+  - Data Analysis 
+  - Slides 
+  - Quarto
+output:
+  distill::distill_article:
+    self_contained: false
+    toc: false
+preview: images/featured.png
+---
+
+This month, IPUMS PMA staff were excited to join researchers and advocates from around the world at the [International Conference on Family Planning](https://icfp2022.org/) in Pattaya City, Thailand. Several faculty, graduate students, and post-doctoral researchers were on hand to discuss ongoing research projects featuring PMA data, and IPUMS PMA staff also hosted a pre-conference coding workshop showcasing PMA data addressing **unmet need** for family planning. 
+
+Slides from the workshop are available to guide both **R** and **Stata** users, and Stata slides have been translated in **French** (we hope to release a French translation of the R slides soon, as well). You can also find these and other workshop materials on the [IPUMS Global Health GitHub](https://github.com/IPUMS-Global-Health) page.
+
+<aside>
+These [RevealJS](https://quarto.org/docs/presentations/revealjs/) slides were built in R with [Quarto](https://quarto.org/). 
+</aside>
+
+# Stata Users 
+
+## English version
+
+<iframe  style="border: 1px solid gray; height: 400px; margin-bottom: 40px;" src="https://ipums-global-health.github.io/icfp22/stata_slides.html">
+  Browser not supported! Visit https://ipums-global-health.github.io/icfp22/stata_slides.html for slides.
+</iframe>
+
+## French version
+
+<iframe  style="border: 1px solid gray; height: 400px; margin-bottom: 40px;" src="https://ipums-global-health.github.io/icfp22/fr_stata.html">
+  Browser not supported! Visit https://ipums-global-health.github.io/icfp22/stata_slides.html for slides.
+</iframe>
+
+# R Users
+
+<iframe  style="border: 1px solid gray; height: 400px; margin-bottom: 40px;" src="https://ipums-global-health.github.io/icfp22/r_slides.html">
+  Browser not supported! Visit https://ipums-global-health.github.io/icfp22/r_slides.html for slides.
+</iframe>

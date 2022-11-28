@@ -61,8 +61,8 @@ Fortunately, because Quarto and RMarkdown both use [Knitr](https://yihui.org/kni
 
 One notable exception: we've previously used the popular [Xaringan](https://github.com/yihui/xaringan) R package to create **slide presentations** with RMarkdown. Because Quarto is entirely built on [Pandoc](https://pandoc.org/), we figured it's high time to adopt a Pandoc-defined output format, instead. Below is our first attempt at using [Revealjs](https://quarto.org/docs/presentations/revealjs/) in Quarto! 
 
-<iframe  style="border: 1px solid gray; height: 400px; margin-bottom: 40px;" src="https://matt-gunther.github.io/ined-pma-2022/slides.html">
-  Browser not supported! Visit https://matt-gunther.github.io/ined-pma-2022/slides.html for slides.
+<iframe  style="border: 1px solid gray; height: 400px; margin-bottom: 40px;" src="https://ipums-global-health.github.io/ined-pma-2022/slides.html">
+  Browser not supported! Visit https://ipums-global-health.github.io/ined-pma-2022/slides.html for slides.
 </iframe>
 
 <aside>
@@ -70,7 +70,7 @@ These slides will be presented at the upcoming workshop **Population-environment
 
 You can [register here](https://www.ined.fr/en/news/scientific-meetings/seminaries-colloque-ined/population-environment-health-connecting-pixels/) to attend remotely!
 
-[Click here](https://matt-gunther.github.io/ined-pma-2022/slides.html#/title-slide) to view the slides in a full-screen browser window, and [here](https://github.com/matt-gunther/ined-pma-2022) for code and toy datasets discussed in the slides. 
+[Click here](https://ipums-global-health.github.io/ined-pma-2022/slides.html#/title-slide) to view the slides in a full-screen browser window, and [here](https://github.com/matt-gunther/ined-pma-2022) for code and toy datasets discussed in the slides. 
 </aside>
 
 # What We Learned 
@@ -87,8 +87,8 @@ The `slides.qmd` file looks very much like a standard RMarkdown file divided by 
 # 1 - IPUMS PMA DATA
 ```
 
-<iframe  style="border: 1px solid gray; height: 400px; margin-bottom: 40px;" src="https://matt-gunther.github.io/ined-pma-2022/slides.html#/ipums-pma-data">
-  Browser not supported! Visit https://matt-gunther.github.io/ined-pma-2022/slides.html for slides.
+<iframe  style="border: 1px solid gray; height: 400px; margin-bottom: 40px;" src="https://ipums-global-health.github.io/ined-pma-2022/slides.html#/ipums-pma-data">
+  Browser not supported! Visit https://ipums-global-health.github.io/ined-pma-2022/slides.html for slides.
 </iframe>
 
 Within sections, we built individual slides with titles set by level-2 headings (`##`) like this:
@@ -104,8 +104,8 @@ ggplot() +
 ```
 ````
 
-<iframe  style="border: 1px solid gray; height: 400px; margin-bottom: 40px;" src="https://matt-gunther.github.io/ined-pma-2022/slides.html#/mapping-birth-outcomes-by-ea">
-  Browser not supported! Visit https://matt-gunther.github.io/ined-pma-2022/slides.html for slides.
+<iframe  style="border: 1px solid gray; height: 400px; margin-bottom: 40px;" src="https://ipums-global-health.github.io/ined-pma-2022/slides.html#/mapping-birth-outcomes-by-ea">
+  Browser not supported! Visit https://ipums-global-health.github.io/ined-pma-2022/slides.html for slides.
 </iframe>
 
 <aside>
@@ -202,8 +202,8 @@ One thing that took practice: creating multiple columns with [fenced div](https:
 Notice that we're trying to show all bullets at once (rather than incrementally) by setting the slide option `.nonincremental`. As you can see, we're still learning: the bullets show up incrementally anyway 😬 
 </aside>
 
-<iframe  style="border: 1px solid gray; height: 400px; margin-bottom: 40px;" src="https://matt-gunther.github.io/ined-pma-2022/slides.html#/downloading-ipums-pma-data">
-  Browser not supported! Visit https://matt-gunther.github.io/ined-pma-2022/slides.html for slides.
+<iframe  style="border: 1px solid gray; height: 400px; margin-bottom: 40px;" src="https://ipums-global-health.github.io/ined-pma-2022/slides.html#/downloading-ipums-pma-data">
+  Browser not supported! Visit https://ipums-global-health.github.io/ined-pma-2022/slides.html for slides.
 </iframe>
 
 This works great, but things can get complicated quickly. In this slide, we wanted to show several sentences incrementally on the left column, but we didn't want to waste space with bullets. Instead, we inserted `.fragment` tags around the text we wanted to highlight in each step. Then, we added the option `.fade-in-then-semi-out` to fade the color of each point once we'd moved on the the next one.
@@ -299,8 +299,8 @@ The coordinates represent the <span style="color:red">**centroid**</span> of an 
 
 The result looks like this: 
 
-<iframe  style="border: 1px solid gray; height: 400px; margin-bottom: 40px;" src="https://matt-gunther.github.io/ined-pma-2022/slides.html#/about-pma-gps-data">
-  Browser not supported! Visit https://matt-gunther.github.io/ined-pma-2022/slides.html for slides.
+<iframe  style="border: 1px solid gray; height: 400px; margin-bottom: 40px;" src="https://ipums-global-health.github.io/ined-pma-2022/slides.html#/about-pma-gps-data">
+  Browser not supported! Visit https://ipums-global-health.github.io/ined-pma-2022/slides.html for slides.
 </iframe>
 
 You can also use animation together with [line highlighting](https://quarto.org/docs/presentations/revealjs/#line-highlighting) to incrementally build complex coding examples. Here, we use three copies of the same slide to show how we summarise births by enumeration area, and then divide all enumeration areas into upper and lower halves. 
@@ -369,8 +369,8 @@ ea_summary
 ```
 ````
 
-<iframe  style="border: 1px solid gray; height: 400px; margin-bottom: 40px;" src="https://matt-gunther.github.io/ined-pma-2022/slides.html#/birth-outcomes-by-ea">
-  Browser not supported! Visit https://matt-gunther.github.io/ined-pma-2022/slides.html for slides.
+<iframe  style="border: 1px solid gray; height: 400px; margin-bottom: 40px;" src="https://ipums-global-health.github.io/ined-pma-2022/slides.html#/birth-outcomes-by-ea">
+  Browser not supported! Visit https://ipums-global-health.github.io/ined-pma-2022/slides.html for slides.
 </iframe>
 
 # Other Resources
