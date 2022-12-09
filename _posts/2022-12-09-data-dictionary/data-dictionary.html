@@ -1,0 +1,2010 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1"/>
+  <meta name="generator" content="distill" />
+
+  <style type="text/css">
+  /* Hide doc at startup (prevent jankiness while JS renders/transforms) */
+  body {
+    visibility: hidden;
+  }
+  </style>
+
+ <!--radix_placeholder_import_source-->
+ <!--/radix_placeholder_import_source-->
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css" data-origin="pandoc">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  { color: #00769e; background-color: #f1f3f5; }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span { color: #00769e; } /* Normal */
+code span.al { color: #ad0000; } /* Alert */
+code span.an { color: #5e5e5e; } /* Annotation */
+code span.at { color: #657422; } /* Attribute */
+code span.bn { color: #ad0000; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #00769e; } /* ControlFlow */
+code span.ch { color: #20794d; } /* Char */
+code span.cn { color: #8f5902; } /* Constant */
+code span.co { color: #5e5e5e; } /* Comment */
+code span.cv { color: #5e5e5e; font-style: italic; } /* CommentVar */
+code span.do { color: #5e5e5e; font-style: italic; } /* Documentation */
+code span.dt { color: #ad0000; } /* DataType */
+code span.dv { color: #ad0000; } /* DecVal */
+code span.er { color: #ad0000; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #ad0000; } /* Float */
+code span.fu { color: #4758ab; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #5e5e5e; } /* Information */
+code span.kw { color: #00769e; } /* Keyword */
+code span.op { color: #5e5e5e; } /* Operator */
+code span.ot { color: #00769e; } /* Other */
+code span.pp { color: #ad0000; } /* Preprocessor */
+code span.sc { color: #5e5e5e; } /* SpecialChar */
+code span.ss { color: #20794d; } /* SpecialString */
+code span.st { color: #20794d; } /* String */
+code span.va { color: #111111; } /* Variable */
+code span.vs { color: #20794d; } /* VerbatimString */
+code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
+</style>
+
+
+  <!--radix_placeholder_meta_tags-->
+  <title>Building an IPUMS PMA Codebook</title>
+
+  <meta property="description" itemprop="description" content="You can automatically generate documentation with the metadata included in your data extract, or supplement with additional details scraped from the IPUMS PMA website."/>
+
+
+  <!--  https://schema.org/Article -->
+  <meta property="article:published" itemprop="datePublished" content="2022-12-09"/>
+  <meta property="article:created" itemprop="dateCreated" content="2022-12-09"/>
+  <meta name="article:author" content="Matt Gunther"/>
+
+  <!--  https://developers.facebook.com/docs/sharing/webmasters#markup -->
+  <meta property="og:title" content="Building an IPUMS PMA Codebook"/>
+  <meta property="og:type" content="article"/>
+  <meta property="og:description" content="You can automatically generate documentation with the metadata included in your data extract, or supplement with additional details scraped from the IPUMS PMA website."/>
+  <meta property="og:locale" content="en_US"/>
+
+  <!--  https://dev.twitter.com/cards/types/summary -->
+  <meta property="twitter:card" content="summary"/>
+  <meta property="twitter:title" content="Building an IPUMS PMA Codebook"/>
+  <meta property="twitter:description" content="You can automatically generate documentation with the metadata included in your data extract, or supplement with additional details scraped from the IPUMS PMA website."/>
+
+  <!--/radix_placeholder_meta_tags-->
+  <!--radix_placeholder_rmarkdown_metadata-->
+
+  <script type="text/json" id="radix-rmarkdown-metadata">
+  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","author","date","output","categories","preview"]}},"value":[{"type":"character","attributes":{},"value":["Building an IPUMS PMA Codebook"]},{"type":"character","attributes":{},"value":["You can automatically generate documentation with the metadata included in your data extract, or supplement with additional details scraped from the IPUMS PMA website. \n"]},{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","affiliation"]}},"value":[{"type":"character","attributes":{},"value":["Matt Gunther"]},{"type":"character","attributes":{},"value":["IPUMS PMA Senior Data Analyst"]}]}]},{"type":"character","attributes":{},"value":["2022-12-09"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["self_contained","toc","toc_depth","toc_float"]}},"value":[{"type":"logical","attributes":{},"value":[false]},{"type":"logical","attributes":{},"value":[true]},{"type":"integer","attributes":{},"value":[3]},{"type":"logical","attributes":{},"value":[true]}]}]},{"type":"character","attributes":{},"value":["Data Manipulation","Data Dictionary","Codebook","Metadata","Web Scraping","pagedown","rvest","ipumsr"]},{"type":"character","attributes":{},"value":["images/featured.png"]}]}
+  </script>
+  <!--/radix_placeholder_rmarkdown_metadata-->
+  
+  <script type="text/json" id="radix-resource-manifest">
+  {"type":"character","attributes":{},"value":["codebook_files/paged-0.19/css/default-fonts.css","codebook_files/paged-0.19/css/default-page.css","codebook_files/paged-0.19/css/default.css","codebook_files/paged-0.19/js/config.js","codebook_files/paged-0.19/js/hooks.js","codebook_files/paged-0.19/js/paged.js","codebook.html","codebook.pdf","codebook2_files/paged-0.19/css/default-fonts.css","codebook2_files/paged-0.19/css/default-page.css","codebook2_files/paged-0.19/css/default.css","codebook2_files/paged-0.19/js/config.js","codebook2_files/paged-0.19/js/hooks.js","codebook2_files/paged-0.19/js/paged.js","codebook2.html","codebook2.pdf","custom.css","data/dd.rds.gz","data/pma_00180.dat.gz","data/pma_00180.xml","data/pma_00181.csv.gz","data/pma_00181.xml","data-dictionary_files/anchor-4.2.2/anchor.min.js","data-dictionary_files/bowser-1.9.3/bowser.min.js","data-dictionary_files/distill-2.2.21/template.v2.js","data-dictionary_files/header-attrs-2.14/header-attrs.js","data-dictionary_files/jquery-3.6.0/jquery-3.6.0.js","data-dictionary_files/jquery-3.6.0/jquery-3.6.0.min.js","data-dictionary_files/jquery-3.6.0/jquery-3.6.0.min.map","data-dictionary_files/popper-2.6.0/popper.min.js","data-dictionary_files/tippy-6.2.7/tippy-bundle.umd.min.js","data-dictionary_files/tippy-6.2.7/tippy-light-border.css","data-dictionary_files/tippy-6.2.7/tippy.css","data-dictionary_files/tippy-6.2.7/tippy.umd.min.js","data-dictionary_files/webcomponents-2.0.0/webcomponents.js","images/csv.png","images/featured.png"]}
+  </script>
+  <!--radix_placeholder_navigation_in_header-->
+  <!--/radix_placeholder_navigation_in_header-->
+  <!--radix_placeholder_distill-->
+
+  <style type="text/css">
+
+  body {
+    background-color: white;
+  }
+
+  .pandoc-table {
+    width: 100%;
+  }
+
+  .pandoc-table>caption {
+    margin-bottom: 10px;
+  }
+
+  .pandoc-table th:not([align]) {
+    text-align: left;
+  }
+
+  .pagedtable-footer {
+    font-size: 15px;
+  }
+
+  d-byline .byline {
+    grid-template-columns: 2fr 2fr;
+  }
+
+  d-byline .byline h3 {
+    margin-block-start: 1.5em;
+  }
+
+  d-byline .byline .authors-affiliations h3 {
+    margin-block-start: 0.5em;
+  }
+
+  .authors-affiliations .orcid-id {
+    width: 16px;
+    height:16px;
+    margin-left: 4px;
+    margin-right: 4px;
+    vertical-align: middle;
+    padding-bottom: 2px;
+  }
+
+  d-title .dt-tags {
+    margin-top: 1em;
+    grid-column: text;
+  }
+
+  .dt-tags .dt-tag {
+    text-decoration: none;
+    display: inline-block;
+    color: rgba(0,0,0,0.6);
+    padding: 0em 0.4em;
+    margin-right: 0.5em;
+    margin-bottom: 0.4em;
+    font-size: 70%;
+    border: 1px solid rgba(0,0,0,0.2);
+    border-radius: 3px;
+    text-transform: uppercase;
+    font-weight: 500;
+  }
+
+  d-article table.gt_table td,
+  d-article table.gt_table th {
+    border-bottom: none;
+    font-size: 100%;
+  }
+
+  .html-widget {
+    margin-bottom: 2.0em;
+  }
+
+  .l-screen-inset {
+    padding-right: 16px;
+  }
+
+  .l-screen .caption {
+    margin-left: 10px;
+  }
+
+  .shaded {
+    background: rgb(247, 247, 247);
+    padding-top: 20px;
+    padding-bottom: 20px;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  }
+
+  .shaded .html-widget {
+    margin-bottom: 0;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+  }
+
+  .shaded .shaded-content {
+    background: white;
+  }
+
+  .text-output {
+    margin-top: 0;
+    line-height: 1.5em;
+  }
+
+  .hidden {
+    display: none !important;
+  }
+
+  d-article {
+    padding-top: 2.5rem;
+    padding-bottom: 30px;
+  }
+
+  d-appendix {
+    padding-top: 30px;
+  }
+
+  d-article>p>img {
+    width: 100%;
+  }
+
+  d-article h2 {
+    margin: 1rem 0 1.5rem 0;
+  }
+
+  d-article h3 {
+    margin-top: 1.5rem;
+  }
+
+  d-article iframe {
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    margin-bottom: 2.0em;
+    width: 100%;
+  }
+
+  /* Tweak code blocks */
+
+  d-article div.sourceCode code,
+  d-article pre code {
+    font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+  }
+
+  d-article pre,
+  d-article div.sourceCode,
+  d-article div.sourceCode pre {
+    overflow: auto;
+  }
+
+  d-article div.sourceCode {
+    background-color: white;
+  }
+
+  d-article div.sourceCode pre {
+    padding-left: 10px;
+    font-size: 12px;
+    border-left: 2px solid rgba(0,0,0,0.1);
+  }
+
+  d-article pre {
+    font-size: 12px;
+    color: black;
+    background: none;
+    margin-top: 0;
+    text-align: left;
+    white-space: pre;
+    word-spacing: normal;
+    word-break: normal;
+    word-wrap: normal;
+    line-height: 1.5;
+
+    -moz-tab-size: 4;
+    -o-tab-size: 4;
+    tab-size: 4;
+
+    -webkit-hyphens: none;
+    -moz-hyphens: none;
+    -ms-hyphens: none;
+    hyphens: none;
+  }
+
+  d-article pre a {
+    border-bottom: none;
+  }
+
+  d-article pre a:hover {
+    border-bottom: none;
+    text-decoration: underline;
+  }
+
+  d-article details {
+    grid-column: text;
+    margin-bottom: 0.8em;
+  }
+
+  @media(min-width: 768px) {
+
+  d-article pre,
+  d-article div.sourceCode,
+  d-article div.sourceCode pre {
+    overflow: visible !important;
+  }
+
+  d-article div.sourceCode pre {
+    padding-left: 18px;
+    font-size: 14px;
+  }
+
+  d-article pre {
+    font-size: 14px;
+  }
+
+  }
+
+  figure img.external {
+    background: white;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    box-shadow: 0 1px 8px rgba(0, 0, 0, 0.1);
+    padding: 18px;
+    box-sizing: border-box;
+  }
+
+  /* CSS for d-contents */
+
+  .d-contents {
+    grid-column: text;
+    color: rgba(0,0,0,0.8);
+    font-size: 0.9em;
+    padding-bottom: 1em;
+    margin-bottom: 1em;
+    padding-bottom: 0.5em;
+    margin-bottom: 1em;
+    padding-left: 0.25em;
+    justify-self: start;
+  }
+
+  @media(min-width: 1000px) {
+    .d-contents.d-contents-float {
+      height: 0;
+      grid-column-start: 1;
+      grid-column-end: 4;
+      justify-self: center;
+      padding-right: 3em;
+      padding-left: 2em;
+    }
+  }
+
+  .d-contents nav h3 {
+    font-size: 18px;
+    margin-top: 0;
+    margin-bottom: 1em;
+  }
+
+  .d-contents li {
+    list-style-type: none
+  }
+
+  .d-contents nav > ul {
+    padding-left: 0;
+  }
+
+  .d-contents ul {
+    padding-left: 1em
+  }
+
+  .d-contents nav ul li {
+    margin-top: 0.6em;
+    margin-bottom: 0.2em;
+  }
+
+  .d-contents nav a {
+    font-size: 13px;
+    border-bottom: none;
+    text-decoration: none
+    color: rgba(0, 0, 0, 0.8);
+  }
+
+  .d-contents nav a:hover {
+    text-decoration: underline solid rgba(0, 0, 0, 0.6)
+  }
+
+  .d-contents nav > ul > li > a {
+    font-weight: 600;
+  }
+
+  .d-contents nav > ul > li > ul {
+    font-weight: inherit;
+  }
+
+  .d-contents nav > ul > li > ul > li {
+    margin-top: 0.2em;
+  }
+
+
+  .d-contents nav ul {
+    margin-top: 0;
+    margin-bottom: 0.25em;
+  }
+
+  .d-article-with-toc h2:nth-child(2) {
+    margin-top: 0;
+  }
+
+
+  /* Figure */
+
+  .figure {
+    position: relative;
+    margin-bottom: 2.5em;
+    margin-top: 1.5em;
+  }
+
+  .figure .caption {
+    color: rgba(0, 0, 0, 0.6);
+    font-size: 12px;
+    line-height: 1.5em;
+  }
+
+  .figure img.external {
+    background: white;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    box-shadow: 0 1px 8px rgba(0, 0, 0, 0.1);
+    padding: 18px;
+    box-sizing: border-box;
+  }
+
+  .figure .caption a {
+    color: rgba(0, 0, 0, 0.6);
+  }
+
+  .figure .caption b,
+  .figure .caption strong, {
+    font-weight: 600;
+    color: rgba(0, 0, 0, 1.0);
+  }
+
+  /* Citations */
+
+  d-article .citation {
+    color: inherit;
+    cursor: inherit;
+  }
+
+  div.hanging-indent{
+    margin-left: 1em; text-indent: -1em;
+  }
+
+  /* Citation hover box */
+
+  .tippy-box[data-theme~=light-border] {
+    background-color: rgba(250, 250, 250, 0.95);
+  }
+
+  .tippy-content > p {
+    margin-bottom: 0;
+    padding: 2px;
+  }
+
+
+  /* Tweak 1000px media break to show more text */
+
+  @media(min-width: 1000px) {
+    .base-grid,
+    distill-header,
+    d-title,
+    d-abstract,
+    d-article,
+    d-appendix,
+    distill-appendix,
+    d-byline,
+    d-footnote-list,
+    d-citation-list,
+    distill-footer {
+      grid-template-columns: [screen-start] 1fr [page-start kicker-start] 80px [middle-start] 50px [text-start kicker-end] 65px 65px 65px 65px 65px 65px 65px 65px [text-end gutter-start] 65px [middle-end] 65px [page-end gutter-end] 1fr [screen-end];
+      grid-column-gap: 16px;
+    }
+
+    .grid {
+      grid-column-gap: 16px;
+    }
+
+    d-article {
+      font-size: 1.06rem;
+      line-height: 1.7em;
+    }
+    figure .caption, .figure .caption, figure figcaption {
+      font-size: 13px;
+    }
+  }
+
+  @media(min-width: 1180px) {
+    .base-grid,
+    distill-header,
+    d-title,
+    d-abstract,
+    d-article,
+    d-appendix,
+    distill-appendix,
+    d-byline,
+    d-footnote-list,
+    d-citation-list,
+    distill-footer {
+      grid-template-columns: [screen-start] 1fr [page-start kicker-start] 60px [middle-start] 60px [text-start kicker-end] 60px 60px 60px 60px 60px 60px 60px 60px [text-end gutter-start] 60px [middle-end] 60px [page-end gutter-end] 1fr [screen-end];
+      grid-column-gap: 32px;
+    }
+
+    .grid {
+      grid-column-gap: 32px;
+    }
+  }
+
+
+  /* Get the citation styles for the appendix (not auto-injected on render since
+     we do our own rendering of the citation appendix) */
+
+  d-appendix .citation-appendix,
+  .d-appendix .citation-appendix {
+    font-size: 11px;
+    line-height: 15px;
+    border-left: 1px solid rgba(0, 0, 0, 0.1);
+    padding-left: 18px;
+    border: 1px solid rgba(0,0,0,0.1);
+    background: rgba(0, 0, 0, 0.02);
+    padding: 10px 18px;
+    border-radius: 3px;
+    color: rgba(150, 150, 150, 1);
+    overflow: hidden;
+    margin-top: -12px;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+  }
+
+  /* Include appendix styles here so they can be overridden */
+
+  d-appendix {
+    contain: layout style;
+    font-size: 0.8em;
+    line-height: 1.7em;
+    margin-top: 60px;
+    margin-bottom: 0;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    color: rgba(0,0,0,0.5);
+    padding-top: 60px;
+    padding-bottom: 48px;
+  }
+
+  d-appendix h3 {
+    grid-column: page-start / text-start;
+    font-size: 15px;
+    font-weight: 500;
+    margin-top: 1em;
+    margin-bottom: 0;
+    color: rgba(0,0,0,0.65);
+  }
+
+  d-appendix h3 + * {
+    margin-top: 1em;
+  }
+
+  d-appendix ol {
+    padding: 0 0 0 15px;
+  }
+
+  @media (min-width: 768px) {
+    d-appendix ol {
+      padding: 0 0 0 30px;
+      margin-left: -30px;
+    }
+  }
+
+  d-appendix li {
+    margin-bottom: 1em;
+  }
+
+  d-appendix a {
+    color: rgba(0, 0, 0, 0.6);
+  }
+
+  d-appendix > * {
+    grid-column: text;
+  }
+
+  d-appendix > d-footnote-list,
+  d-appendix > d-citation-list,
+  d-appendix > distill-appendix {
+    grid-column: screen;
+  }
+
+  /* Include footnote styles here so they can be overridden */
+
+  d-footnote-list {
+    contain: layout style;
+  }
+
+  d-footnote-list > * {
+    grid-column: text;
+  }
+
+  d-footnote-list a.footnote-backlink {
+    color: rgba(0,0,0,0.3);
+    padding-left: 0.5em;
+  }
+
+
+
+  /* Anchor.js */
+
+  .anchorjs-link {
+    /*transition: all .25s linear; */
+    text-decoration: none;
+    border-bottom: none;
+  }
+  *:hover > .anchorjs-link {
+    margin-left: -1.125em !important;
+    text-decoration: none;
+    border-bottom: none;
+  }
+
+  /* Social footer */
+
+  .social_footer {
+    margin-top: 30px;
+    margin-bottom: 0;
+    color: rgba(0,0,0,0.67);
+  }
+
+  .disqus-comments {
+    margin-right: 30px;
+  }
+
+  .disqus-comment-count {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.4);
+    cursor: pointer;
+  }
+
+  #disqus_thread {
+    margin-top: 30px;
+  }
+
+  .article-sharing a {
+    border-bottom: none;
+    margin-right: 8px;
+  }
+
+  .article-sharing a:hover {
+    border-bottom: none;
+  }
+
+  .sidebar-section.subscribe {
+    font-size: 12px;
+    line-height: 1.6em;
+  }
+
+  .subscribe p {
+    margin-bottom: 0.5em;
+  }
+
+
+  .article-footer .subscribe {
+    font-size: 15px;
+    margin-top: 45px;
+  }
+
+
+  .sidebar-section.custom {
+    font-size: 12px;
+    line-height: 1.6em;
+  }
+
+  .custom p {
+    margin-bottom: 0.5em;
+  }
+
+  /* Styles for listing layout (hide title) */
+  .layout-listing d-title, .layout-listing .d-title {
+    display: none;
+  }
+
+  /* Styles for posts lists (not auto-injected) */
+
+
+  .posts-with-sidebar {
+    padding-left: 45px;
+    padding-right: 45px;
+  }
+
+  .posts-list .description h2,
+  .posts-list .description p {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", Arial, sans-serif;
+  }
+
+  .posts-list .description h2 {
+    font-weight: 700;
+    border-bottom: none;
+    padding-bottom: 0;
+  }
+
+  .posts-list h2.post-tag {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+    padding-bottom: 12px;
+  }
+  .posts-list {
+    margin-top: 60px;
+    margin-bottom: 24px;
+  }
+
+  .posts-list .post-preview {
+    text-decoration: none;
+    overflow: hidden;
+    display: block;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    padding: 24px 0;
+  }
+
+  .post-preview-last {
+    border-bottom: none !important;
+  }
+
+  .posts-list .posts-list-caption {
+    grid-column: screen;
+    font-weight: 400;
+  }
+
+  .posts-list .post-preview h2 {
+    margin: 0 0 6px 0;
+    line-height: 1.2em;
+    font-style: normal;
+    font-size: 24px;
+  }
+
+  .posts-list .post-preview p {
+    margin: 0 0 12px 0;
+    line-height: 1.4em;
+    font-size: 16px;
+  }
+
+  .posts-list .post-preview .thumbnail {
+    box-sizing: border-box;
+    margin-bottom: 24px;
+    position: relative;
+    max-width: 500px;
+  }
+  .posts-list .post-preview img {
+    width: 100%;
+    display: block;
+  }
+
+  .posts-list .metadata {
+    font-size: 12px;
+    line-height: 1.4em;
+    margin-bottom: 18px;
+  }
+
+  .posts-list .metadata > * {
+    display: inline-block;
+  }
+
+  .posts-list .metadata .publishedDate {
+    margin-right: 2em;
+  }
+
+  .posts-list .metadata .dt-authors {
+    display: block;
+    margin-top: 0.3em;
+    margin-right: 2em;
+  }
+
+  .posts-list .dt-tags {
+    display: block;
+    line-height: 1em;
+  }
+
+  .posts-list .dt-tags .dt-tag {
+    display: inline-block;
+    color: rgba(0,0,0,0.6);
+    padding: 0.3em 0.4em;
+    margin-right: 0.2em;
+    margin-bottom: 0.4em;
+    font-size: 60%;
+    border: 1px solid rgba(0,0,0,0.2);
+    border-radius: 3px;
+    text-transform: uppercase;
+    font-weight: 500;
+  }
+
+  .posts-list img {
+    opacity: 1;
+  }
+
+  .posts-list img[data-src] {
+    opacity: 0;
+  }
+
+  .posts-more {
+    clear: both;
+  }
+
+
+  .posts-sidebar {
+    font-size: 16px;
+  }
+
+  .posts-sidebar h3 {
+    font-size: 16px;
+    margin-top: 0;
+    margin-bottom: 0.5em;
+    font-weight: 400;
+    text-transform: uppercase;
+  }
+
+  .sidebar-section {
+    margin-bottom: 30px;
+  }
+
+  .categories ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .categories li {
+    color: rgba(0, 0, 0, 0.8);
+    margin-bottom: 0;
+  }
+
+  .categories li>a {
+    border-bottom: none;
+  }
+
+  .categories li>a:hover {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.4);
+  }
+
+  .categories .active {
+    font-weight: 600;
+  }
+
+  .categories .category-count {
+    color: rgba(0, 0, 0, 0.4);
+  }
+
+
+  @media(min-width: 768px) {
+    .posts-list .post-preview h2 {
+      font-size: 26px;
+    }
+    .posts-list .post-preview .thumbnail {
+      float: right;
+      width: 30%;
+      margin-bottom: 0;
+    }
+    .posts-list .post-preview .description {
+      float: left;
+      width: 45%;
+    }
+    .posts-list .post-preview .metadata {
+      float: left;
+      width: 20%;
+      margin-top: 8px;
+    }
+    .posts-list .post-preview p {
+      margin: 0 0 12px 0;
+      line-height: 1.5em;
+      font-size: 16px;
+    }
+    .posts-with-sidebar .posts-list {
+      float: left;
+      width: 75%;
+    }
+    .posts-with-sidebar .posts-sidebar {
+      float: right;
+      width: 20%;
+      margin-top: 60px;
+      padding-top: 24px;
+      padding-bottom: 24px;
+    }
+  }
+
+
+  /* Improve display for browsers without grid (IE/Edge <= 15) */
+
+  .downlevel {
+    line-height: 1.6em;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", Arial, sans-serif;
+    margin: 0;
+  }
+
+  .downlevel .d-title {
+    padding-top: 6rem;
+    padding-bottom: 1.5rem;
+  }
+
+  .downlevel .d-title h1 {
+    font-size: 50px;
+    font-weight: 700;
+    line-height: 1.1em;
+    margin: 0 0 0.5rem;
+  }
+
+  .downlevel .d-title p {
+    font-weight: 300;
+    font-size: 1.2rem;
+    line-height: 1.55em;
+    margin-top: 0;
+  }
+
+  .downlevel .d-byline {
+    padding-top: 0.8em;
+    padding-bottom: 0.8em;
+    font-size: 0.8rem;
+    line-height: 1.8em;
+  }
+
+  .downlevel .section-separator {
+    border: none;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+  }
+
+  .downlevel .d-article {
+    font-size: 1.06rem;
+    line-height: 1.7em;
+    padding-top: 1rem;
+    padding-bottom: 2rem;
+  }
+
+
+  .downlevel .d-appendix {
+    padding-left: 0;
+    padding-right: 0;
+    max-width: none;
+    font-size: 0.8em;
+    line-height: 1.7em;
+    margin-bottom: 0;
+    color: rgba(0,0,0,0.5);
+    padding-top: 40px;
+    padding-bottom: 48px;
+  }
+
+  .downlevel .footnotes ol {
+    padding-left: 13px;
+  }
+
+  .downlevel .base-grid,
+  .downlevel .distill-header,
+  .downlevel .d-title,
+  .downlevel .d-abstract,
+  .downlevel .d-article,
+  .downlevel .d-appendix,
+  .downlevel .distill-appendix,
+  .downlevel .d-byline,
+  .downlevel .d-footnote-list,
+  .downlevel .d-citation-list,
+  .downlevel .distill-footer,
+  .downlevel .appendix-bottom,
+  .downlevel .posts-container {
+    padding-left: 40px;
+    padding-right: 40px;
+  }
+
+  @media(min-width: 768px) {
+    .downlevel .base-grid,
+    .downlevel .distill-header,
+    .downlevel .d-title,
+    .downlevel .d-abstract,
+    .downlevel .d-article,
+    .downlevel .d-appendix,
+    .downlevel .distill-appendix,
+    .downlevel .d-byline,
+    .downlevel .d-footnote-list,
+    .downlevel .d-citation-list,
+    .downlevel .distill-footer,
+    .downlevel .appendix-bottom,
+    .downlevel .posts-container {
+    padding-left: 150px;
+    padding-right: 150px;
+    max-width: 900px;
+  }
+  }
+
+  .downlevel pre code {
+    display: block;
+    border-left: 2px solid rgba(0, 0, 0, .1);
+    padding: 0 0 0 20px;
+    font-size: 14px;
+  }
+
+  .downlevel code, .downlevel pre {
+    color: black;
+    background: none;
+    font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+    text-align: left;
+    white-space: pre;
+    word-spacing: normal;
+    word-break: normal;
+    word-wrap: normal;
+    line-height: 1.5;
+
+    -moz-tab-size: 4;
+    -o-tab-size: 4;
+    tab-size: 4;
+
+    -webkit-hyphens: none;
+    -moz-hyphens: none;
+    -ms-hyphens: none;
+    hyphens: none;
+  }
+
+  .downlevel .posts-list .post-preview {
+    color: inherit;
+  }
+
+
+
+  </style>
+
+  <script type="application/javascript">
+
+  function is_downlevel_browser() {
+    if (bowser.isUnsupportedBrowser({ msie: "12", msedge: "16"},
+                                   window.navigator.userAgent)) {
+      return true;
+    } else {
+      return window.load_distill_framework === undefined;
+    }
+  }
+
+  // show body when load is complete
+  function on_load_complete() {
+
+    // add anchors
+    if (window.anchors) {
+      window.anchors.options.placement = 'left';
+      window.anchors.add('d-article > h2, d-article > h3, d-article > h4, d-article > h5');
+    }
+
+
+    // set body to visible
+    document.body.style.visibility = 'visible';
+
+    // force redraw for leaflet widgets
+    if (window.HTMLWidgets) {
+      var maps = window.HTMLWidgets.findAll(".leaflet");
+      $.each(maps, function(i, el) {
+        var map = this.getMap();
+        map.invalidateSize();
+        map.eachLayer(function(layer) {
+          if (layer instanceof L.TileLayer)
+            layer.redraw();
+        });
+      });
+    }
+
+    // trigger 'shown' so htmlwidgets resize
+    $('d-article').trigger('shown');
+  }
+
+  function init_distill() {
+
+    init_common();
+
+    // create front matter
+    var front_matter = $('<d-front-matter></d-front-matter>');
+    $('#distill-front-matter').wrap(front_matter);
+
+    // create d-title
+    $('.d-title').changeElementType('d-title');
+
+    // create d-byline
+    var byline = $('<d-byline></d-byline>');
+    $('.d-byline').replaceWith(byline);
+
+    // create d-article
+    var article = $('<d-article></d-article>');
+    $('.d-article').wrap(article).children().unwrap();
+
+    // move posts container into article
+    $('.posts-container').appendTo($('d-article'));
+
+    // create d-appendix
+    $('.d-appendix').changeElementType('d-appendix');
+
+    // flag indicating that we have appendix items
+    var appendix = $('.appendix-bottom').children('h3').length > 0;
+
+    // replace footnotes with <d-footnote>
+    $('.footnote-ref').each(function(i, val) {
+      appendix = true;
+      var href = $(this).attr('href');
+      var id = href.replace('#', '');
+      var fn = $('#' + id);
+      var fn_p = $('#' + id + '>p');
+      fn_p.find('.footnote-back').remove();
+      var text = fn_p.html();
+      var dtfn = $('<d-footnote></d-footnote>');
+      dtfn.html(text);
+      $(this).replaceWith(dtfn);
+    });
+    // remove footnotes
+    $('.footnotes').remove();
+
+    // move refs into #references-listing
+    $('#references-listing').replaceWith($('#refs'));
+
+    $('h1.appendix, h2.appendix').each(function(i, val) {
+      $(this).changeElementType('h3');
+    });
+    $('h3.appendix').each(function(i, val) {
+      var id = $(this).attr('id');
+      $('.d-contents a[href="#' + id + '"]').parent().remove();
+      appendix = true;
+      $(this).nextUntil($('h1, h2, h3')).addBack().appendTo($('d-appendix'));
+    });
+
+    // show d-appendix if we have appendix content
+    $("d-appendix").css('display', appendix ? 'grid' : 'none');
+
+    // localize layout chunks to just output
+    $('.layout-chunk').each(function(i, val) {
+
+      // capture layout
+      var layout = $(this).attr('data-layout');
+
+      // apply layout to markdown level block elements
+      var elements = $(this).children().not('details, div.sourceCode, pre, script');
+      elements.each(function(i, el) {
+        var layout_div = $('<div class="' + layout + '"></div>');
+        if (layout_div.hasClass('shaded')) {
+          var shaded_content = $('<div class="shaded-content"></div>');
+          $(this).wrap(shaded_content);
+          $(this).parent().wrap(layout_div);
+        } else {
+          $(this).wrap(layout_div);
+        }
+      });
+
+
+      // unwrap the layout-chunk div
+      $(this).children().unwrap();
+    });
+
+    // remove code block used to force  highlighting css
+    $('.distill-force-highlighting-css').parent().remove();
+
+    // remove empty line numbers inserted by pandoc when using a
+    // custom syntax highlighting theme
+    $('code.sourceCode a:empty').remove();
+
+    // load distill framework
+    load_distill_framework();
+
+    // wait for window.distillRunlevel == 4 to do post processing
+    function distill_post_process() {
+
+      if (!window.distillRunlevel || window.distillRunlevel < 4)
+        return;
+
+      // hide author/affiliations entirely if we have no authors
+      var front_matter = JSON.parse($("#distill-front-matter").html());
+      var have_authors = front_matter.authors && front_matter.authors.length > 0;
+      if (!have_authors)
+        $('d-byline').addClass('hidden');
+
+      // article with toc class
+      $('.d-contents').parent().addClass('d-article-with-toc');
+
+      // strip links that point to #
+      $('.authors-affiliations').find('a[href="#"]').removeAttr('href');
+
+      // add orcid ids
+      $('.authors-affiliations').find('.author').each(function(i, el) {
+        var orcid_id = front_matter.authors[i].orcidID;
+        if (orcid_id) {
+          var a = $('<a></a>');
+          a.attr('href', 'https://orcid.org/' + orcid_id);
+          var img = $('<img></img>');
+          img.addClass('orcid-id');
+          img.attr('alt', 'ORCID ID');
+          img.attr('src','data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA2ZpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDo1N0NEMjA4MDI1MjA2ODExOTk0QzkzNTEzRjZEQTg1NyIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDozM0NDOEJGNEZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDozM0NDOEJGM0ZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ1M1IE1hY2ludG9zaCI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOkZDN0YxMTc0MDcyMDY4MTE5NUZFRDc5MUM2MUUwNEREIiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjU3Q0QyMDgwMjUyMDY4MTE5OTRDOTM1MTNGNkRBODU3Ii8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+84NovQAAAR1JREFUeNpiZEADy85ZJgCpeCB2QJM6AMQLo4yOL0AWZETSqACk1gOxAQN+cAGIA4EGPQBxmJA0nwdpjjQ8xqArmczw5tMHXAaALDgP1QMxAGqzAAPxQACqh4ER6uf5MBlkm0X4EGayMfMw/Pr7Bd2gRBZogMFBrv01hisv5jLsv9nLAPIOMnjy8RDDyYctyAbFM2EJbRQw+aAWw/LzVgx7b+cwCHKqMhjJFCBLOzAR6+lXX84xnHjYyqAo5IUizkRCwIENQQckGSDGY4TVgAPEaraQr2a4/24bSuoExcJCfAEJihXkWDj3ZAKy9EJGaEo8T0QSxkjSwORsCAuDQCD+QILmD1A9kECEZgxDaEZhICIzGcIyEyOl2RkgwAAhkmC+eAm0TAAAAABJRU5ErkJggg==');
+          a.append(img);
+          $(this).append(a);
+        }
+      });
+
+      // hide elements of author/affiliations grid that have no value
+      function hide_byline_column(caption) {
+        $('d-byline').find('h3:contains("' + caption + '")').parent().css('visibility', 'hidden');
+      }
+
+      // affiliations
+      var have_affiliations = false;
+      for (var i = 0; i<front_matter.authors.length; ++i) {
+        var author = front_matter.authors[i];
+        if (author.affiliation !== "&nbsp;") {
+          have_affiliations = true;
+          break;
+        }
+      }
+      if (!have_affiliations)
+        $('d-byline').find('h3:contains("Affiliations")').css('visibility', 'hidden');
+
+      // published date
+      if (!front_matter.publishedDate)
+        hide_byline_column("Published");
+
+      // document object identifier
+      var doi = $('d-byline').find('h3:contains("DOI")');
+      var doi_p = doi.next().empty();
+      if (!front_matter.doi) {
+        // if we have a citation and valid citationText then link to that
+        if ($('#citation').length > 0 && front_matter.citationText) {
+          doi.html('Citation');
+          $('<a href="#citation"></a>')
+            .text(front_matter.citationText)
+            .appendTo(doi_p);
+        } else {
+          hide_byline_column("DOI");
+        }
+      } else {
+        $('<a></a>')
+           .attr('href', "https://doi.org/" + front_matter.doi)
+           .html(front_matter.doi)
+           .appendTo(doi_p);
+      }
+
+       // change plural form of authors/affiliations
+      if (front_matter.authors.length === 1) {
+        var grid = $('.authors-affiliations');
+        grid.children('h3:contains("Authors")').text('Author');
+        grid.children('h3:contains("Affiliations")').text('Affiliation');
+      }
+
+      // remove d-appendix and d-footnote-list local styles
+      $('d-appendix > style:first-child').remove();
+      $('d-footnote-list > style:first-child').remove();
+
+      // move appendix-bottom entries to the bottom
+      $('.appendix-bottom').appendTo('d-appendix').children().unwrap();
+      $('.appendix-bottom').remove();
+
+      // hoverable references
+      $('span.citation[data-cites]').each(function() {
+        const citeChild = $(this).children()[0]
+        // Do not process if @xyz has been used without escaping and without bibliography activated
+        // https://github.com/rstudio/distill/issues/466
+        if (citeChild === undefined) return true
+
+        if (citeChild.nodeName == "D-FOOTNOTE") {
+          var fn = citeChild
+          $(this).html(fn.shadowRoot.querySelector("sup"))
+          $(this).id = fn.id
+          fn.remove()
+        }
+        var refs = $(this).attr('data-cites').split(" ");
+        var refHtml = refs.map(function(ref) {
+          // Could use CSS.escape too here, we insure backward compatibility in navigator
+          return "<p>" + $('div[id="ref-' + ref + '"]').html() + "</p>";
+        }).join("\n");
+        window.tippy(this, {
+          allowHTML: true,
+          content: refHtml,
+          maxWidth: 500,
+          interactive: true,
+          interactiveBorder: 10,
+          theme: 'light-border',
+          placement: 'bottom-start'
+        });
+      });
+
+      // fix footnotes in tables (#411)
+      // replacing broken distill.pub feature
+      $('table d-footnote').each(function() {
+        // we replace internal showAtNode methode which is triggered when hovering a footnote
+        this.hoverBox.showAtNode = function(node) {
+          // ported from https://github.com/distillpub/template/pull/105/files
+          calcOffset = function(elem) {
+              let x = elem.offsetLeft;
+              let y = elem.offsetTop;
+              // Traverse upwards until an `absolute` element is found or `elem`
+              // becomes null.
+              while (elem = elem.offsetParent && elem.style.position != 'absolute') {
+                  x += elem.offsetLeft;
+                  y += elem.offsetTop;
+              }
+
+              return { left: x, top: y };
+          }
+          // https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/offsetTop
+          const bbox = node.getBoundingClientRect();
+          const offset = calcOffset(node);
+          this.show([offset.left + bbox.width, offset.top + bbox.height]);
+        }
+      })
+
+      // clear polling timer
+      clearInterval(tid);
+
+      // show body now that everything is ready
+      on_load_complete();
+    }
+
+    var tid = setInterval(distill_post_process, 50);
+    distill_post_process();
+
+  }
+
+  function init_downlevel() {
+
+    init_common();
+
+     // insert hr after d-title
+    $('.d-title').after($('<hr class="section-separator"/>'));
+
+    // check if we have authors
+    var front_matter = JSON.parse($("#distill-front-matter").html());
+    var have_authors = front_matter.authors && front_matter.authors.length > 0;
+
+    // manage byline/border
+    if (!have_authors)
+      $('.d-byline').remove();
+    $('.d-byline').after($('<hr class="section-separator"/>'));
+    $('.d-byline a').remove();
+
+    // remove toc
+    $('.d-contents').remove();
+
+    // move appendix elements
+    $('h1.appendix, h2.appendix').each(function(i, val) {
+      $(this).changeElementType('h3');
+    });
+    $('h3.appendix').each(function(i, val) {
+      $(this).nextUntil($('h1, h2, h3')).addBack().appendTo($('.d-appendix'));
+    });
+
+
+    // inject headers into references and footnotes
+    var refs_header = $('<h3></h3>');
+    refs_header.text('References');
+    $('#refs').prepend(refs_header);
+
+    var footnotes_header = $('<h3></h3');
+    footnotes_header.text('Footnotes');
+    $('.footnotes').children('hr').first().replaceWith(footnotes_header);
+
+    // move appendix-bottom entries to the bottom
+    $('.appendix-bottom').appendTo('.d-appendix').children().unwrap();
+    $('.appendix-bottom').remove();
+
+    // remove appendix if it's empty
+    if ($('.d-appendix').children().length === 0)
+      $('.d-appendix').remove();
+
+    // prepend separator above appendix
+    $('.d-appendix').before($('<hr class="section-separator" style="clear: both"/>'));
+
+    // trim code
+    $('pre>code').each(function(i, val) {
+      $(this).html($.trim($(this).html()));
+    });
+
+    // move posts-container right before article
+    $('.posts-container').insertBefore($('.d-article'));
+
+    $('body').addClass('downlevel');
+
+    on_load_complete();
+  }
+
+
+  function init_common() {
+
+    // jquery plugin to change element types
+    (function($) {
+      $.fn.changeElementType = function(newType) {
+        var attrs = {};
+
+        $.each(this[0].attributes, function(idx, attr) {
+          attrs[attr.nodeName] = attr.nodeValue;
+        });
+
+        this.replaceWith(function() {
+          return $("<" + newType + "/>", attrs).append($(this).contents());
+        });
+      };
+    })(jQuery);
+
+    // prevent underline for linked images
+    $('a > img').parent().css({'border-bottom' : 'none'});
+
+    // mark non-body figures created by knitr chunks as 100% width
+    $('.layout-chunk').each(function(i, val) {
+      var figures = $(this).find('img, .html-widget');
+      // ignore leaflet img layers (#106)
+      figures = figures.filter(':not(img[class*="leaflet"])')
+      if ($(this).attr('data-layout') !== "l-body") {
+        figures.css('width', '100%');
+      } else {
+        figures.css('max-width', '100%');
+        figures.filter("[width]").each(function(i, val) {
+          var fig = $(this);
+          fig.css('width', fig.attr('width') + 'px');
+        });
+
+      }
+    });
+
+    // auto-append index.html to post-preview links in file: protocol
+    // and in rstudio ide preview
+    $('.post-preview').each(function(i, val) {
+      if (window.location.protocol === "file:")
+        $(this).attr('href', $(this).attr('href') + "index.html");
+    });
+
+    // get rid of index.html references in header
+    if (window.location.protocol !== "file:") {
+      $('.distill-site-header a[href]').each(function(i,val) {
+        $(this).attr('href', $(this).attr('href').replace(/^index[.]html/, "./"));
+      });
+    }
+
+    // add class to pandoc style tables
+    $('tr.header').parent('thead').parent('table').addClass('pandoc-table');
+    $('.kable-table').children('table').addClass('pandoc-table');
+
+    // add figcaption style to table captions
+    $('caption').parent('table').addClass("figcaption");
+
+    // initialize posts list
+    if (window.init_posts_list)
+      window.init_posts_list();
+
+    // implmement disqus comment link
+    $('.disqus-comment-count').click(function() {
+      window.headroom_prevent_pin = true;
+      $('#disqus_thread').toggleClass('hidden');
+      if (!$('#disqus_thread').hasClass('hidden')) {
+        var offset = $(this).offset();
+        $(window).resize();
+        $('html, body').animate({
+          scrollTop: offset.top - 35
+        });
+      }
+    });
+  }
+
+  document.addEventListener('DOMContentLoaded', function() {
+    if (is_downlevel_browser())
+      init_downlevel();
+    else
+      window.addEventListener('WebComponentsReady', init_distill);
+  });
+
+  </script>
+
+  <!--/radix_placeholder_distill-->
+  <script src="data-dictionary_files/header-attrs-2.14/header-attrs.js"></script>
+  <script src="data-dictionary_files/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+  <script src="data-dictionary_files/popper-2.6.0/popper.min.js"></script>
+  <link href="data-dictionary_files/tippy-6.2.7/tippy.css" rel="stylesheet" />
+  <link href="data-dictionary_files/tippy-6.2.7/tippy-light-border.css" rel="stylesheet" />
+  <script src="data-dictionary_files/tippy-6.2.7/tippy.umd.min.js"></script>
+  <script src="data-dictionary_files/anchor-4.2.2/anchor.min.js"></script>
+  <script src="data-dictionary_files/bowser-1.9.3/bowser.min.js"></script>
+  <script src="data-dictionary_files/webcomponents-2.0.0/webcomponents.js"></script>
+  <script src="data-dictionary_files/distill-2.2.21/template.v2.js"></script>
+  <!--radix_placeholder_site_in_header-->
+  <!--/radix_placeholder_site_in_header-->
+
+
+</head>
+
+<body>
+
+<!--radix_placeholder_front_matter-->
+
+<script id="distill-front-matter" type="text/json">
+{"title":"Building an IPUMS PMA Codebook","description":"You can automatically generate documentation with the metadata included in your data extract, or supplement with additional details scraped from the IPUMS PMA website.","authors":[{"author":"Matt Gunther","authorURL":"#","affiliation":"IPUMS PMA Senior Data Analyst","affiliationURL":"#","orcidID":""}],"publishedDate":"2022-12-09T00:00:00.000-05:00","citationText":"Gunther, 2022"}
+</script>
+
+<!--/radix_placeholder_front_matter-->
+<!--radix_placeholder_navigation_before_body-->
+<!--/radix_placeholder_navigation_before_body-->
+<!--radix_placeholder_site_before_body-->
+<!--/radix_placeholder_site_before_body-->
+
+<div class="d-title">
+<h1>Building an IPUMS PMA Codebook</h1>
+<!--radix_placeholder_categories-->
+<div class="dt-tags">
+<div class="dt-tag">Data Manipulation</div>
+<div class="dt-tag">Data Dictionary</div>
+<div class="dt-tag">Codebook</div>
+<div class="dt-tag">Metadata</div>
+<div class="dt-tag">Web Scraping</div>
+<div class="dt-tag">pagedown</div>
+<div class="dt-tag">rvest</div>
+<div class="dt-tag">ipumsr</div>
+</div>
+<!--/radix_placeholder_categories-->
+<p><p>You can automatically generate documentation with the metadata included in your data extract, or supplement with additional details scraped from the IPUMS PMA website.</p></p>
+</div>
+
+<div class="d-byline">
+  Matt Gunther  (IPUMS PMA Senior Data Analyst)
+  
+<br/>2022-12-09
+</div>
+
+<div class="d-article">
+<div class="d-contents d-contents-float">
+<nav class="l-text toc figcaption" id="TOC">
+<h3>Contents</h3>
+<ul>
+<li><a href="#data-dictionary" id="toc-data-dictionary">Data Dictionary</a></li>
+<li><a href="#codebook" id="toc-codebook">Codebook</a></li>
+<li><a href="#scraping-additional-metadata" id="toc-scraping-additional-metadata">Scraping Additional Metadata</a></li>
+</ul>
+</nav>
+</div>
+<div class="layout-chunk" data-layout="l-body">
+
+</div>
+<p>Have you ever wondered why IPUMS encourages R users to download data in the <strong>Fixed-width text (.dat)</strong> data format? After all, most analysts are probably more familiar with the <strong>Comma delimited (.csv)</strong> format, and you might already know some handy functions like <a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv</a> that can help identify variable classes when you load <code>.csv</code> data into R.</p>
+<p>In fact, IPUMS <em>does</em> make <code>.csv</code> data available at checkout. You can find it listed at the bottom of the Data Format menu here:</p>
+<div class="layout-chunk" data-layout="l-body">
+<p><img src="images/csv.png" width="1034" style="display: block; margin: auto;" /></p>
+</div>
+<p>One big problem with using <a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv</a> to import such a file is that the resulting dataset contains no helpful <a href="http://adv-r.had.co.nz/Data-structures.html#attributes">attributes</a> to tell the analyst more about the data they’re working with!</p>
+<p>Another issue is that <a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv</a> makes a guess about the appropriate variable class for each column - and particularly when one of your columns contains a lot of blank strings, it can guess <em>wrong</em>. Here, we’ve downloaded a <code>.csv</code> file containing the variables <a href="https://pma.ipums.org/pma-action/variables/ABORDECOTHSP#codes_section">ABORDECOTHSP</a> and <a href="https://pma.ipums.org/pma-action/variables/ABORCFOTHSP#codes_section">ABORCFOTHSP</a>, which contain open string responses describing a woman’s abortion experience only if she 1) reported having an abortion, and 2) exhausted a number of response options listed on the questionnaire.</p>
+<p>If you check the documentation for <a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv</a>, you’ll see that <a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv</a> makes guesses about column type based only on the <em>first 1000 rows by default</em>. In our dataset, the first 1000 rows for <a href="https://pma.ipums.org/pma-action/variables/ABORDECOTHSP#codes_section">ABORDECOTHSP</a> and <a href="https://pma.ipums.org/pma-action/variables/ABORCFOTHSP#codes_section">ABORCFOTHSP</a> are blank, so <a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv</a> guesses that they might be <strong>logical</strong>, rather than <strong>character</strong> variables.</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://tidyverse.tidyverse.org'>tidyverse</a></span><span class='op'>)</span></span>
+<span><span class='va'>csv</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://readr.tidyverse.org/reference/read_delim.html'>read_csv</a></span><span class='op'>(</span><span class='st'>"data/pma_00181.csv.gz"</span><span class='op'>)</span></span></code></pre>
+</div>
+<pre><code>Warning: One or more parsing issues, call `problems()` on your data frame for details,
+e.g.:
+  dat &lt;- vroom(...)
+  problems(dat)</code></pre>
+<pre><code>Rows: 96481 Columns: 95
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: &quot;,&quot;
+chr  (2): PERSONID, FQINSTID
+dbl (91): SAMPLE, COUNTRY, YEAR, ROUND, ELIGIBLE, EAID, CONSENTFQ, CONSENTHQ...
+lgl  (2): ABORDECOTHSP, ABORCFOTHSP
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+</div>
+<p>This is a big problem! To see why, let’s count the responses in <a href="https://pma.ipums.org/pma-action/variables/ABORDECOTHSP#codes_section">ABORDECOTHSP</a>:</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>csv</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/count.html'>count</a></span><span class='op'>(</span><span class='va'>ABORDECOTHSP</span><span class='op'>)</span></span></code></pre>
+</div>
+<pre><code># A tibble: 1 × 2
+  ABORDECOTHSP     n
+  &lt;lgl&gt;        &lt;int&gt;
+1 NA           96481</code></pre>
+</div>
+<p>You should expect to see several responses listed here, but instead only <code>NA</code> values are found. This is because <strong>logical</strong> values should only be <code>TRUE</code>, <code>FALSE</code>, or <code>NA</code> - when R encounters any <em>other</em> value, it transforms them into <code>NA</code> by <a href="http://adv-r.had.co.nz/Data-structures.html#vectors">coercion</a>. <strong>If you’re not careful with</strong> <a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv</a>, <strong>it is easy to accidentally distort or remove data by coercion.</strong></p>
+<p>Meanwhile, if we examine a variable like <a href="https://pma.ipums.org/pma-action/variables/COUNTRY#codes_section">COUNTRY</a>, we’ll find only numeric codes with no value labels attached:</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>csv</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/count.html'>count</a></span><span class='op'>(</span><span class='va'>COUNTRY</span><span class='op'>)</span></span></code></pre>
+</div>
+<pre><code># A tibble: 8 × 2
+  COUNTRY     n
+    &lt;dbl&gt; &lt;int&gt;
+1       1 13385
+2       2  8927
+3       3  7546
+4       6 11379
+5       7 18926
+6       9 16489
+7      10 12780
+8      11  7049</code></pre>
+</div>
+<p>You can certainly find the labels for each value on the IPUMS PMA website, but it would be much more convenient to have these and other attributes loaded into R.</p>
+<h1 id="data-dictionary">Data Dictionary</h1>
+<p>Now let’s import the same data as a <strong>fixed width (.dat)</strong> file together with metadata provided by an accompanying <code>.xml</code> file. As recommended, we’ll use the function <a href="https://rdrr.io/pkg/ipumsr/man/read_ipums_micro.html">read_ipums_micro</a> to load these two files into R.</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://www.ipums.org'>ipumsr</a></span><span class='op'>)</span></span>
+<span><span class='va'>dat</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/ipumsr/man/read_ipums_micro.html'>read_ipums_micro</a></span><span class='op'>(</span></span>
+<span>  ddi <span class='op'>=</span> <span class='st'>"data/pma_00180.xml"</span>,</span>
+<span>  data <span class='op'>=</span> <span class='st'>"data/pma_00180.dat.gz"</span></span>
+<span><span class='op'>)</span></span></code></pre>
+</div>
+</div>
+<p>The <code>.xml</code> file contains all the information R needs to correctly identify the class for each variable. Note that <a href="https://pma.ipums.org/pma-action/variables/ABORDECOTHSP#codes_section">ABORDECOTHSP</a> now contains the string responses we expected to see (reported in the language spoken by the respondent):</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>dat</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/count.html'>count</a></span><span class='op'>(</span><span class='va'>ABORDECOTHSP</span><span class='op'>)</span></span></code></pre>
+</div>
+<pre><code># A tibble: 5 × 2
+  ABORDECOTHSP           n
+  &lt;chr&gt;              &lt;int&gt;
+1 &quot;&quot;                 96477
+2 &quot;Ami de son copin&quot;     1
+3 &quot;Ex petit ami&quot;         1
+4 &quot;tuteur&quot;               1
+5 &quot;Une Camarade&quot;         1</code></pre>
+</div>
+<p>Moreover, value labels for <a href="https://pma.ipums.org/pma-action/variables/COUNTRY#codes_section">COUNTRY</a> are printed to the console:</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>dat</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/count.html'>count</a></span><span class='op'>(</span><span class='va'>COUNTRY</span><span class='op'>)</span></span></code></pre>
+</div>
+<pre><code># A tibble: 8 × 2
+  COUNTRY                             n
+  &lt;int+lbl&gt;                       &lt;int&gt;
+1  1 [Burkina Faso]               13385
+2  2 [Congo, Democratic Republic]  8927
+3  3 [Ethiopia]                    7546
+4  6 [India]                      11379
+5  7 [Kenya]                      18926
+6  9 [Nigeria]                    16489
+7 10 [Uganda]                     12780
+8 11 [Cote d&#39;Ivoire]               7049</code></pre>
+</div>
+<p>In fact, value labels are only one of several attributes associated with each variable in an IPUMS dataset. The <code>.xml</code> file also provides 1) a brief label for each variable, and 2) the detailed variable description shown on the DESCRIPTION tab on our website. For instance, here is the DESCRIPTION tab for the variable <a href="https://pma.ipums.org/pma-action/variables/PREGENDEV#codes_section">PREGENDEV</a>:</p>
+<div class="layout-chunk" data-layout="l-body-outset">
+<iframe src="https://pma.ipums.org/pma-action/variables/PREGENDEV#description_section" width="624" height="800px" data-external="1">
+</iframe>
+</div>
+<p>You can access all of the <code>.xml</code> metadata for <a href="https://pma.ipums.org/pma-action/variables/PREGENDEV#codes_section">PREGENDEV</a> with the functions <a href="https://rdrr.io/pkg/ipumsr/man/ipums_var_info.html">ipums_val_labels</a>, <a href="https://rdrr.io/pkg/ipumsr/man/ipums_var_info.html">ipums_var_label</a>, and <a href="https://rdrr.io/pkg/ipumsr/man/ipums_var_info.html">ipums_var_desc</a>, or you can combine them into a tabular <strong>data dictionary</strong> with the function <a href="https://rdrr.io/pkg/ipumsr/man/ipums_var_info.html">ipums_var_info</a>. Let’s call this table <code>dd</code>.</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>dd</span> <span class='op'>&lt;-</span> <span class='va'>dat</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://rdrr.io/pkg/ipumsr/man/ipums_var_info.html'>ipums_var_info</a></span><span class='op'>(</span><span class='op'>)</span></span>
+<span><span class='va'>dd</span></span></code></pre>
+</div>
+<pre><code># A tibble: 95 × 4
+   var_name   var_label                                         var_d…¹ val_la…²
+   &lt;chr&gt;      &lt;chr&gt;                                             &lt;chr&gt;   &lt;list&gt;  
+ 1 SAMPLE     PMA sample number                                 &quot;SAMPL… &lt;tibble&gt;
+ 2 COUNTRY    PMA country                                       &quot;COUNT… &lt;tibble&gt;
+ 3 YEAR       Year                                              &quot;YEAR … &lt;tibble&gt;
+ 4 ROUND      PMA survey round in this country                  &quot;ROUND… &lt;tibble&gt;
+ 5 PERSONID   Unique person ID number                           &quot;PERSO… &lt;tibble&gt;
+ 6 ELIGIBLE   Eligible female respondent                        &quot;ELIGI… &lt;tibble&gt;
+ 7 EAID       Enumeration area                                  &quot;EAID … &lt;tibble&gt;
+ 8 CONSENTFQ  Female respondent provided consent to be intervi… &quot;CONSE… &lt;tibble&gt;
+ 9 FQINSTID   Unique ID for female questionnaire                &quot;FQINS… &lt;tibble&gt;
+10 CONSENTHQ  Household respondent provided consent to be inte… &quot;CONSE… &lt;tibble&gt;
+11 FQWEIGHT   Female weight                                     &quot;FQWEI… &lt;tibble&gt;
+12 STRATA     Strata                                            &quot;STRAT… &lt;tibble&gt;
+13 PREGENDEV  Ever had a pregnancy that miscarried, aborted, o… &quot;PREGE… &lt;tibble&gt;
+14 PREGEND    Had pregnancy that ended in last 3 yrs            &quot;PREGE… &lt;tibble&gt;
+15 ABORYRSAGO Number of years ago pregnancy ended               &quot;ABORY… &lt;tibble&gt;
+16 PREGENDYR  Year last pregnancy was terminated                &quot;For w… &lt;tibble&gt;
+17 PREGENDMO  Month last pregnancy was terminated               &quot;For w… &lt;tibble&gt;
+18 ABORWHERE  Where abortion was performed                      &quot;ABORW… &lt;tibble&gt;
+19 ABOREV     Ever aborted pregnancy                            &quot;ABORE… &lt;tibble&gt;
+20 ABORMON    Month of last aborted pregnancy                   &quot;ABORM… &lt;tibble&gt;
+# … with 75 more rows, and abbreviated variable names ¹​var_desc, ²​val_labels</code></pre>
+</div>
+<p>Just a quick note on terminology here: the terms <strong>data dictionary</strong> and <strong>codebook</strong> are often used interchangeably. Personally, I think of a <strong>data dictionary</strong> as a tabular or machine-readable tool describing the contents of a dataset (usually for the purpose of improving user experience with statistical software); a <strong>codebook</strong> is usually - well, <em>book</em>-like. Analysts often create a <strong>codebook</strong> containing metadata and summary statistics for each variable in a survey dataset.</p>
+<p>You might want access to a <strong>data dictionary</strong> like <code>dd</code> if you wanted to quickly identify all of the variables in a data extract that contain a search term like “abort”.</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>dd</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>var_label</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://stringr.tidyverse.org/reference/str_detect.html'>str_detect</a></span><span class='op'>(</span><span class='st'>"abort"</span><span class='op'>)</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/pull.html'>pull</a></span><span class='op'>(</span><span class='va'>var_name</span><span class='op'>)</span></span></code></pre>
+</div>
+<pre><code> [1] &quot;PREGENDEV&quot;        &quot;ABORWHERE&quot;        &quot;ABOREV&quot;           &quot;ABORMON&quot;         
+ [5] &quot;ABORYR&quot;           &quot;ABOROTHER&quot;        &quot;ABORNUM&quot;          &quot;ABOR1STYR&quot;       
+ [9] &quot;ABORMULT&quot;         &quot;ABORONLYMETH&quot;     &quot;ABORFIRSTMETH&quot;    &quot;ABORLASTMETH&quot;    
+[13] &quot;ABORCARE&quot;         &quot;ABORFIRSTMEDLOC&quot;  &quot;ABORLASTMEDLOC&quot;   &quot;ABORFIRSTSURGLOC&quot;
+[17] &quot;ABORLASTSURGLOC&quot;  &quot;ABORYPARENTS&quot;     &quot;ABORDISCFRND1&quot;    &quot;ABORDISCFRND2&quot;   
+[21] &quot;ABORDISCFRND3&quot;    &quot;ABORDISCNONE&quot;    </code></pre>
+</div>
+<p>You can also search the detailed <strong>variable description</strong> for each variable the same way:</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>dd</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>var_desc</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://stringr.tidyverse.org/reference/str_detect.html'>str_detect</a></span><span class='op'>(</span><span class='st'>"abort"</span><span class='op'>)</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/pull.html'>pull</a></span><span class='op'>(</span><span class='va'>var_name</span><span class='op'>)</span></span></code></pre>
+</div>
+<pre><code> [1] &quot;PREGENDEV&quot;        &quot;PREGEND&quot;          &quot;PREGENDYR&quot;        &quot;PREGENDMO&quot;       
+ [5] &quot;ABORWHERE&quot;        &quot;ABOREV&quot;           &quot;ABORMON&quot;          &quot;ABORYR&quot;          
+ [9] &quot;ABORINSCHOOL&quot;     &quot;ABOROTHER&quot;        &quot;ABORNUM&quot;          &quot;ABOR1STYR&quot;       
+[13] &quot;ABORMULT&quot;         &quot;ABORONLYMETH&quot;     &quot;ABORFIRSTMETH&quot;    &quot;ABORLASTMETH&quot;    
+[17] &quot;ABORCARE&quot;         &quot;ABORFIRSTMEDLOC&quot;  &quot;ABORLASTMEDLOC&quot;   &quot;ABORFIRSTSURGLOC&quot;
+[21] &quot;ABORLASTSURGLOC&quot;  &quot;ABORYFETUSHLTH&quot;   &quot;ABORYSOCIAL&quot;      &quot;ABORYHEALTH&quot;     
+[25] &quot;ABORYMATURE&quot;      &quot;ABORYMEANS&quot;       &quot;ABORYPARENTS&quot;     &quot;ABORYRAPE&quot;       
+[29] &quot;ABORYREADY&quot;       &quot;ABORYHUS&quot;         &quot;ABORYSCHOOL&quot;      &quot;ABORYSINGLE&quot;     
+[33] &quot;ABORYLIMIT&quot;       &quot;ABORYWORRIED&quot;     &quot;ABORYOTH&quot;         &quot;ABORDISCFRND1&quot;   
+[37] &quot;ABORDISCFRND2&quot;    &quot;ABORDISCFRND3&quot;    &quot;ABORDISCNONE&quot;     &quot;ABORCFBRO&quot;       
+[41] &quot;ABORCFDAD&quot;        &quot;ABORCFRND1&quot;       &quot;ABORCFRND2&quot;       &quot;ABORCFMOM&quot;       
+[45] &quot;ABORCFRNDOTH&quot;     &quot;ABORCFRELOTH&quot;     &quot;ABORCFPART&quot;       &quot;ABORCFSIS&quot;       
+[49] &quot;ABORCFFRND&quot;       &quot;ABORCFOTH&quot;       </code></pre>
+</div>
+<h1 id="codebook">Codebook</h1>
+<p>Another reason you might want access to a <strong>data dictionary</strong> is that - combined with tools like <a href="https://github.com/rstudio/pagedown">pagedown</a> or <a href="https://github.com/rstudio/bookdown">bookdown</a>- it can help generate a detailed <strong>codebook</strong> with just a few lines of code.</p>
+<div>
+<p>Here, we’ll build a quick <strong>codebook</strong> with <a href="https://github.com/rstudio/pagedown">pagedown</a>, so we’ll need to create an RMarkdown file called <code>codebook.Rmd</code> with the following YAML header pointing to a helper CSS file in our working directory. We’ll specify that we want the output to be paginated for HTML (although we’ll ultimately tell R to turn that output into a PDF with <a href="https://rdrr.io/pkg/pagedown/man/chrome_print.html">chrome_print</a>), and we’ll give a custom title to our Table Contents page.</p>
+<pre><code>---
+output:
+  pagedown::html_paged: 
+    toc: true
+    self_contained: false
+toc-title: &#39;IPUMS PMA Codebook: &lt;br&gt;Pregnancy Termination Variables&#39;
+css:  &#39;custom.css&#39;
+---</code></pre>
+</div>
+<aside>
+<div class="layout-chunk" data-layout="l-body">
+<div>
+<a href="https://github.com/rstudio/pagedown">
+<img src="../../images/hex/pagedown.png"/>
+</a>
+© RStudio, Inc. (MIT)
+</div>
+</div>
+</aside>
+<p>The first few lines of code in this Rmarkdown file should load your dataset and create a <strong>data dictionary</strong> called <code>dd</code> as shown above. Additionally, we’ll drop the first 12 variables that are preselected for every IPUMS PMA data extract.</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://www.ipums.org'>ipumsr</a></span><span class='op'>)</span></span>
+<span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://tidyverse.tidyverse.org'>tidyverse</a></span><span class='op'>)</span></span>
+<span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://github.com/ddsjoberg/gtsummary'>gtsummary</a></span><span class='op'>)</span></span>
+<span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://gt.rstudio.com/'>gt</a></span><span class='op'>)</span></span>
+<span></span>
+<span><span class='va'>dat</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/ipumsr/man/read_ipums_micro.html'>read_ipums_micro</a></span><span class='op'>(</span></span>
+<span>  ddi <span class='op'>=</span> <span class='st'>"data/pma_00180.xml"</span>,</span>
+<span>  data <span class='op'>=</span> <span class='st'>"data/pma_00180.dat.gz"</span></span>
+<span><span class='op'>)</span></span>
+<span></span>
+<span><span class='va'>dd</span> <span class='op'>&lt;-</span> <span class='va'>dat</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://rdrr.io/pkg/ipumsr/man/ipums_var_info.html'>ipums_var_info</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/slice.html'>slice</a></span><span class='op'>(</span><span class='op'>-</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>12</span><span class='op'>)</span><span class='op'>)</span></span></code></pre>
+</div>
+</div>
+<div>
+<p>Besides the information already contained in <code>dd</code>, we might want to add a table showing the frequency of each response for every labelled variable (excluding mainly ID variables like <a href="https://pma.ipums.org/pma-action/variables/EAID#codes_section">EAID</a> and <a href="https://pma.ipums.org/pma-action/variables/FQINSTID#codes_section">FQINSTID</a>). We’ll use <a href="https://github.com/ddsjoberg/gtsummary">gtsummary</a> to create a frequency table for every such variable, and we’ll attach the results in a column called <code>tbl</code> in our <strong>data dictionary</strong>.</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>dd</span><span class='op'>$</span><span class='va'>tbl</span> <span class='op'>&lt;-</span> <span class='va'>dd</span><span class='op'>$</span><span class='va'>var_name</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
+<span>  <span class='fu'><a href='https://purrr.tidyverse.org/reference/map.html'>map</a></span><span class='op'>(</span></span>
+<span>    <span class='op'>~</span><span class='kw'>if</span><span class='op'>(</span><span class='va'>dat</span><span class='op'>[[</span><span class='va'>.x</span><span class='op'>]</span><span class='op'>]</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='va'>is.labelled</span><span class='op'>)</span><span class='op'>{</span></span>
+<span>      <span class='va'>dat</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span></span>
+<span>        <span class='fu'><a href='https://dplyr.tidyverse.org/reference/select.html'>select</a></span><span class='op'>(</span><span class='op'>!</span><span class='op'>!</span><span class='va'>.x</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span></span>
+<span>        <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/across.html'>across</a></span><span class='op'>(</span><span class='fu'>where</span><span class='op'>(</span><span class='va'>is.labelled</span><span class='op'>)</span>, <span class='op'>~</span><span class='va'>.x</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='va'>as_factor</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='va'>fct_drop</span><span class='op'>)</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span></span>
+<span>        <span class='fu'><a href='https://www.danieldsjoberg.com/gtsummary/reference/tbl_summary.html'>tbl_summary</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span></span>
+<span>        <span class='fu'><a href='https://www.danieldsjoberg.com/gtsummary/reference/modify.html'>modify_footnote</a></span><span class='op'>(</span>update <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='va'>stat_0</span> <span class='op'>~</span> <span class='cn'>NA</span><span class='op'>)</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span></span>
+<span>        <span class='fu'><a href='https://www.danieldsjoberg.com/gtsummary/reference/bold_italicize_labels_levels.html'>bold_labels</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span></span>
+<span>        <span class='fu'><a href='https://www.danieldsjoberg.com/gtsummary/reference/as_gt.html'>as_gt</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span></span>
+<span>        <span class='fu'><a href='https://gt.rstudio.com/reference/tab_options.html'>tab_options</a></span><span class='op'>(</span></span>
+<span>          column_labels.hidden <span class='op'>=</span> <span class='cn'>TRUE</span>,</span>
+<span>          table.font.names <span class='op'>=</span> <span class='st'>"cabrito_sans_norm_regular"</span>,</span>
+<span>          table.width <span class='op'>=</span> <span class='fu'><a href='https://gt.rstudio.com/reference/pct.html'>pct</a></span><span class='op'>(</span><span class='fl'>100</span><span class='op'>)</span>,</span>
+<span>          table.font.size <span class='op'>=</span> <span class='st'>".8em"</span></span>
+<span>        <span class='op'>)</span></span>
+<span>    <span class='op'>}</span></span>
+<span>  <span class='op'>)</span></span></code></pre>
+</div>
+</div>
+</div>
+<aside>
+<div class="layout-chunk" data-layout="l-body">
+<div>
+<a href="https://www.danieldsjoberg.com/gtsummary/index.html">
+<img src="../../images/hex/gtsummary.png"/>
+</a>
+© Daniel D. Sjoberg et al. (MIT)
+</div>
+</div>
+<br>
+Check out <a href="../2021-07-01-covid-tables/">this post</a> for an in-depth tutorial on <a href="https://github.com/ddsjoberg/gtsummary">gtsummary</a> tables.
+</aside>
+<p>Next we’ll use <a href="https://purrr.tidyverse.org/reference/map2.html">pwalk</a> to iterate over each of the rows in <code>dd</code>: the <a href="https://purrr.tidyverse.org/reference/map.html">walk</a> family of functions works just like the iterative function <a href="https://purrr.tidyverse.org/reference/map.html">map</a>, except that the results are <em>not</em> returned in a list. Instead, we’ll call <a href="https://rdrr.io/r/base/cat.html">cat</a> to capture the text results within each iteration.</p>
+<p>What about the <a href="https://purrr.tidyverse.org/reference/map2.html">p</a> in <a href="https://purrr.tidyverse.org/reference/map2.html">pwalk</a>? This stands for “parallel” in the sense that an arbitrary number of inputs can be processed in parallel. In our case, we want to return text from the columns <code>var_name</code> and <code>var_desc</code>, and then return either HTML code representing our <a href="https://github.com/ddsjoberg/gtsummary">gtsummary</a> table or an explanation like <em>Table omitted for space constraints</em>.</p>
+<p>This is achieved with a custom <a href="https://r4ds.had.co.nz/functions.html">function</a> with unnamed arguments represented by the ellipsis <code>...</code> - this carries <em>all</em> of the columns in each row of <code>dd</code> into a list we call <code>text</code>. Hence, <code>text$var_name</code> returns <a href="https://pma.ipums.org/pma-action/variables/SAMPLE#codes_section">SAMPLE</a> in the first iteration, while <code>text$var_desc</code> returns its variable description and <code>text$tbl</code> returns its <a href="https://github.com/ddsjoberg/gtsummary">gtsummary</a> table. The second iteration returns text for <a href="https://pma.ipums.org/pma-action/variables/COUNTRY#codes_section">COUNTRY</a>, and so-on.</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>dd</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
+<span>  <span class='fu'><a href='https://purrr.tidyverse.org/reference/map2.html'>pwalk</a></span><span class='op'>(</span><span class='kw'>function</span><span class='op'>(</span><span class='va'>...</span><span class='op'>)</span><span class='op'>{</span></span>
+<span>    <span class='va'>text</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='va'>...</span><span class='op'>)</span></span>
+<span>    <span class='va'>text</span><span class='op'>$</span><span class='va'>var_name</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
+<span>      <span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste</a></span><span class='op'>(</span><span class='st'>"#"</span>, <span class='va'>.</span>, <span class='st'>"{.unnumbered} \n\n"</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
+<span>      <span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste</a></span><span class='op'>(</span><span class='va'>text</span><span class='op'>$</span><span class='va'>var_desc</span>, <span class='st'>"\n\n"</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
+<span>      <span class='fu'><a href='https://rdrr.io/r/base/cat.html'>cat</a></span><span class='op'>(</span><span class='op'>)</span></span>
+<span>    <span class='kw'>if</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/NULL.html'>is.null</a></span><span class='op'>(</span><span class='va'>text</span><span class='op'>$</span><span class='va'>tbl</span><span class='op'>)</span><span class='op'>)</span><span class='op'>{</span></span>
+<span>      <span class='fu'><a href='https://rdrr.io/r/base/cat.html'>cat</a></span><span class='op'>(</span><span class='st'>"*Table omitted for space constraints*\n\n"</span><span class='op'>)</span></span>
+<span>    <span class='op'>}</span> <span class='kw'>else</span> <span class='op'>{</span></span>
+<span>      <span class='va'>text</span><span class='op'>$</span><span class='va'>tbl</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://gt.rstudio.com/reference/as_raw_html.html'>as_raw_html</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://rdrr.io/r/base/cat.html'>cat</a></span><span class='op'>(</span><span class='op'>)</span></span>
+<span>    <span class='op'>}</span></span>
+<span>  <span class='op'>}</span><span class='op'>)</span></span></code></pre>
+</div>
+</div>
+<aside>
+Make sure to use the option <code>results='asis'</code> in this chunk to capture the output of <a href="https://rdrr.io/r/base/cat.html">cat</a> as plain text.
+</aside>
+<p>Once you’ve saved this RMarkdown file, type the following function <em>directly into the R console</em> to generate a PDF.</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='fu'>pagedown</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/pagedown/man/chrome_print.html'>chrome_print</a></span><span class='op'>(</span><span class='st'>"codebook.Rmd"</span>,<span class='st'>"codebook.pdf"</span><span class='op'>)</span></span></code></pre>
+</div>
+</div>
+<p>The result looks like this:</p>
+<div class="layout-chunk" data-layout="l-body-outset">
+<iframe src="codebook.pdf#zoom=75" width="624" height="800px" data-external="1">
+</iframe>
+</div>
+<h1 id="scraping-additional-metadata">Scraping Additional Metadata</h1>
+<p>This codebook is a great start, but you’ll find even more metadata available on the IPUMS PMA website. For example, the AVAILABILITY tab for <a href="https://pma.ipums.org/pma-action/variables/PREGENDEV#codes_section">PREGENDEV</a> tells us that this variable is only available for certain samples:</p>
+<div class="layout-chunk" data-layout="l-body-outset">
+<iframe src="https://pma.ipums.org/pma-action/variables/PREGENDEV#availability_section" width="624" height="800px" data-external="1">
+</iframe>
+</div>
+<p>Although this information is not included in the <code>.xml</code> file we used to produce <code>dd</code>, we can easily <strong>scrape</strong> it from the website with help from the <a href="https://rvest.tidyverse.org/">rvest</a> package. First, locate the URL for the variable you want to scrape:</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>pma_url</span> <span class='op'>&lt;-</span> <span class='st'>"https://pma.ipums.org/pma-action/variables/PREGENDEV"</span></span></code></pre>
+</div>
+</div>
+<div>
+<p>Next, we’ll load <a href="https://rvest.tidyverse.org/">rvest</a> and use a few of its basic functions to load the AVAILABILITY text into R. Each tab on the IPUMS PMA website is represented by CSS tag that also appears at the end of URL when you click on the tab. For example, clicking on the AVAILABILITY tab add the suffix <code>#availability_section</code> to the URL shown in <code>pma_url</code>.</p>
+<p>Simply use <a href="http://xml2.r-lib.org/reference/read_xml.html">read_html</a> to read the full HTML for <code>pma_url</code>, then pipe the HTML to <a href="https://rvest.tidyverse.org/reference/html_element.html">html_elements</a> to select “#availability_section” and <a href="https://rvest.tidyverse.org/reference/html_text.html">html_text2</a> to return the text located there.</p>
+</div>
+<aside>
+<div class="layout-chunk" data-layout="l-body">
+<div>
+<a href="https://rvest.tidyverse.org/">
+<img src="../../images/hex/rvest.png"/>
+</a>
+© RStudio, Inc. (MIT)
+</div>
+</div>
+</aside>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://rvest.tidyverse.org/'>rvest</a></span><span class='op'>)</span></span>
+<span></span>
+<span><span class='va'>pma_text</span> <span class='op'>&lt;-</span> <span class='va'>pma_url</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
+<span>  <span class='fu'><a href='http://xml2.r-lib.org/reference/read_xml.html'>read_html</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
+<span>  <span class='fu'><a href='https://rvest.tidyverse.org/reference/html_element.html'>html_elements</a></span><span class='op'>(</span><span class='st'>"#availability_section"</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
+<span>  <span class='fu'><a href='https://rvest.tidyverse.org/reference/html_text.html'>html_text2</a></span><span class='op'>(</span><span class='op'>)</span></span>
+<span></span>
+<span><span class='va'>pma_text</span></span></code></pre>
+</div>
+<pre><code>[1] &quot;Availability\nIndia: 2017, 2020\nUganda: 2020&quot;</code></pre>
+</div>
+<p>This text includes special characters indicating line-breaks. Again, you can preview the formatted text with <a href="https://rdrr.io/r/base/cat.html">cat</a>.</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='fu'><a href='https://rdrr.io/r/base/cat.html'>cat</a></span><span class='op'>(</span><span class='va'>pma_text</span><span class='op'>)</span></span></code></pre>
+</div>
+<pre><code>Availability
+India: 2017, 2020
+Uganda: 2020</code></pre>
+</div>
+<p>All of the tabs you’ll find on the IPUMS PMA site can be accessed this way, except for the CODES and QUESTIONNAIRE TEXT tabs. While the CODES tab is redundant with information already accessible in our dataset, there may be instances where you want to access the original text of the questionnaire. If you use the same approach to scrape it, you’ll get no results:</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>pma_url</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
+<span>  <span class='fu'><a href='http://xml2.r-lib.org/reference/read_xml.html'>read_html</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
+<span>  <span class='fu'><a href='https://rvest.tidyverse.org/reference/html_element.html'>html_elements</a></span><span class='op'>(</span><span class='st'>"#questionnaire_text_section"</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
+<span>  <span class='fu'><a href='https://rvest.tidyverse.org/reference/html_text.html'>html_text2</a></span><span class='op'>(</span><span class='op'>)</span> </span></code></pre>
+</div>
+<pre><code>[1] &quot;&quot;</code></pre>
+</div>
+<p>This is because Javascript is required to display text on both of these tabs. Fortunately, IPUMS also has a hidden static HTML page (which you can find by right-clicking on the QUESTIONNAIRE TEXT tab and clicking “inspect” on most browsers). You can use the following modified URL to scrape questionnaire text if needed:</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>pma_enum_text</span> <span class='op'>&lt;-</span> <span class='va'>pma_url</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
+<span>  <span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste0</a></span><span class='op'>(</span><span class='st'>"/ajax_enum_text"</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
+<span>  <span class='fu'><a href='http://xml2.r-lib.org/reference/read_xml.html'>read_html</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
+<span>  <span class='fu'><a href='https://rvest.tidyverse.org/reference/html_element.html'>html_elements</a></span><span class='op'>(</span><span class='st'>".docSectionSample"</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
+<span>  <span class='fu'><a href='https://purrr.tidyverse.org/reference/map.html'>map_df</a></span><span class='op'>(</span></span>
+<span>    <span class='op'>~</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span></span>
+<span>      SAMPLE <span class='op'>=</span> <span class='va'>.x</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://rvest.tidyverse.org/reference/html_element.html'>html_element</a></span><span class='op'>(</span><span class='st'>".td1"</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://rvest.tidyverse.org/reference/html_text.html'>html_text2</a></span><span class='op'>(</span><span class='op'>)</span>,</span>
+<span>      TEXT <span class='op'>=</span> <span class='va'>.x</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://rvest.tidyverse.org/reference/html_element.html'>html_element</a></span><span class='op'>(</span><span class='st'>".enum_section_text"</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://rvest.tidyverse.org/reference/html_text.html'>html_text2</a></span><span class='op'>(</span><span class='op'>)</span></span>
+<span>    <span class='op'>)</span></span>
+<span>  <span class='op'>)</span></span>
+<span></span>
+<span><span class='va'>pma_enum_text</span></span></code></pre>
+</div>
+<pre><code># A tibble: 3 × 2
+  SAMPLE      TEXT                                                              
+  &lt;chr&gt;       &lt;chr&gt;                                                             
+1 India 2017a &quot;1. Have you ever had a pregnancy that miscarried, was aborted, o…
+2 India 2020  &quot;207. Have you ever had a pregnancy that miscarried, was aborted,…
+3 Uganda 2020 &quot;207. Have you ever had a pregnancy that miscarried, was aborted,…</code></pre>
+</div>
+<p>So what if we want to add text from each tab to our <strong>codebook</strong>? We’ll just need to iterate over each tab for every variable, and then add the results to <code>dd</code>.</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>dd</span> <span class='op'>&lt;-</span> <span class='va'>dd</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/rowwise.html'>rowwise</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span></span>
+<span>    url <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste0</a></span><span class='op'>(</span><span class='st'>"https://pma.ipums.org/pma-action/variables/"</span>, <span class='va'>var_name</span><span class='op'>)</span>,</span>
+<span>    comp <span class='op'>=</span> <span class='va'>url</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
+<span>      <span class='fu'><a href='http://xml2.r-lib.org/reference/read_xml.html'>read_html</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
+<span>      <span class='fu'><a href='https://rvest.tidyverse.org/reference/html_element.html'>html_elements</a></span><span class='op'>(</span><span class='st'>"#comparability_section"</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
+<span>      <span class='fu'><a href='https://rvest.tidyverse.org/reference/html_text.html'>html_text2</a></span><span class='op'>(</span><span class='op'>)</span>,</span>
+<span>    avail <span class='op'>=</span> <span class='va'>url</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
+<span>      <span class='fu'><a href='http://xml2.r-lib.org/reference/read_xml.html'>read_html</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
+<span>      <span class='fu'><a href='https://rvest.tidyverse.org/reference/html_element.html'>html_elements</a></span><span class='op'>(</span><span class='st'>"#availability_section"</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
+<span>      <span class='fu'><a href='https://rvest.tidyverse.org/reference/html_text.html'>html_text2</a></span><span class='op'>(</span><span class='op'>)</span>,</span>
+<span>    universe <span class='op'>=</span> <span class='va'>url</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
+<span>      <span class='fu'><a href='http://xml2.r-lib.org/reference/read_xml.html'>read_html</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
+<span>      <span class='fu'><a href='https://rvest.tidyverse.org/reference/html_element.html'>html_elements</a></span><span class='op'>(</span><span class='st'>"#universe_section"</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
+<span>      <span class='fu'><a href='https://rvest.tidyverse.org/reference/html_text.html'>html_text2</a></span><span class='op'>(</span><span class='op'>)</span>,</span>
+<span>    qtext <span class='op'>=</span> <span class='va'>url</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
+<span>      <span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste0</a></span><span class='op'>(</span><span class='st'>"/ajax_enum_text"</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
+<span>      <span class='fu'><a href='http://xml2.r-lib.org/reference/read_xml.html'>read_html</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
+<span>      <span class='fu'><a href='https://rvest.tidyverse.org/reference/html_element.html'>html_elements</a></span><span class='op'>(</span><span class='st'>".docSectionSample"</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
+<span>      <span class='fu'><a href='https://purrr.tidyverse.org/reference/map.html'>map_df</a></span><span class='op'>(</span></span>
+<span>        <span class='op'>~</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span></span>
+<span>          SAMPLE <span class='op'>=</span> <span class='va'>.x</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://rvest.tidyverse.org/reference/html_element.html'>html_element</a></span><span class='op'>(</span><span class='st'>".td1"</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://rvest.tidyverse.org/reference/html_text.html'>html_text2</a></span><span class='op'>(</span><span class='op'>)</span>,</span>
+<span>          TEXT <span class='op'>=</span> <span class='va'>.x</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://rvest.tidyverse.org/reference/html_element.html'>html_element</a></span><span class='op'>(</span><span class='st'>".enum_section_text"</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://rvest.tidyverse.org/reference/html_text.html'>html_text2</a></span><span class='op'>(</span><span class='op'>)</span></span>
+<span>        <span class='op'>)</span></span>
+<span>      <span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
+<span>      <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='op'>)</span></span>
+<span>  <span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>ungroup</a></span><span class='op'>(</span><span class='op'>)</span></span></code></pre>
+</div>
+</div>
+<div class="layout-chunk" data-layout="l-body">
+
+</div>
+<div class="layout-chunk" data-layout="l-body">
+
+</div>
+<p>We’ll then need to modify the final chunk in <code>codebook.Rmd</code> to add the text from each of these new columns. Our data extract contains 17 different samples, so we’ll choose not to show the questionnaire text we’ve scraped in each case - you could easily add it, though, if it’s important to compare small variations in the question administred in each survey.</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='co'># Create headings for each metadata section </span></span>
+<span><span class='va'>dd</span> <span class='op'>&lt;-</span> <span class='va'>dd</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span></span>
+<span>    var_name <span class='op'>=</span> <span class='va'>var_name</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
+<span>      <span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste</a></span><span class='op'>(</span><span class='st'>"#"</span>, <span class='va'>.</span>, <span class='st'>"{.unnumbered}"</span><span class='op'>)</span>,</span>
+<span>    comp <span class='op'>=</span> <span class='va'>comp</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
+<span>      <span class='fu'><a href='https://stringr.tidyverse.org/reference/str_replace.html'>str_replace</a></span><span class='op'>(</span><span class='st'>"Comparability"</span>, <span class='st'>"#### Comparability {.unnumbered}\n"</span><span class='op'>)</span>,</span>
+<span>    avail <span class='op'>=</span> <span class='va'>avail</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
+<span>      <span class='fu'><a href='https://stringr.tidyverse.org/reference/str_replace.html'>str_replace_all</a></span><span class='op'>(</span><span class='st'>"\n"</span>, <span class='st'>"\n - "</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
+<span>      <span class='fu'><a href='https://stringr.tidyverse.org/reference/str_replace.html'>str_replace</a></span><span class='op'>(</span><span class='st'>"Availability"</span>, <span class='st'>"#### Availability {.unnumbered}\n"</span><span class='op'>)</span>,</span>
+<span>    universe <span class='op'>=</span> <span class='va'>universe</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
+<span>      <span class='fu'><a href='https://stringr.tidyverse.org/reference/str_replace.html'>str_replace_all</a></span><span class='op'>(</span><span class='st'>"\n"</span>, <span class='st'>"\n - "</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
+<span>      <span class='fu'><a href='https://stringr.tidyverse.org/reference/str_replace.html'>str_replace</a></span><span class='op'>(</span><span class='st'>"Universe"</span>, <span class='st'>"#### Universe {.unnumbered}\n"</span><span class='op'>)</span></span>
+<span>  <span class='op'>)</span></span>
+<span></span>
+<span><span class='co'># Add one new `cat` for each new metadata section</span></span>
+<span><span class='va'>dd</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>ungroup</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
+<span>  <span class='fu'><a href='https://purrr.tidyverse.org/reference/map2.html'>pwalk</a></span><span class='op'>(</span><span class='kw'>function</span><span class='op'>(</span><span class='va'>...</span><span class='op'>)</span><span class='op'>{</span></span>
+<span>    <span class='va'>text</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='va'>...</span><span class='op'>)</span></span>
+<span>    <span class='va'>text</span><span class='op'>$</span><span class='va'>var_name</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://rdrr.io/r/base/cat.html'>cat</a></span><span class='op'>(</span><span class='st'>"\n\n"</span><span class='op'>)</span></span>
+<span>    <span class='va'>text</span><span class='op'>$</span><span class='va'>var_desc</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://rdrr.io/r/base/cat.html'>cat</a></span><span class='op'>(</span><span class='st'>"\n\n"</span><span class='op'>)</span></span>
+<span>    <span class='va'>text</span><span class='op'>$</span><span class='va'>comp</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://rdrr.io/r/base/cat.html'>cat</a></span><span class='op'>(</span><span class='st'>"\n\n"</span><span class='op'>)</span></span>
+<span>    <span class='va'>text</span><span class='op'>$</span><span class='va'>avail</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://rdrr.io/r/base/cat.html'>cat</a></span><span class='op'>(</span><span class='st'>"\n\n"</span><span class='op'>)</span></span>
+<span>    <span class='va'>text</span><span class='op'>$</span><span class='va'>universe</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://rdrr.io/r/base/cat.html'>cat</a></span><span class='op'>(</span><span class='st'>"\n\n"</span><span class='op'>)</span></span>
+<span>    <span class='fu'><a href='https://rdrr.io/r/base/cat.html'>cat</a></span><span class='op'>(</span><span class='st'>"#### Results {.unnumbered} \n\n"</span><span class='op'>)</span></span>
+<span>    <span class='kw'>if</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/NULL.html'>is.null</a></span><span class='op'>(</span><span class='va'>text</span><span class='op'>$</span><span class='va'>tbl</span><span class='op'>)</span><span class='op'>)</span><span class='op'>{</span></span>
+<span>      <span class='fu'><a href='https://rdrr.io/r/base/cat.html'>cat</a></span><span class='op'>(</span><span class='st'>"*Table omitted for space constraints*\n\n"</span><span class='op'>)</span></span>
+<span>    <span class='op'>}</span> <span class='kw'>else</span> <span class='op'>{</span></span>
+<span>      <span class='va'>text</span><span class='op'>$</span><span class='va'>tbl</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://gt.rstudio.com/reference/as_raw_html.html'>as_raw_html</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://rdrr.io/r/base/cat.html'>cat</a></span><span class='op'>(</span><span class='op'>)</span></span>
+<span>    <span class='op'>}</span></span>
+<span>  <span class='op'>}</span><span class='op'>)</span></span></code></pre>
+</div>
+</div>
+<p>And here’s the final result - a fully automated <strong>codebook</strong> containing nearly all of the metadata available for each variable in the Pregnancy Termination group on the IPUMS PMA website!</p>
+<div class="layout-chunk" data-layout="l-body">
+
+</div>
+<div class="layout-chunk" data-layout="l-body-outset">
+<iframe src="codebook2.pdf#zoom=75" width="624" height="800px" data-external="1">
+</iframe>
+</div>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
+<!--radix_placeholder_article_footer-->
+<!--/radix_placeholder_article_footer-->
+</div>
+
+<div class="d-appendix">
+</div>
+
+
+<!--radix_placeholder_site_after_body-->
+<!--/radix_placeholder_site_after_body-->
+<!--radix_placeholder_appendices-->
+<div class="appendix-bottom"></div>
+<!--/radix_placeholder_appendices-->
+<!--radix_placeholder_navigation_after_body-->
+<!--/radix_placeholder_navigation_after_body-->
+
+</body>
+
+</html>

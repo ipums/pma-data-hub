@@ -1,0 +1,255 @@
+@import url('https://assets.ipums.org/_css/font-faces.css');
+
+/* Main text body */
+body {
+  font-family: cabrito_sans_norm_regular;
+  font-weight: 300;
+  font-size: 11pt;
+  line-height: 1.25;
+  color: #444;
+}
+
+/* We use a separate bold font */
+b, strong {
+  font-family: "cabrito_sans_cond_demi";
+  font-weight: 100;
+}
+
+/* Links */
+a {
+  color: #98579B !important;
+  text-decoration: none !important;
+}
+
+/* Code (inline and chunked) */
+code {
+  font-family: Menlo !important;
+  font-size: 0.8em;
+}
+
+/* Headings */
+h1 {
+  font-family: cabrito_sans_norm_regular;
+  font-size: 1.5em;
+  text-transform: uppercase;
+  color: #00263A !important;
+}
+
+h2, h3 {
+  font-family: cabrito_sans_cond_demi;
+  color: #00263A !important;
+}
+
+h2 {
+  text-transform: uppercase;
+  font-size: 1.2em;
+}
+
+h3 {
+  font-size: 1em;
+}
+
+/* Asides */
+aside {
+  color: rgba(0, 0, 0, 0.6) !important;
+  font-size: 0.75em !important;
+  line-height: 1.2em;
+}
+
+/* Footnotes */
+.footnote {
+  margin-top: 0.5em !important;
+  color: rgba(0, 0, 0, 0.6) !important;
+}
+
+/* Match superscript to footnotes */
+sup {
+  font-size: x-small !important;
+}
+
+/* 8.5x11 page with 1 margins */
+@page {
+  margin-top: 1in;
+  margin-bottom: 1in;
+  margin-left: 1in;
+  margin-right: 1in;
+  size: letter;
+}
+
+/* Page numbers at bottom-right */
+@page chapter {
+  @bottom-right {
+    content: counter(page); 
+    text-align: right; 
+    align-items: flex-start;
+    color: rgba(0, 0, 0, 0.6) !important;
+    font-size: 0.8em;
+  }
+}
+
+@page frontmatter {
+  @top-right {
+    display: none;
+  }
+  @top-left {
+    display: none;
+  }
+  @bottom-right {
+    content: counter(page, lower-roman);
+    text-align: right; 
+    align-items: flex-start;
+    color: rgba(0, 0, 0, 0.6) !important;
+    font-size: 0.8em;
+  }
+}
+
+/* Pagebreak for each H1 */
+.level1 {
+  break-before: page;
+  page: chapter;
+}
+
+/* Pagebreak for each H2 */
+ .level2 {
+  break-before: page;
+}
+
+/* Pagebreak for each H3 */
+ .level3 {
+  break-before: page;
+}
+
+/* Paragraph text should be 100% with floating asides */
+.main {
+  width: 100%;
+}
+
+/* Code Chunks should be have no background, as text is auto-colored */
+.r {
+  background-color: white !important;
+}
+
+.text {
+  background-color: white !important;
+  color: #00263ad0;
+  padding: 0.5em !important;
+}
+
+/* Console Output should be PMA pink, alpha 80%*/
+pre {
+  background-color: #98579B20;
+  border-radius: 1em;
+  padding: 1em;
+  margin: 0em;
+}
+
+pre.sourceCode {
+  padding-top: 0em !important;
+}
+
+/* No margin between Source and Console Output */
+/* No background color: make room for asides */
+div.sourceCode {
+  margin: 0em !important;;
+}
+
+/* Asides should be 20% page-width, floated right*/
+/* Background color: cornsilk*/
+aside {
+  float: right;
+  display: block;
+  width: 20%;
+  left: 6.75in;
+  padding: 1em;
+  margin-left: 1em;
+  margin-top: 0em;
+  margin-bottom: 1em;
+  background-color: cornsilk;
+  border-radius: 1em;
+}
+
+aside.nudge_down {
+  margin-top: 1em !important;
+}
+
+aside.hex {
+  width: 15%;
+  padding: 0em;
+  background-color: white !important;
+}
+
+/* Do NOT start paragraphs with top-margin within asides*/
+aside p {
+  margin-block-start: 0em;
+}
+
+/* No page breaks within Code Chunks or Code Output */
+pre {
+  border: 0px;
+  break-inside: avoid;
+  break-after: never;
+}
+
+/* No border lines around tables */
+table {
+  border-top:none;
+  border-bottom: none;
+}
+
+/* No shade for alternating table rows */
+thead, tfoot, tr:nth-child(even) {
+  background: none; 
+}
+
+/* Pagedown overrides */
+:root {
+  --pagedjs-width: 8.5in;
+  --pagedjs-height: 11in;
+}
+
+@page chapter:left {
+  @top-left {content: none !important;}
+  @top-right {content: none !important;}
+  @bottom-left {content: none !important;}
+}
+
+@page chapter:right {
+  @top-left {content: none !important;}
+  @top-right {content: none !important;}
+  @bottom-left {content: none !important;}
+}
+
+@page frontmatter:first {
+  @top-left {content: none;}
+  @top-right {content: none;}
+  @top-left {content: none;}
+  @top-right {content: none;}
+  @bottom-right {content: none;}
+  @bottom-left {content: none;}
+  @bottom-right-corner {content: none;}
+}
+
+@media screen {
+  body {
+    background-color: var(--background);
+    margin: var(--screen-pages-spacing) auto 0 auto;
+  }
+  .pagedjs_pages {
+    display: flex;
+    max-width: calc(var(--pagedjs-width));
+    flex: 0;
+    flex-wrap: wrap;
+    margin: 0 auto;
+  }
+  .pagedjs_page {
+    background-color: var(--color-paper);
+    box-shadow: 0 0 0 1px var(--color-mbox);
+    flex-shrink: 0;
+    flex-grow: 0;
+    margin: auto auto var(--screen-pages-spacing) auto;
+  }
+}
+
+a[href^="http"]:not([class="uri"])::after {
+  content: none;
+}

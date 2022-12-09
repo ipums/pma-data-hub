@@ -225,3 +225,8 @@ code {
 .header {
   z-index: 1001;
 }
+
+d-article iframe {
+  margin-bottom: 2em;
+  margin-top: 2em;
+}

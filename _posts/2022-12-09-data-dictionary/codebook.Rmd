@@ -1,0 +1,68 @@
+---
+cap-location: margin
+css:  'custom.css'
+output:
+  pagedown::html_paged: 
+    toc: true
+    self_contained: false
+toc-title: 'IPUMS PMA Codebook: <br>Pregnancy Termination Variables'
+lot: false
+lof: false
+paged-footnotes: true
+---
+
+```{r, echo=FALSE,results='hide', message=FALSE}
+source(here::here("r/utilities.r"))
+set_postpath("2022-12-09-data-dictionary")
+library(ipumsr)
+library(tidyverse)
+library(gtsummary)
+library(gt)
+
+dat <- read_ipums_micro(
+  ddi = "data/pma_00180.xml",
+  data = "data/pma_00180.dat.gz"
+)
+```
+
+
+```{r, echo = FALSE, results='asis'}
+dd <- dat %>% ipums_var_info() %>% slice(-c(1:12))
+
+dd$tbl <- dd$var_name %>% 
+  map(
+    ~if(dat[[.x]] %>% is.labelled){
+      dat %>%
+        select(!!.x) %>%
+        mutate(across(where(is.labelled), ~.x %>% as_factor %>% fct_drop)) %>%
+        tbl_summary() %>%
+        modify_footnote(update = list(stat_0 ~ NA)) %>%
+        bold_labels() %>%
+        as_gt() %>%
+        tab_options(
+          column_labels.hidden = TRUE,
+          table.font.names = "cabrito_sans_norm_regular",
+          table.width = gt::pct(100),
+          table.font.size = ".8em"
+        )
+    }
+  )
+
+dd %>% 
+  pwalk(function(...){
+    text <- list(...)
+    text$var_name %>% 
+      paste("#", ., "{.unnumbered} \n\n") %>% 
+      paste(text$var_desc, "\n\n") %>% 
+      cat()
+    if(is.null(text$tbl)){
+      cat("*Table omitted for space constraints*\n\n")
+    } else {
+      text$tbl %>% as_raw_html() %>% cat()
+    }
+  })
+  
+
+```
+
+

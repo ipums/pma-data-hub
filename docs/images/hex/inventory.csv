@@ -30,3 +30,5 @@ survival,https://github.com/therneau/survival,LGPL >=2,Terry M. Therneau et al.
 cowplot,https://wilkelab.org/cowplot/,GPL-2,Claus O. Wilke
 reticulate,https://rstudio.github.io/reticulate/,Apache 2.0,Tomasz Kalinowski et al.
 leaflet,https://leafletjs.com/,BSD 2-Clause,Vladimir Agafonkin
+rvest,https://rvest.tidyverse.org/,MIT,"RStudio, Inc."
+pagedown,https://github.com/rstudio/pagedown,MIT,"RStudio, Inc."
