@@ -47,9 +47,8 @@ theme: theme.css
 favicon: "images/favicon/favicon-32x32.png"
 collections:
   posts:
-    share: [twitter, linkedin]
+    share: [twitter, linkedin, facebook]
     citations: false
-    disqus: pma-data-hub
 google_analytics: "UA-191039907-2"
 twitter:
   site: "@ipumsGH"

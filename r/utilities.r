@@ -65,15 +65,25 @@ if(!suppressWarnings(suppressMessages(require(showtext)))){
 # varlink ----
 # Build hyperlink to a variable page on pma.ipums.org 
 # Optionally, select a metadata tab 
-varlink <- function(varname, tab = codes){
-  tab_section <- paste0(substitute(varname), "#", substitute(tab), "_section")
+varlink <- function(varname, tab = NULL, alt_text = NULL){
+  if(!is.null(tab)){
+    tab_section <- paste0(substitute(varname), "#", substitute(tab), "_section")
+  } else {
+    tab_section <- substitute(varname)
+  }
   url <- file.path("https://pma.ipums.org/pma-action/variables", tab_section)
-  if(exists("url.exists")){
-    if(!url.exists(url)){
-      rlang::abort(c("x" = paste(url, "does not exist")))
+  if(exists("url.exists") & exists("test_links")){
+    if(test_links){
+      if(!url.exists(url)){
+        rlang::abort(c("x" = paste(url, "does not exist")))
+      }
     }
   }
-  paste0("[", substitute(varname), "]", "(", url, ")")
+  if(!is.null(alt_text)){
+    paste0("[", substitute(alt_text), "]", "(", url, ")")
+  } else {
+    paste0("[", substitute(varname) %>% toupper, "]", "(", url, ")")
+  }
 }
 
 # funlink ----
@@ -166,5 +176,9 @@ hex <- function(pkg){
     ))
   }
 }
+
+# colors codes ---
+pma_pink <- "#98579B"
+pma_blue <- "#00263A"
 
 

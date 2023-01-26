@@ -1,0 +1,572 @@
+---
+title: "Survival Analysis with Survey Weights"
+description: |
+  The survey package for R makes it easy to incorpate weights and other elements of survey design into survival analysis. 
+author:
+  - name: Matt Gunther
+    affiliation: IPUMS PMA Senior Data Analyst
+date: 2023-01-25
+output:
+  distill::distill_article:
+    self_contained: false
+    toc: true
+    toc_depth: 3
+    toc_float: true
+categories:
+  - Data Analysis
+  - Survival Analysis
+  - Weights
+  - Cluster Sampling
+  - Contraceptive Calendar
+  - survey
+  - survival
+  - srvyr
+---
+
+```{r setup, echo=FALSE, results='hide'}
+options(tibble.print_min = 15)
+
+# knitr options 
+knitr::opts_chunk$set(
+  echo = TRUE, 
+  eval = TRUE,
+  fig.align='center',
+  fig.width = 10,
+  fig.height = 6,
+  R.options = list(width = 100),
+  layout = "l-body-outset"
+)
+
+# load utils 
+source(here::here("r/utilities.r"))
+set_postpath("2023-01-19-survey-survival")
+update_geom_defaults("text", list(family = "cabrito", size = 4))
+test_links = FALSE
+library(survival)
+library(srvyr)
+library(survey)
+
+# Formatted calendar data from longitudinal guide 
+cals <- read_rds("data/cals.rds")
+
+# Includes de facto panel members only 
+orig <- read_rds("data/dat.rds") 
+
+# Create helper variables 
+dat <- orig %>% 
+  mutate(
+    POP = case_when(
+      !is.na(GEOCD) ~ paste("DRC -", as_factor(GEOCD)),
+      !is.na(GEONG) ~ paste("Nigeria -", as_factor(GEONG)),
+      TRUE ~ as_factor(COUNTRY) %>% as.character()
+    ),
+    STRATARC = if_else(
+      is.na(GEOCD),
+      zap_labels(STRATA_1),
+      zap_labels(GEOCD)
+    ),
+    FPPLANYR = case_when(
+      FPPLANWHEN_1 == 1 & FPPLANVAL_1 <= 12 ~ TRUE, # Within 12 months 
+      FPPLANWHEN_1 == 2 & FPPLANVAL_1 == 1 ~ TRUE, # Within 1 year
+      FPPLANWHEN_1 %in% c(3, 4) ~ TRUE, # Soon / now, after current pregnancy
+      TRUE ~ FALSE # Includes date unknown, no response, or no intention (FPUSPLAN)
+    )
+  ) 
+
+# Join to `cals` 
+dat <- cals %>% left_join(dat)
+
+# If a woman did not complete the P2 calendar, substitute the last row of 
+# her P1 calendar for the first (blank) row of the P2 calendar. 
+dat <- dat %>% 
+  group_by(ID) %>% 
+  mutate(.after = CALCMC, USE_CAL1 = all(is.na(FPSTATUS_2))) %>% 
+  ungroup() %>% 
+  mutate(
+    across(where(is.labelled), zap_labels),
+    FPSTATUS = if_else(USE_CAL1, FPSTATUS_1, FPSTATUS_2)
+  )
+
+# The start of the analysis period `CALSTART` should be `INTFQCMC_1`. 
+# However, some women completed the P1 calendar one month short of the date in 
+# `INTFQCMC_1`. Update `INTFQCMC_1` with the last available month if `USE_CAL1`. 
+# The make `CALSTART`.
+dat <- dat %>% 
+  group_by(ID) %>% 
+  mutate(
+    CALSTART = if_else(
+      all(USE_CAL1),
+      max(CALCMC),
+      unique(INTFQCMC_1)
+    )
+  )
+
+# Similarly, the end of the analysis period `CALSTOP` should be `INTFQCMC_2`.
+# However,  some women completed the P2 calendar one month short of the date in 
+# `INTFQCMC_2`. Use the maximum available calendar month for `CALSTOP`.
+dat <- dat %>% 
+  group_by(ID) %>% 
+  mutate(CALSTOP = max(CALCMC))
+
+# Variable selection 
+dat <- dat %>% 
+  select(
+    ID, POP, PANELWEIGHT, EAID = EAID_2, STRATA = STRATARC, 
+    CALSTART, CALSTOP, CALCMC, FPPLANYR, FPSTATUS
+  ) 
+
+# Keep only months after CALSTART
+dat <- dat %>% filter(CALCMC >= CALSTART) 
+```
+
+Several months ago, we introduced the [PMA Contraceptive Calendar](../2022-05-15-phase2-calendar) as a monthly recollection of contraceptive use and pregnancy status reported by women in each phase of the ongoing [PMA panel study](../../index.html#category:Panel_Data). These data are an especially useful tool for researchers interested in **survival analysis**, which can be used to estimate the expected amount of time to a particular family planning event (measured in months). 
+
+In that introduction, we demonstrated how to estimate *time to adoption* of a family planning method for women who initially were not using one. Because we focused most of our attention on data preparation and visualization techniques with the `r funlink(survival)` package for R, we set aside some issues related to PMA survey weights and its clustered sample design. In short:  `r funlink(survival)` is probably the best known way to conduct this kind of survival analysis in R, but it does not include the tools we need to incorporate information about the PMA survey design.^[Certain functions like `r funlink(survival::survfit, alt_text = "survival::survfit")` function do accept a `weight` argument, but these are intended for *frequency weights* representing duplicate observations. Our discussion concerns *survey weights* representing each woman's sampling probability. You can use the `weight` arguments in the `r funlink(survival)` package to obtain weighted point-estimates, but the standard error estimation will be incorrect. [See discussion here](https://stats.stackexchange.com/questions/538876/what-does-the-weights-argument-do-when-fitting-kaplan-meier-curveswith-the-sur).] 
+
+In our case, survival functions included in the `r funlink(survey)` package offer an easy way to use PMA weights and identifiers for each cluster and sample stratum.
+
+# Data 
+
+Let's pick up with the contraceptive calendar dataset we created in our earlier post, except that we'll now include all of the variables necessary to describe PMA survey design: 
+
+  - `ID` - Unique identifier for each woman (our data includes *de facto* panel members only)
+  - `POP` - Population of study. Our extract contains six independent samples drawn from different populations; we'll demonstrate how to use survey design information for one sample first, and then repeat for all samples.
+  - `r varlink(panelweight)` - An inverse probability weight for panel membership, adjusted for loss to follow-up at Phase 2^[`r varlink(panelweight)` should be used in analyses of all questions on the female questionnaire for women who were interviewed in both Phase 1 and Phase 2 survey rounds. See our [weighting guide](https://pma.ipums.org/pma/weightguide.shtml#long) for details.] 
+  - `r varlink(eaid)` - Unique identifier for each sample cluster
+  - `r varlink(strata)` - Unique identifier for each sample stratum, from which clusters are drawn
+  - `CALSTART` - The date of the woman's Phase 1 interview (CMC format). This corresponds with the *first* month in our survival analysis. 
+  - `CALSTOP` - The date of the woman's Phase 2 interview (CMC format). This corresponds with the *last* month in our survival analysis. 
+  - `CALCMC` - The date of each month, formatted here as *one month per row* (CMC format). Most women report about 12 months between `CALSTART` and `CALSTOP`, depending on the actual spacing of Phase 1 and Phase 2 interviews. Some women do not have completed Phase 2 calendars, so we only have data from the month in `CALSTART`.^[We discuss reasons for missing data in our [previous Contraceptive Calendar post](../2022-05-15-phase2-calendar). The data we feature here have been modified to include women who maintained the same family planning status throughout the duration of the calendar period.]
+  
+Additionally, we've included a two variables describing 1) each woman's family planning intentions at Phase 1 and 2) her monthly family planning status reported on the Phase 2 Contraceptive Calendar.
+  
+  - `FPPLANYR` indicates whether the woman indicated at Phase 1 that she was not currently using a method, but planned to adopt one by Phase 2 (one year later). All cases are either `TRUE` (non-user with plans to adopt) or `FALSE` (e.g. Phase 1 users, or Phase 1 non-users with no such plans). Derived from `r varlink(FPPLANWHEN)` and `r varlink(fpplanval)`.
+  - `FPSTATUS` indicates the woman's recalled family planning status for each month between Phase 1 and her Phase 2 interview (approximately 12 months later).
+  
+Since we're working with a dataset created in a previous session, we'll load it with `r funlink(readr::read_rds)` from the `r funlink(tidyverse)`. We'll also load `r funlink(survey)` (along with its tidy-helper `r funlink(srvyr)`). The `r funlink(survival)` package is listed as a dependency for `r funlink(survey)`, so it is attched automatically. 
+  
+```{r, eval = FALSE}
+library(tidyverse)
+library(survey)
+library(srvyr)
+dat <- read_rds("data/dat.rds")
+```
+
+```{r, echo = FALSE}
+dat 
+```
+
+
+# Setup 
+
+The numeric codes shown above in `FPSTATUS` refer to specific family planning methods used in a particular month, with the following exceptions: 
+
+  - `P` Pregnant 
+  - `B` Birth  
+  - `T` Termination of pregnancy
+  - `0` No pregnancy and no family planning method used 
+
+We'll build a binary indicator for `USE` of *any* method, as indicated by any value except for these codes. (For the moment, our data contain placeholder `NA` values for women with incomplete Phase 2 calendars).
+
+```{r}
+dat <- dat %>% 
+  rowwise() %>% 
+  mutate(USE = !any(FPSTATUS == c("0", "P", "B", "T")))
+```
+
+Our analysis will compare time to adoption for Phase 1 *non-users* like the woman at the top of our dataset (`ID == 1`). `FPPLANYR` shows that she reported plans to adopt a method within 12 months after the Phase 1 interview, and the Phase 2 calendar data in `FPSTATUS` shows that she did so just 6 months later. We should hypothesize that women *with plans* probably adopt a method sooner, on average, compared with women who had *no plans*. 
+
+```{r}
+dat 
+```
+
+Given our research interest, you might consider **subsetting** the dataset to exclude women who were already using a method at the time of the Phase 1 interview. In fact, we'll want to keep track of these women so that we can calculate the correct **degrees of freedom** from each original sample size. For now, we'll mark each of those cases as "User", dividing the remaining cases into "Plan" and "No Plan" in a new variable called `INTENT`. 
+
+```{r}
+dat <- dat %>% 
+  group_by(ID) %>% 
+  mutate(
+    INTENT = case_when(
+      any(USE & CALCMC == CALSTART) ~ "User",
+      any(!USE & FPPLANYR & CALCMC == CALSTART) ~ "Plan",
+      any(!USE & !FPPLANYR & CALCMC == CALSTART) ~ "No Plan",
+    )
+  )
+```
+
+<div>
+Lastly, whether who intend to use the `r funlink(survival)` package or its counterpart functions in the `r funlink(survey)` package, you'll want to `r funlink(dplyr::filter)` down to use one row per person: this should be the first month of `USE` or the last reported month in `CALCMC`, whichever comes first.
+
+With only one row per person remaining we'll 1) create `MONTH` to count the number of months after the Phase 1 interview, and 2) remove any extra variables that won't be necessary in our analysis. 
+
+</div>
+
+<aside>
+Women who were not yet using a method by the last calendar month are said to be **right-censored**. If they adopted a method at all, that month occurs after the analysis period. 
+</aside>
+
+```{r}
+dat <- dat %>% 
+  group_by(ID) %>% 
+  mutate(
+    USEMO = case_when(USE ~ CALCMC),
+    KEEP = ifelse(any(USE), min(USEMO, na.rm = TRUE), max(CALCMC))
+  ) %>% 
+  filter(KEEP == CALCMC) %>% 
+  mutate(.before = USE, MONTH = CALCMC - CALSTART) %>% 
+  select(-c(starts_with("CAL"), starts_with("FP"), USEMO, KEEP)) %>% 
+  ungroup()
+
+dat 
+```
+
+# Unweighted Estimates
+
+Let's review the procedure highlighted in our previous post, where we used no survey design information at all. To estimate a survival model for one population, we'll filter `dat` to include only women from one sample; we'll use Kenya as an example. 
+
+The function `r funlink(survival::Surv)` indicates whether the observation in the last `MONTH` for each woman was adopted `USE` of a method, or that her ultimate adoption is right-censored (if at happened at all). `r funlink(survival::Surv)` is part of a model formula provided to the function `r funlink(survival::survfit)`; in this case, we're modeling `USE` with each woman's original `INTENT` at Phase 1. 
+
+```{r}
+ke_survival <- dat %>% 
+  filter(POP == "Kenya") %>% 
+  survfit(Surv(MONTH, USE) ~ INTENT, data = .)
+
+ke_survival 
+```
+
+The output returned as `ke_survival` is an object in the **survfit** class defined by the `r funlink(survival)` package. We'll get more information from this object if we pass it to `r funlink(broom::tidy)` from the `r funlink(broom)` package.
+
+```{r}
+broom::tidy(ke_survival) %>% print(n = Inf)
+```
+
+Notice that `r funlink(broom::tidy)` creates an object in the **tibble** class with several helpful columns: 
+
+  - The most *important* column here is `estimate`: this represents the estimated probability of "surviving" continuous non-use of a method for each month in `time`. 
+  - `std.error` shows the standard error for each `estimate` on the log scale, and is used to report a 95% confidence interval (by default) in `conf.high` and `conf.low`. 
+  - `strata` shows that the months reported in `time` are divided by the three groups of women defined in `INTENT`. 
+  - `n.risk` shows the original group size at month 0, and those remaining for every month afterward.
+  - The number of women who adopted a method in each month are reported in `n.event`, while those who reported no further months (right-censored cases) are reported in `n.censor`. 
+
+<aside>
+Don't be fooled by the `r funlink(broom::tidy)` column name `strata` - this refers to the *subgroups* defined by each woman's `INTENT` at Phase 1. It *does not refer* to PMA sample strata in the variable `r varlink(STRATA)`.
+</aside>
+
+In the last row, `strata` shows the results for 3,266 women who were *already* using a method at month 0 (when Phase 1 interviews were conducted). The survival probability for these women is 0 because they "survived" no months of non-use.
+
+Let's create a quick step-wise Time to Event plot for the two groups with data after month 0.
+
+```{r, code_folding="Show ggplot theme"}
+# Define `theme_pma` for maps
+library(showtext)
+sysfonts::font_add(
+  family = "cabrito", 
+  regular = "../../fonts/cabritosansnormregular-webfont.ttf"
+)
+showtext::showtext_auto()
+
+theme_pma <- function(){
+  legned_title =  "Planned to Adopt Any Method within 12 Months" %>% 
+    str_wrap(16)
+  list(
+    theme_minimal() %+replace% 
+      theme(
+        text = element_text(family = "cabrito", size = 13),
+        plot.title = element_text(
+          size = 18, 
+          color = pma_blue, 
+          hjust = 0, 
+          margin = margin(b = 10)
+        ),
+        panel.spacing = unit(1, "lines"),
+        legend.position = "right"
+      ),
+    scale_y_continuous(labels = scales::percent, limits = c(0, 1)),
+    scale_x_continuous(limits = c(0,15)), 
+    scale_fill_manual(
+      aesthetics = c("color", "fill"),
+      values = c(
+        "Plan" = pma_pink, 
+        "No Plan" = pma_blue
+      ),
+      labels = c(
+        "Plan" = "Yes", 
+        "No Plan" = "No"
+      )
+    ), 
+    labs(
+      x = "Months After Baseline", 
+      y = "Probability of Continued Non-use",
+      fill = legned_title,
+      color = legned_title
+    )
+  )
+}
+```
+
+```{r}
+ke_survival %>% 
+  broom::tidy() %>% 
+  mutate(estimate = 1 - estimate, strata = strata %>% str_remove("INTENT=")) %>% 
+  filter(strata != "User") %>% 
+  ggplot(aes(x = time, y = estimate, color = strata)) +
+  geom_step() + 
+  theme_pma() + 
+  labs(title = "Predicted time to FP Adoption for Phase 1 Non-users in Kenya")
+```
+
+No surprises here: women who planned to adopt a method at Phase 1 are expected to adopt one sooner than women with no such plans. Notice, however, that we didn't bother to plot confidence intervals for each line: that's because we'll first want to incorporate information about the PMA sampling procedure with help from the `r funlink(survey)` package. 
+
+# Survey Design 
+
+We can use a similar workflow with `r funlink(survey)`, but it's important to remember that the output of `r funlink(survival::survfit)` shown above was an object of a particular class called **survfit** - because `r funlink(survival)` is such a popular package, the developers of `r funlink(broom)` wrote specific methods for `r funlink(broom::tidy)`-ing objects from this class. 
+
+`r funlink(survey)` uses the `r funlink(survival)` function `r funlink(survival::Surv)`, but has its *own* modeling function `r funlink(survey::svykm)`. Its output is not familiar to `r funlink(broom)`, so we'll have to create our own tidy output from scratch.  
+
+Before we add survey design information, let's ensure that we're able to reproduce the above results with `r funlink(survey::svykm)`. This time, we'll pass dummy survey design information to `r funlink(srvyr::as_survey_design)` via a test-variable `w`: we'll use this to weight every case equally with the value `1`. 
+
+```{r}
+ke_survey <- dat %>%
+  filter(POP == "Kenya") %>%
+  mutate(w = 1) %>%
+  as_survey_design(weight = w) %>%
+  svykm(Surv(MONTH, USE) ~ INTENT, design = .)
+
+ke_survey
+```
+
+Notice how this output looks different from `ke_survival`? If we try, `r funlink(broom)` will be unable to  `r funlink(broom::tidy)` it. 
+
+```{r, error = TRUE}
+broom::tidy(ke_survey)
+```
+
+You can think about `ke_survey` as a kind of special list, with one element per group in `INTENT`. Each of those elements also has a list-like structure with vectors representing `time` (months), `surv` (survival probability), and standard error (if specified). For example, you can use list-syntax to check that the monthly estimates in `ke_survey` match those in `ke_survival` for women who planned to adopt a method:
+
+```{r}
+ke_survey$Plan$surv %>% round(3)
+```
+
+We'll want to compile all of these lists in a `r funlink(tidyr::tibble)`, which we'll demonstrate with the [new recommended workflow](https://www.tidyverse.org/blog/2022/12/purrr-1-0-0/) for `r funlink(purrr::map)` with `r funlink(purrr)` version 1.0.0. (We now use `r funlink(purrr::list_rbind)` in place of `r funlink(purrr::map_dfr)`, which has been [superseded](https://lifecycle.r-lib.org/articles/stages.html#superseded)). 
+
+```{r}
+ke_survey %>% 
+  imap(~c(.x) %>% as_tibble() %>% mutate(strata = .y)) %>% 
+  list_rbind() 
+```
+
+We'll ultimately want cluster-robust standard error estimates for each month, so this output isn't very useful on its own. Instead, we'll specify `se = TRUE` in  `r funlink(survey::svykm)`. Just make sure to drop women who were originally using a method at Phase 1: the estimated standard error for these cases is infinite in month 0, and R will likely stall if you don't exclude them from `r funlink(survey::svykm)`! We'll do this *after* our call to `r funlink(srvyr::as_survey_design)` in order to preserve the correct sample size. 
+
+```{r}
+ke_survey <- dat %>% 
+  filter(POP == "Kenya") %>% 
+  mutate(w = 1) %>% 
+  as_survey_design(weight = w) %>% 
+  filter(INTENT != "User") %>% # remove baseline users 
+  svykm(Surv(MONTH, USE) ~ INTENT, design = ., se = TRUE) %>% # add se = TRUE
+  imap(~c(.x) %>% as_tibble() %>% mutate(strata = .y)) %>% 
+  list_rbind() 
+
+ke_survey
+```
+
+The new column `varlog` represents the log-scale variance, which is the square of our desired standard error. The confidence intervals shown above can be reproduced if we use `p = 0.05` in `r funlink(stats::qnorm)` and exponentiate the results. 
+
+<aside>
+We also use `r funlink(dplyr::summarise)` here to obtain just one estimate per month. When you use `se = TRUE`, `r funlink(survey::svykm)` generates one row for *each case* that experienced the event. 
+</aside>
+
+```{r}
+ke_survey <- ke_survey %>% 
+  group_by(strata, time) %>% 
+  summarise(
+    n.event = n(),
+    estimate = min(surv),
+    std.error = sqrt(varlog) %>% min(),
+    conf.high = exp(log(estimate) - std.error * qnorm(0.05/2)),
+    conf.low = exp(log(estimate) + std.error * qnorm(0.05/2))
+  )
+
+ke_survey
+```
+
+This is *close* to the output from `ke_survival`, except that you'll notice we have no rows for months were all cases are censored (e.g. month 0). This leaves us with no column analogous to `n.risk`. We'll create it from `dat` and then `r funlink(dplyr::left_join)` the results from `ke_survey`. If you'd like to have a column for censored cases in `n.censor`, it can be made by subtracting `n.event` from the count of women in each month (`n`). Lastly, we'll carry the same `std.error` and confidence interval downward for all new rows where only censored cases are listed.
+
+```{r}
+ke_survey <- dat %>% 
+  filter(POP == "Kenya") %>% 
+  group_by(INTENT) %>% 
+  count(MONTH) %>% 
+  mutate(n.risk = if_else(MONTH == 0, sum(n), lag(sum(n) - n))) %>% 
+  rename(strata = INTENT, time = MONTH) %>% 
+  left_join(ke_survey) %>% 
+  mutate(
+    n.event = n.event %>% replace_na(0), 
+    n.censor = n - n.event,
+    across(
+      c(estimate, std.error, starts_with("conf")),
+      ~case_when(
+        time == 0 ~ as.double(cur_column() != "std.error"),
+        !is.na(.x) ~ .x,
+        is.na(.x) ~ lag(.x)
+      )
+    )
+  )
+
+ke_survey
+```
+
+Now that we know how to obtain identical results from `r funlink(survival)` and `r funlink(survey)`, we'll rebuild our table with the *actual* survey weights, cluster IDs, and stratum IDs in `r funlink(srvyr::as_survey_design)`. 
+
+```{r}
+# Fit the survival model with information from `as_survey_design`
+ ke_survey <- dat %>% 
+  filter(POP == "Kenya") %>% 
+  as_survey_design(weight = PANELWEIGHT, id = EAID, strata = STRATA) %>% 
+  filter(INTENT != "User") %>% 
+  svykm(Surv(MONTH, USE) ~ INTENT, design = ., se = TRUE) 
+
+# Create tidy output from the `svykm` object
+ke_survey <- ke_survey %>% 
+  imap(~c(.x) %>% as_tibble() %>% mutate(strata = .y)) %>% 
+  list_rbind() %>% 
+  group_by(strata, time) %>% 
+  summarise(
+    n.event = n(),
+    estimate = min(surv),
+    std.error = sqrt(varlog) %>% min(),
+    conf.high = exp(log(estimate) - std.error * qnorm(0.05/2)),
+    conf.low = exp(log(estimate) + std.error * qnorm(0.05/2))
+  )
+
+# Complete tidy output with information about censored cases in each month
+ke_survey <- dat %>% 
+  filter(POP == "Kenya") %>% 
+  group_by(INTENT) %>% 
+  count(MONTH) %>% 
+  mutate(n.risk = if_else(MONTH == 0, sum(n), lag(sum(n) - n))) %>% 
+  rename(strata = INTENT, time = MONTH) %>% 
+  left_join(ke_survey) %>% 
+  mutate(
+    n.event = n.event %>% replace_na(0), 
+    n.censor = n - n.event,
+    across(
+      c(estimate, std.error, starts_with("conf")),
+      ~case_when(
+        time == 0 ~ as.double(cur_column() != "std.error"),
+        !is.na(.x) ~ .x,
+        is.na(.x) ~ lag(.x)
+      )
+    )
+  )
+
+ke_survey
+```
+
+Finally, we'll plot these new weighted estimates, this time also adding their associated cluster-robust confidence intervals with `r funlink(ggplot2::geom_rect)`.
+
+```{r}
+ke_survey %>% 
+  filter(strata != "User") %>% 
+  group_by(strata) %>% 
+  mutate(
+    across(c(estimate, starts_with("conf")), ~1 - .x),
+    xmax = if_else(time == max(time), time, time + 1)
+  ) %>% 
+  ggplot(aes(x = time, y = estimate, fill = strata)) +
+  geom_step(linewidth = 0.25) + 
+  geom_rect(
+    aes(xmin = time, xmax = xmax, ymin = conf.low, ymax = conf.high),
+    alpha = 0.2, color = 0
+  ) + 
+  theme_pma() + 
+  labs(
+    title = "Predicted time to FP Adoption for Phase 1 Non-users in Kenya",
+    subtitle = "Weighted estimates (95% CI)"
+  )
+```
+
+
+# Data with Multiple Samples
+
+So far, we've only generated survival curves for *one* of the samples in our original data extract. Now we'll show how to iterate through each of the samples, and then compbine their results in a faceted plot. 
+
+The tricky thing here is that we need to be careful to avoid *combining sample sizes* in the formula `r funlink(survey)` uses to calculate degrees of freedom. Remember our point above about *not* subsetting the Kenya sample to exclude Phase 1 users prior to defining its survey design? By contrast, you *should* subset your data extract before defining survey design *if your extract contains multiple samples*. 
+
+Fortunately, this procedure is made very simple with two functions from `r funlink(dplyr)`: we'll use `r funlink(dplyr::group_by)` followed by `r funlink(dplyr::group_modify)`. 
+
+In `r funlink(dplyr::group_by)`, we'll subset `dat` by the variable `POP` so that everything in `r funlink(dplyr::group_modify)` applies only to the members of each group. 
+
+Then, in `r funlink(dplyr::group_modify)`, we'll signal an anonymous function with `~{}`, inside of which `.x` references only the data *within each group*. Hence `.x` replaces all of the code where we'd written `dat %>% filter(POP == "Kenya")` above. We also replace the name `ke_survey` with a more general name `output`.
+
+```{r}
+dat_surv <- dat %>% 
+  group_by(POP) %>% 
+  group_modify(~{
+    # Fit the survival model with information from `as_survey_design`
+    output <- .x %>% 
+      as_survey_design(weight = PANELWEIGHT, id = EAID, strata = STRATA) %>% 
+      filter(INTENT != "User") %>% 
+      svykm(Surv(MONTH, USE) ~ INTENT, design = ., se = TRUE) 
+    
+    # Create tidy output from the `svykm` object
+    output <- output %>% 
+      imap(~c(.x) %>% as_tibble() %>% mutate(strata = .y)) %>% 
+      list_rbind() %>% 
+      group_by(strata, time) %>% 
+      summarise(
+        n.event = n(),
+        estimate = min(surv),
+        std.error = sqrt(varlog) %>% min(),
+        conf.high = exp(log(estimate) - std.error * qnorm(0.05/2)),
+        conf.low = exp(log(estimate) + std.error * qnorm(0.05/2))
+      )
+    
+    # Complete tidy output with information about censored cases in each month
+    output <- .x %>%
+      group_by(INTENT) %>% 
+      count(MONTH) %>% 
+      mutate(n.risk = if_else(MONTH == 0, sum(n), lag(sum(n) - n))) %>% 
+      rename(strata = INTENT, time = MONTH) %>% 
+      left_join(output) %>% 
+      mutate(
+        n.event = n.event %>% replace_na(0), 
+        n.censor = n - n.event,
+        across(
+          c(estimate, std.error, starts_with("conf")),
+          ~case_when(
+            time == 0 ~ as.double(cur_column() != "std.error"),
+            !is.na(.x) ~ .x,
+            is.na(.x) ~ lag(.x)
+          )
+        )
+      )
+  }) %>% 
+  ungroup()
+
+dat_surv
+```
+
+The resulting tibble `dat_surv` includes the `POP` variable we used to define each group. That's helpful, because we'll now want to use add `facet_wrap(~POP)` to our previous `r funlink(ggplot2)` code, thereby creating one panel from each sample.
+
+```{r, preview=TRUE}
+dat_surv %>% 
+  filter(strata != "User") %>% 
+  group_by(POP, strata) %>% 
+  mutate(
+    across(c(estimate, starts_with("conf")), ~1 - .x),
+    xmax = if_else(time == max(time), time, time + 1)
+  ) %>% 
+  ggplot(aes(x = time, y = estimate, fill = strata)) +
+  geom_step(linewidth = 0.25) + 
+  geom_rect(
+    aes(xmin = time, xmax = xmax, ymin = conf.low, ymax = conf.high),
+    alpha = 0.2, color = 0
+  ) + 
+  theme_pma() + 
+  labs(
+    title = "Predicted time to FP Adoption for Phase 1 Non-users",
+    subtitle = "Weighted estimates (95% CI)"
+  ) + 
+  facet_wrap(~POP) # one panel per sample 
+```
