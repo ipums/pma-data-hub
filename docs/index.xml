@@ -12,7 +12,22 @@
       <link>https://ipums.github.io/pma-data-hub/</link>
     </image>
     <generator>Distill</generator>
-    <lastBuildDate>Wed, 25 Jan 2023 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 01 Feb 2023 00:00:00 +0000</lastBuildDate>
+    <item>
+      <title>New longitudinal data</title>
+      <dc:creator>Matt Gunther</dc:creator>
+      <dc:creator>Devon Kristiansen</dc:creator>
+      <link>https://ipums.github.io/pma-data-hub/posts/2023-01-31-abor-discovery</link>
+      <description>Follow-up surveys focused on abortion, maternal and newborn health surveys collected during the COVID-19 pandemic, and updates to the ongoing Family Planning panel study</description>
+      <category>Data Discovery</category>
+      <category>New Data</category>
+      <category>Maternal and Newborn Health</category>
+      <category>Abortion</category>
+      <category>Longitudinal</category>
+      <guid>https://ipums.github.io/pma-data-hub/posts/2023-01-31-abor-discovery</guid>
+      <pubDate>Wed, 01 Feb 2023 00:00:00 +0000</pubDate>
+      <media:content url="https://ipums.github.io/pma-data-hub/posts/2023-01-31-abor-discovery/../../images/new_data.png" medium="image" type="image/png" width="2555" height="1437"/>
+    </item>
     <item>
       <title>Survival Analysis with Survey Weights</title>
       <dc:creator>Matt Gunther</dc:creator>

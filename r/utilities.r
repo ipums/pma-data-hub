@@ -50,6 +50,7 @@ if(!suppressWarnings(suppressMessages(require(sysfonts)))){
     family = "cabrito",
     regular = here::here("fonts/cabritosansnormregular-webfont.ttf")
   )
+  ggplot2::update_geom_defaults("text", list(family = "cabrito", size = 4))
 }
 
 # try showtext ----

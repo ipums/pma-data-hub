@@ -50,6 +50,7 @@ if(!suppressWarnings(suppressMessages(require(sysfonts)))){
     family = "cabrito",
     regular = here::here("fonts/cabritosansnormregular-webfont.ttf")
   )
+  ggplot2::update_geom_defaults("text", list(family = "cabrito", size = 4))
 }
 
 # try showtext ----
@@ -82,7 +83,7 @@ varlink <- function(varname, tab = NULL, alt_text = NULL){
   if(!is.null(alt_text)){
     paste0("[", substitute(alt_text), "]", "(", url, ")")
   } else {
-    paste0("[", substitute(varname), "]", "(", url, ")")
+    paste0("[", substitute(varname) %>% toupper, "]", "(", url, ")")
   }
 }
 
@@ -176,5 +177,9 @@ hex <- function(pkg){
     ))
   }
 }
+
+# colors codes ---
+pma_pink <- "#98579B"
+pma_blue <- "#00263A"
 
 
