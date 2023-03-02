@@ -49,6 +49,6 @@ collections:
   posts:
     share: [twitter, linkedin, facebook]
     citations: false
-google_analytics: "UA-191039907-2"
+google_analytics: "G-TXV5GMQ0MS"
 twitter:
   site: "@ipumsGH"
