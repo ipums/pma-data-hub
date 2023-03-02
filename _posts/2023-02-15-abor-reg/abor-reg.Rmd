@@ -1,0 +1,489 @@
+---
+title: "Comparing Measures of Abortion Incidence with a Shiny Dashboard"
+description: |
+  New abortion data from PMA includes women who reported doing something to remove a pregnancy, or to regulate a late period because of a suspected pregnancy.
+author:
+  - name: Matt Gunther
+    affiliation: IPUMS PMA Senior Data Analyst
+  - name: Devon Kristiansen
+    affiliation: IPUMS PMA Project Manager
+    url: https://www.linkedin.com/in/devonkristiansen
+date: 2023-02-15
+output:
+  distill::distill_article:
+    self_contained: false
+    toc: true
+    toc_depth: 3
+    toc_float: true
+categories:
+  - Data Analysis 
+  - Abortion 
+  - shiny 
+  - dplyr 
+bibliography: cites.bib
+nocite: |
+  @Bell2020-ld, @Bell2020-kh, @Bell2021-pp
+css: 'styles.css'
+preview: 'images/featured.png'
+---
+
+```{r setup, include=FALSE}
+source(here::here("r/utilities.r"))
+set_postpath("2023-02-15-abor-reg")
+test_links = FALSE 
+library(srvyr)
+
+knitr::opts_chunk$set(
+  echo = TRUE, 
+  eval = FALSE,
+  fig.align='center',
+  R.options = list(width = 100)
+)
+
+knitr::knit_hooks$set(wrapper = function(before, options) {
+  # the original chunk might be indented
+  if (is.null(indent <- options$indent)) indent <- ''
+  
+  # hide the wrapper=TRUE option
+  opts <- gsub(' wrapper=TRUE, eval=FALSE', '', options$params.src)
+  
+  if (before) {
+    # add the header
+    sprintf('\n\n%s````\n```{r%s}\n````\n', indent, opts)
+  } else {
+    # add the footer
+    sprintf('\n\n%s````\n```\n````\n', indent)
+  }
+})
+```
+
+When we announced the release of [new longitudinal data](../2023-01-31-abor-discovery/) from PMA this month, we mentioned two surveys from **Côte d'Ivoire** and **Nigeria** that include a special focus on women's experiences seeking and accessing abortion services. 
+
+Both surveys are follow-up interviews with a subset of women who participated in a nationally representative, cross-sectional survey conducted in 2018. These are women who responded "yes" in 2018 to one of these questions:
+
+  - Have you ever done something to remove a pregnancy when you were pregnant or worried you were pregnant?
+  - Have you ever done something to regulate your period when you were worried you were pregnant?
+  
+Why do PMA surveys include multiple ways of asking about abortion? The answer, explained by Bell and Fissell (<a href="#ref-Bell2021-pp" role="doc-biblioref">2021, pg. 507</a>), is that conventional measures of abortion incidence are prone to substantial underreporting if they fail to account for procedures undertaken when a woman's pregnancy status is ambiguous: 
+
+> For example, most surveys studying induced abortion unambiguously ask women about actions they may have taken to end a pregnancy, but such questions leave no room to account for women’s actions that consciously or unconsciously attempt to regulate fertility in the period of time that we are characterizing as ambiguous, neither pregnant nor nonpregnant. Nor can we say that there is a simple third state of “maybe pregnant”; both ethnographic and historical data suggest that complex mixtures of perception and denial, a wide range of models of the reproductive body, and myriad other factors create rich and complex ambiguity rather than merely a simple third state.
+
+<aside> 
+Bell and Fissell <a href="#ref-Bell2021-pp" role="doc-biblioref">(2021)</a> in *Population and Development Review* 47(2)
+</aside> 
+  
+Elsewhere, Bell et al. (<a href="#ref-Bell2020-ld" role="doc-biblioref">2020a</a>; <a href="#ref-Bell2020-kh" role="doc-biblioref">2020b</a>) discuss methods for estimating abortion incidence with both of these 2018 PMA samples. They demonstrate how to estimate incidence with: 
+
+  * Affirmative responses only to the *pregnancy removal* question
+  * Affirmative responses to *either* question
+  * An average of both of the above measures.^["We averaged the two point estimates
+because we believe the pregnancy removal data fails to capture some abortions (that women may not view as abortions or are not willing to admit are abortions) while the period regulation data likely include some experiences that we would not consider to be abortions." <a href="#ref-Bell2020-ld" role="doc-biblioref">(Bell et al. 2020a, pg 5)</a>]
+
+In this post, we'll share code you can use to reproduce the abortion incidence shown in both of these publications. 
+
+Because readers may wish to compare the authors' final averaged measure against the incidence derived from either or both of the source questions, this is a particularly good opportunity to leverage an interactive dashboard built with the `r funlink(shiny)` package for R. 
+
+In this case, we'll want to allow the user to switch between samples, incidence measures, and several disaggregation variables representing each woman's: 
+
+  * age 
+  * education 
+  * household wealth
+  * marital status
+  * area of residence (urban / rural)
+  
+# Setup 
+  
+Throughout [this ongoing series](../../index#category:Abortion) on PMA abortion data, we'll be showcasing the same **longitudinal (wide format)** extract downloaded from IPUMS PMA. For this post, we'll focus only on responses from the 2018 baseline surveys in both Côte d'Ivoire and Nigeria - over the next few weeks, we'll also investigate abortion data collected each woman's closest confidantes, and on her responses to the abortion follow-up survey conducted in 2019-2020. 
+
+To follow along, you'll need to select a **longitudinal (wide format)** with Female Respondents only - these are women who completed the 2018 baseline survey (even if they were not included in the 2019-2020 follow-up). You'll also need the following variables: 
+
+  * `r varlink(country)` - country of residence 
+  * `r varlink(fqweight)` - sampling weight for 2018 survey 
+  * `r varlink(eaid)` - sample cluster (enumeration area)
+  * `r varlink(strata)` - sample strata 
+  * `r varlink(intfqcmc)` - CMC for date of 2018 interview 
+  * `r varlink(age)` - age 
+  * `r varlink(urban)` - area of residence (urban / rural)
+  * `r varlink(educattgen)` - education 
+  * `r varlink(WEALTHQ)` - household wealth
+  * `r varlink(MARSTAT)` - marital status 
+  * `r varlink(ABORYR)` - year of last aborted pregnancy
+  * `r varlink(REGYR)` - year of regulated period 
+
+In our extract, these variables will each appear twice: those ending with `_1` come from the 2018 baseline surveys, with those ending with `_2` come from the 2019-2020 follow-ups. Today's analysis will focus only on the former. 
+
+After your extract has been downloaded and saved to a `data` folder in your working directory, attach the following packages and load your extract as an object named `pma`.
+
+```{r}
+library(tidyverse)
+library(ipumsr)
+library(srvyr)
+
+pma <- read_ipums_micro(
+  ddi = "data/pma_00192.xml",
+  data = "data/pma_00192.dat.gz"
+)
+
+```
+
+```{r, echo = FALSE}
+pma <- pma %>% filter(COUNTRY != 3)
+```
+
+Next, drop any women who are not part of the *de facto* population - in these samples, women outside of this population have a sampling weight of 0 in `r varlink(fqweight, alt_text = "FQWEIGHT_1")`. 
+
+```{r}
+pma <- pma %>% filter(FQWEIGHT_1 != 0)
+```
+
+# Analytic Dataset 
+
+Now, we'll build an analytic dataset `dat` derived from the variables shown above. Most importantly, we'll need to consider how Bell et al. report abortion incidence: they show an estimated **annual abortion count per 1,000 women** in each country. 
+
+The variables `r varlink(ABORYR)` and `r varlink(REGYR)` report the calendar year for each woman's most recent pregnancy termination and period regulation, but PMA does not collect the precise month in which each event might have occurred. 
+
+Because of this limitation, we'll include any procedure undertaken throughout all of the 2017 calendar year *and* any month before each woman's 2018 interview. Create these four variables: 
+
+  * `abor` indicating whether the woman's most recent pregnancy termination occurred after January 1, 2017
+  * `reg` indicating whether the woman's most recent period regulation occurred after January 1, 2017
+  * `any` indicating whether the woman's most recent pregnancy termination *or* period regulation occurred after January 1, 2017
+  * `avg` the mean value of `abor` and `any` (reported by Bell et al.)
+  * `yrs` - the number of months between January 1, 2017 and the date of a woman's interview *divided by* 12 (e.g. `1.5` represents 18 months)
+
+<aside> 
+2018 interviews **Nigeria** were conducted between March and June; those for **Côte d'Ivoire** were conducted between July and August.
+</aside> 
+
+```{r}
+dat <- pma %>% 
+  mutate(
+    .keep = "none",
+    reg = REGYR_1 %in% 2017:2018,
+    abor = ABORYR_1 %in% 2017:2018,
+    any = reg | abor,
+    avg = pick(abor, any) %>% rowMeans,
+    yrs = (INTFQCMC_1 - 1405)/12, # Jan 2017 as CMC = 1405
+  )
+```
+
+<aside>
+`r funlink(dplyr::transmute)` was superseded in favor of `mutate(.keep = "none")` in the latest major version of `r funlink(dplyr)` (version 1.0.0). We use this to drop any variables from `pma` that aren't created directly by `r funlink(dplyr::mutate)`. 
+</aside>
+
+Next, we'll consider how to disaggregate abortion incidence measures in groups defined by those variables mentioned above. It will be helpful to create a few meaningful categories for each variable, and then transform the result into a `r funlink(forcats::as_factor, "factor")` (this will control the ordering of categories along the x-axis in our final plots). We'll also create a variable `all` to show the overall abortion incidence for all women of reproductive age in each country.  
+
+```{r}
+dat <- pma %>% 
+  mutate(
+    .keep = "none",
+    age = AGE_1 %>% 
+      case_match(
+        15:19 ~ "15-19",
+        20:24 ~ "20-24",
+        25:29 ~ "25-29",
+        30:34 ~ "30-34",
+        35:39 ~ "35-39",
+        40:49 ~ "40+",
+      ) %>% 
+      fct_relevel("15-19","20-24","25-29","30-34","35-39"),
+    urban = URBAN %>% as_factor(),
+    edu = EDUCATTGEN_1 %>% 
+      case_match(
+        1 ~ "Never",
+        2 ~ "Primary",
+        3 ~ "Secondary",
+        4 ~ "Higher"
+      ) %>% 
+      fct_relevel("Never", "Primary", "Secondary"),
+    wealth = WEALTHQ_1 %>% 
+      as_factor() %>% 
+      str_remove(" quintile") %>% 
+      fct_relevel("Lowest", "Lower", "Middle", "Higher"),
+    marstat = MARSTAT_1 %>% 
+      case_match(
+        10 ~ "Never Married",
+        21:22 ~ "Partnered",
+        31:32 ~ "Separated / Widowed"
+      ) %>% 
+      fct_relevel("Never Married", "Partnered"),
+    all = "All" 
+  ) %>% 
+  bind_cols(dat)
+```
+
+<aside>
+`r funlink(dplyr::case_match)` was introduced in the latest major version of `r funlink(dplyr)` (version 1.0.0). Designed as a replacement for `r funlink(dplyr::recode)`, it allows you to use `r funlink(dplyr::case_when)` syntax to remap values ([read more here](https://www.tidyverse.org/blog/2023/02/dplyr-1-1-0-vctrs/)).
+
+`r funlink(forcats::fct_relevel)` is a sort-of clumsy way to create a factor from each `r funlink(dplyr::case_match)` and to organize its levels. Look for a more efficient solution in the upcoming version of `r funlink(forcats)`!
+</aside>
+
+Finally, we'll tweak the remaining technical variables for improved readability. 
+
+```{r}
+dat <- pma %>% 
+  mutate(
+    .keep = "none",
+    country = COUNTRY %>% as_factor, 
+    weight = FQWEIGHT_1 %>% zap_labels,
+    eaid = EAID_1 %>% zap_labels,
+    strata = STRATA_1 %>% zap_labels,
+  ) %>% 
+  bind_cols(dat)
+```
+
+
+```{r, echo = FALSE}
+dat %>% write_rds("data/dat.rds.gz", compress = "gz")
+```
+
+# Summary statistics 
+
+```{r, echo = FALSE, eval = TRUE}
+dat <- read_rds("data/dat.rds.gz")
+knitr::opts_chunk$set(eval = TRUE)
+```
+
+Your analytic dataset should now look something like this: 
+
+```{r}
+dat 
+```
+
+If so, you're ready to calculate incidence measures for each of the derived variables `reg`, `abor`, `any`, and `avg`. Because our data extract includes two completely independent samples (one per country), we'll need to think about three iterative steps: 
+
+  1. We'll cycle once through the data collected from each country 
+  2. Within the data for each country, we'll cycle through each of our disaggregation variables 
+  3. For each of *those* variables, we'll calculate one estimate (and a 95% confidence interval) for each of our four abortion incidence measures 
+
+Before we show how to write code that performs each of these steps in sequence, let's start with a simple example. 
+
+## Incidence by education 
+
+Suppose we only wanted to estimate incidence via pregnancy termination (leaving aside period regulation) for women sorted by educational attainment in Nigeria. 
+
+Bell and Fissell (<a href="#ref-Bell2021-pp" role="doc-biblioref">2021, pg 520</a>) point to differences in education as a possible source of error in measures of incidence like those derived from our variable `abor` (termination only). 
+
+>...if more educated women are more likely to interpret a missed menses as a possible pregnancy and to seek out pregnancy confirmation, researchers may be more likely to capture their behaviors with traditional questions regarding induced abortion/ending a pregnancy. Conversely, if less-educated women are less likely to view their experience in these terms, we may disproportionally underestimate their post-coital behaviors to attempt to regulate fertility. This difference could result in invalid estimates of these behaviors among different subpopulations.
+
+Let's check! We'll first define information about the Nigeria `r funlink(srvyr::as_survey_design, "survey design")` and then `r funlink(dplyr::group_by)` our education variable `edu` (dropping any missing values only afterward to preserve the correct degrees of freedom from our full sample).^[Note: in Nigeria, the same `r varlink(EAID)` codes are recycled in multiple sample `STRATA`. You must use `nest = TRUE` to ensure that these EAs are treated as separate sampling locations!]
+
+```{r}
+dat %>% 
+  filter(country == "Nigeria") %>% 
+  as_survey_design(weight = weight, id = eaid, strata = strata, nest = TRUE) %>% 
+  filter(!is.na(edu)) %>%
+  group_by(edu) %>% 
+  summarise(1000 * survey_mean(abor /yrs, vartype = "ci", proportion = TRUE))
+```
+
+If we only use `abor`, we estimate that about 6 in 1,000 women with no formal education will report an abortion within one year. Conversely, 24 in 1,000 women with secondary education or higher education report an abortion within one year: the proportions for these groups are nearly quadrupled compared with women with no formal education! This disparity seems to support Bell and Fissell's argument, but we'll want to generate estimates from our other abortion measures for further context.
+
+Here, we'll use `r funlink(dplyr::across)` to iterate over each of our measures - including `avg`, corresponding with the results reported in Bell et al.  <a href="#ref-Bell2020-kh" role="doc-biblioref">(2020b)</a>. 
+
+```{r}
+dat %>% 
+  filter(country == "Nigeria") %>% 
+  reframe(across(
+    c(reg, abor, any, avg), 
+    ~pick(everything()) %>% 
+      as_survey_design(weight = weight, id = eaid, strata = strata, nest = TRUE) %>% 
+      group_by(edu) %>% 
+      summarise(1000 * survey_mean(.x / yrs, vartype = "ci", proportion = TRUE))
+  )) %>% 
+  pivot_longer(where(is.list), names_to = "measure")
+```
+
+<aside>
+`r funlink(dplyr::cur_data)` was deprecated in favor of `r funlink(dplyr::pick)` in the latest major version of `r funlink(dplyr)` (version 1.0.0). We use this to reference all other variables as we iterate through through each of our abortion measures. 
+
+Also: note our use of `r funlink(dplyr::reframe)` - generally this replaces `r funlink(dplyr::summarise)` for operations resulting in multiple rows. For now, you must still use `r funlink(dplyr::summarise)` for functions following `r funlink(srvyr::as_survey_design)`. 
+</aside>
+
+Notice here that the number of women with no formal education reporting an abortion roughly doubles (from 6 in 1,000 to nearly 14) if we define incidence with `any` (either pregnancy termination *or* period regulation). The measure `avg` puts our estimate directly between `abor` and `any` at about 10 in 1,000 women. 
+
+## Other groups 
+
+As a reader, wouldn't it be nice to be able to cycle through multiple samples and disaggregation measures? Next, we'll build an summary table that we can incorporate into an application that will do exactly that! 
+
+Building on the previous example, we'll now iterate through each of the disaggregation measures we've discussed. We'll wrap everything within one larger iteration completed with `r funlink(dplyr::group_by)` for each `country`. 
+
+```{r, echo=FALSE, eval=TRUE}
+knitr::opts_chunk$set(R.options = list(width = 70))
+```
+
+```{r}
+dat <- dat %>% 
+  group_by(country) %>% 
+  reframe(across(
+    c(urban, edu, wealth, marstat, age, all), 
+    ~pick(everything()) %>% 
+      rename(group = .x) %>% 
+      filter(!is.na(group)) %>% 
+      reframe(across(
+        c(reg, abor, any, avg), 
+        ~pick(everything()) %>% 
+          as_survey_design(weight = weight, id = eaid, strata = strata, nest = TRUE) %>% 
+          group_by(group) %>% 
+          summarise(1000 * survey_mean(.x / yrs, vartype = "ci", proportion = TRUE)) 
+      )) %>% 
+      pivot_longer(where(is.list), names_to = "measure") %>% 
+      unnest(value) %>% 
+      list()
+  )) 
+
+dat 
+```
+
+We'll reference each of these lists by `country` within our `r funlink(shiny)` app. For example, here are the `urban` results for each country.
+
+```{r}
+dat %>% 
+  select(country, urban) %>% 
+  unnest(urban)
+```
+
+```{r, echo = FALSE, eval = FALSE}
+dat %>% write_rds(here("/Users/Matt/R/abor_incidence/www/dat.rds"))
+```
+
+# Shiny Dashboard 
+
+Dashboards like this one can be run locally in RStudio, or you can publish them on a server like [shinyapps.io](https://www.shinyapps.io/). Ours is built as a [Quarto](https://quarto.org/docs/interactive/shiny/) document with the following header: 
+
+```
+---
+title: "ESTIMATED ONE-YEAR ABORTION INCIDENCE"
+format: 
+  html:
+    page-layout: custom
+    css: 'css/pma.css'
+server: shiny
+---
+```
+
+<aside>
+`css/pma.css` is responsible for incorporating the IPUMS fonts you see throughout this blog. Feel free to omit that line, or include your own css document.
+</aside>
+
+The rest of the document consists of four named chunks: 
+
+  * `context: setup` - load your data and packages here 
+  * `panel: sidebar` - home to all user inputs 
+  * `panel: fill` - home to plots generated from user inputs 
+  * `context: server` - all back-end computation performed by R 
+  
+In summary, we use `r funlink(ggplot2)` to build a dot-whisker plot for selected abortion estimates for a user-provided country and disaggregation measure. As an extra flourish, the `choiceNames` argument in `r funlink(shiny::checkboxGroupInput)` uses color-coded text to save space where you would normally see a legend. 
+
+::: wrapper
+
+```{r, wrapper=TRUE, eval=FALSE, context="setup"}
+library(shiny)
+library(tidyverse)
+dat <- read_rds("www/dat.rds") 
+```
+
+:::
+
+<br>
+
+::: wrapper
+
+```{r, wrapper=TRUE, eval=FALSE, panel="sidebar"}
+selectInput(
+  inputId = "country", 
+  label = "Country:", 
+  choices = unique(dat$country)
+)
+
+selectInput(
+  inputId = 'group', 
+  label = 'Group by:', 
+  choices = list(Age = "age", `Urban / Rural` = "urban", Education = "edu", 
+       Wealth = "wealth", `Marital Status` = "marstat"),
+)
+
+checkboxGroupInput(
+  inputId = "measure",
+  label="Abortion Measure:",
+  choiceNames = list(
+    HTML("<span style='color: #00263A;'>Period Regulation Only</span>"),
+    HTML("<span style='color: #98579B;'>Termination Only</span>"),
+    HTML("<span style='color: #B56576;'>Termination or Regulation</span>"),
+    HTML("<span style='color: #EAAC8B;'>Average of Measures</span>")
+  ),
+  choiceValues = list("reg", "abor", "any", "avg"),
+  selected =  list("reg", "abor", "any", "avg")
+)
+```
+
+:::
+
+<aside>
+Your `inputID` in these inputs can be anything: it's what we use to reference user choices in the server context below.
+
+`r funlink(shiny::selectInput)` creates a dropdown menu with options provided by `choices`. If you want to change choice labels from the values in your dataset, you can provide them via list names as we do in the `group` dropdown. 
+
+`r funlink(shiny::checkboxGroupInput)` creates a group of check-boxes. Adding color is more complicated than providing list names, so we write `r funlink(shiny::HTML)` code for each option in `choiceNames`.
+</aside>
+
+<br>
+
+::: wrapper 
+
+```{r, wrapper=TRUE, eval=FALSE, context="server"}
+selectedData <- reactive({
+  dat %>% 
+    filter(country == input$country) %>% 
+    unnest(any_of(input$group)) %>% 
+    filter(measure %in% input$measure)
+})
+
+output$plot <- renderPlot(width = 700, height = 400, expr = {
+  selectedData() %>%
+    ggplot(aes(x = group, y = coef, color = measure)) + 
+    geom_point(position = position_dodge(width = 0.3)) + 
+    geom_errorbar(
+      aes(ymin = `_low`, ymax = `_upp`), 
+      width = 0, 
+      position = position_dodge(width = 0.3)
+    ) + 
+    theme_minimal()  %+replace% theme(
+      panel.grid.major.x = element_blank(),
+      legend.position = "none"
+    ) + 
+    labs(x = NULL,color = NULL, y = "Number of abortions per 1,000 women") + 
+    scale_y_continuous(limits = c(0, 110)) + 
+    scale_color_manual(values = c(
+      "reg" = "#00263A",
+      "abor" = "#98579B",
+      "any" = "#B56576",
+      "avg" = "#EAAC8B"
+    )) 
+})
+```
+
+:::
+
+<aside>
+`selectedData` is a `r funlink(shiny::reactive)` function that *reacts* to user input referenced by each `inputID` created in our sidebar. 
+
+The object `output$plot` stores a new `r funlink(ggplot2, "ggplot")` created in reaction to these inputs.
+</aside>
+
+<br>
+
+::: wrapper 
+
+```{r, wrapper=TRUE, eval=FALSE, panel="fill"}
+plotOutput('plot')
+```
+
+:::
+
+That's it! Simply hit "Run Document" to test your application in RStudio. For information about deploying it for use by others, check out [this article](https://shiny.rstudio.com/deploy/). 
+
+Here's our finished app: 
+
+```{r, layout="l-page", eval = TRUE, echo = FALSE}
+knitr::include_url("https://mgunther.shinyapps.io/abor_incidence/", height = "500px")
+```
