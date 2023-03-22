@@ -1,0 +1,37 @@
+Measure,Respondent Version, Confidante Version (Friend 1)
+Age,AGE,AGEFRND1
+Highest level of school attended,EDUCATTGEN,EDUCATTFRND1
+Ever terminated a pregnancy,ABOREV,ABOREV_FRND1
+Year of last terminated pregnancy,ABORYR,ABORYR_FRND1
+Used multiple termination methods,ABORMULT,ABORMULT_FRND1
+Only termination method used,ABORONLYMETH,ABORONLYMETH_FRND1
+First of multiple termination methods used,ABORFIRSTMETH,ABORFIRSTMETH_FRND1
+Last of multiple termination methods used ,ABORLASTMETH,ABORLASTMETH_FRND1
+Sought termination care at a facility,ABORCARE,ABORCARE_FRND1
+Place where termination medication was obtained (if first / only method),ABORFIRSTMEDLOC,ABORFIRSTMEDLOC_FRND1
+Place where termination medication was obtained (if last method),ABORLASTMEDLOC,ABORLASTMEDLOC_FRND1
+Place where termination surgery was obtained (if first / only method),ABORFIRSTSURGLOC,ABORFIRSTSURGLOC_FRND1
+Place where termination surgery was obtained (if last method),ABORLASTSURGLOC,ABORLASTSURGLOC_FRND1
+Ever regulated a period (if never terminated a pregnancy),REGPREGEV,REGPREGEVFRND1
+Ever regulated a period (besides terminated a pregnancy),REGPREGEV_ABOR,REGPREGEV_ABORFRND1
+Year of last regulated period,REGYR,REGYRFRND1
+Used multiple regulation methods,REGMULT,REGMULTFRND1
+Only regulation method used,REGMETH,REGMETHFRND1
+First of multiple regulation methods used,REG1ST,REG1STFRND1
+Last of multiple regulation methods used ,REGLAST,REGLASTFRND1
+Sought regulation care at a facility,REGTREAT,REGTREATFRND1
+Place where regulation medication was obtained (if first / only method),REGMEDLOC,REGMEDLOCFRND1
+Place where regulation medication was obtained (if last method),REGLASTMEDLOC,REGLASTMEDLOCFRND1
+Place where regulation surgery was obtained (if first / only method),REGSURGLOC,REGSURGLOCFRND1
+Place where regulation surgery was obtained (if last method),REGLASTSURGLOC,REGLASTSURGLOCFRND1
+Number of close female friends aged 15-49,FRIENDNUM,-- 
+Household wealth quintile,WEALTHQ,-- 
+Marital status,MARSTAT,-- 
+Religion of household head,RELIGION,-- 
+Ethnicity,ETHNICITYNG,-- 
+Parity (live birth events) ,BIRTHEVENT,-- 
+Urban or rural residence,URBAN,-- 
+Nigerian State ,GEONG,-- 
+Female Questionnaire Sampling Weight,FQWEIGHT,-- 
+Sampling cluster (enumeration area),EAID,-- 
+Sampling strata (Nigerian state),STRATA,-- 

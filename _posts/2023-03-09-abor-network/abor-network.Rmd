@@ -1,0 +1,453 @@
+---
+title: "Abortion Incidence with Third Party Reporting"
+description: |
+  Recent PMA surveys from Côte d’Ivoire and Nigeria include questions about the abortion experiences of both respondents and other women of reproductive age with whom they share personal information. 
+author:
+  - name: Matt Gunther
+    affiliation: IPUMS PMA Senior Data Analyst
+date: 2023-03-22
+output:
+  distill::distill_article:
+    self_contained: false
+    toc: true
+    toc_depth: 3
+    toc_float: true
+categories:
+  - Data Analysis 
+  - Abortion 
+  - Measurement 
+bibliography: cites.bib
+nocite: |
+  @Bell2020-ld, @Bell2020-kh, @Bell2021-pp
+css: 'styles.css'
+preview: 'images/featured.png'
+---
+
+```{r setup, include=FALSE}
+source(here::here("r/utilities.r"))
+set_postpath("2023-03-09-abor-network")
+test_links = FALSE 
+library(srvyr)
+library(survey)
+
+ng <- read_ipums_micro(
+  ddi = "data/pma_00195.xml", 
+  data = "data/pma_00195.dat.gz"
+)
+
+knitr::opts_chunk$set(
+  echo = TRUE, 
+  eval = TRUE,
+  R.options = list(width = 100),
+  fig.align='center'
+)
+```
+
+In our [last post](../2023-02-15-abor-reg), we demonstrated that there are multiple ways to estimate **abortion incidence** with data provided by respondents to the 2018 PMA surveys from Côte d’Ivoire and Nigeria. With help from an interactive `r funlink(shiny)` dashboard, we saw that estimates may vary depending on how the researcher incorporates responses to one or both of both of these survey questions: 
+
+  * Have you ever done something to remove a pregnancy when you were pregnant or worried you were pregnant?
+  * Have you ever done something to regulate your period when you were worried you were pregnant?
+
+PMA surveys include multiple ways of asking about a woman's experiences with abortion as a way of mitigating **social desirability bias** inherent in this sensitive topic. In this post, we'll explore an *additional set of questions* that can help researchers assess the validity of incidence measures like those we've discussed. 
+
+# Confidante Data 
+
+Prior to the questions related to her own abortion experiences, each woman in the 2018 PMA surveys from Côte d’Ivoire and Nigeria are asked to consider other women aged 15-49 with whom they share personal information. If the respondent indicates that she knows at least one such person, the questionnaire goes on to ask about that woman's age, educational background, and experiences with pregnancy removal and period regulation.
+
+These questions mirror those that are later posed to the respondent about her own abortion history, so we can construct the same incidence measures shown in our [last post](../2023-02-15-abor-reg) with data from each woman's closest confidante.^[Respondents were invited to provide this information for multiple close confidantes, as indicated by a numeric suffix attached to the variable name for each. For example, `r varlink(aborev_frnd1)` references the woman's closest confidante, while , `r varlink(aborev_frnd2)` references the confidante she listed second. In this post, we'll focus only on the responses provided about the confidante listed *first*.] Comparing these measures can help give us a sense of the extent to which social **social desirability bias** or other factors limit the information respondents share about their own experiences. However, we should note that the confidante data have their own limitations:  
+
+  1. **Selection bias:** although PMA uses a nationally representative cluster sampling procedure to ensure that respondents reflect a broader population in each of these surveys, confidantes do not necessarily share similar geographic or demographic qualities. Moreover, between one third and one half of respondents in each sample listed no such confidantes at all.  
+  2. **Transmission bias:** respondents who did provide information about a close confidante may be uncertain about their abortion experiences. As we'll see, respondents were able to describe these experiences with different degrees of certainty.
+  
+Both of these issues are addressed by Bell et al. (<a href="#ref-Bell2020-ld" role="doc-biblioref">2020a</a>; <a href="#ref-Bell2020-kh" role="doc-biblioref">2020b</a>), whose work we highlighted in our last post. In both publications, they report separate incidence estimates from data derived from respondents and from information provided about their confidantes. Overall, they find **higher abortion incidence rates using the confidante data** compared with the respondent data, ultimately suggesting that the real-world target may be closer to the former than the latter. 
+
+We'll follow their steps again in this post, focusing on the 2018 sample from Nigeria. Notably: these data are available in longitudinal format combined with data from a 2020 follow-up. To avoid confusing the numeric suffix assigned to variables from each round of the survey and an *additional* numeric suffix assigned to each of the respondent's closest confidantes, we'll simply download a cross-sectional extract for the 2018 survey (we'll revisit the longitudinal data in an upcoming post). 
+
+# Setup 
+
+We've downloaded a cross-sectional extract for the 2018 Nigeria sample (female respondents only) that includes parallel sets of variables for respondents and their confidantes, plus a few that are only available for respondents. As a reference, here is a table showing the corresponding variable names for each group (where available). 
+
+```{r, eval=TRUE, echo=FALSE, layout="l-page"}
+library(kableExtra)
+read_csv("vars.csv") %>% 
+  mutate(across(
+    c(2,3), 
+    ~ifelse(
+      .x == "--", 
+      "--", 
+      .x %>% 
+        cell_spec(
+          "html",
+          color = "#98579B",
+          link = paste0("https://pma.ipums.org/pma-action/variables/", .x)
+        )
+    )
+  )) %>% 
+  kbl("html", escape = FALSE) %>% 
+  kable_styling() %>% 
+  scroll_box(
+    fixed_thead = FALSE,
+    extra_css = paste(
+      "margin-bottom: 2em; border: 0px; padding: 5px;",
+      "overflow-x: auto !important;"
+    ),
+    height = "500px", 
+    width = "100%", 
+  ) 
+```
+
+After you've downloaded an extract containing these variables, load it together with the following packages in R. 
+
+```{r, eval = FALSE}
+library(tidyverse)
+library(ipumsr)
+library(srvyr)
+library(survey)
+
+ng <- read_ipums_micro(
+  ddi = "data/pma_00195.xml", 
+  data = "data/pma_00195.dat.gz"
+)
+```
+
+Our analysis will focus only on members of the *de facto* population, identifiable as all cases where `r varlink(FQWEIGHT)` is not 0. 
+
+```{r}
+ng <- ng %>% filter(FQWEIGHT != 0)
+```
+
+We'll also create a short ID for each woman by row index.
+
+```{r}
+ng <- ng %>% rowid_to_column("id")
+```
+
+## Respondent variables
+
+Next, we'll build an analytic dataset `dat` with recoded variables matching the categories shown throughout Bell et al. (<a href="#ref-Bell2020-ld" role="doc-biblioref">2020a</a>; <a href="#ref-Bell2020-kh" role="doc-biblioref">2020b</a>). First, we'll handle the variables for each respondent (largely following the workflow shown in our last post). 
+
+```{r}
+dat <- ng %>% 
+  mutate(
+    .keep = "none",
+    id,
+    age = AGE %>% 
+      case_match(
+        15:19 ~ "15-19", 20:24 ~ "20-24", 25:29 ~ "25-29", 30:34 ~ "30-34",
+        35:39 ~ "35-39", 40:44 ~ "40-44", 45:50 ~ "45+"
+      ) %>% 
+      fct_relevel("15-19","20-24","25-29","30-34","35-39", "40-44"),
+    edu = EDUCATTGEN %>% 
+      case_match(
+        1 ~ "Never", 2 ~ "Primary", 3 ~ "Secondary", 4 ~ "Higher"
+      ) %>% 
+      fct_relevel("Never", "Primary", "Secondary"),
+    wealth = WEALTHQ %>% 
+      as_factor() %>% 
+      str_remove(" quintile") %>% 
+      fct_relevel("Lowest", "Lower", "Middle", "Higher"),
+    marstat = MARSTAT %>% 
+      case_match(
+        10 ~ "Never Married", 21:22 ~ "Partnered", 31:32 ~ "Separated / Widowed"
+      ) %>% 
+      fct_relevel("Never Married", "Partnered", "Separated / Widowed"),
+    relig = RELIGION %>% 
+      case_match(
+        210 ~ "Catholic", 290 ~ "Other Christian", 100 ~ "Muslim", 
+        .default = "Other"
+      ) %>% 
+      fct_relevel("Catholic", "Other Christian", "Muslim"),
+    ethnicity = ETHNICITYNG %>% 
+      case_match(
+        5 ~ "Hausa", 6 ~ "Igbo", 15 ~ "Yoruba",
+        .default = "Other"
+      ) %>% 
+      fct_relevel("Hausa", "Igbo", "Yoruba"),
+    parity = BIRTHEVENT %>% 
+      case_match(
+        0 ~ "0", 1:2 ~ "1-2", 3:4 ~ "3-4", 5:90 ~ "5+"
+      ) %>% 
+      fct_relevel("0", "1-2", "3-4", "5+"),
+    urban = URBAN %>% as_factor()
+  ) 
+
+dat 
+```
+
+As in our last post, we'll create four separate incidence measures from the following recoded variables:
+
+  * `term` indicating whether the respondent terminated a pregnancy after January 1, 2017
+  * `reg` indicating whether the respondent regulated a period after January 1, 2017
+  * `any` indicating whether the respondent terminated a pregnancy *or* regulated a period after January 1, 2017 
+  * `avg` the mean value of `term` and `any`, as reported by Bell et al. (<a href="#ref-Bell2020-ld" role="doc-biblioref">2020a</a>; <a href="#ref-Bell2020-kh" role="doc-biblioref">2020b</a>)
+  * `yrs` - the number of months between January 1, 2017 and the date of a woman's interview *divided by* 12 (e.g. `1.5` represents 18 months)
+
+```{r}
+dat <- ng %>% 
+  mutate(
+    .keep = "none",
+    id,
+    term = ABORYR %in% 2017:2018,
+    reg = REGYR %in% 2017:2018,
+    any = reg | term,
+    avg = pick(term, any) %>% rowMeans,
+    yrs = (INTFQCMC - 1405)/12 # Jan 2017 as CMC = 1405
+  ) %>% 
+  print() %>% # preview columns to be joined with `dat` 
+  full_join(dat, by = "id")
+```
+
+<aside>
+The variables `term`, `reg`, and `any` are **logical** objects, while `avg` is a **double**. 
+
+Remember: in R, FALSE is coerced to 0, while TRUE is coerced to 1. 
+
+You can think of a value like 0.5 in `avg` as the numeric version of *half TRUE*.
+</aside>
+
+Finally, we'll attach simpmle numeric versions of a few technical variables: 
+
+```{r}
+dat <- ng %>% 
+  mutate(
+    .keep = "none",
+    id, 
+    weight = FQWEIGHT %>% zap_labels,
+    eaid = EAID %>% zap_labels,
+    strata = STRATA %>% zap_labels,
+  ) %>% 
+  print() %>% # preview columns to be joined with `dat` 
+  full_join(dat, by = "id")
+```
+
+## Confidante variables
+
+As shown in the table above, IPUMS PMA uses the shorthand "Friend 1" to reference variables pertaining to the respondent's closest confidante. PMA surveys collect a limited amount of demographic information about Friend 1: we'll use her age and education level. 
+
+```{r}
+ dat <- ng %>% 
+  mutate(
+    .keep = "none",
+    id,
+    age_f1 = AGEFRND1 %>% 
+      case_match(
+        15:19 ~ "15-19",
+        20:24 ~ "20-24",
+        25:29 ~ "25-29",
+        30:34 ~ "30-34",
+        35:39 ~ "35-39",
+        40:44 ~ "40-44",
+        45:50 ~ "45+"
+      ) %>% 
+      fct_relevel("15-19","20-24","25-29","30-34","35-39", "40-44"),
+    edu_f1 = EDUCATTFRND1 %>% 
+      case_match(
+        100 ~ "Never",
+        200 ~ "Primary",
+        400 ~ "Secondary",
+        600 ~ "Higher"
+      ) %>% 
+      fct_relevel("Never", "Primary", "Secondary")
+  ) %>% 
+  print() %>% # preview columns to be joined with `dat` 
+  full_join(dat, by = "id")
+```
+
+Notice that many of the values in our modified variables `age_f1` and `edu_f1` are NA? These values are produced by `r funlink(dplyr::case_match)` for any original values that are not explicitly specified: here, NA covers codes for "don't know", "no response or missing", and "NIU (not in universe)". Cases marked NIU represent respondents who reported that they had *no* confidante women aged 15-49, so these questions were skipped. 
+
+We'll create a helper variable `has_f1` to mark women who indicated that they did know at least one such person. 
+
+```{r}
+ng <- ng %>% mutate(has_f1 = FRIENDNUM %in% 1:96) 
+
+ng %>% count(has_f1) 
+```
+
+<aside>
+Just over half of the Nigeria 2018 respondents identified at least one woman aged 15-49 with whom they share personal information. 
+</aside>
+
+As we've mentioned, respondents could report their knowledge about the abortion experiences of Friend 1 with different degrees of certainty. For example, the question about pregnancy termination for Friend 1 looks like this: 
+
+```
+712a.i. Now I want to ask some more questions about {friend1_name}. Has she ever
+done something to remove a pregnancy when she was pregnant or worried she was
+pregnant?
+
+Probe to confirm whether the pregnancy removal was successful. If not, select
+'no.'
+
+[] Yes, I am certain
+[] Yes, I think so
+[] No
+[] Do not know
+[] No response
+```
+
+Bell et al. (<a href="#ref-Bell2020-ld" role="doc-biblioref">2020a</a>; <a href="#ref-Bell2020-kh" role="doc-biblioref">2020b</a>) use all of the "Yes, I am certain" responses to estimate abortion incidence, and they also use cases where the respondent answered "Yes, I think so" *only if* they could specify at least one method for the procedure. This information can be found in multiple variables depending on the number of methods that were ultimately needed to terminate the pregnancy. 
+
+```{r}
+ng <- ng %>% 
+  mutate(
+    termmethod_f1 = if_any(
+      c(ABORONLYMETH_FRND1, ABORFIRSTMETH_FRND1, ABORLASTMETH_FRND1),
+      ~.x < 97 & .x != 4
+    ),
+    regmethod_f1 = if_any(
+      c(REGMETHFRND1, REG1STFRND1, REGLASTFRND1),
+      ~.x < 97 & .x != 4
+    ),
+    termev_f1 = case_when(
+      has_f1 ~ ABOREV_FRND1 == 2 | {ABOREV_FRND1 == 1 & termmethod_f1}
+    ),
+    regev_f1 = case_when(
+      has_f1 ~  REGPREGEVFRND1 == 2 | {REGPREGEVFRND1 == 1 & regmethod_f1}
+    )
+  )
+```
+
+Finally, we'll construct the same four abortion measures we made from the respondent data. In this case, we'll use `termev_f1` and `regev_f1` to mark some cases FALSE where the respondent was uncertain and could not identify an abortion method for Friend 1. 
+
+  * `term_f1` indicating whether Friend 1 terminated a pregnancy after January 1, 2017 
+  * `reg_f1` indicating whether Friend 1 regulated a period after January 1, 2017 
+  * `any_f1` indicating whether Friend 1 terminated a pregnancy *or* regulated a period after January 1, 2017 
+  * `avg_f1` - the mean value of `aboryr_f1` and `anyyr_f1`, as reported by Bell et al. (<a href="#ref-Bell2020-ld" role="doc-biblioref">2020a</a>; <a href="#ref-Bell2020-kh" role="doc-biblioref">2020b</a>)
+
+
+```{r}
+dat <- ng %>% 
+  mutate(
+    .keep = "none",
+    id, has_f1, 
+    term_f1 = if_else(termev_f1, ABORYR_FRND1 %in% 2017:2018, FALSE),
+    reg_f1 = if_else(regev_f1, REGYRFRND1 %in% 2017:2018, FALSE),
+    any_f1 = term_f1 | reg_f1,
+    avg_f1 = pick(term_f1, any_f1) %>% rowMeans,
+  ) %>% 
+  print() %>% # preview columns to be joined with `dat` 
+  full_join(dat, by = "id")
+```
+
+# Initial Results 
+
+We could now proceed to calculate annualized abortion incidence with the each of the measures we've constructed for respondents and confidantes. As a reminder, our previous post demonstrated that incidence rates more than doubled if we included period regulation *or* pregnancy termination (41.9 women per 1,000) compared with incidence constructed from pregnancy termination alone (19.8 women per 1,000). Bell et al. (<a href="#ref-Bell2020-ld" role="doc-biblioref">2020a</a>; <a href="#ref-Bell2020-kh" role="doc-biblioref">2020b</a>) report the mean of these estimates (30.8 women per 1,000), represented by the variable `avg`. 
+
+```{r}
+dat %>% 
+  as_survey_design(weight = weight, id = eaid, strata = strata, nest = TRUE) %>% 
+  summarise(across(
+    c(term, reg, any, avg),
+    ~pick(everything()) %>% 
+      summarise(1000 * survey_mean(.x / yrs, vartype = "ci"))
+  )) %>% 
+  pivot_longer(everything()) %>% 
+  unnest(value)
+```
+
+We can use the same calculation for Friend 1 where information about Friend 1 was reported. However, we'll have to include `na.rm = TRUE` to ignore cases where this information is missing.
+
+```{r}
+dat %>% 
+  as_survey_design(weight = weight, id = eaid, strata = strata, nest = TRUE) %>% 
+  summarise(across(
+    c(term_f1, reg_f1, any_f1, avg_f1),
+    ~pick(everything()) %>% 
+      summarise(1000 * survey_mean(.x / yrs, vartype = "ci", na.rm = TRUE, proportion = TRUE))
+  )) %>% 
+  pivot_longer(everything()) %>% 
+  unnest(value)
+```
+
+At least initially, it seems that each of these four incidence measures is higher than those derived from data about the respondents' own experiences! This is true for every measure except if we estimate incidence with *period regulation alone* - in that case, the respondent incidence is higher! This suggests that respondents may be more willing to report their own abortion experiences in circumstances where their pregnancy status was unknown or ambiguous, as discussed in Bell et al. [-@Bell2021-pp]. 
+
+# Missing confidantes adjustment
+
+Above, we mentioned that an important limitation on the data from Friend 1 is that only around *half* of the respondents to the Nigeria 2018 sample identified such a person. 
+
+To help correct for selection bias in the Friend 1 data, Bell et al. (<a href="#ref-Bell2020-ld" role="doc-biblioref">2020a</a>; <a href="#ref-Bell2020-kh" role="doc-biblioref">2020b</a>) replace the missing `NA` values for unreported confidantes with *probable* values derived from information about the confidantes we know about.
+
+For example, let's model the probability that a known confidante removed a pregnancy after January 1, 2017 (setting aside period regulation for now). Predictors could include any of the *respondent* characteristics, but not the age or education of Friend 1 (those factors may be very predictive, but they aren't available for the missing confidante values we want to impute). 
+
+Moreover, we won't be able to impute any values if the respondent has missing `NA` values for any of the covariates in our model. First, we'll specify a Poisson model with `r funlink(survey::svyglm)`; then, we'll use that model for all cases without missing `NA` values for any of the model covariates. 
+
+```{r}
+mod_term <- dat %>% 
+  as_survey_design(weight = weight, id = eaid, strata = strata, nest = TRUE) %>%
+  svyglm(
+    term_f1 ~ age + edu + wealth + marstat + relig + ethnicity + parity + urban,
+    design= ., 
+    family = "poisson"
+  )
+
+result <- dat %>% 
+  filter(!if_any(
+    c(age, edu, wealth, marstat, relig, ethnicity, parity, urban), 
+    ~is.na(.x)
+  )) %>%
+  mutate(predicted = predict(mod_term, newdata = pick(everything())) %>% exp) 
+```
+
+Let's compare the `predicted` values with those in `term_f1` for the first 20 rows in the resulting data frame. 
+
+```{r}
+result %>% select(predicted, has_f1, term_f1) %>% print(n = 20)
+```
+
+You can see in `has_f1` that only 9 of the 20 respondents above were able to identify someone as Friend 1; in `term_f1` you see that, of those 9, only one (row 17) indicated that her Friend 1 had removed a pregnancy after January 1, 2017. 
+
+The `NA` values in `term_f1` appear for respondents who identified no person as Friend 1. That's where the `predicted` values come in: we'll now substitute the `predicted` value in place of `NA` values. Because these values are numeric, we'll coerce the existing values in `term_f1` to 0 (for FALSE) and 1 (for TRUE). 
+
+```{r}
+result <- result %>% 
+  mutate(final_f1 = if_else(
+    is.na(term_f1), 
+    as.double(predicted), 
+    as.double(term_f1)
+  )) 
+
+result %>% 
+  select(predicted, has_f1, term_f1, final_f1) %>% 
+  print(n = 20)
+```
+
+With these substitutions in place, we can now calculate an *adjusted* confidante incidence estimate similar to the estimate shown in Bell et al. (<a href="#ref-Bell2020-ld" role="doc-biblioref">2020a</a>; <a href="#ref-Bell2020-kh" role="doc-biblioref">2020b</a>)^[Bell et al. (<a href="#ref-Bell2020-ld" role="doc-biblioref">2020a</a>; <a href="#ref-Bell2020-kh" role="doc-biblioref">2020b</a>) further adjust confidante data with post-stratification weights modeled on respondent values. The `r funlink(survey)` package provides tools for this in `r funlink(survey::rake)` and `r funlink(survey::calibrate)`] 
+
+```{r}
+result %>% 
+  as_survey_design(weight = weight, id = eaid, strata = strata, nest = TRUE) %>% 
+  summarise(1000 * survey_mean(final_f1 / yrs, vartype = "ci", proportion = TRUE))
+```
+
+Compared with our previous estimate (40.2), we now find 2 fewer women per 1,000 (38.3) with a pregnancy termination within one year. Here's a way to repeat that estimation with all four abortion measures via `r funlink(dplyr::across)`:
+
+```{r, warning=FALSE, message=FALSE}
+dat %>% 
+  summarise(across(
+    c(term_f1, reg_f1, any_f1, avg_f1),
+    function(y){
+      model <- pick(everything()) %>% 
+        as_survey_design(weight = weight, id = eaid, strata = strata, nest = TRUE) %>% 
+        svyglm(
+          y ~ age + edu + wealth + marstat + relig + ethnicity + parity + urban,
+          design = .,
+          family = "poisson"
+        )
+      
+      dat %>% 
+        filter(!if_any(
+          c(age, edu, wealth, marstat, relig, ethnicity, parity, urban), 
+          ~is.na(.x)
+        )) %>%
+        mutate(
+          predicted = predict(model, newdata = pick(everything())) %>% exp,
+          z = if_else(is.na(y), as.double(predicted), as.double(y))
+        ) %>% 
+        as_survey_design(weight = weight, id = eaid, strata = strata, nest = TRUE) %>%
+        summarise(1000 * survey_mean(z / yrs, vartype = "ci", proportion = TRUE))
+    }
+  )) %>% 
+  pivot_longer(everything()) %>% 
+  unnest(value)
+```
+
+Overall, whether our estimates include adjustments for missing confidantes or not, we see that the estimated annualized abortion incidence derived from confidantes is higher than the incidence estimates derived from respondents. This holds true whether we use pregnancy termination responses alone, or if we combine them with responses for period regulation; on the other hand, when our estimate includes responses for *period regulation only*, the respondent data matches or exceeds the incidence derived from confidantes! In light of these findings, it's clear why abortion researchers benefit from consulting multiple measures like those included in PMA surveys: social desirability bias and other related factors likely influence respondent reporting on their own experiences with pregnancy removal. 

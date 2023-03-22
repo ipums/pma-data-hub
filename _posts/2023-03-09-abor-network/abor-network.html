@@ -1,0 +1,2529 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1"/>
+  <meta name="generator" content="distill" />
+
+  <style type="text/css">
+  /* Hide doc at startup (prevent jankiness while JS renders/transforms) */
+  body {
+    visibility: hidden;
+  }
+  </style>
+
+ <!--radix_placeholder_import_source-->
+ <!--/radix_placeholder_import_source-->
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css" data-origin="pandoc">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  { color: #00769e; background-color: #f1f3f5; }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span { color: #00769e; } /* Normal */
+code span.al { color: #ad0000; } /* Alert */
+code span.an { color: #5e5e5e; } /* Annotation */
+code span.at { color: #657422; } /* Attribute */
+code span.bn { color: #ad0000; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #00769e; } /* ControlFlow */
+code span.ch { color: #20794d; } /* Char */
+code span.cn { color: #8f5902; } /* Constant */
+code span.co { color: #5e5e5e; } /* Comment */
+code span.cv { color: #5e5e5e; font-style: italic; } /* CommentVar */
+code span.do { color: #5e5e5e; font-style: italic; } /* Documentation */
+code span.dt { color: #ad0000; } /* DataType */
+code span.dv { color: #ad0000; } /* DecVal */
+code span.er { color: #ad0000; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #ad0000; } /* Float */
+code span.fu { color: #4758ab; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #5e5e5e; } /* Information */
+code span.kw { color: #00769e; } /* Keyword */
+code span.op { color: #5e5e5e; } /* Operator */
+code span.ot { color: #00769e; } /* Other */
+code span.pp { color: #ad0000; } /* Preprocessor */
+code span.sc { color: #5e5e5e; } /* SpecialChar */
+code span.ss { color: #20794d; } /* SpecialString */
+code span.st { color: #20794d; } /* String */
+code span.va { color: #111111; } /* Variable */
+code span.vs { color: #20794d; } /* VerbatimString */
+code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
+</style>
+
+<style>
+  div.csl-bib-body { }
+  div.csl-entry {
+    clear: both;
+    }
+  .hanging div.csl-entry {
+    margin-left:2em;
+    text-indent:-2em;
+  }
+  div.csl-left-margin {
+    min-width:2em;
+    float:left;
+  }
+  div.csl-right-inline {
+    margin-left:2em;
+    padding-left:1em;
+  }
+  div.csl-indent {
+    margin-left: 2em;
+  }
+</style>
+
+  <!--radix_placeholder_meta_tags-->
+  <title>Abortion Incidence with Third Party Reporting</title>
+
+  <meta property="description" itemprop="description" content="Recent PMA surveys from Côte d’Ivoire and Nigeria include questions about the abortion experiences of both respondents and other women of reproductive age with whom they share personal information."/>
+
+
+  <!--  https://schema.org/Article -->
+  <meta property="article:published" itemprop="datePublished" content="2023-03-22"/>
+  <meta property="article:created" itemprop="dateCreated" content="2023-03-22"/>
+  <meta name="article:author" content="Matt Gunther"/>
+
+  <!--  https://developers.facebook.com/docs/sharing/webmasters#markup -->
+  <meta property="og:title" content="Abortion Incidence with Third Party Reporting"/>
+  <meta property="og:type" content="article"/>
+  <meta property="og:description" content="Recent PMA surveys from Côte d’Ivoire and Nigeria include questions about the abortion experiences of both respondents and other women of reproductive age with whom they share personal information."/>
+  <meta property="og:locale" content="en_US"/>
+
+  <!--  https://dev.twitter.com/cards/types/summary -->
+  <meta property="twitter:card" content="summary"/>
+  <meta property="twitter:title" content="Abortion Incidence with Third Party Reporting"/>
+  <meta property="twitter:description" content="Recent PMA surveys from Côte d’Ivoire and Nigeria include questions about the abortion experiences of both respondents and other women of reproductive age with whom they share personal information."/>
+
+  <!--/radix_placeholder_meta_tags-->
+  
+  <meta name="citation_reference" content="citation_title=A little bit pregnant? Productive ambiguity and fertility research;citation_publisher=Wiley;citation_volume=47;citation_author=Suzanne O Bell;citation_author=Mary E Fissell"/>
+  <!--radix_placeholder_rmarkdown_metadata-->
+
+  <script type="text/json" id="radix-rmarkdown-metadata">
+  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","author","date","output","categories","bibliography","nocite","css","preview"]}},"value":[{"type":"character","attributes":{},"value":["Abortion Incidence with Third Party Reporting"]},{"type":"character","attributes":{},"value":["Recent PMA surveys from Côte d’Ivoire and Nigeria include questions about the abortion experiences of both respondents and other women of reproductive age with whom they share personal information. \n"]},{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","affiliation"]}},"value":[{"type":"character","attributes":{},"value":["Matt Gunther"]},{"type":"character","attributes":{},"value":["IPUMS PMA Senior Data Analyst"]}]}]},{"type":"character","attributes":{},"value":["2023-03-22"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["self_contained","toc","toc_depth","toc_float"]}},"value":[{"type":"logical","attributes":{},"value":[false]},{"type":"logical","attributes":{},"value":[true]},{"type":"integer","attributes":{},"value":[3]},{"type":"logical","attributes":{},"value":[true]}]}]},{"type":"character","attributes":{},"value":["Data Analysis","Abortion","Measurement"]},{"type":"character","attributes":{},"value":["cites.bib"]},{"type":"character","attributes":{},"value":["@Bell2020-ld, @Bell2020-kh, @Bell2021-pp\n"]},{"type":"character","attributes":{},"value":["styles.css"]},{"type":"character","attributes":{},"value":["images/featured.png"]}]}
+  </script>
+  <!--/radix_placeholder_rmarkdown_metadata-->
+  
+  <script type="text/json" id="radix-resource-manifest">
+  {"type":"character","attributes":{},"value":["abor-network_files/anchor-4.2.2/anchor.min.js","abor-network_files/bowser-1.9.3/bowser.min.js","abor-network_files/distill-2.2.21/template.v2.js","abor-network_files/header-attrs-2.20/header-attrs.js","abor-network_files/jquery-3.6.0/jquery-3.6.0.js","abor-network_files/jquery-3.6.0/jquery-3.6.0.min.js","abor-network_files/jquery-3.6.0/jquery-3.6.0.min.map","abor-network_files/kePrint-0.0.1/kePrint.js","abor-network_files/lightable-0.0.1/lightable.css","abor-network_files/popper-2.6.0/popper.min.js","abor-network_files/tippy-6.2.7/tippy-bundle.umd.min.js","abor-network_files/tippy-6.2.7/tippy-light-border.css","abor-network_files/tippy-6.2.7/tippy.css","abor-network_files/tippy-6.2.7/tippy.umd.min.js","abor-network_files/webcomponents-2.0.0/webcomponents.js","cites.bib","data/bf.pdf","data/ci.pdf","data/dat.rds.gz","data/ng.pdf","data/notes_mtg","data/pma_00192.dat.gz","data/pma_00192.xml","data/pma_00193.dat.gz","data/pma_00193.xml","data/pma_00194.dat.gz","data/pma_00194.xml","data/pma_00195.dat.gz","data/pma_00195.xml","data/Population   Development Rev - 2021 - Bell - A Little Bit Pregnant  Productive Ambiguity and Fertility Research.pdf","vars.csv"]}
+  </script>
+  <!--radix_placeholder_navigation_in_header-->
+  <!--/radix_placeholder_navigation_in_header-->
+  <!--radix_placeholder_distill-->
+
+  <style type="text/css">
+
+  body {
+    background-color: white;
+  }
+
+  .pandoc-table {
+    width: 100%;
+  }
+
+  .pandoc-table>caption {
+    margin-bottom: 10px;
+  }
+
+  .pandoc-table th:not([align]) {
+    text-align: left;
+  }
+
+  .pagedtable-footer {
+    font-size: 15px;
+  }
+
+  d-byline .byline {
+    grid-template-columns: 2fr 2fr;
+  }
+
+  d-byline .byline h3 {
+    margin-block-start: 1.5em;
+  }
+
+  d-byline .byline .authors-affiliations h3 {
+    margin-block-start: 0.5em;
+  }
+
+  .authors-affiliations .orcid-id {
+    width: 16px;
+    height:16px;
+    margin-left: 4px;
+    margin-right: 4px;
+    vertical-align: middle;
+    padding-bottom: 2px;
+  }
+
+  d-title .dt-tags {
+    margin-top: 1em;
+    grid-column: text;
+  }
+
+  .dt-tags .dt-tag {
+    text-decoration: none;
+    display: inline-block;
+    color: rgba(0,0,0,0.6);
+    padding: 0em 0.4em;
+    margin-right: 0.5em;
+    margin-bottom: 0.4em;
+    font-size: 70%;
+    border: 1px solid rgba(0,0,0,0.2);
+    border-radius: 3px;
+    text-transform: uppercase;
+    font-weight: 500;
+  }
+
+  d-article table.gt_table td,
+  d-article table.gt_table th {
+    border-bottom: none;
+    font-size: 100%;
+  }
+
+  .html-widget {
+    margin-bottom: 2.0em;
+  }
+
+  .l-screen-inset {
+    padding-right: 16px;
+  }
+
+  .l-screen .caption {
+    margin-left: 10px;
+  }
+
+  .shaded {
+    background: rgb(247, 247, 247);
+    padding-top: 20px;
+    padding-bottom: 20px;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  }
+
+  .shaded .html-widget {
+    margin-bottom: 0;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+  }
+
+  .shaded .shaded-content {
+    background: white;
+  }
+
+  .text-output {
+    margin-top: 0;
+    line-height: 1.5em;
+  }
+
+  .hidden {
+    display: none !important;
+  }
+
+  d-article {
+    padding-top: 2.5rem;
+    padding-bottom: 30px;
+  }
+
+  d-appendix {
+    padding-top: 30px;
+  }
+
+  d-article>p>img {
+    width: 100%;
+  }
+
+  d-article h2 {
+    margin: 1rem 0 1.5rem 0;
+  }
+
+  d-article h3 {
+    margin-top: 1.5rem;
+  }
+
+  d-article iframe {
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    margin-bottom: 2.0em;
+    width: 100%;
+  }
+
+  /* Tweak code blocks */
+
+  d-article div.sourceCode code,
+  d-article pre code {
+    font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+  }
+
+  d-article pre,
+  d-article div.sourceCode,
+  d-article div.sourceCode pre {
+    overflow: auto;
+  }
+
+  d-article div.sourceCode {
+    background-color: white;
+  }
+
+  d-article div.sourceCode pre {
+    padding-left: 10px;
+    font-size: 12px;
+    border-left: 2px solid rgba(0,0,0,0.1);
+  }
+
+  d-article pre {
+    font-size: 12px;
+    color: black;
+    background: none;
+    margin-top: 0;
+    text-align: left;
+    white-space: pre;
+    word-spacing: normal;
+    word-break: normal;
+    word-wrap: normal;
+    line-height: 1.5;
+
+    -moz-tab-size: 4;
+    -o-tab-size: 4;
+    tab-size: 4;
+
+    -webkit-hyphens: none;
+    -moz-hyphens: none;
+    -ms-hyphens: none;
+    hyphens: none;
+  }
+
+  d-article pre a {
+    border-bottom: none;
+  }
+
+  d-article pre a:hover {
+    border-bottom: none;
+    text-decoration: underline;
+  }
+
+  d-article details {
+    grid-column: text;
+    margin-bottom: 0.8em;
+  }
+
+  @media(min-width: 768px) {
+
+  d-article pre,
+  d-article div.sourceCode,
+  d-article div.sourceCode pre {
+    overflow: visible !important;
+  }
+
+  d-article div.sourceCode pre {
+    padding-left: 18px;
+    font-size: 14px;
+  }
+
+  d-article pre {
+    font-size: 14px;
+  }
+
+  }
+
+  figure img.external {
+    background: white;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    box-shadow: 0 1px 8px rgba(0, 0, 0, 0.1);
+    padding: 18px;
+    box-sizing: border-box;
+  }
+
+  /* CSS for d-contents */
+
+  .d-contents {
+    grid-column: text;
+    color: rgba(0,0,0,0.8);
+    font-size: 0.9em;
+    padding-bottom: 1em;
+    margin-bottom: 1em;
+    padding-bottom: 0.5em;
+    margin-bottom: 1em;
+    padding-left: 0.25em;
+    justify-self: start;
+  }
+
+  @media(min-width: 1000px) {
+    .d-contents.d-contents-float {
+      height: 0;
+      grid-column-start: 1;
+      grid-column-end: 4;
+      justify-self: center;
+      padding-right: 3em;
+      padding-left: 2em;
+    }
+  }
+
+  .d-contents nav h3 {
+    font-size: 18px;
+    margin-top: 0;
+    margin-bottom: 1em;
+  }
+
+  .d-contents li {
+    list-style-type: none
+  }
+
+  .d-contents nav > ul {
+    padding-left: 0;
+  }
+
+  .d-contents ul {
+    padding-left: 1em
+  }
+
+  .d-contents nav ul li {
+    margin-top: 0.6em;
+    margin-bottom: 0.2em;
+  }
+
+  .d-contents nav a {
+    font-size: 13px;
+    border-bottom: none;
+    text-decoration: none
+    color: rgba(0, 0, 0, 0.8);
+  }
+
+  .d-contents nav a:hover {
+    text-decoration: underline solid rgba(0, 0, 0, 0.6)
+  }
+
+  .d-contents nav > ul > li > a {
+    font-weight: 600;
+  }
+
+  .d-contents nav > ul > li > ul {
+    font-weight: inherit;
+  }
+
+  .d-contents nav > ul > li > ul > li {
+    margin-top: 0.2em;
+  }
+
+
+  .d-contents nav ul {
+    margin-top: 0;
+    margin-bottom: 0.25em;
+  }
+
+  .d-article-with-toc h2:nth-child(2) {
+    margin-top: 0;
+  }
+
+
+  /* Figure */
+
+  .figure {
+    position: relative;
+    margin-bottom: 2.5em;
+    margin-top: 1.5em;
+  }
+
+  .figure .caption {
+    color: rgba(0, 0, 0, 0.6);
+    font-size: 12px;
+    line-height: 1.5em;
+  }
+
+  .figure img.external {
+    background: white;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    box-shadow: 0 1px 8px rgba(0, 0, 0, 0.1);
+    padding: 18px;
+    box-sizing: border-box;
+  }
+
+  .figure .caption a {
+    color: rgba(0, 0, 0, 0.6);
+  }
+
+  .figure .caption b,
+  .figure .caption strong, {
+    font-weight: 600;
+    color: rgba(0, 0, 0, 1.0);
+  }
+
+  /* Citations */
+
+  d-article .citation {
+    color: inherit;
+    cursor: inherit;
+  }
+
+  div.hanging-indent{
+    margin-left: 1em; text-indent: -1em;
+  }
+
+  /* Citation hover box */
+
+  .tippy-box[data-theme~=light-border] {
+    background-color: rgba(250, 250, 250, 0.95);
+  }
+
+  .tippy-content > p {
+    margin-bottom: 0;
+    padding: 2px;
+  }
+
+
+  /* Tweak 1000px media break to show more text */
+
+  @media(min-width: 1000px) {
+    .base-grid,
+    distill-header,
+    d-title,
+    d-abstract,
+    d-article,
+    d-appendix,
+    distill-appendix,
+    d-byline,
+    d-footnote-list,
+    d-citation-list,
+    distill-footer {
+      grid-template-columns: [screen-start] 1fr [page-start kicker-start] 80px [middle-start] 50px [text-start kicker-end] 65px 65px 65px 65px 65px 65px 65px 65px [text-end gutter-start] 65px [middle-end] 65px [page-end gutter-end] 1fr [screen-end];
+      grid-column-gap: 16px;
+    }
+
+    .grid {
+      grid-column-gap: 16px;
+    }
+
+    d-article {
+      font-size: 1.06rem;
+      line-height: 1.7em;
+    }
+    figure .caption, .figure .caption, figure figcaption {
+      font-size: 13px;
+    }
+  }
+
+  @media(min-width: 1180px) {
+    .base-grid,
+    distill-header,
+    d-title,
+    d-abstract,
+    d-article,
+    d-appendix,
+    distill-appendix,
+    d-byline,
+    d-footnote-list,
+    d-citation-list,
+    distill-footer {
+      grid-template-columns: [screen-start] 1fr [page-start kicker-start] 60px [middle-start] 60px [text-start kicker-end] 60px 60px 60px 60px 60px 60px 60px 60px [text-end gutter-start] 60px [middle-end] 60px [page-end gutter-end] 1fr [screen-end];
+      grid-column-gap: 32px;
+    }
+
+    .grid {
+      grid-column-gap: 32px;
+    }
+  }
+
+
+  /* Get the citation styles for the appendix (not auto-injected on render since
+     we do our own rendering of the citation appendix) */
+
+  d-appendix .citation-appendix,
+  .d-appendix .citation-appendix {
+    font-size: 11px;
+    line-height: 15px;
+    border-left: 1px solid rgba(0, 0, 0, 0.1);
+    padding-left: 18px;
+    border: 1px solid rgba(0,0,0,0.1);
+    background: rgba(0, 0, 0, 0.02);
+    padding: 10px 18px;
+    border-radius: 3px;
+    color: rgba(150, 150, 150, 1);
+    overflow: hidden;
+    margin-top: -12px;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+  }
+
+  /* Include appendix styles here so they can be overridden */
+
+  d-appendix {
+    contain: layout style;
+    font-size: 0.8em;
+    line-height: 1.7em;
+    margin-top: 60px;
+    margin-bottom: 0;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    color: rgba(0,0,0,0.5);
+    padding-top: 60px;
+    padding-bottom: 48px;
+  }
+
+  d-appendix h3 {
+    grid-column: page-start / text-start;
+    font-size: 15px;
+    font-weight: 500;
+    margin-top: 1em;
+    margin-bottom: 0;
+    color: rgba(0,0,0,0.65);
+  }
+
+  d-appendix h3 + * {
+    margin-top: 1em;
+  }
+
+  d-appendix ol {
+    padding: 0 0 0 15px;
+  }
+
+  @media (min-width: 768px) {
+    d-appendix ol {
+      padding: 0 0 0 30px;
+      margin-left: -30px;
+    }
+  }
+
+  d-appendix li {
+    margin-bottom: 1em;
+  }
+
+  d-appendix a {
+    color: rgba(0, 0, 0, 0.6);
+  }
+
+  d-appendix > * {
+    grid-column: text;
+  }
+
+  d-appendix > d-footnote-list,
+  d-appendix > d-citation-list,
+  d-appendix > distill-appendix {
+    grid-column: screen;
+  }
+
+  /* Include footnote styles here so they can be overridden */
+
+  d-footnote-list {
+    contain: layout style;
+  }
+
+  d-footnote-list > * {
+    grid-column: text;
+  }
+
+  d-footnote-list a.footnote-backlink {
+    color: rgba(0,0,0,0.3);
+    padding-left: 0.5em;
+  }
+
+
+
+  /* Anchor.js */
+
+  .anchorjs-link {
+    /*transition: all .25s linear; */
+    text-decoration: none;
+    border-bottom: none;
+  }
+  *:hover > .anchorjs-link {
+    margin-left: -1.125em !important;
+    text-decoration: none;
+    border-bottom: none;
+  }
+
+  /* Social footer */
+
+  .social_footer {
+    margin-top: 30px;
+    margin-bottom: 0;
+    color: rgba(0,0,0,0.67);
+  }
+
+  .disqus-comments {
+    margin-right: 30px;
+  }
+
+  .disqus-comment-count {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.4);
+    cursor: pointer;
+  }
+
+  #disqus_thread {
+    margin-top: 30px;
+  }
+
+  .article-sharing a {
+    border-bottom: none;
+    margin-right: 8px;
+  }
+
+  .article-sharing a:hover {
+    border-bottom: none;
+  }
+
+  .sidebar-section.subscribe {
+    font-size: 12px;
+    line-height: 1.6em;
+  }
+
+  .subscribe p {
+    margin-bottom: 0.5em;
+  }
+
+
+  .article-footer .subscribe {
+    font-size: 15px;
+    margin-top: 45px;
+  }
+
+
+  .sidebar-section.custom {
+    font-size: 12px;
+    line-height: 1.6em;
+  }
+
+  .custom p {
+    margin-bottom: 0.5em;
+  }
+
+  /* Styles for listing layout (hide title) */
+  .layout-listing d-title, .layout-listing .d-title {
+    display: none;
+  }
+
+  /* Styles for posts lists (not auto-injected) */
+
+
+  .posts-with-sidebar {
+    padding-left: 45px;
+    padding-right: 45px;
+  }
+
+  .posts-list .description h2,
+  .posts-list .description p {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", Arial, sans-serif;
+  }
+
+  .posts-list .description h2 {
+    font-weight: 700;
+    border-bottom: none;
+    padding-bottom: 0;
+  }
+
+  .posts-list h2.post-tag {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+    padding-bottom: 12px;
+  }
+  .posts-list {
+    margin-top: 60px;
+    margin-bottom: 24px;
+  }
+
+  .posts-list .post-preview {
+    text-decoration: none;
+    overflow: hidden;
+    display: block;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    padding: 24px 0;
+  }
+
+  .post-preview-last {
+    border-bottom: none !important;
+  }
+
+  .posts-list .posts-list-caption {
+    grid-column: screen;
+    font-weight: 400;
+  }
+
+  .posts-list .post-preview h2 {
+    margin: 0 0 6px 0;
+    line-height: 1.2em;
+    font-style: normal;
+    font-size: 24px;
+  }
+
+  .posts-list .post-preview p {
+    margin: 0 0 12px 0;
+    line-height: 1.4em;
+    font-size: 16px;
+  }
+
+  .posts-list .post-preview .thumbnail {
+    box-sizing: border-box;
+    margin-bottom: 24px;
+    position: relative;
+    max-width: 500px;
+  }
+  .posts-list .post-preview img {
+    width: 100%;
+    display: block;
+  }
+
+  .posts-list .metadata {
+    font-size: 12px;
+    line-height: 1.4em;
+    margin-bottom: 18px;
+  }
+
+  .posts-list .metadata > * {
+    display: inline-block;
+  }
+
+  .posts-list .metadata .publishedDate {
+    margin-right: 2em;
+  }
+
+  .posts-list .metadata .dt-authors {
+    display: block;
+    margin-top: 0.3em;
+    margin-right: 2em;
+  }
+
+  .posts-list .dt-tags {
+    display: block;
+    line-height: 1em;
+  }
+
+  .posts-list .dt-tags .dt-tag {
+    display: inline-block;
+    color: rgba(0,0,0,0.6);
+    padding: 0.3em 0.4em;
+    margin-right: 0.2em;
+    margin-bottom: 0.4em;
+    font-size: 60%;
+    border: 1px solid rgba(0,0,0,0.2);
+    border-radius: 3px;
+    text-transform: uppercase;
+    font-weight: 500;
+  }
+
+  .posts-list img {
+    opacity: 1;
+  }
+
+  .posts-list img[data-src] {
+    opacity: 0;
+  }
+
+  .posts-more {
+    clear: both;
+  }
+
+
+  .posts-sidebar {
+    font-size: 16px;
+  }
+
+  .posts-sidebar h3 {
+    font-size: 16px;
+    margin-top: 0;
+    margin-bottom: 0.5em;
+    font-weight: 400;
+    text-transform: uppercase;
+  }
+
+  .sidebar-section {
+    margin-bottom: 30px;
+  }
+
+  .categories ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .categories li {
+    color: rgba(0, 0, 0, 0.8);
+    margin-bottom: 0;
+  }
+
+  .categories li>a {
+    border-bottom: none;
+  }
+
+  .categories li>a:hover {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.4);
+  }
+
+  .categories .active {
+    font-weight: 600;
+  }
+
+  .categories .category-count {
+    color: rgba(0, 0, 0, 0.4);
+  }
+
+
+  @media(min-width: 768px) {
+    .posts-list .post-preview h2 {
+      font-size: 26px;
+    }
+    .posts-list .post-preview .thumbnail {
+      float: right;
+      width: 30%;
+      margin-bottom: 0;
+    }
+    .posts-list .post-preview .description {
+      float: left;
+      width: 45%;
+    }
+    .posts-list .post-preview .metadata {
+      float: left;
+      width: 20%;
+      margin-top: 8px;
+    }
+    .posts-list .post-preview p {
+      margin: 0 0 12px 0;
+      line-height: 1.5em;
+      font-size: 16px;
+    }
+    .posts-with-sidebar .posts-list {
+      float: left;
+      width: 75%;
+    }
+    .posts-with-sidebar .posts-sidebar {
+      float: right;
+      width: 20%;
+      margin-top: 60px;
+      padding-top: 24px;
+      padding-bottom: 24px;
+    }
+  }
+
+
+  /* Improve display for browsers without grid (IE/Edge <= 15) */
+
+  .downlevel {
+    line-height: 1.6em;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", Arial, sans-serif;
+    margin: 0;
+  }
+
+  .downlevel .d-title {
+    padding-top: 6rem;
+    padding-bottom: 1.5rem;
+  }
+
+  .downlevel .d-title h1 {
+    font-size: 50px;
+    font-weight: 700;
+    line-height: 1.1em;
+    margin: 0 0 0.5rem;
+  }
+
+  .downlevel .d-title p {
+    font-weight: 300;
+    font-size: 1.2rem;
+    line-height: 1.55em;
+    margin-top: 0;
+  }
+
+  .downlevel .d-byline {
+    padding-top: 0.8em;
+    padding-bottom: 0.8em;
+    font-size: 0.8rem;
+    line-height: 1.8em;
+  }
+
+  .downlevel .section-separator {
+    border: none;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+  }
+
+  .downlevel .d-article {
+    font-size: 1.06rem;
+    line-height: 1.7em;
+    padding-top: 1rem;
+    padding-bottom: 2rem;
+  }
+
+
+  .downlevel .d-appendix {
+    padding-left: 0;
+    padding-right: 0;
+    max-width: none;
+    font-size: 0.8em;
+    line-height: 1.7em;
+    margin-bottom: 0;
+    color: rgba(0,0,0,0.5);
+    padding-top: 40px;
+    padding-bottom: 48px;
+  }
+
+  .downlevel .footnotes ol {
+    padding-left: 13px;
+  }
+
+  .downlevel .base-grid,
+  .downlevel .distill-header,
+  .downlevel .d-title,
+  .downlevel .d-abstract,
+  .downlevel .d-article,
+  .downlevel .d-appendix,
+  .downlevel .distill-appendix,
+  .downlevel .d-byline,
+  .downlevel .d-footnote-list,
+  .downlevel .d-citation-list,
+  .downlevel .distill-footer,
+  .downlevel .appendix-bottom,
+  .downlevel .posts-container {
+    padding-left: 40px;
+    padding-right: 40px;
+  }
+
+  @media(min-width: 768px) {
+    .downlevel .base-grid,
+    .downlevel .distill-header,
+    .downlevel .d-title,
+    .downlevel .d-abstract,
+    .downlevel .d-article,
+    .downlevel .d-appendix,
+    .downlevel .distill-appendix,
+    .downlevel .d-byline,
+    .downlevel .d-footnote-list,
+    .downlevel .d-citation-list,
+    .downlevel .distill-footer,
+    .downlevel .appendix-bottom,
+    .downlevel .posts-container {
+    padding-left: 150px;
+    padding-right: 150px;
+    max-width: 900px;
+  }
+  }
+
+  .downlevel pre code {
+    display: block;
+    border-left: 2px solid rgba(0, 0, 0, .1);
+    padding: 0 0 0 20px;
+    font-size: 14px;
+  }
+
+  .downlevel code, .downlevel pre {
+    color: black;
+    background: none;
+    font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+    text-align: left;
+    white-space: pre;
+    word-spacing: normal;
+    word-break: normal;
+    word-wrap: normal;
+    line-height: 1.5;
+
+    -moz-tab-size: 4;
+    -o-tab-size: 4;
+    tab-size: 4;
+
+    -webkit-hyphens: none;
+    -moz-hyphens: none;
+    -ms-hyphens: none;
+    hyphens: none;
+  }
+
+  .downlevel .posts-list .post-preview {
+    color: inherit;
+  }
+
+
+
+  </style>
+
+  <script type="application/javascript">
+
+  function is_downlevel_browser() {
+    if (bowser.isUnsupportedBrowser({ msie: "12", msedge: "16"},
+                                   window.navigator.userAgent)) {
+      return true;
+    } else {
+      return window.load_distill_framework === undefined;
+    }
+  }
+
+  // show body when load is complete
+  function on_load_complete() {
+
+    // add anchors
+    if (window.anchors) {
+      window.anchors.options.placement = 'left';
+      window.anchors.add('d-article > h2, d-article > h3, d-article > h4, d-article > h5');
+    }
+
+
+    // set body to visible
+    document.body.style.visibility = 'visible';
+
+    // force redraw for leaflet widgets
+    if (window.HTMLWidgets) {
+      var maps = window.HTMLWidgets.findAll(".leaflet");
+      $.each(maps, function(i, el) {
+        var map = this.getMap();
+        map.invalidateSize();
+        map.eachLayer(function(layer) {
+          if (layer instanceof L.TileLayer)
+            layer.redraw();
+        });
+      });
+    }
+
+    // trigger 'shown' so htmlwidgets resize
+    $('d-article').trigger('shown');
+  }
+
+  function init_distill() {
+
+    init_common();
+
+    // create front matter
+    var front_matter = $('<d-front-matter></d-front-matter>');
+    $('#distill-front-matter').wrap(front_matter);
+
+    // create d-title
+    $('.d-title').changeElementType('d-title');
+
+    // create d-byline
+    var byline = $('<d-byline></d-byline>');
+    $('.d-byline').replaceWith(byline);
+
+    // create d-article
+    var article = $('<d-article></d-article>');
+    $('.d-article').wrap(article).children().unwrap();
+
+    // move posts container into article
+    $('.posts-container').appendTo($('d-article'));
+
+    // create d-appendix
+    $('.d-appendix').changeElementType('d-appendix');
+
+    // flag indicating that we have appendix items
+    var appendix = $('.appendix-bottom').children('h3').length > 0;
+
+    // replace footnotes with <d-footnote>
+    $('.footnote-ref').each(function(i, val) {
+      appendix = true;
+      var href = $(this).attr('href');
+      var id = href.replace('#', '');
+      var fn = $('#' + id);
+      var fn_p = $('#' + id + '>p');
+      fn_p.find('.footnote-back').remove();
+      var text = fn_p.html();
+      var dtfn = $('<d-footnote></d-footnote>');
+      dtfn.html(text);
+      $(this).replaceWith(dtfn);
+    });
+    // remove footnotes
+    $('.footnotes').remove();
+
+    // move refs into #references-listing
+    $('#references-listing').replaceWith($('#refs'));
+
+    $('h1.appendix, h2.appendix').each(function(i, val) {
+      $(this).changeElementType('h3');
+    });
+    $('h3.appendix').each(function(i, val) {
+      var id = $(this).attr('id');
+      $('.d-contents a[href="#' + id + '"]').parent().remove();
+      appendix = true;
+      $(this).nextUntil($('h1, h2, h3')).addBack().appendTo($('d-appendix'));
+    });
+
+    // show d-appendix if we have appendix content
+    $("d-appendix").css('display', appendix ? 'grid' : 'none');
+
+    // localize layout chunks to just output
+    $('.layout-chunk').each(function(i, val) {
+
+      // capture layout
+      var layout = $(this).attr('data-layout');
+
+      // apply layout to markdown level block elements
+      var elements = $(this).children().not('details, div.sourceCode, pre, script');
+      elements.each(function(i, el) {
+        var layout_div = $('<div class="' + layout + '"></div>');
+        if (layout_div.hasClass('shaded')) {
+          var shaded_content = $('<div class="shaded-content"></div>');
+          $(this).wrap(shaded_content);
+          $(this).parent().wrap(layout_div);
+        } else {
+          $(this).wrap(layout_div);
+        }
+      });
+
+
+      // unwrap the layout-chunk div
+      $(this).children().unwrap();
+    });
+
+    // remove code block used to force  highlighting css
+    $('.distill-force-highlighting-css').parent().remove();
+
+    // remove empty line numbers inserted by pandoc when using a
+    // custom syntax highlighting theme
+    $('code.sourceCode a:empty').remove();
+
+    // load distill framework
+    load_distill_framework();
+
+    // wait for window.distillRunlevel == 4 to do post processing
+    function distill_post_process() {
+
+      if (!window.distillRunlevel || window.distillRunlevel < 4)
+        return;
+
+      // hide author/affiliations entirely if we have no authors
+      var front_matter = JSON.parse($("#distill-front-matter").html());
+      var have_authors = front_matter.authors && front_matter.authors.length > 0;
+      if (!have_authors)
+        $('d-byline').addClass('hidden');
+
+      // article with toc class
+      $('.d-contents').parent().addClass('d-article-with-toc');
+
+      // strip links that point to #
+      $('.authors-affiliations').find('a[href="#"]').removeAttr('href');
+
+      // add orcid ids
+      $('.authors-affiliations').find('.author').each(function(i, el) {
+        var orcid_id = front_matter.authors[i].orcidID;
+        if (orcid_id) {
+          var a = $('<a></a>');
+          a.attr('href', 'https://orcid.org/' + orcid_id);
+          var img = $('<img></img>');
+          img.addClass('orcid-id');
+          img.attr('alt', 'ORCID ID');
+          img.attr('src','data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA2ZpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDo1N0NEMjA4MDI1MjA2ODExOTk0QzkzNTEzRjZEQTg1NyIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDozM0NDOEJGNEZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDozM0NDOEJGM0ZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ1M1IE1hY2ludG9zaCI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOkZDN0YxMTc0MDcyMDY4MTE5NUZFRDc5MUM2MUUwNEREIiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjU3Q0QyMDgwMjUyMDY4MTE5OTRDOTM1MTNGNkRBODU3Ii8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+84NovQAAAR1JREFUeNpiZEADy85ZJgCpeCB2QJM6AMQLo4yOL0AWZETSqACk1gOxAQN+cAGIA4EGPQBxmJA0nwdpjjQ8xqArmczw5tMHXAaALDgP1QMxAGqzAAPxQACqh4ER6uf5MBlkm0X4EGayMfMw/Pr7Bd2gRBZogMFBrv01hisv5jLsv9nLAPIOMnjy8RDDyYctyAbFM2EJbRQw+aAWw/LzVgx7b+cwCHKqMhjJFCBLOzAR6+lXX84xnHjYyqAo5IUizkRCwIENQQckGSDGY4TVgAPEaraQr2a4/24bSuoExcJCfAEJihXkWDj3ZAKy9EJGaEo8T0QSxkjSwORsCAuDQCD+QILmD1A9kECEZgxDaEZhICIzGcIyEyOl2RkgwAAhkmC+eAm0TAAAAABJRU5ErkJggg==');
+          a.append(img);
+          $(this).append(a);
+        }
+      });
+
+      // hide elements of author/affiliations grid that have no value
+      function hide_byline_column(caption) {
+        $('d-byline').find('h3:contains("' + caption + '")').parent().css('visibility', 'hidden');
+      }
+
+      // affiliations
+      var have_affiliations = false;
+      for (var i = 0; i<front_matter.authors.length; ++i) {
+        var author = front_matter.authors[i];
+        if (author.affiliation !== "&nbsp;") {
+          have_affiliations = true;
+          break;
+        }
+      }
+      if (!have_affiliations)
+        $('d-byline').find('h3:contains("Affiliations")').css('visibility', 'hidden');
+
+      // published date
+      if (!front_matter.publishedDate)
+        hide_byline_column("Published");
+
+      // document object identifier
+      var doi = $('d-byline').find('h3:contains("DOI")');
+      var doi_p = doi.next().empty();
+      if (!front_matter.doi) {
+        // if we have a citation and valid citationText then link to that
+        if ($('#citation').length > 0 && front_matter.citationText) {
+          doi.html('Citation');
+          $('<a href="#citation"></a>')
+            .text(front_matter.citationText)
+            .appendTo(doi_p);
+        } else {
+          hide_byline_column("DOI");
+        }
+      } else {
+        $('<a></a>')
+           .attr('href', "https://doi.org/" + front_matter.doi)
+           .html(front_matter.doi)
+           .appendTo(doi_p);
+      }
+
+       // change plural form of authors/affiliations
+      if (front_matter.authors.length === 1) {
+        var grid = $('.authors-affiliations');
+        grid.children('h3:contains("Authors")').text('Author');
+        grid.children('h3:contains("Affiliations")').text('Affiliation');
+      }
+
+      // remove d-appendix and d-footnote-list local styles
+      $('d-appendix > style:first-child').remove();
+      $('d-footnote-list > style:first-child').remove();
+
+      // move appendix-bottom entries to the bottom
+      $('.appendix-bottom').appendTo('d-appendix').children().unwrap();
+      $('.appendix-bottom').remove();
+
+      // hoverable references
+      $('span.citation[data-cites]').each(function() {
+        const citeChild = $(this).children()[0]
+        // Do not process if @xyz has been used without escaping and without bibliography activated
+        // https://github.com/rstudio/distill/issues/466
+        if (citeChild === undefined) return true
+
+        if (citeChild.nodeName == "D-FOOTNOTE") {
+          var fn = citeChild
+          $(this).html(fn.shadowRoot.querySelector("sup"))
+          $(this).id = fn.id
+          fn.remove()
+        }
+        var refs = $(this).attr('data-cites').split(" ");
+        var refHtml = refs.map(function(ref) {
+          // Could use CSS.escape too here, we insure backward compatibility in navigator
+          return "<p>" + $('div[id="ref-' + ref + '"]').html() + "</p>";
+        }).join("\n");
+        window.tippy(this, {
+          allowHTML: true,
+          content: refHtml,
+          maxWidth: 500,
+          interactive: true,
+          interactiveBorder: 10,
+          theme: 'light-border',
+          placement: 'bottom-start'
+        });
+      });
+
+      // fix footnotes in tables (#411)
+      // replacing broken distill.pub feature
+      $('table d-footnote').each(function() {
+        // we replace internal showAtNode methode which is triggered when hovering a footnote
+        this.hoverBox.showAtNode = function(node) {
+          // ported from https://github.com/distillpub/template/pull/105/files
+          calcOffset = function(elem) {
+              let x = elem.offsetLeft;
+              let y = elem.offsetTop;
+              // Traverse upwards until an `absolute` element is found or `elem`
+              // becomes null.
+              while (elem = elem.offsetParent && elem.style.position != 'absolute') {
+                  x += elem.offsetLeft;
+                  y += elem.offsetTop;
+              }
+
+              return { left: x, top: y };
+          }
+          // https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/offsetTop
+          const bbox = node.getBoundingClientRect();
+          const offset = calcOffset(node);
+          this.show([offset.left + bbox.width, offset.top + bbox.height]);
+        }
+      })
+
+      // clear polling timer
+      clearInterval(tid);
+
+      // show body now that everything is ready
+      on_load_complete();
+    }
+
+    var tid = setInterval(distill_post_process, 50);
+    distill_post_process();
+
+  }
+
+  function init_downlevel() {
+
+    init_common();
+
+     // insert hr after d-title
+    $('.d-title').after($('<hr class="section-separator"/>'));
+
+    // check if we have authors
+    var front_matter = JSON.parse($("#distill-front-matter").html());
+    var have_authors = front_matter.authors && front_matter.authors.length > 0;
+
+    // manage byline/border
+    if (!have_authors)
+      $('.d-byline').remove();
+    $('.d-byline').after($('<hr class="section-separator"/>'));
+    $('.d-byline a').remove();
+
+    // remove toc
+    $('.d-contents').remove();
+
+    // move appendix elements
+    $('h1.appendix, h2.appendix').each(function(i, val) {
+      $(this).changeElementType('h3');
+    });
+    $('h3.appendix').each(function(i, val) {
+      $(this).nextUntil($('h1, h2, h3')).addBack().appendTo($('.d-appendix'));
+    });
+
+
+    // inject headers into references and footnotes
+    var refs_header = $('<h3></h3>');
+    refs_header.text('References');
+    $('#refs').prepend(refs_header);
+
+    var footnotes_header = $('<h3></h3');
+    footnotes_header.text('Footnotes');
+    $('.footnotes').children('hr').first().replaceWith(footnotes_header);
+
+    // move appendix-bottom entries to the bottom
+    $('.appendix-bottom').appendTo('.d-appendix').children().unwrap();
+    $('.appendix-bottom').remove();
+
+    // remove appendix if it's empty
+    if ($('.d-appendix').children().length === 0)
+      $('.d-appendix').remove();
+
+    // prepend separator above appendix
+    $('.d-appendix').before($('<hr class="section-separator" style="clear: both"/>'));
+
+    // trim code
+    $('pre>code').each(function(i, val) {
+      $(this).html($.trim($(this).html()));
+    });
+
+    // move posts-container right before article
+    $('.posts-container').insertBefore($('.d-article'));
+
+    $('body').addClass('downlevel');
+
+    on_load_complete();
+  }
+
+
+  function init_common() {
+
+    // jquery plugin to change element types
+    (function($) {
+      $.fn.changeElementType = function(newType) {
+        var attrs = {};
+
+        $.each(this[0].attributes, function(idx, attr) {
+          attrs[attr.nodeName] = attr.nodeValue;
+        });
+
+        this.replaceWith(function() {
+          return $("<" + newType + "/>", attrs).append($(this).contents());
+        });
+      };
+    })(jQuery);
+
+    // prevent underline for linked images
+    $('a > img').parent().css({'border-bottom' : 'none'});
+
+    // mark non-body figures created by knitr chunks as 100% width
+    $('.layout-chunk').each(function(i, val) {
+      var figures = $(this).find('img, .html-widget');
+      // ignore leaflet img layers (#106)
+      figures = figures.filter(':not(img[class*="leaflet"])')
+      if ($(this).attr('data-layout') !== "l-body") {
+        figures.css('width', '100%');
+      } else {
+        figures.css('max-width', '100%');
+        figures.filter("[width]").each(function(i, val) {
+          var fig = $(this);
+          fig.css('width', fig.attr('width') + 'px');
+        });
+
+      }
+    });
+
+    // auto-append index.html to post-preview links in file: protocol
+    // and in rstudio ide preview
+    $('.post-preview').each(function(i, val) {
+      if (window.location.protocol === "file:")
+        $(this).attr('href', $(this).attr('href') + "index.html");
+    });
+
+    // get rid of index.html references in header
+    if (window.location.protocol !== "file:") {
+      $('.distill-site-header a[href]').each(function(i,val) {
+        $(this).attr('href', $(this).attr('href').replace(/^index[.]html/, "./"));
+      });
+    }
+
+    // add class to pandoc style tables
+    $('tr.header').parent('thead').parent('table').addClass('pandoc-table');
+    $('.kable-table').children('table').addClass('pandoc-table');
+
+    // add figcaption style to table captions
+    $('caption').parent('table').addClass("figcaption");
+
+    // initialize posts list
+    if (window.init_posts_list)
+      window.init_posts_list();
+
+    // implmement disqus comment link
+    $('.disqus-comment-count').click(function() {
+      window.headroom_prevent_pin = true;
+      $('#disqus_thread').toggleClass('hidden');
+      if (!$('#disqus_thread').hasClass('hidden')) {
+        var offset = $(this).offset();
+        $(window).resize();
+        $('html, body').animate({
+          scrollTop: offset.top - 35
+        });
+      }
+    });
+  }
+
+  document.addEventListener('DOMContentLoaded', function() {
+    if (is_downlevel_browser())
+      init_downlevel();
+    else
+      window.addEventListener('WebComponentsReady', init_distill);
+  });
+
+  </script>
+
+  <!--/radix_placeholder_distill-->
+  <script src="abor-network_files/header-attrs-2.20/header-attrs.js"></script>
+  <script src="abor-network_files/kePrint-0.0.1/kePrint.js"></script>
+  <link href="abor-network_files/lightable-0.0.1/lightable.css" rel="stylesheet" />
+  <script src="abor-network_files/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+  <script src="abor-network_files/popper-2.6.0/popper.min.js"></script>
+  <link href="abor-network_files/tippy-6.2.7/tippy.css" rel="stylesheet" />
+  <link href="abor-network_files/tippy-6.2.7/tippy-light-border.css" rel="stylesheet" />
+  <script src="abor-network_files/tippy-6.2.7/tippy.umd.min.js"></script>
+  <script src="abor-network_files/anchor-4.2.2/anchor.min.js"></script>
+  <script src="abor-network_files/bowser-1.9.3/bowser.min.js"></script>
+  <script src="abor-network_files/webcomponents-2.0.0/webcomponents.js"></script>
+  <script src="abor-network_files/distill-2.2.21/template.v2.js"></script>
+  <!--radix_placeholder_site_in_header-->
+  <!--/radix_placeholder_site_in_header-->
+
+  <link rel="stylesheet" href="styles.css" type="text/css"/>
+
+</head>
+
+<body>
+
+<!--radix_placeholder_front_matter-->
+
+<script id="distill-front-matter" type="text/json">
+{"title":"Abortion Incidence with Third Party Reporting","description":"Recent PMA surveys from Côte d’Ivoire and Nigeria include questions about the abortion experiences of both respondents and other women of reproductive age with whom they share personal information.","authors":[{"author":"Matt Gunther","authorURL":"#","affiliation":"IPUMS PMA Senior Data Analyst","affiliationURL":"#","orcidID":""}],"publishedDate":"2023-03-22T00:00:00.000-04:00","citationText":"Gunther, 2023"}
+</script>
+
+<!--/radix_placeholder_front_matter-->
+<!--radix_placeholder_navigation_before_body-->
+<!--/radix_placeholder_navigation_before_body-->
+<!--radix_placeholder_site_before_body-->
+<!--/radix_placeholder_site_before_body-->
+
+<div class="d-title">
+<h1>Abortion Incidence with Third Party Reporting</h1>
+<!--radix_placeholder_categories-->
+<div class="dt-tags">
+<div class="dt-tag">Data Analysis</div>
+<div class="dt-tag">Abortion</div>
+<div class="dt-tag">Measurement</div>
+</div>
+<!--/radix_placeholder_categories-->
+<p><p>Recent PMA surveys from Côte d’Ivoire and Nigeria include questions about the abortion experiences of both respondents and other women of reproductive age with whom they share personal information.</p></p>
+</div>
+
+<div class="d-byline">
+  Matt Gunther  (IPUMS PMA Senior Data Analyst)
+  
+<br/>2023-03-22
+</div>
+
+<div class="d-article">
+<div class="d-contents d-contents-float">
+<nav class="l-text toc figcaption" id="TOC">
+<h3>Contents</h3>
+<ul>
+<li><a href="#confidante-data" id="toc-confidante-data">Confidante Data</a></li>
+<li><a href="#setup" id="toc-setup">Setup</a>
+<ul>
+<li><a href="#respondent-variables" id="toc-respondent-variables">Respondent variables</a></li>
+<li><a href="#confidante-variables" id="toc-confidante-variables">Confidante variables</a></li>
+</ul></li>
+<li><a href="#initial-results" id="toc-initial-results">Initial Results</a></li>
+<li><a href="#missing-confidantes-adjustment" id="toc-missing-confidantes-adjustment">Missing confidantes adjustment</a></li>
+</ul>
+</nav>
+</div>
+<p>In our <a href="../2023-02-15-abor-reg">last post</a>, we demonstrated that there are multiple ways to estimate <strong>abortion incidence</strong> with data provided by respondents to the 2018 PMA surveys from Côte d’Ivoire and Nigeria. With help from an interactive <a href="https://shiny.rstudio.com/">shiny</a> dashboard, we saw that estimates may vary depending on how the researcher incorporates responses to one or both of both of these survey questions:</p>
+<ul>
+<li>Have you ever done something to remove a pregnancy when you were pregnant or worried you were pregnant?</li>
+<li>Have you ever done something to regulate your period when you were worried you were pregnant?</li>
+</ul>
+<p>PMA surveys include multiple ways of asking about a woman’s experiences with abortion as a way of mitigating <strong>social desirability bias</strong> inherent in this sensitive topic. In this post, we’ll explore an <em>additional set of questions</em> that can help researchers assess the validity of incidence measures like those we’ve discussed.</p>
+<h1 id="confidante-data">Confidante Data</h1>
+<p>Prior to the questions related to her own abortion experiences, each woman in the 2018 PMA surveys from Côte d’Ivoire and Nigeria are asked to consider other women aged 15-49 with whom they share personal information. If the respondent indicates that she knows at least one such person, the questionnaire goes on to ask about that woman’s age, educational background, and experiences with pregnancy removal and period regulation.</p>
+<p>These questions mirror those that are later posed to the respondent about her own abortion history, so we can construct the same incidence measures shown in our <a href="../2023-02-15-abor-reg">last post</a> with data from each woman’s closest confidante.<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> Comparing these measures can help give us a sense of the extent to which social <strong>social desirability bias</strong> or other factors limit the information respondents share about their own experiences. However, we should note that the confidante data have their own limitations:</p>
+<ol type="1">
+<li><strong>Selection bias:</strong> although PMA uses a nationally representative cluster sampling procedure to ensure that respondents reflect a broader population in each of these surveys, confidantes do not necessarily share similar geographic or demographic qualities. Moreover, between one third and one half of respondents in each sample listed no such confidantes at all.<br />
+</li>
+<li><strong>Transmission bias:</strong> respondents who did provide information about a close confidante may be uncertain about their abortion experiences. As we’ll see, respondents were able to describe these experiences with different degrees of certainty.</li>
+</ol>
+<p>Both of these issues are addressed by Bell et al. (<a href="#ref-Bell2020-ld" role="doc-biblioref">2020a</a>; <a href="#ref-Bell2020-kh" role="doc-biblioref">2020b</a>), whose work we highlighted in our last post. In both publications, they report separate incidence estimates from data derived from respondents and from information provided about their confidantes. Overall, they find <strong>higher abortion incidence rates using the confidante data</strong> compared with the respondent data, ultimately suggesting that the real-world target may be closer to the former than the latter.</p>
+<p>We’ll follow their steps again in this post, focusing on the 2018 sample from Nigeria. Notably: these data are available in longitudinal format combined with data from a 2020 follow-up. To avoid confusing the numeric suffix assigned to variables from each round of the survey and an <em>additional</em> numeric suffix assigned to each of the respondent’s closest confidantes, we’ll simply download a cross-sectional extract for the 2018 survey (we’ll revisit the longitudinal data in an upcoming post).</p>
+<h1 id="setup">Setup</h1>
+<p>We’ve downloaded a cross-sectional extract for the 2018 Nigeria sample (female respondents only) that includes parallel sets of variables for respondents and their confidantes, plus a few that are only available for respondents. As a reference, here is a table showing the corresponding variable names for each group (where available).</p>
+<div class="layout-chunk" data-layout="l-page">
+<div style="border: 1px solid #ddd; padding: 5px; margin-bottom: 2em; border: 0px; padding: 5px; overflow-x: auto !important;overflow-y: scroll; height:500px; overflow-x: scroll; width:100%; ">
+<table class="table" style="margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+Measure
+</th>
+<th style="text-align:left;">
+Respondent Version
+</th>
+<th style="text-align:left;">
+Confidante Version (Friend 1)
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Age
+</td>
+<td style="text-align:left;">
+<a href="https://pma.ipums.org/pma-action/variables/AGE" style="     color: #98579B !important;">AGE</a>
+</td>
+<td style="text-align:left;">
+<a href="https://pma.ipums.org/pma-action/variables/AGEFRND1" style="     color: #98579B !important;">AGEFRND1</a>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Highest level of school attended
+</td>
+<td style="text-align:left;">
+<a href="https://pma.ipums.org/pma-action/variables/EDUCATTGEN" style="     color: #98579B !important;">EDUCATTGEN</a>
+</td>
+<td style="text-align:left;">
+<a href="https://pma.ipums.org/pma-action/variables/EDUCATTFRND1" style="     color: #98579B !important;">EDUCATTFRND1</a>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Ever terminated a pregnancy
+</td>
+<td style="text-align:left;">
+<a href="https://pma.ipums.org/pma-action/variables/ABOREV" style="     color: #98579B !important;">ABOREV</a>
+</td>
+<td style="text-align:left;">
+<a href="https://pma.ipums.org/pma-action/variables/ABOREV_FRND1" style="     color: #98579B !important;">ABOREV_FRND1</a>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Year of last terminated pregnancy
+</td>
+<td style="text-align:left;">
+<a href="https://pma.ipums.org/pma-action/variables/ABORYR" style="     color: #98579B !important;">ABORYR</a>
+</td>
+<td style="text-align:left;">
+<a href="https://pma.ipums.org/pma-action/variables/ABORYR_FRND1" style="     color: #98579B !important;">ABORYR_FRND1</a>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Used multiple termination methods
+</td>
+<td style="text-align:left;">
+<a href="https://pma.ipums.org/pma-action/variables/ABORMULT" style="     color: #98579B !important;">ABORMULT</a>
+</td>
+<td style="text-align:left;">
+<a href="https://pma.ipums.org/pma-action/variables/ABORMULT_FRND1" style="     color: #98579B !important;">ABORMULT_FRND1</a>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Only termination method used
+</td>
+<td style="text-align:left;">
+<a href="https://pma.ipums.org/pma-action/variables/ABORONLYMETH" style="     color: #98579B !important;">ABORONLYMETH</a>
+</td>
+<td style="text-align:left;">
+<a href="https://pma.ipums.org/pma-action/variables/ABORONLYMETH_FRND1" style="     color: #98579B !important;">ABORONLYMETH_FRND1</a>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+First of multiple termination methods used
+</td>
+<td style="text-align:left;">
+<a href="https://pma.ipums.org/pma-action/variables/ABORFIRSTMETH" style="     color: #98579B !important;">ABORFIRSTMETH</a>
+</td>
+<td style="text-align:left;">
+<a href="https://pma.ipums.org/pma-action/variables/ABORFIRSTMETH_FRND1" style="     color: #98579B !important;">ABORFIRSTMETH_FRND1</a>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Last of multiple termination methods used
+</td>
+<td style="text-align:left;">
+<a href="https://pma.ipums.org/pma-action/variables/ABORLASTMETH" style="     color: #98579B !important;">ABORLASTMETH</a>
+</td>
+<td style="text-align:left;">
+<a href="https://pma.ipums.org/pma-action/variables/ABORLASTMETH_FRND1" style="     color: #98579B !important;">ABORLASTMETH_FRND1</a>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Sought termination care at a facility
+</td>
+<td style="text-align:left;">
+<a href="https://pma.ipums.org/pma-action/variables/ABORCARE" style="     color: #98579B !important;">ABORCARE</a>
+</td>
+<td style="text-align:left;">
+<a href="https://pma.ipums.org/pma-action/variables/ABORCARE_FRND1" style="     color: #98579B !important;">ABORCARE_FRND1</a>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Place where termination medication was obtained (if first / only method)
+</td>
+<td style="text-align:left;">
+<a href="https://pma.ipums.org/pma-action/variables/ABORFIRSTMEDLOC" style="     color: #98579B !important;">ABORFIRSTMEDLOC</a>
+</td>
+<td style="text-align:left;">
+<a href="https://pma.ipums.org/pma-action/variables/ABORFIRSTMEDLOC_FRND1" style="     color: #98579B !important;">ABORFIRSTMEDLOC_FRND1</a>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Place where termination medication was obtained (if last method)
+</td>
+<td style="text-align:left;">
+<a href="https://pma.ipums.org/pma-action/variables/ABORLASTMEDLOC" style="     color: #98579B !important;">ABORLASTMEDLOC</a>
+</td>
+<td style="text-align:left;">
+<a href="https://pma.ipums.org/pma-action/variables/ABORLASTMEDLOC_FRND1" style="     color: #98579B !important;">ABORLASTMEDLOC_FRND1</a>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Place where termination surgery was obtained (if first / only method)
+</td>
+<td style="text-align:left;">
+<a href="https://pma.ipums.org/pma-action/variables/ABORFIRSTSURGLOC" style="     color: #98579B !important;">ABORFIRSTSURGLOC</a>
+</td>
+<td style="text-align:left;">
+<a href="https://pma.ipums.org/pma-action/variables/ABORFIRSTSURGLOC_FRND1" style="     color: #98579B !important;">ABORFIRSTSURGLOC_FRND1</a>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Place where termination surgery was obtained (if last method)
+</td>
+<td style="text-align:left;">
+<a href="https://pma.ipums.org/pma-action/variables/ABORLASTSURGLOC" style="     color: #98579B !important;">ABORLASTSURGLOC</a>
+</td>
+<td style="text-align:left;">
+<a href="https://pma.ipums.org/pma-action/variables/ABORLASTSURGLOC_FRND1" style="     color: #98579B !important;">ABORLASTSURGLOC_FRND1</a>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Ever regulated a period (if never terminated a pregnancy)
+</td>
+<td style="text-align:left;">
+<a href="https://pma.ipums.org/pma-action/variables/REGPREGEV" style="     color: #98579B !important;">REGPREGEV</a>
+</td>
+<td style="text-align:left;">
+<a href="https://pma.ipums.org/pma-action/variables/REGPREGEVFRND1" style="     color: #98579B !important;">REGPREGEVFRND1</a>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Ever regulated a period (besides terminated a pregnancy)
+</td>
+<td style="text-align:left;">
+<a href="https://pma.ipums.org/pma-action/variables/REGPREGEV_ABOR" style="     color: #98579B !important;">REGPREGEV_ABOR</a>
+</td>
+<td style="text-align:left;">
+<a href="https://pma.ipums.org/pma-action/variables/REGPREGEV_ABORFRND1" style="     color: #98579B !important;">REGPREGEV_ABORFRND1</a>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Year of last regulated period
+</td>
+<td style="text-align:left;">
+<a href="https://pma.ipums.org/pma-action/variables/REGYR" style="     color: #98579B !important;">REGYR</a>
+</td>
+<td style="text-align:left;">
+<a href="https://pma.ipums.org/pma-action/variables/REGYRFRND1" style="     color: #98579B !important;">REGYRFRND1</a>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Used multiple regulation methods
+</td>
+<td style="text-align:left;">
+<a href="https://pma.ipums.org/pma-action/variables/REGMULT" style="     color: #98579B !important;">REGMULT</a>
+</td>
+<td style="text-align:left;">
+<a href="https://pma.ipums.org/pma-action/variables/REGMULTFRND1" style="     color: #98579B !important;">REGMULTFRND1</a>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Only regulation method used
+</td>
+<td style="text-align:left;">
+<a href="https://pma.ipums.org/pma-action/variables/REGMETH" style="     color: #98579B !important;">REGMETH</a>
+</td>
+<td style="text-align:left;">
+<a href="https://pma.ipums.org/pma-action/variables/REGMETHFRND1" style="     color: #98579B !important;">REGMETHFRND1</a>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+First of multiple regulation methods used
+</td>
+<td style="text-align:left;">
+<a href="https://pma.ipums.org/pma-action/variables/REG1ST" style="     color: #98579B !important;">REG1ST</a>
+</td>
+<td style="text-align:left;">
+<a href="https://pma.ipums.org/pma-action/variables/REG1STFRND1" style="     color: #98579B !important;">REG1STFRND1</a>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Last of multiple regulation methods used
+</td>
+<td style="text-align:left;">
+<a href="https://pma.ipums.org/pma-action/variables/REGLAST" style="     color: #98579B !important;">REGLAST</a>
+</td>
+<td style="text-align:left;">
+<a href="https://pma.ipums.org/pma-action/variables/REGLASTFRND1" style="     color: #98579B !important;">REGLASTFRND1</a>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Sought regulation care at a facility
+</td>
+<td style="text-align:left;">
+<a href="https://pma.ipums.org/pma-action/variables/REGTREAT" style="     color: #98579B !important;">REGTREAT</a>
+</td>
+<td style="text-align:left;">
+<a href="https://pma.ipums.org/pma-action/variables/REGTREATFRND1" style="     color: #98579B !important;">REGTREATFRND1</a>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Place where regulation medication was obtained (if first / only method)
+</td>
+<td style="text-align:left;">
+<a href="https://pma.ipums.org/pma-action/variables/REGMEDLOC" style="     color: #98579B !important;">REGMEDLOC</a>
+</td>
+<td style="text-align:left;">
+<a href="https://pma.ipums.org/pma-action/variables/REGMEDLOCFRND1" style="     color: #98579B !important;">REGMEDLOCFRND1</a>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Place where regulation medication was obtained (if last method)
+</td>
+<td style="text-align:left;">
+<a href="https://pma.ipums.org/pma-action/variables/REGLASTMEDLOC" style="     color: #98579B !important;">REGLASTMEDLOC</a>
+</td>
+<td style="text-align:left;">
+<a href="https://pma.ipums.org/pma-action/variables/REGLASTMEDLOCFRND1" style="     color: #98579B !important;">REGLASTMEDLOCFRND1</a>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Place where regulation surgery was obtained (if first / only method)
+</td>
+<td style="text-align:left;">
+<a href="https://pma.ipums.org/pma-action/variables/REGSURGLOC" style="     color: #98579B !important;">REGSURGLOC</a>
+</td>
+<td style="text-align:left;">
+<a href="https://pma.ipums.org/pma-action/variables/REGSURGLOCFRND1" style="     color: #98579B !important;">REGSURGLOCFRND1</a>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Place where regulation surgery was obtained (if last method)
+</td>
+<td style="text-align:left;">
+<a href="https://pma.ipums.org/pma-action/variables/REGLASTSURGLOC" style="     color: #98579B !important;">REGLASTSURGLOC</a>
+</td>
+<td style="text-align:left;">
+<a href="https://pma.ipums.org/pma-action/variables/REGLASTSURGLOCFRND1" style="     color: #98579B !important;">REGLASTSURGLOCFRND1</a>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Number of close female friends aged 15-49
+</td>
+<td style="text-align:left;">
+<a href="https://pma.ipums.org/pma-action/variables/FRIENDNUM" style="     color: #98579B !important;">FRIENDNUM</a>
+</td>
+<td style="text-align:left;">
+–
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Household wealth quintile
+</td>
+<td style="text-align:left;">
+<a href="https://pma.ipums.org/pma-action/variables/WEALTHQ" style="     color: #98579B !important;">WEALTHQ</a>
+</td>
+<td style="text-align:left;">
+–
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Marital status
+</td>
+<td style="text-align:left;">
+<a href="https://pma.ipums.org/pma-action/variables/MARSTAT" style="     color: #98579B !important;">MARSTAT</a>
+</td>
+<td style="text-align:left;">
+–
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Religion of household head
+</td>
+<td style="text-align:left;">
+<a href="https://pma.ipums.org/pma-action/variables/RELIGION" style="     color: #98579B !important;">RELIGION</a>
+</td>
+<td style="text-align:left;">
+–
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Ethnicity
+</td>
+<td style="text-align:left;">
+<a href="https://pma.ipums.org/pma-action/variables/ETHNICITYNG" style="     color: #98579B !important;">ETHNICITYNG</a>
+</td>
+<td style="text-align:left;">
+–
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Parity (live birth events)
+</td>
+<td style="text-align:left;">
+<a href="https://pma.ipums.org/pma-action/variables/BIRTHEVENT" style="     color: #98579B !important;">BIRTHEVENT</a>
+</td>
+<td style="text-align:left;">
+–
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Urban or rural residence
+</td>
+<td style="text-align:left;">
+<a href="https://pma.ipums.org/pma-action/variables/URBAN" style="     color: #98579B !important;">URBAN</a>
+</td>
+<td style="text-align:left;">
+–
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Nigerian State
+</td>
+<td style="text-align:left;">
+<a href="https://pma.ipums.org/pma-action/variables/GEONG" style="     color: #98579B !important;">GEONG</a>
+</td>
+<td style="text-align:left;">
+–
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Female Questionnaire Sampling Weight
+</td>
+<td style="text-align:left;">
+<a href="https://pma.ipums.org/pma-action/variables/FQWEIGHT" style="     color: #98579B !important;">FQWEIGHT</a>
+</td>
+<td style="text-align:left;">
+–
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Sampling cluster (enumeration area)
+</td>
+<td style="text-align:left;">
+<a href="https://pma.ipums.org/pma-action/variables/EAID" style="     color: #98579B !important;">EAID</a>
+</td>
+<td style="text-align:left;">
+–
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Sampling strata (Nigerian state)
+</td>
+<td style="text-align:left;">
+<a href="https://pma.ipums.org/pma-action/variables/STRATA" style="     color: #98579B !important;">STRATA</a>
+</td>
+<td style="text-align:left;">
+–
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>After you’ve downloaded an extract containing these variables, load it together with the following packages in R.</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://tidyverse.tidyverse.org'>tidyverse</a></span><span class='op'>)</span></span>
+<span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://www.ipums.org'>ipumsr</a></span><span class='op'>)</span></span>
+<span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='http://gdfe.co/srvyr/'>srvyr</a></span><span class='op'>)</span></span>
+<span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='http://r-survey.r-forge.r-project.org/survey/'>survey</a></span><span class='op'>)</span></span>
+<span></span>
+<span><span class='va'>ng</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/ipumsr/man/read_ipums_micro.html'>read_ipums_micro</a></span><span class='op'>(</span></span>
+<span>  ddi <span class='op'>=</span> <span class='st'>"data/pma_00195.xml"</span>, </span>
+<span>  data <span class='op'>=</span> <span class='st'>"data/pma_00195.dat.gz"</span></span>
+<span><span class='op'>)</span></span></code></pre>
+</div>
+</div>
+<p>Our analysis will focus only on members of the <em>de facto</em> population, identifiable as all cases where <a href="https://pma.ipums.org/pma-action/variables/FQWEIGHT">FQWEIGHT</a> is not 0.</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>ng</span> <span class='op'>&lt;-</span> <span class='va'>ng</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>FQWEIGHT</span> <span class='op'>!=</span> <span class='fl'>0</span><span class='op'>)</span></span></code></pre>
+</div>
+</div>
+<p>We’ll also create a short ID for each woman by row index.</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>ng</span> <span class='op'>&lt;-</span> <span class='va'>ng</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://tibble.tidyverse.org/reference/rownames.html'>rowid_to_column</a></span><span class='op'>(</span><span class='st'>"id"</span><span class='op'>)</span></span></code></pre>
+</div>
+</div>
+<h2 id="respondent-variables">Respondent variables</h2>
+<p>Next, we’ll build an analytic dataset <code>dat</code> with recoded variables matching the categories shown throughout Bell et al. (<a href="#ref-Bell2020-ld" role="doc-biblioref">2020a</a>; <a href="#ref-Bell2020-kh" role="doc-biblioref">2020b</a>). First, we’ll handle the variables for each respondent (largely following the workflow shown in our last post).</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>dat</span> <span class='op'>&lt;-</span> <span class='va'>ng</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span></span>
+<span>    .keep <span class='op'>=</span> <span class='st'>"none"</span>,</span>
+<span>    <span class='va'>id</span>,</span>
+<span>    age <span class='op'>=</span> <span class='va'>AGE</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
+<span>      <span class='fu'><a href='https://dplyr.tidyverse.org/reference/case_match.html'>case_match</a></span><span class='op'>(</span></span>
+<span>        <span class='fl'>15</span><span class='op'>:</span><span class='fl'>19</span> <span class='op'>~</span> <span class='st'>"15-19"</span>, <span class='fl'>20</span><span class='op'>:</span><span class='fl'>24</span> <span class='op'>~</span> <span class='st'>"20-24"</span>, <span class='fl'>25</span><span class='op'>:</span><span class='fl'>29</span> <span class='op'>~</span> <span class='st'>"25-29"</span>, <span class='fl'>30</span><span class='op'>:</span><span class='fl'>34</span> <span class='op'>~</span> <span class='st'>"30-34"</span>,</span>
+<span>        <span class='fl'>35</span><span class='op'>:</span><span class='fl'>39</span> <span class='op'>~</span> <span class='st'>"35-39"</span>, <span class='fl'>40</span><span class='op'>:</span><span class='fl'>44</span> <span class='op'>~</span> <span class='st'>"40-44"</span>, <span class='fl'>45</span><span class='op'>:</span><span class='fl'>50</span> <span class='op'>~</span> <span class='st'>"45+"</span></span>
+<span>      <span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
+<span>      <span class='fu'><a href='https://forcats.tidyverse.org/reference/fct_relevel.html'>fct_relevel</a></span><span class='op'>(</span><span class='st'>"15-19"</span>,<span class='st'>"20-24"</span>,<span class='st'>"25-29"</span>,<span class='st'>"30-34"</span>,<span class='st'>"35-39"</span>, <span class='st'>"40-44"</span><span class='op'>)</span>,</span>
+<span>    edu <span class='op'>=</span> <span class='va'>EDUCATTGEN</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
+<span>      <span class='fu'><a href='https://dplyr.tidyverse.org/reference/case_match.html'>case_match</a></span><span class='op'>(</span></span>
+<span>        <span class='fl'>1</span> <span class='op'>~</span> <span class='st'>"Never"</span>, <span class='fl'>2</span> <span class='op'>~</span> <span class='st'>"Primary"</span>, <span class='fl'>3</span> <span class='op'>~</span> <span class='st'>"Secondary"</span>, <span class='fl'>4</span> <span class='op'>~</span> <span class='st'>"Higher"</span></span>
+<span>      <span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
+<span>      <span class='fu'><a href='https://forcats.tidyverse.org/reference/fct_relevel.html'>fct_relevel</a></span><span class='op'>(</span><span class='st'>"Never"</span>, <span class='st'>"Primary"</span>, <span class='st'>"Secondary"</span><span class='op'>)</span>,</span>
+<span>    wealth <span class='op'>=</span> <span class='va'>WEALTHQ</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
+<span>      <span class='fu'><a href='https://forcats.tidyverse.org/reference/as_factor.html'>as_factor</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
+<span>      <span class='fu'><a href='https://stringr.tidyverse.org/reference/str_remove.html'>str_remove</a></span><span class='op'>(</span><span class='st'>" quintile"</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
+<span>      <span class='fu'><a href='https://forcats.tidyverse.org/reference/fct_relevel.html'>fct_relevel</a></span><span class='op'>(</span><span class='st'>"Lowest"</span>, <span class='st'>"Lower"</span>, <span class='st'>"Middle"</span>, <span class='st'>"Higher"</span><span class='op'>)</span>,</span>
+<span>    marstat <span class='op'>=</span> <span class='va'>MARSTAT</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
+<span>      <span class='fu'><a href='https://dplyr.tidyverse.org/reference/case_match.html'>case_match</a></span><span class='op'>(</span></span>
+<span>        <span class='fl'>10</span> <span class='op'>~</span> <span class='st'>"Never Married"</span>, <span class='fl'>21</span><span class='op'>:</span><span class='fl'>22</span> <span class='op'>~</span> <span class='st'>"Partnered"</span>, <span class='fl'>31</span><span class='op'>:</span><span class='fl'>32</span> <span class='op'>~</span> <span class='st'>"Separated / Widowed"</span></span>
+<span>      <span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
+<span>      <span class='fu'><a href='https://forcats.tidyverse.org/reference/fct_relevel.html'>fct_relevel</a></span><span class='op'>(</span><span class='st'>"Never Married"</span>, <span class='st'>"Partnered"</span>, <span class='st'>"Separated / Widowed"</span><span class='op'>)</span>,</span>
+<span>    relig <span class='op'>=</span> <span class='va'>RELIGION</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
+<span>      <span class='fu'><a href='https://dplyr.tidyverse.org/reference/case_match.html'>case_match</a></span><span class='op'>(</span></span>
+<span>        <span class='fl'>210</span> <span class='op'>~</span> <span class='st'>"Catholic"</span>, <span class='fl'>290</span> <span class='op'>~</span> <span class='st'>"Other Christian"</span>, <span class='fl'>100</span> <span class='op'>~</span> <span class='st'>"Muslim"</span>, </span>
+<span>        .default <span class='op'>=</span> <span class='st'>"Other"</span></span>
+<span>      <span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
+<span>      <span class='fu'><a href='https://forcats.tidyverse.org/reference/fct_relevel.html'>fct_relevel</a></span><span class='op'>(</span><span class='st'>"Catholic"</span>, <span class='st'>"Other Christian"</span>, <span class='st'>"Muslim"</span><span class='op'>)</span>,</span>
+<span>    ethnicity <span class='op'>=</span> <span class='va'>ETHNICITYNG</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
+<span>      <span class='fu'><a href='https://dplyr.tidyverse.org/reference/case_match.html'>case_match</a></span><span class='op'>(</span></span>
+<span>        <span class='fl'>5</span> <span class='op'>~</span> <span class='st'>"Hausa"</span>, <span class='fl'>6</span> <span class='op'>~</span> <span class='st'>"Igbo"</span>, <span class='fl'>15</span> <span class='op'>~</span> <span class='st'>"Yoruba"</span>,</span>
+<span>        .default <span class='op'>=</span> <span class='st'>"Other"</span></span>
+<span>      <span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
+<span>      <span class='fu'><a href='https://forcats.tidyverse.org/reference/fct_relevel.html'>fct_relevel</a></span><span class='op'>(</span><span class='st'>"Hausa"</span>, <span class='st'>"Igbo"</span>, <span class='st'>"Yoruba"</span><span class='op'>)</span>,</span>
+<span>    parity <span class='op'>=</span> <span class='va'>BIRTHEVENT</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
+<span>      <span class='fu'><a href='https://dplyr.tidyverse.org/reference/case_match.html'>case_match</a></span><span class='op'>(</span></span>
+<span>        <span class='fl'>0</span> <span class='op'>~</span> <span class='st'>"0"</span>, <span class='fl'>1</span><span class='op'>:</span><span class='fl'>2</span> <span class='op'>~</span> <span class='st'>"1-2"</span>, <span class='fl'>3</span><span class='op'>:</span><span class='fl'>4</span> <span class='op'>~</span> <span class='st'>"3-4"</span>, <span class='fl'>5</span><span class='op'>:</span><span class='fl'>90</span> <span class='op'>~</span> <span class='st'>"5+"</span></span>
+<span>      <span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
+<span>      <span class='fu'><a href='https://forcats.tidyverse.org/reference/fct_relevel.html'>fct_relevel</a></span><span class='op'>(</span><span class='st'>"0"</span>, <span class='st'>"1-2"</span>, <span class='st'>"3-4"</span>, <span class='st'>"5+"</span><span class='op'>)</span>,</span>
+<span>    urban <span class='op'>=</span> <span class='va'>URBAN</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://forcats.tidyverse.org/reference/as_factor.html'>as_factor</a></span><span class='op'>(</span><span class='op'>)</span></span>
+<span>  <span class='op'>)</span> </span>
+<span></span>
+<span><span class='va'>dat</span> </span></code></pre>
+</div>
+<pre><code># A tibble: 11,106 × 9
+      id age   edu       wealth  marstat             relig           ethnicity parity urban
+   &lt;int&gt; &lt;fct&gt; &lt;fct&gt;     &lt;fct&gt;   &lt;fct&gt;               &lt;fct&gt;           &lt;fct&gt;     &lt;fct&gt;  &lt;fct&gt;
+ 1     1 35-39 Never     Lowest  Partnered           Other Christian Other     0      Rural
+ 2     2 35-39 Never     Lowest  Partnered           Muslim          Hausa     3-4    Rural
+ 3     3 15-19 Secondary Lower   Partnered           Catholic        Other     0      Rural
+ 4     4 40-44 Never     Lowest  Partnered           Muslim          Hausa     5+     Rural
+ 5     5 30-34 Never     Lowest  Partnered           Other Christian Other     1-2    Rural
+ 6     6 45+   Never     Lowest  Partnered           Muslim          Hausa     5+     Rural
+ 7     7 30-34 Higher    Higher  Partnered           Other Christian Other     1-2    Urban
+ 8     8 25-29 Never     Lower   Partnered           Muslim          Hausa     3-4    Rural
+ 9     9 35-39 Higher    Highest Partnered           Other Christian Igbo      5+     Urban
+10    10 15-19 Secondary Middle  Separated / Widowed Other Christian Other     0      Urban
+# … with 11,096 more rows</code></pre>
+</div>
+<p>As in our last post, we’ll create four separate incidence measures from the following recoded variables:</p>
+<ul>
+<li><code>term</code> indicating whether the respondent terminated a pregnancy after January 1, 2017</li>
+<li><code>reg</code> indicating whether the respondent regulated a period after January 1, 2017</li>
+<li><code>any</code> indicating whether the respondent terminated a pregnancy <em>or</em> regulated a period after January 1, 2017</li>
+<li><code>avg</code> the mean value of <code>term</code> and <code>any</code>, as reported by Bell et al. (<a href="#ref-Bell2020-ld" role="doc-biblioref">2020a</a>; <a href="#ref-Bell2020-kh" role="doc-biblioref">2020b</a>)</li>
+<li><code>yrs</code> - the number of months between January 1, 2017 and the date of a woman’s interview <em>divided by</em> 12 (e.g. <code>1.5</code> represents 18 months)</li>
+</ul>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>dat</span> <span class='op'>&lt;-</span> <span class='va'>ng</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span></span>
+<span>    .keep <span class='op'>=</span> <span class='st'>"none"</span>,</span>
+<span>    <span class='va'>id</span>,</span>
+<span>    term <span class='op'>=</span> <span class='va'>ABORYR</span> <span class='op'><a href='https://rdrr.io/r/base/match.html'>%in%</a></span> <span class='fl'>2017</span><span class='op'>:</span><span class='fl'>2018</span>,</span>
+<span>    reg <span class='op'>=</span> <span class='va'>REGYR</span> <span class='op'><a href='https://rdrr.io/r/base/match.html'>%in%</a></span> <span class='fl'>2017</span><span class='op'>:</span><span class='fl'>2018</span>,</span>
+<span>    any <span class='op'>=</span> <span class='va'>reg</span> <span class='op'>|</span> <span class='va'>term</span>,</span>
+<span>    avg <span class='op'>=</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/pick.html'>pick</a></span><span class='op'>(</span><span class='va'>term</span>, <span class='va'>any</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='va'>rowMeans</span>,</span>
+<span>    yrs <span class='op'>=</span> <span class='op'>(</span><span class='va'>INTFQCMC</span> <span class='op'>-</span> <span class='fl'>1405</span><span class='op'>)</span><span class='op'>/</span><span class='fl'>12</span> <span class='co'># Jan 2017 as CMC = 1405</span></span>
+<span>  <span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
+<span>  <span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='co'># preview columns to be joined with `dat` </span></span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate-joins.html'>full_join</a></span><span class='op'>(</span><span class='va'>dat</span>, by <span class='op'>=</span> <span class='st'>"id"</span><span class='op'>)</span></span></code></pre>
+</div>
+<pre><code># A tibble: 11,106 × 6
+      id term  reg   any     avg   yrs
+   &lt;int&gt; &lt;lgl&gt; &lt;lgl&gt; &lt;lgl&gt; &lt;dbl&gt; &lt;dbl&gt;
+ 1     1 FALSE FALSE FALSE   0    1.25
+ 2     2 FALSE FALSE FALSE   0    1.25
+ 3     3 FALSE TRUE  TRUE    0.5  1.25
+ 4     4 FALSE FALSE FALSE   0    1.25
+ 5     5 FALSE FALSE FALSE   0    1.25
+ 6     6 FALSE FALSE FALSE   0    1.33
+ 7     7 FALSE TRUE  TRUE    0.5  1.25
+ 8     8 FALSE FALSE FALSE   0    1.25
+ 9     9 FALSE FALSE FALSE   0    1.33
+10    10 FALSE FALSE FALSE   0    1.25
+# … with 11,096 more rows</code></pre>
+</div>
+<aside>
+<p>The variables <code>term</code>, <code>reg</code>, and <code>any</code> are <strong>logical</strong> objects, while <code>avg</code> is a <strong>double</strong>.</p>
+<p>Remember: in R, FALSE is coerced to 0, while TRUE is coerced to 1.</p>
+You can think of a value like 0.5 in <code>avg</code> as the numeric version of <em>half TRUE</em>.
+</aside>
+<p>Finally, we’ll attach simpmle numeric versions of a few technical variables:</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>dat</span> <span class='op'>&lt;-</span> <span class='va'>ng</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span></span>
+<span>    .keep <span class='op'>=</span> <span class='st'>"none"</span>,</span>
+<span>    <span class='va'>id</span>, </span>
+<span>    weight <span class='op'>=</span> <span class='va'>FQWEIGHT</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='va'>zap_labels</span>,</span>
+<span>    eaid <span class='op'>=</span> <span class='va'>EAID</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='va'>zap_labels</span>,</span>
+<span>    strata <span class='op'>=</span> <span class='va'>STRATA</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='va'>zap_labels</span>,</span>
+<span>  <span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
+<span>  <span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='co'># preview columns to be joined with `dat` </span></span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate-joins.html'>full_join</a></span><span class='op'>(</span><span class='va'>dat</span>, by <span class='op'>=</span> <span class='st'>"id"</span><span class='op'>)</span></span></code></pre>
+</div>
+<pre><code># A tibble: 11,106 × 4
+      id weight  eaid strata
+   &lt;int&gt;  &lt;dbl&gt; &lt;dbl&gt;  &lt;int&gt;
+ 1     1  0.220   113  56604
+ 2     2  0.109   134  56604
+ 3     3  0.527   616  56607
+ 4     4  0.109   134  56604
+ 5     5  1.37    384  56609
+ 6     6  0.759   124  56604
+ 7     7  2.26    356  56609
+ 8     8  1.64    496  56605
+ 9     9  0.913   155  56606
+10    10  0.959   556  56608
+# … with 11,096 more rows</code></pre>
+</div>
+<h2 id="confidante-variables">Confidante variables</h2>
+<p>As shown in the table above, IPUMS PMA uses the shorthand “Friend 1” to reference variables pertaining to the respondent’s closest confidante. PMA surveys collect a limited amount of demographic information about Friend 1: we’ll use her age and education level.</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span> <span class='va'>dat</span> <span class='op'>&lt;-</span> <span class='va'>ng</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span></span>
+<span>    .keep <span class='op'>=</span> <span class='st'>"none"</span>,</span>
+<span>    <span class='va'>id</span>,</span>
+<span>    age_f1 <span class='op'>=</span> <span class='va'>AGEFRND1</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
+<span>      <span class='fu'><a href='https://dplyr.tidyverse.org/reference/case_match.html'>case_match</a></span><span class='op'>(</span></span>
+<span>        <span class='fl'>15</span><span class='op'>:</span><span class='fl'>19</span> <span class='op'>~</span> <span class='st'>"15-19"</span>,</span>
+<span>        <span class='fl'>20</span><span class='op'>:</span><span class='fl'>24</span> <span class='op'>~</span> <span class='st'>"20-24"</span>,</span>
+<span>        <span class='fl'>25</span><span class='op'>:</span><span class='fl'>29</span> <span class='op'>~</span> <span class='st'>"25-29"</span>,</span>
+<span>        <span class='fl'>30</span><span class='op'>:</span><span class='fl'>34</span> <span class='op'>~</span> <span class='st'>"30-34"</span>,</span>
+<span>        <span class='fl'>35</span><span class='op'>:</span><span class='fl'>39</span> <span class='op'>~</span> <span class='st'>"35-39"</span>,</span>
+<span>        <span class='fl'>40</span><span class='op'>:</span><span class='fl'>44</span> <span class='op'>~</span> <span class='st'>"40-44"</span>,</span>
+<span>        <span class='fl'>45</span><span class='op'>:</span><span class='fl'>50</span> <span class='op'>~</span> <span class='st'>"45+"</span></span>
+<span>      <span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
+<span>      <span class='fu'><a href='https://forcats.tidyverse.org/reference/fct_relevel.html'>fct_relevel</a></span><span class='op'>(</span><span class='st'>"15-19"</span>,<span class='st'>"20-24"</span>,<span class='st'>"25-29"</span>,<span class='st'>"30-34"</span>,<span class='st'>"35-39"</span>, <span class='st'>"40-44"</span><span class='op'>)</span>,</span>
+<span>    edu_f1 <span class='op'>=</span> <span class='va'>EDUCATTFRND1</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
+<span>      <span class='fu'><a href='https://dplyr.tidyverse.org/reference/case_match.html'>case_match</a></span><span class='op'>(</span></span>
+<span>        <span class='fl'>100</span> <span class='op'>~</span> <span class='st'>"Never"</span>,</span>
+<span>        <span class='fl'>200</span> <span class='op'>~</span> <span class='st'>"Primary"</span>,</span>
+<span>        <span class='fl'>400</span> <span class='op'>~</span> <span class='st'>"Secondary"</span>,</span>
+<span>        <span class='fl'>600</span> <span class='op'>~</span> <span class='st'>"Higher"</span></span>
+<span>      <span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
+<span>      <span class='fu'><a href='https://forcats.tidyverse.org/reference/fct_relevel.html'>fct_relevel</a></span><span class='op'>(</span><span class='st'>"Never"</span>, <span class='st'>"Primary"</span>, <span class='st'>"Secondary"</span><span class='op'>)</span></span>
+<span>  <span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
+<span>  <span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='co'># preview columns to be joined with `dat` </span></span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate-joins.html'>full_join</a></span><span class='op'>(</span><span class='va'>dat</span>, by <span class='op'>=</span> <span class='st'>"id"</span><span class='op'>)</span></span></code></pre>
+</div>
+<pre><code># A tibble: 11,106 × 3
+      id age_f1 edu_f1
+   &lt;int&gt; &lt;fct&gt;  &lt;fct&gt; 
+ 1     1 40-44  Never 
+ 2     2 &lt;NA&gt;   &lt;NA&gt;  
+ 3     3 &lt;NA&gt;   &lt;NA&gt;  
+ 4     4 &lt;NA&gt;   &lt;NA&gt;  
+ 5     5 &lt;NA&gt;   &lt;NA&gt;  
+ 6     6 &lt;NA&gt;   &lt;NA&gt;  
+ 7     7 30-34  Higher
+ 8     8 25-29  Never 
+ 9     9 35-39  Higher
+10    10 &lt;NA&gt;   &lt;NA&gt;  
+# … with 11,096 more rows</code></pre>
+</div>
+<p>Notice that many of the values in our modified variables <code>age_f1</code> and <code>edu_f1</code> are NA? These values are produced by <a href="https://dplyr.tidyverse.org/reference/case_match.html">case_match</a> for any original values that are not explicitly specified: here, NA covers codes for “don’t know”, “no response or missing”, and “NIU (not in universe)”. Cases marked NIU represent respondents who reported that they had <em>no</em> confidante women aged 15-49, so these questions were skipped.</p>
+<p>We’ll create a helper variable <code>has_f1</code> to mark women who indicated that they did know at least one such person.</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>ng</span> <span class='op'>&lt;-</span> <span class='va'>ng</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span>has_f1 <span class='op'>=</span> <span class='va'>FRIENDNUM</span> <span class='op'><a href='https://rdrr.io/r/base/match.html'>%in%</a></span> <span class='fl'>1</span><span class='op'>:</span><span class='fl'>96</span><span class='op'>)</span> </span>
+<span></span>
+<span><span class='va'>ng</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/count.html'>count</a></span><span class='op'>(</span><span class='va'>has_f1</span><span class='op'>)</span> </span></code></pre>
+</div>
+<pre><code># A tibble: 2 × 2
+  has_f1     n
+  &lt;lgl&gt;  &lt;int&gt;
+1 FALSE   5223
+2 TRUE    5883</code></pre>
+</div>
+<aside>
+Just over half of the Nigeria 2018 respondents identified at least one woman aged 15-49 with whom they share personal information.
+</aside>
+<p>As we’ve mentioned, respondents could report their knowledge about the abortion experiences of Friend 1 with different degrees of certainty. For example, the question about pregnancy termination for Friend 1 looks like this:</p>
+<pre><code>712a.i. Now I want to ask some more questions about {friend1_name}. Has she ever
+done something to remove a pregnancy when she was pregnant or worried she was
+pregnant?
+
+Probe to confirm whether the pregnancy removal was successful. If not, select
+&#39;no.&#39;
+
+[] Yes, I am certain
+[] Yes, I think so
+[] No
+[] Do not know
+[] No response</code></pre>
+<p>Bell et al. (<a href="#ref-Bell2020-ld" role="doc-biblioref">2020a</a>; <a href="#ref-Bell2020-kh" role="doc-biblioref">2020b</a>) use all of the “Yes, I am certain” responses to estimate abortion incidence, and they also use cases where the respondent answered “Yes, I think so” <em>only if</em> they could specify at least one method for the procedure. This information can be found in multiple variables depending on the number of methods that were ultimately needed to terminate the pregnancy.</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>ng</span> <span class='op'>&lt;-</span> <span class='va'>ng</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span></span>
+<span>    termmethod_f1 <span class='op'>=</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/across.html'>if_any</a></span><span class='op'>(</span></span>
+<span>      <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='va'>ABORONLYMETH_FRND1</span>, <span class='va'>ABORFIRSTMETH_FRND1</span>, <span class='va'>ABORLASTMETH_FRND1</span><span class='op'>)</span>,</span>
+<span>      <span class='op'>~</span><span class='va'>.x</span> <span class='op'>&lt;</span> <span class='fl'>97</span> <span class='op'>&amp;</span> <span class='va'>.x</span> <span class='op'>!=</span> <span class='fl'>4</span></span>
+<span>    <span class='op'>)</span>,</span>
+<span>    regmethod_f1 <span class='op'>=</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/across.html'>if_any</a></span><span class='op'>(</span></span>
+<span>      <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='va'>REGMETHFRND1</span>, <span class='va'>REG1STFRND1</span>, <span class='va'>REGLASTFRND1</span><span class='op'>)</span>,</span>
+<span>      <span class='op'>~</span><span class='va'>.x</span> <span class='op'>&lt;</span> <span class='fl'>97</span> <span class='op'>&amp;</span> <span class='va'>.x</span> <span class='op'>!=</span> <span class='fl'>4</span></span>
+<span>    <span class='op'>)</span>,</span>
+<span>    termev_f1 <span class='op'>=</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/case_when.html'>case_when</a></span><span class='op'>(</span></span>
+<span>      <span class='va'>has_f1</span> <span class='op'>~</span> <span class='va'>ABOREV_FRND1</span> <span class='op'>==</span> <span class='fl'>2</span> <span class='op'>|</span> <span class='op'>{</span><span class='va'>ABOREV_FRND1</span> <span class='op'>==</span> <span class='fl'>1</span> <span class='op'>&amp;</span> <span class='va'>termmethod_f1</span><span class='op'>}</span></span>
+<span>    <span class='op'>)</span>,</span>
+<span>    regev_f1 <span class='op'>=</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/case_when.html'>case_when</a></span><span class='op'>(</span></span>
+<span>      <span class='va'>has_f1</span> <span class='op'>~</span>  <span class='va'>REGPREGEVFRND1</span> <span class='op'>==</span> <span class='fl'>2</span> <span class='op'>|</span> <span class='op'>{</span><span class='va'>REGPREGEVFRND1</span> <span class='op'>==</span> <span class='fl'>1</span> <span class='op'>&amp;</span> <span class='va'>regmethod_f1</span><span class='op'>}</span></span>
+<span>    <span class='op'>)</span></span>
+<span>  <span class='op'>)</span></span></code></pre>
+</div>
+</div>
+<p>Finally, we’ll construct the same four abortion measures we made from the respondent data. In this case, we’ll use <code>termev_f1</code> and <code>regev_f1</code> to mark some cases FALSE where the respondent was uncertain and could not identify an abortion method for Friend 1.</p>
+<ul>
+<li><code>term_f1</code> indicating whether Friend 1 terminated a pregnancy after January 1, 2017</li>
+<li><code>reg_f1</code> indicating whether Friend 1 regulated a period after January 1, 2017</li>
+<li><code>any_f1</code> indicating whether Friend 1 terminated a pregnancy <em>or</em> regulated a period after January 1, 2017</li>
+<li><code>avg_f1</code> - the mean value of <code>aboryr_f1</code> and <code>anyyr_f1</code>, as reported by Bell et al. (<a href="#ref-Bell2020-ld" role="doc-biblioref">2020a</a>; <a href="#ref-Bell2020-kh" role="doc-biblioref">2020b</a>)</li>
+</ul>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>dat</span> <span class='op'>&lt;-</span> <span class='va'>ng</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span></span>
+<span>    .keep <span class='op'>=</span> <span class='st'>"none"</span>,</span>
+<span>    <span class='va'>id</span>, <span class='va'>has_f1</span>, </span>
+<span>    term_f1 <span class='op'>=</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/if_else.html'>if_else</a></span><span class='op'>(</span><span class='va'>termev_f1</span>, <span class='va'>ABORYR_FRND1</span> <span class='op'><a href='https://rdrr.io/r/base/match.html'>%in%</a></span> <span class='fl'>2017</span><span class='op'>:</span><span class='fl'>2018</span>, <span class='cn'>FALSE</span><span class='op'>)</span>,</span>
+<span>    reg_f1 <span class='op'>=</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/if_else.html'>if_else</a></span><span class='op'>(</span><span class='va'>regev_f1</span>, <span class='va'>REGYRFRND1</span> <span class='op'><a href='https://rdrr.io/r/base/match.html'>%in%</a></span> <span class='fl'>2017</span><span class='op'>:</span><span class='fl'>2018</span>, <span class='cn'>FALSE</span><span class='op'>)</span>,</span>
+<span>    any_f1 <span class='op'>=</span> <span class='va'>term_f1</span> <span class='op'>|</span> <span class='va'>reg_f1</span>,</span>
+<span>    avg_f1 <span class='op'>=</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/pick.html'>pick</a></span><span class='op'>(</span><span class='va'>term_f1</span>, <span class='va'>any_f1</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='va'>rowMeans</span>,</span>
+<span>  <span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
+<span>  <span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='co'># preview columns to be joined with `dat` </span></span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate-joins.html'>full_join</a></span><span class='op'>(</span><span class='va'>dat</span>, by <span class='op'>=</span> <span class='st'>"id"</span><span class='op'>)</span></span></code></pre>
+</div>
+<pre><code># A tibble: 11,106 × 6
+      id has_f1 term_f1 reg_f1 any_f1 avg_f1
+   &lt;int&gt; &lt;lgl&gt;  &lt;lgl&gt;   &lt;lgl&gt;  &lt;lgl&gt;   &lt;dbl&gt;
+ 1     1 TRUE   FALSE   FALSE  FALSE       0
+ 2     2 FALSE  NA      NA     NA         NA
+ 3     3 FALSE  NA      NA     NA         NA
+ 4     4 FALSE  NA      NA     NA         NA
+ 5     5 FALSE  NA      NA     NA         NA
+ 6     6 FALSE  NA      NA     NA         NA
+ 7     7 TRUE   FALSE   FALSE  FALSE       0
+ 8     8 TRUE   FALSE   FALSE  FALSE       0
+ 9     9 TRUE   FALSE   FALSE  FALSE       0
+10    10 FALSE  NA      NA     NA         NA
+# … with 11,096 more rows</code></pre>
+</div>
+<h1 id="initial-results">Initial Results</h1>
+<p>We could now proceed to calculate annualized abortion incidence with the each of the measures we’ve constructed for respondents and confidantes. As a reminder, our previous post demonstrated that incidence rates more than doubled if we included period regulation <em>or</em> pregnancy termination (41.9 women per 1,000) compared with incidence constructed from pregnancy termination alone (19.8 women per 1,000). Bell et al. (<a href="#ref-Bell2020-ld" role="doc-biblioref">2020a</a>; <a href="#ref-Bell2020-kh" role="doc-biblioref">2020b</a>) report the mean of these estimates (30.8 women per 1,000), represented by the variable <code>avg</code>.</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>dat</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
+<span>  <span class='fu'><a href='http://gdfe.co/srvyr/reference/as_survey_design.html'>as_survey_design</a></span><span class='op'>(</span>weight <span class='op'>=</span> <span class='va'>weight</span>, id <span class='op'>=</span> <span class='va'>eaid</span>, strata <span class='op'>=</span> <span class='va'>strata</span>, nest <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/summarise.html'>summarise</a></span><span class='op'>(</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/across.html'>across</a></span><span class='op'>(</span></span>
+<span>    <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='va'>term</span>, <span class='va'>reg</span>, <span class='va'>any</span>, <span class='va'>avg</span><span class='op'>)</span>,</span>
+<span>    <span class='op'>~</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/pick.html'>pick</a></span><span class='op'>(</span><span class='fu'><a href='https://tidyselect.r-lib.org/reference/everything.html'>everything</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
+<span>      <span class='fu'><a href='https://dplyr.tidyverse.org/reference/summarise.html'>summarise</a></span><span class='op'>(</span><span class='fl'>1000</span> <span class='op'>*</span> <span class='fu'><a href='http://gdfe.co/srvyr/reference/survey_mean.html'>survey_mean</a></span><span class='op'>(</span><span class='va'>.x</span> <span class='op'>/</span> <span class='va'>yrs</span>, vartype <span class='op'>=</span> <span class='st'>"ci"</span><span class='op'>)</span><span class='op'>)</span></span>
+<span>  <span class='op'>)</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
+<span>  <span class='fu'><a href='https://tidyr.tidyverse.org/reference/pivot_longer.html'>pivot_longer</a></span><span class='op'>(</span><span class='fu'><a href='https://tidyselect.r-lib.org/reference/everything.html'>everything</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
+<span>  <span class='fu'><a href='https://tidyr.tidyverse.org/reference/nest.html'>unnest</a></span><span class='op'>(</span><span class='va'>value</span><span class='op'>)</span></span></code></pre>
+</div>
+<pre><code># A tibble: 4 × 4
+  name   coef `_low` `_upp`
+  &lt;chr&gt; &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;
+1 term   19.8   15.3   24.4
+2 reg    25.2   18.0   32.5
+3 any    41.9   33.4   50.4
+4 avg    30.8   24.9   36.8</code></pre>
+</div>
+<p>We can use the same calculation for Friend 1 where information about Friend 1 was reported. However, we’ll have to include <code>na.rm = TRUE</code> to ignore cases where this information is missing.</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>dat</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
+<span>  <span class='fu'><a href='http://gdfe.co/srvyr/reference/as_survey_design.html'>as_survey_design</a></span><span class='op'>(</span>weight <span class='op'>=</span> <span class='va'>weight</span>, id <span class='op'>=</span> <span class='va'>eaid</span>, strata <span class='op'>=</span> <span class='va'>strata</span>, nest <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/summarise.html'>summarise</a></span><span class='op'>(</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/across.html'>across</a></span><span class='op'>(</span></span>
+<span>    <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='va'>term_f1</span>, <span class='va'>reg_f1</span>, <span class='va'>any_f1</span>, <span class='va'>avg_f1</span><span class='op'>)</span>,</span>
+<span>    <span class='op'>~</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/pick.html'>pick</a></span><span class='op'>(</span><span class='fu'><a href='https://tidyselect.r-lib.org/reference/everything.html'>everything</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
+<span>      <span class='fu'><a href='https://dplyr.tidyverse.org/reference/summarise.html'>summarise</a></span><span class='op'>(</span><span class='fl'>1000</span> <span class='op'>*</span> <span class='fu'><a href='http://gdfe.co/srvyr/reference/survey_mean.html'>survey_mean</a></span><span class='op'>(</span><span class='va'>.x</span> <span class='op'>/</span> <span class='va'>yrs</span>, vartype <span class='op'>=</span> <span class='st'>"ci"</span>, na.rm <span class='op'>=</span> <span class='cn'>TRUE</span>, proportion <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span><span class='op'>)</span></span>
+<span>  <span class='op'>)</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
+<span>  <span class='fu'><a href='https://tidyr.tidyverse.org/reference/pivot_longer.html'>pivot_longer</a></span><span class='op'>(</span><span class='fu'><a href='https://tidyselect.r-lib.org/reference/everything.html'>everything</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
+<span>  <span class='fu'><a href='https://tidyr.tidyverse.org/reference/nest.html'>unnest</a></span><span class='op'>(</span><span class='va'>value</span><span class='op'>)</span></span></code></pre>
+</div>
+<pre><code># A tibble: 4 × 4
+  name     coef `_low` `_upp`
+  &lt;chr&gt;   &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;
+1 term_f1  40.2   33.4   48.3
+2 reg_f1   21.3   15.7   28.8
+3 any_f1   59.6   50.5   70.1
+4 avg_f1   49.9   42.3   58.8</code></pre>
+</div>
+<p>At least initially, it seems that each of these four incidence measures is higher than those derived from data about the respondents’ own experiences! This is true for every measure except if we estimate incidence with <em>period regulation alone</em> - in that case, the respondent incidence is higher! This suggests that respondents may be more willing to report their own abortion experiences in circumstances where their pregnancy status was unknown or ambiguous, as discussed in Bell et al. <span class="citation" data-cites="Bell2021-pp">(<a href="#ref-Bell2021-pp" role="doc-biblioref">2021</a>)</span>.</p>
+<h1 id="missing-confidantes-adjustment">Missing confidantes adjustment</h1>
+<p>Above, we mentioned that an important limitation on the data from Friend 1 is that only around <em>half</em> of the respondents to the Nigeria 2018 sample identified such a person.</p>
+<p>To help correct for selection bias in the Friend 1 data, Bell et al. (<a href="#ref-Bell2020-ld" role="doc-biblioref">2020a</a>; <a href="#ref-Bell2020-kh" role="doc-biblioref">2020b</a>) replace the missing <code>NA</code> values for unreported confidantes with <em>probable</em> values derived from information about the confidantes we know about.</p>
+<p>For example, let’s model the probability that a known confidante removed a pregnancy after January 1, 2017 (setting aside period regulation for now). Predictors could include any of the <em>respondent</em> characteristics, but not the age or education of Friend 1 (those factors may be very predictive, but they aren’t available for the missing confidante values we want to impute).</p>
+<p>Moreover, we won’t be able to impute any values if the respondent has missing <code>NA</code> values for any of the covariates in our model. First, we’ll specify a Poisson model with <a href="https://rdrr.io/pkg/survey/man/svyglm.html">svyglm</a>; then, we’ll use that model for all cases without missing <code>NA</code> values for any of the model covariates.</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>mod_term</span> <span class='op'>&lt;-</span> <span class='va'>dat</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
+<span>  <span class='fu'><a href='http://gdfe.co/srvyr/reference/as_survey_design.html'>as_survey_design</a></span><span class='op'>(</span>weight <span class='op'>=</span> <span class='va'>weight</span>, id <span class='op'>=</span> <span class='va'>eaid</span>, strata <span class='op'>=</span> <span class='va'>strata</span>, nest <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span></span>
+<span>  <span class='fu'><a href='https://rdrr.io/pkg/survey/man/svyglm.html'>svyglm</a></span><span class='op'>(</span></span>
+<span>    <span class='va'>term_f1</span> <span class='op'>~</span> <span class='va'>age</span> <span class='op'>+</span> <span class='va'>edu</span> <span class='op'>+</span> <span class='va'>wealth</span> <span class='op'>+</span> <span class='va'>marstat</span> <span class='op'>+</span> <span class='va'>relig</span> <span class='op'>+</span> <span class='va'>ethnicity</span> <span class='op'>+</span> <span class='va'>parity</span> <span class='op'>+</span> <span class='va'>urban</span>,</span>
+<span>    design<span class='op'>=</span> <span class='va'>.</span>, </span>
+<span>    family <span class='op'>=</span> <span class='st'>"poisson"</span></span>
+<span>  <span class='op'>)</span></span>
+<span></span>
+<span><span class='va'>result</span> <span class='op'>&lt;-</span> <span class='va'>dat</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='op'>!</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/across.html'>if_any</a></span><span class='op'>(</span></span>
+<span>    <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='va'>age</span>, <span class='va'>edu</span>, <span class='va'>wealth</span>, <span class='va'>marstat</span>, <span class='va'>relig</span>, <span class='va'>ethnicity</span>, <span class='va'>parity</span>, <span class='va'>urban</span><span class='op'>)</span>, </span>
+<span>    <span class='op'>~</span><span class='fu'><a href='https://rdrr.io/r/base/NA.html'>is.na</a></span><span class='op'>(</span><span class='va'>.x</span><span class='op'>)</span></span>
+<span>  <span class='op'>)</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span></span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span>predicted <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/predict.html'>predict</a></span><span class='op'>(</span><span class='va'>mod_term</span>, newdata <span class='op'>=</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/pick.html'>pick</a></span><span class='op'>(</span><span class='fu'><a href='https://tidyselect.r-lib.org/reference/everything.html'>everything</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='va'>exp</span><span class='op'>)</span> </span></code></pre>
+</div>
+</div>
+<p>Let’s compare the <code>predicted</code> values with those in <code>term_f1</code> for the first 20 rows in the resulting data frame.</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>result</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/select.html'>select</a></span><span class='op'>(</span><span class='va'>predicted</span>, <span class='va'>has_f1</span>, <span class='va'>term_f1</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span><span class='op'>(</span>n <span class='op'>=</span> <span class='fl'>20</span><span class='op'>)</span></span></code></pre>
+</div>
+<pre><code># A tibble: 11,084 × 3
+   predicted   has_f1 term_f1
+   &lt;svystat&gt;   &lt;lgl&gt;  &lt;lgl&gt;  
+ 1 0.021639958 TRUE   FALSE  
+ 2 0.016593557 FALSE  NA     
+ 3 0.059412618 FALSE  NA     
+ 4 0.012548495 FALSE  NA     
+ 5 0.031222636 FALSE  NA     
+ 6 0.006188911 FALSE  NA     
+ 7 0.068066845 TRUE   FALSE  
+ 8 0.019658020 TRUE   FALSE  
+ 9 0.023480061 TRUE   FALSE  
+10 0.096823637 FALSE  NA     
+11 0.021164499 TRUE   FALSE  
+12 0.087638625 FALSE  NA     
+13 0.046756815 FALSE  NA     
+14 0.162033942 TRUE   FALSE  
+15 0.044651003 TRUE   FALSE  
+16 0.033077578 FALSE  NA     
+17 0.066055775 TRUE   TRUE   
+18 0.035565384 FALSE  NA     
+19 0.055831264 TRUE   FALSE  
+20 0.068178847 FALSE  NA     
+# … with 11,064 more rows</code></pre>
+</div>
+<p>You can see in <code>has_f1</code> that only 9 of the 20 respondents above were able to identify someone as Friend 1; in <code>term_f1</code> you see that, of those 9, only one (row 17) indicated that her Friend 1 had removed a pregnancy after January 1, 2017.</p>
+<p>The <code>NA</code> values in <code>term_f1</code> appear for respondents who identified no person as Friend 1. That’s where the <code>predicted</code> values come in: we’ll now substitute the <code>predicted</code> value in place of <code>NA</code> values. Because these values are numeric, we’ll coerce the existing values in <code>term_f1</code> to 0 (for FALSE) and 1 (for TRUE).</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>result</span> <span class='op'>&lt;-</span> <span class='va'>result</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span>final_f1 <span class='op'>=</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/if_else.html'>if_else</a></span><span class='op'>(</span></span>
+<span>    <span class='fu'><a href='https://rdrr.io/r/base/NA.html'>is.na</a></span><span class='op'>(</span><span class='va'>term_f1</span><span class='op'>)</span>, </span>
+<span>    <span class='fu'><a href='https://rdrr.io/r/base/double.html'>as.double</a></span><span class='op'>(</span><span class='va'>predicted</span><span class='op'>)</span>, </span>
+<span>    <span class='fu'><a href='https://rdrr.io/r/base/double.html'>as.double</a></span><span class='op'>(</span><span class='va'>term_f1</span><span class='op'>)</span></span>
+<span>  <span class='op'>)</span><span class='op'>)</span> </span>
+<span></span>
+<span><span class='va'>result</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/select.html'>select</a></span><span class='op'>(</span><span class='va'>predicted</span>, <span class='va'>has_f1</span>, <span class='va'>term_f1</span>, <span class='va'>final_f1</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
+<span>  <span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span><span class='op'>(</span>n <span class='op'>=</span> <span class='fl'>20</span><span class='op'>)</span></span></code></pre>
+</div>
+<pre><code># A tibble: 11,084 × 4
+   predicted   has_f1 term_f1 final_f1
+   &lt;svystat&gt;   &lt;lgl&gt;  &lt;lgl&gt;      &lt;dbl&gt;
+ 1 0.021639958 TRUE   FALSE    0      
+ 2 0.016593557 FALSE  NA       0.0166 
+ 3 0.059412618 FALSE  NA       0.0594 
+ 4 0.012548495 FALSE  NA       0.0125 
+ 5 0.031222636 FALSE  NA       0.0312 
+ 6 0.006188911 FALSE  NA       0.00619
+ 7 0.068066845 TRUE   FALSE    0      
+ 8 0.019658020 TRUE   FALSE    0      
+ 9 0.023480061 TRUE   FALSE    0      
+10 0.096823637 FALSE  NA       0.0968 
+11 0.021164499 TRUE   FALSE    0      
+12 0.087638625 FALSE  NA       0.0876 
+13 0.046756815 FALSE  NA       0.0468 
+14 0.162033942 TRUE   FALSE    0      
+15 0.044651003 TRUE   FALSE    0      
+16 0.033077578 FALSE  NA       0.0331 
+17 0.066055775 TRUE   TRUE     1      
+18 0.035565384 FALSE  NA       0.0356 
+19 0.055831264 TRUE   FALSE    0      
+20 0.068178847 FALSE  NA       0.0682 
+# … with 11,064 more rows</code></pre>
+</div>
+<p>With these substitutions in place, we can now calculate an <em>adjusted</em> confidante incidence estimate similar to the estimate shown in Bell et al. (<a href="#ref-Bell2020-ld" role="doc-biblioref">2020a</a>; <a href="#ref-Bell2020-kh" role="doc-biblioref">2020b</a>)<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a></p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>result</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
+<span>  <span class='fu'><a href='http://gdfe.co/srvyr/reference/as_survey_design.html'>as_survey_design</a></span><span class='op'>(</span>weight <span class='op'>=</span> <span class='va'>weight</span>, id <span class='op'>=</span> <span class='va'>eaid</span>, strata <span class='op'>=</span> <span class='va'>strata</span>, nest <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/summarise.html'>summarise</a></span><span class='op'>(</span><span class='fl'>1000</span> <span class='op'>*</span> <span class='fu'><a href='http://gdfe.co/srvyr/reference/survey_mean.html'>survey_mean</a></span><span class='op'>(</span><span class='va'>final_f1</span> <span class='op'>/</span> <span class='va'>yrs</span>, vartype <span class='op'>=</span> <span class='st'>"ci"</span>, proportion <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span><span class='op'>)</span></span></code></pre>
+</div>
+<pre><code># A tibble: 1 × 3
+   coef `_low` `_upp`
+  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;
+1  38.3   34.4   42.7</code></pre>
+</div>
+<p>Compared with our previous estimate (40.2), we now find 2 fewer women per 1,000 (38.3) with a pregnancy termination within one year. Here’s a way to repeat that estimation with all four abortion measures via <a href="https://dplyr.tidyverse.org/reference/across.html">across</a>:</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>dat</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/summarise.html'>summarise</a></span><span class='op'>(</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/across.html'>across</a></span><span class='op'>(</span></span>
+<span>    <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='va'>term_f1</span>, <span class='va'>reg_f1</span>, <span class='va'>any_f1</span>, <span class='va'>avg_f1</span><span class='op'>)</span>,</span>
+<span>    <span class='kw'>function</span><span class='op'>(</span><span class='va'>y</span><span class='op'>)</span><span class='op'>{</span></span>
+<span>      <span class='va'>model</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/pick.html'>pick</a></span><span class='op'>(</span><span class='fu'><a href='https://tidyselect.r-lib.org/reference/everything.html'>everything</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
+<span>        <span class='fu'><a href='http://gdfe.co/srvyr/reference/as_survey_design.html'>as_survey_design</a></span><span class='op'>(</span>weight <span class='op'>=</span> <span class='va'>weight</span>, id <span class='op'>=</span> <span class='va'>eaid</span>, strata <span class='op'>=</span> <span class='va'>strata</span>, nest <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
+<span>        <span class='fu'><a href='https://rdrr.io/pkg/survey/man/svyglm.html'>svyglm</a></span><span class='op'>(</span></span>
+<span>          <span class='va'>y</span> <span class='op'>~</span> <span class='va'>age</span> <span class='op'>+</span> <span class='va'>edu</span> <span class='op'>+</span> <span class='va'>wealth</span> <span class='op'>+</span> <span class='va'>marstat</span> <span class='op'>+</span> <span class='va'>relig</span> <span class='op'>+</span> <span class='va'>ethnicity</span> <span class='op'>+</span> <span class='va'>parity</span> <span class='op'>+</span> <span class='va'>urban</span>,</span>
+<span>          design <span class='op'>=</span> <span class='va'>.</span>,</span>
+<span>          family <span class='op'>=</span> <span class='st'>"poisson"</span></span>
+<span>        <span class='op'>)</span></span>
+<span>      </span>
+<span>      <span class='va'>dat</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
+<span>        <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='op'>!</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/across.html'>if_any</a></span><span class='op'>(</span></span>
+<span>          <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='va'>age</span>, <span class='va'>edu</span>, <span class='va'>wealth</span>, <span class='va'>marstat</span>, <span class='va'>relig</span>, <span class='va'>ethnicity</span>, <span class='va'>parity</span>, <span class='va'>urban</span><span class='op'>)</span>, </span>
+<span>          <span class='op'>~</span><span class='fu'><a href='https://rdrr.io/r/base/NA.html'>is.na</a></span><span class='op'>(</span><span class='va'>.x</span><span class='op'>)</span></span>
+<span>        <span class='op'>)</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span></span>
+<span>        <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span></span>
+<span>          predicted <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/predict.html'>predict</a></span><span class='op'>(</span><span class='va'>model</span>, newdata <span class='op'>=</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/pick.html'>pick</a></span><span class='op'>(</span><span class='fu'><a href='https://tidyselect.r-lib.org/reference/everything.html'>everything</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='va'>exp</span>,</span>
+<span>          z <span class='op'>=</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/if_else.html'>if_else</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/NA.html'>is.na</a></span><span class='op'>(</span><span class='va'>y</span><span class='op'>)</span>, <span class='fu'><a href='https://rdrr.io/r/base/double.html'>as.double</a></span><span class='op'>(</span><span class='va'>predicted</span><span class='op'>)</span>, <span class='fu'><a href='https://rdrr.io/r/base/double.html'>as.double</a></span><span class='op'>(</span><span class='va'>y</span><span class='op'>)</span><span class='op'>)</span></span>
+<span>        <span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
+<span>        <span class='fu'><a href='http://gdfe.co/srvyr/reference/as_survey_design.html'>as_survey_design</a></span><span class='op'>(</span>weight <span class='op'>=</span> <span class='va'>weight</span>, id <span class='op'>=</span> <span class='va'>eaid</span>, strata <span class='op'>=</span> <span class='va'>strata</span>, nest <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span></span>
+<span>        <span class='fu'><a href='https://dplyr.tidyverse.org/reference/summarise.html'>summarise</a></span><span class='op'>(</span><span class='fl'>1000</span> <span class='op'>*</span> <span class='fu'><a href='http://gdfe.co/srvyr/reference/survey_mean.html'>survey_mean</a></span><span class='op'>(</span><span class='va'>z</span> <span class='op'>/</span> <span class='va'>yrs</span>, vartype <span class='op'>=</span> <span class='st'>"ci"</span>, proportion <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span><span class='op'>)</span></span>
+<span>    <span class='op'>}</span></span>
+<span>  <span class='op'>)</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
+<span>  <span class='fu'><a href='https://tidyr.tidyverse.org/reference/pivot_longer.html'>pivot_longer</a></span><span class='op'>(</span><span class='fu'><a href='https://tidyselect.r-lib.org/reference/everything.html'>everything</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
+<span>  <span class='fu'><a href='https://tidyr.tidyverse.org/reference/nest.html'>unnest</a></span><span class='op'>(</span><span class='va'>value</span><span class='op'>)</span></span></code></pre>
+</div>
+<pre><code># A tibble: 4 × 4
+  name     coef `_low` `_upp`
+  &lt;chr&gt;   &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;
+1 term_f1  38.3   34.4   42.7
+2 reg_f1   21.0   17.7   24.8
+3 any_f1   57.0   51.7   62.9
+4 avg_f1   47.7   43.2   52.6</code></pre>
+</div>
+<p>Overall, whether our estimates include adjustments for missing confidantes or not, we see that the estimated annualized abortion incidence derived from confidantes is higher than the incidence estimates derived from respondents. This holds true whether we use pregnancy termination responses alone, or if we combine them with responses for period regulation; on the other hand, when our estimate includes responses for <em>period regulation only</em>, the respondent data matches or exceeds the incidence derived from confidantes! In light of these findings, it’s clear why abortion researchers benefit from consulting multiple measures like those included in PMA surveys: social desirability bias and other related factors likely influence respondent reporting on their own experiences with pregnancy removal.</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
+<div id="refs" class="references csl-bib-body hanging-indent" role="doc-bibliography">
+<div id="ref-Bell2021-pp" class="csl-entry" role="doc-biblioentry">
+Bell, Suzanne O, and Mary E Fissell. 2021. <span>“A Little Bit Pregnant? Productive Ambiguity and Fertility Research.”</span> <em>Population and Development Review</em> 47 (2): 505–26. <a href="https://onlinelibrary.wiley.com/doi/10.1111/padr.12403">https://onlinelibrary.wiley.com/doi/10.1111/padr.12403</a>.
+</div>
+<div id="ref-Bell2020-kh" class="csl-entry" role="doc-biblioentry">
+Bell, Suzanne O, Elizabeth Omoluabi, Funmilola OlaOlorun, Mridula Shankar, and Caroline Moreau. 2020. <span>“Inequities in the Incidence and Safety of Abortion in Nigeria.”</span> <em>BMJ Global Health</em> 5 (1): e001814. <a href="http://dx.doi.org/10.1136/bmjgh-2019-001814">http://dx.doi.org/10.1136/bmjgh-2019-001814</a>.
+</div>
+<div id="ref-Bell2020-ld" class="csl-entry" role="doc-biblioentry">
+Bell, Suzanne O, Grace Sheehy, Andoh Kouakou Hyacinthe, Georges Guiella, and Caroline Moreau. 2020. <span>“Induced Abortion Incidence and Safety in c<span>ô</span>te d’ivoire.”</span> <em>PloS One</em> 15 (5): e0232364. <a href="http://dx.doi.org/10.1371/journal.pone.0232364">http://dx.doi.org/10.1371/journal.pone.0232364</a>.
+</div>
+</div>
+<section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
+<hr />
+<ol>
+<li id="fn1"><p>Respondents were invited to provide this information for multiple close confidantes, as indicated by a numeric suffix attached to the variable name for each. For example, <a href="https://pma.ipums.org/pma-action/variables/aborev_frnd1">ABOREV_FRND1</a> references the woman’s closest confidante, while , <a href="https://pma.ipums.org/pma-action/variables/aborev_frnd2">ABOREV_FRND2</a> references the confidante she listed second. In this post, we’ll focus only on the responses provided about the confidante listed <em>first</em>.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>Bell et al. (<a href="#ref-Bell2020-ld" role="doc-biblioref">2020a</a>; <a href="#ref-Bell2020-kh" role="doc-biblioref">2020b</a>) further adjust confidante data with post-stratification weights modeled on respondent values. The <a href="http://r-survey.r-forge.r-project.org/survey/">survey</a> package provides tools for this in <a href="https://rdrr.io/pkg/survey/man/rake.html">rake</a> and <a href="https://rdrr.io/pkg/survey/man/calibrate.html">calibrate</a><a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section>
+<!--radix_placeholder_article_footer-->
+<!--/radix_placeholder_article_footer-->
+</div>
+
+<div class="d-appendix">
+</div>
+
+
+<!--radix_placeholder_site_after_body-->
+<!--/radix_placeholder_site_after_body-->
+<!--radix_placeholder_appendices-->
+<div class="appendix-bottom">
+<h3 id="references">References</h3>
+<div id="references-listing"></div>
+</div>
+<!--/radix_placeholder_appendices-->
+<!--radix_placeholder_navigation_after_body-->
+<!--/radix_placeholder_navigation_after_body-->
+
+</body>
+
+</html>
